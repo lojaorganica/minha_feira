@@ -40,7 +40,10 @@ const ProductCard = ({ product }: ProductCardProps) => {
         <CardDescription className="text-sm mt-1">{product.description}</CardDescription>
       </CardContent>
       <CardFooter className="p-4 flex justify-between items-center">
-        <p className="text-lg font-bold text-primary">R${product.price.toFixed(2).replace('.', ',')}</p>
+        <div className="text-lg font-bold text-primary">
+          <span>R${product.price.toFixed(2).replace('.', ',')}</span>
+          <span className="text-sm font-normal text-muted-foreground ml-1">/ {product.unit}</span>
+        </div>
         <Button size="icon" variant="outline" onClick={handleAddToCart} aria-label={`Adicionar ${product.name} ao carrinho`}>
           <Plus className="h-4 w-4" />
         </Button>

@@ -129,7 +129,7 @@ export default function CartView() {
                                 </h3>
                                 <p className="ml-4">R${(product.price * product.quantity).toFixed(2).replace('.', ',')}</p>
                             </div>
-                            <p className="mt-1 text-sm text-muted-foreground">{product.farmer}</p>
+                             <p className="mt-1 text-sm text-muted-foreground">R${product.price.toFixed(2).replace('.', ',')} / {product.unit}</p>
                         </div>
                         <div className="flex flex-1 items-end justify-between text-sm">
                             <div className="flex items-center gap-2">

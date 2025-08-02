@@ -3,6 +3,7 @@ export interface Product {
   name: string;
   category: 'Vegetal' | 'Fruta' | 'Laticínio' | 'Padaria';
   price: number;
+  unit: string;
   image: string;
   farmer: string;
   description: string;
