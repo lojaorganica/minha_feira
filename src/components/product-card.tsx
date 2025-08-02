@@ -48,13 +48,13 @@ const ProductCard = ({ product }: ProductCardProps) => {
       </div>
       <CardContent className="p-4 flex-grow">
         <CardTitle className="text-lg font-headline text-primary">{product.name}</CardTitle>
-        <CardDescription className="text-sm mt-1 h-10 overflow-hidden">{product.description}</CardDescription>
+        <CardDescription className="text-base mt-1 h-12 overflow-hidden">{product.description}</CardDescription>
       </CardContent>
       <CardFooter className="p-4 flex flex-col items-start gap-4">
         <div className="text-lg font-bold text-primary w-full flex justify-between items-center">
           <div>
             <span>R${product.price.toFixed(2).replace('.', ',')}</span>
-            <span className="text-sm font-normal text-muted-foreground ml-1">/ {product.unit}</span>
+            <span className="text-base font-normal text-muted-foreground ml-1">/ {product.unit}</span>
           </div>
         </div>
         <div className="w-full flex flex-col sm:flex-row gap-2">

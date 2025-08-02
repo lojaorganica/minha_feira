@@ -15,7 +15,7 @@ export default function Home() {
                 <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none text-primary">
                   Bem-vindo ao Circuito de Feiras Orgânicas
                 </h1>
-                <p className="max-w-[600px] text-foreground/80 md:text-xl mx-auto lg:mx-0">
+                <p className="max-w-[600px] text-foreground/80 text-base md:text-xl mx-auto lg:mx-0">
                   Produtos frescos e orgânicos, entregues de fazendas locais diretamente para sua mesa. Experimente o sabor da natureza.
                 </p>
               </div>
@@ -29,7 +29,7 @@ export default function Home() {
       </main>
 
       <footer className="bg-muted p-6 md:py-12 w-full">
-        <div className="container max-w-7xl grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 text-sm">
+        <div className="container max-w-7xl grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 text-base">
           <div className="grid gap-1">
             <h3 className="font-semibold font-headline text-primary">Feiras Orgânicas</h3>
             <p className="text-muted-foreground">© 2024 Feiras Orgânicas Inc.</p>

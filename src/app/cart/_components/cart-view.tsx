@@ -67,7 +67,7 @@ function ComplementarySuggestions() {
                     <div className="relative aspect-square mb-2">
                         <Image src={product.image} alt={product.name} fill className="object-cover rounded-md" data-ai-hint={product.dataAiHint}/>
                     </div>
-                    <h3 className="text-sm font-semibold truncate">{product.name}</h3>
+                    <h3 className="text-base font-semibold truncate">{product.name}</h3>
                     <div className="flex justify-between items-center mt-2">
                         <p className="font-bold text-primary">R${product.price.toFixed(2).replace('.', ',')}</p>
                         <Button size="sm" onClick={() => handleAddToCart(product)}>Adicionar</Button>
@@ -129,9 +129,9 @@ export default function CartView() {
                                 </h3>
                                 <p className="ml-4">R${(product.price * product.quantity).toFixed(2).replace('.', ',')}</p>
                             </div>
-                             <p className="mt-1 text-sm text-muted-foreground">R${product.price.toFixed(2).replace('.', ',')} / {product.unit}</p>
+                             <p className="mt-1 text-base text-muted-foreground">R${product.price.toFixed(2).replace('.', ',')} / {product.unit}</p>
                         </div>
-                        <div className="flex flex-1 items-end justify-between text-sm">
+                        <div className="flex flex-1 items-end justify-between text-base">
                             <div className="flex items-center gap-2">
                                 <label htmlFor={`quantity-${product.id}`} className="sr-only">Quantidade</label>
                                 <Input
@@ -169,7 +169,7 @@ export default function CartView() {
                 <CardHeader>
                     <CardTitle className="font-headline">Resumo do pedido</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-4 text-base">
                     <div className="flex justify-between">
                         <span>Subtotal</span>
                         <span>R${cartTotal.toFixed(2).replace('.', ',')}</span>
