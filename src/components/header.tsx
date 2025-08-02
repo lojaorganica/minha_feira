@@ -78,7 +78,9 @@ const Header = () => {
               <Button variant="outline" size="sm" asChild>
                 <Link href="/select-farmers">Sou Cliente</Link>
               </Button>
-              <Button variant="default" size="sm">Sou Agricultor</Button>
+              <Button variant="default" size="sm" asChild>
+                <Link href="/dashboard">Sou Agricultor</Link>
+              </Button>
             </div>
              <Separator orientation="vertical" className="h-6 mx-2 hidden sm:block" />
             <Button variant="ghost" size="icon" asChild>
