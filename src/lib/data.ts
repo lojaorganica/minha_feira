@@ -209,7 +209,7 @@ const customers: Customer[] = [
     {
         id: 'cust-001',
         name: 'Cliente Exemplo',
-        favoriteFarmerIds: []
+        favoriteFarmerIds: ['1', '2']
     }
 ];
 
