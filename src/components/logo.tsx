@@ -1,6 +1,11 @@
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
-const Logo = () => {
+interface LogoProps {
+  size?: 'default' | 'large';
+}
+
+const Logo = ({ size = 'default' }: LogoProps) => {
   return (
     <Link href="/" className="flex items-center gap-2" prefetch={false}>
       <svg
@@ -13,13 +18,23 @@ const Logo = () => {
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="h-6 w-6 text-primary"
+        className={cn(
+          "text-primary",
+          size === 'default' && 'h-6 w-6',
+          size === 'large' && 'h-24 w-24'
+        )}
       >
         <path d="M11 20A7 7 0 0 1 4 13H2a9 9 0 0 0 18 0h-2a7 7 0 0 1-7 7Z" />
         <path d="M12 13V3" />
         <path d="M15 6l-3-3-3 3" />
       </svg>
-      <span className="font-headline text-xl font-semibold text-primary">Mercado Verdante</span>
+      <span className={cn(
+        "font-headline font-semibold text-primary",
+        size === 'default' && 'text-xl',
+        size === 'large' && 'text-4xl'
+      )}>
+        Mercado Verdante
+      </span>
     </Link>
   );
 };
