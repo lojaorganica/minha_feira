@@ -32,3 +32,9 @@ export interface Order {
   status: 'Pendente' | 'Confirmado' | 'Rejeitado';
   total: number;
 }
+
+export interface Customer {
+  id: string;
+  name: string;
+  favoriteFarmerIds: string[];
+}

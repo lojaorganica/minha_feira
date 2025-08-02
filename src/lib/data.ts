@@ -1,4 +1,4 @@
-import type { Product, Farmer, Order } from './types';
+import type { Product, Farmer, Order, Customer } from './types';
 
 const products: Product[] = [
   {
@@ -209,9 +209,28 @@ const orders: Order[] = [
     }
 ];
 
+const customers: Customer[] = [
+    {
+        id: 'cust-001',
+        name: 'Cliente Exemplo',
+        favoriteFarmerIds: ['1', '3'] // Segue Fazendas Vale Verde e Laticínios Margarida
+    }
+];
+
+
 export function getProducts(): Product[] {
   return products;
 }
+
+export function getProductsByFarmerIds(farmerIds: string[]): Product[] {
+    const farmerIdSet = new Set(farmerIds);
+    const farmerNames = farmers
+        .filter(f => farmerIdSet.has(f.id))
+        .map(f => f.name);
+    const farmerNameSet = new Set(farmerNames);
+    return products.filter(p => farmerNameSet.has(p.farmer));
+}
+
 
 export function getProductById(id: string): Product | undefined {
   return products.find((p) => p.id === id);
@@ -227,4 +246,12 @@ export function getFarmerById(id: string): Farmer | undefined {
 
 export function getOrders(): Order[] {
     return orders;
+}
+
+export function getCustomers(): Customer[] {
+    return customers;
+}
+
+export function getCustomerById(id: string): Customer | undefined {
+    return customers.find(c => c.id === id);
 }

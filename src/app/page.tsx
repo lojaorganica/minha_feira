@@ -28,7 +28,7 @@ export default function Home() {
       </section>
       
       <main className="flex-1">
-        <ProductBrowser products={products} />
+        <ProductBrowser allProducts={products} />
       </main>
 
       <footer className="bg-muted p-6 md:py-12 w-full">

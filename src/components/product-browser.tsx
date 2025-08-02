@@ -8,9 +8,12 @@ import VegetableIcon from "./icons/vegetable-icon";
 import FruitIcon from "./icons/fruit-icon";
 import DairyIcon from "./icons/dairy-icon";
 import BakeryIcon from "./icons/bakery-icon";
+import { useUser } from "@/hooks/use-user";
+import { getProductsByFarmerIds } from "@/lib/data";
+import Link from "next/link";
 
 interface ProductBrowserProps {
-  products: Product[];
+  allProducts: Product[];
 }
 
 type Category = "Todos" | "Vegetal" | "Fruta" | "Laticínio" | "Padaria";
@@ -26,8 +29,11 @@ const categoryIcons: Record<Category, React.ComponentType<{ className?: string }
 };
 
 
-export default function ProductBrowser({ products }: ProductBrowserProps) {
+export default function ProductBrowser({ allProducts }: ProductBrowserProps) {
   const [selectedCategory, setSelectedCategory] = useState<Category>("Todos");
+  const { user, isUserLoaded } = useUser();
+
+  const products = isUserLoaded && user ? getProductsByFarmerIds(user.favoriteFarmerIds) : allProducts;
 
   const filteredProducts = products.filter(
     (product) =>
@@ -35,13 +41,29 @@ export default function ProductBrowser({ products }: ProductBrowserProps) {
   );
 
   const categories: Category[] = ["Todos", "Vegetal", "Fruta", "Laticínio", "Padaria"];
+  
+  if (isUserLoaded && user && user.favoriteFarmerIds.length === 0) {
+    return (
+        <section className="py-12 md:py-16">
+            <div className="container text-center">
+                <h2 className="font-headline text-2xl font-bold text-primary">Bem-vindo(a), {user.name}!</h2>
+                <p className="mt-2 text-muted-foreground">Você ainda não segue nenhum agricultor.</p>
+                <p className="mt-1 text-muted-foreground">Vá para a página de agricultores para começar a comprar.</p>
+                <Button asChild className="mt-4">
+                    <Link href="/farmers">Ver Agricultores</Link>
+                </Button>
+            </div>
+        </section>
+    );
+  }
+
 
   return (
     <section className="py-12 md:py-16">
       <div className="container">
         <div className="flex flex-col items-center gap-4 mb-8">
           <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl text-primary">
-            Nossos Produtos
+            Produtos dos Seus Agricultores Favoritos
           </h2>
           <div className="flex flex-wrap items-center justify-center gap-2">
             {categories.map((category) => {
