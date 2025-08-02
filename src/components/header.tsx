@@ -54,6 +54,11 @@ const Header = () => {
                   </Link>
                 ))}
               </nav>
+               <Separator className="my-4" />
+                <div className="flex flex-col gap-2">
+                    <Button variant="outline">Sou Cliente</Button>
+                    <Button variant="default">Sou Agricultor</Button>
+                </div>
             </SheetContent>
           </Sheet>
         </div>
