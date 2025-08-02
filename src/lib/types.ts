@@ -1,7 +1,7 @@
 export interface Product {
   id: string;
   name: string;
-  category: 'Vegetable' | 'Fruit' | 'Dairy' | 'Bakery';
+  category: 'Vegetal' | 'Fruta' | 'Laticínio' | 'Padaria';
   price: number;
   image: string;
   farmer: string;
@@ -28,6 +28,6 @@ export interface Order {
   id: string;
   customerName: string;
   items: { productName: string; quantity: number }[];
-  status: 'Pending' | 'Confirmed' | 'Rejected';
+  status: 'Pendente' | 'Confirmado' | 'Rejeitado';
   total: number;
 }

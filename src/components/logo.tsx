@@ -19,7 +19,7 @@ const Logo = () => {
         <path d="M12 13V3" />
         <path d="M15 6l-3-3-3 3" />
       </svg>
-      <span className="font-headline text-xl font-semibold text-primary">Verdant Market</span>
+      <span className="font-headline text-xl font-semibold text-primary">Mercado Verdante</span>
     </Link>
   );
 };

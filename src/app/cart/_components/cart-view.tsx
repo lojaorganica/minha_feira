@@ -42,8 +42,8 @@ function ComplementarySuggestions() {
   const handleAddToCart = (product: Product) => {
     addToCart(product);
     toast({
-      title: "Added to cart",
-      description: `${product.name} has been added to your cart.`,
+      title: "Adicionado ao carrinho",
+      description: `${product.name} foi adicionado ao seu carrinho.`,
     });
   };
 
@@ -53,7 +53,7 @@ function ComplementarySuggestions() {
     <div className="mt-8">
       <h2 className="text-xl font-semibold font-headline text-primary flex items-center gap-2">
         <Sparkles className="h-5 w-5 text-accent" />
-        You might also like
+        Você também pode gostar
       </h2>
       {isLoading ? (
         <div className="flex items-center justify-center p-8">
@@ -69,8 +69,8 @@ function ComplementarySuggestions() {
                     </div>
                     <h3 className="text-sm font-semibold truncate">{product.name}</h3>
                     <div className="flex justify-between items-center mt-2">
-                        <p className="font-bold text-primary">${product.price.toFixed(2)}</p>
-                        <Button size="sm" onClick={() => handleAddToCart(product)}>Add</Button>
+                        <p className="font-bold text-primary">R${product.price.toFixed(2).replace('.', ',')}</p>
+                        <Button size="sm" onClick={() => handleAddToCart(product)}>Adicionar</Button>
                     </div>
                 </CardContent>
             </Card>
@@ -95,10 +95,10 @@ export default function CartView() {
   if (cartItems.length === 0) {
     return (
       <div className="text-center py-20">
-        <h2 className="text-2xl font-semibold">Your cart is empty</h2>
-        <p className="text-muted-foreground mt-2">Looks like you haven't added anything to your cart yet.</p>
+        <h2 className="text-2xl font-semibold">Seu carrinho está vazio</h2>
+        <p className="text-muted-foreground mt-2">Parece que você ainda não adicionou nada ao seu carrinho.</p>
         <Button asChild className="mt-6">
-          <Link href="/">Start Shopping</Link>
+          <Link href="/">Comece a Comprar</Link>
         </Button>
       </div>
     );
@@ -127,13 +127,13 @@ export default function CartView() {
                                 <h3>
                                 <a href="#">{product.name}</a>
                                 </h3>
-                                <p className="ml-4">${(product.price * product.quantity).toFixed(2)}</p>
+                                <p className="ml-4">R${(product.price * product.quantity).toFixed(2).replace('.', ',')}</p>
                             </div>
                             <p className="mt-1 text-sm text-muted-foreground">{product.farmer}</p>
                         </div>
                         <div className="flex flex-1 items-end justify-between text-sm">
                             <div className="flex items-center gap-2">
-                                <label htmlFor={`quantity-${product.id}`} className="sr-only">Quantity</label>
+                                <label htmlFor={`quantity-${product.id}`} className="sr-only">Quantidade</label>
                                 <Input
                                     id={`quantity-${product.id}`}
                                     type="number"
@@ -151,7 +151,7 @@ export default function CartView() {
                                     className="font-medium text-accent hover:text-accent/80"
                                 >
                                     <Trash2 className="h-4 w-4 mr-1"/>
-                                    Remove
+                                    Remover
                                 </Button>
                             </div>
                         </div>
@@ -160,32 +160,32 @@ export default function CartView() {
             ))}
             </ul>
              <div className="mt-4">
-                <Button variant="outline" onClick={clearCart}>Clear Cart</Button>
+                <Button variant="outline" onClick={clearCart}>Limpar Carrinho</Button>
             </div>
         </section>
 
         <aside>
             <Card>
                 <CardHeader>
-                    <CardTitle className="font-headline">Order summary</CardTitle>
+                    <CardTitle className="font-headline">Resumo do pedido</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                     <div className="flex justify-between">
                         <span>Subtotal</span>
-                        <span>${cartTotal.toFixed(2)}</span>
+                        <span>R${cartTotal.toFixed(2).replace('.', ',')}</span>
                     </div>
                     <div className="flex justify-between">
-                        <span>Shipping estimate</span>
-                        <span>$5.00</span>
+                        <span>Estimativa de frete</span>
+                        <span>R$5,00</span>
                     </div>
                     <Separator />
                     <div className="flex justify-between font-bold text-lg">
-                        <span>Order total</span>
-                        <span>${(cartTotal + 5).toFixed(2)}</span>
+                        <span>Total do pedido</span>
+                        <span>R${(cartTotal + 5).toFixed(2).replace('.', ',')}</span>
                     </div>
                 </CardContent>
                 <CardFooter>
-                    <Button className="w-full" size="lg">Place Order</Button>
+                    <Button className="w-full" size="lg">Finalizar Compra</Button>
                 </CardFooter>
             </Card>
             <ComplementarySuggestions />

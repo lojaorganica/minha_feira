@@ -12,10 +12,10 @@ export default function Home() {
             <div className="flex flex-col justify-center space-y-4 text-center lg:text-left">
               <div className="space-y-2">
                 <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none text-primary">
-                  Welcome to Verdant Market
+                  Bem-vindo ao Mercado Verdante
                 </h1>
                 <p className="max-w-[600px] text-foreground/80 md:text-xl mx-auto lg:mx-0">
-                  Fresh, organic produce delivered from local farms directly to your table. Experience the taste of nature.
+                  Produtos frescos e orgânicos, entregues de fazendas locais diretamente para sua mesa. Experimente o sabor da natureza.
                 </p>
               </div>
             </div>
@@ -30,17 +30,17 @@ export default function Home() {
       <footer className="bg-muted p-6 md:py-12 w-full">
         <div className="container max-w-7xl grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 text-sm">
           <div className="grid gap-1">
-            <h3 className="font-semibold font-headline text-primary">Verdant Market</h3>
-            <p className="text-muted-foreground">© 2024 Verdant Market Inc.</p>
+            <h3 className="font-semibold font-headline text-primary">Mercado Verdante</h3>
+            <p className="text-muted-foreground">© 2024 Mercado Verdante Inc.</p>
           </div>
           <div className="grid gap-1">
             <h3 className="font-semibold font-headline text-primary">Legal</h3>
-            <a href="#" className="text-muted-foreground hover:text-foreground">Terms of Service</a>
-            <a href="#" className="text-muted-foreground hover:text-foreground">Privacy Policy</a>
+            <a href="#" className="text-muted-foreground hover:text-foreground">Termos de Serviço</a>
+            <a href="#" className="text-muted-foreground hover:text-foreground">Política de Privacidade</a>
           </div>
           <div className="grid gap-1">
-            <h3 className="font-semibold font-headline text-primary">Support</h3>
-            <a href="#" className="text-muted-foreground hover:text-foreground">Contact Us</a>
+            <h3 className="font-semibold font-headline text-primary">Suporte</h3>
+            <a href="#" className="text-muted-foreground hover:text-foreground">Fale Conosco</a>
             <a href="#" className="text-muted-foreground hover:text-foreground">FAQ</a>
           </div>
         </div>

@@ -18,9 +18,9 @@ const Header = () => {
   const [isSheetOpen, setSheetOpen] = useState(false);
 
   const navLinks = [
-    { href: "/", label: "Home" },
-    { href: "/farmers", label: "Farmers" },
-    { href: "/dashboard", label: "Dashboard" },
+    { href: "/", label: "Início" },
+    { href: "/farmers", label: "Agricultores" },
+    { href: "/dashboard", label: "Painel" },
   ];
 
   return (
@@ -81,7 +81,7 @@ const Header = () => {
                     {cartCount}
                   </span>
                 )}
-                <span className="sr-only">Shopping Cart</span>
+                <span className="sr-only">Carrinho de Compras</span>
               </Link>
             </Button>
           </div>

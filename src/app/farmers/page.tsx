@@ -8,21 +8,21 @@ export default function FarmersPage() {
   if (!apiKey) {
     return (
       <div className="container mx-auto py-12 text-center">
-        <h1 className="font-headline text-4xl mb-4 text-primary">Find Our Farmers</h1>
+        <h1 className="font-headline text-4xl mb-4 text-primary">Encontre Nossos Agricultores</h1>
         <div className="max-w-2xl mx-auto bg-card p-8 rounded-lg shadow-md">
             <p className="text-lg text-foreground/80">
-            To display the interactive map of farmer locations, a Google Maps API key is required.
+            Para exibir o mapa interativo das localizações dos agricultores, é necessária uma chave de API do Google Maps.
             </p>
             <p className="mt-4 text-sm text-muted-foreground">
-            Please create a <code className="font-code bg-muted px-1 py-0.5 rounded">.env.local</code> file in the root of your project and add the following line:
+            Por favor, crie um arquivo <code className="font-code bg-muted px-1 py-0.5 rounded">.env.local</code> na raiz do seu projeto e adicione a seguinte linha:
             </p>
             <pre className="mt-2 text-left bg-muted p-4 rounded-md overflow-x-auto">
             <code className="font-code text-foreground">
-                NEXT_PUBLIC_GOOGLE_MAPS_API_KEY="YOUR_API_KEY_HERE"
+                NEXT_PUBLIC_GOOGLE_MAPS_API_KEY="SUA_CHAVE_DE_API_AQUI"
             </code>
             </pre>
             <p className="mt-4 text-sm text-muted-foreground">
-            After adding the key, please restart your development server.
+            Depois de adicionar a chave, reinicie o servidor de desenvolvimento.
             </p>
         </div>
       </div>
@@ -32,8 +32,8 @@ export default function FarmersPage() {
   return (
     <div>
         <div className="py-12 text-center bg-primary/10">
-            <h1 className="font-headline text-4xl mb-2 text-primary">Our Farmers' Locations</h1>
-            <p className="text-lg text-foreground/80 max-w-2xl mx-auto">Explore the locations of our dedicated organic farmers and see where your food comes from.</p>
+            <h1 className="font-headline text-4xl mb-2 text-primary">Localizações dos Nossos Agricultores</h1>
+            <p className="text-lg text-foreground/80 max-w-2xl mx-auto">Explore as localizações dos nossos dedicados agricultores orgânicos e veja de onde vêm os seus alimentos.</p>
         </div>
         <FarmersMap farmers={farmers} apiKey={apiKey} />
     </div>

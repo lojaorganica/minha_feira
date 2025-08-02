@@ -19,8 +19,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const handleAddToCart = () => {
     addToCart(product);
     toast({
-      title: "Added to cart",
-      description: `${product.name} has been added to your cart.`,
+      title: "Adicionado ao carrinho",
+      description: `${product.name} foi adicionado ao seu carrinho.`,
     });
   };
 
@@ -40,8 +40,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
         <CardDescription className="text-sm mt-1">{product.description}</CardDescription>
       </CardContent>
       <CardFooter className="p-4 flex justify-between items-center">
-        <p className="text-lg font-bold text-primary">${product.price.toFixed(2)}</p>
-        <Button size="icon" variant="outline" onClick={handleAddToCart} aria-label={`Add ${product.name} to cart`}>
+        <p className="text-lg font-bold text-primary">R${product.price.toFixed(2).replace('.', ',')}</p>
+        <Button size="icon" variant="outline" onClick={handleAddToCart} aria-label={`Adicionar ${product.name} ao carrinho`}>
           <Plus className="h-4 w-4" />
         </Button>
       </CardFooter>

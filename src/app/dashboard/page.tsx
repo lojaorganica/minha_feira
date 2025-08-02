@@ -11,11 +11,11 @@ export default function DashboardPage() {
 
     const getStatusVariant = (status: Order['status']) => {
         switch (status) {
-            case 'Pending':
+            case 'Pendente':
                 return 'secondary';
-            case 'Confirmed':
+            case 'Confirmado':
                 return 'default';
-            case 'Rejected':
+            case 'Rejeitado':
                 return 'destructive';
             default:
                 return 'outline';
@@ -24,22 +24,22 @@ export default function DashboardPage() {
 
     return (
         <div className="container mx-auto py-10">
-            <h1 className="text-3xl font-bold font-headline text-primary mb-6">Farmer Dashboard</h1>
+            <h1 className="text-3xl font-bold font-headline text-primary mb-6">Painel do Agricultor</h1>
             <Card>
                 <CardHeader>
-                    <CardTitle>Incoming Orders</CardTitle>
-                    <CardDescription>Review and manage new orders from your customers.</CardDescription>
+                    <CardTitle>Pedidos Recebidos</CardTitle>
+                    <CardDescription>Revise e gerencie novos pedidos de seus clientes.</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <Table>
                         <TableHeader>
                             <TableRow>
-                                <TableHead>Order ID</TableHead>
-                                <TableHead>Customer</TableHead>
-                                <TableHead>Items</TableHead>
+                                <TableHead>ID do Pedido</TableHead>
+                                <TableHead>Cliente</TableHead>
+                                <TableHead>Itens</TableHead>
                                 <TableHead className="text-right">Total</TableHead>
                                 <TableHead>Status</TableHead>
-                                <TableHead>Actions</TableHead>
+                                <TableHead>Ações</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -50,20 +50,20 @@ export default function DashboardPage() {
                                     <TableCell>
                                         {order.items.map(item => `${item.productName} (x${item.quantity})`).join(', ')}
                                     </TableCell>
-                                    <TableCell className="text-right">${order.total.toFixed(2)}</TableCell>
+                                    <TableCell className="text-right">R${order.total.toFixed(2).replace('.', ',')}</TableCell>
                                     <TableCell>
                                         <Badge variant={getStatusVariant(order.status)}>{order.status}</Badge>
                                     </TableCell>
                                     <TableCell>
-                                        {order.status === 'Pending' && (
+                                        {order.status === 'Pendente' && (
                                             <div className="flex gap-2">
                                                 <Button size="sm" variant="outline">
                                                     <CheckCircle className="h-4 w-4 mr-2" />
-                                                    Accept
+                                                    Aceitar
                                                 </Button>
                                                 <Button size="sm" variant="destructive_outline">
                                                     <XCircle className="h-4 w-4 mr-2" />
-                                                    Decline
+                                                    Recusar
                                                 </Button>
                                             </div>
                                         )}

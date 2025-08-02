@@ -13,35 +13,35 @@ interface ProductBrowserProps {
   products: Product[];
 }
 
-type Category = "All" | "Vegetable" | "Fruit" | "Dairy" | "Bakery";
+type Category = "Todos" | "Vegetal" | "Fruta" | "Laticínio" | "Padaria";
 
 const categoryIcons: Record<Category, React.ComponentType<{ className?: string }>> = {
-  All: () => (
+  Todos: () => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.88.99 6.6 2.6l-2.6 2.6"/><path d="M21 12a9 9 0 0 0-9-9"/></svg>
   ),
-  Vegetable: VegetableIcon,
-  Fruit: FruitIcon,
-  Dairy: DairyIcon,
-  Bakery: BakeryIcon,
+  Vegetal: VegetableIcon,
+  Fruta: FruitIcon,
+  Laticínio: DairyIcon,
+  Padaria: BakeryIcon,
 };
 
 
 export default function ProductBrowser({ products }: ProductBrowserProps) {
-  const [selectedCategory, setSelectedCategory] = useState<Category>("All");
+  const [selectedCategory, setSelectedCategory] = useState<Category>("Todos");
 
   const filteredProducts = products.filter(
     (product) =>
-      selectedCategory === "All" || product.category === selectedCategory
+      selectedCategory === "Todos" || product.category === selectedCategory
   );
 
-  const categories: Category[] = ["All", "Vegetable", "Fruit", "Dairy", "Bakery"];
+  const categories: Category[] = ["Todos", "Vegetal", "Fruta", "Laticínio", "Padaria"];
 
   return (
     <section className="py-12 md:py-16">
       <div className="container">
         <div className="flex flex-col items-center gap-4 mb-8">
           <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl text-primary">
-            Our Products
+            Nossos Produtos
           </h2>
           <div className="flex flex-wrap items-center justify-center gap-2">
             {categories.map((category) => {

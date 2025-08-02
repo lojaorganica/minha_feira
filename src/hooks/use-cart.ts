@@ -14,7 +14,7 @@ export function useCart() {
         setCartItems(JSON.parse(storedCart));
       }
     } catch (error) {
-      console.error("Failed to load cart from localStorage", error);
+      console.error("Falha ao carregar o carrinho do localStorage", error);
     } finally {
       setIsCartLoaded(true);
     }
@@ -25,7 +25,7 @@ export function useCart() {
       try {
         localStorage.setItem("verdant_market_cart", JSON.stringify(cartItems));
       } catch (error) {
-        console.error("Failed to save cart to localStorage", error);
+        console.error("Falha ao salvar o carrinho no localStorage", error);
       }
     }
   }, [cartItems, isCartLoaded]);
