@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart, Menu, User } from "lucide-react";
+import { ShoppingCart, Menu } from "lucide-react";
 
 import Logo from "@/components/logo";
 import { Button } from "@/components/ui/button";
@@ -11,15 +11,8 @@ import {
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import { useState } from "react";
+import { Separator } from "./ui/separator";
 
 const Header = () => {
   const { cartCount } = useCart();
@@ -81,18 +74,11 @@ const Header = () => {
             ))}
           </nav>
           <div className="flex items-center gap-2">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="sm">Entrar</Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuLabel>Acessar minha conta</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>Sou Cliente</DropdownMenuItem>
-                <DropdownMenuItem>Sou Agricultor</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-
+            <div className="hidden sm:flex items-center gap-2">
+              <Button variant="outline" size="sm">Sou Cliente</Button>
+              <Button variant="default" size="sm">Sou Agricultor</Button>
+            </div>
+             <Separator orientation="vertical" className="h-6 mx-2 hidden sm:block" />
             <Button variant="ghost" size="icon" asChild>
               <Link href="/cart">
                 <ShoppingCart className="h-5 w-5" />
