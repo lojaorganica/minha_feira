@@ -151,12 +151,12 @@ function OrdersTabContent() {
                 <Table>
                     <TableHeader>
                         <TableRow>
-                            <TableHead>ID do Pedido</TableHead>
-                            <TableHead>Cliente</TableHead>
-                            <TableHead>Itens</TableHead>
-                            <TableHead className="text-right">Total</TableHead>
-                            <TableHead>Status</TableHead>
-                            <TableHead>Ações</TableHead>
+                            <TableHead className="bg-primary text-primary-foreground">ID do Pedido</TableHead>
+                            <TableHead className="bg-primary text-primary-foreground">Cliente</TableHead>
+                            <TableHead className="bg-primary text-primary-foreground">Itens</TableHead>
+                            <TableHead className="text-right bg-primary text-primary-foreground">Total</TableHead>
+                            <TableHead className="bg-primary text-primary-foreground">Status</TableHead>
+                            <TableHead className="bg-primary text-primary-foreground">Ações</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
