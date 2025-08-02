@@ -148,27 +148,27 @@ function OrdersTabContent() {
                 <CardDescription>Revise e gerencie novos pedidos de seus clientes.</CardDescription>
             </CardHeader>
             <CardContent>
-                <Table>
+                <Table className="border-collapse border-2 border-border">
                     <TableHeader>
                         <TableRow>
-                            <TableHead className="bg-primary text-primary-foreground">ID do Pedido</TableHead>
-                            <TableHead className="bg-primary text-primary-foreground">Cliente</TableHead>
-                            <TableHead className="bg-primary text-primary-foreground">Itens</TableHead>
-                            <TableHead className="text-right bg-primary text-primary-foreground">Total</TableHead>
-                            <TableHead className="bg-primary text-primary-foreground">Status</TableHead>
-                            <TableHead className="bg-primary text-primary-foreground">Ações</TableHead>
+                            <TableHead className="bg-primary text-primary-foreground border-b-2 border-r-2 border-primary-foreground">ID do Pedido</TableHead>
+                            <TableHead className="bg-primary text-primary-foreground border-b-2 border-r-2 border-primary-foreground">Cliente</TableHead>
+                            <TableHead className="bg-primary text-primary-foreground border-b-2 border-r-2 border-primary-foreground">Itens</TableHead>
+                            <TableHead className="text-right bg-primary text-primary-foreground border-b-2 border-r-2 border-primary-foreground">Total</TableHead>
+                            <TableHead className="bg-primary text-primary-foreground border-b-2 border-r-2 border-primary-foreground">Status</TableHead>
+                            <TableHead className="bg-primary text-primary-foreground border-b-2 border-primary-foreground">Ações</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         {orders.map((order) => (
-                            <TableRow key={order.id} className="text-base font-medium">
-                                <TableCell className="font-semibold">{order.id}</TableCell>
-                                <TableCell>{order.customerName}</TableCell>
-                                <TableCell>
+                            <TableRow key={order.id} className="text-base font-semibold">
+                                <TableCell className="font-semibold border-r-2 border-border">{order.id}</TableCell>
+                                <TableCell className="border-r-2 border-border">{order.customerName}</TableCell>
+                                <TableCell className="border-r-2 border-border">
                                     {order.items.map(item => `${item.productName} (x${item.quantity})`).join(', ')}
                                 </TableCell>
-                                <TableCell className="text-right">R${order.total.toFixed(2).replace('.', ',')}</TableCell>
-                                <TableCell>
+                                <TableCell className="text-right border-r-2 border-border">R${order.total.toFixed(2).replace('.', ',')}</TableCell>
+                                <TableCell className="border-r-2 border-border">
                                     <Badge variant={getStatusVariant(order.status)}>{order.status}</Badge>
                                 </TableCell>
                                 <TableCell>
