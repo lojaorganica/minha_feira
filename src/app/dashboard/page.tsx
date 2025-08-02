@@ -28,7 +28,7 @@ function EditProductForm({ product }: { product: Product }) {
                         Faça alterações nos detalhes do seu produto aqui. Clique em salvar quando terminar.
                     </DialogDescription>
                 </DialogHeader>
-                <div className="grid gap-4 py-4">
+                <div className="grid gap-4 py-4 text-base">
                     <div className="grid grid-cols-4 items-center gap-4">
                         <Label htmlFor="name" className="text-right">
                             Nome
@@ -100,11 +100,11 @@ function ProductsTabContent() {
                     </TableHeader>
                     <TableBody>
                         {products.map((product) => (
-                            <TableRow key={product.id}>
+                            <TableRow key={product.id} className="text-base font-medium">
                                 <TableCell>
                                     <Image src={product.image} alt={product.name} width={40} height={40} className="rounded-md object-cover" data-ai-hint={product.dataAiHint} />
                                 </TableCell>
-                                <TableCell className="font-medium">{product.name}</TableCell>
+                                <TableCell className="font-semibold">{product.name}</TableCell>
                                 <TableCell>R${product.price.toFixed(2).replace('.', ',')}</TableCell>
                                 <TableCell>{product.unit}</TableCell>
                                 <TableCell>
@@ -161,8 +161,8 @@ function OrdersTabContent() {
                     </TableHeader>
                     <TableBody>
                         {orders.map((order) => (
-                            <TableRow key={order.id}>
-                                <TableCell className="font-medium">{order.id}</TableCell>
+                            <TableRow key={order.id} className="text-base font-medium">
+                                <TableCell className="font-semibold">{order.id}</TableCell>
                                 <TableCell>{order.customerName}</TableCell>
                                 <TableCell>
                                     {order.items.map(item => `${item.productName} (x${item.quantity})`).join(', ')}

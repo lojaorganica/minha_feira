@@ -67,9 +67,9 @@ function ComplementarySuggestions() {
                     <div className="relative aspect-square mb-2">
                         <Image src={product.image} alt={product.name} fill className="object-cover rounded-md" data-ai-hint={product.dataAiHint}/>
                     </div>
-                    <h3 className="text-base font-semibold truncate">{product.name}</h3>
+                    <h3 className="text-lg font-semibold truncate">{product.name}</h3>
                     <div className="flex justify-between items-center mt-2">
-                        <p className="font-bold text-primary">R${product.price.toFixed(2).replace('.', ',')}</p>
+                        <p className="font-bold text-primary text-lg">R${product.price.toFixed(2).replace('.', ',')}</p>
                         <Button size="sm" onClick={() => handleAddToCart(product)}>Adicionar</Button>
                     </div>
                 </CardContent>
@@ -96,8 +96,8 @@ export default function CartView() {
     return (
       <div className="text-center py-20">
         <h2 className="text-2xl font-semibold">Seu carrinho está vazio</h2>
-        <p className="text-muted-foreground mt-2">Parece que você ainda não adicionou nada ao seu carrinho.</p>
-        <Button asChild className="mt-6">
+        <p className="text-lg text-foreground/90 mt-2">Parece que você ainda não adicionou nada ao seu carrinho.</p>
+        <Button asChild className="mt-6 text-base font-semibold">
           <Link href="/">Comece a Comprar</Link>
         </Button>
       </div>
@@ -123,13 +123,13 @@ export default function CartView() {
 
                     <div className="ml-4 flex flex-1 flex-col">
                         <div>
-                            <div className="flex justify-between text-base font-medium text-foreground">
+                            <div className="flex justify-between text-lg font-medium text-foreground">
                                 <h3>
                                 <a href="#">{product.name}</a>
                                 </h3>
                                 <p className="ml-4">R${(product.price * product.quantity).toFixed(2).replace('.', ',')}</p>
                             </div>
-                             <p className="mt-1 text-base text-muted-foreground">R${product.price.toFixed(2).replace('.', ',')} / {product.unit}</p>
+                             <p className="mt-1 text-base text-foreground/80">R${product.price.toFixed(2).replace('.', ',')} / {product.unit}</p>
                         </div>
                         <div className="flex flex-1 items-end justify-between text-base">
                             <div className="flex items-center gap-2">
@@ -140,7 +140,7 @@ export default function CartView() {
                                     min="1"
                                     value={product.quantity}
                                     onChange={(e) => updateQuantity(product.id, parseInt(e.target.value))}
-                                    className="w-20 h-9"
+                                    className="w-20 h-9 font-bold text-base"
                                 />
                             </div>
                             <div className="flex">
@@ -169,23 +169,23 @@ export default function CartView() {
                 <CardHeader>
                     <CardTitle className="font-headline">Resumo do pedido</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4 text-base">
+                <CardContent className="space-y-4 text-lg font-medium">
                     <div className="flex justify-between">
                         <span>Subtotal</span>
                         <span>R${cartTotal.toFixed(2).replace('.', ',')}</span>
                     </div>
-                    <div className="flex justify-between">
+                    <div className="flex justify-between text-foreground/80">
                         <span>Estimativa de frete</span>
                         <span>R$5,00</span>
                     </div>
                     <Separator />
-                    <div className="flex justify-between font-bold text-lg">
+                    <div className="flex justify-between font-bold text-xl">
                         <span>Total do pedido</span>
                         <span>R${(cartTotal + 5).toFixed(2).replace('.', ',')}</span>
                     </div>
                 </CardContent>
                 <CardFooter>
-                    <Button className="w-full" size="lg">Finalizar Compra</Button>
+                    <Button className="w-full text-lg font-bold" size="lg">Finalizar Compra</Button>
                 </CardFooter>
             </Card>
             <ComplementarySuggestions />

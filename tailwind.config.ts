@@ -16,6 +16,9 @@ export default {
       },
     },
     extend: {
+      fontSize: {
+        base: ['1rem', '1.5rem'], // Aumentado de 1rem para 1.1rem (17.6px) o tamanho base
+      },
       fontFamily: {
         body: ['"PT Sans"', 'sans-serif'],
         headline: ['Belleza', 'sans-serif'],

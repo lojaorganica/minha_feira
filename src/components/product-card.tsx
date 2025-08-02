@@ -47,14 +47,14 @@ const ProductCard = ({ product }: ProductCardProps) => {
         />
       </div>
       <CardContent className="p-4 flex-grow">
-        <CardTitle className="text-lg font-headline text-primary">{product.name}</CardTitle>
-        <CardDescription className="text-base mt-1 h-12 overflow-hidden">{product.description}</CardDescription>
+        <CardTitle className="text-xl font-headline text-primary">{product.name}</CardTitle>
+        <CardDescription className="text-base mt-1 h-12 overflow-hidden font-medium text-foreground/90">{product.description}</CardDescription>
       </CardContent>
       <CardFooter className="p-4 flex flex-col items-start gap-4">
         <div className="text-lg font-bold text-primary w-full flex justify-between items-center">
           <div>
             <span>R${product.price.toFixed(2).replace('.', ',')}</span>
-            <span className="text-base font-normal text-muted-foreground ml-1">/ {product.unit}</span>
+            <span className="text-base font-medium text-foreground/80 ml-1">/ {product.unit}</span>
           </div>
         </div>
         <div className="w-full flex flex-col sm:flex-row gap-2">
@@ -66,14 +66,14 @@ const ProductCard = ({ product }: ProductCardProps) => {
                     type="number" 
                     value={quantity} 
                     onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
-                    className="w-16 h-10 text-center"
+                    className="w-16 h-10 text-center font-bold text-base"
                     aria-label="Quantidade"
                 />
                 <Button size="icon" variant="outline" onClick={() => handleQuantityChange(1)} aria-label="Aumentar quantidade">
                     <Plus className="h-4 w-4" />
                 </Button>
             </div>
-            <Button onClick={handleAddToCart} className="flex-grow">
+            <Button onClick={handleAddToCart} className="flex-grow text-base font-semibold">
               <ShoppingCart className="h-4 w-4 mr-2" />
               Adicionar
             </Button>

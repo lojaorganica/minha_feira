@@ -64,8 +64,8 @@ export default function FarmerSelection() {
             <CardHeader className="flex flex-row items-center gap-4">
               <Image src="https://placehold.co/100x100" alt={farmer.name} width={60} height={60} className="rounded-full" data-ai-hint="farmer portrait" />
               <div className="flex-1">
-                <CardTitle>{farmer.name}</CardTitle>
-                <CardDescription className="line-clamp-2">{farmer.bio}</CardDescription>
+                <CardTitle className="text-xl">{farmer.name}</CardTitle>
+                <CardDescription className="line-clamp-2 mt-1">{farmer.bio}</CardDescription>
               </div>
             </CardHeader>
             <CardFooter>
@@ -74,13 +74,13 @@ export default function FarmerSelection() {
                 aria-label={`Select ${farmer.name}`}
                 className="mr-2"
               />
-              <span>Seguir este agricultor</span>
+              <span className="font-semibold text-base">Seguir este agricultor</span>
             </CardFooter>
           </Card>
         ))}
       </div>
       <div className="mt-8 text-center">
-        <Button size="lg" onClick={handleSaveChanges}>
+        <Button size="lg" onClick={handleSaveChanges} className="font-bold">
           Ver Produtos
         </Button>
       </div>
