@@ -16,6 +16,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'assets.static-up.com',
+        port: '',
+        pathname: '/**',
+      }
     ],
   },
 };
