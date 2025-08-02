@@ -61,7 +61,7 @@ export default function DashboardPage() {
                                                     <CheckCircle className="h-4 w-4 mr-2" />
                                                     Aceitar
                                                 </Button>
-                                                <Button size="sm" variant="destructive_outline">
+                                                <Button size="sm" variant="destructive">
                                                     <XCircle className="h-4 w-4 mr-2" />
                                                     Recusar
                                                 </Button>

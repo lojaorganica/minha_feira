@@ -1,4 +1,4 @@
-import type { Product, Farmer, Order, Customer } from './types';
+import type { Product, Farmer, Order, Customer, FarmerWithProducts } from './types';
 
 const products: Product[] = [
   {
@@ -9,7 +9,7 @@ const products: Product[] = [
     unit: 'por kg',
     image: 'https://placehold.co/600x400',
     dataAiHint: 'cenouras orgânicas',
-    farmer: 'Fazendas Vale Verde',
+    farmerId: '1',
     description: 'Cenouras orgânicas frescas e crocantes, perfeitas para lanches ou para cozinhar.',
   },
   {
@@ -20,7 +20,7 @@ const products: Product[] = [
     unit: 'por kg',
     image: 'https://placehold.co/600x400',
     dataAiHint: 'tomates antigos',
-    farmer: 'Fazendas Vale Verde',
+    farmerId: '1',
     description: 'Tomates antigos suculentos e saborosos, ideais para saladas e molhos.',
   },
   {
@@ -31,7 +31,7 @@ const products: Product[] = [
     unit: 'unidade',
     image: 'https://placehold.co/600x400',
     dataAiHint: 'maçãs crocantes',
-    farmer: 'Pomares do Amanhecer',
+    farmerId: '2',
     description: 'Maçãs orgânicas doces e crocantes, ótimas para um lanche saudável.',
   },
   {
@@ -42,7 +42,7 @@ const products: Product[] = [
     unit: 'caixa',
     image: 'https://placehold.co/600x400',
     dataAiHint: 'morangos frescos',
-    farmer: 'Pomares do Amanhecer',
+    farmerId: '2',
     description: 'Morangos orgânicos maduros e doces, colhidos no pico do frescor.',
   },
   {
@@ -53,7 +53,7 @@ const products: Product[] = [
     unit: 'litro',
     image: 'https://placehold.co/600x400',
     dataAiHint: 'leite de fazenda',
-    farmer: "Laticínios Margarida",
+    farmerId: '3',
     description: 'Leite integral cremoso e rico de vacas alimentadas com pasto.',
   },
   {
@@ -64,7 +64,7 @@ const products: Product[] = [
     unit: '100g',
     image: 'https://placehold.co/600x400',
     dataAiHint: 'queijo artesanal',
-    farmer: "Laticínios Margarida",
+    farmerId: '3',
     description: 'Um queijo cheddar forte e quebradiço, maturado por 12 meses.',
   },
   {
@@ -75,7 +75,7 @@ const products: Product[] = [
     unit: 'unidade',
     image: 'https://placehold.co/600x400',
     dataAiHint: 'pão de fermentação natural',
-    farmer: 'O Pão Rústico',
+    farmerId: '4',
     description: 'Um pão de fermentação natural ácido e mastigável, assado fresco diariamente.',
   },
   {
@@ -86,7 +86,7 @@ const products: Product[] = [
     unit: 'maço',
     image: 'https://placehold.co/600x400',
     dataAiHint: 'couve orgânica',
-    farmer: 'Fazendas Vale Verde',
+    farmerId: '1',
     description: 'Couve orgânica rica em nutrientes, perfeita para saladas e smoothies.',
   },
    {
@@ -97,7 +97,7 @@ const products: Product[] = [
     unit: 'kg',
     image: 'https://placehold.co/600x400',
     dataAiHint: 'laranjas doces',
-    farmer: 'Pomares do Amanhecer',
+    farmerId: '2',
     description: 'Laranjas doces e suculentas, cheias de Vitamina C.',
   },
   {
@@ -108,7 +108,7 @@ const products: Product[] = [
     unit: 'pote',
     image: 'https://placehold.co/600x400',
     dataAiHint: 'iogurte grego',
-    farmer: "Laticínios Margarida",
+    farmerId: '3',
     description: 'Iogurte grego espesso e cremoso, rico em proteínas.',
   },
   {
@@ -119,7 +119,7 @@ const products: Product[] = [
     unit: 'unidade',
     image: 'https://placehold.co/600x400',
     dataAiHint: 'baguete de trigo',
-    farmer: 'O Pão Rústico',
+    farmerId: '4',
     description: 'Uma baguete de trigo integral robusta com uma crosta crocante.',
   },
   {
@@ -130,7 +130,7 @@ const products: Product[] = [
     unit: 'kg',
     image: 'https://placehold.co/600x400',
     dataAiHint: 'pimentões',
-    farmer: 'Fazendas Vale Verde',
+    farmerId: '1',
     description: 'Uma mistura colorida de pimentões doces.',
   },
 ];
@@ -141,28 +141,24 @@ const farmers: Farmer[] = [
     name: 'Fazendas Vale Verde',
     location: { lat: 34.0522, lng: -118.2437 }, // Los Angeles
     bio: 'Uma fazenda familiar dedicada à agricultura orgânica e sustentável há mais de 30 anos.',
-    products: ['1', '2', '8', '12'],
   },
   {
     id: '2',
     name: 'Pomares do Amanhecer',
     location: { lat: 34.1522, lng: -118.4437 }, // Near LA
     bio: 'Somos especializados no cultivo das frutas orgânicas mais doces e suculentas com amor e carinho.',
-    products: ['3', '4', '9'],
   },
   {
     id: '3',
     name: "Laticínios Margarida",
     location: { lat: 33.9522, lng: -118.1437 }, // Near LA
     bio: 'Vacas felizes fazem o melhor leite. Nossos produtos lácteos são todos naturais e de vacas alimentadas com pasto.',
-    products: ['5', '6', '10'],
   },
   {
     id: '4',
     name: 'O Pão Rústico',
     location: { lat: 34.0522, lng: -118.3437 }, // Near LA
     bio: 'Pães artesanais assados em forno a lenha tradicional com farinha orgânica de origem local.',
-    products: ['7', '11'],
   },
 ];
 
@@ -213,7 +209,7 @@ const customers: Customer[] = [
     {
         id: 'cust-001',
         name: 'Cliente Exemplo',
-        favoriteFarmerIds: ['1', '3'] // Segue Fazendas Vale Verde e Laticínios Margarida
+        favoriteFarmerIds: []
     }
 ];
 
@@ -221,16 +217,6 @@ const customers: Customer[] = [
 export function getProducts(): Product[] {
   return products;
 }
-
-export function getProductsByFarmerIds(farmerIds: string[]): Product[] {
-    const farmerIdSet = new Set(farmerIds);
-    const farmerNames = farmers
-        .filter(f => farmerIdSet.has(f.id))
-        .map(f => f.name);
-    const farmerNameSet = new Set(farmerNames);
-    return products.filter(p => farmerNameSet.has(p.farmer));
-}
-
 
 export function getProductById(id: string): Product | undefined {
   return products.find((p) => p.id === id);
@@ -243,6 +229,21 @@ export function getFarmers(): Farmer[] {
 export function getFarmerById(id: string): Farmer | undefined {
   return farmers.find((f) => f.id === id);
 }
+
+export function getFarmersWithProducts(farmerIds: string[]): FarmerWithProducts[] {
+  const favoriteFarmers = new Set(farmerIds);
+  const result: FarmerWithProducts[] = [];
+
+  farmers.forEach(farmer => {
+    if (favoriteFarmers.has(farmer.id)) {
+      const farmerProducts = products.filter(product => product.farmerId === farmer.id);
+      result.push({ ...farmer, products: farmerProducts });
+    }
+  });
+
+  return result;
+}
+
 
 export function getOrders(): Order[] {
     return orders;

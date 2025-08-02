@@ -1,10 +1,7 @@
-import { getProducts } from '@/lib/data';
 import ProductBrowser from '@/components/product-browser';
-import { Card, CardContent } from '@/components/ui/card';
 import Logo from '@/components/logo';
 
 export default function Home() {
-  const products = getProducts();
   return (
     <div className="flex flex-col">
       <section className="w-full py-12 md:py-24 lg:py-32 bg-primary/10">
@@ -28,7 +25,7 @@ export default function Home() {
       </section>
       
       <main className="flex-1">
-        <ProductBrowser allProducts={products} />
+        <ProductBrowser />
       </main>
 
       <footer className="bg-muted p-6 md:py-12 w-full">

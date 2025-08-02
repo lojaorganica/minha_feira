@@ -75,7 +75,9 @@ const Header = () => {
           </nav>
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-2">
-              <Button variant="outline" size="sm">Sou Cliente</Button>
+              <Button variant="outline" size="sm" asChild>
+                <Link href="/select-farmers">Sou Cliente</Link>
+              </Button>
               <Button variant="default" size="sm">Sou Agricultor</Button>
             </div>
              <Separator orientation="vertical" className="h-6 mx-2 hidden sm:block" />

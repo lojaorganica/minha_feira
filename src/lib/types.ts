@@ -5,7 +5,7 @@ export interface Product {
   price: number;
   unit: string;
   image: string;
-  farmer: string;
+  farmerId: string;
   description: string;
   dataAiHint: string;
 }
@@ -18,7 +18,10 @@ export interface Farmer {
     lng: number;
   };
   bio: string;
-  products: string[]; // array of product ids
+}
+
+export interface FarmerWithProducts extends Farmer {
+  products: Product[];
 }
 
 export interface CartItem extends Product {
