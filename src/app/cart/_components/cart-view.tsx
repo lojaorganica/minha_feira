@@ -96,7 +96,7 @@ export default function CartView() {
     return (
       <div className="text-center py-20">
         <h2 className="text-2xl font-semibold">Seu carrinho está vazio</h2>
-        <p className="text-lg text-foreground/90 mt-2">Parece que você ainda não adicionou nada ao seu carrinho.</p>
+        <p className="text-lg font-semibold text-foreground/90 mt-2">Parece que você ainda não adicionou nada ao seu carrinho.</p>
         <Button asChild className="mt-6 text-base font-semibold">
           <Link href="/">Comece a Comprar</Link>
         </Button>
@@ -123,13 +123,13 @@ export default function CartView() {
 
                     <div className="ml-4 flex flex-1 flex-col">
                         <div>
-                            <div className="flex justify-between text-lg font-medium text-foreground">
+                            <div className="flex justify-between text-lg font-bold text-foreground">
                                 <h3>
                                 <a href="#">{product.name}</a>
                                 </h3>
                                 <p className="ml-4">R${(product.price * product.quantity).toFixed(2).replace('.', ',')}</p>
                             </div>
-                             <p className="mt-1 text-base text-foreground/80">R${product.price.toFixed(2).replace('.', ',')} / {product.unit}</p>
+                             <p className="mt-1 text-base font-semibold text-foreground/80">R${product.price.toFixed(2).replace('.', ',')} / {product.unit}</p>
                         </div>
                         <div className="flex flex-1 items-end justify-between text-base">
                             <div className="flex items-center gap-2">
@@ -148,7 +148,7 @@ export default function CartView() {
                                     variant="ghost"
                                     type="button"
                                     onClick={() => removeFromCart(product.id)}
-                                    className="font-medium text-accent hover:text-accent/80"
+                                    className="font-semibold text-accent hover:text-accent/80"
                                 >
                                     <Trash2 className="h-4 w-4 mr-1"/>
                                     Remover
@@ -169,7 +169,7 @@ export default function CartView() {
                 <CardHeader>
                     <CardTitle className="font-headline">Resumo do pedido</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4 text-lg font-medium">
+                <CardContent className="space-y-4 text-lg font-bold">
                     <div className="flex justify-between">
                         <span>Subtotal</span>
                         <span>R${cartTotal.toFixed(2).replace('.', ',')}</span>

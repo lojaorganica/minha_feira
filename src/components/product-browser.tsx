@@ -28,10 +28,10 @@ export default function ProductBrowser() {
           <h2 className="font-headline text-2xl font-bold text-primary">
             Bem-vindo(a)!
           </h2>
-          <p className="mt-2 text-lg text-foreground/90">
+          <p className="mt-2 text-lg font-semibold text-foreground/90">
             Parece que você ainda não segue nenhum agricultor.
           </p>
-          <p className="mt-1 text-lg text-foreground/90">
+          <p className="mt-1 text-lg font-semibold text-foreground/90">
             Escolha seus agricultores favoritos para começar a comprar.
           </p>
           <Button asChild className="mt-4 text-base font-semibold">
@@ -52,7 +52,7 @@ export default function ProductBrowser() {
             <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl text-primary">
               {farmer.name}
             </h2>
-             <p className="text-lg text-foreground/90 text-center max-w-2xl">{farmer.bio}</p>
+             <p className="text-lg font-semibold text-foreground/90 text-center max-w-2xl">{farmer.bio}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {farmer.products.map((product) => (

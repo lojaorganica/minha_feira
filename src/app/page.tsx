@@ -15,7 +15,7 @@ export default function Home() {
                 <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none text-primary">
                   Bem-vindo ao Circuito de Feiras Orgânicas
                 </h1>
-                <p className="max-w-[600px] text-foreground/80 text-base md:text-xl mx-auto lg:mx-0">
+                <p className="max-w-[600px] text-foreground/80 text-base md:text-xl mx-auto lg:mx-0 font-semibold">
                   Produtos frescos e orgânicos, entregues de fazendas locais diretamente para sua mesa. Experimente o sabor da natureza.
                 </p>
               </div>
@@ -32,17 +32,17 @@ export default function Home() {
         <div className="container max-w-7xl grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 text-base">
           <div className="grid gap-1">
             <h3 className="font-semibold font-headline text-primary">Feiras Orgânicas</h3>
-            <p className="text-muted-foreground">© 2024 Feiras Orgânicas Inc.</p>
+            <p className="text-muted-foreground font-semibold">© 2024 Feiras Orgânicas Inc.</p>
           </div>
           <div className="grid gap-1">
             <h3 className="font-semibold font-headline text-primary">Legal</h3>
-            <a href="#" className="text-muted-foreground hover:text-foreground">Termos de Serviço</a>
-            <a href="#" className="text-muted-foreground hover:text-foreground">Política de Privacidade</a>
+            <a href="#" className="text-muted-foreground hover:text-foreground font-semibold">Termos de Serviço</a>
+            <a href="#" className="text-muted-foreground hover:text-foreground font-semibold">Política de Privacidade</a>
           </div>
           <div className="grid gap-1">
             <h3 className="font-semibold font-headline text-primary">Suporte</h3>
-            <a href="#" className="text-muted-foreground hover:text-foreground">Fale Conosco</a>
-            <a href="#" className="text-muted-foreground hover:text-foreground">FAQ</a>
+            <a href="#" className="text-muted-foreground hover:text-foreground font-semibold">Fale Conosco</a>
+            <a href="#" className="text-muted-foreground hover:text-foreground font-semibold">FAQ</a>
           </div>
         </div>
       </footer>
