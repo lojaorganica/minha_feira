@@ -40,7 +40,7 @@ export default function FarmerSelection() {
   const handleSaveChanges = () => {
     if (user) {
       updateUser({ ...user, favoriteFarmerIds: Array.from(selectedFarmerIds) });
-      router.push('/');
+      router.push('/catalog');
     }
   };
 

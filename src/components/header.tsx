@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart, Menu, User, Tractor } from "lucide-react";
+import { ShoppingCart, Menu, User, Tractor, Search } from "lucide-react";
+import { usePathname } from 'next/navigation';
 
 import Logo from "@/components/logo";
 import { Button } from "@/components/ui/button";
@@ -13,10 +14,16 @@ import {
 } from "@/components/ui/sheet";
 import { useState } from "react";
 import { Separator } from "./ui/separator";
+import { useSearch } from "@/hooks/use-search";
+import { Input } from "./ui/input";
 
 const Header = () => {
   const { cartCount } = useCart();
   const [isSheetOpen, setSheetOpen] = useState(false);
+  const pathname = usePathname();
+  const { searchTerm, setSearchTerm } = useSearch();
+
+  const isCatalogPage = pathname === '/catalog';
 
   const navLinks = [
     { href: "/welcome", label: "Início" },
@@ -75,7 +82,18 @@ const Header = () => {
 
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
           <div className="w-full flex-1 md:w-auto md:flex-none">
-            {/* Can add a search bar here if needed */}
+            {isCatalogPage && (
+              <div className="relative">
+                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                <Input
+                    type="search"
+                    placeholder="Buscar produtos..."
+                    className="pl-10"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+              </div>
+            )}
           </div>
           <nav className="hidden md:flex items-center gap-4">
             {navLinks.map((link) => (
