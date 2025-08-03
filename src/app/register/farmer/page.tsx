@@ -29,33 +29,33 @@ export default function FarmerRegisterPage() {
             <CardContent className="grid gap-4">
                 <div className="grid gap-2">
                     <Label htmlFor="full-name">Nome Completo</Label>
-                    <Input id="full-name" placeholder="Seu nome completo" required className="bg-card" />
+                    <Input id="full-name" placeholder="Seu nome completo" required className="bg-background" />
                 </div>
                 <div className="grid gap-2">
                     <Label htmlFor="farm-name">Nome da Fazenda / Marca</Label>
-                    <Input id="farm-name" placeholder="Ex: Fazenda Vale Verde" required className="bg-card" />
+                    <Input id="farm-name" placeholder="Ex: Fazenda Vale Verde" required className="bg-background" />
                 </div>
                  <div className="grid gap-2">
                     <Label htmlFor="pix-key">Chave PIX</Label>
-                    <Input id="pix-key" placeholder="CPF, CNPJ, e-mail, celular, etc." required className="bg-card" />
+                    <Input id="pix-key" placeholder="CPF, CNPJ, e-mail, celular, etc." required className="bg-background" />
                 </div>
                 <div className="grid gap-2">
                     <Label htmlFor="email">E-mail</Label>
-                    <Input id="email" type="email" placeholder="seu@email.com" required className="bg-card" />
+                    <Input id="email" type="email" placeholder="seu@email.com" required className="bg-background" />
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="grid gap-2">
                         <Label htmlFor="password">Senha</Label>
-                        <Input id="password" type="password" required className="bg-card" />
+                        <Input id="password" type="password" required className="bg-background" />
                     </div>
                      <div className="grid gap-2">
                         <Label htmlFor="confirm-password">Confirmar Senha</Label>
-                        <Input id="confirm-password" type="password" required className="bg-card" />
+                        <Input id="confirm-password" type="password" required className="bg-background" />
                     </div>
                 </div>
                  <div className="grid gap-2">
                     <Label htmlFor="bio">Biografia</Label>
-                    <Textarea id="bio" placeholder="Conte um pouco sobre você e sua produção..." maxLength={300} className="bg-card" />
+                    <Textarea id="bio" placeholder="Conte um pouco sobre você e sua produção..." maxLength={300} className="bg-background" />
                 </div>
             </CardContent>
             <CardFooter className="flex flex-col gap-4">
