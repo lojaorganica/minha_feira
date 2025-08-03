@@ -161,7 +161,7 @@ function OrdersTabContent() {
                     </TableHeader>
                     <TableBody>
                         {orders.map((order) => (
-                            <TableRow key={order.id} className="text-base font-semibold">
+                            <TableRow key={order.id} className="text-base font-semibold border-b-2 border-b-primary-foreground">
                                 <TableCell className="font-semibold border-r-2 border-border">{order.id}</TableCell>
                                 <TableCell className="border-r-2 border-border">{order.customerName}</TableCell>
                                 <TableCell className="border-r-2 border-border">
