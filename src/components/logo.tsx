@@ -18,7 +18,7 @@ const Logo = ({ size = 'default' }: LogoProps) => {
   return (
     <Link href="/" className="flex items-center gap-2" prefetch={false}>
       <Image
-        src="https://assets.static-up.com/unsafe/700x700/https://i.imgur.com/2Y3tQ7Z.png"
+        src="https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/oDCkRtc7/5602073687894b2087f96555f9248957"
         alt="Logo do Circuito de Feiras Orgânicas Carioca"
         width={width}
         height={height}

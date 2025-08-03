@@ -8,27 +8,23 @@ export default function Home() {
     <div className="flex flex-col">
       <section className="w-full py-8 md:py-16 lg:py-20 bg-primary/10 flex-grow flex items-center">
         <div className="container px-4 md:px-6">
-          <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
-            <div className="flex justify-center">
-                <Logo size="large" />
+          <div className="flex flex-col items-center justify-center space-y-4 text-center">
+            <Logo size="large" />
+            <div className="space-y-2">
+              <h1 className="font-headline text-3xl sm:text-4xl font-bold tracking-tighter text-primary">
+                Bem-vindo(a) ao <span className="whitespace-nowrap">Minha Feira</span>, do Circuito Carioca de Feiras Orgânicas
+              </h1>
+              <p className="max-w-[600px] text-foreground/80 text-base md:text-xl mx-auto lg:mx-0 font-semibold">
+                Produtos frescos e orgânicos, entregues de fazendas locais diretamente para sua mesa. Experimente o sabor da natureza.
+              </p>
             </div>
-            <div className="flex flex-col justify-center space-y-4 text-center lg:text-left">
-              <div className="space-y-2">
-                <h1 className="font-headline text-3xl sm:text-4xl font-bold tracking-tighter text-primary">
-                  Bem-vindo(a) ao <span className="whitespace-nowrap">Minha Feira</span>, do Circuito Carioca de Feiras Orgânicas
-                </h1>
-                <p className="max-w-[600px] text-foreground/80 text-base md:text-xl mx-auto lg:mx-0 font-semibold">
-                  Produtos frescos e orgânicos, entregues de fazendas locais diretamente para sua mesa. Experimente o sabor da natureza.
-                </p>
-              </div>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
-                  <Button asChild size="lg">
-                      <Link href="/login/customer">Sou Cliente</Link>
-                  </Button>
-                  <Button asChild size="lg" variant="outline">
-                      <Link href="/login/farmer">Sou Agricultor</Link>
-                  </Button>
-              </div>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+                <Button asChild size="lg">
+                    <Link href="/login/customer">Sou Cliente</Link>
+                </Button>
+                <Button asChild size="lg" variant="outline">
+                    <Link href="/login/farmer">Sou Agricultor</Link>
+                </Button>
             </div>
           </div>
         </div>
