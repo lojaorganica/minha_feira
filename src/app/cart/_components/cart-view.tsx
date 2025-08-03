@@ -246,6 +246,7 @@ export default function CartView() {
                             maxLength={500}
                             value={message}
                             onChange={(e) => setMessage(e.target.value)}
+                            className="bg-card"
                         />
                         <p className="text-sm text-muted-foreground text-right">
                            {message.length} / 500
