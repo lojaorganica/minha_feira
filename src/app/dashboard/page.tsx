@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import { getOrders, getProducts, toggleProductPromotion } from "@/lib/data";
@@ -7,7 +6,7 @@ import type { Order, Product } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
-import { CheckCircle, Edit, PlusCircle, Trash2, XCircle, ShoppingBag, User, DollarSign, Download, Share2, History, Search, Tag } from "lucide-react";
+import { CheckCircle, Edit, PlusCircle, Trash2, XCircle, ShoppingBag, User, DollarSign, Download, Share2, History, Search, Tag, CalendarIcon } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
@@ -17,7 +16,6 @@ import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import { useState, useMemo, useTransition } from 'react';
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
@@ -104,7 +102,7 @@ function ProductsTabContent() {
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                     <div>
                         <CardTitle>Meus Produtos</CardTitle>
-                        <CardDescription className="font-semibold">Adicione, edite ou promova produtos do seu inventário.</CardDescription>
+                        <CardDescription>Adicione, edite ou promova produtos do seu inventário.</CardDescription>
                     </div>
                     <Button>
                         <PlusCircle className="h-4 w-4 mr-2"/>
@@ -166,6 +164,103 @@ function ProductsTabContent() {
     )
 }
 
+function OrdersTabContent({ orders }: { orders: Order[] }) {
+    const getStatusVariant = (status: Order['status']) => {
+        switch (status) {
+            case 'Pendente':
+                return 'secondary';
+            case 'Confirmado':
+                return 'default';
+            case 'Rejeitado':
+                return 'destructive';
+            default:
+                return 'outline';
+        }
+    };
+
+    return (
+        <Card>
+            <CardHeader>
+                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <CardTitle>Pedidos Recebidos</CardTitle>
+                        <CardDescription>Revise e gerencie os pedidos de seus clientes.</CardDescription>
+                    </div>
+                </div>
+            </CardHeader>
+            <CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {orders.length > 0 ? orders.map((order) => (
+                    <Card key={order.id} className="flex flex-col">
+                        <CardHeader>
+                            <div className="flex justify-between items-start">
+                                <div>
+                                    <CardTitle className="font-headline text-2xl text-primary">{order.id}</CardTitle>
+                                    <CardDescription className="flex items-center gap-2 mt-1 text-lg">
+                                        <User className="h-4 w-4"/>
+                                        {order.customerName}
+                                    </CardDescription>
+                                </div>
+                                <Badge variant={getStatusVariant(order.status)} className="text-sm">{order.status}</Badge>
+                            </div>
+                        </CardHeader>
+                        <CardContent className="flex-grow space-y-4">
+                            <div>
+                                <h4 className="font-semibold mb-2 flex items-center gap-2 text-base">
+                                    <ShoppingBag className="h-5 w-5 text-accent" />
+                                    Itens
+                                </h4>
+                                <ul className="space-y-1 list-disc pl-5 font-semibold text-foreground/90">
+                                    {order.items.map((item, index) => (
+                                        <li key={index} className="text-lg">
+                                            {item.quantity}x {item.productName}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                            <Separator />
+                             <div className="flex justify-between items-center text-lg font-bold">
+                               <span className="flex items-center gap-2">
+                                 <DollarSign className="h-5 w-5 text-primary"/>
+                                 Total do Pedido
+                               </span>
+                                <span>R${order.total.toFixed(2).replace('.', ',')}</span>
+                            </div>
+                        </CardContent>
+                        <CardFooter className="flex flex-col gap-2">
+                            {order.status === 'Pendente' && (
+                                <div className="flex w-full gap-2">
+                                    <Button className="w-full" variant="destructive">
+                                        <XCircle className="h-4 w-4 mr-2" />
+                                        Recusar
+                                    </Button>
+                                    <Button className="w-full">
+                                        <CheckCircle className="h-4 w-4 mr-2" />
+                                        Aceitar
+                                    </Button>
+                                </div>
+                            )}
+                            <div className="flex w-full gap-2">
+                                <Button variant="outline" className="w-full">
+                                    <Share2 className="h-4 w-4 mr-2" />
+                                    WhatsApp
+                                </Button>
+                                <Button variant="outline" className="w-full">
+                                    <Download className="h-4 w-4 mr-2" />
+                                    Salvar
+                                </Button>
+                            </div>
+                        </CardFooter>
+                    </Card>
+                )) : (
+                    <div className="col-span-full text-center py-12">
+                        <p className="text-lg font-semibold text-muted-foreground">Nenhum pedido recebido no momento.</p>
+                    </div>
+                )}
+            </CardContent>
+        </Card>
+    )
+}
+
 function OrderHistoryDialog({ allOrders }: { allOrders: Order[] }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [date, setDate] = useState<Date | undefined>(undefined);
@@ -176,7 +271,7 @@ function OrderHistoryDialog({ allOrders }: { allOrders: Order[] }) {
             const matchesDate = !date || format(order.date, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd');
             return matchesSearchTerm && matchesDate;
         });
-    }, [searchTerm, date]);
+    }, [searchTerm, date, allOrders]);
     
     return (
         <Dialog>
@@ -265,104 +360,6 @@ function OrderHistoryDialog({ allOrders }: { allOrders: Order[] }) {
         </Dialog>
     )
 }
-
-function OrdersTabContent({ orders }: { orders: Order[] }) {
-    const getStatusVariant = (status: Order['status']) => {
-        switch (status) {
-            case 'Pendente':
-                return 'secondary';
-            case 'Confirmado':
-                return 'default';
-            case 'Rejeitado':
-                return 'destructive';
-            default:
-                return 'outline';
-        }
-    };
-
-    return (
-        <Card>
-            <CardHeader>
-                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                    <div>
-                        <CardTitle>Pedidos Recebidos</CardTitle>
-                        <CardDescription className="font-semibold">Revise e gerencie os pedidos de seus clientes.</CardDescription>
-                    </div>
-                </div>
-            </CardHeader>
-            <CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {orders.length > 0 ? orders.map((order) => (
-                    <Card key={order.id} className="flex flex-col">
-                        <CardHeader>
-                            <div className="flex justify-between items-start">
-                                <div>
-                                    <CardTitle className="font-headline text-2xl text-primary">{order.id}</CardTitle>
-                                    <CardDescription className="flex items-center gap-2 mt-1 text-base">
-                                        <User className="h-4 w-4"/>
-                                        {order.customerName}
-                                    </CardDescription>
-                                </div>
-                                <Badge variant={getStatusVariant(order.status)} className="text-sm">{order.status}</Badge>
-                            </div>
-                        </CardHeader>
-                        <CardContent className="flex-grow space-y-4">
-                            <div>
-                                <h4 className="font-semibold mb-2 flex items-center gap-2 text-base">
-                                    <ShoppingBag className="h-5 w-5 text-accent" />
-                                    Itens
-                                </h4>
-                                <ul className="space-y-1 list-disc pl-5 text-base font-semibold text-foreground/90">
-                                    {order.items.map((item, index) => (
-                                        <li key={index} className="text-base">
-                                            {item.quantity}x {item.productName}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                            <Separator />
-                             <div className="flex justify-between items-center text-lg font-bold">
-                               <span className="flex items-center gap-2">
-                                 <DollarSign className="h-5 w-5 text-primary"/>
-                                 Total do Pedido
-                               </span>
-                                <span>R${order.total.toFixed(2).replace('.', ',')}</span>
-                            </div>
-                        </CardContent>
-                        <CardFooter className="flex flex-col gap-2">
-                            {order.status === 'Pendente' && (
-                                <div className="flex w-full gap-2">
-                                    <Button className="w-full" variant="destructive">
-                                        <XCircle className="h-4 w-4 mr-2" />
-                                        Recusar
-                                    </Button>
-                                    <Button className="w-full">
-                                        <CheckCircle className="h-4 w-4 mr-2" />
-                                        Aceitar
-                                    </Button>
-                                </div>
-                            )}
-                            <div className="flex w-full gap-2">
-                                <Button variant="outline" className="w-full">
-                                    <Share2 className="h-4 w-4 mr-2" />
-                                    WhatsApp
-                                </Button>
-                                <Button variant="outline" className="w-full">
-                                    <Download className="h-4 w-4 mr-2" />
-                                    Salvar
-                                </Button>
-                            </div>
-                        </CardFooter>
-                    </Card>
-                )) : (
-                    <div className="col-span-full text-center py-12">
-                        <p className="text-lg font-semibold text-muted-foreground">Nenhum pedido recebido no momento.</p>
-                    </div>
-                )}
-            </CardContent>
-        </Card>
-    )
-}
-
 
 export default function DashboardPage() {
     const orders = getOrders();
