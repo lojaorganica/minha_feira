@@ -12,8 +12,11 @@ import { Label } from "@/components/ui/label"
 import Link from "next/link"
 import BackButton from "@/components/back-button"
 import { Textarea } from "@/components/ui/textarea"
+import { Checkbox } from "@/components/ui/checkbox"
 
 export default function FarmerRegisterPage() {
+  const fairs = ["Tijuca", "Grajaú", "Flamengo", "Laranjeiras", "Botafogo", "Leme"];
+
   return (
     <div className="relative flex items-center justify-center min-h-[calc(100vh-10rem)] bg-primary/10 py-12">
         <div className="absolute top-6 left-6">
@@ -39,6 +42,19 @@ export default function FarmerRegisterPage() {
                     <Label htmlFor="address">Endereço</Label>
                     <Input id="address" placeholder="Seu endereço completo" required className="bg-background" />
                 </div>
+
+                <div className="grid gap-2">
+                    <Label>Feiras onde trabalho</Label>
+                    <div className="grid grid-cols-2 gap-x-4 gap-y-2">
+                        {fairs.map((fair) => (
+                            <div key={fair} className="flex items-center space-x-2">
+                                <Checkbox id={`fair-${fair.toLowerCase()}`} />
+                                <Label htmlFor={`fair-${fair.toLowerCase()}`} className="font-normal">{fair}</Label>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
                  <div className="grid gap-2">
                     <Label htmlFor="phone">Celular</Label>
                     <Input id="phone" type="tel" placeholder="(XX) XXXXX-XXXX" required className="bg-background" />
