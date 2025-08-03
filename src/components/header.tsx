@@ -25,8 +25,8 @@ const Header = () => {
   const { searchTerm, setSearchTerm } = useSearch();
 
   const isCatalogPage = pathname === '/catalog';
-  const isCustomerSession = ['/catalog', '/cart', '/select-farmers', '/products', '/history'].includes(pathname);
-  const isFarmerSession = pathname.startsWith('/dashboard');
+  const isCustomerSession = ['/catalog', '/cart', '/select-farmers', '/products', '/history', '/profile'].includes(pathname) && !pathname.startsWith('/dashboard');
+  const isFarmerSession = pathname.startsWith('/dashboard') || (pathname.startsWith('/profile') && false); // Placeholder for farmer profile logic
 
 
   const navLinks = [
@@ -40,11 +40,13 @@ const Header = () => {
 
   const customerMenuLinks = [
     { href: "/history", label: "Meus Pedidos", icon: History },
+    { href: "/profile", label: "Meu Perfil", icon: User },
   ]
 
   const farmerMenuLinks = [
     { href: "/dashboard?tab=orders", label: "Pedidos", icon: ShoppingBasket },
     { href: "/dashboard?tab=products", label: "Meus produtos", icon: Package },
+    { href: "/profile", label: "Meu Perfil", icon: User },
   ]
 
   return (
