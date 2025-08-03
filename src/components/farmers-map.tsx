@@ -1,56 +1,130 @@
 "use client";
 
-import type { Farmer } from "@/lib/types";
-import { APIProvider, Map, AdvancedMarker, InfoWindow } from "@vis.gl/react-google-maps";
+import Link from "next/link";
+import { ShoppingCart, Menu, User, Tractor, Search, History } from "lucide-react";
+import { usePathname } from 'next/navigation';
+
+import Logo from "@/components/logo";
+import { Button } from "@/components/ui/button";
+import { useCart } from "@/hooks/use-cart";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { useState } from "react";
+import { Separator } from "./ui/separator";
+import { useSearch } from "@/hooks/use-search";
+import { Input } from "./ui/input";
 
-interface FarmersMapProps {
-    farmers: Farmer[];
-    apiKey: string;
-}
+const Header = () => {
+  const { cartCount } = useCart();
+  const [isSheetOpen, setSheetOpen] = useState(false);
+  const pathname = usePathname();
+  const { searchTerm, setSearchTerm } = useSearch();
 
-const FarmersMap = ({ farmers, apiKey }: FarmersMapProps) => {
-    const [selectedFarmer, setSelectedFarmer] = useState<Farmer | null>(null);
+  const isCatalogPage = pathname === '/catalog';
 
-    const center = { lat: 34.0522, lng: -118.2437 }; // Centered on LA
+  const navLinks = [
+    { href: "/welcome", label: "Início" },
+  ];
 
-    return (
-        <div style={{ height: "70vh", width: "100%" }}>
-            <APIProvider apiKey={apiKey}>
-                <Map
-                    defaultCenter={center}
-                    defaultZoom={9}
-                    mapId="verdant-market-map"
-                    gestureHandling={'greedy'}
-                    disableDefaultUI={true}
-                >
-                    {farmers.map((farmer) => (
-                        <AdvancedMarker
-                            key={farmer.id}
-                            position={farmer.location}
-                            onClick={() => setSelectedFarmer(farmer)}
-                        >
-                             <div className="w-8 h-8 rounded-full bg-primary border-2 border-background shadow-lg flex items-center justify-center cursor-pointer hover:scale-110 transition-transform">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--primary-foreground))" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M11 20A7 7 0 0 1 4 13H2a9 9 0 0 0 18 0h-2a7 7 0 0 1-7 7Z"></path><path d="M12 13V3"></path><path d="M15 6l-3-3-3 3"></path></svg>
-                            </div>
-                        </AdvancedMarker>
-                    ))}
+  const loginLinks = [
+      { href: "/login/customer", label: "Sou Cliente", icon: User},
+      { href: "/login/farmer", label: "Sou Agricultor", icon: Tractor },
+  ]
 
-                    {selectedFarmer && (
-                        <InfoWindow
-                            position={selectedFarmer.location}
-                            onCloseClick={() => setSelectedFarmer(null)}
-                        >
-                            <div className="p-2 max-w-xs">
-                                <h3 className="font-headline text-lg text-primary">{selectedFarmer.name}</h3>
-                                <p className="text-sm text-foreground/80">{selectedFarmer.bio}</p>
-                            </div>
-                        </InfoWindow>
-                    )}
-                </Map>
-            </APIProvider>
+  return (
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="container flex h-16 items-center">
+        <div className="mr-4 hidden md:flex">
+          <Logo size="small" />
         </div>
-    );
-}
+        
+        <div className="md:hidden">
+          <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon">
+                <Menu className="h-8 w-8" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left" className="p-4">
+              <div className="py-6">
+                <Logo />
+              </div>
+              <nav className="flex flex-col gap-2">
+                {navLinks.map((link) => (
+                  <Button asChild key={link.href} variant="ghost" className="w-full justify-start rounded-none text-base" onClick={() => setSheetOpen(false)}>
+                    <Link
+                      href={link.href}
+                    >
+                      {link.label}
+                    </Link>
+                  </Button>
+                ))}
+                 <Button asChild variant="ghost" className="w-full justify-start rounded-none text-base" onClick={() => setSheetOpen(false)}>
+                    <Link href="/history">Histórico de Compras</Link>
+                </Button>
+              </nav>
+              <Separator className="my-4" />
+               <nav className="flex flex-col gap-2">
+                {loginLinks.map((link) => (
+                  <Button asChild key={link.href} variant="outline" className="w-full justify-start rounded-none" onClick={() => setSheetOpen(false)}>
+                    <Link href={link.href} className="text-base">
+                      <link.icon className="h-4 w-4 mr-2"/>
+                      {link.label}
+                    </Link>
+                  </Button>
+                ))}
+              </nav>
+            </SheetContent>
+          </Sheet>
+        </div>
 
-export default FarmersMap;
+        <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
+          <div className="w-full flex-1 md:w-auto md:flex-none">
+            {isCatalogPage && (
+              <div className="relative">
+                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                <Input
+                    type="search"
+                    placeholder="Buscar produtos..."
+                    className="pl-10"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+              </div>
+            )}
+          </div>
+          <nav className="hidden md:flex items-center gap-4">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="font-medium text-foreground/80 hover:text-foreground transition-colors"
+              >
+                {link.label}
+              </Link>
+            ))}
+             <Link href="/history" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Histórico de Compras</Link>
+          </nav>
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" size="icon" asChild className="relative">
+              <Link href="/cart">
+                <ShoppingCart className="h-8 w-8" />
+                {cartCount > 0 && (
+                  <span className="absolute top-2 right-2 flex h-5 w-5 items-center justify-center rounded-full bg-accent text-xs font-bold text-accent-foreground">
+                    {cartCount}
+                  </span>
+                )}
+                <span className="sr-only">Carrinho de Compras</span>
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+};
+
+export default Header;

@@ -28,7 +28,6 @@ const Header = () => {
 
   const navLinks = [
     { href: "/welcome", label: "Início" },
-    { href: "/farmers", label: "Agricultores" },
   ];
 
   const loginLinks = [
