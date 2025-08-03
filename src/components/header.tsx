@@ -46,7 +46,7 @@ const Header = () => {
         <div className="md:hidden">
           <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="h-12 w-12">
+              <Button variant="ghost" size="icon">
                 <Menu className="h-8 w-8" />
               </Button>
             </SheetTrigger>
@@ -107,7 +107,7 @@ const Header = () => {
             ))}
           </nav>
           <div className="flex items-center gap-2">
-            <Button variant="ghost" size="icon" asChild className="h-12 w-12">
+            <Button variant="ghost" size="icon" asChild>
               <Link href="/cart">
                 <ShoppingCart className="h-8 w-8" />
                 {cartCount > 0 && (
