@@ -41,7 +41,7 @@ export default function FarmerLoginPage() {
                 </Button>
                  <div className="text-center text-sm">
                     Ainda não é um parceiro?{" "}
-                    <Link href="#" className="underline">
+                    <Link href="/register/farmer" className="underline">
                         Cadastre-se
                     </Link>
                 </div>
