@@ -38,7 +38,7 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 items-center">
+      <div className="container flex h-16 items-center">
         <div className="mr-4 hidden md:flex">
           <Logo size="small" />
         </div>
@@ -47,7 +47,7 @@ const Header = () => {
           <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon">
-                <Menu className="h-6 w-6" />
+                <Menu className="h-8 w-8" />
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="p-4">
@@ -109,7 +109,7 @@ const Header = () => {
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="icon" asChild>
               <Link href="/cart">
-                <ShoppingCart className="h-6 w-6" />
+                <ShoppingCart className="h-8 w-8" />
                 {cartCount > 0 && (
                   <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-xs font-bold text-accent-foreground">
                     {cartCount}

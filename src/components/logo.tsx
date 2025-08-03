@@ -10,7 +10,7 @@ const Logo = ({ size = 'default' }: LogoProps) => {
   const sizes = {
     large: 192,
     default: 128,
-    small: 40,
+    small: 48,
   }
   const width = sizes[size] || sizes.default;
   const height = sizes[size] || sizes.default;
@@ -26,7 +26,7 @@ const Logo = ({ size = 'default' }: LogoProps) => {
           "rounded-full",
           size === 'large' && 'w-32 h-32 sm:w-48 sm:h-48',
           size === 'default' && 'w-10 h-10',
-          size === 'small' && 'w-8 h-8'
+          size === 'small' && 'w-10 h-10'
         )}
       />
        <span className={cn(
