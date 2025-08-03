@@ -1,9 +1,23 @@
+
 "use client";
 
 import type { Product, CartItem } from "@/lib/types";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, createContext, useContext, ReactNode } from "react";
 
-export function useCart() {
+export interface CartContextType {
+  cartItems: CartItem[];
+  addToCart: (product: Product, quantity?: number) => void;
+  removeFromCart: (productId: string) => void;
+  updateQuantity: (productId: string, newQuantity: number) => void;
+  clearCart: () => void;
+  cartCount: number;
+  cartTotal: number;
+  isCartLoaded: boolean;
+}
+
+export const CartContext = createContext<CartContextType | undefined>(undefined);
+
+export function useCartState() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartLoaded, setIsCartLoaded] = useState(false);
 
@@ -71,7 +85,7 @@ export function useCart() {
     (total, item) => total + item.price * item.quantity,
     0
   );
-
+  
   return {
     cartItems,
     addToCart,
@@ -82,4 +96,12 @@ export function useCart() {
     cartTotal,
     isCartLoaded,
   };
+}
+
+export function useCart() {
+  const context = useContext(CartContext);
+  if (context === undefined) {
+    throw new Error("useCart must be used within a CartProvider");
+  }
+  return context;
 }

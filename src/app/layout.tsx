@@ -3,6 +3,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 import Header from '@/components/header';
 import { SearchProvider } from '@/hooks/use-search';
+import { CartProvider } from '@/components/cart-provider';
 
 export const metadata: Metadata = {
   title: 'Mercado Verdante',
@@ -22,13 +23,15 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Belleza&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
       </head>
       <body className="font-body antialiased min-h-screen flex flex-col">
-        <SearchProvider>
-            <Header />
-            <div className="flex-grow">
-            {children}
-            </div>
-            <Toaster />
-        </SearchProvider>
+        <CartProvider>
+            <SearchProvider>
+                <Header />
+                <div className="flex-grow">
+                {children}
+                </div>
+                <Toaster />
+            </SearchProvider>
+        </CartProvider>
       </body>
     </html>
   );
