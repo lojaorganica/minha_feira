@@ -24,6 +24,17 @@ import { useToast } from "@/hooks/use-toast";
 import BackButton from "@/components/back-button";
 
 function EditProductForm({ product }: { product: Product }) {
+    const [name, setName] = useState(product.name);
+    const [price, setPrice] = useState(product.price);
+    const [unit, setUnit] = useState(product.unit);
+    const [description, setDescription] = useState(product.description);
+
+    const handleSubmit = () => {
+        // Aqui você adicionaria a lógica para salvar as alterações do produto.
+        // Por enquanto, apenas fecha o diálogo.
+        console.log("Saving changes for product:", { ...product, name, price, unit, description });
+    };
+
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -44,25 +55,25 @@ function EditProductForm({ product }: { product: Product }) {
                         <Label htmlFor="name" className="text-right">
                             Nome
                         </Label>
-                        <Input id="name" defaultValue={product.name} className="col-span-3" />
+                        <Input id="name" value={name} onChange={(e) => setName(e.target.value)} className="col-span-3" />
                     </div>
                     <div className="grid grid-cols-4 items-center gap-4">
                         <Label htmlFor="price" className="text-right">
                             Preço
                         </Label>
-                        <Input id="price" type="number" defaultValue={product.price} className="col-span-3" />
+                        <Input id="price" type="number" value={price} onChange={(e) => setPrice(Number(e.target.value))} className="col-span-3" />
                     </div>
                      <div className="grid grid-cols-4 items-center gap-4">
                         <Label htmlFor="unit" className="text-right">
                             Unidade
                         </Label>
-                        <Input id="unit" defaultValue={product.unit} className="col-span-3" />
+                        <Input id="unit" value={unit} onChange={(e) => setUnit(e.target.value)} className="col-span-3" />
                     </div>
                     <div className="grid grid-cols-4 items-center gap-4">
                         <Label htmlFor="description" className="text-right">
                             Descrição
                         </Label>
-                        <Textarea id="description" defaultValue={product.description} className="col-span-3" />
+                        <Textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)} className="col-span-3" />
                     </div>
                      <div className="grid grid-cols-4 items-center gap-4">
                         <Label htmlFor="image" className="text-right">
@@ -72,7 +83,9 @@ function EditProductForm({ product }: { product: Product }) {
                     </div>
                 </div>
                 <DialogFooter>
-                    <Button type="submit">Salvar alterações</Button>
+                    <DialogTrigger asChild>
+                      <Button type="button" onClick={handleSubmit}>Salvar alterações</Button>
+                    </DialogTrigger>
                 </DialogFooter>
             </DialogContent>
         </Dialog>
