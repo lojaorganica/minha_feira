@@ -36,6 +36,14 @@ export default function FarmerRegisterPage() {
                     <Input id="farm-name" placeholder="Ex: Fazenda Vale Verde" required className="bg-background" />
                 </div>
                  <div className="grid gap-2">
+                    <Label htmlFor="address">Endereço</Label>
+                    <Input id="address" placeholder="Seu endereço completo" required className="bg-background" />
+                </div>
+                 <div className="grid gap-2">
+                    <Label htmlFor="phone">Celular</Label>
+                    <Input id="phone" type="tel" placeholder="(XX) XXXXX-XXXX" required className="bg-background" />
+                </div>
+                 <div className="grid gap-2">
                     <Label htmlFor="pix-key">Chave PIX</Label>
                     <Input id="pix-key" placeholder="CPF, CNPJ, e-mail, celular, etc." required className="bg-background" />
                 </div>
