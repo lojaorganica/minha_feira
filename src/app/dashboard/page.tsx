@@ -7,7 +7,7 @@ import type { Order, Product } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
-import { CheckCircle, Edit, PlusCircle, Trash2, XCircle, ShoppingBag, User, DollarSign, Download, Share2, History, Search, Tag, CalendarIcon, LayoutDashboard, Package } from "lucide-react";
+import { CheckCircle, Edit, PlusCircle, Trash2, XCircle, ShoppingBag, User, DollarSign, Download, Share2, History, Search, Tag, CalendarIcon } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
@@ -24,7 +24,7 @@ import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import BackButton from "@/components/back-button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Sidebar, SidebarProvider, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarInset } from "@/components/ui/sidebar";
+
 
 // Componente Isolado para Edição de Produto
 function EditProductForm({ product, onSaveChanges }: { product: Product, onSaveChanges: () => void }) {
@@ -386,7 +386,6 @@ export default function DashboardPage() {
     // Busca de dados centralizada
     const [allProducts, setAllProducts] = useState(() => getProducts());
     const [allOrders, setAllOrders] = useState(() => getOrders());
-    const [activeView, setActiveView] = useState<'dashboard' | 'products' | 'history'>('dashboard');
     const [isHistoryDialogOpen, setHistoryDialogOpen] = useState(false);
 
     const pendingOrders = allOrders.filter(o => o.status === 'Pendente');
@@ -396,67 +395,33 @@ export default function DashboardPage() {
         setAllProducts(getProducts());
     };
     
-    const handleMenuClick = (view: 'dashboard' | 'products' | 'history') => {
-        if (view === 'history') {
-            setHistoryDialogOpen(true);
-        } else {
-            setActiveView(view);
-            setHistoryDialogOpen(false);
-        }
-    };
-    
-    const renderContent = () => {
-        switch (activeView) {
-            case 'products':
-                return <ProductsTabContent allProducts={allProducts} onProductUpdate={handleProductUpdate} />;
-            case 'dashboard':
-            default:
-                return <OrdersTabContent orders={pendingOrders} />;
-        }
-    };
-
     return (
-        <SidebarProvider>
-            <div className="absolute top-4 left-4">
+        <div className="container mx-auto py-10">
+             <div className="absolute top-4 left-4">
                 <BackButton />
             </div>
-            <Sidebar>
-                <SidebarMenu className="h-full">
-                    <SidebarMenuItem>
-                        <SidebarMenuButton 
-                            onClick={() => handleMenuClick('dashboard')}
-                            isActive={activeView === 'dashboard'}
-                            tooltip="Painel Principal"
-                        >
-                            <LayoutDashboard />
-                            <span>Painel</span>
-                        </SidebarMenuButton>
-                    </SidebarMenuItem>
-                     <SidebarMenuItem>
-                        <SidebarMenuButton 
-                            onClick={() => handleMenuClick('products')}
-                            isActive={activeView === 'products'}
-                             tooltip="Meus Produtos"
-                        >
-                            <Package />
-                            <span>Meus Produtos</span>
-                        </SidebarMenuButton>
-                    </SidebarMenuItem>
-                    <SidebarMenuItem>
-                        <SidebarMenuButton onClick={() => handleMenuClick('history')} tooltip="Histórico de Pedidos">
-                            <History />
-                            <span>Histórico de Pedidos</span>
-                        </SidebarMenuButton>
-                    </SidebarMenuItem>
-                </SidebarMenu>
-            </Sidebar>
+            <h1 className="text-3xl font-bold font-headline text-primary mb-6 text-center">Painel do Agricultor</h1>
 
-            <SidebarInset>
-                <div className="container mx-auto py-10">
-                    <h1 className="text-3xl font-bold font-headline text-primary mb-6">Painel do Agricultor</h1>
-                    {renderContent()}
-                </div>
-            </SidebarInset>
+            <Tabs defaultValue="orders" className="w-full">
+                <TabsList className="grid w-full grid-cols-2">
+                    <TabsTrigger value="orders">Pedidos</TabsTrigger>
+                    <TabsTrigger value="products">Meus Produtos</TabsTrigger>
+                </TabsList>
+                <TabsContent value="orders" className="mt-6">
+                    <div className="mb-6 flex justify-end">
+                         <DialogTrigger asChild>
+                            <Button variant="outline" onClick={() => setHistoryDialogOpen(true)}>
+                                <History className="h-4 w-4 mr-2" />
+                                Histórico de Pedidos
+                            </Button>
+                        </DialogTrigger>
+                    </div>
+                    <OrdersTabContent orders={pendingOrders} />
+                </TabsContent>
+                <TabsContent value="products" className="mt-6">
+                    <ProductsTabContent allProducts={allProducts} onProductUpdate={handleProductUpdate} />
+                </TabsContent>
+            </Tabs>
             
             {isHistoryDialogOpen && (
                 <OrderHistoryDialog 
@@ -464,6 +429,6 @@ export default function DashboardPage() {
                     onOpenChange={setHistoryDialogOpen}
                 />
             )}
-        </SidebarProvider>
+        </div>
     );
 }
