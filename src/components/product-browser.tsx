@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -95,7 +96,7 @@ export default function ProductBrowser() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {farmer.products.map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard key={product.id} product={product} farmerName={farmer.name} />
             ))}
           </div>
         </section>

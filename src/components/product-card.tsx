@@ -5,7 +5,7 @@ import Image from "next/image";
 import type { Product } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardTitle, CardDescription } from "@/components/ui/card";
-import { Plus, Minus, ShoppingCart } from "lucide-react";
+import { Plus, Minus, ShoppingCart, Tractor } from "lucide-react";
 import { useCart } from "@/hooks/use-cart";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
@@ -14,9 +14,10 @@ import { cn } from "@/lib/utils";
 
 interface ProductCardProps {
   product: Product;
+  farmerName: string;
 }
 
-const ProductCard = ({ product }: ProductCardProps) => {
+const ProductCard = ({ product, farmerName }: ProductCardProps) => {
   const { addToCart } = useCart();
   const { toast } = useToast();
   const [quantity, setQuantity] = useState(1);
@@ -56,6 +57,10 @@ const ProductCard = ({ product }: ProductCardProps) => {
       <CardContent className="p-4 flex-grow">
         <CardTitle className="text-xl font-headline text-primary">{product.name}</CardTitle>
         <CardDescription className="text-base mt-1 h-12 overflow-hidden font-semibold text-foreground/90">{product.description}</CardDescription>
+        <div className="flex items-center gap-2 mt-2 text-sm text-muted-foreground font-semibold">
+            <Tractor className="h-4 w-4 text-primary" />
+            <span>Fornecedor: {farmerName}</span>
+        </div>
       </CardContent>
       <CardFooter className="p-4 flex flex-col items-start gap-4">
         <div className="text-lg font-bold text-primary w-full flex justify-between items-center">
