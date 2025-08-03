@@ -8,7 +8,7 @@ interface LogoProps {
 
 const Logo = ({ size = 'default' }: LogoProps) => {
   const sizes = {
-    large: 256,
+    large: 192,
     default: 128,
     small: 40,
   }
@@ -16,7 +16,7 @@ const Logo = ({ size = 'default' }: LogoProps) => {
   const height = sizes[size] || sizes.default;
 
   return (
-    <Link href="/" className="flex items-center gap-2" prefetch={false}>
+    <Link href="/welcome" className="flex items-center gap-2" prefetch={false}>
       <Image
         src="https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/oDCkRtc7/5602073687894b2087f96555f9248957"
         alt="Logo do Circuito de Feiras Orgânicas Carioca"
@@ -24,7 +24,7 @@ const Logo = ({ size = 'default' }: LogoProps) => {
         height={height}
         className={cn(
           "rounded-full",
-          size === 'large' && 'w-40 h-40 sm:w-48 sm:h-48',
+          size === 'large' && 'w-32 h-32 sm:w-48 sm:h-48',
           size === 'default' && 'w-10 h-10',
           size === 'small' && 'w-8 h-8'
         )}

@@ -1,9 +1,6 @@
-import ProductBrowser from '@/components/product-browser';
+
+import { redirect } from 'next/navigation';
 
 export default function Home() {
-  return (
-    <main>
-      <ProductBrowser />
-    </main>
-  );
+  redirect('/welcome');
 }

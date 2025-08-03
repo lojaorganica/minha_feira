@@ -18,7 +18,7 @@ const Header = () => {
   const [isSheetOpen, setSheetOpen] = useState(false);
 
   const navLinks = [
-    { href: "/", label: "Início" },
+    { href: "/welcome", label: "Início" },
     { href: "/farmers", label: "Agricultores" },
   ];
 
