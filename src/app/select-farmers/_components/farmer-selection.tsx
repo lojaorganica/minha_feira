@@ -82,8 +82,8 @@ export default function FarmerSelection() {
                 />
                 <label htmlFor={`check-${farmer.id}`} className="font-semibold text-base cursor-pointer">Seguir este agricultor</label>
               </div>
-              <Button asChild variant="outline" size="sm" className="w-full mt-2">
-                 <Link href={`/?farmerId=${farmer.id}`}>Ver Produtos</Link>
+              <Button asChild variant="outline" size="sm" className="w-full mt-2" onClick={(e) => e.stopPropagation()}>
+                 <Link href={`/products?farmerId=${farmer.id}`}>Ver Produtos</Link>
               </Button>
             </CardFooter>
           </Card>
