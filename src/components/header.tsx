@@ -111,7 +111,7 @@ const Header = () => {
               <Link href="/cart">
                 <ShoppingCart className="h-8 w-8" />
                 {cartCount > 0 && (
-                  <span className="absolute top-0 right-0 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-xs font-bold text-accent-foreground">
+                  <span className="absolute top-0 right-0 flex h-5 w-5 items-center justify-center rounded-full bg-accent text-xs font-bold text-accent-foreground">
                     {cartCount}
                   </span>
                 )}
