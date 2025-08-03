@@ -8,8 +8,8 @@ import { Separator } from "@/components/ui/separator";
 import { suggestComplementaryProducts } from "@/ai/flows/suggest-complementary-products";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { Loader2, Sparkles, Trash2 } from "lucide-react";
+import { useEffect, useState, useRef } from "react";
+import { Loader2, Sparkles, Trash2, Upload } from "lucide-react";
 import { getProducts } from "@/lib/data";
 import type { Product } from "@/lib/types";
 import { useToast } from "@/hooks/use-toast";
@@ -83,6 +83,32 @@ function ComplementarySuggestions() {
 
 export default function CartView() {
   const { cartItems, removeFromCart, updateQuantity, cartTotal, isCartLoaded, clearCart } = useCart();
+  const [proof, setProof] = useState<File | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const { toast } = useToast();
+
+  const handleProofUploadClick = () => {
+    fileInputRef.current?.click();
+  }
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file && (file.type === 'image/jpeg' || file.type === 'application/pdf')) {
+      setProof(file);
+      toast({
+        title: "Comprovante anexado",
+        description: `${file.name} foi selecionado.`,
+      });
+      // Aqui você adicionaria a lógica para enviar o pedido como "Concluído"
+    } else {
+      toast({
+        variant: 'destructive',
+        title: "Arquivo inválido",
+        description: "Por favor, selecione um arquivo JPG ou PDF.",
+      });
+    }
+  }
+
 
   if (!isCartLoaded) {
     return (
@@ -184,8 +210,19 @@ export default function CartView() {
                         <span>R${(cartTotal + 5).toFixed(2).replace('.', ',')}</span>
                     </div>
                 </CardContent>
-                <CardFooter>
-                    <Button className="w-full text-lg font-bold" size="lg">Finalizar Compra</Button>
+                <CardFooter className="flex flex-col gap-2">
+                    <input 
+                        type="file" 
+                        ref={fileInputRef} 
+                        className="hidden" 
+                        onChange={handleFileChange}
+                        accept="image/jpeg,application/pdf"
+                    />
+                    <Button className="w-full text-base font-bold" size="lg" onClick={handleProofUploadClick}>
+                        <Upload className="h-4 w-4 mr-2"/>
+                        Pague com PIX e anexe o comprovante
+                    </Button>
+                    {proof && <p className="text-sm text-muted-foreground mt-2">Arquivo: {proof.name}</p>}
                 </CardFooter>
             </Card>
             <ComplementarySuggestions />
