@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState } from 'react';
@@ -74,15 +75,16 @@ export default function FarmerSelection() {
             </CardHeader>
             <Separator />
             <CardFooter className="p-4 bg-muted/50 flex-grow flex-col items-start gap-4">
-               <div className="flex items-center space-x-2 cursor-pointer" onClick={() => handleFarmerToggle(farmer.id)}>
+               <div className="flex items-center space-x-3 cursor-pointer" onClick={() => handleFarmerToggle(farmer.id)}>
                 <Checkbox
                     checked={selectedFarmerIds.has(farmer.id)}
                     aria-label={`Select ${farmer.name}`}
                     id={`check-${farmer.id}`}
+                    className="h-5 w-5"
                 />
-                <label htmlFor={`check-${farmer.id}`} className="font-semibold text-base cursor-pointer">Seguir este agricultor</label>
+                <label htmlFor={`check-${farmer.id}`} className="font-semibold text-lg cursor-pointer">Seguir este agricultor</label>
               </div>
-              <Button asChild variant="outline" size="sm" className="w-full mt-2" onClick={(e) => e.stopPropagation()}>
+              <Button asChild size="default" className="w-full mt-2 text-base font-bold bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground" onClick={(e) => e.stopPropagation()}>
                  <Link href={`/products?farmerId=${farmer.id}`}>Ver Produtos</Link>
               </Button>
             </CardFooter>
