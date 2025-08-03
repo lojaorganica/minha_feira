@@ -395,7 +395,7 @@ export default function DashboardPage() {
     
     return (
         <div className="container mx-auto py-10">
-             <div className="absolute top-4 left-4">
+            <div className="mb-6">
                 <BackButton />
             </div>
             <h1 className="text-3xl font-bold font-headline text-primary mb-6 text-center">Painel do Agricultor</h1>
@@ -431,4 +431,3 @@ export default function DashboardPage() {
         </div>
     );
 }
-
