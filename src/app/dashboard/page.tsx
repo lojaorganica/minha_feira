@@ -184,13 +184,13 @@ function OrdersTabContent() {
                         </CardContent>
                         {order.status === 'Pendente' && (
                              <CardFooter className="flex gap-2">
-                                <Button className="w-full" variant="outline">
-                                    <CheckCircle className="h-4 w-4 mr-2" />
-                                    Aceitar
-                                </Button>
                                 <Button className="w-full" variant="destructive">
                                     <XCircle className="h-4 w-4 mr-2" />
                                     Recusar
+                                </Button>
+                                <Button className="w-full">
+                                    <CheckCircle className="h-4 w-4 mr-2" />
+                                    Aceitar
                                 </Button>
                             </CardFooter>
                         )}
