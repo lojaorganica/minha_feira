@@ -7,7 +7,7 @@ import type { Order, Product } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
-import { Edit, PlusCircle, Trash2, ShoppingBag, User, DollarSign, Download, Share2, History, Search, Tag, CalendarIcon, Truck, Phone, Home } from "lucide-react";
+import { Edit, PlusCircle, Trash2, ShoppingBag, User, DollarSign, Download, Share2, History, Search, Tag, CalendarIcon, Truck, Phone, Home, MapPin } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
@@ -249,9 +249,9 @@ function OrdersTabContent({ orders }: { orders: Order[] }) {
                                     <Truck className="h-5 w-5 text-accent" />
                                     Entrega
                                 </h4>
-                                <div className="text-base font-semibold text-foreground/90 pl-5">
+                                <div className="text-base font-semibold text-foreground/90 pl-1">
                                     {order.deliveryOption === 'pickup' ? (
-                                        <p>Retirar na feira</p>
+                                        <p className="flex items-center gap-2"><MapPin className="h-4 w-4" />Retirar na {order.pickupLocation}</p>
                                     ) : (
                                         <div className="space-y-1">
                                             <p className="font-bold">Delivery</p>

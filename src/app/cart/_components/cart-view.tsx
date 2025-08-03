@@ -11,7 +11,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
 import { useEffect, useState, useMemo, useRef } from "react";
-import { Loader2, Sparkles, Trash2, Upload, MessageSquare, Copy, Send } from "lucide-react";
+import { Loader2, Sparkles, Trash2, Upload, MessageSquare, Copy, Send, MapPin } from "lucide-react";
 import { getProducts, getFarmerById } from "@/lib/data";
 import type { Product, Farmer } from "@/lib/types";
 import { useToast } from "@/hooks/use-toast";
@@ -20,6 +20,8 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useOrderHistory } from "@/hooks/use-order-history";
 import { useUser } from "@/hooks/use-user";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
 
 function ComplementarySuggestions() {
   const { cartItems, addToCart } = useCart();
@@ -97,6 +99,7 @@ export default function CartView() {
   const { toast } = useToast();
   const [message, setMessage] = useState("");
   const [deliveryOption, setDeliveryOption] = useState<'pickup' | 'delivery'>('pickup');
+  const [pickupLocation, setPickupLocation] = useState<string>('');
   const router = useRouter();
   
   const farmer = useMemo(() => {
@@ -106,6 +109,16 @@ export default function CartView() {
     }
     return null;
   }, [cartItems]);
+
+  useEffect(() => {
+    // Reset pickup location if farmer changes or has no fairs
+    if (farmer && farmer.fairs.length > 0) {
+      setPickupLocation(farmer.fairs[0]);
+    } else {
+      setPickupLocation('');
+    }
+  }, [farmer]);
+
 
   const shippingCost = useMemo(() => {
     if (deliveryOption === 'delivery' && farmer?.shippingCost) {
@@ -158,6 +171,15 @@ export default function CartView() {
         fileInputRef.current?.click();
         return;
     }
+    
+    if (deliveryOption === 'pickup' && !pickupLocation) {
+        toast({
+            variant: 'destructive',
+            title: "Local de retirada necessário",
+            description: "Por favor, selecione a feira para retirar o seu pedido.",
+        });
+        return;
+    }
 
     if (!farmer || !farmer.phone) {
         toast({
@@ -178,7 +200,11 @@ export default function CartView() {
     }
 
     const orderItemsText = cartItems.map(item => `- ${item.quantity}x ${item.name} (R$ ${(item.price * item.quantity).toFixed(2).replace('.', ',')})`).join('\n');
-    const deliveryText = deliveryOption === 'delivery' ? `*Opção de Entrega:* Delivery (Frete: R$ ${shippingCost.toFixed(2).replace('.', ',')})` : '*Opção de Entrega:* Retirar na Feira (Frete Grátis)';
+    
+    const deliveryText = deliveryOption === 'delivery' 
+        ? `*Opção de Entrega:* Delivery (Frete: R$ ${shippingCost.toFixed(2).replace('.', ',')})` 
+        : `*Opção de Entrega:* Retirar na Feira (Frete Grátis)\n*Local de Retirada:* Feira da ${pickupLocation}`;
+
     const messageText = message ? `\n*Observação:* ${message}` : '';
 
     const whatsappMessage = encodeURIComponent(
@@ -219,6 +245,9 @@ O comprovante está anexado nesta conversa. Aguardo a confirmação. Obrigado(a)
             address: user.address,
             phone: user.phone,
         }
+      }),
+      ...(deliveryOption === 'pickup' && {
+        pickupLocation: `Feira da ${pickupLocation}`
       })
     };
     addOrder(newOrder);
@@ -325,18 +354,37 @@ O comprovante está anexado nesta conversa. Aguardo a confirmação. Obrigado(a)
 
                     <Separator />
 
-                    <RadioGroup defaultValue="pickup" onValueChange={(value: 'pickup' | 'delivery') => setDeliveryOption(value)} className="text-base">
-                        <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="pickup" id="pickup" />
-                            <Label htmlFor="pickup">Pegar na Feira (Frete Grátis)</Label>
-                        </div>
-                        {farmer?.shippingCost !== undefined && farmer.shippingCost > 0 && (
+                    <div className="space-y-4">
+                        <RadioGroup defaultValue="pickup" onValueChange={(value: 'pickup' | 'delivery') => setDeliveryOption(value)} className="text-base">
                             <div className="flex items-center space-x-2">
-                                <RadioGroupItem value="delivery" id="delivery" />
-                                <Label htmlFor="delivery">Delivery</Label>
+                                <RadioGroupItem value="pickup" id="pickup" />
+                                <Label htmlFor="pickup">Pegar na Feira</Label>
+                            </div>
+                            {farmer?.shippingCost !== undefined && farmer.shippingCost > 0 && (
+                                <div className="flex items-center space-x-2">
+                                    <RadioGroupItem value="delivery" id="delivery" />
+                                    <Label htmlFor="delivery">Delivery</Label>
+                                </div>
+                            )}
+                        </RadioGroup>
+
+                         {deliveryOption === 'pickup' && farmer && farmer.fairs.length > 0 && (
+                            <div className="grid gap-2 text-base font-normal pl-6">
+                                <Label htmlFor="pickup-location" className="font-semibold flex items-center gap-2"><MapPin className="h-4 w-4"/>Onde você irá buscar?</Label>
+                                <Select onValueChange={setPickupLocation} value={pickupLocation}>
+                                    <SelectTrigger id="pickup-location" className="text-base">
+                                        <SelectValue placeholder="Selecione uma feira" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {farmer.fairs.map(fair => (
+                                            <SelectItem key={fair} value={fair} className="text-base">Feira da {fair}</SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
                             </div>
                         )}
-                    </RadioGroup>
+                    </div>
+                    
 
                     <div className="flex justify-between text-foreground/80">
                         <span>Estimativa de frete</span>

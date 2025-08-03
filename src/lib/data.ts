@@ -156,6 +156,7 @@ const farmers: Farmer[] = [
     pixKey: 'fazenda.vale.verde@email.com',
     shippingCost: 15.00,
     phone: '5521987654321',
+    fairs: ['Tijuca', 'Grajaú', 'Laranjeiras'],
   },
   {
     id: '2',
@@ -165,6 +166,7 @@ const farmers: Farmer[] = [
     pixKey: '123.456.789-00',
     shippingCost: 12.50,
     phone: '5521987654322',
+    fairs: ['Flamengo', 'Botafogo', 'Leme'],
   },
   {
     id: '3',
@@ -174,6 +176,7 @@ const farmers: Farmer[] = [
     pixKey: '(21) 99999-8888',
     shippingCost: 10.00,
     phone: '5521987654323',
+    fairs: ['Tijuca', 'Botafogo'],
   },
   {
     id: '4',
@@ -183,6 +186,7 @@ const farmers: Farmer[] = [
     pixKey: 'paorustico@email.com',
     shippingCost: 0, // Não oferece delivery
     phone: '5521987654324',
+    fairs: ['Laranjeiras', 'Grajaú'],
   },
 ];
 
@@ -211,6 +215,7 @@ const orders: Order[] = [
         total: 13.00,
         date: new Date(2024, 6, 19),
         deliveryOption: 'pickup',
+        pickupLocation: 'Feira da Tijuca',
     },
     {
         id: 'ORD-003',
@@ -223,6 +228,7 @@ const orders: Order[] = [
         total: 10.00,
         date: new Date(2024, 6, 20),
         deliveryOption: 'pickup',
+        pickupLocation: 'Feira de Botafogo',
     },
     {
         id: 'ORD-004',

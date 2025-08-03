@@ -26,6 +26,7 @@ export interface Farmer {
   pixKey: string;
   shippingCost?: number;
   phone?: string;
+  fairs: string[];
 }
 
 export interface FarmerWithProducts extends Farmer {
@@ -45,6 +46,7 @@ export interface Order {
   date: Date;
   deliveryOption: 'pickup' | 'delivery';
   customerContact?: { address: string; phone: string };
+  pickupLocation?: string;
 }
 
 export interface CustomerOrder extends Omit<Order, 'status' | 'customerContact'> {

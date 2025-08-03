@@ -2,11 +2,12 @@
 'use client';
 
 import { useOrderHistory } from "@/hooks/use-order-history";
-import { Loader2, ShoppingBag, Calendar, User, Truck } from "lucide-react";
+import { Loader2, ShoppingBag, Calendar, User, Truck, MapPin } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import BackButton from "@/components/back-button";
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import { Separator } from "@/components/ui/separator";
 
 export default function OrderHistoryPage() {
     const { orders, isLoaded } = useOrderHistory();
@@ -53,18 +54,34 @@ export default function OrderHistoryPage() {
                                     </div>
                                 </div>
                             </CardHeader>
-                            <CardContent className="p-6">
-                                <div className="flex items-center gap-3 mb-4">
-                                     <Truck className="h-5 w-5 text-primary" />
-                                     <h4 className="font-semibold text-lg">Vendido por: {order.farmerName}</h4>
+                            <CardContent className="p-6 space-y-4">
+                                <div>
+                                    <div className="flex items-center gap-3 mb-2">
+                                        <h4 className="font-semibold text-lg">Vendido por: {order.farmerName}</h4>
+                                    </div>
+                                    <ul className="space-y-2 pl-2">
+                                        {order.items.map((item, index) => (
+                                            <li key={index} className="flex justify-between items-center text-lg font-semibold text-foreground/90">
+                                                <span>{item.quantity}x {item.productName}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
                                 </div>
-                                <ul className="space-y-2">
-                                    {order.items.map((item, index) => (
-                                        <li key={index} className="flex justify-between items-center text-lg font-semibold text-foreground/90">
-                                            <span>{item.quantity}x {item.productName}</span>
-                                        </li>
-                                    ))}
-                                </ul>
+                                <Separator />
+                                <div>
+                                    {order.deliveryOption === 'pickup' && order.pickupLocation && (
+                                        <div className="flex items-center gap-2 font-semibold text-lg text-foreground/90">
+                                            <MapPin className="h-5 w-5 text-primary" />
+                                            <span>Retirar em: {order.pickupLocation}</span>
+                                        </div>
+                                    )}
+                                     {order.deliveryOption === 'delivery' && (
+                                        <div className="flex items-center gap-2 font-semibold text-lg text-foreground/90">
+                                            <Truck className="h-5 w-5 text-primary" />
+                                            <span>Entrega via Delivery</span>
+                                        </div>
+                                    )}
+                                </div>
                             </CardContent>
                         </Card>
                     ))}
