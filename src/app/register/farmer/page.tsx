@@ -62,8 +62,8 @@ export default function FarmerRegisterPage() {
                     </div>
                 </div>
                  <div className="grid gap-2">
-                    <Label htmlFor="bio">Biografia</Label>
-                    <Textarea id="bio" placeholder="Conte um pouco sobre você e sua produção..." maxLength={300} className="bg-background" />
+                    <Label htmlFor="bio">Fale um tiquinho sobre você, seu trabalho, seu sítio e produção.</Label>
+                    <Textarea id="bio" placeholder="Ex: Minha paixão é o cultivo de orgânicos, minha fazenda fica em..." maxLength={300} className="bg-background" />
                 </div>
             </CardContent>
             <CardFooter className="flex flex-col gap-4">
