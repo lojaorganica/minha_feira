@@ -82,7 +82,6 @@ function EditProductForm({ product }: { product: Product }) {
 }
 
 function ProductsTabContent() {
-    // Simulating logged in farmer with ID '1'
     const farmerId = '1';
     const [products, setProducts] = useState(() => getProducts().filter(p => p.farmerId === farmerId));
     const [isPending, startTransition] = useTransition();
@@ -167,8 +166,7 @@ function ProductsTabContent() {
     )
 }
 
-function OrderHistoryDialog() {
-    const allOrders = getOrders();
+function OrderHistoryDialog({ allOrders }: { allOrders: Order[] }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [date, setDate] = useState<Date | undefined>(undefined);
 
@@ -178,7 +176,7 @@ function OrderHistoryDialog() {
             const matchesDate = !date || format(order.date, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd');
             return matchesSearchTerm && matchesDate;
         });
-    }, [searchTerm, date]);
+    }, [allOrders, searchTerm, date]);
     
     return (
         <Dialog>
@@ -268,9 +266,7 @@ function OrderHistoryDialog() {
     )
 }
 
-function OrdersTabContent() {
-    const orders = getOrders();
-
+function OrdersTabContent({ orders }: { orders: Order[] }) {
     const getStatusVariant = (status: Order['status']) => {
         switch (status) {
             case 'Pendente':
@@ -292,7 +288,7 @@ function OrdersTabContent() {
                         <CardTitle>Pedidos Recebidos</CardTitle>
                         <CardDescription className="font-semibold">Revise e gerencie os pedidos de seus clientes.</CardDescription>
                     </div>
-                    <OrderHistoryDialog />
+                    <OrderHistoryDialog allOrders={orders} />
                 </div>
             </CardHeader>
             <CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -302,7 +298,7 @@ function OrdersTabContent() {
                             <div className="flex justify-between items-start">
                                 <div>
                                     <CardTitle className="font-headline text-2xl text-primary">{order.id}</CardTitle>
-                                    <CardDescription className="flex items-center gap-2 mt-1 text-lg">
+                                    <CardDescription className="flex items-center gap-2 mt-1 text-xl">
                                         <User className="h-4 w-4"/>
                                         {order.customerName}
                                     </CardDescription>
@@ -318,7 +314,7 @@ function OrdersTabContent() {
                                 </h4>
                                 <ul className="space-y-1 list-disc pl-5 text-lg font-semibold text-foreground/90">
                                     {order.items.map((item, index) => (
-                                        <li key={index}>
+                                        <li key={index} className="text-lg">
                                             {item.quantity}x {item.productName}
                                         </li>
                                     ))}
@@ -370,6 +366,8 @@ function OrdersTabContent() {
 
 
 export default function DashboardPage() {
+    const orders = useMemo(() => getOrders(), []);
+
     return (
         <div className="container mx-auto py-10">
             <div className="mb-6">
@@ -383,7 +381,7 @@ export default function DashboardPage() {
                     <TabsTrigger value="products" className="text-lg font-bold">Meus Produtos</TabsTrigger>
                 </TabsList>
                 <TabsContent value="orders">
-                    <OrdersTabContent />
+                    <OrdersTabContent orders={orders} />
                 </TabsContent>
                 <TabsContent value="products">
                     <ProductsTabContent />
