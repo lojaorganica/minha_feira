@@ -202,8 +202,8 @@ export default function DashboardPage() {
 
             <Tabs defaultValue="orders">
                 <TabsList className="grid w-full grid-cols-2 max-w-md mb-6">
-                    <TabsTrigger value="orders">Pedidos</TabsTrigger>
-                    <TabsTrigger value="products">Meus Produtos</TabsTrigger>
+                    <TabsTrigger value="orders" className="text-lg font-bold">Pedidos</TabsTrigger>
+                    <TabsTrigger value="products" className="text-lg font-bold">Meus Produtos</TabsTrigger>
                 </TabsList>
                 <TabsContent value="orders">
                     <OrdersTabContent />
