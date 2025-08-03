@@ -91,9 +91,13 @@ function ComplementarySuggestions() {
 }
 
 function getFairDisplayName(fair: string): string {
-    const exceptions = ['Grajaú', 'Flamengo', 'Leme'];
-    if (exceptions.includes(fair)) {
+    const doExceptions = ['Grajaú', 'Flamengo', 'Leme'];
+    if (doExceptions.includes(fair)) {
         return `Feira do ${fair}`;
+    }
+    const deExceptions = ['Laranjeiras'];
+    if (deExceptions.includes(fair)) {
+        return `Feira de ${fair}`;
     }
     return `Feira da ${fair}`;
 }
@@ -477,3 +481,5 @@ O comprovante está anexado nesta conversa. Aguardo a confirmação. Obrigado(a)
     </div>
   );
 }
+
+    
