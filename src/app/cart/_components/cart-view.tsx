@@ -178,7 +178,7 @@ export default function CartView() {
                                     variant="ghost"
                                     type="button"
                                     onClick={() => removeFromCart(product.id)}
-                                    className="font-semibold text-accent hover:text-accent/80"
+                                    className="font-semibold text-destructive hover:text-destructive-foreground"
                                 >
                                     <Trash2 className="h-4 w-4 mr-1"/>
                                     Remover
@@ -260,5 +260,3 @@ export default function CartView() {
     </div>
   );
 }
-
-    
