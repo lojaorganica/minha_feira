@@ -154,6 +154,7 @@ const farmers: Farmer[] = [
     location: { lat: 34.0522, lng: -118.2437 }, // Los Angeles
     bio: 'Uma fazenda familiar dedicada à agricultura orgânica e sustentável há mais de 30 anos.',
     pixKey: 'fazenda.vale.verde@email.com',
+    shippingCost: 15.00,
   },
   {
     id: '2',
@@ -161,6 +162,7 @@ const farmers: Farmer[] = [
     location: { lat: 34.1522, lng: -118.4437 }, // Near LA
     bio: 'Somos especializados no cultivo das frutas orgânicas mais doces e suculentas com amor e carinho.',
     pixKey: '123.456.789-00',
+    shippingCost: 12.50,
   },
   {
     id: '3',
@@ -168,6 +170,7 @@ const farmers: Farmer[] = [
     location: { lat: 33.9522, lng: -118.1437 }, // Near LA
     bio: 'Vacas felizes fazem o melhor leite. Nossos produtos lácteos são todos naturais e de vacas alimentadas com pasto.',
     pixKey: '(21) 99999-8888',
+    shippingCost: 10.00,
   },
   {
     id: '4',
@@ -175,6 +178,7 @@ const farmers: Farmer[] = [
     location: { lat: 34.0522, lng: -118.3437 }, // Near LA
     bio: 'Pães artesanais assados em forno a lenha tradicional com farinha orgânica de origem local.',
     pixKey: 'paorustico@email.com',
+    shippingCost: 0, // Não oferece delivery
   },
 ];
 

@@ -16,6 +16,7 @@ import type { Product, Farmer } from "@/lib/types";
 import { useToast } from "@/hooks/use-toast";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 function ComplementarySuggestions() {
   const { cartItems, addToCart } = useCart();
@@ -90,6 +91,7 @@ export default function CartView() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
   const [message, setMessage] = useState("");
+  const [deliveryOption, setDeliveryOption] = useState<'pickup' | 'delivery'>('pickup');
   
   const farmer = useMemo(() => {
     if (cartItems.length > 0) {
@@ -98,6 +100,16 @@ export default function CartView() {
     }
     return null;
   }, [cartItems]);
+
+  const shippingCost = useMemo(() => {
+    if (deliveryOption === 'delivery' && farmer?.shippingCost) {
+        return farmer.shippingCost;
+    }
+    return 0;
+  }, [deliveryOption, farmer]);
+
+  const finalTotal = cartTotal + shippingCost;
+
 
   const handleProofUploadClick = () => {
     fileInputRef.current?.click();
@@ -196,7 +208,7 @@ export default function CartView() {
                                     variant="ghost"
                                     type="button"
                                     onClick={() => removeFromCart(product.id)}
-                                    className="font-semibold text-destructive hover:text-destructive"
+                                    className="font-semibold text-destructive hover:text-destructive-foreground"
                                 >
                                     <Trash2 className="h-4 w-4 mr-1"/>
                                     Remover
@@ -222,14 +234,33 @@ export default function CartView() {
                         <span>Subtotal</span>
                         <span>R${cartTotal.toFixed(2).replace('.', ',')}</span>
                     </div>
+
+                    <Separator />
+
+                    <RadioGroup defaultValue="pickup" onValueChange={(value: 'pickup' | 'delivery') => setDeliveryOption(value)} className="text-base">
+                        <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="pickup" id="pickup" />
+                            <Label htmlFor="pickup">Pegar na Feira (Frete Grátis)</Label>
+                        </div>
+                        {farmer?.shippingCost !== undefined && farmer.shippingCost > 0 && (
+                            <div className="flex items-center space-x-2">
+                                <RadioGroupItem value="delivery" id="delivery" />
+                                <Label htmlFor="delivery">Delivery</Label>
+                            </div>
+                        )}
+                    </RadioGroup>
+
                     <div className="flex justify-between text-foreground/80">
                         <span>Estimativa de frete</span>
-                        <span>R$5,00</span>
+                        <span className={deliveryOption === 'pickup' ? 'text-muted-foreground' : ''}>
+                           R${shippingCost.toFixed(2).replace('.', ',')}
+                        </span>
                     </div>
+
                     <Separator />
                     <div className="flex justify-between font-bold text-xl">
                         <span>Total do pedido</span>
-                        <span>R${(cartTotal + 5).toFixed(2).replace('.', ',')}</span>
+                        <span>R${finalTotal.toFixed(2).replace('.', ',')}</span>
                     </div>
                      {farmer?.pixKey && (
                         <>

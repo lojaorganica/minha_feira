@@ -23,6 +23,7 @@ export interface Farmer {
   };
   bio: string;
   pixKey: string;
+  shippingCost?: number;
 }
 
 export interface FarmerWithProducts extends Farmer {

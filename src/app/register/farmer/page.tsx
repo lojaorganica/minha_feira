@@ -47,6 +47,11 @@ export default function FarmerRegisterPage() {
                     <Label htmlFor="pix-key">Chave PIX</Label>
                     <Input id="pix-key" placeholder="CPF, CNPJ, e-mail, celular, etc." required className="bg-background" />
                 </div>
+                 <div className="grid gap-2">
+                    <Label htmlFor="shipping-cost">Custo de Frete (Delivery)</Label>
+                    <Input id="shipping-cost" type="number" placeholder="15.00" required className="bg-background" />
+                     <p className="text-sm text-muted-foreground">Defina aqui seu custo de frete para Delivery no Rio de Janeiro. Deixe 0 se não oferecer.</p>
+                </div>
                 <div className="grid gap-2">
                     <Label htmlFor="email">E-mail</Label>
                     <Input id="email" type="email" placeholder="seu@email.com" required className="bg-background" />
