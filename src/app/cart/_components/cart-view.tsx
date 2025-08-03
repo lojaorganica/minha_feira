@@ -90,6 +90,14 @@ function ComplementarySuggestions() {
   );
 }
 
+function getFairDisplayName(fair: string): string {
+    const exceptions = ['Grajaú', 'Flamengo', 'Leme'];
+    if (exceptions.includes(fair)) {
+        return `Feira do ${fair}`;
+    }
+    return `Feira da ${fair}`;
+}
+
 export default function CartView() {
   const { cartItems, removeFromCart, updateQuantity, cartTotal, isCartLoaded, clearCart } = useCart();
   const { addOrder } = useOrderHistory();
@@ -203,7 +211,7 @@ export default function CartView() {
     
     const deliveryText = deliveryOption === 'delivery' 
         ? `*Opção de Entrega:* Delivery (Frete: R$ ${shippingCost.toFixed(2).replace('.', ',')})` 
-        : `*Opção de Entrega:* Retirar na Feira (Frete Grátis)\n*Local de Retirada:* Feira da ${pickupLocation}`;
+        : `*Opção de Entrega:* Retirar na Feira (Frete Grátis)\n*Local de Retirada:* ${getFairDisplayName(pickupLocation)}`;
 
     const messageText = message ? `\n*Observação:* ${message}` : '';
 
@@ -247,7 +255,7 @@ O comprovante está anexado nesta conversa. Aguardo a confirmação. Obrigado(a)
         }
       }),
       ...(deliveryOption === 'pickup' && {
-        pickupLocation: `Feira da ${pickupLocation}`
+        pickupLocation: getFairDisplayName(pickupLocation),
       })
     };
     addOrder(newOrder);
@@ -377,7 +385,7 @@ O comprovante está anexado nesta conversa. Aguardo a confirmação. Obrigado(a)
                                     </SelectTrigger>
                                     <SelectContent>
                                         {farmer.fairs.map(fair => (
-                                            <SelectItem key={fair} value={fair} className="text-base">Feira da {fair}</SelectItem>
+                                            <SelectItem key={fair} value={fair} className="text-base">{getFairDisplayName(fair)}</SelectItem>
                                         ))}
                                     </SelectContent>
                                 </Select>
@@ -469,5 +477,3 @@ O comprovante está anexado nesta conversa. Aguardo a confirmação. Obrigado(a)
     </div>
   );
 }
-
-    
