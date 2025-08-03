@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { getOrders, getProducts, toggleProductPromotion } from "@/lib/data";
@@ -23,19 +24,23 @@ import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import BackButton from "@/components/back-button";
 
-
-function EditProductForm({ product }: { product: Product }) {
+// Componente Isolado para Edição de Produto
+function EditProductForm({ product, onSaveChanges }: { product: Product, onSaveChanges: () => void }) {
     const [name, setName] = useState(product.name);
     const [price, setPrice] = useState(product.price);
     const [unit, setUnit] = useState(product.unit);
     const [description, setDescription] = useState(product.description);
+    const [isOpen, setIsOpen] = useState(false);
 
     const handleSubmit = () => {
+        // Lógica para salvar as alterações (a ser implementada)
         console.log("Saving changes for product:", { ...product, name, price, unit, description });
+        onSaveChanges(); // Fechar o diálogo e/ou atualizar a lista
+        setIsOpen(false);
     };
 
     return (
-        <Dialog>
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
                 <Button className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
                     <Edit className="h-4 w-4 mr-2" />
@@ -82,25 +87,24 @@ function EditProductForm({ product }: { product: Product }) {
                     </div>
                 </div>
                 <DialogFooter>
-                    <DialogTrigger asChild>
                       <Button type="button" onClick={handleSubmit}>Salvar alterações</Button>
-                    </DialogTrigger>
                 </DialogFooter>
             </DialogContent>
         </Dialog>
     );
 }
 
-function ProductsTabContent() {
+// Componente Isolado para a Aba de Produtos
+function ProductsTabContent({ allProducts, onProductUpdate }: { allProducts: Product[], onProductUpdate: () => void }) {
     const farmerId = '1';
-    const [products, setProducts] = useState(() => getProducts().filter(p => p.farmerId === farmerId));
+    const products = allProducts.filter(p => p.farmerId === farmerId);
     const [isPending, startTransition] = useTransition();
     const { toast } = useToast();
 
     const handlePromotionToggle = (productId: string, checked: boolean) => {
         startTransition(() => {
             toggleProductPromotion(productId, checked);
-            setProducts(getProducts().filter(p => p.farmerId === farmerId));
+            onProductUpdate();
              toast({
                 title: checked ? "Produto promovido!" : "Promoção removida",
                 description: checked ? "Seu produto agora está na seção de promoções por 7 dias." : "Seu produto não está mais em promoção.",
@@ -165,7 +169,7 @@ function ProductsTabContent() {
                                         <Trash2 className="h-4 w-4 mr-2" />
                                         Excluir
                                     </Button>
-                                    <EditProductForm product={product} />
+                                    <EditProductForm product={product} onSaveChanges={onProductUpdate} />
                                 </div>
                             </CardFooter>
                         </Card>
@@ -176,17 +180,18 @@ function ProductsTabContent() {
     );
 }
 
+// Componente Isolado para a Aba de Pedidos
 function OrdersTabContent({ orders }: { orders: Order[] }) {
-    const getStatusVariant = (status: Order['status']) => {
+    const getStatusClass = (status: Order['status']) => {
         switch (status) {
             case 'Pendente':
-                return 'secondary';
+                return 'bg-red-500 text-white';
             case 'Confirmado':
-                return 'default';
+                return 'bg-blue-600 text-white';
             case 'Rejeitado':
-                return 'destructive';
+                return 'bg-destructive text-destructive-foreground';
             default:
-                return 'outline';
+                return 'bg-secondary text-secondary-foreground';
         }
     };
 
@@ -212,7 +217,7 @@ function OrdersTabContent({ orders }: { orders: Order[] }) {
                                         {order.customerName}
                                     </CardDescription>
                                 </div>
-                                <Badge variant={getStatusVariant(order.status)} className="text-sm">{order.status}</Badge>
+                                <Badge className={`text-sm ${getStatusClass(order.status)}`}>{order.status}</Badge>
                             </div>
                         </CardHeader>
                         <CardContent className="flex-grow space-y-4">
@@ -273,6 +278,7 @@ function OrdersTabContent({ orders }: { orders: Order[] }) {
     );
 }
 
+// Componente Isolado para o Histórico de Pedidos
 function OrderHistoryDialog({ allOrders }: { allOrders: Order[] }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [date, setDate] = useState<Date | undefined>(undefined);
@@ -373,9 +379,18 @@ function OrderHistoryDialog({ allOrders }: { allOrders: Order[] }) {
     );
 }
 
+// Componente Principal da Página
 export default function DashboardPage() {
-    const orders = getOrders();
-    const pendingOrders = orders.filter(o => o.status === 'Pendente');
+    // Busca de dados centralizada
+    const [allProducts, setAllProducts] = useState(() => getProducts());
+    const [allOrders, setAllOrders] = useState(() => getOrders());
+
+    const pendingOrders = allOrders.filter(o => o.status === 'Pendente');
+
+    // Função para forçar a re-busca de produtos
+    const handleProductUpdate = () => {
+        setAllProducts(getProducts());
+    };
 
     return (
         <div className="container mx-auto py-10">
@@ -383,7 +398,7 @@ export default function DashboardPage() {
                 <BackButton />
                 <div className="flex items-center gap-4">
                     <h1 className="text-3xl font-bold font-headline text-primary">Painel do Agricultor</h1>
-                    <OrderHistoryDialog allOrders={orders} />
+                    <OrderHistoryDialog allOrders={allOrders} />
                 </div>
             </div>
 
@@ -396,7 +411,7 @@ export default function DashboardPage() {
                     <OrdersTabContent orders={pendingOrders} />
                 </TabsContent>
                 <TabsContent value="products">
-                    <ProductsTabContent />
+                    <ProductsTabContent allProducts={allProducts} onProductUpdate={handleProductUpdate} />
                 </TabsContent>
             </Tabs>
         </div>
