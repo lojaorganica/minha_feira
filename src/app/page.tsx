@@ -1,5 +1,7 @@
 import ProductBrowser from '@/components/product-browser';
 import Logo from '@/components/logo';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -18,6 +20,14 @@ export default function Home() {
                 <p className="max-w-[600px] text-foreground/80 text-base md:text-xl mx-auto lg:mx-0 font-semibold">
                   Produtos frescos e orgânicos, entregues de fazendas locais diretamente para sua mesa. Experimente o sabor da natureza.
                 </p>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
+                  <Button asChild size="lg">
+                      <Link href="/login/customer">Sou Cliente</Link>
+                  </Button>
+                  <Button asChild size="lg" variant="outline">
+                      <Link href="/login/farmer">Sou Agricultor</Link>
+                  </Button>
               </div>
             </div>
           </div>

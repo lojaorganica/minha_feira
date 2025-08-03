@@ -74,15 +74,6 @@ const Header = () => {
             ))}
           </nav>
           <div className="flex items-center gap-2">
-            <div className="flex items-center gap-2">
-              <Button variant="outline" size="sm" asChild>
-                <Link href="/login/customer">Sou Cliente</Link>
-              </Button>
-              <Button variant="default" size="sm" asChild>
-                <Link href="/login/farmer">Sou Agricultor</Link>
-              </Button>
-            </div>
-             <Separator orientation="vertical" className="h-6 mx-2 hidden sm:block" />
             <Button variant="ghost" size="icon" asChild>
               <Link href="/cart">
                 <ShoppingCart className="h-5 w-5" />
