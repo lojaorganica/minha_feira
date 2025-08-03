@@ -234,13 +234,13 @@ export default function CartView() {
                      {farmer?.pixKey && (
                         <>
                             <Separator />
-                            <div className="flex justify-between font-bold text-xl items-center">
-                                <span className="text-lg">Chave PIX</span>
-                                <div className="flex items-center gap-2">
-                                <span className="text-base font-mono bg-muted px-2 py-1 rounded-md">{farmer.pixKey}</span>
-                                <Button size="icon" variant="ghost" onClick={handleCopyPixKey}>
-                                    <Copy className="h-5 w-5" />
-                                </Button>
+                            <div className="flex flex-col gap-2 pt-2">
+                                <p className="font-bold text-xl">Chave PIX</p>
+                                <div className="flex items-center justify-between gap-2 rounded-md bg-muted px-3 py-2">
+                                    <span className="font-mono text-base font-semibold text-foreground/80 break-all">{farmer.pixKey}</span>
+                                    <Button size="icon" variant="ghost" onClick={handleCopyPixKey}>
+                                        <Copy className="h-5 w-5" />
+                                    </Button>
                                 </div>
                             </div>
                         </>
