@@ -1,8 +1,9 @@
 
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
+import Autoplay from "embla-carousel-autoplay"
 import { getPromotionalProducts } from '@/lib/data';
 import type { Product } from '@/lib/types';
 import { Card, CardContent, CardFooter, CardTitle, CardDescription } from '@/components/ui/card';
@@ -13,6 +14,9 @@ import Link from 'next/link';
 
 export default function PromotionsCarousel() {
     const [promotions, setPromotions] = useState<(Product & { farmerName: string })[]>([]);
+    const plugin = useRef(
+      Autoplay({ delay: 5000, stopOnInteraction: true })
+    )
 
     useEffect(() => {
         setPromotions(getPromotionalProducts());
@@ -29,11 +33,14 @@ export default function PromotionsCarousel() {
                     Promoções da Semana
                 </h2>
                 <Carousel
+                    plugins={[plugin.current]}
                     opts={{
                         align: "start",
                         loop: true,
                     }}
                     className="w-full max-w-xs sm:max-w-xl md:max-w-3xl lg:max-w-5xl mx-auto"
+                    onMouseEnter={plugin.current.stop}
+                    onMouseLeave={plugin.current.reset}
                 >
                     <CarouselContent>
                         {promotions.map((product) => (
