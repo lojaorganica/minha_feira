@@ -287,7 +287,7 @@ function OrdersTabContent({ orders }: { orders: Order[] }) {
 }
 
 // Componente Isolado para o Histórico de Pedidos
-function OrderHistoryDialog({ allOrders, onOpenChange }: { allOrders: Order[], onOpenChange: (open: boolean) => void }) {
+function OrderHistoryDialog({ allOrders, open, onOpenChange }: { allOrders: Order[], open: boolean, onOpenChange: (open: boolean) => void }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [date, setDate] = useState<Date | undefined>(undefined);
 
@@ -300,84 +300,82 @@ function OrderHistoryDialog({ allOrders, onOpenChange }: { allOrders: Order[], o
     }, [searchTerm, date, allOrders]);
     
     return (
-        <Dialog onOpenChange={onOpenChange}>
-            <DialogContent className="sm:max-w-4xl max-h-[90vh] flex flex-col">
-                <DialogHeader>
-                    <DialogTitle>Histórico de Pedidos</DialogTitle>
-                    <DialogDescription>
-                        Pesquise e visualize todos os pedidos anteriores.
-                    </DialogDescription>
-                </DialogHeader>
-                <div className="flex flex-col sm:flex-row gap-4 p-4 border-b">
-                    <div className="relative flex-1">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                        <Input 
-                            placeholder="Pesquisar por cliente ou ID..." 
-                            className="pl-10"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
+        <DialogContent className="sm:max-w-4xl max-h-[90vh] flex flex-col">
+            <DialogHeader>
+                <DialogTitle>Histórico de Pedidos</DialogTitle>
+                <DialogDescription>
+                    Pesquise e visualize todos os pedidos anteriores.
+                </DialogDescription>
+            </DialogHeader>
+            <div className="flex flex-col sm:flex-row gap-4 p-4 border-b">
+                <div className="relative flex-1">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                    <Input 
+                        placeholder="Pesquisar por cliente ou ID..." 
+                        className="pl-10"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                </div>
+                <Popover>
+                    <PopoverTrigger asChild>
+                    <Button
+                        variant={"outline"}
+                        className="w-full sm:w-[280px] justify-start text-left font-normal"
+                    >
+                        <CalendarIcon className="mr-2 h-4 w-4" />
+                        {date ? format(date, "PPP", { locale: ptBR }) : <span>Escolha uma data</span>}
+                    </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0">
+                        <Calendar
+                            mode="single"
+                            selected={date}
+                            onSelect={setDate}
+                            initialFocus
+                            locale={ptBR}
                         />
-                    </div>
-                    <Popover>
-                        <PopoverTrigger asChild>
-                        <Button
-                            variant={"outline"}
-                            className="w-full sm:w-[280px] justify-start text-left font-normal"
-                        >
-                            <CalendarIcon className="mr-2 h-4 w-4" />
-                            {date ? format(date, "PPP", { locale: ptBR }) : <span>Escolha uma data</span>}
-                        </Button>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0">
-                            <Calendar
-                                mode="single"
-                                selected={date}
-                                onSelect={setDate}
-                                initialFocus
-                                locale={ptBR}
-                            />
-                        </PopoverContent>
-                    </Popover>
-                    {date && <Button variant="ghost" onClick={() => setDate(undefined)}>Limpar</Button>}
-                </div>
-                 <div className="flex-grow overflow-y-auto p-4 space-y-4">
-                   {filteredOrders.length > 0 ? (
-                        filteredOrders.map(order => (
-                            <Card key={order.id}>
-                                <CardHeader>
-                                    <div className="flex justify-between items-start">
-                                        <div>
-                                            <CardTitle className="font-headline text-xl text-primary">{order.id}</CardTitle>
-                                            <CardDescription className="flex items-center gap-2 mt-1 text-base">
-                                                <User className="h-4 w-4"/>
-                                                {order.customerName}
-                                            </CardDescription>
-                                        </div>
-                                        <Badge className="text-sm">{order.status}</Badge>
+                    </PopoverContent>
+                </Popover>
+                {date && <Button variant="ghost" onClick={() => setDate(undefined)}>Limpar</Button>}
+            </div>
+             <div className="flex-grow overflow-y-auto p-4 space-y-4">
+               {filteredOrders.length > 0 ? (
+                    filteredOrders.map(order => (
+                        <Card key={order.id}>
+                            <CardHeader>
+                                <div className="flex justify-between items-start">
+                                    <div>
+                                        <CardTitle className="font-headline text-xl text-primary">{order.id}</CardTitle>
+                                        <CardDescription className="flex items-center gap-2 mt-1 text-base">
+                                            <User className="h-4 w-4"/>
+                                            {order.customerName}
+                                        </CardDescription>
                                     </div>
-                                </CardHeader>
-                                <CardContent>
-                                    <div className="flex justify-between items-center text-lg font-bold">
-                                       <span className="flex items-center gap-2">
-                                         <DollarSign className="h-5 w-5 text-primary"/>
-                                         Total do Pedido
-                                       </span>
-                                        <span>R${order.total.toFixed(2).replace('.', ',')}</span>
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        ))
-                   ) : (
-                    <p className="text-center text-muted-foreground py-8">Nenhum pedido encontrado.</p>
-                   )}
-                </div>
-                <DialogFooter>
-                    <DialogTrigger asChild>
-                        <Button variant="outline">Fechar</Button>
-                    </DialogTrigger>
-                </DialogFooter>
-            </DialogContent>
-        </Dialog>
+                                    <Badge className="text-sm">{order.status}</Badge>
+                                </div>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="flex justify-between items-center text-lg font-bold">
+                                   <span className="flex items-center gap-2">
+                                     <DollarSign className="h-5 w-5 text-primary"/>
+                                     Total do Pedido
+                                   </span>
+                                    <span>R${order.total.toFixed(2).replace('.', ',')}</span>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    ))
+               ) : (
+                <p className="text-center text-muted-foreground py-8">Nenhum pedido encontrado.</p>
+               )}
+            </div>
+            <DialogFooter>
+                <DialogTrigger asChild>
+                    <Button variant="outline">Fechar</Button>
+                </DialogTrigger>
+            </DialogFooter>
+        </DialogContent>
     );
 }
 
@@ -402,33 +400,35 @@ export default function DashboardPage() {
             </div>
             <h1 className="text-3xl font-bold font-headline text-primary mb-6 text-center">Painel do Agricultor</h1>
 
-            <Tabs defaultValue="orders" className="w-full">
-                <TabsList className="grid w-full grid-cols-2">
-                    <TabsTrigger value="orders">Pedidos</TabsTrigger>
-                    <TabsTrigger value="products">Meus Produtos</TabsTrigger>
-                </TabsList>
-                <TabsContent value="orders" className="mt-6">
-                    <div className="mb-6 flex justify-end">
-                         <DialogTrigger asChild>
-                            <Button variant="outline" onClick={() => setHistoryDialogOpen(true)}>
-                                <History className="h-4 w-4 mr-2" />
-                                Histórico de Pedidos
-                            </Button>
-                        </DialogTrigger>
-                    </div>
-                    <OrdersTabContent orders={pendingOrders} />
-                </TabsContent>
-                <TabsContent value="products" className="mt-6">
-                    <ProductsTabContent allProducts={allProducts} onProductUpdate={handleProductUpdate} />
-                </TabsContent>
-            </Tabs>
-            
-            {isHistoryDialogOpen && (
+            <Dialog open={isHistoryDialogOpen} onOpenChange={setHistoryDialogOpen}>
+                <Tabs defaultValue="orders" className="w-full">
+                    <TabsList className="grid w-full grid-cols-2">
+                        <TabsTrigger value="orders">Pedidos</TabsTrigger>
+                        <TabsTrigger value="products">Meus Produtos</TabsTrigger>
+                    </TabsList>
+                    <TabsContent value="orders" className="mt-6">
+                        <div className="mb-6 flex justify-end">
+                            <DialogTrigger asChild>
+                                <Button variant="outline">
+                                    <History className="h-4 w-4 mr-2" />
+                                    Histórico de Pedidos
+                                </Button>
+                            </DialogTrigger>
+                        </div>
+                        <OrdersTabContent orders={pendingOrders} />
+                    </TabsContent>
+                    <TabsContent value="products" className="mt-6">
+                        <ProductsTabContent allProducts={allProducts} onProductUpdate={handleProductUpdate} />
+                    </TabsContent>
+                </Tabs>
+                
                 <OrderHistoryDialog 
                     allOrders={allOrders} 
+                    open={isHistoryDialogOpen}
                     onOpenChange={setHistoryDialogOpen}
                 />
-            )}
+            </Dialog>
         </div>
     );
 }
+
