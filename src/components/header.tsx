@@ -26,7 +26,7 @@ const Header = () => {
 
   const isCatalogPage = pathname === '/catalog';
   const isCustomerSession = ['/catalog', '/cart', '/select-farmers', '/products', '/history'].includes(pathname);
-  const isFarmerSession = pathname === '/dashboard';
+  const isFarmerSession = pathname.startsWith('/dashboard');
 
 
   const navLinks = [
@@ -43,8 +43,8 @@ const Header = () => {
   ]
 
   const farmerMenuLinks = [
-    { href: "/dashboard", label: "Pedidos", icon: ShoppingBasket },
-    { href: "/dashboard", label: "Produtos", icon: Package },
+    { href: "/dashboard?tab=orders", label: "Pedidos", icon: ShoppingBasket },
+    { href: "/dashboard?tab=products", label: "Meus produtos", icon: Package },
   ]
 
   return (
@@ -75,9 +75,6 @@ const Header = () => {
                     </Link>
                   </Button>
                 ))}
-                 <Button asChild variant="ghost" className="w-full justify-start rounded-none text-base" onClick={() => setSheetOpen(false)}>
-                    <Link href="/history">Histórico de Compras</Link>
-                </Button>
               </nav>
               <Separator className="my-4" />
               {(!isCustomerSession && !isFarmerSession) && (
@@ -165,7 +162,6 @@ const Header = () => {
                 {link.label}
               </Link>
             ))}
-             <Link href="/history" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Histórico de Compras</Link>
           </nav>
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="icon" asChild className="relative">

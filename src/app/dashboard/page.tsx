@@ -2,6 +2,8 @@
 
 'use client';
 
+import { Suspense, useState, useMemo, useTransition } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { getOrders, getProducts, toggleProductPromotion } from "@/lib/data";
 import type { Order, Product } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
@@ -15,7 +17,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
-import { useState, useMemo, useTransition } from 'react';
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
@@ -24,6 +25,7 @@ import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import BackButton from "@/components/back-button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Loader2 } from 'lucide-react';
 
 
 // Componente Isolado para Edição de Produto
@@ -391,16 +393,17 @@ function OrderHistoryDialog({ allOrders, open, onOpenChange }: { allOrders: Orde
     );
 }
 
-// Componente Principal da Página
-export default function DashboardPage() {
-    // Busca de dados centralizada
+// Componente de Conteúdo do Painel
+function DashboardContent() {
+    const searchParams = useSearchParams();
+    const tab = searchParams.get('tab') || 'orders';
+
     const [allProducts, setAllProducts] = useState(() => getProducts());
     const [allOrders, setAllOrders] = useState(() => getOrders());
     const [isHistoryDialogOpen, setHistoryDialogOpen] = useState(false);
 
     const pendingOrders = allOrders.filter(o => o.status === 'Pendente');
 
-    // Função para forçar a re-busca de produtos
     const handleProductUpdate = () => {
         setAllProducts(getProducts());
     };
@@ -413,7 +416,7 @@ export default function DashboardPage() {
             <h1 className="text-3xl font-bold font-headline text-primary mb-6 text-center">Painel do Agricultor</h1>
 
             <Dialog open={isHistoryDialogOpen} onOpenChange={setHistoryDialogOpen}>
-                <Tabs defaultValue="orders" className="w-full">
+                <Tabs defaultValue={tab} className="w-full">
                     <TabsList className="grid w-full grid-cols-2">
                         <TabsTrigger value="orders">Pedidos</TabsTrigger>
                         <TabsTrigger value="products">Meus Produtos</TabsTrigger>
@@ -441,5 +444,18 @@ export default function DashboardPage() {
                 />
             </Dialog>
         </div>
+    );
+}
+
+// Componente Principal da Página
+export default function DashboardPage() {
+    return (
+        <Suspense fallback={
+            <div className="flex justify-center items-center p-12">
+                <Loader2 className="h-12 w-12 animate-spin text-primary" />
+            </div>
+        }>
+            <DashboardContent />
+        </Suspense>
     );
 }
