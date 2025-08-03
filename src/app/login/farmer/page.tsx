@@ -10,10 +10,14 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Link from "next/link"
+import BackButton from "@/components/back-button"
 
 export default function FarmerLoginPage() {
   return (
-    <div className="flex items-center justify-center min-h-[calc(100vh-10rem)] bg-primary/10">
+    <div className="relative flex items-center justify-center min-h-[calc(100vh-10rem)] bg-primary/10 py-12">
+        <div className="absolute top-6 left-6">
+            <BackButton />
+        </div>
         <Card className="w-full max-w-sm">
             <CardHeader>
                 <CardTitle className="text-2xl font-headline">Login do Agricultor</CardTitle>
