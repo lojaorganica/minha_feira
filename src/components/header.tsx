@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart, Menu, User, Tractor, Search } from "lucide-react";
+import { ShoppingCart, Menu, User, Tractor, Search, History } from "lucide-react";
 import { usePathname } from 'next/navigation';
 
 import Logo from "@/components/logo";
@@ -29,6 +29,7 @@ const Header = () => {
   const navLinks = [
     { href: "/welcome", label: "Início" },
     { href: "/farmers", label: "Agricultores" },
+    { href: "/history", label: "Histórico" },
   ];
 
   const loginLinks = [
@@ -126,3 +127,5 @@ const Header = () => {
 };
 
 export default Header;
+
+    

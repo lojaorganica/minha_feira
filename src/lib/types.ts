@@ -1,3 +1,4 @@
+
 export interface Product {
   id: string;
   name: string;
@@ -43,6 +44,12 @@ export interface Order {
   total: number;
   date: Date;
 }
+
+export interface CustomerOrder extends Omit<Order, 'status'> {
+    status: 'Pendente'; // O status do cliente é sempre pendente até o agricultor confirmar
+    farmerName: string;
+}
+
 
 export interface Customer {
   id: string;

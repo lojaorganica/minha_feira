@@ -18,6 +18,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { useOrderHistory } from "@/hooks/use-order-history";
 
 function ComplementarySuggestions() {
   const { cartItems, addToCart } = useCart();
@@ -88,6 +89,7 @@ function ComplementarySuggestions() {
 
 export default function CartView() {
   const { cartItems, removeFromCart, updateQuantity, cartTotal, isCartLoaded, clearCart } = useCart();
+  const { addOrder } = useOrderHistory();
   const [proof, setProof] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
@@ -191,6 +193,17 @@ O comprovante está anexado nesta conversa. Aguardo a confirmação. Obrigado(a)
       title: "Pedido pronto para envio!",
       description: "Seu comprovante foi anexado e o WhatsApp será aberto para você enviar a mensagem.",
     });
+
+    const newOrder = {
+      id: `ORD-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
+      customerName: 'Cliente App', // Em um app real, viria do useUser()
+      items: cartItems.map(item => ({ productName: item.name, quantity: item.quantity })),
+      status: 'Pendente' as 'Pendente',
+      total: finalTotal,
+      date: new Date(),
+      farmerName: farmer.name,
+    };
+    addOrder(newOrder);
 
     window.open(whatsappUrl, '_blank');
 
