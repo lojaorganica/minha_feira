@@ -365,7 +365,7 @@ function OrdersTabContent({ orders }: { orders: Order[] }) {
 
 
 export default function DashboardPage() {
-    const orders = useMemo(() => getOrders(), []);
+    const orders = getOrders();
 
     return (
         <div className="container mx-auto py-10">
@@ -392,3 +392,5 @@ export default function DashboardPage() {
         </div>
     );
 }
+
+    
