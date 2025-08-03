@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart, Menu, User, Tractor, Search, History } from "lucide-react";
+import { ShoppingCart, Menu, User, Tractor, Search, History, Package, ShoppingBasket, LogOut } from "lucide-react";
 import { usePathname } from 'next/navigation';
 
 import Logo from "@/components/logo";
@@ -25,6 +25,9 @@ const Header = () => {
   const { searchTerm, setSearchTerm } = useSearch();
 
   const isCatalogPage = pathname === '/catalog';
+  const isCustomerSession = ['/catalog', '/cart', '/select-farmers', '/products', '/history'].includes(pathname);
+  const isFarmerSession = pathname === '/dashboard';
+
 
   const navLinks = [
     { href: "/welcome", label: "Início" },
@@ -33,6 +36,15 @@ const Header = () => {
   const loginLinks = [
       { href: "/login/customer", label: "Sou Cliente", icon: User},
       { href: "/login/farmer", label: "Sou Agricultor", icon: Tractor },
+  ]
+
+  const customerMenuLinks = [
+    { href: "/history", label: "Meus Pedidos", icon: History },
+  ]
+
+  const farmerMenuLinks = [
+    { href: "/dashboard", label: "Pedidos", icon: ShoppingBasket },
+    { href: "/dashboard", label: "Produtos", icon: Package },
   ]
 
   return (
@@ -49,7 +61,7 @@ const Header = () => {
                 <Menu className="h-8 w-8" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="p-4">
+            <SheetContent side="left" className="p-4 flex flex-col">
               <div className="py-6">
                 <Logo />
               </div>
@@ -68,16 +80,62 @@ const Header = () => {
                 </Button>
               </nav>
               <Separator className="my-4" />
-               <nav className="flex flex-col gap-2">
-                {loginLinks.map((link) => (
-                  <Button asChild key={link.href} variant="outline" className="w-full justify-start rounded-none" onClick={() => setSheetOpen(false)}>
-                    <Link href={link.href} className="text-base">
-                      <link.icon className="h-4 w-4 mr-2"/>
-                      {link.label}
+              {(!isCustomerSession && !isFarmerSession) && (
+                 <nav className="flex flex-col gap-2">
+                    {loginLinks.map((link) => (
+                    <Button asChild key={link.href} variant="outline" className="w-full justify-start rounded-none" onClick={() => setSheetOpen(false)}>
+                        <Link href={link.href} className="text-base">
+                        <link.icon className="h-4 w-4 mr-2"/>
+                        {link.label}
+                        </Link>
+                    </Button>
+                    ))}
+                </nav>
+              )}
+
+              {isCustomerSession && (
+                <>
+                    <h3 className="px-2 text-sm font-semibold text-muted-foreground">Área do Cliente</h3>
+                    <nav className="flex flex-col gap-2 mt-2">
+                    {customerMenuLinks.map((link) => (
+                    <Button asChild key={link.href} variant="ghost" className="w-full justify-start rounded-none" onClick={() => setSheetOpen(false)}>
+                        <Link href={link.href} className="text-base">
+                            <link.icon className="h-4 w-4 mr-2"/>
+                            {link.label}
+                        </Link>
+                    </Button>
+                    ))}
+                    </nav>
+                </>
+              )}
+
+               {isFarmerSession && (
+                <>
+                    <h3 className="px-2 text-sm font-semibold text-muted-foreground">Área do Agricultor</h3>
+                    <nav className="flex flex-col gap-2 mt-2">
+                    {farmerMenuLinks.map((link) => (
+                    <Button asChild key={link.href} variant="ghost" className="w-full justify-start rounded-none" onClick={() => setSheetOpen(false)}>
+                        <Link href={link.href} className="text-base">
+                            <link.icon className="h-4 w-4 mr-2"/>
+                            {link.label}
+                        </Link>
+                    </Button>
+                    ))}
+                    </nav>
+                </>
+              )}
+              
+               <div className="mt-auto">
+                <Separator className="my-4" />
+                 <Button asChild variant="outline" className="w-full justify-start rounded-none" onClick={() => setSheetOpen(false)}>
+                    <Link href="/welcome" className="text-base">
+                        <LogOut className="h-4 w-4 mr-2"/>
+                        Sair
                     </Link>
-                  </Button>
-                ))}
-              </nav>
+                </Button>
+               </div>
+
+
             </SheetContent>
           </Sheet>
         </div>
