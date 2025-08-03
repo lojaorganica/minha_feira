@@ -16,7 +16,7 @@ function EditProductForm({ product }: { product: Product }) {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant="outline" className="w-full">
+                <Button className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
                     <Edit className="h-4 w-4 mr-2" />
                     Editar
                 </Button>
@@ -108,11 +108,11 @@ function ProductsTabContent() {
                                 <p className="text-base font-semibold text-foreground/90 mt-2 line-clamp-3">{product.description}</p>
                             </CardContent>
                             <CardFooter className="flex gap-2">
-                                <EditProductForm product={product} />
-                                <Button variant="destructive" className="w-full">
+                                <Button variant="outline" className="w-full">
                                     <Trash2 className="h-4 w-4 mr-2" />
                                     Excluir
                                 </Button>
+                                <EditProductForm product={product} />
                             </CardFooter>
                         </Card>
                     ))}
