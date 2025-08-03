@@ -3,14 +3,14 @@ import type { Order, Product } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { CheckCircle, Edit, PlusCircle, Trash2, XCircle } from "lucide-react";
+import { CheckCircle, Edit, PlusCircle, Trash2, XCircle, ShoppingBag, User, DollarSign, ListOrdered } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Image from "next/image";
+import { Separator } from "@/components/ui/separator";
 
 function EditProductForm({ product }: { product: Product }) {
     return (
@@ -144,49 +144,58 @@ function OrdersTabContent() {
                 <CardTitle>Pedidos Recebidos</CardTitle>
                 <CardDescription className="font-semibold">Revise e gerencie novos pedidos de seus clientes.</CardDescription>
             </CardHeader>
-            <CardContent>
-                <Table className="border-collapse border-2 border-border">
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead className="bg-primary text-primary-foreground border-b-2 border-r-2 border-primary-foreground">ID do Pedido</TableHead>
-                            <TableHead className="bg-primary text-primary-foreground border-b-2 border-r-2 border-primary-foreground">Cliente</TableHead>
-                            <TableHead className="bg-primary text-primary-foreground border-b-2 border-r-2 border-primary-foreground">Itens</TableHead>
-                            <TableHead className="text-right bg-primary text-primary-foreground border-b-2 border-r-2 border-primary-foreground">Total</TableHead>
-                            <TableHead className="bg-primary text-primary-foreground border-b-2 border-r-2 border-primary-foreground">Status</TableHead>
-                            <TableHead className="bg-primary text-primary-foreground border-b-2 border-primary-foreground">Ações</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {orders.map((order) => (
-                            <TableRow key={order.id} className="text-base font-semibold border-b-2 border-b-primary-foreground">
-                                <TableCell className="font-semibold border-r-2 border-border">{order.id}</TableCell>
-                                <TableCell className="border-r-2 border-border">{order.customerName}</TableCell>
-                                <TableCell className="border-r-2 border-border">
-                                    {order.items.map(item => `${item.productName} (x${item.quantity})`).join(', ')}
-                                </TableCell>
-                                <TableCell className="text-right border-r-2 border-border">R${order.total.toFixed(2).replace('.', ',')}</TableCell>
-
-                                <TableCell className="border-r-2 border-border">
-                                    <Badge variant={getStatusVariant(order.status)}>{order.status}</Badge>
-                                </TableCell>
-                                <TableCell>
-                                    {order.status === 'Pendente' && (
-                                        <div className="flex gap-2">
-                                            <Button size="sm" variant="outline">
-                                                <CheckCircle className="h-4 w-4 mr-2" />
-                                                Aceitar
-                                            </Button>
-                                            <Button size="sm" variant="destructive">
-                                                <XCircle className="h-4 w-4 mr-2" />
-                                                Recusar
-                                            </Button>
-                                        </div>
-                                    )}
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
+            <CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {orders.map((order) => (
+                    <Card key={order.id} className="flex flex-col">
+                        <CardHeader>
+                            <div className="flex justify-between items-start">
+                                <div>
+                                    <CardTitle className="font-headline text-2xl text-primary">{order.id}</CardTitle>
+                                    <CardDescription className="flex items-center gap-2 mt-1">
+                                        <User className="h-4 w-4"/>
+                                        {order.customerName}
+                                    </CardDescription>
+                                </div>
+                                <Badge variant={getStatusVariant(order.status)} className="text-sm">{order.status}</Badge>
+                            </div>
+                        </CardHeader>
+                        <CardContent className="flex-grow space-y-4">
+                            <div>
+                                <h4 className="font-semibold mb-2 flex items-center gap-2 text-lg">
+                                    <ShoppingBag className="h-5 w-5 text-accent" />
+                                    Itens
+                                </h4>
+                                <ul className="space-y-1 list-disc pl-5 text-base font-semibold text-foreground/90">
+                                    {order.items.map((item, index) => (
+                                        <li key={index}>
+                                            {item.quantity}x {item.productName}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                            <Separator />
+                             <div className="flex justify-between items-center text-lg font-bold">
+                               <span className="flex items-center gap-2">
+                                 <DollarSign className="h-5 w-5 text-primary"/>
+                                 Total do Pedido
+                               </span>
+                                <span>R${order.total.toFixed(2).replace('.', ',')}</span>
+                            </div>
+                        </CardContent>
+                        {order.status === 'Pendente' && (
+                             <CardFooter className="flex gap-2">
+                                <Button className="w-full" variant="outline">
+                                    <CheckCircle className="h-4 w-4 mr-2" />
+                                    Aceitar
+                                </Button>
+                                <Button className="w-full" variant="destructive">
+                                    <XCircle className="h-4 w-4 mr-2" />
+                                    Recusar
+                                </Button>
+                            </CardFooter>
+                        )}
+                    </Card>
+                ))}
             </CardContent>
         </Card>
     )
