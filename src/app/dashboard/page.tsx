@@ -30,8 +30,7 @@ function EditProductForm({ product }: { product: Product }) {
     const [description, setDescription] = useState(product.description);
 
     const handleSubmit = () => {
-        // Aqui você adicionaria a lógica para salvar as alterações do produto.
-        // Por enquanto, apenas fecha o diálogo.
+        // Logic to save product changes would go here.
         console.log("Saving changes for product:", { ...product, name, price, unit, description });
     };
 
@@ -174,7 +173,7 @@ function ProductsTabContent() {
                 </div>
             </CardContent>
         </Card>
-    )
+    );
 }
 
 function OrdersTabContent({ orders }: { orders: Order[] }) {
@@ -271,7 +270,7 @@ function OrdersTabContent({ orders }: { orders: Order[] }) {
                 )}
             </CardContent>
         </Card>
-    )
+    );
 }
 
 function OrderHistoryDialog({ allOrders }: { allOrders: Order[] }) {
@@ -402,3 +401,5 @@ export default function DashboardPage() {
         </div>
     );
 }
+
+    
