@@ -24,6 +24,7 @@ export interface Farmer {
   bio: string;
   pixKey: string;
   shippingCost?: number;
+  phone?: string;
 }
 
 export interface FarmerWithProducts extends Farmer {
@@ -48,3 +49,5 @@ export interface Customer {
   name: string;
   favoriteFarmerIds: string[];
 }
+
+    

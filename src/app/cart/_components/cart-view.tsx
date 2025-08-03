@@ -9,8 +9,9 @@ import { Separator } from "@/components/ui/separator";
 import { suggestComplementaryProducts } from "@/ai/flows/suggest-complementary-products";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from 'next/navigation';
 import { useEffect, useState, useMemo, useRef } from "react";
-import { Loader2, Sparkles, Trash2, Upload, MessageSquare, Copy } from "lucide-react";
+import { Loader2, Sparkles, Trash2, Upload, MessageSquare, Copy, Send } from "lucide-react";
 import { getProducts, getFarmerById } from "@/lib/data";
 import type { Product, Farmer } from "@/lib/types";
 import { useToast } from "@/hooks/use-toast";
@@ -92,6 +93,7 @@ export default function CartView() {
   const { toast } = useToast();
   const [message, setMessage] = useState("");
   const [deliveryOption, setDeliveryOption] = useState<'pickup' | 'delivery'>('pickup');
+  const router = useRouter();
   
   const farmer = useMemo(() => {
     if (cartItems.length > 0) {
@@ -117,18 +119,17 @@ export default function CartView() {
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (file && (file.type === 'image/jpeg' || file.type === 'application/pdf')) {
+    if (file && (file.type.startsWith('image/') || file.type === 'application/pdf')) {
       setProof(file);
       toast({
         title: "Comprovante anexado",
         description: `${file.name} foi selecionado.`,
       });
-      // Aqui você adicionaria a lógica para enviar o pedido como "Concluído"
     } else {
       toast({
         variant: 'destructive',
         title: "Arquivo inválido",
-        description: "Por favor, selecione um arquivo JPG ou PDF.",
+        description: "Por favor, selecione um arquivo de imagem ou PDF.",
       });
     }
   }
@@ -141,6 +142,62 @@ export default function CartView() {
             description: 'A chave PIX foi copiada para a área de transferência.',
         });
     }
+  };
+
+  const handleSendOrder = () => {
+    if (!proof) {
+        toast({
+            variant: 'destructive',
+            title: "Comprovante necessário",
+            description: "Por favor, anexe o comprovante de pagamento antes de enviar o pedido.",
+        });
+        fileInputRef.current?.click();
+        return;
+    }
+
+    if (!farmer || !farmer.phone) {
+        toast({
+            variant: 'destructive',
+            title: "Erro de contato",
+            description: "O número de WhatsApp do agricultor não está disponível.",
+        });
+        return;
+    }
+
+    const orderItemsText = cartItems.map(item => `- ${item.quantity}x ${item.name} (R$ ${(item.price * item.quantity).toFixed(2).replace('.', ',')})`).join('\n');
+    const deliveryText = deliveryOption === 'delivery' ? `*Opção de Entrega:* Delivery (Frete: R$ ${shippingCost.toFixed(2).replace('.', ',')})` : '*Opção de Entrega:* Retirar na Feira (Frete Grátis)';
+    const messageText = message ? `\n*Observação:* ${message}` : '';
+
+    const whatsappMessage = encodeURIComponent(
+`Olá, ${farmer.name}! 👋
+
+Acabei de fazer um pedido pelo app *Minha Feira* e já realizei o pagamento. Segue o resumo:
+
+*Itens do Pedido:*
+${orderItemsText}
+
+*Subtotal:* R$ ${cartTotal.toFixed(2).replace('.', ',')}
+${deliveryText}
+*Total do Pedido:* R$ ${finalTotal.toFixed(2).replace('.', ',')}
+${messageText}
+
+O comprovante está anexado nesta conversa. Aguardo a confirmação. Obrigado(a)!`
+    );
+
+    const whatsappUrl = `https://wa.me/${farmer.phone.replace(/\D/g, '')}?text=${whatsappMessage}`;
+    
+    // Simula o envio do comprovante e abre o WhatsApp
+    toast({
+      title: "Pedido pronto para envio!",
+      description: "Seu comprovante foi anexado e o WhatsApp será aberto para você enviar a mensagem.",
+    });
+
+    window.open(whatsappUrl, '_blank');
+
+    setTimeout(() => {
+        clearCart();
+        router.push('/welcome');
+    }, 1500);
   };
 
 
@@ -277,22 +334,29 @@ export default function CartView() {
                         </>
                     )}
                 </CardContent>
-                <CardFooter className="flex flex-col gap-2">
-                    <input 
+                <CardFooter className="flex flex-col gap-4">
+                     <input 
                         type="file" 
                         ref={fileInputRef} 
                         className="hidden" 
                         onChange={handleFileChange}
-                        accept="image/jpeg,application/pdf"
+                        accept="image/*,application/pdf"
                     />
-                     <p className="text-sm text-foreground/80 text-center">
-                        Efetue o total de seu pagamento para a chave PIX do agricultor e anexe abaixo seu comprovante.
-                    </p>
-                    <Button className="w-full text-base font-bold" size="lg" onClick={handleProofUploadClick}>
-                        <Upload className="h-4 w-4 mr-2"/>
-                        ANEXAR COMPROVANTE
+                    <div className="w-full text-center">
+                        <p className="text-sm text-foreground/80">
+                            Efetue o pagamento para a chave PIX e anexe o comprovante antes de enviar.
+                        </p>
+                        <Button className="w-full mt-2 text-base font-bold" size="lg" onClick={handleProofUploadClick}>
+                            <Upload className="h-4 w-4 mr-2"/>
+                            {proof ? "TROCAR COMPROVANTE" : "ANEXAR COMPROVANTE"}
+                        </Button>
+                        {proof && <p className="text-sm text-muted-foreground mt-2">Arquivo: {proof.name}</p>}
+                    </div>
+                    <Separator className="my-2" />
+                    <Button className="w-full text-base font-bold" size="lg" onClick={handleSendOrder}>
+                       <Send className="h-4 w-4 mr-2"/>
+                       ENVIAR PEDIDO
                     </Button>
-                    {proof && <p className="text-sm text-muted-foreground mt-2">Arquivo: {proof.name}</p>}
                 </CardFooter>
             </Card>
 
@@ -326,3 +390,5 @@ export default function CartView() {
     </div>
   );
 }
+
+    

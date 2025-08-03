@@ -155,6 +155,7 @@ const farmers: Farmer[] = [
     bio: 'Uma fazenda familiar dedicada à agricultura orgânica e sustentável há mais de 30 anos.',
     pixKey: 'fazenda.vale.verde@email.com',
     shippingCost: 15.00,
+    phone: '5521987654321',
   },
   {
     id: '2',
@@ -163,6 +164,7 @@ const farmers: Farmer[] = [
     bio: 'Somos especializados no cultivo das frutas orgânicas mais doces e suculentas com amor e carinho.',
     pixKey: '123.456.789-00',
     shippingCost: 12.50,
+    phone: '5521987654322',
   },
   {
     id: '3',
@@ -171,6 +173,7 @@ const farmers: Farmer[] = [
     bio: 'Vacas felizes fazem o melhor leite. Nossos produtos lácteos são todos naturais e de vacas alimentadas com pasto.',
     pixKey: '(21) 99999-8888',
     shippingCost: 10.00,
+    phone: '5521987654323',
   },
   {
     id: '4',
@@ -179,6 +182,7 @@ const farmers: Farmer[] = [
     bio: 'Pães artesanais assados em forno a lenha tradicional com farinha orgânica de origem local.',
     pixKey: 'paorustico@email.com',
     shippingCost: 0, // Não oferece delivery
+    phone: '5521987654324',
   },
 ];
 
@@ -315,3 +319,5 @@ export function getCustomers(): Customer[] {
 export function getCustomerById(id: string): Customer | undefined {
     return customers.find(c => c.id === id);
 }
+
+    
