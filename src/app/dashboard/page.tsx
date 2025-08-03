@@ -176,7 +176,7 @@ function OrderHistoryDialog({ allOrders }: { allOrders: Order[] }) {
             const matchesDate = !date || format(order.date, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd');
             return matchesSearchTerm && matchesDate;
         });
-    }, [searchTerm, date, allOrders]);
+    }, [searchTerm, date]);
     
     return (
         <Dialog>
@@ -233,7 +233,7 @@ function OrderHistoryDialog({ allOrders }: { allOrders: Order[] }) {
                                     <div className="flex justify-between items-start">
                                         <div>
                                             <CardTitle className="font-headline text-xl text-primary">{order.id}</CardTitle>
-                                            <CardDescription className="flex items-center gap-2 mt-1 text-lg">
+                                            <CardDescription className="flex items-center gap-2 mt-1 text-base">
                                                 <User className="h-4 w-4"/>
                                                 {order.customerName}
                                             </CardDescription>
@@ -297,7 +297,7 @@ function OrdersTabContent({ orders }: { orders: Order[] }) {
                             <div className="flex justify-between items-start">
                                 <div>
                                     <CardTitle className="font-headline text-2xl text-primary">{order.id}</CardTitle>
-                                    <CardDescription className="flex items-center gap-2 mt-1 text-lg">
+                                    <CardDescription className="flex items-center gap-2 mt-1 text-base">
                                         <User className="h-4 w-4"/>
                                         {order.customerName}
                                     </CardDescription>
@@ -307,13 +307,13 @@ function OrdersTabContent({ orders }: { orders: Order[] }) {
                         </CardHeader>
                         <CardContent className="flex-grow space-y-4">
                             <div>
-                                <h4 className="font-semibold mb-2 flex items-center gap-2 text-lg">
+                                <h4 className="font-semibold mb-2 flex items-center gap-2 text-base">
                                     <ShoppingBag className="h-5 w-5 text-accent" />
                                     Itens
                                 </h4>
-                                <ul className="space-y-1 list-disc pl-5 text-lg font-semibold text-foreground/90">
+                                <ul className="space-y-1 list-disc pl-5 text-base font-semibold text-foreground/90">
                                     {order.items.map((item, index) => (
-                                        <li key={index} className="text-lg">
+                                        <li key={index} className="text-base">
                                             {item.quantity}x {item.productName}
                                         </li>
                                     ))}
@@ -392,5 +392,3 @@ export default function DashboardPage() {
         </div>
     );
 }
-
-    
