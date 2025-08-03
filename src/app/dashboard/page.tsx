@@ -23,6 +23,7 @@ import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import BackButton from "@/components/back-button";
 
+
 function EditProductForm({ product }: { product: Product }) {
     const [name, setName] = useState(product.name);
     const [price, setPrice] = useState(product.price);
@@ -30,7 +31,6 @@ function EditProductForm({ product }: { product: Product }) {
     const [description, setDescription] = useState(product.description);
 
     const handleSubmit = () => {
-        // Logic to save product changes would go here.
         console.log("Saving changes for product:", { ...product, name, price, unit, description });
     };
 
@@ -88,7 +88,7 @@ function EditProductForm({ product }: { product: Product }) {
                 </DialogFooter>
             </DialogContent>
         </Dialog>
-    )
+    );
 }
 
 function ProductsTabContent() {
@@ -370,11 +370,12 @@ function OrderHistoryDialog({ allOrders }: { allOrders: Order[] }) {
                 </DialogFooter>
             </DialogContent>
         </Dialog>
-    )
+    );
 }
 
 export default function DashboardPage() {
     const orders = getOrders();
+    const pendingOrders = orders.filter(o => o.status === 'Pendente');
 
     return (
         <div className="container mx-auto py-10">
@@ -392,7 +393,7 @@ export default function DashboardPage() {
                     <TabsTrigger value="products" className="text-lg font-bold">Meus Produtos</TabsTrigger>
                 </TabsList>
                 <TabsContent value="orders">
-                    <OrdersTabContent orders={orders.filter(o => o.status === 'Pendente')} />
+                    <OrdersTabContent orders={pendingOrders} />
                 </TabsContent>
                 <TabsContent value="products">
                     <ProductsTabContent />
@@ -401,5 +402,3 @@ export default function DashboardPage() {
         </div>
     );
 }
-
-    
