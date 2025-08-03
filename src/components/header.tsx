@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart, Menu } from "lucide-react";
+import { ShoppingCart, Menu, User, Tractor } from "lucide-react";
 
 import Logo from "@/components/logo";
 import { Button } from "@/components/ui/button";
@@ -12,6 +12,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { useState } from "react";
+import { Separator } from "./ui/separator";
 
 const Header = () => {
   const { cartCount } = useCart();
@@ -21,6 +22,11 @@ const Header = () => {
     { href: "/welcome", label: "Início" },
     { href: "/farmers", label: "Agricultores" },
   ];
+
+  const loginLinks = [
+      { href: "/login/customer", label: "Sou Cliente", icon: User},
+      { href: "/login/farmer", label: "Sou Agricultor", icon: Tractor },
+  ]
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -50,6 +56,17 @@ const Header = () => {
                   >
                     {link.label}
                   </Link>
+                ))}
+              </nav>
+              <Separator className="my-4" />
+               <nav className="flex flex-col gap-4">
+                {loginLinks.map((link) => (
+                  <Button asChild key={link.href} variant="outline" onClick={() => setSheetOpen(false)}>
+                    <Link href={link.href} className="text-base">
+                      <link.icon className="h-4 w-4 mr-2"/>
+                      {link.label}
+                    </Link>
+                  </Button>
                 ))}
               </nav>
             </SheetContent>
