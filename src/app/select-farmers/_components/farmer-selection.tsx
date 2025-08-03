@@ -61,11 +61,13 @@ export default function FarmerSelection() {
             className={`flex flex-col transition-all`}
           >
             <CardHeader 
-                className="flex flex-row items-center gap-4 cursor-pointer"
-                onClick={() => handleFarmerToggle(farmer.id)}
+                className="flex flex-row items-center gap-4"
             >
               <Image src="https://placehold.co/100x100" alt={farmer.name} width={60} height={60} className="rounded-full" data-ai-hint="farmer portrait" />
-              <div className={`flex-1 ${selectedFarmerIds.has(farmer.id) ? 'text-primary' : ''}`}>
+              <div 
+                className={`flex-1 cursor-pointer ${selectedFarmerIds.has(farmer.id) ? 'text-primary' : ''}`}
+                onClick={() => handleFarmerToggle(farmer.id)}
+              >
                 <CardTitle className="text-xl">{farmer.name}</CardTitle>
                 <CardDescription className="line-clamp-2 mt-1">{farmer.bio}</CardDescription>
               </div>
