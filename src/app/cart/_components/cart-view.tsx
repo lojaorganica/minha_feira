@@ -128,7 +128,7 @@ export default function CartView() {
         <h2 className="text-2xl font-semibold">Seu carrinho está vazio</h2>
         <p className="text-lg font-semibold text-foreground/90 mt-2">Parece que você ainda não adicionou nada ao seu carrinho.</p>
         <Button asChild className="mt-6 text-base font-semibold">
-          <Link href="/">Comece a Comprar</Link>
+          <Link href="/catalog">Comece a Comprar</Link>
         </Button>
       </div>
     );
