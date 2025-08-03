@@ -218,9 +218,9 @@ function OrdersTabContent({ orders }: { orders: Order[] }) {
                                 </div>
                                 <Badge className={`text-sm ${
                                     order.status === 'Pendente' 
-                                        ? 'bg-red-500 text-white hover:bg-red-600' 
+                                        ? 'bg-red-500 text-white hover:bg-red-500' 
                                         : order.status === 'Confirmado' 
-                                        ? 'bg-blue-600 text-white hover:bg-blue-700' 
+                                        ? 'bg-blue-600 text-white hover:bg-blue-600'
                                         : 'bg-destructive text-destructive-foreground'
                                 }`}>
                                     {order.status}
@@ -401,12 +401,12 @@ export default function DashboardPage() {
 
     return (
         <div className="container mx-auto py-10">
-            <div className="mb-6 flex justify-between items-center">
-                <BackButton />
-                <div className="flex items-center gap-4">
-                    <h1 className="text-3xl font-bold font-headline text-primary">Painel do Agricultor</h1>
+            <div className="mb-6">
+                <div className="flex justify-between items-center mb-4">
+                    <BackButton />
                     <OrderHistoryDialog allOrders={allOrders} />
                 </div>
+                <h1 className="text-3xl font-bold font-headline text-primary">Painel do Agricultor</h1>
             </div>
 
             <Tabs defaultValue="orders">
