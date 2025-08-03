@@ -416,7 +416,7 @@ function DashboardContent() {
             <h1 className="text-3xl font-bold font-headline text-primary mb-6 text-center">Painel do Agricultor</h1>
 
             <Dialog open={isHistoryDialogOpen} onOpenChange={setHistoryDialogOpen}>
-                <Tabs defaultValue={tab} className="w-full">
+                <Tabs value={tab} className="w-full">
                     <TabsList className="grid w-full grid-cols-2">
                         <TabsTrigger value="orders">Pedidos</TabsTrigger>
                         <TabsTrigger value="products">Meus Produtos</TabsTrigger>
@@ -451,7 +451,7 @@ function DashboardContent() {
 export default function DashboardPage() {
     return (
         <Suspense fallback={
-            <div className="flex justify-center items-center p-12">
+            <div className="flex justify-center items-center h-screen">
                 <Loader2 className="h-12 w-12 animate-spin text-primary" />
             </div>
         }>

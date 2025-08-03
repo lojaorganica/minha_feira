@@ -123,13 +123,17 @@ const Header = () => {
               )}
               
                <div className="mt-auto">
-                <Separator className="my-4" />
-                 <Button asChild variant="outline" className="w-full justify-start rounded-none" onClick={() => setSheetOpen(false)}>
-                    <Link href="/welcome" className="text-base">
-                        <LogOut className="h-4 w-4 mr-2"/>
-                        Sair
-                    </Link>
-                </Button>
+                {(isCustomerSession || isFarmerSession) && (
+                     <>
+                        <Separator className="my-4" />
+                         <Button asChild variant="outline" className="w-full justify-start rounded-none" onClick={() => setSheetOpen(false)}>
+                            <Link href="/welcome" className="text-base">
+                                <LogOut className="h-4 w-4 mr-2"/>
+                                Sair
+                            </Link>
+                        </Button>
+                     </>
+                )}
                </div>
 
 
