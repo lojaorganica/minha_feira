@@ -9,6 +9,7 @@ import type { FarmerWithProducts } from "@/lib/types";
 import ProductCard from "@/components/product-card";
 import { getFarmersWithProducts } from "@/lib/data";
 import { Loader2 } from "lucide-react";
+import BackButton from '@/components/back-button';
 
 function ProductsContent() {
   const searchParams = useSearchParams();
@@ -50,6 +51,9 @@ function ProductsContent() {
 
   return (
      <div className="container py-12 md:py-16">
+        <div className="mb-8">
+            <BackButton />
+        </div>
          {singleFarmerWithProducts.map((farmer) => (
              <section key={farmer.id}>
                  <div className="flex flex-col items-center gap-2 mb-8">
@@ -57,11 +61,6 @@ function ProductsContent() {
                      {farmer.name}
                      </h2>
                      <p className="text-lg font-semibold text-foreground/90 text-center max-w-2xl">{farmer.bio}</p>
-                 </div>
-                  <div className="mb-8 text-center">
-                     <Button asChild>
-                         <Link href="/select-farmers">Voltar para a seleção de agricultores</Link>
-                     </Button>
                  </div>
                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                      {farmer.products.map((product) => (

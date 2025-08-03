@@ -1,3 +1,4 @@
+import BackButton from '@/components/back-button';
 import FarmersMap from '@/components/farmers-map';
 import { getFarmers } from '@/lib/data';
 
@@ -31,7 +32,10 @@ export default function FarmersPage() {
 
   return (
     <div>
-        <div className="py-12 text-center bg-primary/10">
+        <div className="py-12 text-center bg-primary/10 relative">
+             <div className="absolute top-4 left-4">
+                <BackButton />
+            </div>
             <h1 className="font-headline text-4xl mb-2 text-primary">Localizações dos Nossos Agricultores</h1>
             <p className="text-lg text-foreground/80 max-w-2xl mx-auto">Explore as localizações dos nossos dedicados agricultores orgânicos e veja de onde vêm os seus alimentos.</p>
         </div>

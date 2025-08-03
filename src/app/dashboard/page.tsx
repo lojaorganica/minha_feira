@@ -22,6 +22,7 @@ import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
+import BackButton from "@/components/back-button";
 
 function EditProductForm({ product }: { product: Product }) {
     return (
@@ -370,6 +371,9 @@ function OrdersTabContent() {
 export default function DashboardPage() {
     return (
         <div className="container mx-auto py-10">
+            <div className="mb-6">
+                <BackButton />
+            </div>
             <h1 className="text-3xl font-bold font-headline text-primary mb-6">Painel do Agricultor</h1>
 
             <Tabs defaultValue="orders">
