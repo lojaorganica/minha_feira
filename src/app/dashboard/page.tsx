@@ -23,6 +23,7 @@ import { ptBR } from "date-fns/locale";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import BackButton from "@/components/back-button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 // Componente Isolado para Edição de Produto
 function EditProductForm({ product, onSaveChanges }: { product: Product, onSaveChanges: () => void }) {
@@ -71,7 +72,19 @@ function EditProductForm({ product, onSaveChanges }: { product: Product, onSaveC
                         <Label htmlFor="unit" className="text-right">
                             Unidade
                         </Label>
-                        <Input id="unit" value={unit} onChange={(e) => setUnit(e.target.value)} className="col-span-3" />
+                        <Select value={unit} onValueChange={setUnit}>
+                            <SelectTrigger className="col-span-3">
+                                <SelectValue placeholder="Selecione a unidade" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="kg">kg</SelectItem>
+                                <SelectItem value="g">g</SelectItem>
+                                <SelectItem value="unidade">unidade</SelectItem>
+                                <SelectItem value="molho">molho</SelectItem>
+                                <SelectItem value="L">L</SelectItem>
+                                <SelectItem value="mL">mL</SelectItem>
+                            </SelectContent>
+                        </Select>
                     </div>
                     <div className="grid grid-cols-4 items-center gap-4">
                         <Label htmlFor="description" className="text-right">
