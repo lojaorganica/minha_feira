@@ -3,7 +3,7 @@
 'use client';
 
 import { Suspense, useState, useMemo, useTransition } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { getOrders, getProducts, toggleProductPromotion } from "@/lib/data";
 import type { Order, Product } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
@@ -27,6 +27,17 @@ import BackButton from "@/components/back-button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Loader2 } from 'lucide-react';
 
+function getFairDisplayName(fair: string): string {
+    const doExceptions = ['Grajaú', 'Flamengo', 'Leme'];
+    if (doExceptions.includes(fair)) {
+        return `Feira do ${fair}`;
+    }
+    const deExceptions = ['Laranjeiras'];
+    if (deExceptions.includes(fair)) {
+        return `Feira de ${fair}`;
+    }
+    return `Feira da ${fair}`;
+}
 
 // Componente Isolado para Edição de Produto
 function EditProductForm({ product, onSaveChanges }: { product: Product, onSaveChanges: () => void }) {
@@ -252,7 +263,7 @@ function OrdersTabContent({ orders }: { orders: Order[] }) {
                                     Entrega
                                 </h4>
                                 <div className="text-base font-semibold text-foreground/90 pl-1">
-                                    {order.deliveryOption === 'pickup' ? (
+                                    {order.deliveryOption === 'pickup' && order.pickupLocation ? (
                                         <p className="flex items-center gap-2"><MapPin className="h-4 w-4" />Retirar na {order.pickupLocation}</p>
                                     ) : (
                                         <div className="space-y-1">
@@ -395,6 +406,7 @@ function OrderHistoryDialog({ allOrders, open, onOpenChange }: { allOrders: Orde
 
 // Componente de Conteúdo do Painel
 function DashboardContent() {
+    const router = useRouter();
     const searchParams = useSearchParams();
     const tab = searchParams.get('tab') || 'orders';
 
@@ -407,6 +419,10 @@ function DashboardContent() {
     const handleProductUpdate = () => {
         setAllProducts(getProducts());
     };
+
+    const handleTabChange = (newTab: string) => {
+        router.push(`/dashboard?tab=${newTab}`, { scroll: false });
+    };
     
     return (
         <div className="container mx-auto py-10">
@@ -416,7 +432,7 @@ function DashboardContent() {
             <h1 className="text-3xl font-bold font-headline text-primary mb-6 text-center">Painel do Agricultor</h1>
 
             <Dialog open={isHistoryDialogOpen} onOpenChange={setHistoryDialogOpen}>
-                <Tabs value={tab} className="w-full">
+                <Tabs value={tab} onValueChange={handleTabChange} className="w-full">
                     <TabsList className="grid w-full grid-cols-2">
                         <TabsTrigger value="orders">Pedidos</TabsTrigger>
                         <TabsTrigger value="products">Meus Produtos</TabsTrigger>
