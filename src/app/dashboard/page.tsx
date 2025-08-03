@@ -1,12 +1,12 @@
 
 'use client';
 
-import { getOrders, getProducts } from "@/lib/data";
+import { getOrders, getProducts, toggleProductPromotion } from "@/lib/data";
 import type { Order, Product } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
-import { CheckCircle, Edit, PlusCircle, Trash2, XCircle, ShoppingBag, User, DollarSign, Download, Share2, History, Search } from "lucide-react";
+import { CheckCircle, Edit, PlusCircle, Trash2, XCircle, ShoppingBag, User, DollarSign, Download, Share2, History, Search, Tag } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
@@ -14,12 +14,14 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useTransition } from 'react';
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import { Switch } from "@/components/ui/switch";
+import { useToast } from "@/hooks/use-toast";
 
 function EditProductForm({ product }: { product: Product }) {
     return (
@@ -80,7 +82,20 @@ function EditProductForm({ product }: { product: Product }) {
 function ProductsTabContent() {
     // Simulating logged in farmer with ID '1'
     const farmerId = '1';
-    const products = getProducts().filter(p => p.farmerId === farmerId);
+    const [products, setProducts] = useState(() => getProducts().filter(p => p.farmerId === farmerId));
+    const [isPending, startTransition] = useTransition();
+    const { toast } = useToast();
+
+    const handlePromotionToggle = (productId: string, checked: boolean) => {
+        startTransition(() => {
+            toggleProductPromotion(productId, checked);
+            setProducts(getProducts().filter(p => p.farmerId === farmerId));
+             toast({
+                title: checked ? "Produto promovido!" : "Promoção removida",
+                description: checked ? "Seu produto agora está na seção de promoções por 7 dias." : "Seu produto não está mais em promoção.",
+            });
+        });
+    };
 
     return (
         <Card>
@@ -88,7 +103,7 @@ function ProductsTabContent() {
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                     <div>
                         <CardTitle>Meus Produtos</CardTitle>
-                        <CardDescription className="font-semibold">Adicione, edite ou remova produtos do seu inventário.</CardDescription>
+                        <CardDescription className="font-semibold">Adicione, edite ou promova produtos do seu inventário.</CardDescription>
                     </div>
                     <Button>
                         <PlusCircle className="h-4 w-4 mr-2"/>
@@ -108,6 +123,12 @@ function ProductsTabContent() {
                                     className="rounded-t-lg object-cover" 
                                     data-ai-hint={product.dataAiHint} 
                                 />
+                                {product.promotion?.isActive && (
+                                    <Badge className="absolute top-2 right-2 bg-accent text-accent-foreground">
+                                        <Tag className="h-3 w-3 mr-1"/>
+                                        Promoção
+                                    </Badge>
+                                )}
                             </div>
                             <CardHeader>
                                 <CardTitle className="font-headline text-primary">{product.name}</CardTitle>
@@ -116,12 +137,25 @@ function ProductsTabContent() {
                                 <p className="font-bold text-lg">R${product.price.toFixed(2).replace('.', ',')} <span className="text-base font-medium text-foreground/80">/ {product.unit}</span></p>
                                 <p className="text-base font-semibold text-foreground/90 mt-2 line-clamp-3">{product.description}</p>
                             </CardContent>
-                            <CardFooter className="flex gap-2">
-                                <Button variant="outline" className="w-full">
-                                    <Trash2 className="h-4 w-4 mr-2" />
-                                    Excluir
-                                </Button>
-                                <EditProductForm product={product} />
+                            <CardFooter className="flex flex-col gap-4">
+                                <div className="flex items-center space-x-2 w-full justify-center p-2 bg-muted rounded-md">
+                                    <Switch
+                                        id={`promo-${product.id}`}
+                                        checked={product.promotion?.isActive || false}
+                                        onCheckedChange={(checked) => handlePromotionToggle(product.id, checked)}
+                                        disabled={isPending}
+                                    />
+                                    <Label htmlFor={`promo-${product.id}`} className="text-sm font-semibold cursor-pointer">
+                                        Promover por 7 dias
+                                    </Label>
+                                </div>
+                                <div className="flex w-full gap-2">
+                                    <Button variant="outline" className="w-full">
+                                        <Trash2 className="h-4 w-4 mr-2" />
+                                        Excluir
+                                    </Button>
+                                    <EditProductForm product={product} />
+                                </div>
                             </CardFooter>
                         </Card>
                     ))}
@@ -233,7 +267,7 @@ function OrderHistoryDialog() {
 }
 
 function OrdersTabContent() {
-    const orders = getOrders().filter(o => o.status === 'Pendente');
+    const orders = getOrders();
 
     const getStatusVariant = (status: Order['status']) => {
         switch (status) {
@@ -253,8 +287,8 @@ function OrdersTabContent() {
             <CardHeader>
                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                     <div>
-                        <CardTitle>Pedidos Pendentes</CardTitle>
-                        <CardDescription className="font-semibold">Revise e gerencie novos pedidos de seus clientes.</CardDescription>
+                        <CardTitle>Pedidos Recebidos</CardTitle>
+                        <CardDescription className="font-semibold">Revise e gerencie os pedidos de seus clientes.</CardDescription>
                     </div>
                     <OrderHistoryDialog />
                 </div>
@@ -324,7 +358,7 @@ function OrdersTabContent() {
                     </Card>
                 )) : (
                     <div className="col-span-full text-center py-12">
-                        <p className="text-lg font-semibold text-muted-foreground">Nenhum pedido pendente no momento.</p>
+                        <p className="text-lg font-semibold text-muted-foreground">Nenhum pedido recebido no momento.</p>
                     </div>
                 )}
             </CardContent>

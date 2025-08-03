@@ -1,6 +1,6 @@
 import type { Product, Farmer, Order, Customer, FarmerWithProducts } from './types';
 
-const products: Product[] = [
+let products: Product[] = [
   {
     id: '1',
     name: 'Cenouras Orgânicas',
@@ -22,6 +22,10 @@ const products: Product[] = [
     dataAiHint: 'tomates antigos',
     farmerId: '1',
     description: 'Tomates antigos suculentos e saborosos, ideais para saladas e molhos.',
+    promotion: {
+        isActive: true,
+        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+    }
   },
   {
     id: '3',
@@ -44,6 +48,10 @@ const products: Product[] = [
     dataAiHint: 'morangos frescos',
     farmerId: '2',
     description: 'Morangos orgânicos maduros e doces, colhidos no pico do frescor.',
+    promotion: {
+        isActive: true,
+        expiresAt: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000)
+    }
   },
   {
     id: '5',
@@ -77,6 +85,10 @@ const products: Product[] = [
     dataAiHint: 'pão de fermentação natural',
     farmerId: '4',
     description: 'Um pão de fermentação natural ácido e mastigável, assado fresco diariamente.',
+    promotion: {
+        isActive: true,
+        expiresAt: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000)
+    }
   },
   {
     id: '8',
@@ -217,14 +229,48 @@ const customers: Customer[] = [
     }
 ];
 
-
 export function getProducts(): Product[] {
-  return products;
+  // Simula a expiração da promoção
+  return products.map(p => {
+    if (p.promotion && p.promotion.isActive && new Date() > p.promotion.expiresAt) {
+      return { ...p, promotion: { ...p.promotion, isActive: false } };
+    }
+    return p;
+  });
 }
 
 export function getProductById(id: string): Product | undefined {
-  return products.find((p) => p.id === id);
+  return getProducts().find((p) => p.id === id);
 }
+
+export function toggleProductPromotion(productId: string, promote: boolean): Product | undefined {
+    const productIndex = products.findIndex(p => p.id === productId);
+    if (productIndex === -1) return undefined;
+
+    if (promote) {
+        products[productIndex].promotion = {
+            isActive: true,
+            expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 dias a partir de agora
+        };
+    } else {
+        if (products[productIndex].promotion) {
+            products[productIndex].promotion!.isActive = false;
+        }
+    }
+    return products[productIndex];
+}
+
+export function getPromotionalProducts(): (Product & { farmerName: string })[] {
+    const activePromotions = getProducts().filter(p => p.promotion?.isActive);
+    return activePromotions.map(p => {
+        const farmer = getFarmerById(p.farmerId);
+        return {
+            ...p,
+            farmerName: farmer ? farmer.name : "Agricultor Desconhecido"
+        };
+    });
+}
+
 
 export function getFarmers(): Farmer[] {
   return farmers;
@@ -237,10 +283,11 @@ export function getFarmerById(id: string): Farmer | undefined {
 export function getFarmersWithProducts(farmerIds: string[]): FarmerWithProducts[] {
   const favoriteFarmers = new Set(farmerIds);
   const result: FarmerWithProducts[] = [];
+  const currentProducts = getProducts();
 
   farmers.forEach(farmer => {
     if (favoriteFarmers.has(farmer.id)) {
-      const farmerProducts = products.filter(product => product.farmerId === farmer.id);
+      const farmerProducts = currentProducts.filter(product => product.farmerId === farmer.id);
       result.push({ ...farmer, products: farmerProducts });
     }
   });

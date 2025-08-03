@@ -8,11 +8,15 @@ export interface Product {
   farmerId: string;
   description: string;
   dataAiHint: string;
+  promotion?: {
+    isActive: boolean;
+    expiresAt: Date;
+  };
 }
 
 export interface Farmer {
   id: string;
-  name: string;
+  name:string;
   location: {
     lat: number;
     lng: number;
