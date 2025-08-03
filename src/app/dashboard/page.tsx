@@ -380,7 +380,7 @@ export default function DashboardPage() {
                     <TabsTrigger value="products" className="text-lg font-bold">Meus Produtos</TabsTrigger>
                 </TabsList>
                 <TabsContent value="orders">
-                    <OrdersTabContent orders={orders} />
+                    <OrdersTabContent orders={orders.filter(o => o.status === 'Pendente')} />
                 </TabsContent>
                 <TabsContent value="products">
                     <ProductsTabContent />
