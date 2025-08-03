@@ -185,9 +185,9 @@ function OrdersTabContent({ orders }: { orders: Order[] }) {
     const getStatusClass = (status: Order['status']) => {
         switch (status) {
             case 'Pendente':
-                return 'bg-red-500 text-white';
+                return 'bg-red-500 text-white hover:bg-red-500';
             case 'Confirmado':
-                return 'bg-blue-600 text-white';
+                return 'bg-blue-600 text-white hover:bg-blue-600';
             case 'Rejeitado':
                 return 'bg-destructive text-destructive-foreground';
             default:
