@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -49,26 +50,25 @@ const Header = () => {
                 <Menu />
               </Button>
             </SheetTrigger>
-            <SheetContent side="left">
+            <SheetContent side="left" className="p-4">
               <div className="py-6">
                 <Logo />
               </div>
-              <nav className="flex flex-col gap-4">
+              <nav className="flex flex-col gap-2">
                 {navLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className="text-lg font-medium text-foreground/80 hover:text-foreground"
-                    onClick={() => setSheetOpen(false)}
-                  >
-                    {link.label}
-                  </Link>
+                  <Button asChild key={link.href} variant="ghost" className="w-full justify-start rounded-none text-base" onClick={() => setSheetOpen(false)}>
+                    <Link
+                      href={link.href}
+                    >
+                      {link.label}
+                    </Link>
+                  </Button>
                 ))}
               </nav>
               <Separator className="my-4" />
-               <nav className="flex flex-col gap-4">
+               <nav className="flex flex-col gap-2">
                 {loginLinks.map((link) => (
-                  <Button asChild key={link.href} variant="outline" onClick={() => setSheetOpen(false)}>
+                  <Button asChild key={link.href} variant="outline" className="w-full justify-start rounded-none" onClick={() => setSheetOpen(false)}>
                     <Link href={link.href} className="text-base">
                       <link.icon className="h-4 w-4 mr-2"/>
                       {link.label}
