@@ -35,6 +35,10 @@ export default function FarmerRegisterPage() {
                     <Label htmlFor="farm-name">Nome da Fazenda / Marca</Label>
                     <Input id="farm-name" placeholder="Ex: Fazenda Vale Verde" required />
                 </div>
+                 <div className="grid gap-2">
+                    <Label htmlFor="pix-key">Chave PIX</Label>
+                    <Input id="pix-key" placeholder="CPF, CNPJ, e-mail, celular, etc." required />
+                </div>
                 <div className="grid gap-2">
                     <Label htmlFor="email">E-mail</Label>
                     <Input id="email" type="email" placeholder="seu@email.com" required />
