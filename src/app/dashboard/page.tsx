@@ -3,7 +3,7 @@ import type { Order, Product } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
-import { CheckCircle, Edit, PlusCircle, Trash2, XCircle, ShoppingBag, User, DollarSign, ListOrdered } from "lucide-react";
+import { CheckCircle, Edit, PlusCircle, Trash2, XCircle, ShoppingBag, User, DollarSign, ListOrdered, Share2, Download } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
@@ -183,15 +183,27 @@ function OrdersTabContent() {
                             </div>
                         </CardContent>
                         {order.status === 'Pendente' && (
-                             <CardFooter className="flex gap-2">
-                                <Button className="w-full" variant="destructive">
-                                    <XCircle className="h-4 w-4 mr-2" />
-                                    Recusar
-                                </Button>
-                                <Button className="w-full">
-                                    <CheckCircle className="h-4 w-4 mr-2" />
-                                    Aceitar
-                                </Button>
+                             <CardFooter className="flex flex-col gap-2">
+                                <div className="flex w-full gap-2">
+                                    <Button className="w-full" variant="destructive">
+                                        <XCircle className="h-4 w-4 mr-2" />
+                                        Recusar
+                                    </Button>
+                                    <Button className="w-full">
+                                        <CheckCircle className="h-4 w-4 mr-2" />
+                                        Aceitar
+                                    </Button>
+                                </div>
+                                <div className="flex w-full gap-2">
+                                    <Button variant="outline" className="w-full">
+                                        <Share2 className="h-4 w-4 mr-2" />
+                                        WhatsApp
+                                    </Button>
+                                    <Button variant="outline" className="w-full">
+                                        <Download className="h-4 w-4 mr-2" />
+                                        Salvar
+                                    </Button>
+                                </div>
                             </CardFooter>
                         )}
                     </Card>
