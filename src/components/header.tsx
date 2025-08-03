@@ -12,7 +12,6 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { useState } from "react";
-import { Separator } from "./ui/separator";
 
 const Header = () => {
   const { cartCount } = useCart();
@@ -26,9 +25,9 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center">
+      <div className="container flex h-14 items-center">
         <div className="mr-4 hidden md:flex">
-          <Logo />
+          <Logo size="small" />
         </div>
         
         <div className="md:hidden">

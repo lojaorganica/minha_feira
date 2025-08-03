@@ -6,15 +6,15 @@ import Link from 'next/link';
 export default function Home() {
   return (
     <div className="flex flex-col">
-      <section className="w-full py-12 md:py-24 lg:py-32 bg-primary/10">
+      <section className="w-full py-8 md:py-16 lg:py-20 bg-primary/10">
         <div className="container px-4 md:px-6">
-          <div className="grid gap-8 lg:grid-cols-2 lg:gap-12 items-center">
+          <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
             <div className="flex justify-center">
                 <Logo size="large" />
             </div>
             <div className="flex flex-col justify-center space-y-4 text-center lg:text-left">
               <div className="space-y-2">
-                <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl text-primary">
+                <h1 className="font-headline text-3xl sm:text-4xl font-bold tracking-tighter text-primary">
                   Bem-vindo(a) ao <span className="whitespace-nowrap">Minha Feira</span>, do Circuito Carioca de Feiras Orgânicas
                 </h1>
                 <p className="max-w-[600px] text-foreground/80 text-base md:text-xl mx-auto lg:mx-0 font-semibold">
