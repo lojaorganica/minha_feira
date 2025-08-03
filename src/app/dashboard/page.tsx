@@ -266,7 +266,7 @@ function OrderHistoryDialog({ allOrders }: { allOrders: Order[] }) {
     )
 }
 
-function OrdersTabContent({ orders, onOpenHistory }: { orders: Order[], onOpenHistory: () => void }) {
+function OrdersTabContent({ orders }: { orders: Order[] }) {
     const getStatusVariant = (status: Order['status']) => {
         switch (status) {
             case 'Pendente':
@@ -288,7 +288,6 @@ function OrdersTabContent({ orders, onOpenHistory }: { orders: Order[], onOpenHi
                         <CardTitle>Pedidos Recebidos</CardTitle>
                         <CardDescription className="font-semibold">Revise e gerencie os pedidos de seus clientes.</CardDescription>
                     </div>
-                    {/* The OrderHistoryDialog is now handled by the parent component */}
                 </div>
             </CardHeader>
             <CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -384,7 +383,7 @@ export default function DashboardPage() {
                     <TabsTrigger value="products" className="text-lg font-bold">Meus Produtos</TabsTrigger>
                 </TabsList>
                 <TabsContent value="orders">
-                    <OrdersTabContent orders={orders} onOpenHistory={() => {}} />
+                    <OrdersTabContent orders={orders} />
                 </TabsContent>
                 <TabsContent value="products">
                     <ProductsTabContent />
@@ -393,5 +392,3 @@ export default function DashboardPage() {
         </div>
     );
 }
-
-    
