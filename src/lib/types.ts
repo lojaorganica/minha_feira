@@ -34,6 +34,7 @@ export interface Order {
   items: { productName: string; quantity: number }[];
   status: 'Pendente' | 'Confirmado' | 'Rejeitado';
   total: number;
+  date: Date;
 }
 
 export interface Customer {

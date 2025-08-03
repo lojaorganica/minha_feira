@@ -172,6 +172,7 @@ const orders: Order[] = [
         ],
         status: 'Pendente',
         total: 8.50,
+        date: new Date(2024, 6, 20),
     },
     {
         id: 'ORD-002',
@@ -182,6 +183,7 @@ const orders: Order[] = [
         ],
         status: 'Confirmado',
         total: 13.00,
+        date: new Date(2024, 6, 19),
     },
     {
         id: 'ORD-003',
@@ -192,6 +194,7 @@ const orders: Order[] = [
         ],
         status: 'Pendente',
         total: 10.00,
+        date: new Date(2024, 6, 20),
     },
     {
         id: 'ORD-004',
@@ -202,6 +205,7 @@ const orders: Order[] = [
         ],
         status: 'Rejeitado',
         total: 8.00,
+        date: new Date(2024, 6, 18),
     }
 ];
 

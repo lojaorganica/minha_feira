@@ -1,9 +1,12 @@
+
+'use client';
+
 import { getOrders, getProducts } from "@/lib/data";
 import type { Order, Product } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
-import { CheckCircle, Edit, PlusCircle, Trash2, XCircle, ShoppingBag, User, DollarSign, ListOrdered, Share2, Download } from "lucide-react";
+import { CheckCircle, Edit, PlusCircle, Trash2, XCircle, ShoppingBag, User, DollarSign, Download, Share2, History, Search } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
@@ -11,6 +14,12 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
+import { useState, useMemo } from 'react';
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { CalendarIcon } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
+import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
 
 function EditProductForm({ product }: { product: Product }) {
     return (
@@ -122,8 +131,109 @@ function ProductsTabContent() {
     )
 }
 
+function OrderHistoryDialog() {
+    const allOrders = getOrders();
+    const [searchTerm, setSearchTerm] = useState('');
+    const [date, setDate] = useState<Date | undefined>(undefined);
+
+    const filteredOrders = useMemo(() => {
+        return allOrders.filter(order => {
+            const matchesSearchTerm = order.customerName.toLowerCase().includes(searchTerm.toLowerCase()) || order.id.toLowerCase().includes(searchTerm.toLowerCase());
+            const matchesDate = !date || format(order.date, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd');
+            return matchesSearchTerm && matchesDate;
+        });
+    }, [allOrders, searchTerm, date]);
+    
+    return (
+        <Dialog>
+            <DialogTrigger asChild>
+                <Button variant="outline">
+                    <History className="h-4 w-4 mr-2" />
+                    Histórico de Pedidos
+                </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-4xl max-h-[90vh] flex flex-col">
+                <DialogHeader>
+                    <DialogTitle>Histórico de Pedidos</DialogTitle>
+                    <DialogDescription>
+                        Pesquise e visualize todos os pedidos anteriores.
+                    </DialogDescription>
+                </DialogHeader>
+                <div className="flex flex-col sm:flex-row gap-4 p-4 border-b">
+                    <div className="relative flex-1">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                        <Input 
+                            placeholder="Pesquisar por cliente ou ID..." 
+                            className="pl-10"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                    </div>
+                    <Popover>
+                        <PopoverTrigger asChild>
+                        <Button
+                            variant={"outline"}
+                            className="w-full sm:w-[280px] justify-start text-left font-normal"
+                        >
+                            <CalendarIcon className="mr-2 h-4 w-4" />
+                            {date ? format(date, "PPP", { locale: ptBR }) : <span>Escolha uma data</span>}
+                        </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0">
+                            <Calendar
+                                mode="single"
+                                selected={date}
+                                onSelect={setDate}
+                                initialFocus
+                                locale={ptBR}
+                            />
+                        </PopoverContent>
+                    </Popover>
+                    {date && <Button variant="ghost" onClick={() => setDate(undefined)}>Limpar</Button>}
+                </div>
+                 <div className="flex-grow overflow-y-auto p-4 space-y-4">
+                   {filteredOrders.length > 0 ? (
+                        filteredOrders.map(order => (
+                            <Card key={order.id}>
+                                <CardHeader>
+                                    <div className="flex justify-between items-start">
+                                        <div>
+                                            <CardTitle className="font-headline text-xl text-primary">{order.id}</CardTitle>
+                                            <CardDescription className="flex items-center gap-2 mt-1">
+                                                <User className="h-4 w-4"/>
+                                                {order.customerName}
+                                            </CardDescription>
+                                        </div>
+                                        <Badge className="text-sm">{order.status}</Badge>
+                                    </div>
+                                </CardHeader>
+                                <CardContent>
+                                    <div className="flex justify-between items-center text-lg font-bold">
+                                       <span className="flex items-center gap-2">
+                                         <DollarSign className="h-5 w-5 text-primary"/>
+                                         Total do Pedido
+                                       </span>
+                                        <span>R${order.total.toFixed(2).replace('.', ',')}</span>
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        ))
+                   ) : (
+                    <p className="text-center text-muted-foreground py-8">Nenhum pedido encontrado.</p>
+                   )}
+                </div>
+                <DialogFooter>
+                    <DialogTrigger asChild>
+                        <Button variant="outline">Fechar</Button>
+                    </DialogTrigger>
+                </DialogFooter>
+            </DialogContent>
+        </Dialog>
+    )
+}
+
 function OrdersTabContent() {
-    const orders = getOrders();
+    const orders = getOrders().filter(o => o.status === 'Pendente');
 
     const getStatusVariant = (status: Order['status']) => {
         switch (status) {
@@ -141,11 +251,16 @@ function OrdersTabContent() {
     return (
         <Card>
             <CardHeader>
-                <CardTitle>Pedidos Recebidos</CardTitle>
-                <CardDescription className="font-semibold">Revise e gerencie novos pedidos de seus clientes.</CardDescription>
+                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <CardTitle>Pedidos Pendentes</CardTitle>
+                        <CardDescription className="font-semibold">Revise e gerencie novos pedidos de seus clientes.</CardDescription>
+                    </div>
+                    <OrderHistoryDialog />
+                </div>
             </CardHeader>
             <CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {orders.map((order) => (
+                {orders.length > 0 ? orders.map((order) => (
                     <Card key={order.id} className="flex flex-col">
                         <CardHeader>
                             <div className="flex justify-between items-start">
@@ -207,7 +322,11 @@ function OrdersTabContent() {
                             </div>
                         </CardFooter>
                     </Card>
-                ))}
+                )) : (
+                    <div className="col-span-full text-center py-12">
+                        <p className="text-lg font-semibold text-muted-foreground">Nenhum pedido pendente no momento.</p>
+                    </div>
+                )}
             </CardContent>
         </Card>
     )
