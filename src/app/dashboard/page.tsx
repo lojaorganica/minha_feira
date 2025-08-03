@@ -182,8 +182,8 @@ function OrdersTabContent() {
                                 <span>R${order.total.toFixed(2).replace('.', ',')}</span>
                             </div>
                         </CardContent>
-                        {order.status === 'Pendente' && (
-                             <CardFooter className="flex flex-col gap-2">
+                        <CardFooter className="flex flex-col gap-2">
+                            {order.status === 'Pendente' && (
                                 <div className="flex w-full gap-2">
                                     <Button className="w-full" variant="destructive">
                                         <XCircle className="h-4 w-4 mr-2" />
@@ -194,18 +194,18 @@ function OrdersTabContent() {
                                         Aceitar
                                     </Button>
                                 </div>
-                                <div className="flex w-full gap-2">
-                                    <Button variant="outline" className="w-full">
-                                        <Share2 className="h-4 w-4 mr-2" />
-                                        WhatsApp
-                                    </Button>
-                                    <Button variant="outline" className="w-full">
-                                        <Download className="h-4 w-4 mr-2" />
-                                        Salvar
-                                    </Button>
-                                </div>
-                            </CardFooter>
-                        )}
+                            )}
+                            <div className="flex w-full gap-2">
+                                <Button variant="outline" className="w-full">
+                                    <Share2 className="h-4 w-4 mr-2" />
+                                    WhatsApp
+                                </Button>
+                                <Button variant="outline" className="w-full">
+                                    <Download className="h-4 w-4 mr-2" />
+                                    Salvar
+                                </Button>
+                            </div>
+                        </CardFooter>
                     </Card>
                 ))}
             </CardContent>
