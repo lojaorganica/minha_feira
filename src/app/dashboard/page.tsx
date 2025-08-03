@@ -56,47 +56,45 @@ function EditProductForm({ product, onSaveChanges }: { product: Product, onSaveC
                     </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4 text-base">
-                    <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="name" className="text-right">
-                            Nome
-                        </Label>
-                        <Input id="name" value={name} onChange={(e) => setName(e.target.value)} className="col-span-3" />
+                    <div className="space-y-2">
+                        <Label htmlFor="name">Nome do Produto</Label>
+                        <Input id="name" value={name} onChange={(e) => setName(e.target.value)} />
                     </div>
-                    <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="price" className="text-right">
-                            Preço
-                        </Label>
-                        <Input id="price" type="number" value={price} onChange={(e) => setPrice(Number(e.target.value))} className="col-span-3" />
+                    
+                    <div className="grid grid-cols-3 gap-2">
+                         <div className="space-y-2 col-span-1">
+                            <Label htmlFor="price">Preço (R$)</Label>
+                            <Input id="price" type="number" value={price} onChange={(e) => setPrice(Number(e.target.value))} />
+                        </div>
+                        <div className="space-y-2 col-span-1">
+                            <Label htmlFor="unit-amount">Quantidade</Label>
+                            <Input id="unit-amount" type="number" defaultValue={1} />
+                        </div>
+                        <div className="space-y-2 col-span-1">
+                            <Label htmlFor="unit">Unidade</Label>
+                            <Select value={unit} onValueChange={setUnit}>
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Unidade" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="kg">kg</SelectItem>
+                                    <SelectItem value="g">g</SelectItem>
+                                    <SelectItem value="unidade">unidade</SelectItem>
+                                    <SelectItem value="molho">molho</SelectItem>
+                                    <SelectItem value="L">L</SelectItem>
+                                    <SelectItem value="mL">mL</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
                     </div>
-                     <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="unit" className="text-right">
-                            Unidade
-                        </Label>
-                        <Select value={unit} onValueChange={setUnit}>
-                            <SelectTrigger className="col-span-3">
-                                <SelectValue placeholder="Selecione a unidade" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="kg">kg</SelectItem>
-                                <SelectItem value="g">g</SelectItem>
-                                <SelectItem value="unidade">unidade</SelectItem>
-                                <SelectItem value="molho">molho</SelectItem>
-                                <SelectItem value="L">L</SelectItem>
-                                <SelectItem value="mL">mL</SelectItem>
-                            </SelectContent>
-                        </Select>
+
+                    <div className="space-y-2">
+                        <Label htmlFor="description">Descrição</Label>
+                        <Textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)} />
                     </div>
-                    <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="description" className="text-right">
-                            Descrição
-                        </Label>
-                        <Textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)} className="col-span-3" />
-                    </div>
-                     <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="image" className="text-right">
-                            Foto
-                        </Label>
-                        <Input id="image" type="file" className="col-span-3" />
+                     <div className="space-y-2">
+                        <Label htmlFor="image">Foto</Label>
+                        <Input id="image" type="file" />
                     </div>
                 </div>
                 <DialogFooter>
@@ -195,18 +193,6 @@ function ProductsTabContent({ allProducts, onProductUpdate }: { allProducts: Pro
 
 // Componente Isolado para a Aba de Pedidos
 function OrdersTabContent({ orders }: { orders: Order[] }) {
-    const getStatusClass = (status: Order['status']) => {
-        switch (status) {
-            case 'Pendente':
-                return 'bg-red-500 text-white hover:bg-red-500';
-            case 'Confirmado':
-                return 'bg-blue-600 text-white hover:bg-blue-600';
-            case 'Rejeitado':
-                return 'bg-destructive text-destructive-foreground';
-            default:
-                return 'bg-secondary text-secondary-foreground';
-        }
-    };
 
     return (
         <Card>
@@ -230,7 +216,15 @@ function OrdersTabContent({ orders }: { orders: Order[] }) {
                                         {order.customerName}
                                     </CardDescription>
                                 </div>
-                                <Badge className={`text-sm ${getStatusClass(order.status)}`}>{order.status}</Badge>
+                                <Badge className={`text-sm ${
+                                    order.status === 'Pendente' 
+                                        ? 'bg-red-500 text-white hover:bg-red-600' 
+                                        : order.status === 'Confirmado' 
+                                        ? 'bg-blue-600 text-white hover:bg-blue-700' 
+                                        : 'bg-destructive text-destructive-foreground'
+                                }`}>
+                                    {order.status}
+                                </Badge>
                             </div>
                         </CardHeader>
                         <CardContent className="flex-grow space-y-4">
