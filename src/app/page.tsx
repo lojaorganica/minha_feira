@@ -1,6 +1,7 @@
 
 import Logo from '@/components/logo';
 import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
 import Link from 'next/link';
 
 export default function Home() {
@@ -10,12 +11,16 @@ export default function Home() {
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <Logo size="large" />
-            <div className="space-y-2">
-              <h1 className="font-headline text-3xl sm:text-4xl font-bold tracking-tighter text-primary">
-                Bem-vindo(a) ao <span className="whitespace-nowrap">Minha Feira</span>, do Circuito Carioca de Feiras Orgânicas
+            <div className="space-y-3">
+              <h1 className="font-headline text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-primary">
+                Bem-vindo(a) ao Minha Feira!
               </h1>
-              <p className="max-w-[600px] text-foreground/80 text-base md:text-xl mx-auto lg:mx-0 font-semibold">
-                Produtos frescos e orgânicos, entregues de fazendas locais diretamente para sua mesa. Experimente o sabor da natureza.
+               <h2 className="text-xl sm:text-2xl font-headline text-primary/90">
+                Circuito Carioca de Feiras Orgânicas
+              </h2>
+              <Separator className="max-w-md mx-auto bg-primary/20" />
+              <p className="max-w-[700px] text-foreground/80 text-base md:text-lg mx-auto font-semibold">
+                Minha Feira é seu app de experiência exclusiva para antecipar suas compras de orgânicos diretamente com seus agricultores preferidos de nossas feiras orgânicas. Os pedidos poderão ser entregues nas feiras ou por delivery, basta combinar.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
