@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { getOrders, getProducts, toggleProductPromotion } from "@/lib/data";
@@ -301,7 +302,7 @@ function OrdersTabContent() {
                             <div className="flex justify-between items-start">
                                 <div>
                                     <CardTitle className="font-headline text-2xl text-primary">{order.id}</CardTitle>
-                                    <CardDescription className="flex items-center gap-2 mt-1">
+                                    <CardDescription className="flex items-center gap-2 mt-1 text-lg">
                                         <User className="h-4 w-4"/>
                                         {order.customerName}
                                     </CardDescription>
@@ -315,7 +316,7 @@ function OrdersTabContent() {
                                     <ShoppingBag className="h-5 w-5 text-accent" />
                                     Itens
                                 </h4>
-                                <ul className="space-y-1 list-disc pl-5 text-base font-semibold text-foreground/90">
+                                <ul className="space-y-1 list-disc pl-5 text-lg font-semibold text-foreground/90">
                                     {order.items.map((item, index) => (
                                         <li key={index}>
                                             {item.quantity}x {item.productName}
