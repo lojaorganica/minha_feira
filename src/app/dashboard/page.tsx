@@ -233,7 +233,7 @@ function OrderHistoryDialog({ allOrders }: { allOrders: Order[] }) {
                                     <div className="flex justify-between items-start">
                                         <div>
                                             <CardTitle className="font-headline text-xl text-primary">{order.id}</CardTitle>
-                                            <CardDescription className="flex items-center gap-2 mt-1">
+                                            <CardDescription className="flex items-center gap-2 mt-1 text-lg">
                                                 <User className="h-4 w-4"/>
                                                 {order.customerName}
                                             </CardDescription>
@@ -266,7 +266,7 @@ function OrderHistoryDialog({ allOrders }: { allOrders: Order[] }) {
     )
 }
 
-function OrdersTabContent({ orders }: { orders: Order[] }) {
+function OrdersTabContent({ orders, onOpenHistory }: { orders: Order[], onOpenHistory: () => void }) {
     const getStatusVariant = (status: Order['status']) => {
         switch (status) {
             case 'Pendente':
@@ -288,7 +288,7 @@ function OrdersTabContent({ orders }: { orders: Order[] }) {
                         <CardTitle>Pedidos Recebidos</CardTitle>
                         <CardDescription className="font-semibold">Revise e gerencie os pedidos de seus clientes.</CardDescription>
                     </div>
-                    <OrderHistoryDialog allOrders={orders} />
+                    {/* The OrderHistoryDialog is now handled by the parent component */}
                 </div>
             </CardHeader>
             <CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -298,7 +298,7 @@ function OrdersTabContent({ orders }: { orders: Order[] }) {
                             <div className="flex justify-between items-start">
                                 <div>
                                     <CardTitle className="font-headline text-2xl text-primary">{order.id}</CardTitle>
-                                    <CardDescription className="flex items-center gap-2 mt-1 text-xl">
+                                    <CardDescription className="flex items-center gap-2 mt-1 text-lg">
                                         <User className="h-4 w-4"/>
                                         {order.customerName}
                                     </CardDescription>
@@ -370,10 +370,13 @@ export default function DashboardPage() {
 
     return (
         <div className="container mx-auto py-10">
-            <div className="mb-6">
+            <div className="mb-6 flex justify-between items-center">
                 <BackButton />
+                <div className="flex items-center gap-4">
+                    <h1 className="text-3xl font-bold font-headline text-primary">Painel do Agricultor</h1>
+                    <OrderHistoryDialog allOrders={orders} />
+                </div>
             </div>
-            <h1 className="text-3xl font-bold font-headline text-primary mb-6">Painel do Agricultor</h1>
 
             <Tabs defaultValue="orders">
                 <TabsList className="grid w-full grid-cols-2 max-w-md mb-6">
@@ -381,7 +384,7 @@ export default function DashboardPage() {
                     <TabsTrigger value="products" className="text-lg font-bold">Meus Produtos</TabsTrigger>
                 </TabsList>
                 <TabsContent value="orders">
-                    <OrdersTabContent orders={orders} />
+                    <OrdersTabContent orders={orders} onOpenHistory={() => {}} />
                 </TabsContent>
                 <TabsContent value="products">
                     <ProductsTabContent />
@@ -390,3 +393,5 @@ export default function DashboardPage() {
         </div>
     );
 }
+
+    
