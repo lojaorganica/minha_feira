@@ -1,4 +1,4 @@
-import ProductBrowser from '@/components/product-browser';
+
 import Logo from '@/components/logo';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
@@ -6,7 +6,7 @@ import Link from 'next/link';
 export default function Home() {
   return (
     <div className="flex flex-col">
-      <section className="w-full py-8 md:py-16 lg:py-20 bg-primary/10">
+      <section className="w-full py-8 md:py-16 lg:py-20 bg-primary/10 flex-grow flex items-center">
         <div className="container px-4 md:px-6">
           <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
             <div className="flex justify-center">
@@ -33,10 +33,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-      
-      <main className="flex-1">
-        <ProductBrowser />
-      </main>
 
       <footer className="bg-muted p-6 md:py-12 w-full">
         <div className="container max-w-7xl grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 text-base">
