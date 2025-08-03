@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from "next/image";
@@ -9,6 +10,7 @@ import { useCart } from "@/hooks/use-cart";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 import { Input } from "./ui/input";
+import { cn } from "@/lib/utils";
 
 interface ProductCardProps {
   product: Product;
@@ -18,6 +20,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const { addToCart } = useCart();
   const { toast } = useToast();
   const [quantity, setQuantity] = useState(1);
+  const [isAdded, setIsAdded] = useState(false);
 
   const handleAddToCart = () => {
     if (quantity > 0) {
@@ -26,7 +29,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
         title: "Adicionado ao carrinho",
         description: `${quantity} x ${product.name} foi adicionado ao seu carrinho.`,
       });
-      setQuantity(1); // Reset quantity after adding to cart
+      setQuantity(1);
+      setIsAdded(true);
+      setTimeout(() => {
+        setIsAdded(false);
+      }, 500);
     }
   };
 
@@ -73,7 +80,13 @@ const ProductCard = ({ product }: ProductCardProps) => {
                     <Plus className="h-4 w-4" />
                 </Button>
             </div>
-            <Button onClick={handleAddToCart} className="flex-grow text-base font-semibold">
+            <Button 
+                onClick={handleAddToCart} 
+                className={cn(
+                    "flex-grow text-base font-semibold transition-colors duration-200",
+                    isAdded ? 'bg-accent hover:bg-accent/90' : 'bg-primary'
+                )}
+            >
               <ShoppingCart className="h-4 w-4 mr-2" />
               Adicionar
             </Button>
