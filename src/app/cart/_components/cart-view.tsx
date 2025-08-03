@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useCart } from "@/hooks/use-cart";
@@ -9,10 +10,12 @@ import { suggestComplementaryProducts } from "@/ai/flows/suggest-complementary-p
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
-import { Loader2, Sparkles, Trash2, Upload } from "lucide-react";
+import { Loader2, Sparkles, Trash2, Upload, MessageSquare } from "lucide-react";
 import { getProducts } from "@/lib/data";
 import type { Product } from "@/lib/types";
 import { useToast } from "@/hooks/use-toast";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 
 function ComplementarySuggestions() {
   const { cartItems, addToCart } = useCart();
@@ -86,6 +89,7 @@ export default function CartView() {
   const [proof, setProof] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
+  const [message, setMessage] = useState("");
 
   const handleProofUploadClick = () => {
     fileInputRef.current?.click();
@@ -225,8 +229,35 @@ export default function CartView() {
                     {proof && <p className="text-sm text-muted-foreground mt-2">Arquivo: {proof.name}</p>}
                 </CardFooter>
             </Card>
+
+            <Card className="mt-4">
+                <CardHeader>
+                   <CardTitle className="flex items-center gap-2 font-headline">
+                        <MessageSquare className="h-5 w-5 text-primary" />
+                        Mensagem para o agricultor
+                   </CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <div className="grid w-full gap-1.5">
+                        <Label htmlFor="message">Deixe uma observação para o agricultor (opcional):</Label>
+                        <Textarea 
+                            placeholder="Ex: Por favor, embale os tomates para presente." 
+                            id="message" 
+                            maxLength={500}
+                            value={message}
+                            onChange={(e) => setMessage(e.target.value)}
+                        />
+                        <p className="text-sm text-muted-foreground text-right">
+                           {message.length} / 500
+                        </p>
+                    </div>
+                </CardContent>
+            </Card>
+
             <ComplementarySuggestions />
         </aside>
     </div>
   );
 }
+
+    
