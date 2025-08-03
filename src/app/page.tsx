@@ -13,7 +13,7 @@ export default function Home() {
             <div className="flex flex-col justify-center space-y-4 text-center lg:text-left">
               <div className="space-y-2">
                 <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none text-primary">
-                  Bem-vindo ao Circuito de Feiras Orgânicas
+                  Bem-vindo(a) ao Minha Feira, do Circuito Carioca de Feiras Orgânicas
                 </h1>
                 <p className="max-w-[600px] text-foreground/80 text-base md:text-xl mx-auto lg:mx-0 font-semibold">
                   Produtos frescos e orgânicos, entregues de fazendas locais diretamente para sua mesa. Experimente o sabor da natureza.
