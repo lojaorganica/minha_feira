@@ -10,6 +10,8 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { Separator } from '@/components/ui/separator';
 
 export default function FarmerSelection() {
   const router = useRouter();
@@ -56,32 +58,38 @@ export default function FarmerSelection() {
         {allFarmers.map(farmer => (
           <Card
             key={farmer.id}
-            className={`cursor-pointer transition-all ${
-              selectedFarmerIds.has(farmer.id) ? 'border-primary ring-2 ring-primary' : ''
-            }`}
-            onClick={() => handleFarmerToggle(farmer.id)}
+            className={`flex flex-col transition-all`}
           >
-            <CardHeader className="flex flex-row items-center gap-4">
+            <CardHeader 
+                className="flex flex-row items-center gap-4 cursor-pointer"
+                onClick={() => handleFarmerToggle(farmer.id)}
+            >
               <Image src="https://placehold.co/100x100" alt={farmer.name} width={60} height={60} className="rounded-full" data-ai-hint="farmer portrait" />
-              <div className="flex-1">
+              <div className={`flex-1 ${selectedFarmerIds.has(farmer.id) ? 'text-primary' : ''}`}>
                 <CardTitle className="text-xl">{farmer.name}</CardTitle>
                 <CardDescription className="line-clamp-2 mt-1">{farmer.bio}</CardDescription>
               </div>
             </CardHeader>
-            <CardFooter>
-              <Checkbox
-                checked={selectedFarmerIds.has(farmer.id)}
-                aria-label={`Select ${farmer.name}`}
-                className="mr-2"
-              />
-              <span className="font-semibold text-base">Seguir este agricultor</span>
+            <Separator />
+            <CardFooter className="p-4 bg-muted/50 flex-grow flex-col items-start gap-4">
+               <div className="flex items-center space-x-2 cursor-pointer" onClick={() => handleFarmerToggle(farmer.id)}>
+                <Checkbox
+                    checked={selectedFarmerIds.has(farmer.id)}
+                    aria-label={`Select ${farmer.name}`}
+                    id={`check-${farmer.id}`}
+                />
+                <label htmlFor={`check-${farmer.id}`} className="font-semibold text-base cursor-pointer">Seguir este agricultor</label>
+              </div>
+              <Button asChild variant="outline" size="sm" className="w-full mt-2">
+                 <Link href={`/?farmerId=${farmer.id}`}>Ver Produtos</Link>
+              </Button>
             </CardFooter>
           </Card>
         ))}
       </div>
       <div className="mt-8 text-center">
         <Button size="lg" onClick={handleSaveChanges} className="font-bold">
-          Ver Produtos
+          Ver Produtos Selecionados
         </Button>
       </div>
     </div>
