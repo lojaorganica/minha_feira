@@ -222,9 +222,12 @@ export default function CartView() {
                         onChange={handleFileChange}
                         accept="image/jpeg,application/pdf"
                     />
+                     <p className="text-sm text-foreground/80 text-center">
+                        Efetue o total de seu pagamento para a chave PIX do agricultor e anexe abaixo seu comprovante.
+                    </p>
                     <Button className="w-full text-base font-bold" size="lg" onClick={handleProofUploadClick}>
                         <Upload className="h-4 w-4 mr-2"/>
-                        Pague com PIX e anexe o comprovante
+                        ANEXAR COMPROVANTE
                     </Button>
                     {proof && <p className="text-sm text-muted-foreground mt-2">Arquivo: {proof.name}</p>}
                 </CardFooter>
