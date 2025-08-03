@@ -2,7 +2,7 @@ import { getOrders, getProducts } from "@/lib/data";
 import type { Order, Product } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { CheckCircle, Edit, PlusCircle, Trash2, XCircle } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -16,7 +16,7 @@ function EditProductForm({ product }: { product: Product }) {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button size="sm" variant="outline">
+                <Button variant="outline" className="w-full">
                     <Edit className="h-4 w-4 mr-2" />
                     Editar
                 </Button>
@@ -76,10 +76,10 @@ function ProductsTabContent() {
     return (
         <Card>
             <CardHeader>
-                <div className="flex justify-between items-center">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                     <div>
                         <CardTitle>Meus Produtos</CardTitle>
-                        <CardDescription>Adicione, edite ou remova produtos do seu inventário.</CardDescription>
+                        <CardDescription className="font-semibold">Adicione, edite ou remova produtos do seu inventário.</CardDescription>
                     </div>
                     <Button>
                         <PlusCircle className="h-4 w-4 mr-2"/>
@@ -88,38 +88,35 @@ function ProductsTabContent() {
                 </div>
             </CardHeader>
             <CardContent>
-                <Table>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead>Imagem</TableHead>
-                            <TableHead>Nome</TableHead>
-                            <TableHead>Preço</TableHead>
-                            <TableHead>Unidade</TableHead>
-                            <TableHead>Ações</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {products.map((product) => (
-                            <TableRow key={product.id} className="text-base font-medium">
-                                <TableCell>
-                                    <Image src={product.image} alt={product.name} width={40} height={40} className="rounded-md object-cover" data-ai-hint={product.dataAiHint} />
-                                </TableCell>
-                                <TableCell className="font-semibold">{product.name}</TableCell>
-                                <TableCell>R${product.price.toFixed(2).replace('.', ',')}</TableCell>
-                                <TableCell>{product.unit}</TableCell>
-                                <TableCell>
-                                    <div className="flex gap-2">
-                                        <EditProductForm product={product} />
-                                        <Button size="sm" variant="destructive">
-                                            <Trash2 className="h-4 w-4 mr-2" />
-                                            Excluir
-                                        </Button>
-                                    </div>
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    {products.map((product) => (
+                        <Card key={product.id} className="flex flex-col">
+                            <div className="relative aspect-video">
+                                <Image 
+                                    src={product.image} 
+                                    alt={product.name} 
+                                    fill 
+                                    className="rounded-t-lg object-cover" 
+                                    data-ai-hint={product.dataAiHint} 
+                                />
+                            </div>
+                            <CardHeader>
+                                <CardTitle className="font-headline text-primary">{product.name}</CardTitle>
+                            </CardHeader>
+                            <CardContent className="flex-grow">
+                                <p className="font-bold text-lg">R${product.price.toFixed(2).replace('.', ',')} <span className="text-base font-medium text-foreground/80">/ {product.unit}</span></p>
+                                <p className="text-base font-semibold text-foreground/90 mt-2 line-clamp-3">{product.description}</p>
+                            </CardContent>
+                            <CardFooter className="flex gap-2">
+                                <EditProductForm product={product} />
+                                <Button variant="destructive" className="w-full">
+                                    <Trash2 className="h-4 w-4 mr-2" />
+                                    Excluir
+                                </Button>
+                            </CardFooter>
+                        </Card>
+                    ))}
+                </div>
             </CardContent>
         </Card>
     )
@@ -145,7 +142,7 @@ function OrdersTabContent() {
         <Card>
             <CardHeader>
                 <CardTitle>Pedidos Recebidos</CardTitle>
-                <CardDescription>Revise e gerencie novos pedidos de seus clientes.</CardDescription>
+                <CardDescription className="font-semibold">Revise e gerencie novos pedidos de seus clientes.</CardDescription>
             </CardHeader>
             <CardContent>
                 <Table className="border-collapse border-2 border-border">
@@ -168,6 +165,7 @@ function OrdersTabContent() {
                                     {order.items.map(item => `${item.productName} (x${item.quantity})`).join(', ')}
                                 </TableCell>
                                 <TableCell className="text-right border-r-2 border-border">R${order.total.toFixed(2).replace('.', ',')}</TableCell>
+
                                 <TableCell className="border-r-2 border-border">
                                     <Badge variant={getStatusVariant(order.status)}>{order.status}</Badge>
                                 </TableCell>
