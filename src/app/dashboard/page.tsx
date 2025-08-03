@@ -7,7 +7,7 @@ import type { Order, Product } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
-import { CheckCircle, Edit, PlusCircle, Trash2, XCircle, ShoppingBag, User, DollarSign, Download, Share2, History, Search, Tag, CalendarIcon } from "lucide-react";
+import { Edit, PlusCircle, Trash2, ShoppingBag, User, DollarSign, Download, Share2, History, Search, Tag, CalendarIcon, Truck, Phone, Home } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
@@ -211,7 +211,7 @@ function OrdersTabContent({ orders }: { orders: Order[] }) {
                         <CardHeader>
                             <div className="flex justify-between items-start">
                                 <div>
-                                    <CardTitle className="font-headline text-2xl text-primary">{order.id}</CardTitle>
+                                    <CardTitle className="font-headline text-2xl text-primary">{order.id.split('-')[1]}</CardTitle>
                                     <CardDescription className="flex items-center gap-2 mt-1 text-lg">
                                         <User className="h-4 w-4"/>
                                         {order.customerName}
@@ -219,7 +219,7 @@ function OrdersTabContent({ orders }: { orders: Order[] }) {
                                 </div>
                                 <Badge className={`text-sm ${
                                     order.status === 'Pendente' 
-                                        ? 'bg-red-500 text-white hover:bg-red-500' 
+                                        ? 'bg-amber-500 text-white hover:bg-amber-500' 
                                         : order.status === 'Confirmado' 
                                         ? 'bg-blue-600 text-white hover:bg-blue-600'
                                         : 'bg-destructive text-destructive-foreground'
@@ -229,19 +229,43 @@ function OrdersTabContent({ orders }: { orders: Order[] }) {
                             </div>
                         </CardHeader>
                         <CardContent className="flex-grow space-y-4">
-                            <div>
+                             <div>
                                 <h4 className="font-semibold mb-2 flex items-center gap-2 text-base">
                                     <ShoppingBag className="h-5 w-5 text-accent" />
                                     Itens
                                 </h4>
                                 <ul className="space-y-1 list-disc pl-5 font-semibold text-foreground/90">
                                     {order.items.map((item, index) => (
-                                        <li key={index} className="text-lg">
+                                        <li key={index} className="text-base">
                                             {item.quantity}x {item.productName}
                                         </li>
                                     ))}
                                 </ul>
                             </div>
+                            <Separator />
+
+                            <div>
+                                <h4 className="font-semibold mb-2 flex items-center gap-2 text-base">
+                                    <Truck className="h-5 w-5 text-accent" />
+                                    Entrega
+                                </h4>
+                                <div className="text-base font-semibold text-foreground/90 pl-5">
+                                    {order.deliveryOption === 'pickup' ? (
+                                        <p>Retirar na feira</p>
+                                    ) : (
+                                        <div className="space-y-1">
+                                            <p className="font-bold">Delivery</p>
+                                            {order.customerContact && (
+                                                <>
+                                                    <p className="flex items-center gap-2"><Home className="h-4 w-4" />{order.customerContact.address}</p>
+                                                    <p className="flex items-center gap-2"><Phone className="h-4 w-4" />{order.customerContact.phone}</p>
+                                                </>
+                                            )}
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                            
                             <Separator />
                              <div className="flex justify-between items-center text-lg font-bold">
                                <span className="flex items-center gap-2">
@@ -252,19 +276,7 @@ function OrdersTabContent({ orders }: { orders: Order[] }) {
                             </div>
                         </CardContent>
                         <CardFooter className="flex flex-col gap-2">
-                            {order.status === 'Pendente' && (
-                                <div className="flex w-full gap-2">
-                                    <Button className="w-full" variant="destructive">
-                                        <XCircle className="h-4 w-4 mr-2" />
-                                        Recusar
-                                    </Button>
-                                    <Button className="w-full">
-                                        <CheckCircle className="h-4 w-4 mr-2" />
-                                        Aceitar
-                                    </Button>
-                                </div>
-                            )}
-                            <div className="flex w-full gap-2">
+                             <div className="flex w-full gap-2">
                                 <Button variant="outline" className="w-full">
                                     <Share2 className="h-4 w-4 mr-2" />
                                     WhatsApp

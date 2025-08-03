@@ -43,9 +43,11 @@ export interface Order {
   status: 'Pendente' | 'Confirmado' | 'Rejeitado';
   total: number;
   date: Date;
+  deliveryOption: 'pickup' | 'delivery';
+  customerContact?: { address: string; phone: string };
 }
 
-export interface CustomerOrder extends Omit<Order, 'status'> {
+export interface CustomerOrder extends Omit<Order, 'status' | 'customerContact'> {
     status: 'Pendente'; // O status do cliente é sempre pendente até o agricultor confirmar
     farmerName: string;
 }
@@ -55,6 +57,8 @@ export interface Customer {
   id: string;
   name: string;
   favoriteFarmerIds: string[];
+  address: string;
+  phone: string;
 }
 
     

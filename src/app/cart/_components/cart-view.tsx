@@ -19,6 +19,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useOrderHistory } from "@/hooks/use-order-history";
+import { useUser } from "@/hooks/use-user";
 
 function ComplementarySuggestions() {
   const { cartItems, addToCart } = useCart();
@@ -90,6 +91,7 @@ function ComplementarySuggestions() {
 export default function CartView() {
   const { cartItems, removeFromCart, updateQuantity, cartTotal, isCartLoaded, clearCart } = useCart();
   const { addOrder } = useOrderHistory();
+  const { user } = useUser();
   const [proof, setProof] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
@@ -165,6 +167,15 @@ export default function CartView() {
         });
         return;
     }
+    
+    if (!user) {
+        toast({
+            variant: 'destructive',
+            title: "Erro de usuário",
+            description: "Não foi possível identificar o usuário. Por favor, tente novamente.",
+        });
+        return;
+    }
 
     const orderItemsText = cartItems.map(item => `- ${item.quantity}x ${item.name} (R$ ${(item.price * item.quantity).toFixed(2).replace('.', ',')})`).join('\n');
     const deliveryText = deliveryOption === 'delivery' ? `*Opção de Entrega:* Delivery (Frete: R$ ${shippingCost.toFixed(2).replace('.', ',')})` : '*Opção de Entrega:* Retirar na Feira (Frete Grátis)';
@@ -196,12 +207,19 @@ O comprovante está anexado nesta conversa. Aguardo a confirmação. Obrigado(a)
 
     const newOrder = {
       id: `ORD-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
-      customerName: 'Cliente App', // Em um app real, viria do useUser()
+      customerName: user.name,
       items: cartItems.map(item => ({ productName: item.name, quantity: item.quantity })),
       status: 'Pendente' as 'Pendente',
       total: finalTotal,
       date: new Date(),
       farmerName: farmer.name,
+      deliveryOption: deliveryOption,
+      ...(deliveryOption === 'delivery' && {
+        customerContact: {
+            address: user.address,
+            phone: user.phone,
+        }
+      })
     };
     addOrder(newOrder);
 

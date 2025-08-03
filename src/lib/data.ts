@@ -197,6 +197,8 @@ const orders: Order[] = [
         status: 'Pendente',
         total: 8.50,
         date: new Date(2024, 6, 20),
+        deliveryOption: 'delivery',
+        customerContact: { address: 'Rua das Flores, 123, Rio de Janeiro, RJ', phone: '21999991111' },
     },
     {
         id: 'ORD-002',
@@ -208,6 +210,7 @@ const orders: Order[] = [
         status: 'Confirmado',
         total: 13.00,
         date: new Date(2024, 6, 19),
+        deliveryOption: 'pickup',
     },
     {
         id: 'ORD-003',
@@ -219,6 +222,7 @@ const orders: Order[] = [
         status: 'Pendente',
         total: 10.00,
         date: new Date(2024, 6, 20),
+        deliveryOption: 'pickup',
     },
     {
         id: 'ORD-004',
@@ -230,6 +234,8 @@ const orders: Order[] = [
         status: 'Rejeitado',
         total: 8.00,
         date: new Date(2024, 6, 18),
+        deliveryOption: 'delivery',
+        customerContact: { address: 'Av. Copacabana, 456, Rio de Janeiro, RJ', phone: '21988882222' },
     }
 ];
 
@@ -237,7 +243,9 @@ const customers: Customer[] = [
     {
         id: 'cust-001',
         name: 'Cliente Exemplo',
-        favoriteFarmerIds: ['1', '2']
+        favoriteFarmerIds: ['1', '2'],
+        address: 'Rua de Exemplo, 123, Bairro, Rio de Janeiro, RJ',
+        phone: '21912345678'
     }
 ];
 
