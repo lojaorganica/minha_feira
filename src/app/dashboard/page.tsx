@@ -178,7 +178,7 @@ function OrderHistoryDialog() {
             const matchesDate = !date || format(order.date, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd');
             return matchesSearchTerm && matchesDate;
         });
-    }, [allOrders, searchTerm, date]);
+    }, [searchTerm, date]);
     
     return (
         <Dialog>
