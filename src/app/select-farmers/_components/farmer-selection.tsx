@@ -91,11 +91,6 @@ export default function FarmerSelection() {
           </Card>
         ))}
       </div>
-      <div className="mt-8 text-center">
-        <Button size="lg" onClick={handleSaveChanges} className="font-bold">
-          Ver Produtos Selecionados
-        </Button>
-      </div>
     </div>
   );
 }
