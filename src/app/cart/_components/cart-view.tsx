@@ -9,10 +9,10 @@ import { Separator } from "@/components/ui/separator";
 import { suggestComplementaryProducts } from "@/ai/flows/suggest-complementary-products";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState, useRef } from "react";
-import { Loader2, Sparkles, Trash2, Upload, MessageSquare } from "lucide-react";
-import { getProducts } from "@/lib/data";
-import type { Product } from "@/lib/types";
+import { useEffect, useState, useMemo, useRef } from "react";
+import { Loader2, Sparkles, Trash2, Upload, MessageSquare, Copy } from "lucide-react";
+import { getProducts, getFarmerById } from "@/lib/data";
+import type { Product, Farmer } from "@/lib/types";
 import { useToast } from "@/hooks/use-toast";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -90,6 +90,14 @@ export default function CartView() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
   const [message, setMessage] = useState("");
+  
+  const farmer = useMemo(() => {
+    if (cartItems.length > 0) {
+        const farmerId = cartItems[0].farmerId;
+        return getFarmerById(farmerId);
+    }
+    return null;
+  }, [cartItems]);
 
   const handleProofUploadClick = () => {
     fileInputRef.current?.click();
@@ -112,6 +120,16 @@ export default function CartView() {
       });
     }
   }
+
+  const handleCopyPixKey = () => {
+    if (farmer?.pixKey) {
+        navigator.clipboard.writeText(farmer.pixKey);
+        toast({
+            title: 'Chave PIX copiada!',
+            description: 'A chave PIX foi copiada para a área de transferência.',
+        });
+    }
+  };
 
 
   if (!isCartLoaded) {
@@ -178,7 +196,7 @@ export default function CartView() {
                                     variant="ghost"
                                     type="button"
                                     onClick={() => removeFromCart(product.id)}
-                                    className="font-semibold text-destructive hover:text-destructive-foreground"
+                                    className="font-semibold text-destructive hover:text-destructive"
                                 >
                                     <Trash2 className="h-4 w-4 mr-1"/>
                                     Remover
@@ -213,6 +231,20 @@ export default function CartView() {
                         <span>Total do pedido</span>
                         <span>R${(cartTotal + 5).toFixed(2).replace('.', ',')}</span>
                     </div>
+                     {farmer?.pixKey && (
+                        <>
+                            <Separator />
+                            <div className="flex justify-between font-bold text-xl items-center">
+                                <span className="text-lg">Chave PIX</span>
+                                <div className="flex items-center gap-2">
+                                <span className="text-base font-mono bg-muted px-2 py-1 rounded-md">{farmer.pixKey}</span>
+                                <Button size="icon" variant="ghost" onClick={handleCopyPixKey}>
+                                    <Copy className="h-5 w-5" />
+                                </Button>
+                                </div>
+                            </div>
+                        </>
+                    )}
                 </CardContent>
                 <CardFooter className="flex flex-col gap-2">
                     <input 

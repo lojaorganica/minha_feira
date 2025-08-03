@@ -22,6 +22,7 @@ export interface Farmer {
     lng: number;
   };
   bio: string;
+  pixKey: string;
 }
 
 export interface FarmerWithProducts extends Farmer {
