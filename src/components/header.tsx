@@ -76,10 +76,10 @@ const Header = () => {
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-2">
               <Button variant="outline" size="sm" asChild>
-                <Link href="/select-farmers">Sou Cliente</Link>
+                <Link href="/login/customer">Sou Cliente</Link>
               </Button>
               <Button variant="default" size="sm" asChild>
-                <Link href="/dashboard">Sou Agricultor</Link>
+                <Link href="/login/farmer">Sou Agricultor</Link>
               </Button>
             </div>
              <Separator orientation="vertical" className="h-6 mx-2 hidden sm:block" />
