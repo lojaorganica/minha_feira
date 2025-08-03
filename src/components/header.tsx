@@ -29,7 +29,6 @@ const Header = () => {
   const navLinks = [
     { href: "/welcome", label: "Início" },
     { href: "/farmers", label: "Agricultores" },
-    { href: "/history", label: "Histórico" },
   ];
 
   const loginLinks = [
@@ -65,6 +64,9 @@ const Header = () => {
                     </Link>
                   </Button>
                 ))}
+                 <Button asChild variant="ghost" className="w-full justify-start rounded-none text-base" onClick={() => setSheetOpen(false)}>
+                    <Link href="/history">Histórico de Compras</Link>
+                </Button>
               </nav>
               <Separator className="my-4" />
                <nav className="flex flex-col gap-2">
@@ -106,6 +108,7 @@ const Header = () => {
                 {link.label}
               </Link>
             ))}
+             <Link href="/history" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Histórico de Compras</Link>
           </nav>
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="icon" asChild className="relative">
@@ -127,5 +130,3 @@ const Header = () => {
 };
 
 export default Header;
-
-    
