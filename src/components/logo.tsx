@@ -8,7 +8,7 @@ interface LogoProps {
 
 const Logo = ({ size = 'default' }: LogoProps) => {
   const sizes = {
-    large: 192,
+    large: 256, // Aumentado de 192 para 256
     default: 128,
     small: 64,
   }
@@ -24,7 +24,7 @@ const Logo = ({ size = 'default' }: LogoProps) => {
         height={height}
         className={cn(
           "rounded-full",
-          size === 'large' && 'w-32 h-32 sm:w-48 sm:h-48',
+          size === 'large' && 'w-48 h-48 sm:w-64 sm:h-64', // Aumentado de w-32/h-32 e sm:w-48/h-48
           size === 'default' && 'w-16 h-16',
           size === 'small' && 'w-14 h-14'
         )}
