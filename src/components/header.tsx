@@ -39,6 +39,7 @@ const Header = () => {
   const { cartCount } = useCart();
   const [isSheetOpen, setSheetOpen] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
   const { searchTerm, setSearchTerm } = useSearch();
   const { user, userType, isUserLoaded, logout } = useUser();
   
@@ -120,6 +121,8 @@ const Header = () => {
     return null;
   }
 
+  const isCatalogPage = pathname === '/catalog';
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-20 items-center">
@@ -160,16 +163,18 @@ const Header = () => {
 
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
           <div className="w-full flex-1 md:w-auto md:flex-none">
-            <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                <Input
-                    type="search"
-                    placeholder="Buscar produtos..."
-                    className="pl-10"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                />
-            </div>
+            {isCatalogPage && (
+              <div className="relative">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                  <Input
+                      type="search"
+                      placeholder="Buscar produtos..."
+                      className="pl-10"
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+              </div>
+            )}
           </div>
           <div className="flex items-center gap-4">
               <nav className="hidden md:flex items-center gap-4 text-base">
