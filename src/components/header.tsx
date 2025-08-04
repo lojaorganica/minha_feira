@@ -72,26 +72,10 @@ const Header = () => {
               </div>
               
               <div className="flex flex-col flex-grow p-4">
-                  <nav className="flex flex-col gap-2">
-                    <Button asChild variant="ghost" className="w-full justify-start text-base" onClick={() => setSheetOpen(false)}>
-                        <Link href="/welcome">Início</Link>
-                    </Button>
-                  </nav>
-                  
+                  <Button asChild variant="ghost" className="w-full justify-start text-base" onClick={() => setSheetOpen(false)}>
+                      <Link href="/welcome">Início</Link>
+                  </Button>
                   <Separator className="my-4" />
-
-                  {isUserLoaded && !userType && (
-                    <nav className="flex flex-col gap-2">
-                        {loginLinks.map((link) => (
-                        <Button asChild key={link.href} variant="outline" className="w-full justify-start" onClick={() => setSheetOpen(false)}>
-                            <Link href={link.href} className="text-base">
-                            <link.icon className="h-4 w-4 mr-2"/>
-                            {link.label}
-                            </Link>
-                        </Button>
-                        ))}
-                    </nav>
-                  )}
 
                   {isUserLoaded && userType === 'customer' && (
                     <>
@@ -123,6 +107,19 @@ const Header = () => {
                         ))}
                         </nav>
                     </>
+                  )}
+
+                  {isUserLoaded && !userType && (
+                    <nav className="flex flex-col gap-2">
+                        {loginLinks.map((link) => (
+                        <Button asChild key={link.href} variant="outline" className="w-full justify-start" onClick={() => setSheetOpen(false)}>
+                            <Link href={link.href} className="text-base">
+                            <link.icon className="h-4 w-4 mr-2"/>
+                            {link.label}
+                            </Link>
+                        </Button>
+                        ))}
+                    </nav>
                   )}
                   
                   {isUserLoaded && userType && (
@@ -176,17 +173,19 @@ const Header = () => {
              )}
           </nav>
           <div className="flex items-center gap-2">
-            <Button variant="ghost" size="icon" asChild className="relative">
-              <Link href="/cart">
-                <ShoppingCart className="h-8 w-8" />
-                {cartCount > 0 && (
-                  <span className="absolute top-2 right-2 flex h-5 w-5 items-center justify-center rounded-full bg-accent text-xs font-bold text-accent-foreground">
-                    {cartCount}
-                  </span>
-                )}
-                <span className="sr-only">Carrinho de Compras</span>
-              </Link>
-            </Button>
+            {userType !== 'farmer' && (
+              <Button variant="ghost" size="icon" asChild className="relative">
+                <Link href="/cart">
+                  <ShoppingCart className="h-8 w-8" />
+                  {cartCount > 0 && (
+                    <span className="absolute top-2 right-2 flex h-5 w-5 items-center justify-center rounded-full bg-accent text-xs font-bold text-accent-foreground">
+                      {cartCount}
+                    </span>
+                  )}
+                  <span className="sr-only">Carrinho de Compras</span>
+                </Link>
+              </Button>
+            )}
              {isUserLoaded && userType && (
                 <Button variant="outline" size="sm" onClick={handleLogout}>Sair</Button>
              )}
@@ -198,5 +197,3 @@ const Header = () => {
 };
 
 export default Header;
-
-    
