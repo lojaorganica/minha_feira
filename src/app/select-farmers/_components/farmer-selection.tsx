@@ -38,6 +38,11 @@ export default function FarmerSelection() {
                   <Image src="https://placehold.co/100x100" alt={farmer.name} width={60} height={60} className="rounded-full" data-ai-hint="farmer portrait" />
                   <div className="flex-1">
                     <CardTitle className="text-2xl">{farmer.name}</CardTitle>
+                    {farmer.responsibleName && (
+                        <p className="text-sm font-semibold text-foreground/80 mt-1">
+                            Responsável: {farmer.responsibleName}
+                        </p>
+                    )}
                   </div>
                 </div>
               </CardHeader>
