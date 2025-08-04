@@ -50,12 +50,6 @@ const Header = () => {
     { href: "/dashboard?tab=products", label: "Meus Produtos", icon: Package },
     { href: "/dashboard/customers", label: "Meus Clientes", icon: Users },
   ];
-  
-  const guestMenuLinks = [
-      { href: "/login/customer", label: "Sou Cliente", icon: User},
-      { href: "/login/farmer", label: "Sou Agricultor", icon: Tractor },
-  ];
-
 
   const renderMobileMenu = () => {
     if (!isUserLoaded) {
@@ -102,19 +96,7 @@ const Header = () => {
         </>
       );
     } else {
-        // Renderiza o menu de visitante se não houver usuário logado
-        return (
-            <nav className="flex flex-col gap-2">
-                {guestMenuLinks.map((link) => (
-                <Button asChild key={link.href} variant="outline" className="w-full justify-start" onClick={closeSheet}>
-                    <Link href={link.href} className="text-base">
-                    <link.icon className="h-4 w-4 mr-2"/>
-                    {link.label}
-                    </Link>
-                </Button>
-                ))}
-            </nav>
-        );
+        return null;
     }
   }
 
@@ -139,13 +121,7 @@ const Header = () => {
         </>
        )
     }
-     // Fallback para visitante
-    return (
-      <>
-          <Link href="/login/customer" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Sou Cliente</Link>
-          <Link href="/login/farmer" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Sou Agricultor</Link>
-      </>
-    )
+    return null;
   }
 
   return (
