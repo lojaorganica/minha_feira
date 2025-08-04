@@ -85,9 +85,7 @@ const Header = () => {
             </nav>
         </>
       );
-    }
-
-    if (userType === 'customer') {
+    } else if (userType === 'customer') {
       return (
          <>
             <h3 className="px-2 mb-2 text-sm font-semibold text-muted-foreground">Área do Cliente</h3>
@@ -103,21 +101,21 @@ const Header = () => {
             </nav>
         </>
       );
+    } else {
+        // Renderiza o menu de visitante se não houver usuário logado
+        return (
+            <nav className="flex flex-col gap-2">
+                {guestMenuLinks.map((link) => (
+                <Button asChild key={link.href} variant="outline" className="w-full justify-start" onClick={closeSheet}>
+                    <Link href={link.href} className="text-base">
+                    <link.icon className="h-4 w-4 mr-2"/>
+                    {link.label}
+                    </Link>
+                </Button>
+                ))}
+            </nav>
+        );
     }
-    
-    // Fallback for guest
-    return (
-        <nav className="flex flex-col gap-2">
-            {guestMenuLinks.map((link) => (
-            <Button asChild key={link.href} variant="outline" className="w-full justify-start" onClick={closeSheet}>
-                <Link href={link.href} className="text-base">
-                <link.icon className="h-4 w-4 mr-2"/>
-                {link.label}
-                </Link>
-            </Button>
-            ))}
-        </nav>
-    );
   }
 
   const renderDesktopNav = () => {
@@ -141,7 +139,7 @@ const Header = () => {
         </>
        )
     }
-     // Fallback for guest
+     // Fallback para visitante
     return (
       <>
           <Link href="/login/customer" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Sou Cliente</Link>
