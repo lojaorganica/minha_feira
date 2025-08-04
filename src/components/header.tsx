@@ -53,7 +53,7 @@ const Header = () => {
     { href: "/profile", label: "Meu Perfil", icon: User },
     { href: "/dashboard?tab=orders", label: "Pedidos", icon: ShoppingBasket },
     { href: "/dashboard?tab=products", label: "Meus Produtos", icon: Package },
-    { href: "/#", label: "Meus Clientes", icon: Users },
+    { href: "/dashboard/customers", label: "Meus Clientes", icon: Users },
   ]
 
   return (

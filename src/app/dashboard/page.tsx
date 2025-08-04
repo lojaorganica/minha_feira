@@ -225,7 +225,7 @@ function OrdersTabContent({ orders }: { orders: Order[] }) {
                             <div className="flex justify-between items-start">
                                 <div>
                                     <CardTitle className="font-headline text-2xl text-primary">{order.id.split('-')[1]}</CardTitle>
-                                    <CardDescription className="flex items-center gap-2 mt-1 text-lg">
+                                    <CardDescription className="text-base font-semibold text-foreground/90 flex items-center gap-2 mt-1">
                                         <User className="h-4 w-4"/>
                                         {order.customerName}
                                     </CardDescription>
@@ -372,7 +372,7 @@ function OrderHistoryDialog({ allOrders, open, onOpenChange }: { allOrders: Orde
                                 <div className="flex justify-between items-start">
                                     <div>
                                         <CardTitle className="font-headline text-xl text-primary">{order.id}</CardTitle>
-                                        <CardDescription className="flex items-center gap-2 mt-1 text-base">
+                                        <CardDescription className="text-base font-semibold text-foreground/90 flex items-center gap-2 mt-1">
                                             <User className="h-4 w-4"/>
                                             {order.customerName}
                                         </CardDescription>

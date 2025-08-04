@@ -62,5 +62,3 @@ export interface Customer {
   address: string;
   phone: string;
 }
-
-    
