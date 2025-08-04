@@ -23,7 +23,15 @@ export function useUser() {
       const storedUserType = localStorage.getItem(USER_TYPE_STORAGE_KEY) as 'customer' | 'farmer' | null;
       
       if (storedUser && storedUserType) {
-        setUser(JSON.parse(storedUser));
+        const parsedUser = JSON.parse(storedUser);
+        // Re-fetch user data to ensure it's up to date with our mock DB
+        if (storedUserType === 'customer') {
+            const freshData = getCustomerById(parsedUser.id);
+            setUser(freshData);
+        } else if (storedUserType === 'farmer') {
+            const freshData = getFarmerById(parsedUser.id);
+            setUser(freshData);
+        }
         setUserType(storedUserType);
       } else {
         // Default to customer if nothing is stored
@@ -42,19 +50,48 @@ export function useUser() {
     }
   }, []);
 
-  const updateUser = useCallback((updatedUserData: Customer | Farmer) => {
-    setUser(updatedUserData);
-    try {
-      localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(updatedUserData));
-    } catch (error) {
-      console.error("Falha ao salvar o usuário no localStorage", error);
-    }
+  const updateUser = useCallback((updatedUserData: Partial<Customer | Farmer>) => {
+    setUser(currentUser => {
+        if (!currentUser) return null;
+        const newUser = { ...currentUser, ...updatedUserData };
+        try {
+            localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(newUser));
+        } catch (error) {
+            console.error("Falha ao salvar o usuário no localStorage", error);
+        }
+        return newUser;
+    });
   }, []);
+
+  const login = (id: string, type: 'customer' | 'farmer') => {
+    let userData;
+    if (type === 'customer') {
+        userData = getCustomerById(id);
+    } else {
+        userData = getFarmerById(id);
+    }
+
+    if (userData) {
+        setUser(userData);
+        setUserType(type);
+        localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(userData));
+        localStorage.setItem(USER_TYPE_STORAGE_KEY, type);
+    }
+  };
+
+  const logout = () => {
+    setUser(null);
+    setUserType(null);
+    localStorage.removeItem(USER_STORAGE_KEY);
+    localStorage.removeItem(USER_TYPE_STORAGE_KEY);
+  }
 
   return {
     user,
     userType,
     isUserLoaded,
     updateUser,
+    login,
+    logout
   };
 }
