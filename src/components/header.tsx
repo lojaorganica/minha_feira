@@ -18,6 +18,7 @@ import { Separator } from "./ui/separator";
 import { useSearch } from "@/hooks/use-search";
 import { Input } from "./ui/input";
 import { useUser } from "@/hooks/use-user";
+import { Loader2 } from "lucide-react";
 
 const Header = () => {
   const { cartCount } = useCart();
@@ -74,67 +75,74 @@ const Header = () => {
               </div>
               
               <div className="flex flex-col flex-grow p-4">
-                  <Button asChild variant="ghost" className="w-full justify-start text-base" onClick={() => setSheetOpen(false)}>
-                      <Link href="/welcome"><Home className="h-4 w-4 mr-2"/>Início</Link>
-                  </Button>
-                  <Separator className="my-4" />
-
-                  {isUserLoaded && userType === 'customer' && (
+                  {!isUserLoaded ? (
+                     <div className="flex justify-center items-center h-full">
+                        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                    </div>
+                  ) : (
                     <>
-                        <h3 className="px-2 mb-2 text-sm font-semibold text-muted-foreground">Área do Cliente</h3>
-                        <nav className="flex flex-col gap-2">
-                        {customerMenuLinks.map((link) => (
-                        <Button asChild key={link.href} variant="ghost" className="w-full justify-start" onClick={() => setSheetOpen(false)}>
-                            <Link href={link.href} className="text-base">
-                                <link.icon className="h-4 w-4 mr-2"/>
-                                {link.label}
-                            </Link>
-                        </Button>
-                        ))}
-                        </nav>
-                    </>
-                  )}
-
-                  {isUserLoaded && userType === 'farmer' && (
-                    <>
-                        <h3 className="px-2 mb-2 text-sm font-semibold text-muted-foreground">Área do Agricultor</h3>
-                        <nav className="flex flex-col gap-2">
+                      <div className="flex-grow">
                         <Button asChild variant="ghost" className="w-full justify-start text-base" onClick={() => setSheetOpen(false)}>
                             <Link href="/welcome"><Home className="h-4 w-4 mr-2"/>Início</Link>
                         </Button>
-                        {farmerMenuLinks.map((link) => (
-                        <Button asChild key={link.href} variant="ghost" className="w-full justify-start" onClick={() => setSheetOpen(false)}>
-                            <Link href={link.href} className="text-base">
-                                <link.icon className="h-4 w-4 mr-2"/>
-                                {link.label}
-                            </Link>
-                        </Button>
-                        ))}
-                        </nav>
-                    </>
-                  )}
-
-                  {isUserLoaded && !userType && (
-                    <nav className="flex flex-col gap-2">
-                        {loginLinks.map((link) => (
-                        <Button asChild key={link.href} variant="outline" className="w-full justify-start" onClick={() => setSheetOpen(false)}>
-                            <Link href={link.href} className="text-base">
-                            <link.icon className="h-4 w-4 mr-2"/>
-                            {link.label}
-                            </Link>
-                        </Button>
-                        ))}
-                    </nav>
-                  )}
-                  
-                  {isUserLoaded && userType && (
-                    <div className="mt-auto">
                         <Separator className="my-4" />
-                        <Button variant="outline" className="w-full justify-start" onClick={handleLogout}>
-                            <LogOut className="h-4 w-4 mr-2"/>
-                            Sair
-                        </Button>
-                    </div>
+
+                        {userType === 'farmer' && (
+                           <>
+                                <h3 className="px-2 mb-2 text-sm font-semibold text-muted-foreground">Área do Agricultor</h3>
+                                <nav className="flex flex-col gap-2">
+                                {farmerMenuLinks.map((link) => (
+                                <Button asChild key={link.href} variant="ghost" className="w-full justify-start" onClick={() => setSheetOpen(false)}>
+                                    <Link href={link.href} className="text-base">
+                                        <link.icon className="h-4 w-4 mr-2"/>
+                                        {link.label}
+                                    </Link>
+                                </Button>
+                                ))}
+                                </nav>
+                            </>
+                        )}
+
+                        {userType === 'customer' && (
+                           <>
+                                <h3 className="px-2 mb-2 text-sm font-semibold text-muted-foreground">Área do Cliente</h3>
+                                <nav className="flex flex-col gap-2">
+                                {customerMenuLinks.map((link) => (
+                                <Button asChild key={link.href} variant="ghost" className="w-full justify-start" onClick={() => setSheetOpen(false)}>
+                                    <Link href={link.href} className="text-base">
+                                        <link.icon className="h-4 w-4 mr-2"/>
+                                        {link.label}
+                                    </Link>
+                                </Button>
+                                ))}
+                                </nav>
+                            </>
+                        )}
+
+                        {!userType && (
+                            <nav className="flex flex-col gap-2">
+                                {loginLinks.map((link) => (
+                                <Button asChild key={link.href} variant="outline" className="w-full justify-start" onClick={() => setSheetOpen(false)}>
+                                    <Link href={link.href} className="text-base">
+                                    <link.icon className="h-4 w-4 mr-2"/>
+                                    {link.label}
+                                    </Link>
+                                </Button>
+                                ))}
+                            </nav>
+                        )}
+                      </div>
+
+                      {userType && (
+                        <div className="mt-auto">
+                            <Separator className="my-4" />
+                            <Button variant="outline" className="w-full justify-start" onClick={handleLogout}>
+                                <LogOut className="h-4 w-4 mr-2"/>
+                                Sair
+                            </Button>
+                        </div>
+                      )}
+                    </>
                   )}
               </div>
             </SheetContent>
