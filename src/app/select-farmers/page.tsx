@@ -1,13 +1,10 @@
-import BackButton from '@/components/back-button';
+
 import FarmerSelection from './_components/farmer-selection';
 
 export default function SelectFarmersPage() {
   return (
     <div className="container mx-auto max-w-5xl py-12">
       <div className="text-center mb-8">
-        <div className="mb-4 flex justify-start">
-            <BackButton />
-        </div>
         <h1 className="text-4xl font-headline font-bold text-primary">Selecione um Agricultor</h1>
         <p className="text-xl font-semibold text-foreground/90 mt-2 max-w-3xl mx-auto">
           Selecione um agricultor para ver os produtos dele.
