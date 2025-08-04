@@ -16,8 +16,9 @@ export default function ProductBrowser() {
   const { searchTerm } = useSearch();
 
   const favoriteFarmersWithProducts: FarmerWithProducts[] = useMemo(() => {
-    if (!user) return [];
-    return getFarmersWithProducts(user.favoriteFarmerIds);
+    if (!user || user.favoriteFarmerIds.length === 0) return [];
+    // Pega apenas o primeiro (e único) agricultor selecionado
+    return getFarmersWithProducts([user.favoriteFarmerIds[0]]);
   }, [user]);
 
   const filteredProductsByFarmer: FarmerWithProducts[] = useMemo(() => {
@@ -45,8 +46,7 @@ export default function ProductBrowser() {
       </section>
     );
   }
-
-  // Comportamento padrão: mostrar produtos dos agricultores favoritos do usuário
+  
   if (!user || user.favoriteFarmerIds.length === 0) {
     return (
       <section className="py-12 md:py-16">
@@ -55,13 +55,13 @@ export default function ProductBrowser() {
             Bem-vindo(a)!
           </h2>
           <p className="mt-2 text-lg font-semibold text-foreground/90">
-            Parece que você ainda não segue nenhum agricultor.
+            Parece que você ainda não selecionou um agricultor.
           </p>
           <p className="mt-1 text-lg font-semibold text-foreground/90">
-            Escolha seus agricultores favoritos para começar a comprar.
+            Escolha seu agricultor favorito para começar a comprar.
           </p>
           <Button asChild className="mt-4 text-base font-semibold">
-            <Link href="/select-farmers">Escolher Agricultores</Link>
+            <Link href="/select-farmers">Escolher Agricultor</Link>
           </Button>
         </div>
       </section>

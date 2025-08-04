@@ -7,43 +7,40 @@ import { getFarmers } from '@/lib/data';
 import type { Farmer } from '@/lib/types';
 import { useUser } from '@/hooks/use-user';
 import { Card, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
-import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Separator } from '@/components/ui/separator';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Label } from '@/components/ui/label';
 
 export default function FarmerSelection() {
   const router = useRouter();
   const { user, isUserLoaded, updateUser } = useUser();
   const allFarmers = getFarmers();
-  const [selectedFarmerIds, setSelectedFarmerIds] = useState<Set<string>>(new Set());
+  const [selectedFarmerId, setSelectedFarmerId] = useState<string | null>(null);
 
   useEffect(() => {
-    if (isUserLoaded && user) {
-      setSelectedFarmerIds(new Set(user.favoriteFarmerIds));
+    if (isUserLoaded && user && user.favoriteFarmerIds.length > 0) {
+      setSelectedFarmerId(user.favoriteFarmerIds[0]);
     }
   }, [isUserLoaded, user]);
 
-  const handleFarmerToggle = (farmerId: string) => {
-    setSelectedFarmerIds(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(farmerId)) {
-        newSet.delete(farmerId);
-      } else {
-        newSet.add(farmerId);
-      }
-      return newSet;
-    });
-  };
-
-  const handleSaveChanges = () => {
+  const handleFarmerSelect = (farmerId: string) => {
+    setSelectedFarmerId(farmerId);
     if (user) {
-      updateUser({ ...user, favoriteFarmerIds: Array.from(selectedFarmerIds) });
-      router.push('/catalog');
+        // Salva a seleção imediatamente para que o catálogo seja atualizado
+      updateUser({ ...user, favoriteFarmerIds: [farmerId] });
     }
   };
+  
+  const handleViewProducts = () => {
+    if (selectedFarmerId) {
+        router.push(`/products?farmerId=${selectedFarmerId}`);
+    }
+  }
+
 
   if (!isUserLoaded) {
     return (
@@ -55,41 +52,34 @@ export default function FarmerSelection() {
 
   return (
     <div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {allFarmers.map(farmer => (
-          <Card
-            key={farmer.id}
-            className={`flex flex-col transition-all`}
-          >
-            <CardHeader 
-                className="flex flex-row items-center gap-4"
-            >
-              <Image src="https://placehold.co/100x100" alt={farmer.name} width={60} height={60} className="rounded-full" data-ai-hint="farmer portrait" />
-              <div 
-                className={`flex-1 cursor-pointer ${selectedFarmerIds.has(farmer.id) ? 'text-primary' : ''}`}
-                onClick={() => handleFarmerToggle(farmer.id)}
+      <RadioGroup value={selectedFarmerId ?? undefined} onValueChange={handleFarmerSelect}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {allFarmers.map(farmer => (
+            <Label htmlFor={`farmer-${farmer.id}`} key={farmer.id} className="cursor-pointer">
+              <Card
+                className={`flex flex-col transition-all h-full ${selectedFarmerId === farmer.id ? 'border-primary ring-2 ring-primary' : ''}`}
               >
-                <CardTitle className="text-xl">{farmer.name}</CardTitle>
-                <CardDescription className="line-clamp-2 mt-1">{farmer.bio}</CardDescription>
-              </div>
-            </CardHeader>
-            <Separator />
-            <CardFooter className="p-4 bg-muted/50 flex-grow flex-col items-start gap-4">
-               <div className="flex items-center space-x-3 cursor-pointer" onClick={() => handleFarmerToggle(farmer.id)}>
-                <Checkbox
-                    checked={selectedFarmerIds.has(farmer.id)}
-                    aria-label={`Select ${farmer.name}`}
-                    id={`check-${farmer.id}`}
-                    className="h-5 w-5"
-                />
-                <label htmlFor={`check-${farmer.id}`} className="font-semibold text-lg cursor-pointer">Seguir este agricultor</label>
-              </div>
-              <Button asChild size="default" className="w-full mt-2 text-base font-bold bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground" onClick={(e) => e.stopPropagation()}>
-                 <Link href={`/products?farmerId=${farmer.id}`}>Ver Produtos</Link>
-              </Button>
-            </CardFooter>
-          </Card>
-        ))}
+                <CardHeader className="flex flex-row items-center gap-4">
+                  <Image src="https://placehold.co/100x100" alt={farmer.name} width={60} height={60} className="rounded-full" data-ai-hint="farmer portrait" />
+                  <div className="flex-1">
+                    <CardTitle className="text-xl">{farmer.name}</CardTitle>
+                    <CardDescription className="line-clamp-2 mt-1">{farmer.bio}</CardDescription>
+                  </div>
+                </CardHeader>
+                <Separator />
+                <CardFooter className="p-4 bg-muted/50 flex-grow flex items-center justify-start gap-4">
+                  <RadioGroupItem value={farmer.id} id={`farmer-${farmer.id}`} />
+                  <span className="font-semibold text-base">Selecionar este agricultor</span>
+                </CardFooter>
+              </Card>
+            </Label>
+          ))}
+        </div>
+      </RadioGroup>
+      <div className="mt-8 text-center">
+        <Button size="lg" onClick={handleViewProducts} disabled={!selectedFarmerId}>
+          Ver Produtos do Agricultor Selecionado
+        </Button>
       </div>
     </div>
   );
