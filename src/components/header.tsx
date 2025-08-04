@@ -99,6 +99,9 @@ const Header = () => {
                     <>
                         <h3 className="px-2 mb-2 text-sm font-semibold text-muted-foreground">Área do Agricultor</h3>
                         <nav className="flex flex-col gap-2">
+                        <Button asChild variant="ghost" className="w-full justify-start text-base" onClick={() => setSheetOpen(false)}>
+                            <Link href="/welcome"><Home className="h-4 w-4 mr-2"/>Início</Link>
+                        </Button>
                         {farmerMenuLinks.map((link) => (
                         <Button asChild key={link.href} variant="ghost" className="w-full justify-start" onClick={() => setSheetOpen(false)}>
                             <Link href={link.href} className="text-base">
