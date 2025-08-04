@@ -36,10 +36,10 @@ const Logo = ({ size = 'default', isClickable = true }: LogoProps) => {
         size === 'large' && 'hidden'
       )}>
          <span className="font-headline font-semibold text-primary text-2xl -mb-1">
-          Mercado Verdante
+          Minha Feira
         </span>
         <span className="text-xs font-semibold text-muted-foreground">
-          Alimentos orgânicos de agricultores locais
+          Circuito Carioca de Feiras Orgânicas
         </span>
       </div>
     </>

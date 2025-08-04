@@ -16,7 +16,7 @@ export default function WelcomePage() {
                 Minha Feira
               </h1>
                <h2 className="text-xl sm:text-2xl font-headline text-primary/90">
-                Alimentos orgânicos de agricultores locais.
+                Circuito Carioca de Feiras Orgânicas
               </h2>
               <Separator className="max-w-md mx-auto bg-primary/20" />
               <p className="max-w-[700px] text-foreground/80 text-base md:text-lg mx-auto font-semibold">
