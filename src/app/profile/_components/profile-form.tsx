@@ -11,6 +11,9 @@ import { useToast } from "@/hooks/use-toast";
 import { useState, useEffect } from "react";
 import type { Customer, Farmer } from "@/lib/types";
 import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
+
+const allFairs = ["Tijuca", "Grajaú", "Flamengo", "Laranjeiras", "Botafogo", "Leme"];
 
 export default function ProfileForm() {
     const { user, isUserLoaded, userType, updateUser } = useUser();
@@ -31,6 +34,16 @@ export default function ProfileForm() {
     const handleNumberInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { id, value } = e.target;
         setFormData(prev => ({ ...prev, [id]: value === '' ? undefined : parseFloat(value) }));
+    };
+
+    const handleFairChange = (fair: string) => {
+        setFormData(prev => {
+            const currentFairs = (prev as Partial<Farmer>).fairs || [];
+            const newFairs = currentFairs.includes(fair)
+                ? currentFairs.filter(f => f !== fair)
+                : [...currentFairs, fair];
+            return { ...prev, fairs: newFairs };
+        });
     };
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -74,6 +87,21 @@ export default function ProfileForm() {
                          <div className="space-y-2">
                             <Label htmlFor="address">Endereço</Label>
                             <Input id="address" value={farmerData.address || ''} onChange={handleInputChange} />
+                        </div>
+                        <div className="space-y-2">
+                            <Label>Feiras onde trabalho</Label>
+                            <div className="grid grid-cols-2 gap-x-4 gap-y-2 rounded-md border p-4">
+                                {allFairs.map((fair) => (
+                                    <div key={fair} className="flex items-center space-x-2">
+                                        <Checkbox 
+                                        id={`fair-${fair.toLowerCase()}`} 
+                                        onCheckedChange={() => handleFairChange(fair)}
+                                        checked={farmerData.fairs?.includes(fair)}
+                                        />
+                                        <Label htmlFor={`fair-${fair.toLowerCase()}`} className="font-normal">{fair}</Label>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="phone">Telefone / WhatsApp</Label>
