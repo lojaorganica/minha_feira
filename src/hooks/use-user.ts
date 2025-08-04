@@ -9,56 +9,44 @@ import { CartContext } from "./use-cart";
 const USER_STORAGE_KEY = "verdant_market_user";
 const USER_TYPE_STORAGE_KEY = "verdant_market_user_type";
 
-export function useUser() {
-  const [user, setUser] = useState<Customer | Farmer | null>(null);
-  const [userType, setUserType] = useState<'customer' | 'farmer' | null>(null);
-  const [isUserLoaded, setIsUserLoaded] = useState(false);
-  const cartContext = useContext(CartContext);
-
-  useEffect(() => {
-    // This effect runs only once on mount to load the user from localStorage.
-    // It sets the initial state for the user session.
-    let isMounted = true;
-    const loadUserFromStorage = () => {
-      if (typeof window !== 'undefined') {
-        try {
-          const storedUserType = localStorage.getItem(USER_TYPE_STORAGE_KEY) as 'customer' | 'farmer' | null;
-          const storedUser = localStorage.getItem(USER_STORAGE_KEY);
-          
-          if (storedUser && storedUserType) {
+const getInitialUserState = (): { user: Customer | Farmer | null; userType: 'customer' | 'farmer' | null } => {
+    if (typeof window === 'undefined') {
+        return { user: null, userType: null };
+    }
+    try {
+        const storedUserType = localStorage.getItem(USER_TYPE_STORAGE_KEY) as 'customer' | 'farmer' | null;
+        const storedUser = localStorage.getItem(USER_STORAGE_KEY);
+        
+        if (storedUser && storedUserType) {
             const parsedUser = JSON.parse(storedUser);
-            
             let freshData;
             if (storedUserType === 'customer') {
-              freshData = getCustomerById(parsedUser.id);
+                freshData = getCustomerById(parsedUser.id);
             } else if (storedUserType === 'farmer') {
-              freshData = getFarmerById(parsedUser.id);
+                freshData = getFarmerById(parsedUser.id);
             }
-            
-            if (isMounted && freshData) {
-              setUser(freshData);
-              setUserType(storedUserType);
+            if (freshData) {
+                return { user: freshData, userType: storedUserType };
             }
-          }
-        } catch (error) {
-          console.error("Falha ao carregar o usuário do localStorage", error);
-          if (isMounted) {
-            setUser(null);
-            setUserType(null);
-          }
-        } finally {
-          if (isMounted) {
-            setIsUserLoaded(true);
-          }
         }
-      }
-    };
-    
-    loadUserFromStorage();
+    } catch (error) {
+        console.error("Falha ao carregar o usuário inicial do localStorage", error);
+    }
+    return { user: null, userType: null };
+};
 
-    return () => {
-      isMounted = false;
-    };
+
+export function useUser() {
+  const initialState = getInitialUserState();
+  const [user, setUser] = useState<Customer | Farmer | null>(initialState.user);
+  const [userType, setUserType] = useState<'customer' | 'farmer' | null>(initialState.userType);
+  const [isUserLoaded, setIsUserLoaded] = useState(false);
+  const cartContext = useContext(CartContext);
+  
+  useEffect(() => {
+    // Agora o useEffect só controla o estado de 'isUserLoaded'
+    // A checagem real ocorre fora, o que evita o "piscar" da UI
+    setIsUserLoaded(true);
   }, []);
 
   const updateUser = useCallback((updatedUserData: Partial<Customer | Farmer>) => {
@@ -93,7 +81,6 @@ export function useUser() {
     if (userData) {
         setUser(userData);
         setUserType(type);
-        setIsUserLoaded(true); // Indicate that user is now loaded
         try {
           localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(userData));
           localStorage.setItem(USER_TYPE_STORAGE_KEY, type);
@@ -135,5 +122,3 @@ export function useUser() {
     addFarmer
   };
 }
-
-    
