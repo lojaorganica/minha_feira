@@ -95,9 +95,8 @@ const Header = () => {
             </nav>
         </>
       );
-    } else {
-        return null;
-    }
+    } 
+    return null;
   }
 
   const renderDesktopNav = () => {
