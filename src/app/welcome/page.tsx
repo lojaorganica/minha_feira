@@ -7,8 +7,8 @@ import Link from 'next/link';
 
 export default function WelcomePage() {
   return (
-    <div className="flex flex-col">
-      <section className="w-full py-8 md:py-16 lg:py-20 bg-primary/10 flex-grow">
+    <div className="flex flex-col flex-grow">
+      <section className="w-full py-8 md:py-16 lg:py-20 bg-primary/10 flex-grow flex items-center">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <Logo size="large" />
@@ -34,10 +34,11 @@ export default function WelcomePage() {
             </div>
           </div>
         </div>
-        <PromotionsCarousel />
       </section>
 
-      <footer className="bg-muted p-6 md:py-12 w-full">
+      <PromotionsCarousel />
+
+      <footer className="bg-muted p-6 md:py-12 w-full mt-auto">
         <div className="container max-w-7xl grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 text-base">
           <div className="grid gap-1">
             <h3 className="font-semibold font-headline text-primary">Feiras Orgânicas</h3>

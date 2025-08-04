@@ -2,10 +2,10 @@
 import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
-import Header from '@/components/header';
 import { SearchProvider } from '@/hooks/use-search';
 import { CartProvider } from '@/components/cart-provider';
 import { OrderHistoryProvider } from '@/components/order-history-provider';
+import AppShell from '@/components/app-shell';
 
 export const metadata: Metadata = {
   title: 'Mercado Verdante',
@@ -28,10 +28,9 @@ export default function RootLayout({
         <OrderHistoryProvider>
           <CartProvider>
               <SearchProvider>
-                  <Header />
-                  <div className="flex-grow">
-                  {children}
-                  </div>
+                  <AppShell>
+                    {children}
+                  </AppShell>
                   <Toaster />
               </SearchProvider>
           </CartProvider>
@@ -40,5 +39,3 @@ export default function RootLayout({
     </html>
   );
 }
-
-    
