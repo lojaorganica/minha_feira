@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart, Menu, User, Search, History, Package, ShoppingBasket, LogOut, Users, Heart, Home } from "lucide-react";
+import { ShoppingCart, Menu, User, Search, History, Package, ShoppingBasket, LogOut, Users, Heart } from "lucide-react";
 import { usePathname, useRouter } from 'next/navigation';
 
 import Logo from "@/components/logo";
@@ -100,9 +100,14 @@ const Header = () => {
   }
 
   const renderDesktopNav = () => {
-    if (!isUserLoaded || !user) {
-      return null;
+    if (!isUserLoaded) {
+      return (
+        <div className="flex justify-center items-center h-full">
+            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        </div>
+      );
     }
+    
     if (userType === 'farmer') {
       return (
         <>
@@ -110,8 +115,7 @@ const Header = () => {
           <Link href="/profile" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Meu Perfil</Link>
         </>
       );
-    }
-    if (userType === 'customer') {
+    } else if (userType === 'customer') {
        return (
         <>
           <Link href="/catalog" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Catálogo</Link>
@@ -119,7 +123,7 @@ const Header = () => {
           <Link href="/profile" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Meu Perfil</Link>
         </>
        )
-    }
+    } 
     return null;
   }
 
@@ -146,10 +150,6 @@ const Header = () => {
               
               <div className="flex flex-col flex-grow p-4">
                   <div className="flex-grow">
-                      <Button asChild variant="ghost" className="w-full justify-start text-base" onClick={closeSheet}>
-                          <Link href="/catalog"><Home className="h-4 w-4 mr-2"/>Início</Link>
-                      </Button>
-                      <Separator className="my-4" />
                       {renderMobileMenu()}
                   </div>
 
