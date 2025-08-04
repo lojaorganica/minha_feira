@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart, Menu, User, Tractor, Search, History, Package, ShoppingBasket, LogOut, Users } from "lucide-react";
+import { ShoppingCart, Menu, User, Tractor, Search, History, Package, ShoppingBasket, LogOut, Users, Heart, Home } from "lucide-react";
 import { usePathname, useRouter } from 'next/navigation';
 
 import Logo from "@/components/logo";
@@ -41,8 +41,10 @@ const Header = () => {
   ]
 
   const customerMenuLinks = [
-    { href: "/history", label: "Meus Pedidos", icon: History },
     { href: "/profile", label: "Meu Perfil", icon: User },
+    { href: "/select-farmers", label: "Meus Agricultores", icon: Heart },
+    { href: "/cart", label: "Meu Carrinho", icon: ShoppingCart },
+    { href: "/history", label: "Histórico", icon: History },
   ]
 
   const farmerMenuLinks = [
@@ -73,7 +75,7 @@ const Header = () => {
               
               <div className="flex flex-col flex-grow p-4">
                   <Button asChild variant="ghost" className="w-full justify-start text-base" onClick={() => setSheetOpen(false)}>
-                      <Link href="/welcome">Início</Link>
+                      <Link href="/welcome"><Home className="h-4 w-4 mr-2"/>Início</Link>
                   </Button>
                   <Separator className="my-4" />
 
