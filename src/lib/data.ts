@@ -9,7 +9,7 @@ let products: Product[] = [
     price: 2.5,
     unitAmount: 1,
     unit: 'kg',
-    image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/oDCkRtc7/4847321685a443a9926b485d5656111a',
+    image: 'https://placehold.co/600x400.png',
     dataAiHint: 'organic carrots',
     farmerId: '1',
     description: 'Cenouras orgânicas frescas e crocantes, perfeitas para lanches ou para cozinhar.',
@@ -21,7 +21,7 @@ let products: Product[] = [
     price: 3.0,
     unitAmount: 1,
     unit: 'kg',
-    image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/oDCkRtc7/8a6efb96a1a44e999042b322e7054f5c',
+    image: 'https://placehold.co/600x400.png',
     dataAiHint: 'heirloom tomatoes',
     farmerId: '1',
     description: 'Tomates antigos suculentos e saborosos, ideais para saladas e molhos.',
@@ -37,7 +37,7 @@ let products: Product[] = [
     price: 1.5,
     unitAmount: 1,
     unit: 'unidade',
-    image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/oDCkRtc7/6a4950b7194f416599e6931560c5d576',
+    image: 'https://placehold.co/600x400.png',
     dataAiHint: 'crisp apples',
     farmerId: '2',
     description: 'Maçãs orgânicas doces e crocantes, ótimas para um lanche saudável.',
@@ -49,7 +49,7 @@ let products: Product[] = [
     price: 4.0,
     unitAmount: 1,
     unit: 'caixa',
-    image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/oDCkRtc7/a08c2a93949f4b52b800e882236a282f',
+    image: 'https://placehold.co/600x400.png',
     dataAiHint: 'fresh strawberries',
     farmerId: '2',
     description: 'Morangos orgânicos maduros e doces, colhidos no pico do frescor.',
@@ -65,7 +65,7 @@ let products: Product[] = [
     price: 3.5,
     unitAmount: 1,
     unit: 'litro',
-    image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/oDCkRtc7/3e680b59f7ce4a5291350a4b7a70a8d4',
+    image: 'https://placehold.co/600x400.png',
     dataAiHint: 'farm milk',
     farmerId: '3',
     description: 'Leite integral cremoso e rico de vacas alimentadas com pasto.',
@@ -77,7 +77,7 @@ let products: Product[] = [
     price: 8.0,
     unitAmount: 100,
     unit: 'g',
-    image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/oDCkRtc7/c88748981e7d4838b93437a34651f893',
+    image: 'https://placehold.co/600x400.png',
     dataAiHint: 'artisan cheese',
     farmerId: '3',
     description: 'Um queijo cheddar forte e quebradiço, maturado por 12 meses.',
@@ -89,7 +89,7 @@ let products: Product[] = [
     price: 5.0,
     unitAmount: 1,
     unit: 'unidade',
-    image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/oDCkRtc7/08ab97b87612457e8412030f2f3d178f',
+    image: 'https://placehold.co/600x400.png',
     dataAiHint: 'sourdough bread',
     farmerId: '4',
     description: 'Um pão de fermentação natural ácido e mastigável, assado fresco diariamente.',
@@ -105,7 +105,7 @@ let products: Product[] = [
     price: 2.0,
     unitAmount: 1,
     unit: 'maço',
-    image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/oDCkRtc7/c85d774a3b72449195b058a69a089065',
+    image: 'https://placehold.co/600x400.png',
     dataAiHint: 'organic kale',
     farmerId: '1',
     description: 'Couve orgânica rica em nutrientes, perfeita para saladas e smoothies.',
@@ -117,7 +117,7 @@ let products: Product[] = [
     price: 2.0,
     unitAmount: 1,
     unit: 'kg',
-    image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/oDCkRtc7/245f34080b03407991b10a26d173c7e7',
+    image: 'https://placehold.co/600x400.png',
     dataAiHint: 'sweet oranges',
     farmerId: '2',
     description: 'Laranjas doces e suculentas, cheias de Vitamina C.',
@@ -129,7 +129,7 @@ let products: Product[] = [
     price: 4.5,
     unitAmount: 1,
     unit: 'pote',
-    image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/oDCkRtc7/5d625c56c204481084e9c74872957b4c',
+    image: 'https://placehold.co/600x400.png',
     dataAiHint: 'greek yogurt',
     farmerId: '3',
     description: 'Iogurte grego espesso e cremoso, rico em proteínas.',
@@ -141,7 +141,7 @@ let products: Product[] = [
     price: 4.0,
     unitAmount: 1,
     unit: 'unidade',
-    image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/oDCkRtc7/d572d423985542828b6d859424d55734',
+    image: 'https://placehold.co/600x400.png',
     dataAiHint: 'wheat baguette',
     farmerId: '4',
     description: 'Uma baguete de trigo integral robusta com uma crosta crocante.',
@@ -153,7 +153,7 @@ let products: Product[] = [
     price: 2.75,
     unitAmount: 1,
     unit: 'kg',
-    image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/oDCkRtc7/dd97d363d61141c2aa84252f5074e648',
+    image: 'https://placehold.co/600x400.png',
     dataAiHint: 'bell peppers',
     farmerId: '1',
     description: 'Uma mistura colorida de pimentões doces.',
@@ -172,7 +172,7 @@ let farmers: Farmer[] = [
     shippingCost: 15.00,
     phone: '5521987654321',
     fairs: ['Tijuca', 'Grajaú', 'Laranjeiras'],
-    image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/oDCkRtc7/d3283296f8c84b129759d57a3e76a66b'
+    image: 'https://placehold.co/100x100.png'
   },
   {
     id: '2',
@@ -185,7 +185,7 @@ let farmers: Farmer[] = [
     shippingCost: 12.50,
     phone: '5521987654322',
     fairs: ['Flamengo', 'Botafogo', 'Leme'],
-    image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/oDCkRtc7/855c2763749547d287332215c0e66b42'
+    image: 'https://placehold.co/100x100.png'
   },
   {
     id: '3',
@@ -198,7 +198,7 @@ let farmers: Farmer[] = [
     shippingCost: 10.00,
     phone: '5521987654323',
     fairs: ['Tijuca', 'Botafogo'],
-    image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/oDCkRtc7/a35f91bb72e4480e8e649d21b7d519b5'
+    image: 'https://placehold.co/100x100.png'
   },
   {
     id: '4',
@@ -211,7 +211,7 @@ let farmers: Farmer[] = [
     shippingCost: 0, // Não oferece delivery
     phone: '5521987654324',
     fairs: ['Laranjeiras', 'Grajaú'],
-    image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/oDCkRtc7/08e1329a25b1411c9b33a59573f55099'
+    image: 'https://placehold.co/100x100.png'
   },
 ];
 
@@ -277,7 +277,7 @@ const customers: Customer[] = [
         favoriteFarmerIds: ['1', '2'],
         address: 'Rua de Exemplo, 123, Bairro, Rio de Janeiro, RJ',
         phone: '21912345678',
-        image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/oDCkRtc7/77c3858f64584148b43e339b4b9b0c51'
+        image: 'https://placehold.co/100x100.png'
     }
 ];
 
@@ -365,7 +365,7 @@ export function addFarmer(farmerData: Omit<Farmer, 'id' | 'location' | 'image'>)
         id: newId,
         // Usando uma localização aleatória perto do Rio de Janeiro para simulação
         location: { lat: -22.9068 + (Math.random() - 0.5) * 0.5, lng: -43.1729 + (Math.random() - 0.5) * 0.5 },
-        image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/oDCkRtc7/77c3858f64584148b43e339b4b9b0c51',
+        image: 'https://placehold.co/100x100.png',
         ...farmerData,
     };
     farmers.push(newFarmer);

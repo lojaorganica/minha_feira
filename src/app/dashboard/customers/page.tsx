@@ -29,7 +29,7 @@ function getCustomerDetails(customerId: string): Customer | undefined {
             address: order.customerContact.address,
             phone: order.customerContact.phone,
             favoriteFarmerIds: [],
-            image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/oDCkRtc7/77c3858f64584148b43e339b4b9b0c51'
+            image: 'https://placehold.co/100x100.png'
         };
     }
 
