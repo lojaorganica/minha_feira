@@ -52,8 +52,8 @@ const Header = () => {
   const farmerMenuLinks = [
     { href: "/profile", label: "Meu Perfil", icon: User },
     { href: "/dashboard?tab=orders", label: "Pedidos", icon: ShoppingBasket },
-    { href: "/dashboard?tab=products", label: "Meus produtos", icon: Package },
-    { href: "#", label: "Meus Clientes", icon: Users },
+    { href: "/dashboard?tab=products", label: "Meus Produtos", icon: Package },
+    { href: "/#", label: "Meus Clientes", icon: Users },
   ]
 
   return (
@@ -76,7 +76,6 @@ const Header = () => {
               </div>
               
               <div className="flex flex-col flex-grow p-4">
-                  {/* Common Links */}
                   <nav className="flex flex-col gap-2">
                     <Button asChild variant="ghost" className="w-full justify-start text-base" onClick={() => setSheetOpen(false)}>
                         <Link href="/welcome">Início</Link>
@@ -85,7 +84,6 @@ const Header = () => {
                   
                   <Separator className="my-4" />
 
-                  {/* Unauthenticated User */}
                   {isUserLoaded && !userType && (
                     <nav className="flex flex-col gap-2">
                         {loginLinks.map((link) => (
@@ -99,7 +97,6 @@ const Header = () => {
                     </nav>
                   )}
 
-                  {/* Customer Menu */}
                   {isUserLoaded && userType === 'customer' && (
                     <>
                         <h3 className="px-2 mb-2 text-sm font-semibold text-muted-foreground">Área do Cliente</h3>
@@ -116,7 +113,6 @@ const Header = () => {
                     </>
                   )}
 
-                  {/* Farmer Menu */}
                   {isUserLoaded && userType === 'farmer' && (
                     <>
                         <h3 className="px-2 mb-2 text-sm font-semibold text-muted-foreground">Área do Agricultor</h3>
@@ -133,7 +129,6 @@ const Header = () => {
                     </>
                   )}
                   
-                  {/* Logout Button */}
                   {isUserLoaded && userType && (
                     <div className="mt-auto">
                         <Separator className="my-4" />
