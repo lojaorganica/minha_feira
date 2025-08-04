@@ -30,6 +30,7 @@ export interface Farmer {
   shippingCost?: number;
   phone?: string;
   fairs: string[];
+  image: string;
 }
 
 export interface FarmerWithProducts extends Farmer {
@@ -64,4 +65,5 @@ export interface Customer {
   favoriteFarmerIds: string[];
   address: string;
   phone: string;
+  image: string;
 }

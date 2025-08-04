@@ -35,7 +35,7 @@ export default function FarmerSelection() {
             >
               <CardHeader>
                 <div className="flex flex-row items-center gap-4">
-                  <Image src="https://placehold.co/100x100" alt={farmer.name} width={60} height={60} className="rounded-full" data-ai-hint="farmer portrait" />
+                  <Image src={farmer.image} alt={farmer.name} width={60} height={60} className="rounded-full object-cover" data-ai-hint="farmer portrait" />
                   <div className="flex-1">
                     <CardTitle className="text-2xl">{farmer.name}</CardTitle>
                     {farmer.responsibleName && (

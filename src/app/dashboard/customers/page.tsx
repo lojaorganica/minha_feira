@@ -28,7 +28,8 @@ function getCustomerDetails(customerId: string): Customer | undefined {
             name: order.customerName,
             address: order.customerContact.address,
             phone: order.customerContact.phone,
-            favoriteFarmerIds: []
+            favoriteFarmerIds: [],
+            image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/oDCkRtc7/77c3858f64584148b43e339b4b9b0c51'
         };
     }
 
@@ -74,7 +75,7 @@ export default function MyCustomersPage() {
                         <Card key={customer.id}>
                             <CardHeader className="flex flex-row items-center gap-4">
                                 <Avatar className="h-12 w-12">
-                                    <AvatarImage src={`https://placehold.co/100x100.png`} data-ai-hint="person portrait" />
+                                    <AvatarImage src={customer.image} data-ai-hint="person portrait" />
                                     <AvatarFallback>{customer.name.charAt(0)}</AvatarFallback>
                                 </Avatar>
                                 <div>

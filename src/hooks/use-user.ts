@@ -90,7 +90,7 @@ export function useUser() {
     }
   };
   
-  const addFarmer = (farmerData: Omit<Farmer, 'id' | 'location'>): Farmer => {
+  const addFarmer = (farmerData: Omit<Farmer, 'id' | 'location' | 'image'>): Farmer => {
     const newFarmer = saveFarmer(farmerData);
     login(newFarmer.id, 'farmer');
     return newFarmer;

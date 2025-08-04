@@ -66,7 +66,7 @@ export default function FarmerRegisterPage() {
       return;
     }
 
-    const newFarmerData: Omit<Farmer, 'id' | 'location'> = {
+    const newFarmerData: Omit<Farmer, 'id' | 'location' | 'image'> = {
       responsibleName: fullName,
       name: farmName,
       bio,
