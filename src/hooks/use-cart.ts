@@ -2,7 +2,7 @@
 "use client";
 
 import type { Product, CartItem } from "@/lib/types";
-import { useState, useEffect, useCallback, createContext, useContext, ReactNode } from "react";
+import { useState, useEffect, useCallback, createContext, useContext } from "react";
 
 export interface CartContextType {
   cartItems: CartItem[];
@@ -46,6 +46,12 @@ export function useCartState() {
 
   const addToCart = useCallback((product: Product, quantity = 1) => {
     setCartItems((prevItems) => {
+       // Se o carrinho não está vazio e o novo produto é de um agricultor diferente, limpe o carrinho.
+      if (prevItems.length > 0 && prevItems[0].farmerId !== product.farmerId) {
+        console.warn("Limpando o carrinho para adicionar produtos de um novo agricultor.");
+        return [{ ...product, quantity }];
+      }
+
       const existingItem = prevItems.find((item) => item.id === product.id);
       if (existingItem) {
         return prevItems.map((item) =>

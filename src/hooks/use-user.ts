@@ -1,9 +1,10 @@
 
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useContext } from "react";
 import type { Customer, Farmer } from "@/lib/types";
 import { getCustomerById, getFarmerById, addFarmer as saveFarmer, updateFarmer as persistFarmer, updateCustomer as persistCustomer } from "@/lib/data";
+import { CartContext } from "./use-cart";
 
 const USER_STORAGE_KEY = "verdant_market_user";
 const USER_TYPE_STORAGE_KEY = "verdant_market_user_type";
@@ -12,9 +13,9 @@ export function useUser() {
   const [user, setUser] = useState<Customer | Farmer | null>(null);
   const [userType, setUserType] = useState<'customer' | 'farmer' | null>(null);
   const [isUserLoaded, setIsUserLoaded] = useState(false);
+  const cartContext = useContext(CartContext);
 
   useEffect(() => {
-    // This effect should only run on the client side
     if (typeof window === 'undefined') return;
 
     try {
@@ -35,13 +36,11 @@ export function useUser() {
           setUser(freshData);
           setUserType(storedUserType);
         } else {
-          // If user not found in 'DB', clear from storage
           logout();
         }
       }
     } catch (error) {
       console.error("Falha ao carregar o usuário do localStorage", error);
-      // Clear storage on error
       logout();
     } finally {
       setIsUserLoaded(true);
@@ -55,7 +54,6 @@ export function useUser() {
         
         const newUser = { ...currentUser, ...updatedUserData };
 
-        // Persist changes to our mock DB
         if (userType === 'farmer') {
             persistFarmer(currentUser.id, updatedUserData as Partial<Farmer>);
         } else if (userType === 'customer') {
@@ -93,12 +91,18 @@ export function useUser() {
     return newFarmer;
   }
 
-  const logout = () => {
+  const logout = useCallback(() => {
     setUser(null);
     setUserType(null);
     localStorage.removeItem(USER_STORAGE_KEY);
     localStorage.removeItem(USER_TYPE_STORAGE_KEY);
-  }
+    
+    // Limpa o carrinho ao fazer logout para evitar inconsistências
+    if (cartContext) {
+      cartContext.clearCart();
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cartContext]);
 
   return {
     user,
