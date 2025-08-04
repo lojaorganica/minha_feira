@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart, Menu, User, Tractor, Search, History, Package, ShoppingBasket, LogOut } from "lucide-react";
+import { ShoppingCart, Menu, User, Tractor, Search, History, Package, ShoppingBasket, LogOut, Users } from "lucide-react";
 import { usePathname, useRouter } from 'next/navigation';
 
 import Logo from "@/components/logo";
@@ -50,9 +50,10 @@ const Header = () => {
   ]
 
   const farmerMenuLinks = [
+    { href: "/profile", label: "Meu Perfil", icon: User },
     { href: "/dashboard?tab=orders", label: "Pedidos", icon: ShoppingBasket },
     { href: "/dashboard?tab=products", label: "Meus produtos", icon: Package },
-    { href: "/profile", label: "Meu Perfil", icon: User },
+    { href: "#", label: "Meus Clientes", icon: Users },
   ]
 
   return (
