@@ -38,12 +38,9 @@ const farmerMenuLinks = [
 const Header = () => {
   const { cartCount } = useCart();
   const [isSheetOpen, setSheetOpen] = useState(false);
-  const pathname = usePathname();
   const router = useRouter();
   const { searchTerm, setSearchTerm } = useSearch();
   const { user, userType, isUserLoaded, logout } = useUser();
-
-  const isCatalogPage = pathname === '/catalog';
   
   const handleLogout = () => {
     logout();
@@ -163,9 +160,8 @@ const Header = () => {
 
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
           <div className="w-full flex-1 md:w-auto md:flex-none">
-            {isCatalogPage && (
-              <div className="relative">
-                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+            <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                 <Input
                     type="search"
                     placeholder="Buscar produtos..."
@@ -173,8 +169,7 @@ const Header = () => {
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
-              </div>
-            )}
+            </div>
           </div>
           <div className="flex items-center gap-4">
               <nav className="hidden md:flex items-center gap-4 text-base">
