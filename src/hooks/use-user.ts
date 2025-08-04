@@ -16,36 +16,49 @@ export function useUser() {
   const cartContext = useContext(CartContext);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    try {
-      const storedUserType = localStorage.getItem(USER_TYPE_STORAGE_KEY) as 'customer' | 'farmer' | null;
-      const storedUser = localStorage.getItem(USER_STORAGE_KEY);
-      
-      if (storedUser && storedUserType) {
-        const parsedUser = JSON.parse(storedUser);
-        
-        let freshData;
-        if (storedUserType === 'customer') {
-            freshData = getCustomerById(parsedUser.id);
-        } else if (storedUserType === 'farmer') {
-            freshData = getFarmerById(parsedUser.id);
-        }
-
-        if (freshData) {
-          setUser(freshData);
-          setUserType(storedUserType);
-        } else {
-          logout();
+    // This effect runs only once on mount to load the user from localStorage.
+    // It sets the initial state for the user session.
+    let isMounted = true;
+    const loadUserFromStorage = () => {
+      if (typeof window !== 'undefined') {
+        try {
+          const storedUserType = localStorage.getItem(USER_TYPE_STORAGE_KEY) as 'customer' | 'farmer' | null;
+          const storedUser = localStorage.getItem(USER_STORAGE_KEY);
+          
+          if (storedUser && storedUserType) {
+            const parsedUser = JSON.parse(storedUser);
+            
+            let freshData;
+            if (storedUserType === 'customer') {
+              freshData = getCustomerById(parsedUser.id);
+            } else if (storedUserType === 'farmer') {
+              freshData = getFarmerById(parsedUser.id);
+            }
+            
+            if (isMounted && freshData) {
+              setUser(freshData);
+              setUserType(storedUserType);
+            }
+          }
+        } catch (error) {
+          console.error("Falha ao carregar o usuário do localStorage", error);
+          if (isMounted) {
+            setUser(null);
+            setUserType(null);
+          }
+        } finally {
+          if (isMounted) {
+            setIsUserLoaded(true);
+          }
         }
       }
-    } catch (error) {
-      console.error("Falha ao carregar o usuário do localStorage", error);
-      logout();
-    } finally {
-      setIsUserLoaded(true);
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    };
+    
+    loadUserFromStorage();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const updateUser = useCallback((updatedUserData: Partial<Customer | Farmer>) => {
@@ -80,8 +93,13 @@ export function useUser() {
     if (userData) {
         setUser(userData);
         setUserType(type);
-        localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(userData));
-        localStorage.setItem(USER_TYPE_STORAGE_KEY, type);
+        setIsUserLoaded(true); // Indicate that user is now loaded
+        try {
+          localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(userData));
+          localStorage.setItem(USER_TYPE_STORAGE_KEY, type);
+        } catch(e) {
+          console.error("Falha ao salvar o usuário no localStorage", e);
+        }
     }
   };
   
@@ -94,14 +112,17 @@ export function useUser() {
   const logout = useCallback(() => {
     setUser(null);
     setUserType(null);
-    localStorage.removeItem(USER_STORAGE_KEY);
-    localStorage.removeItem(USER_TYPE_STORAGE_KEY);
+    try {
+      localStorage.removeItem(USER_STORAGE_KEY);
+      localStorage.removeItem(USER_TYPE_STORAGE_KEY);
+    } catch(e) {
+       console.error("Falha ao remover o usuário do localStorage", e);
+    }
     
     // Limpa o carrinho ao fazer logout para evitar inconsistências
-    if (cartContext) {
+    if (cartContext && cartContext.clearCart) {
       cartContext.clearCart();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartContext]);
 
   return {
@@ -114,3 +135,5 @@ export function useUser() {
     addFarmer
   };
 }
+
+    

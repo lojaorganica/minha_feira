@@ -35,10 +35,6 @@ const Header = () => {
     router.push('/welcome');
   };
 
-  const navLinks = [
-    { href: "/welcome", label: "Início" },
-  ];
-
   const loginLinks = [
       { href: "/login/customer", label: "Sou Cliente", icon: User},
       { href: "/login/farmer", label: "Sou Agricultor", icon: Tractor },
@@ -159,21 +155,25 @@ const Header = () => {
             )}
           </div>
           <nav className="hidden md:flex items-center gap-4">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="font-medium text-foreground/80 hover:text-foreground transition-colors"
-              >
-                {link.label}
-              </Link>
-            ))}
-             {isUserLoaded && userType === 'customer' && (
+            {isUserLoaded && userType === 'customer' && (
+              <>
+                <Link href="/catalog" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Catálogo</Link>
                 <Link href="/history" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Meus Pedidos</Link>
+                <Link href="/profile" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Meu Perfil</Link>
+              </>
+            )}
+             {isUserLoaded && userType === 'farmer' && (
+              <>
+                <Link href="/dashboard" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Painel</Link>
+                <Link href="/profile" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Meu Perfil</Link>
+              </>
              )}
-              {isUserLoaded && userType && (
-                 <Link href="/profile" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Meu Perfil</Link>
-              )}
+             {isUserLoaded && !userType && (
+              <>
+                <Link href="/login/customer" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Sou Cliente</Link>
+                <Link href="/login/farmer" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Sou Agricultor</Link>
+              </>
+             )}
           </nav>
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="icon" asChild className="relative">
@@ -198,3 +198,5 @@ const Header = () => {
 };
 
 export default Header;
+
+    
