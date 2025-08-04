@@ -101,11 +101,7 @@ const Header = () => {
 
   const renderDesktopNav = () => {
     if (!isUserLoaded) {
-      return (
-        <div className="flex justify-center items-center h-full">
-            <Loader2 className="h-8 w-8 animate-spin text-primary" />
-        </div>
-      );
+      return <Loader2 className="h-6 w-6 animate-spin text-primary" />;
     }
     
     if (userType === 'customer') {
@@ -182,23 +178,23 @@ const Header = () => {
               </div>
             )}
           </div>
-          <nav className="hidden md:flex items-center gap-4 text-base">
-            {renderDesktopNav()}
-          </nav>
-          <div className="flex items-center gap-2">
-            {isUserLoaded && userType === 'customer' && (
-              <Button variant="ghost" size="icon" asChild className="relative">
-                <Link href="/cart">
-                  <ShoppingCart className="h-6 w-6" />
-                  {cartCount > 0 && (
-                    <span className="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-xs font-bold text-accent-foreground">
-                      {cartCount}
-                    </span>
-                  )}
-                  <span className="sr-only">Carrinho de Compras</span>
-                </Link>
-              </Button>
-            )}
+          <div className="flex items-center gap-4">
+              <nav className="hidden md:flex items-center gap-4 text-base">
+                {renderDesktopNav()}
+              </nav>
+              {isUserLoaded && userType === 'customer' && (
+                <Button variant="ghost" size="icon" asChild className="relative">
+                  <Link href="/cart">
+                    <ShoppingCart className="h-6 w-6" />
+                    {cartCount > 0 && (
+                      <span className="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-xs font-bold text-accent-foreground">
+                        {cartCount}
+                      </span>
+                    )}
+                    <span className="sr-only">Carrinho de Compras</span>
+                  </Link>
+                </Button>
+              )}
              {isUserLoaded && user && (
                 <Button variant="outline" size="sm" onClick={handleLogout}>Sair</Button>
              )}
