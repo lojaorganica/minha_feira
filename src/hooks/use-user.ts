@@ -3,51 +3,50 @@
 
 import { useState, useEffect, useCallback } from "react";
 import type { Customer, Farmer } from "@/lib/types";
-import { getCustomerById, getFarmerById } from "@/lib/data";
+import { getCustomerById, getFarmerById, addFarmer as saveFarmer } from "@/lib/data";
 
 const USER_STORAGE_KEY = "verdant_market_user";
 const USER_TYPE_STORAGE_KEY = "verdant_market_user_type";
-const DEFAULT_CUSTOMER_ID = 'cust-001';
-const DEFAULT_FARMER_ID = '1';
 
-// This is a simplified user management hook for demonstration purposes.
-// In a real application, this would be a proper authentication context.
 export function useUser() {
   const [user, setUser] = useState<Customer | Farmer | null>(null);
   const [userType, setUserType] = useState<'customer' | 'farmer' | null>(null);
   const [isUserLoaded, setIsUserLoaded] = useState(false);
 
   useEffect(() => {
+    // This effect should only run on the client side
+    if (typeof window === 'undefined') return;
+
     try {
-      const storedUser = localStorage.getItem(USER_STORAGE_KEY);
       const storedUserType = localStorage.getItem(USER_TYPE_STORAGE_KEY) as 'customer' | 'farmer' | null;
+      const storedUser = localStorage.getItem(USER_STORAGE_KEY);
       
       if (storedUser && storedUserType) {
         const parsedUser = JSON.parse(storedUser);
-        // Re-fetch user data to ensure it's up to date with our mock DB
+        
+        let freshData;
         if (storedUserType === 'customer') {
-            const freshData = getCustomerById(parsedUser.id);
-            setUser(freshData);
+            freshData = getCustomerById(parsedUser.id);
         } else if (storedUserType === 'farmer') {
-            const freshData = getFarmerById(parsedUser.id);
-            setUser(freshData);
+            freshData = getFarmerById(parsedUser.id);
         }
-        setUserType(storedUserType);
-      } else {
-        // Default to customer if nothing is stored
-        const defaultUserData = getCustomerById(DEFAULT_CUSTOMER_ID);
-        if (defaultUserData) {
-          setUser(defaultUserData);
-          setUserType('customer');
-          localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(defaultUserData));
-          localStorage.setItem(USER_TYPE_STORAGE_KEY, 'customer');
+
+        if (freshData) {
+          setUser(freshData);
+          setUserType(storedUserType);
+        } else {
+          // If user not found in 'DB', clear from storage
+          logout();
         }
       }
     } catch (error) {
       console.error("Falha ao carregar o usuário do localStorage", error);
+      // Clear storage on error
+      logout();
     } finally {
       setIsUserLoaded(true);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const updateUser = useCallback((updatedUserData: Partial<Customer | Farmer>) => {
@@ -56,6 +55,9 @@ export function useUser() {
         const newUser = { ...currentUser, ...updatedUserData };
         try {
             localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(newUser));
+            // Note: This only updates local state. A real app would save this to a backend.
+            // For this prototype, we assume `data.ts` is our "database" and changes
+            // are ephemeral or managed through direct function calls.
         } catch (error) {
             console.error("Falha ao salvar o usuário no localStorage", error);
         }
@@ -78,6 +80,12 @@ export function useUser() {
         localStorage.setItem(USER_TYPE_STORAGE_KEY, type);
     }
   };
+  
+  const addFarmer = (farmerData: Omit<Farmer, 'id' | 'location'>): Farmer => {
+    const newFarmer = saveFarmer(farmerData);
+    login(newFarmer.id, 'farmer');
+    return newFarmer;
+  }
 
   const logout = () => {
     setUser(null);
@@ -92,6 +100,7 @@ export function useUser() {
     isUserLoaded,
     updateUser,
     login,
-    logout
+    logout,
+    addFarmer
   };
 }

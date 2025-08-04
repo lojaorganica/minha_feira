@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import { ShoppingCart, Menu, User, Tractor, Search, History, Package, ShoppingBasket, LogOut } from "lucide-react";
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import Logo from "@/components/logo";
 import { Button } from "@/components/ui/button";
@@ -17,17 +17,23 @@ import { useState } from "react";
 import { Separator } from "./ui/separator";
 import { useSearch } from "@/hooks/use-search";
 import { Input } from "./ui/input";
+import { useUser } from "@/hooks/use-user";
 
 const Header = () => {
   const { cartCount } = useCart();
   const [isSheetOpen, setSheetOpen] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
   const { searchTerm, setSearchTerm } = useSearch();
+  const { userType, isUserLoaded, logout } = useUser();
 
   const isCatalogPage = pathname === '/catalog';
-  const isCustomerSession = ['/catalog', '/cart', '/select-farmers', '/products', '/history', '/profile'].includes(pathname) && !pathname.startsWith('/dashboard');
-  const isFarmerSession = pathname.startsWith('/dashboard') || (pathname.startsWith('/profile') && false); // Placeholder for farmer profile logic
-
+  
+  const handleLogout = () => {
+    logout();
+    setSheetOpen(false);
+    router.push('/welcome');
+  };
 
   const navLinks = [
     { href: "/welcome", label: "Início" },
@@ -79,7 +85,8 @@ const Header = () => {
                 ))}
               </nav>
               <Separator className="my-4" />
-              {(!isCustomerSession && !isFarmerSession) && (
+              
+              {isUserLoaded && !userType && (
                  <nav className="flex flex-col gap-2">
                     {loginLinks.map((link) => (
                     <Button asChild key={link.href} variant="outline" className="w-full justify-start rounded-none" onClick={() => setSheetOpen(false)}>
@@ -92,7 +99,7 @@ const Header = () => {
                 </nav>
               )}
 
-              {isCustomerSession && (
+              {isUserLoaded && userType === 'customer' && (
                 <>
                     <h3 className="px-2 text-sm font-semibold text-muted-foreground">Área do Cliente</h3>
                     <nav className="flex flex-col gap-2 mt-2">
@@ -108,7 +115,7 @@ const Header = () => {
                 </>
               )}
 
-               {isFarmerSession && (
+               {isUserLoaded && userType === 'farmer' && (
                 <>
                     <h3 className="px-2 text-sm font-semibold text-muted-foreground">Área do Agricultor</h3>
                     <nav className="flex flex-col gap-2 mt-2">
@@ -125,14 +132,12 @@ const Header = () => {
               )}
               
                <div className="mt-auto">
-                {(isCustomerSession || isFarmerSession) && (
+                {isUserLoaded && userType && (
                      <>
                         <Separator className="my-4" />
-                         <Button asChild variant="outline" className="w-full justify-start rounded-none" onClick={() => setSheetOpen(false)}>
-                            <Link href="/welcome" className="text-base">
-                                <LogOut className="h-4 w-4 mr-2"/>
-                                Sair
-                            </Link>
+                         <Button variant="outline" className="w-full justify-start rounded-none" onClick={handleLogout}>
+                            <LogOut className="h-4 w-4 mr-2"/>
+                            Sair
                         </Button>
                      </>
                 )}
@@ -168,6 +173,9 @@ const Header = () => {
                 {link.label}
               </Link>
             ))}
+             {isUserLoaded && userType === 'customer' && (
+                <Link href="/history" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Meus Pedidos</Link>
+             )}
           </nav>
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="icon" asChild className="relative">

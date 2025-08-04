@@ -18,12 +18,13 @@ import Link from "next/link"
 import BackButton from "@/components/back-button"
 import { Textarea } from "@/components/ui/textarea"
 import { Checkbox } from "@/components/ui/checkbox"
-import { addFarmer, getFarmers } from "@/lib/data";
+import { useUser } from "@/hooks/use-user";
 import { useToast } from "@/hooks/use-toast";
 import type { Farmer } from "@/lib/types";
 
 export default function FarmerRegisterPage() {
   const router = useRouter();
+  const { addFarmer } = useUser();
   const { toast } = useToast();
   const allFairs = ["Tijuca", "Grajaú", "Flamengo", "Laranjeiras", "Botafogo", "Leme"];
 
@@ -65,7 +66,7 @@ export default function FarmerRegisterPage() {
       return;
     }
 
-    const newFarmer: Omit<Farmer, 'id' | 'location'> = {
+    const newFarmerData: Omit<Farmer, 'id' | 'location'> = {
       name: farmName,
       bio,
       pixKey,
@@ -74,11 +75,11 @@ export default function FarmerRegisterPage() {
       fairs: selectedFairs,
     };
 
-    addFarmer(newFarmer);
+    const newFarmer = addFarmer(newFarmerData);
     
     toast({
       title: "Cadastro realizado com sucesso!",
-      description: `Bem-vindo, ${farmName}!`,
+      description: `Bem-vindo, ${newFarmer.name}!`,
     });
 
     router.push('/dashboard');
