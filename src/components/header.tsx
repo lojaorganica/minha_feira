@@ -20,6 +20,21 @@ import { Input } from "./ui/input";
 import { useUser } from "@/hooks/use-user";
 import { Loader2 } from "lucide-react";
 
+const customerMenuLinks = [
+    { href: "/profile", label: "Meu Perfil", icon: User },
+    { href: "/select-farmers", label: "Meus Agricultores", icon: Heart },
+    { href: "/cart", label: "Meu Carrinho", icon: ShoppingCart },
+    { href: "/history", label: "Histórico", icon: History },
+];
+
+const farmerMenuLinks = [
+    { href: "/profile", label: "Meu Perfil", icon: User },
+    { href: "/dashboard?tab=orders", label: "Pedidos", icon: ShoppingBasket },
+    { href: "/dashboard?tab=products", label: "Meus Produtos", icon: Package },
+    { href: "/dashboard/customers", label: "Meus Clientes", icon: Users },
+];
+
+
 const Header = () => {
   const { cartCount } = useCart();
   const [isSheetOpen, setSheetOpen] = useState(false);
@@ -38,19 +53,6 @@ const Header = () => {
 
   const closeSheet = () => setSheetOpen(false);
 
-  const customerMenuLinks = [
-    { href: "/profile", label: "Meu Perfil", icon: User },
-    { href: "/select-farmers", label: "Meus Agricultores", icon: Heart },
-    { href: "/cart", label: "Meu Carrinho", icon: ShoppingCart },
-    { href: "/history", label: "Histórico", icon: History },
-  ];
-
-  const farmerMenuLinks = [
-    { href: "/profile", label: "Meu Perfil", icon: User },
-    { href: "/dashboard?tab=orders", label: "Pedidos", icon: ShoppingBasket },
-    { href: "/dashboard?tab=products", label: "Meus Produtos", icon: Package },
-    { href: "/dashboard/customers", label: "Meus Clientes", icon: Users },
-  ];
 
   const renderMobileMenu = () => {
     if (!isUserLoaded) {
