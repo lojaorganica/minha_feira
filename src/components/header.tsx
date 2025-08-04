@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart, Menu, User, Tractor, Search, History, Package, ShoppingBasket, LogOut, Users, Heart, Home } from "lucide-react";
+import { ShoppingCart, Menu, User, Search, History, Package, ShoppingBasket, LogOut, Users, Heart, Home } from "lucide-react";
 import { usePathname, useRouter } from 'next/navigation';
 
 import Logo from "@/components/logo";
@@ -46,6 +46,7 @@ const Header = () => {
   ];
 
   const farmerMenuLinks = [
+    { href: "/profile", label: "Meu Perfil", icon: User },
     { href: "/dashboard?tab=orders", label: "Pedidos", icon: ShoppingBasket },
     { href: "/dashboard?tab=products", label: "Meus Produtos", icon: Package },
     { href: "/dashboard/customers", label: "Meus Clientes", icon: Users },
@@ -65,9 +66,6 @@ const Header = () => {
         <>
             <h3 className="px-2 mb-2 text-sm font-semibold text-muted-foreground">Área do Agricultor</h3>
             <nav className="flex flex-col gap-2">
-              <Button asChild variant="ghost" className="w-full justify-start text-base" onClick={closeSheet}>
-                  <Link href="/profile"><User className="h-4 w-4 mr-2"/>Meu Perfil</Link>
-              </Button>
               {farmerMenuLinks.map((link) => (
                 <Button asChild key={link.href} variant="ghost" className="w-full justify-start text-base" onClick={closeSheet}>
                     <Link href={link.href}>
@@ -100,7 +98,7 @@ const Header = () => {
   }
 
   const renderDesktopNav = () => {
-    if (!isUserLoaded) {
+    if (!isUserLoaded || !user) {
       return null;
     }
     if (userType === 'farmer') {
@@ -147,7 +145,7 @@ const Header = () => {
               <div className="flex flex-col flex-grow p-4">
                   <div className="flex-grow">
                       <Button asChild variant="ghost" className="w-full justify-start text-base" onClick={closeSheet}>
-                          <Link href="/welcome"><Home className="h-4 w-4 mr-2"/>Início</Link>
+                          <Link href="/catalog"><Home className="h-4 w-4 mr-2"/>Início</Link>
                       </Button>
                       <Separator className="my-4" />
                       {renderMobileMenu()}
@@ -182,16 +180,16 @@ const Header = () => {
               </div>
             )}
           </div>
-          <nav className="hidden md:flex items-center gap-4">
+          <nav className="hidden md:flex items-center gap-4 text-base">
             {renderDesktopNav()}
           </nav>
           <div className="flex items-center gap-2">
             {isUserLoaded && userType === 'customer' && (
               <Button variant="ghost" size="icon" asChild className="relative">
                 <Link href="/cart">
-                  <ShoppingCart className="h-8 w-8" />
+                  <ShoppingCart className="h-6 w-6" />
                   {cartCount > 0 && (
-                    <span className="absolute top-2 right-2 flex h-5 w-5 items-center justify-center rounded-full bg-accent text-xs font-bold text-accent-foreground">
+                    <span className="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-xs font-bold text-accent-foreground">
                       {cartCount}
                     </span>
                   )}
