@@ -69,81 +69,80 @@ const Header = () => {
                 <Menu className="h-8 w-8" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="p-4 flex flex-col">
-              <div className="py-6">
+            <SheetContent side="left" className="p-0 flex flex-col">
+              <div className="p-4 border-b">
                 <Logo />
               </div>
-              <nav className="flex flex-col gap-2">
-                {navLinks.map((link) => (
-                  <Button asChild key={link.href} variant="ghost" className="w-full justify-start rounded-none text-base" onClick={() => setSheetOpen(false)}>
-                    <Link
-                      href={link.href}
-                    >
-                      {link.label}
-                    </Link>
-                  </Button>
-                ))}
-              </nav>
-              <Separator className="my-4" />
               
-              {isUserLoaded && !userType && (
-                 <nav className="flex flex-col gap-2">
-                    {loginLinks.map((link) => (
-                    <Button asChild key={link.href} variant="outline" className="w-full justify-start rounded-none" onClick={() => setSheetOpen(false)}>
-                        <Link href={link.href} className="text-base">
-                        <link.icon className="h-4 w-4 mr-2"/>
-                        {link.label}
-                        </Link>
+              <div className="flex flex-col flex-grow p-4">
+                  {/* Common Links */}
+                  <nav className="flex flex-col gap-2">
+                    <Button asChild variant="ghost" className="w-full justify-start text-base" onClick={() => setSheetOpen(false)}>
+                        <Link href="/welcome">Início</Link>
                     </Button>
-                    ))}
-                </nav>
-              )}
+                  </nav>
+                  
+                  <Separator className="my-4" />
 
-              {isUserLoaded && userType === 'customer' && (
-                <>
-                    <h3 className="px-2 text-sm font-semibold text-muted-foreground">Área do Cliente</h3>
-                    <nav className="flex flex-col gap-2 mt-2">
-                    {customerMenuLinks.map((link) => (
-                    <Button asChild key={link.href} variant="ghost" className="w-full justify-start rounded-none" onClick={() => setSheetOpen(false)}>
-                        <Link href={link.href} className="text-base">
+                  {/* Unauthenticated User */}
+                  {isUserLoaded && !userType && (
+                    <nav className="flex flex-col gap-2">
+                        {loginLinks.map((link) => (
+                        <Button asChild key={link.href} variant="outline" className="w-full justify-start" onClick={() => setSheetOpen(false)}>
+                            <Link href={link.href} className="text-base">
                             <link.icon className="h-4 w-4 mr-2"/>
                             {link.label}
-                        </Link>
-                    </Button>
-                    ))}
+                            </Link>
+                        </Button>
+                        ))}
                     </nav>
-                </>
-              )}
+                  )}
 
-               {isUserLoaded && userType === 'farmer' && (
-                <>
-                    <h3 className="px-2 text-sm font-semibold text-muted-foreground">Área do Agricultor</h3>
-                    <nav className="flex flex-col gap-2 mt-2">
-                    {farmerMenuLinks.map((link) => (
-                    <Button asChild key={link.href} variant="ghost" className="w-full justify-start rounded-none" onClick={() => setSheetOpen(false)}>
-                        <Link href={link.href} className="text-base">
-                            <link.icon className="h-4 w-4 mr-2"/>
-                            {link.label}
-                        </Link>
-                    </Button>
-                    ))}
-                    </nav>
-                </>
-              )}
-              
-               <div className="mt-auto">
-                {isUserLoaded && userType && (
-                     <>
+                  {/* Customer Menu */}
+                  {isUserLoaded && userType === 'customer' && (
+                    <>
+                        <h3 className="px-2 mb-2 text-sm font-semibold text-muted-foreground">Área do Cliente</h3>
+                        <nav className="flex flex-col gap-2">
+                        {customerMenuLinks.map((link) => (
+                        <Button asChild key={link.href} variant="ghost" className="w-full justify-start" onClick={() => setSheetOpen(false)}>
+                            <Link href={link.href} className="text-base">
+                                <link.icon className="h-4 w-4 mr-2"/>
+                                {link.label}
+                            </Link>
+                        </Button>
+                        ))}
+                        </nav>
+                    </>
+                  )}
+
+                  {/* Farmer Menu */}
+                  {isUserLoaded && userType === 'farmer' && (
+                    <>
+                        <h3 className="px-2 mb-2 text-sm font-semibold text-muted-foreground">Área do Agricultor</h3>
+                        <nav className="flex flex-col gap-2">
+                        {farmerMenuLinks.map((link) => (
+                        <Button asChild key={link.href} variant="ghost" className="w-full justify-start" onClick={() => setSheetOpen(false)}>
+                            <Link href={link.href} className="text-base">
+                                <link.icon className="h-4 w-4 mr-2"/>
+                                {link.label}
+                            </Link>
+                        </Button>
+                        ))}
+                        </nav>
+                    </>
+                  )}
+                  
+                  {/* Logout Button */}
+                  {isUserLoaded && userType && (
+                    <div className="mt-auto">
                         <Separator className="my-4" />
-                         <Button variant="outline" className="w-full justify-start rounded-none" onClick={handleLogout}>
+                        <Button variant="outline" className="w-full justify-start" onClick={handleLogout}>
                             <LogOut className="h-4 w-4 mr-2"/>
                             Sair
                         </Button>
-                     </>
-                )}
-               </div>
-
-
+                    </div>
+                  )}
+              </div>
             </SheetContent>
           </Sheet>
         </div>
@@ -176,6 +175,9 @@ const Header = () => {
              {isUserLoaded && userType === 'customer' && (
                 <Link href="/history" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Meus Pedidos</Link>
              )}
+              {isUserLoaded && userType && (
+                 <Link href="/profile" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Meu Perfil</Link>
+              )}
           </nav>
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="icon" asChild className="relative">
@@ -189,6 +191,9 @@ const Header = () => {
                 <span className="sr-only">Carrinho de Compras</span>
               </Link>
             </Button>
+             {isUserLoaded && userType && (
+                <Button variant="outline" size="sm" onClick={handleLogout}>Sair</Button>
+             )}
           </div>
         </div>
       </div>
