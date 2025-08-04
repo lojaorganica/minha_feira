@@ -4,7 +4,7 @@
 
 import { Suspense, useState, useMemo, useTransition } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { getOrders, getProducts, toggleProductPromotion } from "@/lib/data";
+import { getOrders, getProducts, toggleProductPromotion, updateProduct } from "@/lib/data";
 import type { Order, Product } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -40,18 +40,39 @@ function getFairDisplayName(fair: string): string {
 }
 
 // Componente Isolado para Edição de Produto
-function EditProductForm({ product, onSaveChanges }: { product: Product, onSaveChanges: () => void }) {
-    const [name, setName] = useState(product.name);
-    const [price, setPrice] = useState(product.price);
-    const [unit, setUnit] = useState(product.unit);
-    const [description, setDescription] = useState(product.description);
+function EditProductForm({ product: initialProduct, onSaveChanges }: { product: Product, onSaveChanges: () => void }) {
+    const [product, setProduct] = useState<Product>(initialProduct);
     const [isOpen, setIsOpen] = useState(false);
+    const [isSaving, setIsSaving] = useState(false);
+    const { toast } = useToast();
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { id, value } = e.target;
+        setProduct(prev => ({ ...prev, [id]: value }));
+    };
+
+    const handleNumberInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { id, value } = e.target;
+        setProduct(prev => ({ ...prev, [id]: parseFloat(value) || 0 }));
+    };
 
     const handleSubmit = () => {
-        // Lógica para salvar as alterações (a ser implementada)
-        console.log("Saving changes for product:", { ...product, name, price, unit, description });
-        onSaveChanges(); // Fechar o diálogo e/ou atualizar a lista
-        setIsOpen(false);
+        setIsSaving(true);
+        updateProduct(product.id, {
+            name: product.name,
+            price: product.price,
+            unit: product.unit,
+            description: product.description,
+        });
+        setTimeout(() => {
+            onSaveChanges();
+            setIsSaving(false);
+            setIsOpen(false);
+            toast({
+                title: "Produto atualizado!",
+                description: `${product.name} foi modificado com sucesso.`,
+            });
+        }, 500); // Simula o tempo de salvamento
     };
 
     return (
@@ -62,7 +83,7 @@ function EditProductForm({ product, onSaveChanges }: { product: Product, onSaveC
                     Editar
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
+            <DialogContent className="sm:max-w-xl">
                 <DialogHeader>
                     <DialogTitle>Editar Produto</DialogTitle>
                     <DialogDescription>
@@ -72,31 +93,30 @@ function EditProductForm({ product, onSaveChanges }: { product: Product, onSaveC
                 <div className="grid gap-4 py-4 text-base">
                     <div className="space-y-2">
                         <Label htmlFor="name">Nome do Produto</Label>
-                        <Input id="name" value={name} onChange={(e) => setName(e.target.value)} />
+                        <Input id="name" value={product.name} onChange={handleInputChange} />
                     </div>
                     
-                    <div className="grid grid-cols-3 gap-2">
-                         <div className="space-y-2 col-span-1">
+                    <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2">
                             <Label htmlFor="price">Preço (R$)</Label>
-                            <Input id="price" type="number" value={price} onChange={(e) => setPrice(Number(e.target.value))} />
+                            <Input id="price" type="number" value={product.price} onChange={handleNumberInputChange} />
                         </div>
-                        <div className="space-y-2 col-span-1">
-                            <Label htmlFor="unit-amount">Quantidade</Label>
-                            <Input id="unit-amount" type="number" defaultValue={1} />
-                        </div>
-                        <div className="space-y-2 col-span-1">
+                        <div className="space-y-2">
                             <Label htmlFor="unit">Unidade</Label>
-                            <Select value={unit} onValueChange={setUnit}>
+                            <Select value={product.unit} onValueChange={(value) => setProduct(p => ({...p, unit: value}))}>
                                 <SelectTrigger>
                                     <SelectValue placeholder="Unidade" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="kg">kg</SelectItem>
-                                    <SelectItem value="g">g</SelectItem>
+                                    <SelectItem value="kg">por kg</SelectItem>
+                                    <SelectItem value="g">por g</SelectItem>
                                     <SelectItem value="unidade">unidade</SelectItem>
+                                    <SelectItem value="maço">maço</SelectItem>
+                                    <SelectItem value="dúzia">dúzia</SelectItem>
+                                    <SelectItem value="litro">litro</SelectItem>
                                     <SelectItem value="molho">molho</SelectItem>
-                                    <SelectItem value="L">L</SelectItem>
-                                    <SelectItem value="mL">mL</SelectItem>
+                                    <SelectItem value="caixa">caixa</SelectItem>
+                                    <SelectItem value="pote">pote</SelectItem>
                                 </SelectContent>
                             </Select>
                         </div>
@@ -104,15 +124,19 @@ function EditProductForm({ product, onSaveChanges }: { product: Product, onSaveC
 
                     <div className="space-y-2">
                         <Label htmlFor="description">Descrição</Label>
-                        <Textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)} />
+                        <Textarea id="description" value={product.description} onChange={handleInputChange} placeholder="Descreva seu produto..." />
                     </div>
                      <div className="space-y-2">
                         <Label htmlFor="image">Foto</Label>
-                        <Input id="image" type="file" />
+                        <Input id="image" type="file" disabled />
+                        <p className="text-sm text-muted-foreground">A troca de imagem do produto não está disponível no protótipo.</p>
                     </div>
                 </div>
                 <DialogFooter>
-                      <Button type="button" onClick={handleSubmit}>Salvar alterações</Button>
+                      <Button type="button" onClick={handleSubmit} disabled={isSaving}>
+                        {isSaving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                        Salvar alterações
+                      </Button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>

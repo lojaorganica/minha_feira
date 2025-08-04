@@ -269,6 +269,15 @@ export function getProductById(id: string): Product | undefined {
   return getProducts().find((p) => p.id === id);
 }
 
+export function updateProduct(productId: string, updatedData: Partial<Product>): Product | undefined {
+    const productIndex = products.findIndex(p => p.id === productId);
+    if (productIndex !== -1) {
+        products[productIndex] = { ...products[productIndex], ...updatedData };
+        return products[productIndex];
+    }
+    return undefined;
+}
+
 export function toggleProductPromotion(productId: string, promote: boolean): Product | undefined {
     const productIndex = products.findIndex(p => p.id === productId);
     if (productIndex === -1) return undefined;
