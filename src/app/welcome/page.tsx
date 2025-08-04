@@ -1,35 +1,35 @@
 
 import Logo from '@/components/logo';
-import PromotionsCarousel from '@/components/promotions-carousel';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import Link from 'next/link';
+import PromotionsCarousel from '@/components/promotions-carousel';
 
 export default function WelcomePage() {
   return (
     <div className="flex flex-col flex-grow">
       <section className="w-full py-8 md:py-16 lg:py-20 bg-primary/10 flex-grow flex items-center">
         <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center justify-center space-y-4 text-center">
+          <div className="flex flex-col items-center justify-center space-y-6 text-center">
             <Logo size="large" />
             <div className="space-y-3">
               <h1 className="font-headline text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-primary">
-                Bem-vindo(a) ao Mercado Verdante!
+                Minha Feira
               </h1>
                <h2 className="text-xl sm:text-2xl font-headline text-primary/90">
                 Alimentos orgânicos de agricultores locais.
               </h2>
               <Separator className="max-w-md mx-auto bg-primary/20" />
               <p className="max-w-[700px] text-foreground/80 text-base md:text-lg mx-auto font-semibold">
-                Navegue pelos produtos disponíveis de agricultores orgânicos locais, faça seus pedidos e receba sugestões inteligentes de produtos complementares com nossa IA.
+                Comece a comprar alimentos orgânicos frescos de produtores locais ou gerencie suas vendas.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
                 <Button asChild size="lg">
-                    <Link href="/catalog">Ver Produtos</Link>
+                    <Link href="/login/customer">Sou Cliente</Link>
                 </Button>
                 <Button asChild size="lg" variant="outline">
-                    <Link href="/farmers">Encontrar Agricultores</Link>
+                    <Link href="/login/farmer">Sou Agricultor</Link>
                 </Button>
             </div>
           </div>
@@ -48,8 +48,8 @@ export default function WelcomePage() {
       <footer className="bg-muted p-6 md:py-12 w-full mt-auto">
         <div className="container max-w-7xl grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 text-base">
           <div className="grid gap-1">
-            <h3 className="font-semibold font-headline text-primary">Verdant Market</h3>
-            <p className="text-muted-foreground font-semibold">© 2024 Verdant Market Inc.</p>
+            <h3 className="font-semibold font-headline text-primary">Minha Feira</h3>
+            <p className="text-muted-foreground font-semibold">© 2024 Minha Feira Inc.</p>
           </div>
           <div className="grid gap-1">
             <h3 className="font-semibold font-headline text-primary">Legal</h3>
