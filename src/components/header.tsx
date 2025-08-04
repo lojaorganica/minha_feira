@@ -85,7 +85,6 @@ const Header = () => {
                   ) : (
                     <>
                       <div className="flex-grow">
-                        {/* Common Link */}
                         <Button asChild variant="ghost" className="w-full justify-start text-base" onClick={closeSheet}>
                             <Link href="/welcome"><Home className="h-4 w-4 mr-2"/>Início</Link>
                         </Button>
