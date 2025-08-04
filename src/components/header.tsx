@@ -196,7 +196,9 @@ const Header = () => {
                 </Button>
               )}
              {isUserLoaded && user && (
-                <Button variant="outline" size="sm" onClick={handleLogout}>Sair</Button>
+                <Button variant="outline" size="sm" onClick={handleLogout} className="hidden md:inline-flex">
+                    Sair
+                </Button>
              )}
           </div>
         </div>
