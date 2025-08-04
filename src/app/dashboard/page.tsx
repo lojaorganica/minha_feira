@@ -458,9 +458,6 @@ function DashboardContent() {
     
     return (
         <div className="container mx-auto py-10">
-            <div className="mb-6">
-                <BackButton />
-            </div>
             <h1 className="text-3xl font-bold font-headline text-primary mb-6 text-center">Painel do Agricultor</h1>
 
             <Dialog open={isHistoryDialogOpen} onOpenChange={setHistoryDialogOpen}>
