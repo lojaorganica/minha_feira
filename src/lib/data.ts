@@ -1,4 +1,4 @@
-import type { Product, Farmer, Order, Customer, FarmerWithProducts } from './types';
+import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerOrder } from './types';
 
 let products: Product[] = [
   {
@@ -325,6 +325,24 @@ export function getFarmers(): Farmer[] {
 
 export function getFarmerById(id: string): Farmer | undefined {
   return farmers.find((f) => f.id === id);
+}
+
+export function updateFarmer(farmerId: string, updatedData: Partial<Farmer>): Farmer | undefined {
+    const farmerIndex = farmers.findIndex(f => f.id === farmerId);
+    if (farmerIndex !== -1) {
+        farmers[farmerIndex] = { ...farmers[farmerIndex], ...updatedData };
+        return farmers[farmerIndex];
+    }
+    return undefined;
+}
+
+export function updateCustomer(customerId: string, updatedData: Partial<Customer>): Customer | undefined {
+    const customerIndex = customers.findIndex(c => c.id === customerId);
+    if (customerIndex !== -1) {
+        customers[customerIndex] = { ...customers[customerIndex], ...updatedData };
+        return customers[customerIndex];
+    }
+    return undefined;
 }
 
 export function addFarmer(farmerData: Omit<Farmer, 'id' | 'location'>): Farmer {

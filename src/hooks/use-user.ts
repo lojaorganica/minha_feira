@@ -3,7 +3,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import type { Customer, Farmer } from "@/lib/types";
-import { getCustomerById, getFarmerById, addFarmer as saveFarmer } from "@/lib/data";
+import { getCustomerById, getFarmerById, addFarmer as saveFarmer, updateFarmer as persistFarmer, updateCustomer as persistCustomer } from "@/lib/data";
 
 const USER_STORAGE_KEY = "verdant_market_user";
 const USER_TYPE_STORAGE_KEY = "verdant_market_user_type";
@@ -52,18 +52,24 @@ export function useUser() {
   const updateUser = useCallback((updatedUserData: Partial<Customer | Farmer>) => {
     setUser(currentUser => {
         if (!currentUser) return null;
+        
         const newUser = { ...currentUser, ...updatedUserData };
+
+        // Persist changes to our mock DB
+        if (userType === 'farmer') {
+            persistFarmer(currentUser.id, updatedUserData as Partial<Farmer>);
+        } else if (userType === 'customer') {
+            persistCustomer(currentUser.id, updatedUserData as Partial<Customer>);
+        }
+
         try {
             localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(newUser));
-            // Note: This only updates local state. A real app would save this to a backend.
-            // For this prototype, we assume `data.ts` is our "database" and changes
-            // are ephemeral or managed through direct function calls.
         } catch (error) {
             console.error("Falha ao salvar o usuário no localStorage", error);
         }
         return newUser;
     });
-  }, []);
+  }, [userType]);
 
   const login = (id: string, type: 'customer' | 'farmer') => {
     let userData;
