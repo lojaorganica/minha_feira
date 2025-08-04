@@ -36,6 +36,8 @@ const Header = () => {
     router.push('/welcome');
   };
 
+  const closeSheet = () => setSheetOpen(false);
+
   const loginLinks = [
       { href: "/login/customer", label: "Sou Cliente", icon: User},
       { href: "/login/farmer", label: "Sou Agricultor", icon: Tractor },
@@ -70,7 +72,9 @@ const Header = () => {
             </SheetTrigger>
             <SheetContent side="left" className="p-0 flex flex-col">
               <div className="p-4 border-b">
-                <Logo />
+                 <Link href="/welcome" onClick={closeSheet}>
+                    <Logo />
+                 </Link>
               </div>
               
               <div className="flex flex-col flex-grow p-4">
@@ -81,8 +85,8 @@ const Header = () => {
                   ) : (
                     <>
                       <div className="flex-grow">
-                         {/* Common Links */}
-                        <Button asChild variant="ghost" className="w-full justify-start text-base" onClick={() => setSheetOpen(false)}>
+                         {/* Common Link */}
+                        <Button asChild variant="ghost" className="w-full justify-start text-base" onClick={closeSheet}>
                             <Link href="/welcome"><Home className="h-4 w-4 mr-2"/>Início</Link>
                         </Button>
                         <Separator className="my-4" />
@@ -91,20 +95,17 @@ const Header = () => {
                            <>
                                 <h3 className="px-2 mb-2 text-sm font-semibold text-muted-foreground">Área do Agricultor</h3>
                                 <nav className="flex flex-col gap-2">
-                                <Button asChild variant="ghost" className="w-full justify-start" onClick={() => setSheetOpen(false)}>
-                                    <Link href="/profile" className="text-base">
-                                        <User className="h-4 w-4 mr-2"/>
-                                        Meu Perfil
-                                    </Link>
-                                </Button>
-                                {farmerMenuLinks.map((link) => (
-                                <Button asChild key={link.href} variant="ghost" className="w-full justify-start" onClick={() => setSheetOpen(false)}>
-                                    <Link href={link.href} className="text-base">
-                                        <link.icon className="h-4 w-4 mr-2"/>
-                                        {link.label}
-                                    </Link>
-                                </Button>
-                                ))}
+                                  <Button asChild variant="ghost" className="w-full justify-start text-base" onClick={closeSheet}>
+                                      <Link href="/profile"><User className="h-4 w-4 mr-2"/>Meu Perfil</Link>
+                                  </Button>
+                                  {farmerMenuLinks.map((link) => (
+                                    <Button asChild key={link.href} variant="ghost" className="w-full justify-start text-base" onClick={closeSheet}>
+                                        <Link href={link.href}>
+                                            <link.icon className="h-4 w-4 mr-2"/>
+                                            {link.label}
+                                        </Link>
+                                    </Button>
+                                  ))}
                                 </nav>
                             </>
                         )}
@@ -113,14 +114,14 @@ const Header = () => {
                            <>
                                 <h3 className="px-2 mb-2 text-sm font-semibold text-muted-foreground">Área do Cliente</h3>
                                 <nav className="flex flex-col gap-2">
-                                {customerMenuLinks.map((link) => (
-                                <Button asChild key={link.href} variant="ghost" className="w-full justify-start" onClick={() => setSheetOpen(false)}>
-                                    <Link href={link.href} className="text-base">
-                                        <link.icon className="h-4 w-4 mr-2"/>
-                                        {link.label}
-                                    </Link>
-                                </Button>
-                                ))}
+                                  {customerMenuLinks.map((link) => (
+                                    <Button asChild key={link.href} variant="ghost" className="w-full justify-start text-base" onClick={closeSheet}>
+                                        <Link href={link.href}>
+                                            <link.icon className="h-4 w-4 mr-2"/>
+                                            {link.label}
+                                        </Link>
+                                    </Button>
+                                  ))}
                                 </nav>
                             </>
                         )}
@@ -128,7 +129,7 @@ const Header = () => {
                         {!userType && (
                             <nav className="flex flex-col gap-2">
                                 {loginLinks.map((link) => (
-                                <Button asChild key={link.href} variant="outline" className="w-full justify-start" onClick={() => setSheetOpen(false)}>
+                                <Button asChild key={link.href} variant="outline" className="w-full justify-start" onClick={closeSheet}>
                                     <Link href={link.href} className="text-base">
                                     <link.icon className="h-4 w-4 mr-2"/>
                                     {link.label}
