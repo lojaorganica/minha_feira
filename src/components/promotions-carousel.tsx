@@ -23,15 +23,15 @@ export default function PromotionsCarousel() {
     }, []);
 
     if (promotions.length === 0) {
-        return null;
+        return (
+            <div className="text-center py-12">
+                <p className="text-lg font-semibold text-muted-foreground">Nenhuma promoção ativa no momento.</p>
+            </div>
+        );
     }
 
     return (
-        <div className="w-full mt-12 md:mt-20">
-            <div className="container">
-                <h2 className="text-2xl md:text-3xl font-headline font-bold text-primary text-center mb-6">
-                    Promoções da Semana
-                </h2>
+        <div className="w-full">
                 <Carousel
                     plugins={[plugin.current]}
                     opts={{
@@ -80,7 +80,6 @@ export default function PromotionsCarousel() {
                     <CarouselPrevious className="hidden sm:flex" />
                     <CarouselNext className="hidden sm:flex" />
                 </Carousel>
-            </div>
         </div>
     );
 }

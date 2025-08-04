@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart, Menu, User, Search, History, Package, ShoppingBasket, LogOut, Users, Heart } from "lucide-react";
+import { ShoppingCart, Menu, User, Search, History, Package, ShoppingBasket, LogOut, Users, Heart, Tag } from "lucide-react";
 import { usePathname, useRouter } from 'next/navigation';
 
 import Logo from "@/components/logo";
@@ -23,6 +23,7 @@ import { Loader2 } from "lucide-react";
 const customerMenuLinks = [
     { href: "/profile", label: "Meu Perfil", icon: User },
     { href: "/select-farmers", label: "Meus Agricultores", icon: Heart },
+    { href: "/promotions", label: "Minhas Promoções", icon: Tag },
     { href: "/cart", label: "Meu Carrinho", icon: ShoppingCart },
     { href: "/history", label: "Histórico", icon: History },
 ];
@@ -177,7 +178,7 @@ const Header = () => {
             )}
           </div>
           <div className="flex items-center gap-4">
-              <nav className="hidden md:flex items-center gap-4 text-base">
+              <nav className="hidden md:flex items-center gap-4 text-lg">
                 {renderDesktopNav()}
               </nav>
               {isUserLoaded && userType === 'customer' && (

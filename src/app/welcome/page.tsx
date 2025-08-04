@@ -36,8 +36,6 @@ export default function WelcomePage() {
         </div>
       </section>
 
-      <PromotionsCarousel />
-
       <footer className="bg-muted p-6 md:py-12 w-full mt-auto">
         <div className="container max-w-7xl grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 text-base">
           <div className="grid gap-1">
