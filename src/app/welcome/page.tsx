@@ -13,10 +13,10 @@ export default function WelcomePage() {
             <Logo size="large" />
             <div className="space-y-3">
               <h1 className="font-headline text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-primary">
-                Bem-vindo ao Minha Feira
+                Bem-vindo(a) ao Minha Feira!
               </h1>
                <h2 className="text-xl sm:text-2xl font-headline text-primary/90">
-                Sua conexão direta com o Circuito Carioca de Feiras Orgânicas
+                Seu App de conexão direta com os agricultores e fornecedores do Circuito Carioca de Feiras Orgânicas.
               </h2>
               <Separator className="max-w-md mx-auto bg-primary/20" />
               <p className="max-w-[700px] text-foreground/80 text-base md:text-lg mx-auto font-semibold">
