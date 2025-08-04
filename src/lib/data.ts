@@ -147,7 +147,7 @@ let products: Product[] = [
   },
 ];
 
-const farmers: Farmer[] = [
+let farmers: Farmer[] = [
   {
     id: '1',
     name: 'Fazendas Vale Verde',
@@ -306,6 +306,20 @@ export function getFarmerById(id: string): Farmer | undefined {
   return farmers.find((f) => f.id === id);
 }
 
+export function addFarmer(farmerData: Omit<Farmer, 'id' | 'location'>): Farmer {
+    const newId = `${farmers.length + 1}`;
+    const newFarmer: Farmer = {
+        id: newId,
+        // Usando uma localização aleatória perto do Rio de Janeiro para simulação
+        location: { lat: -22.9068 + (Math.random() - 0.5) * 0.5, lng: -43.1729 + (Math.random() - 0.5) * 0.5 },
+        ...farmerData,
+    };
+    farmers.push(newFarmer);
+    console.log("Novo agricultor adicionado:", newFarmer);
+    console.log("Lista de agricultores atualizada:", farmers);
+    return newFarmer;
+}
+
 export function getFarmersWithProducts(farmerIds: string[]): FarmerWithProducts[] {
   const favoriteFarmers = new Set(farmerIds);
   const result: FarmerWithProducts[] = [];
@@ -333,5 +347,3 @@ export function getCustomers(): Customer[] {
 export function getCustomerById(id: string): Customer | undefined {
     return customers.find(c => c.id === id);
 }
-
-    
