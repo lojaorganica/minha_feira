@@ -3,7 +3,6 @@ import Logo from '@/components/logo';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import Link from 'next/link';
-import PromotionsCarousel from '@/components/promotions-carousel';
 
 export default function WelcomePage() {
   return (
@@ -34,15 +33,6 @@ export default function WelcomePage() {
             </div>
           </div>
         </div>
-      </section>
-
-      <section className="bg-background py-12 md:py-20">
-          <div className="container">
-            <h2 className="font-headline text-2xl sm:text-3xl font-bold tracking-tighter text-primary text-center mb-8">
-                Promoções da Semana
-            </h2>
-            <PromotionsCarousel />
-          </div>
       </section>
       
       <footer className="bg-muted p-6 md:py-12 w-full mt-auto">
