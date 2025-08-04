@@ -20,7 +20,7 @@ export default function WelcomePage() {
               </h2>
               <Separator className="max-w-md mx-auto bg-primary/20" />
               <p className="max-w-[700px] text-foreground/80 text-base md:text-lg mx-auto font-semibold">
-                Explore uma variedade de produtos orgânicos frescos, direto de agricultores locais dedicados. Faça seus pedidos, apoie a agricultura sustentável e desfrute do melhor que a natureza tem a oferecer, tudo isso com a conveniência de um clique.
+                Garanta a reserva de seus alimentos orgânicos com a compra antecipada e direta com seus agricultores e fornecedores favoritos. Depois é só pegar na feira escolhida ou solicitar delivery.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
