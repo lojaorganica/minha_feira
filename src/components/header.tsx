@@ -82,10 +82,14 @@ const Header = () => {
             </nav>
         </>
       );
-    } else if (userType === 'farmer') {
+    } else if (userType === 'farmer' && user) {
+      const firstName = user.name.split(' ')[0];
       return (
         <>
-            <h3 className="px-2 mb-2 text-base font-semibold text-muted-foreground">Área do Agricultor</h3>
+            <div className="px-2 mb-4">
+                <h2 className="text-xl font-bold text-primary">Olá, {firstName}!</h2>
+                <h3 className="text-base font-semibold text-muted-foreground">Área do Agricultor</h3>
+            </div>
             <nav className="flex flex-col gap-2">
               {farmerMenuLinks.map((link) => (
                 <Button asChild key={link.href} variant="ghost" className="w-full justify-start text-lg" onClick={closeSheet}>
@@ -110,16 +114,16 @@ const Header = () => {
     if (userType === 'customer') {
        return (
         <>
-          <Link href="/catalog" className="font-medium text-foreground/80 hover:text-foreground transition-colors text-lg">Catálogo</Link>
-          <Link href="/history" className="font-medium text-foreground/80 hover:text-foreground transition-colors text-lg">Meus Pedidos</Link>
-          <Link href="/profile" className="font-medium text-foreground/80 hover:text-foreground transition-colors text-lg">Meu Perfil</Link>
+          <Link href="/catalog" className="font-medium text-foreground/80 hover:text-foreground text-lg">Catálogo</Link>
+          <Link href="/history" className="font-medium text-foreground/80 hover:text-foreground text-lg">Meus Pedidos</Link>
+          <Link href="/profile" className="font-medium text-foreground/80 hover:text-foreground text-lg">Meu Perfil</Link>
         </>
        )
     } else if (userType === 'farmer') {
       return (
         <>
-          <Link href="/dashboard" className="font-medium text-foreground/80 hover:text-foreground transition-colors text-lg">Painel</Link>
-          <Link href="/profile" className="font-medium text-foreground/80 hover:text-foreground transition-colors text-lg">Meu Perfil</Link>
+          <Link href="/dashboard" className="font-medium text-foreground/80 hover:text-foreground text-lg">Painel</Link>
+          <Link href="/profile" className="font-medium text-foreground/80 hover:text-foreground text-lg">Meu Perfil</Link>
         </>
       );
     } 
