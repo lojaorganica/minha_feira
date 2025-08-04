@@ -63,12 +63,12 @@ const Header = () => {
       );
     }
     
-    if (userType === 'farmer') {
+    if (userType === 'customer') {
       return (
         <>
-            <h3 className="px-2 mb-2 text-sm font-semibold text-muted-foreground">Área do Agricultor</h3>
+            <h3 className="px-2 mb-2 text-sm font-semibold text-muted-foreground">Área do Cliente</h3>
             <nav className="flex flex-col gap-2">
-              {farmerMenuLinks.map((link) => (
+              {customerMenuLinks.map((link) => (
                 <Button asChild key={link.href} variant="ghost" className="w-full justify-start text-base" onClick={closeSheet}>
                     <Link href={link.href}>
                         <link.icon className="h-4 w-4 mr-2"/>
@@ -79,12 +79,12 @@ const Header = () => {
             </nav>
         </>
       );
-    } else if (userType === 'customer') {
+    } else if (userType === 'farmer') {
       return (
-         <>
-            <h3 className="px-2 mb-2 text-sm font-semibold text-muted-foreground">Área do Cliente</h3>
+        <>
+            <h3 className="px-2 mb-2 text-sm font-semibold text-muted-foreground">Área do Agricultor</h3>
             <nav className="flex flex-col gap-2">
-              {customerMenuLinks.map((link) => (
+              {farmerMenuLinks.map((link) => (
                 <Button asChild key={link.href} variant="ghost" className="w-full justify-start text-base" onClick={closeSheet}>
                     <Link href={link.href}>
                         <link.icon className="h-4 w-4 mr-2"/>
@@ -108,14 +108,7 @@ const Header = () => {
       );
     }
     
-    if (userType === 'farmer') {
-      return (
-        <>
-          <Link href="/dashboard" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Painel</Link>
-          <Link href="/profile" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Meu Perfil</Link>
-        </>
-      );
-    } else if (userType === 'customer') {
+    if (userType === 'customer') {
        return (
         <>
           <Link href="/catalog" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Catálogo</Link>
@@ -123,13 +116,20 @@ const Header = () => {
           <Link href="/profile" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Meu Perfil</Link>
         </>
        )
+    } else if (userType === 'farmer') {
+      return (
+        <>
+          <Link href="/dashboard" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Painel</Link>
+          <Link href="/profile" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Meu Perfil</Link>
+        </>
+      );
     } 
     return null;
   }
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center">
+      <div className="container flex h-20 items-center">
         <div className="mr-4 hidden md:flex">
           <Logo size="small" />
         </div>

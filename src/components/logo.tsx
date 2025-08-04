@@ -8,7 +8,7 @@ interface LogoProps {
 
 const Logo = ({ size = 'default' }: LogoProps) => {
   const sizes = {
-    large: 256, // Aumentado de 192 para 256
+    large: 256,
     default: 128,
     small: 64,
   }
@@ -16,7 +16,7 @@ const Logo = ({ size = 'default' }: LogoProps) => {
   const height = sizes[size] || sizes.default;
 
   return (
-    <Link href="/welcome" className="flex items-center gap-2" prefetch={false}>
+    <Link href="/welcome" className="flex items-center gap-3" prefetch={false}>
       <Image
         src="https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/oDCkRtc7/5602073687894b2087f96555f9248957"
         alt="Logo do Circuito de Feiras Orgânicas Carioca"
@@ -24,18 +24,22 @@ const Logo = ({ size = 'default' }: LogoProps) => {
         height={height}
         className={cn(
           "rounded-full",
-          size === 'large' && 'w-48 h-48 sm:w-64 sm:h-64', // Aumentado de w-32/h-32 e sm:w-48/h-48
+          size === 'large' && 'w-48 h-48 sm:w-64 sm:h-64',
           size === 'default' && 'w-16 h-16',
-          size === 'small' && 'w-14 h-14'
+          size === 'small' && 'w-12 h-12'
         )}
       />
-       <span className={cn(
-        "font-headline font-semibold text-primary",
-        (size === 'default' || size === 'small') && 'text-xl',
-        size === 'large' && 'hidden' 
+       <div className={cn(
+        "flex flex-col",
+        size === 'large' && 'hidden'
       )}>
-        Feiras Orgânicas
-      </span>
+         <span className="font-headline font-semibold text-primary text-xl -mb-1">
+          Minha Feira
+        </span>
+        <span className="text-xs font-semibold text-muted-foreground">
+          Circuito Carioca de Feiras Orgânicas
+        </span>
+      </div>
     </Link>
   );
 };
