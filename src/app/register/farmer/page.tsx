@@ -57,7 +57,7 @@ export default function FarmerRegisterPage() {
       return;
     }
 
-    if (!fullName || !farmName || !email || !password || !pixKey) {
+    if (!fullName || !farmName || !email || !password || !pixKey || !address) {
        toast({
         variant: "destructive",
         title: "Campos obrigatórios",
@@ -69,6 +69,7 @@ export default function FarmerRegisterPage() {
     const newFarmerData: Omit<Farmer, 'id' | 'location'> = {
       name: farmName,
       bio,
+      address,
       pixKey,
       shippingCost: parseFloat(shippingCost) || 0,
       phone,

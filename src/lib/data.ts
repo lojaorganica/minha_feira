@@ -1,3 +1,4 @@
+
 import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerOrder } from './types';
 
 let products: Product[] = [
@@ -165,6 +166,7 @@ let farmers: Farmer[] = [
     name: 'Fazendas Vale Verde',
     location: { lat: -22.9068, lng: -43.1729 }, // Rio de Janeiro
     bio: 'Uma fazenda familiar dedicada à agricultura orgânica e sustentável há mais de 30 anos.',
+    address: 'Estrada da Paciência, 123, Santa Cruz, Rio de Janeiro, RJ',
     pixKey: 'fazenda.vale.verde@email.com',
     shippingCost: 15.00,
     phone: '5521987654321',
@@ -175,6 +177,7 @@ let farmers: Farmer[] = [
     name: 'Pomares do Amanhecer',
     location: { lat: -22.91, lng: -43.2 }, // Near Rio
     bio: 'Somos especializados no cultivo das frutas orgânicas mais doces e suculentas com amor e carinho.',
+    address: 'Rua das Maçãs, 45, Nova Iguaçu, RJ',
     pixKey: '123.456.789-00',
     shippingCost: 12.50,
     phone: '5521987654322',
@@ -185,6 +188,7 @@ let farmers: Farmer[] = [
     name: "Laticínios Margarida",
     location: { lat: -22.88, lng: -43.15 }, // Near Rio
     bio: 'Vacas felizes fazem o melhor leite. Nossos produtos lácteos são todos naturais e de vacas alimentadas com pasto.',
+    address: 'Avenida do Leite, 789, Duque de Caxias, RJ',
     pixKey: '(21) 99999-8888',
     shippingCost: 10.00,
     phone: '5521987654323',
@@ -195,6 +199,7 @@ let farmers: Farmer[] = [
     name: 'O Pão Rústico',
     location: { lat: -22.95, lng: -43.22 }, // Near Rio
     bio: 'Pães artesanais assados em forno a lenha tradicional com farinha orgânica de origem local.',
+    address: 'Travessa do Pão, 10, Niterói, RJ',
     pixKey: 'paorustico@email.com',
     shippingCost: 0, // Não oferece delivery
     phone: '5521987654324',

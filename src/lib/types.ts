@@ -24,6 +24,7 @@ export interface Farmer {
     lng: number;
   };
   bio: string;
+  address: string;
   pixKey: string;
   shippingCost?: number;
   phone?: string;

@@ -69,7 +69,11 @@ export default function ProfileForm() {
                         </div>
                          <div className="space-y-2">
                             <Label htmlFor="bio">Bio</Label>
-                            <Textarea id="bio" value={farmerData.bio || ''} onChange={handleInputChange} placeholder="Fale um pouco sobre você e seus produtos..." />
+                            <Textarea id="bio" value={farmerData.bio || ''} onChange={handleInputChange} placeholder="Escreva aqui, em poucas palavras, sobre seu trabalho ou produção." />
+                        </div>
+                         <div className="space-y-2">
+                            <Label htmlFor="address">Endereço</Label>
+                            <Input id="address" value={farmerData.address || ''} onChange={handleInputChange} />
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="phone">Telefone / WhatsApp</Label>
