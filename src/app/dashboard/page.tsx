@@ -53,14 +53,16 @@ function EditProductForm({ product: initialProduct, onSaveChanges }: { product: 
 
     const handleNumberInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { id, value } = e.target;
-        setProduct(prev => ({ ...prev, [id]: parseFloat(value) || 0 }));
+        setProduct(prev => ({ ...prev, [id]: parseFloat(value) || undefined }));
     };
 
     const handleSubmit = () => {
         setIsSaving(true);
+        // Salva todos os campos, incluindo o novo unitAmount
         updateProduct(product.id, {
             name: product.name,
             price: product.price,
+            unitAmount: product.unitAmount,
             unit: product.unit,
             description: product.description,
         });
@@ -96,10 +98,14 @@ function EditProductForm({ product: initialProduct, onSaveChanges }: { product: 
                         <Input id="name" value={product.name} onChange={handleInputChange} />
                     </div>
                     
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-3 gap-4">
                         <div className="space-y-2">
                             <Label htmlFor="price">Preço (R$)</Label>
                             <Input id="price" type="number" value={product.price} onChange={handleNumberInputChange} />
+                        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="unitAmount">Quantidade</Label>
+                            <Input id="unitAmount" type="number" value={product.unitAmount || ''} onChange={handleNumberInputChange} />
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="unit">Unidade</Label>
@@ -114,6 +120,7 @@ function EditProductForm({ product: initialProduct, onSaveChanges }: { product: 
                                     <SelectItem value="maço">maço</SelectItem>
                                     <SelectItem value="dúzia">dúzia</SelectItem>
                                     <SelectItem value="litro">litro</SelectItem>
+                                    <SelectItem value="ml">ml</SelectItem>
                                     <SelectItem value="molho">molho</SelectItem>
                                     <SelectItem value="caixa">caixa</SelectItem>
                                     <SelectItem value="pote">pote</SelectItem>
@@ -142,6 +149,7 @@ function EditProductForm({ product: initialProduct, onSaveChanges }: { product: 
         </Dialog>
     );
 }
+
 
 // Componente Isolado para a Aba de Produtos
 function ProductsTabContent({ allProducts, onProductUpdate }: { allProducts: Product[], onProductUpdate: () => void }) {
@@ -198,7 +206,7 @@ function ProductsTabContent({ allProducts, onProductUpdate }: { allProducts: Pro
                                 <CardTitle className="font-headline text-primary">{product.name}</CardTitle>
                             </CardHeader>
                             <CardContent className="flex-grow">
-                                <p className="font-bold text-lg">R${product.price.toFixed(2).replace('.', ',')} <span className="text-base font-medium text-foreground/80">/ {product.unit}</span></p>
+                                <p className="font-bold text-lg">R${product.price.toFixed(2).replace('.', ',')} <span className="text-base font-medium text-foreground/80">/ {product.unitAmount ? `${product.unitAmount} ` : ''}{product.unit}</span></p>
                                 <p className="text-base font-semibold text-foreground/90 mt-2 line-clamp-3">{product.description}</p>
                             </CardContent>
                             <CardFooter className="flex flex-col gap-4">

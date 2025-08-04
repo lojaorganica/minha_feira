@@ -66,7 +66,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
         <div className="text-lg font-bold text-primary w-full flex justify-between items-center">
           <div>
             <span>R${product.price.toFixed(2).replace('.', ',')}</span>
-            <span className="text-base font-medium text-foreground/80 ml-1">/ {product.unit}</span>
+            <span className="text-base font-medium text-foreground/80 ml-1">/ {product.unitAmount ? `${product.unitAmount} ` : ''}{product.unit}</span>
           </div>
         </div>
         <div className="w-full flex flex-col sm:flex-row gap-2">

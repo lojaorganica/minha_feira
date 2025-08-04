@@ -6,7 +6,8 @@ let products: Product[] = [
     name: 'Cenouras Orgânicas',
     category: 'Vegetal',
     price: 2.5,
-    unit: 'por kg',
+    unitAmount: 1,
+    unit: 'kg',
     image: 'https://placehold.co/600x400',
     dataAiHint: 'cenouras orgânicas',
     farmerId: '1',
@@ -17,7 +18,8 @@ let products: Product[] = [
     name: 'Tomates Antigos',
     category: 'Vegetal',
     price: 3.0,
-    unit: 'por kg',
+    unitAmount: 1,
+    unit: 'kg',
     image: 'https://placehold.co/600x400',
     dataAiHint: 'tomates antigos',
     farmerId: '1',
@@ -32,6 +34,7 @@ let products: Product[] = [
     name: 'Maçãs Crocantes',
     category: 'Fruta',
     price: 1.5,
+    unitAmount: 1,
     unit: 'unidade',
     image: 'https://placehold.co/600x400',
     dataAiHint: 'maçãs crocantes',
@@ -43,6 +46,7 @@ let products: Product[] = [
     name: 'Morangos Frescos',
     category: 'Fruta',
     price: 4.0,
+    unitAmount: 1,
     unit: 'caixa',
     image: 'https://placehold.co/600x400',
     dataAiHint: 'morangos frescos',
@@ -58,6 +62,7 @@ let products: Product[] = [
     name: 'Leite Fresco da Fazenda',
     category: 'Laticínio',
     price: 3.5,
+    unitAmount: 1,
     unit: 'litro',
     image: 'https://placehold.co/600x400',
     dataAiHint: 'leite de fazenda',
@@ -69,7 +74,8 @@ let products: Product[] = [
     name: 'Queijo Artesanal',
     category: 'Laticínio',
     price: 8.0,
-    unit: '100g',
+    unitAmount: 100,
+    unit: 'g',
     image: 'https://placehold.co/600x400',
     dataAiHint: 'queijo artesanal',
     farmerId: '3',
@@ -80,6 +86,7 @@ let products: Product[] = [
     name: 'Pão de Fermentação Natural',
     category: 'Padaria',
     price: 5.0,
+    unitAmount: 1,
     unit: 'unidade',
     image: 'https://placehold.co/600x400',
     dataAiHint: 'pão de fermentação natural',
@@ -95,6 +102,7 @@ let products: Product[] = [
     name: 'Couve Orgânica',
     category: 'Vegetal',
     price: 2.0,
+    unitAmount: 1,
     unit: 'maço',
     image: 'https://placehold.co/600x400',
     dataAiHint: 'couve orgânica',
@@ -106,6 +114,7 @@ let products: Product[] = [
     name: 'Laranjas Doces',
     category: 'Fruta',
     price: 2.0,
+    unitAmount: 1,
     unit: 'kg',
     image: 'https://placehold.co/600x400',
     dataAiHint: 'laranjas doces',
@@ -117,6 +126,7 @@ let products: Product[] = [
     name: 'Iogurte Grego',
     category: 'Laticínio',
     price: 4.5,
+    unitAmount: 1,
     unit: 'pote',
     image: 'https://placehold.co/600x400',
     dataAiHint: 'iogurte grego',
@@ -128,6 +138,7 @@ let products: Product[] = [
     name: 'Baguete de Trigo Integral',
     category: 'Padaria',
     price: 4.0,
+    unitAmount: 1,
     unit: 'unidade',
     image: 'https://placehold.co/600x400',
     dataAiHint: 'baguete de trigo',
@@ -139,6 +150,7 @@ let products: Product[] = [
     name: 'Pimentões',
     category: 'Vegetal',
     price: 2.75,
+    unitAmount: 1,
     unit: 'kg',
     image: 'https://placehold.co/600x400',
     dataAiHint: 'pimentões',
@@ -151,7 +163,7 @@ let farmers: Farmer[] = [
   {
     id: '1',
     name: 'Fazendas Vale Verde',
-    location: { lat: 34.0522, lng: -118.2437 }, // Los Angeles
+    location: { lat: -22.9068, lng: -43.1729 }, // Rio de Janeiro
     bio: 'Uma fazenda familiar dedicada à agricultura orgânica e sustentável há mais de 30 anos.',
     pixKey: 'fazenda.vale.verde@email.com',
     shippingCost: 15.00,
@@ -161,7 +173,7 @@ let farmers: Farmer[] = [
   {
     id: '2',
     name: 'Pomares do Amanhecer',
-    location: { lat: 34.1522, lng: -118.4437 }, // Near LA
+    location: { lat: -22.91, lng: -43.2 }, // Near Rio
     bio: 'Somos especializados no cultivo das frutas orgânicas mais doces e suculentas com amor e carinho.',
     pixKey: '123.456.789-00',
     shippingCost: 12.50,
@@ -171,7 +183,7 @@ let farmers: Farmer[] = [
   {
     id: '3',
     name: "Laticínios Margarida",
-    location: { lat: 33.9522, lng: -118.1437 }, // Near LA
+    location: { lat: -22.88, lng: -43.15 }, // Near Rio
     bio: 'Vacas felizes fazem o melhor leite. Nossos produtos lácteos são todos naturais e de vacas alimentadas com pasto.',
     pixKey: '(21) 99999-8888',
     shippingCost: 10.00,
@@ -181,7 +193,7 @@ let farmers: Farmer[] = [
   {
     id: '4',
     name: 'O Pão Rústico',
-    location: { lat: 34.0522, lng: -118.3437 }, // Near LA
+    location: { lat: -22.95, lng: -43.22 }, // Near Rio
     bio: 'Pães artesanais assados em forno a lenha tradicional com farinha orgânica de origem local.',
     pixKey: 'paorustico@email.com',
     shippingCost: 0, // Não oferece delivery
