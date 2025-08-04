@@ -277,7 +277,7 @@ const customers: Customer[] = [
         favoriteFarmerIds: ['1', '2'],
         address: 'Rua de Exemplo, 123, Bairro, Rio de Janeiro, RJ',
         phone: '21912345678',
-        image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/oDCkRtc7/d572d423985542828b6d859424d55734'
+        image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/oDCkRtc7/77c3858f64584148b43e339b4b9b0c51'
     }
 ];
 
