@@ -20,7 +20,7 @@ const Logo = ({ size = 'default', isClickable = true }: LogoProps) => {
   const LogoContent = (
     <>
       <Image
-        src="https://assets.static-up.com/br-feiras-organicas-logo/1.0.0/logo.png"
+        src="https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/oDCkRtc7/5602073687894b2087f96555f9248957"
         alt="Logo do Circuito de Feiras Orgânicas Carioca"
         width={width}
         height={height}
