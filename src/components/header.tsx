@@ -85,13 +85,13 @@ const Header = () => {
                   ) : (
                     <>
                       <div className="flex-grow">
-                         {/* Common Link */}
+                        {/* Common Link */}
                         <Button asChild variant="ghost" className="w-full justify-start text-base" onClick={closeSheet}>
                             <Link href="/welcome"><Home className="h-4 w-4 mr-2"/>Início</Link>
                         </Button>
                         <Separator className="my-4" />
 
-                        {userType === 'farmer' && (
+                        {userType === 'farmer' ? (
                            <>
                                 <h3 className="px-2 mb-2 text-sm font-semibold text-muted-foreground">Área do Agricultor</h3>
                                 <nav className="flex flex-col gap-2">
@@ -108,9 +108,7 @@ const Header = () => {
                                   ))}
                                 </nav>
                             </>
-                        )}
-
-                        {userType === 'customer' && (
+                        ) : userType === 'customer' ? (
                            <>
                                 <h3 className="px-2 mb-2 text-sm font-semibold text-muted-foreground">Área do Cliente</h3>
                                 <nav className="flex flex-col gap-2">
@@ -124,9 +122,7 @@ const Header = () => {
                                   ))}
                                 </nav>
                             </>
-                        )}
-
-                        {!userType && (
+                        ) : (
                             <nav className="flex flex-col gap-2">
                                 {loginLinks.map((link) => (
                                 <Button asChild key={link.href} variant="outline" className="w-full justify-start" onClick={closeSheet}>
@@ -193,7 +189,7 @@ const Header = () => {
              )}
           </nav>
           <div className="flex items-center gap-2">
-            {isUserLoaded && userType !== 'farmer' && (
+            {isUserLoaded && userType === 'customer' && (
               <Button variant="ghost" size="icon" asChild className="relative">
                 <Link href="/cart">
                   <ShoppingCart className="h-8 w-8" />
