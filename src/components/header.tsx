@@ -186,7 +186,7 @@ const Header = () => {
              )}
           </nav>
           <div className="flex items-center gap-2">
-            {userType !== 'farmer' && (
+            {isUserLoaded && userType !== 'farmer' && (
               <Button variant="ghost" size="icon" asChild className="relative">
                 <Link href="/cart">
                   <ShoppingCart className="h-8 w-8" />
