@@ -62,10 +62,14 @@ const Header = () => {
       );
     }
     
-    if (userType === 'customer') {
+    if (userType === 'customer' && user) {
+      const firstName = user.name.split(' ')[0];
       return (
         <>
-            <h3 className="px-2 mb-2 text-base font-semibold text-muted-foreground">Área do Cliente</h3>
+            <div className="px-2 mb-4">
+              <h2 className="text-xl font-bold text-primary">Olá, {firstName}!</h2>
+              <h3 className="text-base font-semibold text-muted-foreground">Área do Cliente</h3>
+            </div>
             <nav className="flex flex-col gap-2">
               {customerMenuLinks.map((link) => (
                 <Button asChild key={link.href} variant="ghost" className="w-full justify-start text-lg" onClick={closeSheet}>
