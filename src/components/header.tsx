@@ -107,16 +107,16 @@ const Header = () => {
     if (userType === 'customer') {
        return (
         <>
-          <Link href="/catalog" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Catálogo</Link>
-          <Link href="/history" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Meus Pedidos</Link>
-          <Link href="/profile" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Meu Perfil</Link>
+          <Link href="/catalog" className="font-medium text-foreground/80 hover:text-foreground transition-colors text-lg">Catálogo</Link>
+          <Link href="/history" className="font-medium text-foreground/80 hover:text-foreground transition-colors text-lg">Meus Pedidos</Link>
+          <Link href="/profile" className="font-medium text-foreground/80 hover:text-foreground transition-colors text-lg">Meu Perfil</Link>
         </>
        )
     } else if (userType === 'farmer') {
       return (
         <>
-          <Link href="/dashboard" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Painel</Link>
-          <Link href="/profile" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Meu Perfil</Link>
+          <Link href="/dashboard" className="font-medium text-foreground/80 hover:text-foreground transition-colors text-lg">Painel</Link>
+          <Link href="/profile" className="font-medium text-foreground/80 hover:text-foreground transition-colors text-lg">Meu Perfil</Link>
         </>
       );
     } 
@@ -139,9 +139,7 @@ const Header = () => {
             </SheetTrigger>
             <SheetContent side="left" className="p-0 flex flex-col">
               <div className="p-4 border-b">
-                 <Link href="/welcome" onClick={closeSheet}>
-                    <Logo />
-                 </Link>
+                 <Logo isClickable={false} />
               </div>
               
               <div className="flex flex-col flex-grow p-4">
@@ -179,7 +177,7 @@ const Header = () => {
             )}
           </div>
           <div className="flex items-center gap-4">
-              <nav className="hidden md:flex items-center gap-4 text-lg">
+              <nav className="hidden md:flex items-center gap-4 text-base">
                 {renderDesktopNav()}
               </nav>
               {isUserLoaded && userType === 'customer' && (
@@ -196,7 +194,7 @@ const Header = () => {
                 </Button>
               )}
              {isUserLoaded && user && (
-                <Button variant="outline" size="sm" onClick={handleLogout} className="hidden md:inline-flex">
+                <Button variant="outline" size="sm" onClick={handleLogout} className="hidden md:flex">
                     Sair
                 </Button>
              )}

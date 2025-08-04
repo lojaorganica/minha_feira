@@ -4,9 +4,10 @@ import { cn } from "@/lib/utils";
 
 interface LogoProps {
   size?: 'default' | 'large' | 'small';
+  isClickable?: boolean;
 }
 
-const Logo = ({ size = 'default' }: LogoProps) => {
+const Logo = ({ size = 'default', isClickable = true }: LogoProps) => {
   const sizes = {
     large: 256,
     default: 128,
@@ -15,8 +16,8 @@ const Logo = ({ size = 'default' }: LogoProps) => {
   const width = sizes[size] || sizes.default;
   const height = sizes[size] || sizes.default;
 
-  return (
-    <Link href="/welcome" className="flex items-center gap-3" prefetch={false}>
+  const LogoContent = (
+    <>
       <Image
         src="https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/oDCkRtc7/5602073687894b2087f96555f9248957"
         alt="Logo do Circuito de Feiras Orgânicas Carioca"
@@ -40,7 +41,21 @@ const Logo = ({ size = 'default' }: LogoProps) => {
           Circuito Carioca de Feiras Orgânicas
         </span>
       </div>
-    </Link>
+    </>
+  );
+  
+  if (isClickable) {
+    return (
+      <Link href="/welcome" className="flex items-center gap-3" prefetch={false}>
+        {LogoContent}
+      </Link>
+    );
+  }
+
+  return (
+    <div className="flex items-center gap-3">
+      {LogoContent}
+    </div>
   );
 };
 
