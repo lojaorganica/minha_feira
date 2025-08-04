@@ -20,7 +20,7 @@ const Logo = ({ size = 'default', isClickable = true }: LogoProps) => {
   const LogoContent = (
     <>
       <Image
-        src="https://placehold.co/256x256.png"
+        src="https://assets.static-up.com/br-feiras-organicas-logo/1.0.0/logo.png"
         alt="Logo do Circuito de Feiras Orgânicas Carioca"
         width={width}
         height={height}
