@@ -26,7 +26,7 @@ const Header = () => {
   const pathname = usePathname();
   const router = useRouter();
   const { searchTerm, setSearchTerm } = useSearch();
-  const { userType, isUserLoaded, logout } = useUser();
+  const { user, userType, isUserLoaded, logout } = useUser();
 
   const isCatalogPage = pathname === '/catalog';
   
@@ -38,23 +38,117 @@ const Header = () => {
 
   const closeSheet = () => setSheetOpen(false);
 
-  const loginLinks = [
-      { href: "/login/customer", label: "Sou Cliente", icon: User},
-      { href: "/login/farmer", label: "Sou Agricultor", icon: Tractor },
-  ]
-
   const customerMenuLinks = [
     { href: "/profile", label: "Meu Perfil", icon: User },
     { href: "/select-farmers", label: "Meus Agricultores", icon: Heart },
     { href: "/cart", label: "Meu Carrinho", icon: ShoppingCart },
     { href: "/history", label: "Histórico", icon: History },
-  ]
+  ];
 
   const farmerMenuLinks = [
     { href: "/dashboard?tab=orders", label: "Pedidos", icon: ShoppingBasket },
     { href: "/dashboard?tab=products", label: "Meus Produtos", icon: Package },
     { href: "/dashboard/customers", label: "Meus Clientes", icon: Users },
-  ]
+  ];
+  
+  const guestMenuLinks = [
+      { href: "/login/customer", label: "Sou Cliente", icon: User},
+      { href: "/login/farmer", label: "Sou Agricultor", icon: Tractor },
+  ];
+
+
+  const renderMobileMenu = () => {
+    if (!isUserLoaded) {
+      return (
+        <div className="flex justify-center items-center h-full">
+            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        </div>
+      );
+    }
+    
+    if (userType === 'farmer') {
+      return (
+        <>
+            <h3 className="px-2 mb-2 text-sm font-semibold text-muted-foreground">Área do Agricultor</h3>
+            <nav className="flex flex-col gap-2">
+              <Button asChild variant="ghost" className="w-full justify-start text-base" onClick={closeSheet}>
+                  <Link href="/profile"><User className="h-4 w-4 mr-2"/>Meu Perfil</Link>
+              </Button>
+              {farmerMenuLinks.map((link) => (
+                <Button asChild key={link.href} variant="ghost" className="w-full justify-start text-base" onClick={closeSheet}>
+                    <Link href={link.href}>
+                        <link.icon className="h-4 w-4 mr-2"/>
+                        {link.label}
+                    </Link>
+                </Button>
+              ))}
+            </nav>
+        </>
+      );
+    }
+
+    if (userType === 'customer') {
+      return (
+         <>
+            <h3 className="px-2 mb-2 text-sm font-semibold text-muted-foreground">Área do Cliente</h3>
+            <nav className="flex flex-col gap-2">
+              {customerMenuLinks.map((link) => (
+                <Button asChild key={link.href} variant="ghost" className="w-full justify-start text-base" onClick={closeSheet}>
+                    <Link href={link.href}>
+                        <link.icon className="h-4 w-4 mr-2"/>
+                        {link.label}
+                    </Link>
+                </Button>
+              ))}
+            </nav>
+        </>
+      );
+    }
+    
+    // Fallback for guest
+    return (
+        <nav className="flex flex-col gap-2">
+            {guestMenuLinks.map((link) => (
+            <Button asChild key={link.href} variant="outline" className="w-full justify-start" onClick={closeSheet}>
+                <Link href={link.href} className="text-base">
+                <link.icon className="h-4 w-4 mr-2"/>
+                {link.label}
+                </Link>
+            </Button>
+            ))}
+        </nav>
+    );
+  }
+
+  const renderDesktopNav = () => {
+    if (!isUserLoaded) {
+      return null;
+    }
+    if (userType === 'farmer') {
+      return (
+        <>
+          <Link href="/dashboard" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Painel</Link>
+          <Link href="/profile" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Meu Perfil</Link>
+        </>
+      );
+    }
+    if (userType === 'customer') {
+       return (
+        <>
+          <Link href="/catalog" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Catálogo</Link>
+          <Link href="/history" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Meus Pedidos</Link>
+          <Link href="/profile" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Meu Perfil</Link>
+        </>
+       )
+    }
+     // Fallback for guest
+    return (
+      <>
+          <Link href="/login/customer" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Sou Cliente</Link>
+          <Link href="/login/farmer" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Sou Agricultor</Link>
+      </>
+    )
+  }
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -78,73 +172,22 @@ const Header = () => {
               </div>
               
               <div className="flex flex-col flex-grow p-4">
-                  {!isUserLoaded ? (
-                     <div className="flex justify-center items-center h-full">
-                        <Loader2 className="h-8 w-8 animate-spin text-primary" />
-                    </div>
-                  ) : (
-                    <>
-                      <div className="flex-grow">
-                        <Button asChild variant="ghost" className="w-full justify-start text-base" onClick={closeSheet}>
-                            <Link href="/welcome"><Home className="h-4 w-4 mr-2"/>Início</Link>
-                        </Button>
+                  <div className="flex-grow">
+                      <Button asChild variant="ghost" className="w-full justify-start text-base" onClick={closeSheet}>
+                          <Link href="/welcome"><Home className="h-4 w-4 mr-2"/>Início</Link>
+                      </Button>
+                      <Separator className="my-4" />
+                      {renderMobileMenu()}
+                  </div>
+
+                  {isUserLoaded && user && (
+                    <div className="mt-auto">
                         <Separator className="my-4" />
-
-                        {userType === 'farmer' ? (
-                           <>
-                                <h3 className="px-2 mb-2 text-sm font-semibold text-muted-foreground">Área do Agricultor</h3>
-                                <nav className="flex flex-col gap-2">
-                                  <Button asChild variant="ghost" className="w-full justify-start text-base" onClick={closeSheet}>
-                                      <Link href="/profile"><User className="h-4 w-4 mr-2"/>Meu Perfil</Link>
-                                  </Button>
-                                  {farmerMenuLinks.map((link) => (
-                                    <Button asChild key={link.href} variant="ghost" className="w-full justify-start text-base" onClick={closeSheet}>
-                                        <Link href={link.href}>
-                                            <link.icon className="h-4 w-4 mr-2"/>
-                                            {link.label}
-                                        </Link>
-                                    </Button>
-                                  ))}
-                                </nav>
-                            </>
-                        ) : userType === 'customer' ? (
-                           <>
-                                <h3 className="px-2 mb-2 text-sm font-semibold text-muted-foreground">Área do Cliente</h3>
-                                <nav className="flex flex-col gap-2">
-                                  {customerMenuLinks.map((link) => (
-                                    <Button asChild key={link.href} variant="ghost" className="w-full justify-start text-base" onClick={closeSheet}>
-                                        <Link href={link.href}>
-                                            <link.icon className="h-4 w-4 mr-2"/>
-                                            {link.label}
-                                        </Link>
-                                    </Button>
-                                  ))}
-                                </nav>
-                            </>
-                        ) : (
-                            <nav className="flex flex-col gap-2">
-                                {loginLinks.map((link) => (
-                                <Button asChild key={link.href} variant="outline" className="w-full justify-start" onClick={closeSheet}>
-                                    <Link href={link.href} className="text-base">
-                                    <link.icon className="h-4 w-4 mr-2"/>
-                                    {link.label}
-                                    </Link>
-                                </Button>
-                                ))}
-                            </nav>
-                        )}
-                      </div>
-
-                      {userType && (
-                        <div className="mt-auto">
-                            <Separator className="my-4" />
-                            <Button variant="outline" className="w-full justify-start" onClick={handleLogout}>
-                                <LogOut className="h-4 w-4 mr-2"/>
-                                Sair
-                            </Button>
-                        </div>
-                      )}
-                    </>
+                        <Button variant="outline" className="w-full justify-start" onClick={handleLogout}>
+                            <LogOut className="h-4 w-4 mr-2"/>
+                            Sair
+                        </Button>
+                    </div>
                   )}
               </div>
             </SheetContent>
@@ -167,25 +210,7 @@ const Header = () => {
             )}
           </div>
           <nav className="hidden md:flex items-center gap-4">
-            {isUserLoaded && userType === 'customer' && (
-              <>
-                <Link href="/catalog" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Catálogo</Link>
-                <Link href="/history" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Meus Pedidos</Link>
-                <Link href="/profile" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Meu Perfil</Link>
-              </>
-            )}
-             {isUserLoaded && userType === 'farmer' && (
-              <>
-                <Link href="/dashboard" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Painel</Link>
-                <Link href="/profile" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Meu Perfil</Link>
-              </>
-             )}
-             {isUserLoaded && !userType && (
-              <>
-                <Link href="/login/customer" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Sou Cliente</Link>
-                <Link href="/login/farmer" className="font-medium text-foreground/80 hover:text-foreground transition-colors">Sou Agricultor</Link>
-              </>
-             )}
+            {renderDesktopNav()}
           </nav>
           <div className="flex items-center gap-2">
             {isUserLoaded && userType === 'customer' && (
@@ -201,7 +226,7 @@ const Header = () => {
                 </Link>
               </Button>
             )}
-             {isUserLoaded && userType && (
+             {isUserLoaded && user && (
                 <Button variant="outline" size="sm" onClick={handleLogout}>Sair</Button>
              )}
           </div>
