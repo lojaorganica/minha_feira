@@ -18,6 +18,7 @@ export interface Product {
 
 export interface Farmer {
   id: string;
+  responsibleName?: string;
   name:string;
   location: {
     lat: number;

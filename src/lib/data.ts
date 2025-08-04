@@ -163,6 +163,7 @@ let products: Product[] = [
 let farmers: Farmer[] = [
   {
     id: '1',
+    responsibleName: 'João da Silva',
     name: 'Fazendas Vale Verde',
     location: { lat: -22.9068, lng: -43.1729 }, // Rio de Janeiro
     bio: 'Uma fazenda familiar dedicada à agricultura orgânica e sustentável há mais de 30 anos.',
@@ -174,6 +175,7 @@ let farmers: Farmer[] = [
   },
   {
     id: '2',
+    responsibleName: 'Maria Oliveira',
     name: 'Pomares do Amanhecer',
     location: { lat: -22.91, lng: -43.2 }, // Near Rio
     bio: 'Somos especializados no cultivo das frutas orgânicas mais doces e suculentas com amor e carinho.',
@@ -185,6 +187,7 @@ let farmers: Farmer[] = [
   },
   {
     id: '3',
+    responsibleName: 'Carlos Pereira',
     name: "Laticínios Margarida",
     location: { lat: -22.88, lng: -43.15 }, // Near Rio
     bio: 'Vacas felizes fazem o melhor leite. Nossos produtos lácteos são todos naturais e de vacas alimentadas com pasto.',
@@ -196,6 +199,7 @@ let farmers: Farmer[] = [
   },
   {
     id: '4',
+    responsibleName: 'Ana Souza',
     name: 'O Pão Rústico',
     location: { lat: -22.95, lng: -43.22 }, // Near Rio
     bio: 'Pães artesanais assados em forno a lenha tradicional com farinha orgânica de origem local.',

@@ -77,6 +77,10 @@ export default function ProfileForm() {
                 <form onSubmit={handleSubmit}>
                     <CardContent className="space-y-4">
                          <div className="space-y-2">
+                            <Label htmlFor="responsibleName">Nome do Agricultor(a) ou Empresário(a) Responsável</Label>
+                            <Input id="responsibleName" value={farmerData.responsibleName || ''} onChange={handleInputChange} />
+                        </div>
+                         <div className="space-y-2">
                             <Label htmlFor="name">Nome da Fazenda / Marca</Label>
                             <Input id="name" value={farmerData.name || ''} onChange={handleInputChange} />
                         </div>
