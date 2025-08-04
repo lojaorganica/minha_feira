@@ -19,6 +19,7 @@ import { useSearch } from "@/hooks/use-search";
 import { Input } from "./ui/input";
 import { useUser } from "@/hooks/use-user";
 import { Loader2 } from "lucide-react";
+import type { Farmer } from "@/lib/types";
 
 const customerMenuLinks = [
     { href: "/profile", label: "Meu Perfil", icon: User },
@@ -83,7 +84,9 @@ const Header = () => {
         </>
       );
     } else if (userType === 'farmer' && user) {
-      const firstName = user.name.split(' ')[0];
+      const farmer = user as Farmer;
+      const nameToGreet = farmer.responsibleName || farmer.name;
+      const firstName = nameToGreet.split(' ')[0];
       return (
         <>
             <div className="px-2 mb-4">
