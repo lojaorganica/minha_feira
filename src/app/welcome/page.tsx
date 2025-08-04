@@ -13,14 +13,14 @@ export default function WelcomePage() {
             <Logo size="large" />
             <div className="space-y-3">
               <h1 className="font-headline text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-primary">
-                Minha Feira
+                Bem-vindo ao Minha Feira
               </h1>
                <h2 className="text-xl sm:text-2xl font-headline text-primary/90">
-                Circuito Carioca de Feiras Orgânicas
+                Sua conexão direta com o Circuito Carioca de Feiras Orgânicas
               </h2>
               <Separator className="max-w-md mx-auto bg-primary/20" />
               <p className="max-w-[700px] text-foreground/80 text-base md:text-lg mx-auto font-semibold">
-                Comece a comprar alimentos orgânicos frescos de produtores locais ou gerencie suas vendas.
+                Explore uma variedade de produtos orgânicos frescos, direto de agricultores locais dedicados. Faça seus pedidos, apoie a agricultura sustentável e desfrute do melhor que a natureza tem a oferecer, tudo isso com a conveniência de um clique.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
