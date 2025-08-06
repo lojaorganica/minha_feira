@@ -1,0 +1,66 @@
+
+'use client';
+
+import { Button } from "@/components/ui/button"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import Link from "next/link"
+import BackButton from "@/components/back-button"
+import { useUser } from "@/hooks/use-user";
+import { useRouter } from "next/navigation";
+
+export default function CustomerLoginPage() {
+  const { login } = useUser();
+  const router = useRouter();
+
+  const handleLogin = () => {
+    // Para fins de protótipo, faz o login do primeiro cliente
+    login('cust-001', 'customer');
+    router.push('/select-farmers');
+  };
+
+  return (
+    <div className="relative flex items-center justify-center min-h-[calc(100vh-10rem)] bg-primary/10 py-12">
+        <div className="absolute top-6 left-6">
+            <BackButton />
+        </div>
+        <Card className="w-full max-w-sm">
+            <CardHeader>
+                <CardTitle className="text-2xl font-headline">Login do Cliente</CardTitle>
+                <CardDescription>
+                Digite seu e-mail abaixo para fazer login em sua conta.
+                </CardDescription>
+            </CardHeader>
+            <CardContent className="grid gap-4">
+                <div className="grid gap-2">
+                <Label htmlFor="email">E-mail</Label>
+                <Input id="email" type="email" placeholder="m@exemplo.com" required defaultValue="cliente@exemplo.com" />
+                </div>
+                <div className="grid gap-2">
+                <Label htmlFor="password">Senha</Label>
+                <Input id="password" type="password" required defaultValue="senha123" />
+                </div>
+            </CardContent>
+            <CardFooter className="flex flex-col gap-4">
+                <Button className="w-full" onClick={handleLogin}>
+                    Entrar
+                </Button>
+                 <div className="text-center text-sm">
+                    Não tem uma conta?{" "}
+                    <Link href="#" className="underline">
+                        Cadastre-se
+                    </Link>
+                </div>
+            </CardFooter>
+        </Card>
+    </div>
+  )
+}
