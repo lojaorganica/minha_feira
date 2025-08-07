@@ -122,8 +122,10 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
                                 onClick={handleAddToCartClick} 
                                 className={cn(
                                     "w-full text-base font-semibold transition-colors duration-200",
-                                    isAdded ? 'bg-accent hover:bg-accent/90' : 'bg-primary',
-                                    isFarmerDifferent && "bg-muted text-muted-foreground hover:bg-muted/80 cursor-pointer"
+                                    isAdded 
+                                      ? 'bg-accent text-accent-foreground hover:bg-accent/90' 
+                                      : 'bg-primary',
+                                    isFarmerDifferent && "bg-muted-foreground text-primary-foreground hover:bg-muted-foreground/80 cursor-pointer"
                                 )}
                                 disabled={isAdded}
                             >
