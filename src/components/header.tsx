@@ -144,64 +144,64 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-auto items-center justify-between px-4 py-2 sm:px-6 lg:px-8 min-h-[60px] gap-4">
+      <div className="container flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
         
         {/* Left Section: Mobile Menu & Logo */}
-        <div className="flex items-center gap-4 flex-shrink-0">
-          <div className="lg:hidden">
-            <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  <Menu className="h-8 w-8" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="left" className="p-0 flex flex-col w-[300px] sm:w-[350px]">
-                <div className="p-4 border-b">
-                   <Logo isClickable={false} />
-                </div>
-                <div className="flex flex-col flex-grow p-4">
-                    <div className="flex-grow">
-                        {renderMobileMenu()}
+        <div className="flex items-center gap-2">
+            <div className="lg:hidden">
+                <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
+                <SheetTrigger asChild>
+                    <Button variant="ghost" size="icon">
+                    <Menu className="h-8 w-8" />
+                    </Button>
+                </SheetTrigger>
+                <SheetContent side="left" className="p-0 flex flex-col w-[300px] sm:w-[350px]">
+                    <div className="p-4 border-b">
+                    <Logo isClickable={false} />
                     </div>
-                    {isUserLoaded && user && (
-                      <div className="mt-auto">
-                          <Separator className="my-4" />
-                          <Button variant="outline" className="w-full justify-start" onClick={handleLogout}>
-                              <LogOut className="h-4 w-4 mr-2"/>
-                              Sair
-                          </Button>
-                      </div>
-                    )}
-                </div>
-              </SheetContent>
-            </Sheet>
-          </div>
-          <div className="hidden lg:flex">
-             <Logo size="small" />
-          </div>
+                    <div className="flex flex-col flex-grow p-4">
+                        <div className="flex-grow">
+                            {renderMobileMenu()}
+                        </div>
+                        {isUserLoaded && user && (
+                        <div className="mt-auto">
+                            <Separator className="my-4" />
+                            <Button variant="outline" className="w-full justify-start" onClick={handleLogout}>
+                                <LogOut className="h-4 w-4 mr-2"/>
+                                Sair
+                            </Button>
+                        </div>
+                        )}
+                    </div>
+                </SheetContent>
+                </Sheet>
+            </div>
+            <Logo size="small" />
         </div>
         
         {/* Center Section: Desktop Nav & Search */}
-        <div className="flex-grow hidden lg:flex items-center justify-center gap-x-4">
-          <nav className="flex items-center gap-x-2">
-            {renderDesktopNavLinks()}
-          </nav>
-          {isCatalogPage && (
-            <div className="relative w-full max-w-xs">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                <Input
-                    type="search"
-                    placeholder="Buscar produtos..."
-                    className="pl-10"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                />
+        <div className="flex-1 flex justify-center items-center">
+            <div className="hidden lg:flex items-center gap-2">
+                <nav className="flex items-center gap-2">
+                    {renderDesktopNavLinks()}
+                </nav>
+                {isCatalogPage && (
+                    <div className="relative w-full max-w-xs ml-4">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                        <Input
+                            type="search"
+                            placeholder="Buscar produtos..."
+                            className="pl-10"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                    </div>
+                )}
             </div>
-          )}
         </div>
         
         {/* Right Section: Actions */}
-         <div className="flex items-center gap-2 flex-shrink-0">
+         <div className="flex items-center gap-2">
             {isUserLoaded && userType === 'customer' && (
               <Button variant="ghost" size="icon" asChild className="relative">
                 <Link href="/cart">
@@ -230,3 +230,5 @@ const Header = () => {
 };
 
 export default Header;
+
+    
