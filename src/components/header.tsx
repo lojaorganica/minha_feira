@@ -162,12 +162,12 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex items-center px-4 sm:px-6 lg:px-8 py-2">
-        <div className="mr-4 hidden md:flex">
+      <div className="container flex h-auto items-center px-4 py-2 sm:px-6 lg:px-8">
+        <div className="mr-4 hidden lg:flex">
           <Logo size="small" />
         </div>
         
-        <div className="md:hidden">
+        <div className="lg:hidden">
           <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon">
@@ -214,7 +214,7 @@ const Header = () => {
             )}
           </div>
           <div className="flex items-center gap-4">
-              <nav className="hidden md:flex items-center gap-4 text-lg">
+              <nav className="hidden lg:flex items-center gap-4 text-lg">
                 {renderDesktopNav()}
               </nav>
               {isUserLoaded && userType === 'customer' && (
@@ -231,7 +231,7 @@ const Header = () => {
                 </Button>
               )}
              {isUserLoaded && user && (
-                <Button variant="outline" size="sm" onClick={handleLogout} className="hidden md:flex">
+                <Button variant="outline" size="sm" onClick={handleLogout} className="hidden lg:flex">
                     Sair
                 </Button>
              )}

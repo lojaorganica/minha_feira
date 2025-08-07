@@ -11,7 +11,7 @@ import { useState } from "react";
 import { Input } from "./ui/input";
 import { cn } from "@/lib/utils";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
-import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "./ui/alert-dialog";
+import { AlertDialog, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "./ui/alert-dialog";
 import { getFarmerById } from "@/lib/data";
 
 
@@ -88,39 +88,40 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
                 <span className="text-base font-medium text-foreground/80 ml-1">/ {product.unitAmount ? `${product.unitAmount} ` : ''}{product.unit}</span>
                 </div>
             </div>
-            <div className="w-full grid grid-cols-3 sm:grid-cols-5 gap-2 items-center">
-                <Button size="icon" variant="outline" onClick={() => handleQuantityChange(-1)} aria-label="Diminuir quantidade" className="h-10 w-full" disabled={isFarmerDifferent}>
-                    <Minus className="h-4 w-4" />
-                </Button>
-                <Input 
-                    type="number" 
-                    value={quantity} 
-                    onChange={(e) => {
-                        if(handleActionAttempt()){
-                            setQuantity(Math.max(1, parseInt(e.target.value) || 1))
-                        }
-                    }}
-                    onFocus={(e) => {
-                        if(isFarmerDifferent) {
-                            e.target.blur();
-                            handleActionAttempt();
-                        }
-                    }}
-                    className="w-full h-10 text-center font-bold text-base hide-number-spinners"
-                    aria-label="Quantidade"
-                    disabled={isFarmerDifferent}
-                />
-                <Button size="icon" variant="outline" onClick={() => handleQuantityChange(1)} aria-label="Aumentar quantidade" className="h-10 w-full" disabled={isFarmerDifferent}>
-                    <Plus className="h-4 w-4" />
-                </Button>
-
+             <div className="w-full flex flex-col sm:flex-row gap-2 items-center">
+                <div className="flex w-full sm:w-auto items-center gap-2 flex-grow">
+                    <Button size="icon" variant="outline" onClick={() => handleQuantityChange(-1)} aria-label="Diminuir quantidade" className="h-10 px-3" disabled={isFarmerDifferent}>
+                        <Minus className="h-4 w-4" />
+                    </Button>
+                    <Input 
+                        type="number" 
+                        value={quantity} 
+                        onChange={(e) => {
+                            if(handleActionAttempt()){
+                                setQuantity(Math.max(1, parseInt(e.target.value) || 1))
+                            }
+                        }}
+                        onFocus={(e) => {
+                            if(isFarmerDifferent) {
+                                e.target.blur();
+                                handleActionAttempt();
+                            }
+                        }}
+                        className="w-full h-10 text-center font-bold text-base hide-number-spinners"
+                        aria-label="Quantidade"
+                        disabled={isFarmerDifferent}
+                    />
+                    <Button size="icon" variant="outline" onClick={() => handleQuantityChange(1)} aria-label="Aumentar quantidade" className="h-10 px-3" disabled={isFarmerDifferent}>
+                        <Plus className="h-4 w-4" />
+                    </Button>
+                </div>
                 <TooltipProvider>
                     <Tooltip delayDuration={0}>
-                        <TooltipTrigger asChild className="col-span-3 sm:col-span-2">
+                        <TooltipTrigger asChild>
                            <Button 
                                 onClick={handleAddToCartClick} 
                                 className={cn(
-                                    "w-full text-base font-semibold transition-colors duration-200",
+                                    "w-full sm:w-auto text-base font-semibold transition-colors duration-200 min-w-fit",
                                       isAdded 
                                       ? 'bg-accent text-accent-foreground hover:bg-accent/90' 
                                       : isFarmerDifferent 
@@ -164,7 +165,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <Button variant="outline" onClick={() => setAlertOpen(false)}>Não, manter meu pedido</Button>
-            <AlertDialogAction onClick={confirmAndAdd}>Sim, limpar e adicionar</AlertDialogAction>
+            <Button onClick={confirmAndAdd}>Sim, limpar e adicionar</Button>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
