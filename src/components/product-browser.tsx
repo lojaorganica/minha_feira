@@ -50,10 +50,10 @@ export default function ProductBrowser() {
   }
 
   return (
-    <div className="py-12 md:py-16">
+    <div className="py-6 md:py-8">
       {filteredProductsByFarmer.map((farmer) => (
-        <section key={farmer.id} className="mb-16">
-          <div className="flex flex-col items-center gap-2 mb-8">
+        <section key={farmer.id} className="mb-12">
+          <div className="flex flex-col items-center gap-2 mb-6">
             <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl text-primary">
               {farmer.name}
             </h2>

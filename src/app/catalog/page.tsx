@@ -8,11 +8,11 @@ export default function CatalogPage() {
         <div className="flex justify-between items-center mb-8">
             <BackButton />
         </div>
-         <div className="text-center mb-8">
+         <div className="text-center mb-2">
             <h1 className="text-3xl font-bold font-headline text-primary tracking-tight sm:text-4xl">
                 Catálogo de Produtos
             </h1>
-            <p className="mt-2 text-lg font-semibold text-foreground/90 max-w-3xl mx-auto">Explore todos os alimentos frescos e orgânicos disponíveis em nossa rede de agricultores.</p>
+            <p className="mt-2 text-base font-semibold text-foreground/90 max-w-3xl mx-auto">Explore todos os alimentos frescos e orgânicos disponíveis em nossa rede de agricultores.</p>
         </div>
         <ProductBrowser />
     </div>
