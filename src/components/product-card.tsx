@@ -38,7 +38,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
   };
 
   const handleAddToCartClick = () => {
-    if (isAdded) return; // Impede cliques múltiplos se já foi adicionado
+    if (isAdded) return;
     if (!handleActionAttempt()) return;
 
     if (quantity > 0) {
@@ -123,7 +123,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
                                 onClick={handleAddToCartClick} 
                                 className={cn(
                                     "w-full text-base font-semibold transition-colors duration-200",
-                                    isAdded 
+                                      isAdded 
                                       ? 'bg-accent text-accent-foreground hover:bg-accent/90' 
                                       : isFarmerDifferent 
                                       ? "bg-muted-foreground text-primary-foreground hover:bg-muted-foreground/80 cursor-pointer"
