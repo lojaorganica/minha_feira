@@ -32,7 +32,7 @@ export default function FarmersPage() {
 
   return (
     <div>
-        <div className="py-12 bg-primary/10 relative">
+        <div className="py-10 bg-primary/10 relative">
              <div className="absolute top-4 left-4">
                 <BackButton />
             </div>

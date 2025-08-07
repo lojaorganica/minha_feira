@@ -4,8 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function TermsPage() {
     return (
-        <div className="container mx-auto max-w-4xl py-12 px-4 sm:px-6 lg:px-8">
-            <div className="mb-6">
+        <div className="container mx-auto max-w-4xl py-6 px-4 sm:px-6 lg:px-8">
+            <div className="mb-4">
                 <BackButton />
             </div>
             <Card>

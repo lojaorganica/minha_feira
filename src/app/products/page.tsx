@@ -50,13 +50,13 @@ function ProductsContent() {
   }
 
   return (
-     <div className="container py-12 md:py-16 px-4 sm:px-6 lg:px-8">
-        <div className="mb-8">
+     <div className="container py-6 md:py-8 px-4 sm:px-6 lg:px-8">
+        <div className="mb-4">
             <BackButton />
         </div>
          {singleFarmerWithProducts.map((farmer) => (
              <section key={farmer.id}>
-                 <div className="flex flex-col items-start gap-2 mb-8">
+                 <div className="flex flex-col items-start gap-2 mb-6">
                      <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl text-primary">
                      {farmer.name}
                      </h2>

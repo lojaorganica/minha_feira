@@ -162,7 +162,7 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-20 items-center px-4 sm:px-6 lg:px-8">
+      <div className="container flex items-center px-4 sm:px-6 lg:px-8 py-2">
         <div className="mr-4 hidden md:flex">
           <Logo size="small" />
         </div>
@@ -220,7 +220,7 @@ const Header = () => {
               {isUserLoaded && userType === 'customer' && (
                 <Button variant="ghost" size="icon" asChild className="relative">
                   <Link href="/cart">
-                    <ShoppingCart className="h-6 w-6" />
+                    <ShoppingCart className="h-6 w-6" strokeWidth={2.25} />
                     {cartCount > 0 && (
                       <span className="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-xs font-bold text-accent-foreground">
                         {cartCount}
