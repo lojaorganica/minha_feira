@@ -88,37 +88,35 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
                 <span className="text-base font-medium text-foreground/80 ml-1">/ {product.unitAmount ? `${product.unitAmount} ` : ''}{product.unit}</span>
                 </div>
             </div>
-            <div className="w-full flex flex-col lg:flex-row items-center gap-2">
-                <div className="flex items-center gap-1 w-full lg:w-auto">
-                    <Button size="icon" variant="outline" onClick={() => handleQuantityChange(-1)} aria-label="Diminuir quantidade" className="h-10 w-10 shrink-0" disabled={isFarmerDifferent}>
-                        <Minus className="h-4 w-4" />
-                    </Button>
-                    <Input 
-                        type="number" 
-                        value={quantity} 
-                        onChange={(e) => {
-                            if(handleActionAttempt()){
-                                setQuantity(Math.max(1, parseInt(e.target.value) || 1))
-                            }
-                        }}
-                        onFocus={(e) => {
-                            if(isFarmerDifferent) {
-                                e.target.blur();
-                                handleActionAttempt();
-                            }
-                        }}
-                        className="w-full lg:w-16 h-10 text-center font-bold text-base"
-                        aria-label="Quantidade"
-                        disabled={isFarmerDifferent}
-                    />
-                    <Button size="icon" variant="outline" onClick={() => handleQuantityChange(1)} aria-label="Aumentar quantidade" className="h-10 w-10 shrink-0" disabled={isFarmerDifferent}>
-                        <Plus className="h-4 w-4" />
-                    </Button>
-                </div>
+            <div className="w-full grid grid-cols-3 sm:grid-cols-4 gap-2 items-center">
+                <Button size="icon" variant="outline" onClick={() => handleQuantityChange(-1)} aria-label="Diminuir quantidade" className="h-10 w-full" disabled={isFarmerDifferent}>
+                    <Minus className="h-4 w-4" />
+                </Button>
+                <Input 
+                    type="number" 
+                    value={quantity} 
+                    onChange={(e) => {
+                        if(handleActionAttempt()){
+                            setQuantity(Math.max(1, parseInt(e.target.value) || 1))
+                        }
+                    }}
+                    onFocus={(e) => {
+                        if(isFarmerDifferent) {
+                            e.target.blur();
+                            handleActionAttempt();
+                        }
+                    }}
+                    className="w-full h-10 text-center font-bold text-base"
+                    aria-label="Quantidade"
+                    disabled={isFarmerDifferent}
+                />
+                <Button size="icon" variant="outline" onClick={() => handleQuantityChange(1)} aria-label="Aumentar quantidade" className="h-10 w-full" disabled={isFarmerDifferent}>
+                    <Plus className="h-4 w-4" />
+                </Button>
 
                 <TooltipProvider>
                     <Tooltip delayDuration={0}>
-                        <TooltipTrigger asChild>
+                        <TooltipTrigger asChild className="col-span-3 sm:col-span-1">
                            <Button 
                                 onClick={handleAddToCartClick} 
                                 className={cn(
@@ -149,7 +147,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
 
       <AlertDialog open={isAlertOpen} onOpenChange={setAlertOpen}>
         <AlertDialogContent>
-             <button
+            <button
                 onClick={() => setAlertOpen(false)}
                 className="absolute top-2 right-2 p-1 rounded-full bg-accent text-accent-foreground hover:bg-accent/90 transition-opacity"
             >
