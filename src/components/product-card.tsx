@@ -123,7 +123,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
                                 className={cn(
                                     "w-full text-base font-semibold transition-colors duration-200",
                                     isAdded ? 'bg-accent hover:bg-accent/90' : 'bg-primary',
-                                    isFarmerDifferent && "bg-secondary text-secondary-foreground hover:bg-secondary/80 cursor-pointer"
+                                    isFarmerDifferent && "bg-muted text-muted-foreground hover:bg-muted/80 cursor-pointer"
                                 )}
                                 disabled={isAdded}
                             >
@@ -146,7 +146,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
 
       <AlertDialog open={isAlertOpen} onOpenChange={setAlertOpen}>
         <AlertDialogContent>
-            <AlertDialogCancel className="absolute top-2 right-2 p-2 h-auto rounded-full border-none">
+            <AlertDialogCancel className="absolute top-2 right-2 p-1 h-auto rounded-full border-none bg-accent text-accent-foreground hover:bg-accent/90">
                 <X className="h-4 w-4" />
                 <span className="sr-only">Fechar</span>
             </AlertDialogCancel>
