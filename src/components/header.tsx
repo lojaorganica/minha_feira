@@ -124,99 +124,84 @@ const Header = () => {
     return null;
   }
 
-  const renderDesktopNav = () => {
-    if (!isUserLoaded) {
-      return <Loader2 className="h-6 w-6 animate-spin text-primary" />;
-    }
-    
-    const desktopCustomerLinks = customerMenuLinks.filter(link => link.href !== '/cart');
-    const desktopFarmerLinks = farmerMenuLinks;
+  const renderDesktopNavLinks = () => {
+    if (!isUserLoaded) return <Loader2 className="h-6 w-6 animate-spin text-primary" />;
 
-    const navLinkClasses = "font-semibold text-foreground/80 hover:text-accent transition-colors text-base whitespace-nowrap";
+    const links = userType === 'customer' 
+      ? customerMenuLinks.filter(link => link.href !== '/cart')
+      : userType === 'farmer' 
+      ? farmerMenuLinks
+      : [];
 
-    if (userType === 'customer') {
-       return (
-        <>
-           {desktopCustomerLinks.map(link => (
-             <Link key={link.href} href={link.href} className={navLinkClasses}>
-                {link.label}
-              </Link>
-          ))}
-        </>
-       )
-    } else if (userType === 'farmer') {
-      return (
-        <>
-          {desktopFarmerLinks.map(link => (
-             <Link key={link.href} href={link.href} className={navLinkClasses}>
-                {link.label}
-              </Link>
-          ))}
-        </>
-      );
-    } 
-    return null;
+    return links.map(link => (
+      <Button key={link.href} asChild variant="ghost" className="text-base hover:bg-accent hover:text-accent-foreground">
+        <Link href={link.href}>{link.label}</Link>
+      </Button>
+    ));
   }
 
   const isCatalogPage = pathname === '/catalog';
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-auto items-center justify-between px-4 py-2 sm:px-6 lg:px-8 min-h-[60px]">
+      <div className="container flex h-auto items-center justify-between px-4 py-2 sm:px-6 lg:px-8 min-h-[60px] gap-4">
         
-        <div className="flex items-center gap-4">
-            <div className="lg:hidden">
-              <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
-                <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon">
-                    <Menu className="h-8 w-8" />
-                  </Button>
-                </SheetTrigger>
-                <SheetContent side="left" className="p-0 flex flex-col">
-                  <div className="p-4 border-b">
-                     <Logo isClickable={false} />
-                  </div>
-                  
-                  <div className="flex flex-col flex-grow p-4">
-                      <div className="flex-grow">
-                          {renderMobileMenu()}
+        {/* Left Section: Mobile Menu & Logo */}
+        <div className="flex items-center gap-4 flex-shrink-0">
+          <div className="lg:hidden">
+            <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <Menu className="h-8 w-8" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="left" className="p-0 flex flex-col w-[300px] sm:w-[350px]">
+                <div className="p-4 border-b">
+                   <Logo isClickable={false} />
+                </div>
+                <div className="flex flex-col flex-grow p-4">
+                    <div className="flex-grow">
+                        {renderMobileMenu()}
+                    </div>
+                    {isUserLoaded && user && (
+                      <div className="mt-auto">
+                          <Separator className="my-4" />
+                          <Button variant="outline" className="w-full justify-start" onClick={handleLogout}>
+                              <LogOut className="h-4 w-4 mr-2"/>
+                              Sair
+                          </Button>
                       </div>
-
-                      {isUserLoaded && user && (
-                        <div className="mt-auto">
-                            <Separator className="my-4" />
-                            <Button variant="outline" className="w-full justify-start" onClick={handleLogout}>
-                                <LogOut className="h-4 w-4 mr-2"/>
-                                Sair
-                            </Button>
-                        </div>
-                      )}
-                  </div>
-                </SheetContent>
-              </Sheet>
-            </div>
-            <div className="hidden lg:flex">
-              <Logo size="small" />
-            </div>
-             <nav className="hidden lg:flex items-center gap-x-6">
-                {renderDesktopNav()}
-              </nav>
+                    )}
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
+          <div className="hidden lg:flex">
+             <Logo size="small" />
+          </div>
         </div>
         
-         <div className="flex items-center gap-2">
-            {isCatalogPage && (
-              <div className="relative w-full max-w-xs">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                  <Input
-                      type="search"
-                      placeholder="Buscar produtos..."
-                      className="pl-10"
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                  />
-              </div>
-            )}
-            
+        {/* Center Section: Desktop Nav & Search */}
+        <div className="flex-grow hidden lg:flex items-center justify-center gap-x-4">
+          <nav className="flex items-center gap-x-2">
+            {renderDesktopNavLinks()}
+          </nav>
+          {isCatalogPage && (
+            <div className="relative w-full max-w-xs">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                <Input
+                    type="search"
+                    placeholder="Buscar produtos..."
+                    className="pl-10"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+            </div>
+          )}
+        </div>
+        
+        {/* Right Section: Actions */}
+         <div className="flex items-center gap-2 flex-shrink-0">
             {isUserLoaded && userType === 'customer' && (
               <Button variant="ghost" size="icon" asChild className="relative">
                 <Link href="/cart">
