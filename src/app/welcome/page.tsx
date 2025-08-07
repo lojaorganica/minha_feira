@@ -12,7 +12,7 @@ export default function WelcomePage() {
           <div className="flex flex-col items-center justify-center space-y-6 text-center">
             <Logo size="large" />
             <div className="space-y-3">
-              <h1 className="font-headline text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-primary">
+              <h1 className="font-headline text-2xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-primary">
                 Bem-vindo(a) ao Minha Feira!
               </h1>
                <h2 className="text-xl sm:text-2xl font-headline text-primary/90">
