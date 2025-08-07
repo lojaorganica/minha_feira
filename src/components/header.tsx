@@ -165,9 +165,9 @@ const Header = () => {
         </div>
         
         {/* Center Section: Desktop Nav & Search */}
-        <div className="hidden lg:flex flex-1 justify-center items-center gap-4">
+        <div className="lg:flex flex-1 justify-center items-center gap-4">
              {isUserLoaded && (
-              <nav className="flex items-center gap-2">
+              <nav className="hidden lg:flex items-center gap-2">
                 {(userType === 'customer' ? customerMenuLinks : farmerMenuLinks).map(link => (
                   <Button key={link.href} asChild variant="ghost" className="text-base hover:bg-accent hover:text-accent-foreground">
                     <Link href={link.href}>{link.label}</Link>
@@ -176,7 +176,7 @@ const Header = () => {
               </nav>
             )}
              {isCatalogPage && (
-                <div className="relative w-full max-w-xs">
+                <div className="relative w-full max-w-xs ml-4">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                     <Input
                         type="search"
