@@ -28,7 +28,7 @@ export default function CustomerLoginPage() {
   };
 
   return (
-    <div className="relative flex items-center justify-center min-h-[calc(100vh-10rem)] bg-primary/10 py-12">
+    <div className="relative flex items-center justify-center min-h-[calc(100vh-10rem)] bg-primary/10 py-12 px-4 sm:px-6 lg:px-8">
         <div className="absolute top-6 left-6">
             <BackButton />
         </div>

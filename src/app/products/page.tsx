@@ -50,7 +50,7 @@ function ProductsContent() {
   }
 
   return (
-     <div className="container py-12 md:py-16">
+     <div className="container py-12 md:py-16 px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
             <BackButton />
         </div>

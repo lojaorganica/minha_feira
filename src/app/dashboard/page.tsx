@@ -457,7 +457,7 @@ function DashboardContent() {
     };
     
     return (
-        <div className="container mx-auto py-10">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
             <h1 className="text-3xl font-bold font-headline text-primary mb-6 text-center">Painel do Agricultor</h1>
 
             <Dialog open={isHistoryDialogOpen} onOpenChange={setHistoryDialogOpen}>

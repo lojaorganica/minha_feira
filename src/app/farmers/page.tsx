@@ -8,7 +8,7 @@ export default function FarmersPage() {
 
   if (!apiKey) {
     return (
-      <div className="container mx-auto py-12 text-center">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
         <h1 className="font-headline text-4xl mb-4 text-primary">Encontre Nossos Agricultores</h1>
         <div className="max-w-2xl mx-auto bg-card p-8 rounded-lg shadow-md">
             <p className="text-lg text-foreground/80">
@@ -37,7 +37,7 @@ export default function FarmersPage() {
                 <BackButton />
             </div>
             <h1 className="font-headline text-4xl mb-2 text-primary">Localizações dos Nossos Agricultores</h1>
-            <p className="text-lg text-foreground/80 max-w-2xl mx-auto">Explore as localizações dos nossos dedicados agricultores orgânicos e veja de onde vêm os seus alimentos.</p>
+            <p className="text-lg text-foreground/80 max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">Explore as localizações dos nossos dedicados agricultores orgânicos e veja de onde vêm os seus alimentos.</p>
         </div>
         <FarmersMap farmers={farmers} apiKey={apiKey} />
     </div>

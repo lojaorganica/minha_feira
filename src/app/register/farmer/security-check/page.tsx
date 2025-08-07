@@ -47,7 +47,7 @@ export default function FarmerSecurityCheckPage() {
 
      if (!registrationPassword) {
         return (
-            <div className="container mx-auto py-12 text-center">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
                 <h1 className="font-headline text-4xl mb-4 text-primary">Página de Cadastro de Agricultor</h1>
                  <div className="max-w-2xl mx-auto bg-card p-8 rounded-lg shadow-md">
                     <p className="text-lg text-foreground/80">
@@ -70,7 +70,7 @@ export default function FarmerSecurityCheckPage() {
     }
 
     return (
-        <div className="relative flex items-center justify-center min-h-[calc(100vh-10rem)] bg-primary/10 py-12">
+        <div className="relative flex items-center justify-center min-h-[calc(100vh-10rem)] bg-primary/10 py-12 px-4 sm:px-6 lg:px-8">
             <div className="absolute top-6 left-6">
                 <BackButton />
             </div>
