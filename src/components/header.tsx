@@ -164,7 +164,6 @@ const Header = () => {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-auto items-center px-4 py-2 sm:px-6 lg:px-8 min-h-[60px]">
         
-        {/* Left Side: Hamburger Menu (mobile) and Logo */}
         <div className="flex items-center">
             <div className="lg:hidden mr-2">
               <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
@@ -201,7 +200,6 @@ const Header = () => {
             </div>
         </div>
         
-        {/* Center: Search (visible on catalog, hidden on mobile) or Desktop Nav */}
          <div className="flex-1 flex justify-center items-center px-4">
             {isCatalogPage ? (
               <div className="w-full max-w-sm hidden lg:block">
@@ -223,7 +221,6 @@ const Header = () => {
             )}
         </div>
 
-        {/* Right Side: Cart, Auth, and Search (mobile) */}
         <div className="flex items-center gap-2">
              {isCatalogPage && (
               <div className="lg:hidden">
