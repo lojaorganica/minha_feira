@@ -50,7 +50,7 @@ export default function TermsPage() {
 
                     <h3 className="font-headline text-xl text-primary pt-4">7. Contato</h3>
                     <p>
-                        Se tiver alguma dúvida sobre estes termos, entre em contato conosco pelo e-mail: comunicação@essenciavital.org.br.
+                        Se tiver alguma dúvida sobre estes termos, entre em contato conosco pelo e-mail: comunicacao@essenciavital.org.br.
                     </p>
                 </CardContent>
             </Card>
