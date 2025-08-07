@@ -21,7 +21,7 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ product, farmerName }: ProductCardProps) => {
-  const { addToCart, cartFarmerId, clearCart, isDifferentFarmer, handleConfirmClearAndAddToCart } = useCart();
+  const { addToCart, cartFarmerId, handleConfirmClearAndAddToCart, isDifferentFarmer } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [isAdded, setIsAdded] = useState(false);
   const [isAlertOpen, setAlertOpen] = useState(false);
@@ -58,7 +58,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
 
   return (
     <>
-      <Card className="flex flex-col h-full overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+      <Card className="flex flex-col h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
         <div className="relative aspect-video">
           <Image
             src={product.image}
@@ -70,7 +70,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
         </div>
         <CardContent className="p-4 flex-grow">
           <CardTitle className="text-xl font-headline text-primary">{product.name}</CardTitle>
-          <CardDescription className="text-base mt-1 h-12 overflow-hidden font-semibold text-foreground/90">{product.description}</CardDescription>
+          <CardDescription className="text-base mt-1 h-12 font-semibold text-foreground/90">{product.description}</CardDescription>
           <div className="flex items-center gap-2 mt-2 text-sm text-muted-foreground font-semibold">
               <Tractor className="h-4 w-4 text-primary" />
               <span>Fornecedor: {farmerName}</span>
@@ -83,7 +83,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
               <span className="text-base font-medium text-foreground/80 ml-1">/ {product.unitAmount ? `${product.unitAmount} ` : ''}{product.unit}</span>
             </div>
           </div>
-          <div className="w-full flex flex-col sm:flex-row gap-2">
+          <div className="w-full flex flex-col sm:flex-row gap-2 items-center">
               <div className="flex items-center gap-2">
                   <Button size="icon" variant="outline" onClick={() => handleQuantityChange(-1)} aria-label="Diminuir quantidade">
                       <Minus className="h-4 w-4" />
@@ -102,24 +102,25 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
               <TooltipProvider>
                 <Tooltip delayDuration={0}>
                   <TooltipTrigger asChild>
-                    <div className="flex-grow">
-                       <Button 
-                          onClick={handleAddToCartClick} 
-                          disabled={isFarmerDifferent}
-                          className={cn(
-                              "w-full text-base font-semibold transition-colors duration-200",
-                              isAdded ? 'bg-accent hover:bg-accent/90' : 'bg-primary',
-                              'disabled:bg-muted disabled:text-muted-foreground disabled:cursor-not-allowed'
-                          )}
-                      >
-                        <ShoppingCart className="h-4 w-4 mr-2" />
-                        Adicionar
-                      </Button>
-                    </div>
+                    <Button 
+                        onClick={handleAddToCartClick} 
+                        disabled={isFarmerDifferent}
+                        className={cn(
+                            "w-full sm:w-auto flex-grow text-base font-semibold transition-colors duration-200",
+                            isAdded ? 'bg-accent hover:bg-accent/90' : 'bg-primary',
+                            'disabled:bg-muted disabled:text-muted-foreground disabled:cursor-not-allowed'
+                        )}
+                    >
+                      <ShoppingCart className="h-4 w-4 mr-2" />
+                      Adicionar
+                    </Button>
                   </TooltipTrigger>
                   {isFarmerDifferent && (
-                     <TooltipContent className="max-w-xs text-center" side="top">
-                        <p className="flex items-center gap-2"><Info className="h-4 w-4 shrink-0"/>Seu pedido atual é com {currentFarmerInCartName}. Esvazie o carrinho para adicionar este item.</p>
+                     <TooltipContent className="max-w-xs text-center p-2" side="top">
+                        <p className="flex items-center gap-2 font-semibold">
+                          <Info className="h-5 w-5 shrink-0 text-accent"/>
+                          <span>Seu pedido atual é com {currentFarmerInCartName}. Esvazie o carrinho para adicionar este item.</span>
+                        </p>
                     </TooltipContent>
                   )}
                 </Tooltip>
