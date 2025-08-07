@@ -24,7 +24,7 @@ import type { Farmer } from "@/lib/types";
 const customerMenuLinks = [
     { href: "/profile", label: "Meu Perfil", icon: User },
     { href: "/select-farmers", label: "Meus Agricultores", icon: Heart },
-    { href: "/promotions", label: "Minhas Promoções", icon: Tag },
+    { href: "/promotions",label: "Promoções", icon: Tag },
     { href: "/cart", label: "Meu Carrinho", icon: ShoppingCart },
     { href: "/history", label: "Histórico", icon: History },
 ];
@@ -114,22 +114,32 @@ const Header = () => {
       return <Loader2 className="h-6 w-6 animate-spin text-primary" />;
     }
     
+    // Filtra os links que não são o carrinho para o menu desktop
+    const desktopCustomerLinks = customerMenuLinks.filter(link => link.href !== '/cart' && link.href !== '/profile');
+
     if (userType === 'customer') {
        return (
         <>
           <Link href="/catalog" className="font-medium text-foreground/80 hover:text-foreground text-lg">Catálogo</Link>
-          <Link href="/history" className="font-medium text-foreground/80 hover:text-foreground text-lg">Meus Pedidos</Link>
-          <Link href="/profile" className="font-medium text-foreground/80 hover:text-foreground text-lg">Meu Perfil</Link>
-        </>
-       )
-    } else if (userType === 'farmer') {
-      return (
-        <>
-          {farmerMenuLinks.map(link => (
+           {desktopCustomerLinks.map(link => (
              <Link key={link.href} href={link.href} className="font-medium text-foreground/80 hover:text-foreground text-lg">
                 {link.label}
               </Link>
           ))}
+          <Link href="/profile" className="font-medium text-foreground/80 hover:text-foreground text-lg">Meu Perfil</Link>
+        </>
+       )
+    } else if (userType === 'farmer') {
+      // Remove 'Meu Perfil' para adicioná-lo manualmente no final
+      const desktopFarmerLinks = farmerMenuLinks.filter(link => link.href !== '/profile');
+      return (
+        <>
+          {desktopFarmerLinks.map(link => (
+             <Link key={link.href} href={link.href} className="font-medium text-foreground/80 hover:text-foreground text-lg">
+                {link.label}
+              </Link>
+          ))}
+           <Link href="/profile" className="font-medium text-foreground/80 hover:text-foreground text-lg">Meu Perfil</Link>
         </>
       );
     } 
