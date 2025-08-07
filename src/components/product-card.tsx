@@ -88,7 +88,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
                 <span className="text-base font-medium text-foreground/80 ml-1">/ {product.unitAmount ? `${product.unitAmount} ` : ''}{product.unit}</span>
                 </div>
             </div>
-            <div className="w-full grid grid-cols-3 sm:grid-cols-4 gap-2 items-center">
+            <div className="w-full grid grid-cols-3 sm:grid-cols-5 gap-2 items-center">
                 <Button size="icon" variant="outline" onClick={() => handleQuantityChange(-1)} aria-label="Diminuir quantidade" className="h-10 w-full" disabled={isFarmerDifferent}>
                     <Minus className="h-4 w-4" />
                 </Button>
@@ -106,7 +106,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
                             handleActionAttempt();
                         }
                     }}
-                    className="w-full h-10 text-center font-bold text-base"
+                    className="w-full h-10 text-center font-bold text-base hide-number-spinners"
                     aria-label="Quantidade"
                     disabled={isFarmerDifferent}
                 />
@@ -116,7 +116,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
 
                 <TooltipProvider>
                     <Tooltip delayDuration={0}>
-                        <TooltipTrigger asChild className="col-span-3 sm:col-span-1">
+                        <TooltipTrigger asChild className="col-span-3 sm:col-span-2">
                            <Button 
                                 onClick={handleAddToCartClick} 
                                 className={cn(
