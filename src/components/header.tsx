@@ -162,10 +162,10 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-auto items-center px-4 py-2 sm:px-6 lg:px-8 min-h-[60px]">
+      <div className="container flex h-auto items-center justify-between px-4 py-2 sm:px-6 lg:px-8 min-h-[60px]">
         
-        <div className="flex items-center">
-            <div className="lg:hidden mr-2">
+        <div className="flex items-center gap-4">
+            <div className="lg:hidden">
               <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
                 <SheetTrigger asChild>
                   <Button variant="ghost" size="icon">
@@ -198,44 +198,25 @@ const Header = () => {
             <div className="hidden lg:flex">
               <Logo size="small" />
             </div>
-        </div>
-        
-         <div className="flex-1 flex justify-center items-center px-4">
-            {isCatalogPage ? (
-              <div className="w-full max-w-sm hidden lg:block">
-                  <div className="relative">
-                      <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                      <Input
-                          type="search"
-                          placeholder="Buscar produtos..."
-                          className="pl-10"
-                          value={searchTerm}
-                          onChange={(e) => setSearchTerm(e.target.value)}
-                      />
-                  </div>
-              </div>
-            ) : (
-              <nav className="hidden lg:flex items-center gap-x-6">
+             <nav className="hidden lg:flex items-center gap-x-6">
                 {renderDesktopNav()}
               </nav>
-            )}
         </div>
-
-        <div className="flex items-center gap-2">
-             {isCatalogPage && (
-              <div className="lg:hidden">
-                <div className="relative">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                    <Input
-                        type="search"
-                        placeholder="Buscar..."
-                        className="pl-10 w-full"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                    />
-                </div>
+        
+         <div className="flex items-center gap-2">
+            {isCatalogPage && (
+              <div className="relative w-full max-w-xs">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                  <Input
+                      type="search"
+                      placeholder="Buscar produtos..."
+                      className="pl-10"
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                  />
               </div>
             )}
+            
             {isUserLoaded && userType === 'customer' && (
               <Button variant="ghost" size="icon" asChild className="relative">
                 <Link href="/cart">
@@ -249,10 +230,13 @@ const Header = () => {
                 </Link>
               </Button>
             )}
+
             {isUserLoaded && user && (
-              <Button variant="outline" size="sm" onClick={handleLogout} className="hidden lg:flex whitespace-nowrap">
-                  Sair
-              </Button>
+              <div className="hidden lg:flex">
+                <Button variant="outline" size="sm" onClick={handleLogout}>
+                    Sair
+                </Button>
+              </div>
             )}
         </div>
       </div>
