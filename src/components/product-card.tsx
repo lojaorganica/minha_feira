@@ -38,6 +38,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
   };
 
   const handleAddToCartClick = () => {
+    if (isAdded) return; // Impede cliques múltiplos se já foi adicionado
     if (!handleActionAttempt()) return;
 
     if (quantity > 0) {
@@ -124,10 +125,10 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
                                     "w-full text-base font-semibold transition-colors duration-200",
                                     isAdded 
                                       ? 'bg-accent text-accent-foreground hover:bg-accent/90' 
-                                      : 'bg-primary',
-                                    isFarmerDifferent && "bg-muted-foreground text-primary-foreground hover:bg-muted-foreground/80 cursor-pointer"
+                                      : isFarmerDifferent 
+                                      ? "bg-muted-foreground text-primary-foreground hover:bg-muted-foreground/80 cursor-pointer"
+                                      : 'bg-primary'
                                 )}
-                                disabled={isAdded}
                             >
                                 <ShoppingCart className="h-4 w-4 mr-2" />
                                 {isAdded ? "Adicionado!" : "Adicionar"}
@@ -148,9 +149,11 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
 
       <AlertDialog open={isAlertOpen} onOpenChange={setAlertOpen}>
         <AlertDialogContent>
-            <AlertDialogCancel className="absolute top-2 right-2 p-1 h-auto rounded-full border-none bg-accent text-accent-foreground hover:bg-accent/90">
-                <X className="h-4 w-4" />
-                <span className="sr-only">Fechar</span>
+             <AlertDialogCancel asChild>
+                <button className="absolute top-2 right-2 p-1 h-auto rounded-full bg-accent text-accent-foreground hover:bg-accent/90 transition-opacity">
+                    <X className="h-4 w-4" />
+                    <span className="sr-only">Fechar</span>
+                </button>
             </AlertDialogCancel>
           <AlertDialogHeader>
             <AlertDialogTitle className="text-xl">Seu carrinho já contém itens de outro agricultor.</AlertDialogTitle>
