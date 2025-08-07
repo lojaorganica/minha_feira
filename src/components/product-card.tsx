@@ -103,7 +103,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
                         onFocus={(e) => {
                             if(isFarmerDifferent) {
                                 e.target.blur();
-                                setAlertOpen(true);
+                                handleActionAttempt();
                             }
                         }}
                         className="w-16 h-10 text-center font-bold text-base"
@@ -125,15 +125,16 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
                                     isAdded ? 'bg-accent hover:bg-accent/90' : 'bg-primary',
                                     isFarmerDifferent && "bg-secondary text-secondary-foreground hover:bg-secondary/80 cursor-pointer"
                                 )}
+                                disabled={isAdded}
                             >
                                 <ShoppingCart className="h-4 w-4 mr-2" />
-                                Adicionar
+                                {isAdded ? "Adicionado!" : "Adicionar"}
                             </Button>
                         </TooltipTrigger>
                         {isFarmerDifferent && (
                             <TooltipContent className="max-w-xs text-center p-2" side="top">
                             <p className="font-semibold">
-                                Seu pedido atual é com {currentFarmerInCartName}. Esvazie o carrinho para adicionar este item.
+                                Seu pedido atual é com {currentFarmerInCartName}. Clique para ver as opções.
                             </p>
                             </TooltipContent>
                         )}
@@ -144,7 +145,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
       </Card>
 
       <AlertDialog open={isAlertOpen} onOpenChange={setAlertOpen}>
-        <AlertDialogContent className="relative">
+        <AlertDialogContent>
             <AlertDialogCancel className="absolute top-2 right-2 p-2 h-auto rounded-full border-none">
                 <X className="h-4 w-4" />
                 <span className="sr-only">Fechar</span>
