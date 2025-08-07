@@ -9,20 +9,13 @@ export default {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    container: {
-      center: true,
-      padding: '2rem',
-      screens: {
-        '2xl': '1400px',
-      },
-    },
     extend: {
       fontSize: {
         base: ['1rem', '1.5rem'],
       },
       fontFamily: {
-        body: ['"PT Sans"', 'sans-serif'],
-        headline: ['Belleza', 'sans-serif'],
+        sans: ['"PT Sans"', 'sans-serif'],
+        serif: ['Belleza', 'sans-serif'],
         code: ['monospace'],
       },
       colors: {
