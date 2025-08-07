@@ -121,7 +121,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
                            <Button 
                                 onClick={handleAddToCartClick} 
                                 className={cn(
-                                    "w-full sm:w-auto text-base font-semibold transition-colors duration-200 min-w-fit",
+                                    "w-full sm:w-auto text-base font-semibold transition-colors duration-200 flex-shrink-0",
                                       isAdded 
                                       ? 'bg-accent text-accent-foreground hover:bg-accent/90' 
                                       : isFarmerDifferent 
