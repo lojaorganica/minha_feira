@@ -11,7 +11,7 @@ import { useState } from "react";
 import { Input } from "./ui/input";
 import { cn } from "@/lib/utils";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "./ui/alert-dialog";
+import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "./ui/alert-dialog";
 import { getFarmerById } from "@/lib/data";
 
 
@@ -88,8 +88,8 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
                 <span className="text-base font-medium text-foreground/80 ml-1">/ {product.unitAmount ? `${product.unitAmount} ` : ''}{product.unit}</span>
                 </div>
             </div>
-            <div className="w-full flex flex-col sm:flex-row items-center gap-2">
-                <div className="flex items-center gap-1">
+            <div className="w-full flex flex-col lg:flex-row items-center gap-2">
+                <div className="flex items-center gap-1 w-full lg:w-auto">
                     <Button size="icon" variant="outline" onClick={() => handleQuantityChange(-1)} aria-label="Diminuir quantidade" className="h-10 w-10 shrink-0" disabled={isFarmerDifferent}>
                         <Minus className="h-4 w-4" />
                     </Button>
@@ -107,7 +107,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
                                 handleActionAttempt();
                             }
                         }}
-                        className="w-16 h-10 text-center font-bold text-base"
+                        className="w-full lg:w-16 h-10 text-center font-bold text-base"
                         aria-label="Quantidade"
                         disabled={isFarmerDifferent}
                     />
