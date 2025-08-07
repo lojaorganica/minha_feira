@@ -11,7 +11,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
 import { useEffect, useState, useMemo, useRef } from "react";
-import { Loader2, Sparkles, Trash2, Upload, MessageSquare, Copy, Send, MapPin } from "lucide-react";
+import { Loader2, Sparkles, Trash2, Upload, MessageSquare, Copy, Send, MapPin, Tractor } from "lucide-react";
 import { getProducts, getFarmerById } from "@/lib/data";
 import type { Product, Farmer } from "@/lib/types";
 import { useToast } from "@/hooks/use-toast";
@@ -120,6 +120,13 @@ export default function CartView() {
         return getFarmerById(farmerId);
     }
     return null;
+  }, [cartItems]);
+
+  const cartWithFarmerNames = useMemo(() => {
+    return cartItems.map(item => ({
+        ...item,
+        farmerName: getFarmerById(item.farmerId)?.name || 'Agricultor desconhecido'
+    }));
   }, [cartItems]);
 
   useEffect(() => {
@@ -275,7 +282,7 @@ O comprovante está anexado nesta conversa. Aguardo a confirmação. Obrigado(a)
 
   if (!isCartLoaded) {
     return (
-        <div className="flex justify-center items-center p-12">
+        <div className="flex justify-center items-center h-full p-12">
             <Loader2 className="h-12 w-12 animate-spin text-primary" />
         </div>
     );
@@ -297,7 +304,7 @@ O comprovante está anexado nesta conversa. Aguardo a confirmação. Obrigado(a)
     <div className="mt-8 grid grid-cols-1 gap-x-12 gap-y-10 lg:grid-cols-3">
         <section className="lg:col-span-2">
             <ul role="list" className="divide-y divide-border border-y border-border">
-            {cartItems.map((product) => (
+            {cartWithFarmerNames.map((product) => (
                 <li key={product.id} className="flex py-6">
                     <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-border">
                         <Image
@@ -317,6 +324,10 @@ O comprovante está anexado nesta conversa. Aguardo a confirmação. Obrigado(a)
                                 <a href="#">{product.name}</a>
                                 </h3>
                                 <p className="ml-4">R${(product.price * product.quantity).toFixed(2).replace('.', ',')}</p>
+                            </div>
+                            <div className="flex items-center gap-2 mt-1 text-sm text-muted-foreground font-semibold">
+                                <Tractor className="h-4 w-4 text-primary" />
+                                <span>Fornecedor: {product.farmerName}</span>
                             </div>
                              <p className="mt-1 text-base font-semibold text-foreground/80">R${product.price.toFixed(2).replace('.', ',')} / {product.unit}</p>
                         </div>
@@ -481,5 +492,7 @@ O comprovante está anexado nesta conversa. Aguardo a confirmação. Obrigado(a)
     </div>
   );
 }
+
+    
 
     
