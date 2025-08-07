@@ -27,6 +27,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
   const [isAlertOpen, setAlertOpen] = useState(false);
 
   const isFarmerDifferent = isDifferentFarmer(product.farmerId);
+  const currentFarmerInCartName = cartFarmerId ? getFarmerById(cartFarmerId)?.name : '';
 
   const handleAddToCartClick = () => {
     if (isFarmerDifferent) {
@@ -48,17 +49,14 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
     setAlertOpen(false);
   }
 
-
   const handleQuantityChange = (amount: number) => {
     setQuantity(prev => Math.max(1, prev + amount));
   };
 
-  const currentFarmerInCartName = cartFarmerId ? getFarmerById(cartFarmerId)?.name : '';
-
 
   return (
     <>
-      <Card className="flex flex-col h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+      <Card className="flex flex-col h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1 overflow-hidden">
         <div className="relative aspect-video">
           <Image
             src={product.image}
@@ -83,9 +81,9 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
               <span className="text-base font-medium text-foreground/80 ml-1">/ {product.unitAmount ? `${product.unitAmount} ` : ''}{product.unit}</span>
             </div>
           </div>
-          <div className="w-full flex flex-col sm:flex-row gap-2 items-center">
-              <div className="flex items-center gap-2">
-                  <Button size="icon" variant="outline" onClick={() => handleQuantityChange(-1)} aria-label="Diminuir quantidade">
+          <div className="w-full flex items-center justify-between gap-2">
+              <div className="flex items-center gap-1">
+                  <Button size="icon" variant="outline" onClick={() => handleQuantityChange(-1)} aria-label="Diminuir quantidade" className="h-10 w-10 shrink-0">
                       <Minus className="h-4 w-4" />
                   </Button>
                   <Input 
@@ -95,36 +93,38 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
                       className="w-16 h-10 text-center font-bold text-base"
                       aria-label="Quantidade"
                   />
-                  <Button size="icon" variant="outline" onClick={() => handleQuantityChange(1)} aria-label="Aumentar quantidade">
+                  <Button size="icon" variant="outline" onClick={() => handleQuantityChange(1)} aria-label="Aumentar quantidade" className="h-10 w-10 shrink-0">
                       <Plus className="h-4 w-4" />
                   </Button>
               </div>
-              <TooltipProvider>
-                <Tooltip delayDuration={0}>
-                  <TooltipTrigger asChild>
-                    <Button 
-                        onClick={handleAddToCartClick} 
-                        disabled={isFarmerDifferent}
-                        className={cn(
-                            "w-full sm:w-auto flex-grow text-base font-semibold transition-colors duration-200",
-                            isAdded ? 'bg-accent hover:bg-accent/90' : 'bg-primary',
-                            'disabled:bg-muted disabled:text-muted-foreground disabled:cursor-not-allowed'
-                        )}
-                    >
-                      <ShoppingCart className="h-4 w-4 mr-2" />
-                      Adicionar
-                    </Button>
-                  </TooltipTrigger>
-                  {isFarmerDifferent && (
-                     <TooltipContent className="max-w-xs text-center p-2" side="top">
-                        <p className="flex items-center gap-2 font-semibold">
-                          <Info className="h-5 w-5 shrink-0 text-accent"/>
-                          <span>Seu pedido atual é com {currentFarmerInCartName}. Esvazie o carrinho para adicionar este item.</span>
-                        </p>
+
+            <TooltipProvider>
+              <Tooltip delayDuration={0}>
+                <TooltipTrigger asChild>
+                    <div className={cn(isFarmerDifferent ? 'cursor-not-allowed' : '')}>
+                         <Button 
+                            onClick={handleAddToCartClick} 
+                            disabled={isFarmerDifferent}
+                            className={cn(
+                                "w-full text-base font-semibold transition-colors duration-200",
+                                isAdded ? 'bg-accent hover:bg-accent/90' : 'bg-primary'
+                            )}
+                        >
+                          <ShoppingCart className="h-4 w-4 mr-2" />
+                          Adicionar
+                        </Button>
+                    </div>
+                </TooltipTrigger>
+                {isFarmerDifferent && (
+                    <TooltipContent className="max-w-xs text-center p-2" side="top">
+                    <p className="flex items-center gap-2 font-semibold">
+                        <Info className="h-5 w-5 shrink-0 text-accent"/>
+                        <span>Seu pedido atual é com {currentFarmerInCartName}. Esvazie o carrinho para adicionar este item.</span>
+                    </p>
                     </TooltipContent>
-                  )}
-                </Tooltip>
-              </TooltipProvider>
+                )}
+              </Tooltip>
+            </TooltipProvider>
           </div>
         </CardFooter>
       </Card>
