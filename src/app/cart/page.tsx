@@ -7,9 +7,11 @@ export default function CartPage() {
             <div className="mb-6">
                 <BackButton />
             </div>
-            <h1 className="text-3xl font-bold font-headline text-primary tracking-tight sm:text-4xl">
-                Carrinho de Compras
-            </h1>
+            <div className="mb-8">
+                <h1 className="text-3xl font-bold font-headline text-primary tracking-tight sm:text-4xl">
+                    Carrinho de Compras
+                </h1>
+            </div>
             <CartView />
         </div>
     );

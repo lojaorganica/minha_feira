@@ -32,12 +32,14 @@ export default function FarmersPage() {
 
   return (
     <div>
-        <div className="py-12 text-center bg-primary/10 relative">
+        <div className="py-12 bg-primary/10 relative">
              <div className="absolute top-4 left-4">
                 <BackButton />
             </div>
-            <h1 className="font-headline text-4xl mb-2 text-primary">Localizações dos Nossos Agricultores</h1>
-            <p className="text-lg text-foreground/80 max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">Explore as localizações dos nossos dedicados agricultores orgânicos e veja de onde vêm os seus alimentos.</p>
+            <div className="container px-4 sm:px-6 lg:px-8">
+                <h1 className="font-headline text-4xl mb-2 text-primary">Localizações dos Nossos Agricultores</h1>
+                <p className="text-lg text-foreground/80 max-w-2xl">Explore as localizações dos nossos dedicados agricultores orgânicos e veja de onde vêm os seus alimentos.</p>
+            </div>
         </div>
         <FarmersMap farmers={farmers} apiKey={apiKey} />
     </div>
