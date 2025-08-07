@@ -125,12 +125,11 @@ const Header = () => {
     } else if (userType === 'farmer') {
       return (
         <>
-          {farmerMenuLinks.filter(link => link.href !== '/profile').map(link => (
+          {farmerMenuLinks.map(link => (
              <Link key={link.href} href={link.href} className="font-medium text-foreground/80 hover:text-foreground text-lg">
                 {link.label}
               </Link>
           ))}
-           <Link href="/profile" className="font-medium text-foreground/80 hover:text-foreground text-lg">Meu Perfil</Link>
         </>
       );
     } 
