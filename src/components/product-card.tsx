@@ -164,7 +164,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Não, manter meu pedido</AlertDialogCancel>
+            <Button variant="outline" onClick={() => setAlertOpen(false)}>Não, manter meu pedido</Button>
             <AlertDialogAction onClick={confirmAndAdd}>Sim, limpar e adicionar</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
