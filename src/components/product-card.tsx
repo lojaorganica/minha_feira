@@ -88,8 +88,8 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
                 <span className="text-base font-medium text-foreground/80 ml-1">/ {product.unitAmount ? `${product.unitAmount} ` : ''}{product.unit}</span>
                 </div>
             </div>
-             <div className="w-full flex flex-col sm:flex-row gap-2 items-center">
-                <div className="flex w-full sm:w-auto items-center gap-2 flex-grow">
+             <div className="w-full flex flex-col gap-2">
+                <div className="flex w-full items-center gap-2">
                     <Button size="icon" variant="outline" onClick={() => handleQuantityChange(-1)} aria-label="Diminuir quantidade" className="h-10 px-3" disabled={isFarmerDifferent}>
                         <Minus className="h-4 w-4" />
                     </Button>
@@ -121,7 +121,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
                            <Button 
                                 onClick={handleAddToCartClick} 
                                 className={cn(
-                                    "w-full sm:w-auto text-base font-semibold transition-colors duration-200 flex-shrink-0",
+                                    "w-full text-base font-semibold transition-colors duration-200",
                                       isAdded 
                                       ? 'bg-accent text-accent-foreground hover:bg-accent/90' 
                                       : isFarmerDifferent 
