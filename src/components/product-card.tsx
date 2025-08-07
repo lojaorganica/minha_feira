@@ -56,7 +56,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
 
   return (
     <>
-      <Card className="flex flex-col h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1 overflow-hidden">
+      <Card className="flex flex-col h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
         <div className="relative aspect-video">
           <Image
             src={product.image}
@@ -66,15 +66,15 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
             data-ai-hint={product.dataAiHint}
           />
         </div>
-        <CardContent className="p-4 flex-grow">
+        <CardContent className="p-4 flex-grow flex flex-col">
           <CardTitle className="text-xl font-headline text-primary">{product.name}</CardTitle>
-          <CardDescription className="text-base mt-1 h-12 font-semibold text-foreground/90">{product.description}</CardDescription>
+          <CardDescription className="text-base mt-1 font-semibold text-foreground/90">{product.description}</CardDescription>
           <div className="flex items-center gap-2 mt-2 text-sm text-muted-foreground font-semibold">
               <Tractor className="h-4 w-4 text-primary" />
               <span>Fornecedor: {farmerName}</span>
           </div>
         </CardContent>
-        <CardFooter className="p-4 flex flex-col items-start gap-4">
+        <CardFooter className="p-4 mt-auto flex flex-col items-start gap-4">
           <div className="text-lg font-bold text-primary w-full flex justify-between items-center">
             <div>
               <span>R${product.price.toFixed(2).replace('.', ',')}</span>
