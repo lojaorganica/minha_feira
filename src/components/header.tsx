@@ -20,7 +20,6 @@ import { Input } from "./ui/input";
 import { useUser } from "@/hooks/use-user";
 import { Loader2 } from "lucide-react";
 import type { Farmer } from "@/lib/types";
-import { cn } from "@/lib/utils";
 
 const customerMenuLinks = [
     { href: "/profile", label: "Meu Perfil", icon: User },
@@ -52,6 +51,8 @@ const Header = () => {
     router.push('/welcome');
   };
 
+  const links = userType === 'customer' ? customerMenuLinks : farmerMenuLinks;
+
   const renderMobileMenu = () => {
     if (!isUserLoaded) {
       return (
@@ -70,7 +71,7 @@ const Header = () => {
               <h3 className="text-base font-semibold text-muted-foreground">Área do Cliente</h3>
             </div>
             <nav className="flex flex-col gap-1">
-              {[...customerMenuLinks, { href: "/cart", label: "Meu Carrinho", icon: ShoppingCart }].map((link) => (
+              {[...links, { href: "/cart", label: "Meu Carrinho", icon: ShoppingCart }].map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
@@ -100,7 +101,7 @@ const Header = () => {
                 <h3 className="text-base font-semibold text-muted-foreground">Área do Agricultor / Empresário</h3>
             </div>
             <nav className="flex flex-col gap-1">
-              {farmerMenuLinks.map((link) => (
+              {links.map((link) => (
                  <Link
                     key={link.href}
                     href={link.href}
@@ -127,9 +128,8 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="container flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8 gap-4">
         
-        {/* Left Section: Mobile Menu & Logo */}
         <div className="flex items-center gap-2 shrink-0">
             <div className="lg:hidden">
                 <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
@@ -164,16 +164,15 @@ const Header = () => {
             </div>
         </div>
         
-        {/* Center Section: Desktop Nav & Search */}
-        <div className="lg:flex flex-1 justify-center items-center gap-4">
+        <nav className="hidden lg:flex flex-1 justify-center items-center gap-2">
              {isUserLoaded && (
-              <nav className="hidden lg:flex items-center gap-2">
-                {(userType === 'customer' ? customerMenuLinks : farmerMenuLinks).map(link => (
+              <>
+                {links.map(link => (
                   <Button key={link.href} asChild variant="ghost" className="text-base hover:bg-accent hover:text-accent-foreground">
                     <Link href={link.href}>{link.label}</Link>
                   </Button>
                 ))}
-              </nav>
+              </>
             )}
              {isCatalogPage && (
                 <div className="relative w-full max-w-xs ml-4">
@@ -187,9 +186,8 @@ const Header = () => {
                     />
                 </div>
             )}
-        </div>
+        </nav>
         
-        {/* Right Section: Actions */}
          <div className="flex items-center gap-2">
             {isUserLoaded && userType === 'customer' && (
               <Button variant="ghost" size="icon" asChild className="relative">
