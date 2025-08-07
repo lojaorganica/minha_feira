@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function TermsPage() {
     return (
-        <div className="container mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="container mx-auto max-w-4xl py-12 px-4 sm:px-6 lg:px-8">
             <div className="mb-6">
                 <BackButton />
             </div>
@@ -50,7 +50,7 @@ export default function TermsPage() {
 
                     <h3 className="font-headline text-xl text-primary pt-4">7. Contato</h3>
                     <p>
-                        Se tiver alguma dúvida sobre estes termos, entre em contato conosco pelo e-mail: contato@minhafeira.com.br.
+                        Se tiver alguma dúvida sobre estes termos, entre em contato conosco pelo e-mail: comunicação@essenciavital.org.br.
                     </p>
                 </CardContent>
             </Card>
