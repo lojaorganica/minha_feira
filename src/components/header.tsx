@@ -132,7 +132,7 @@ const Header = () => {
     const desktopCustomerLinks = customerMenuLinks.filter(link => link.href !== '/cart');
     const desktopFarmerLinks = farmerMenuLinks;
 
-    const navLinkClasses = "font-semibold text-foreground/80 hover:text-primary transition-colors text-base";
+    const navLinkClasses = "font-semibold text-foreground/80 hover:text-accent transition-colors text-base whitespace-nowrap";
 
     if (userType === 'customer') {
        return (
@@ -164,7 +164,7 @@ const Header = () => {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-auto items-center px-4 py-2 sm:px-6 lg:px-8 min-h-[60px]">
         
-        {/* Left Side: Hamburger Menu (mobile) and Logo (desktop) */}
+        {/* Left Side: Hamburger Menu (mobile) and Logo */}
         <div className="flex items-center">
             <div className="lg:hidden mr-2">
               <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
@@ -201,14 +201,11 @@ const Header = () => {
             </div>
         </div>
         
-        {/* Center: Desktop Nav and Search (becomes primary on mobile) */}
-        <div className="flex-1 flex justify-center items-center px-4">
-            <nav className="hidden lg:flex items-center gap-x-4">
-              {renderDesktopNav()}
-            </nav>
-            <div className={cn("w-full flex-1 md:w-auto md:flex-none", !isCatalogPage && 'lg:hidden')}>
-                {isCatalogPage && (
-                  <div className="relative mx-auto lg:max-w-xs">
+        {/* Center: Search (visible on catalog, hidden on mobile) or Desktop Nav */}
+         <div className="flex-1 flex justify-center items-center px-4">
+            {isCatalogPage ? (
+              <div className="w-full max-w-sm hidden lg:block">
+                  <div className="relative">
                       <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                       <Input
                           type="search"
@@ -218,12 +215,30 @@ const Header = () => {
                           onChange={(e) => setSearchTerm(e.target.value)}
                       />
                   </div>
-                )}
-            </div>
+              </div>
+            ) : (
+              <nav className="hidden lg:flex items-center gap-x-6">
+                {renderDesktopNav()}
+              </nav>
+            )}
         </div>
 
-        {/* Right Side: Cart and Logout */}
+        {/* Right Side: Cart, Auth, and Search (mobile) */}
         <div className="flex items-center gap-2">
+             {isCatalogPage && (
+              <div className="lg:hidden">
+                <div className="relative">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                    <Input
+                        type="search"
+                        placeholder="Buscar..."
+                        className="pl-10 w-full"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                </div>
+              </div>
+            )}
             {isUserLoaded && userType === 'customer' && (
               <Button variant="ghost" size="icon" asChild className="relative">
                 <Link href="/cart">
@@ -238,7 +253,7 @@ const Header = () => {
               </Button>
             )}
             {isUserLoaded && user && (
-              <Button variant="outline" size="sm" onClick={handleLogout} className="hidden lg:flex">
+              <Button variant="outline" size="sm" onClick={handleLogout} className="hidden lg:flex whitespace-nowrap">
                   Sair
               </Button>
             )}
