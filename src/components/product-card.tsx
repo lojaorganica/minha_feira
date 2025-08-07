@@ -21,17 +21,15 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ product, farmerName }: ProductCardProps) => {
-  const { addToCart, cartFarmerId, handleConfirmClearAndAddToCart, isDifferentFarmer } = useCart();
+  const { addToCart, cartFarmerId, handleConfirmClearAndAddToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [isAdded, setIsAdded] = useState(false);
   const [isAlertOpen, setAlertOpen] = useState(false);
 
-  const isFarmerDifferent = isDifferentFarmer(product.farmerId);
+  const isFarmerDifferent = cartFarmerId !== null && product.farmerId !== cartFarmerId;
   const currentFarmerInCartName = cartFarmerId ? getFarmerById(cartFarmerId)?.name : '';
 
   const handleAddToCartClick = () => {
-    // Se o agricultor for diferente, abre o diálogo de confirmação.
-    // Isso agora funciona tanto no clique (mobile) quanto no desktop.
     if (isFarmerDifferent) {
       setAlertOpen(true);
       return;
@@ -70,7 +68,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
         </div>
         <CardContent className="p-4 flex-grow flex flex-col">
           <CardTitle className="text-xl font-headline text-primary">{product.name}</CardTitle>
-          <CardDescription className="text-base mt-1 font-semibold text-foreground/90">{product.description}</CardDescription>
+          <CardDescription className="text-base mt-1 font-semibold text-foreground/90 flex-grow">{product.description}</CardDescription>
         </CardContent>
          <CardFooter className="p-4 mt-auto flex flex-col items-start gap-4">
             <div className="flex items-center gap-2 text-sm text-muted-foreground font-semibold">
@@ -107,8 +105,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
                                 onClick={handleAddToCartClick} 
                                 className={cn(
                                     "w-full text-base font-semibold transition-colors duration-200",
-                                    isAdded ? 'bg-accent hover:bg-accent/90' : 'bg-primary',
-                                    isFarmerDifferent ? 'bg-muted text-muted-foreground hover:bg-muted cursor-default' : ''
+                                    isAdded ? 'bg-accent hover:bg-accent/90' : 'bg-primary'
                                 )}
                             >
                                 <ShoppingCart className="h-4 w-4 mr-2" />
@@ -132,8 +129,8 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
       <AlertDialog open={isAlertOpen} onOpenChange={setAlertOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Seu carrinho já contém itens de outro agricultor.</AlertDialogTitle>
-            <AlertDialogDescription>
+            <AlertDialogTitle className="text-xl">Seu carrinho já contém itens de outro agricultor.</AlertDialogTitle>
+            <AlertDialogDescription className="text-base">
               Seu pedido atual é com <span className="font-bold text-foreground">{currentFarmerInCartName}</span>. As compras são feitas com um agricultor de cada vez.
               <br/><br/>
               Deseja limpar seu carrinho para iniciar um novo pedido com <span className="font-bold text-foreground">{farmerName}</span>?
