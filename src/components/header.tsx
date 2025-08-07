@@ -27,7 +27,6 @@ const customerMenuLinks = [
     { href: "/catalog", label: "Catálogo", icon: BookOpen },
     { href: "/select-farmers", label: "Meus Agricultores", icon: Heart },
     { href: "/promotions",label: "Promoções", icon: Tag },
-    { href: "/cart", label: "Meu Carrinho", icon: ShoppingCart },
     { href: "/history", label: "Histórico", icon: History },
 ];
 
@@ -71,7 +70,7 @@ const Header = () => {
               <h3 className="text-base font-semibold text-muted-foreground">Área do Cliente</h3>
             </div>
             <nav className="flex flex-col gap-1">
-              {customerMenuLinks.map((link) => (
+              {[...customerMenuLinks, { href: "/cart", label: "Meu Carrinho", icon: ShoppingCart }].map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
@@ -124,22 +123,6 @@ const Header = () => {
     return null;
   }
 
-  const renderDesktopNavLinks = () => {
-    if (!isUserLoaded) return <Loader2 className="h-6 w-6 animate-spin text-primary" />;
-
-    const links = userType === 'customer' 
-      ? customerMenuLinks.filter(link => link.href !== '/cart')
-      : userType === 'farmer' 
-      ? farmerMenuLinks
-      : [];
-
-    return links.map(link => (
-      <Button key={link.href} asChild variant="ghost" className="text-base hover:bg-accent hover:text-accent-foreground">
-        <Link href={link.href}>{link.label}</Link>
-      </Button>
-    ));
-  }
-
   const isCatalogPage = pathname === '/catalog';
 
   return (
@@ -147,7 +130,7 @@ const Header = () => {
       <div className="container flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
         
         {/* Left Section: Mobile Menu & Logo */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 shrink-0">
             <div className="lg:hidden">
                 <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
                 <SheetTrigger asChild>
@@ -176,28 +159,34 @@ const Header = () => {
                 </SheetContent>
                 </Sheet>
             </div>
-            <Logo size="small" />
+            <div className="shrink-0">
+              <Logo size="small" />
+            </div>
         </div>
         
         {/* Center Section: Desktop Nav & Search */}
-        <div className="flex-1 flex justify-center items-center">
-            <div className="hidden lg:flex items-center gap-2">
-                <nav className="flex items-center gap-2">
-                    {renderDesktopNavLinks()}
-                </nav>
-                {isCatalogPage && (
-                    <div className="relative w-full max-w-xs ml-4">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                        <Input
-                            type="search"
-                            placeholder="Buscar produtos..."
-                            className="pl-10"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                        />
-                    </div>
-                )}
-            </div>
+        <div className="hidden lg:flex flex-1 justify-center items-center gap-4">
+             {isUserLoaded && (
+              <nav className="flex items-center gap-2">
+                {(userType === 'customer' ? customerMenuLinks : farmerMenuLinks).map(link => (
+                  <Button key={link.href} asChild variant="ghost" className="text-base hover:bg-accent hover:text-accent-foreground">
+                    <Link href={link.href}>{link.label}</Link>
+                  </Button>
+                ))}
+              </nav>
+            )}
+             {isCatalogPage && (
+                <div className="relative w-full max-w-xs">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                    <Input
+                        type="search"
+                        placeholder="Buscar produtos..."
+                        className="pl-10"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                </div>
+            )}
         </div>
         
         {/* Right Section: Actions */}
@@ -230,5 +219,3 @@ const Header = () => {
 };
 
 export default Header;
-
-    
