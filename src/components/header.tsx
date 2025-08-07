@@ -52,9 +52,6 @@ const Header = () => {
     router.push('/welcome');
   };
 
-  const closeSheet = () => setSheetOpen(false);
-
-
   const renderMobileMenu = () => {
     if (!isUserLoaded) {
       return (
@@ -74,7 +71,7 @@ const Header = () => {
             </div>
             <nav className="flex flex-col gap-2">
               {customerMenuLinks.map((link) => (
-                <Button asChild key={link.href} variant="ghost" className="w-full justify-start text-lg" onClick={closeSheet}>
+                <Button asChild key={link.href} variant="ghost" className="w-full justify-start text-lg">
                     <Link href={link.href}>
                         <link.icon className="h-4 w-4 mr-2"/>
                         {link.label}
@@ -96,7 +93,7 @@ const Header = () => {
             </div>
             <nav className="flex flex-col gap-2">
               {farmerMenuLinks.map((link) => (
-                <Button asChild key={link.href} variant="ghost" className="w-full justify-start text-lg" onClick={closeSheet}>
+                <Button asChild key={link.href} variant="ghost" className="w-full justify-start text-lg">
                     <Link href={link.href}>
                         <link.icon className="h-4 w-4 mr-2"/>
                         {link.label}
