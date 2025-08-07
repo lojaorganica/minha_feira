@@ -21,15 +21,15 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ product, farmerName }: ProductCardProps) => {
-  const { addToCart, cartFarmerId, clearCart, cartItems } = useCart();
+  const { addToCart, cartFarmerId, clearCart, isDifferentFarmer, handleConfirmClearAndAddToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [isAdded, setIsAdded] = useState(false);
   const [isAlertOpen, setAlertOpen] = useState(false);
 
-  const isDifferentFarmer = cartFarmerId !== null && product.farmerId !== cartFarmerId;
+  const isFarmerDifferent = isDifferentFarmer(product.farmerId);
 
-  const handleAddToCart = () => {
-    if (isDifferentFarmer) {
+  const handleAddToCartClick = () => {
+    if (isFarmerDifferent) {
       setAlertOpen(true);
       return;
     }
@@ -41,13 +41,12 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
     }
   };
 
-  const handleConfirmClearAndAddToCart = () => {
-    clearCart();
-    addToCart(product, quantity);
+  const confirmAndAdd = () => {
+    handleConfirmClearAndAddToCart(product, quantity);
     setIsAdded(true);
     setTimeout(() => setIsAdded(false), 1500);
     setAlertOpen(false);
-  };
+  }
 
 
   const handleQuantityChange = (amount: number) => {
@@ -101,12 +100,12 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
                   </Button>
               </div>
               <TooltipProvider>
-                <Tooltip>
+                <Tooltip delayDuration={0}>
                   <TooltipTrigger asChild>
                     <div className="flex-grow">
                        <Button 
-                          onClick={handleAddToCart} 
-                          disabled={isDifferentFarmer}
+                          onClick={handleAddToCartClick} 
+                          disabled={isFarmerDifferent}
                           className={cn(
                               "w-full text-base font-semibold transition-colors duration-200",
                               isAdded ? 'bg-accent hover:bg-accent/90' : 'bg-primary',
@@ -118,9 +117,9 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
                       </Button>
                     </div>
                   </TooltipTrigger>
-                  {isDifferentFarmer && (
-                     <TooltipContent>
-                        <p className="flex items-center gap-2"><Info className="h-4 w-4"/>Seu pedido atual é com {currentFarmerInCartName}.</p>
+                  {isFarmerDifferent && (
+                     <TooltipContent className="max-w-xs text-center" side="top">
+                        <p className="flex items-center gap-2"><Info className="h-4 w-4 shrink-0"/>Seu pedido atual é com {currentFarmerInCartName}. Esvazie o carrinho para adicionar este item.</p>
                     </TooltipContent>
                   )}
                 </Tooltip>
@@ -141,7 +140,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Não, manter meu pedido</AlertDialogCancel>
-            <AlertDialogAction onClick={handleConfirmClearAndAddToCart}>Sim, limpar e adicionar</AlertDialogAction>
+            <AlertDialogAction onClick={confirmAndAdd}>Sim, limpar e adicionar</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
