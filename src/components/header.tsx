@@ -123,7 +123,6 @@ const Header = () => {
         </>
        )
     } else if (userType === 'farmer') {
-      const desktopFarmerLinks = farmerMenuLinks.filter(link => link.href.includes('dashboard') || link.href === '/profile');
       return (
         <>
           {farmerMenuLinks.filter(link => link.href !== '/profile').map(link => (
