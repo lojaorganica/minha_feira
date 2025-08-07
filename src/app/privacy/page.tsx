@@ -1,4 +1,3 @@
-
 import BackButton from "@/components/back-button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -69,7 +68,7 @@ export default function PrivacyPage() {
 
                     <h3 className="font-headline text-xl text-primary pt-4">8. Contato</h3>
                     <p>
-                        Se tiver dúvidas sobre esta política de privacidade, entre em contato pelo e-mail: contato@minhafeira.com.br.
+                        Se tiver dúvidas sobre esta política de privacidade, entre em contato pelo e-mail: comunicacao@essenciavital.org.br.
                     </p>
                 </CardContent>
             </Card>
