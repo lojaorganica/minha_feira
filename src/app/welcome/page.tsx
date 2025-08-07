@@ -43,13 +43,13 @@ export default function WelcomePage() {
           </div>
           <div className="grid gap-1">
             <h3 className="font-semibold font-headline text-primary">Legal</h3>
-            <a href="/terms" className="text-muted-foreground hover:text-foreground font-semibold">Termos de Serviço</a>
-            <a href="/privacy" className="text-muted-foreground hover:text-foreground font-semibold">Política de Privacidade</a>
+            <Link href="/terms" className="text-muted-foreground hover:text-foreground font-semibold">Termos de Serviço</Link>
+            <Link href="/privacy" className="text-muted-foreground hover:text-foreground font-semibold">Política de Privacidade</Link>
           </div>
           <div className="grid gap-1">
             <h3 className="font-semibold font-headline text-primary">Suporte</h3>
-            <a href="#" className="text-muted-foreground hover:text-foreground font-semibold">Fale Conosco</a>
-            <a href="#" className="text-muted-foreground hover:text-foreground font-semibold">FAQ</a>
+            <Link href="#" className="text-muted-foreground hover:text-foreground font-semibold">Fale Conosco</Link>
+            <Link href="#" className="text-muted-foreground hover:text-foreground font-semibold">FAQ</Link>
           </div>
         </div>
       </footer>

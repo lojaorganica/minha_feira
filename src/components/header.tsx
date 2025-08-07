@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart, Menu, User, Search, History, Package, ShoppingBasket, LogOut, Users, Heart, Tag } from "lucide-react";
+import { ShoppingCart, Menu, User, Search, History, Package, ShoppingBasket, LogOut, Users, Heart, Tag, BookOpen } from "lucide-react";
 import { usePathname, useRouter } from 'next/navigation';
 
 import Logo from "@/components/logo";
@@ -23,6 +23,7 @@ import type { Farmer } from "@/lib/types";
 
 const customerMenuLinks = [
     { href: "/profile", label: "Meu Perfil", icon: User },
+    { href: "/catalog", label: "Catálogo", icon: BookOpen },
     { href: "/select-farmers", label: "Meus Agricultores", icon: Heart },
     { href: "/promotions",label: "Promoções", icon: Tag },
     { href: "/cart", label: "Meu Carrinho", icon: ShoppingCart },
@@ -116,11 +117,11 @@ const Header = () => {
     
     // Filtra os links que não são o carrinho para o menu desktop
     const desktopCustomerLinks = customerMenuLinks.filter(link => link.href !== '/cart' && link.href !== '/profile');
+    const desktopFarmerLinks = farmerMenuLinks.filter(link => link.href !== '/profile');
 
     if (userType === 'customer') {
        return (
         <>
-          <Link href="/catalog" className="font-medium text-foreground/80 hover:text-foreground text-lg">Catálogo</Link>
            {desktopCustomerLinks.map(link => (
              <Link key={link.href} href={link.href} className="font-medium text-foreground/80 hover:text-foreground text-lg">
                 {link.label}
@@ -130,8 +131,6 @@ const Header = () => {
         </>
        )
     } else if (userType === 'farmer') {
-      // Remove 'Meu Perfil' para adicioná-lo manualmente no final
-      const desktopFarmerLinks = farmerMenuLinks.filter(link => link.href !== '/profile');
       return (
         <>
           {desktopFarmerLinks.map(link => (

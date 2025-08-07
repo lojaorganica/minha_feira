@@ -3,30 +3,27 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import type { FarmerWithProducts, Product } from "@/lib/types";
+import type { FarmerWithProducts } from "@/lib/types";
 import ProductCard from "./product-card";
-import { useUser } from "@/hooks/use-user";
 import { getFarmersWithProducts } from "@/lib/data";
-import { Loader2 } from "lucide-react";
 import { useSearch } from "@/hooks/use-search";
 import { useMemo } from "react";
 
 export default function ProductBrowser() {
-  const { user, isUserLoaded } = useUser();
   const { searchTerm } = useSearch();
 
-  const favoriteFarmersWithProducts: FarmerWithProducts[] = useMemo(() => {
-    if (!user || user.favoriteFarmerIds.length === 0) return [];
-    // Pega apenas o primeiro (e único) agricultor selecionado
-    return getFarmersWithProducts([user.favoriteFarmerIds[0]]);
-  }, [user]);
+  // Modificado para buscar todos os agricultores
+  const allFarmersWithProducts: FarmerWithProducts[] = useMemo(() => {
+    const allFarmers = getFarmersWithProducts(); // Sem argumento, pega todos
+    return allFarmers;
+  }, []);
 
   const filteredProductsByFarmer: FarmerWithProducts[] = useMemo(() => {
     if (!searchTerm) {
-      return favoriteFarmersWithProducts;
+      return allFarmersWithProducts;
     }
 
-    return favoriteFarmersWithProducts
+    return allFarmersWithProducts
       .map(farmer => {
         const filteredProducts = farmer.products.filter(product =>
           product.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -34,41 +31,9 @@ export default function ProductBrowser() {
         return { ...farmer, products: filteredProducts };
       })
       .filter(farmer => farmer.products.length > 0);
-  }, [searchTerm, favoriteFarmersWithProducts]);
+  }, [searchTerm, allFarmersWithProducts]);
 
-
-  if (!isUserLoaded) {
-    return (
-      <section className="py-12 md:py-16">
-        <div className="container flex justify-center">
-            <Loader2 className="h-12 w-12 animate-spin text-primary" />
-        </div>
-      </section>
-    );
-  }
-  
-  if (!user || user.favoriteFarmerIds.length === 0) {
-    return (
-      <section className="py-12 md:py-16">
-        <div className="container text-center">
-          <h2 className="font-headline text-2xl font-bold text-primary">
-            Bem-vindo(a)!
-          </h2>
-          <p className="mt-2 text-lg font-semibold text-foreground/90">
-            Parece que você ainda não selecionou um agricultor.
-          </p>
-          <p className="mt-1 text-lg font-semibold text-foreground/90">
-            Escolha seu agricultor favorito para começar a comprar.
-          </p>
-          <Button asChild className="mt-4 text-base font-semibold">
-            <Link href="/select-farmers">Escolher Agricultor</Link>
-          </Button>
-        </div>
-      </section>
-    );
-  }
-  
-  if (filteredProductsByFarmer.length === 0 && searchTerm) {
+  if (filteredProductsByFarmer.length === 0) {
      return (
          <section className="py-12 md:py-16">
              <div className="container text-center">

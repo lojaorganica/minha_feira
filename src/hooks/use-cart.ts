@@ -3,6 +3,8 @@
 
 import type { Product, CartItem } from "@/lib/types";
 import { useState, useEffect, useCallback, createContext, useContext } from "react";
+import { useToast } from "./use-toast";
+import { getFarmerById } from "@/lib/data";
 
 export interface CartContextType {
   cartItems: CartItem[];
@@ -13,6 +15,10 @@ export interface CartContextType {
   cartCount: number;
   cartTotal: number;
   isCartLoaded: boolean;
+  cartFarmerId: string | null;
+  handleConfirmClearAndAddToCart: (product: Product, quantity: number) => void;
+  isDifferentFarmer: (farmerId: string) => boolean;
+  currentFarmerInCartName: string | null;
 }
 
 export const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -20,6 +26,7 @@ export const CartContext = createContext<CartContextType | undefined>(undefined)
 export function useCartState() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartLoaded, setIsCartLoaded] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     try {
@@ -46,12 +53,6 @@ export function useCartState() {
 
   const addToCart = useCallback((product: Product, quantity = 1) => {
     setCartItems((prevItems) => {
-       // Se o carrinho não está vazio e o novo produto é de um agricultor diferente, limpe o carrinho.
-      if (prevItems.length > 0 && prevItems[0].farmerId !== product.farmerId) {
-        console.warn("Limpando o carrinho para adicionar produtos de um novo agricultor.");
-        return [{ ...product, quantity }];
-      }
-
       const existingItem = prevItems.find((item) => item.id === product.id);
       if (existingItem) {
         return prevItems.map((item) =>
@@ -60,9 +61,13 @@ export function useCartState() {
             : item
         );
       }
-      return [...prevItems, { ...product, quantity }];
+      return [...prevItems, { ...product, quantity, farmerId: product.farmerId }];
     });
-  }, []);
+     toast({
+        title: "Adicionado ao carrinho",
+        description: `${quantity} x ${product.name} foi adicionado ao seu carrinho.`,
+      });
+  }, [toast]);
 
   const removeFromCart = useCallback((productId: string) => {
     setCartItems((prevItems) =>
@@ -86,11 +91,27 @@ export function useCartState() {
     setCartItems([]);
   }, []);
 
+  const cartFarmerId = cartItems.length > 0 ? cartItems[0].farmerId : null;
+  
+  const handleConfirmClearAndAddToCart = (product: Product, quantity: number) => {
+    clearCart();
+    // Adiciona um pequeno timeout para garantir que o estado do carrinho seja atualizado antes de adicionar o novo item
+    setTimeout(() => {
+        addToCart(product, quantity);
+    }, 50);
+  };
+  
+  const isDifferentFarmer = (farmerId: string) => {
+    return cartFarmerId !== null && farmerId !== cartFarmerId;
+  };
+  
+  const currentFarmerInCartName = cartFarmerId ? getFarmerById(cartFarmerId)?.name ?? null : null;
   const cartCount = cartItems.reduce((count, item) => count + item.quantity, 0);
   const cartTotal = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
     0
   );
+
   
   return {
     cartItems,
@@ -101,6 +122,10 @@ export function useCartState() {
     cartCount,
     cartTotal,
     isCartLoaded,
+    cartFarmerId,
+    handleConfirmClearAndAddToCart,
+    isDifferentFarmer,
+    currentFarmerInCartName
   };
 }
 

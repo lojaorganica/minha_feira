@@ -374,14 +374,15 @@ export function addFarmer(farmerData: Omit<Farmer, 'id' | 'location' | 'image'>)
     return newFarmer;
 }
 
-export function getFarmersWithProducts(farmerIds: string[]): FarmerWithProducts[] {
-  const favoriteFarmers = new Set(farmerIds);
+export function getFarmersWithProducts(farmerIds?: string[]): FarmerWithProducts[] {
   const result: FarmerWithProducts[] = [];
   const currentProducts = getProducts();
 
-  farmers.forEach(farmer => {
-    if (favoriteFarmers.has(farmer.id)) {
-      const farmerProducts = currentProducts.filter(product => product.farmerId === farmer.id);
+  const targetFarmers = farmerIds ? farmers.filter(f => farmerIds.includes(f.id)) : farmers;
+
+  targetFarmers.forEach(farmer => {
+    const farmerProducts = currentProducts.filter(product => product.farmerId === farmer.id);
+    if(farmerProducts.length > 0) {
       result.push({ ...farmer, products: farmerProducts });
     }
   });
