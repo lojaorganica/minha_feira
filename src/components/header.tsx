@@ -52,10 +52,6 @@ const Header = () => {
     router.push('/welcome');
   };
 
-  const handleLinkClick = () => {
-    setSheetOpen(false);
-  };
-
   const renderMobileMenu = () => {
     if (!isUserLoaded) {
       return (
@@ -79,7 +75,6 @@ const Header = () => {
                   key={link.href}
                   variant="ghost"
                   className="w-full justify-start text-lg"
-                  onClick={handleLinkClick}
                   asChild
                 >
                   <Link href={link.href}>
@@ -107,7 +102,6 @@ const Header = () => {
                   key={link.href}
                   variant="ghost"
                   className="w-full justify-start text-lg"
-                  onClick={handleLinkClick}
                   asChild
                 >
                    <Link href={link.href}>
