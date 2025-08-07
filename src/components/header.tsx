@@ -52,9 +52,8 @@ const Header = () => {
     router.push('/welcome');
   };
 
-  const handleLinkClick = (href: string) => {
+  const handleLinkClick = () => {
     setSheetOpen(false);
-    router.push(href);
   };
 
   const renderMobileMenu = () => {
@@ -76,9 +75,11 @@ const Header = () => {
             </div>
             <nav className="flex flex-col gap-2">
               {customerMenuLinks.map((link) => (
-                <Button key={link.href} variant="ghost" className="w-full justify-start text-lg" onClick={() => handleLinkClick(link.href)}>
+                <Button key={link.href} variant="ghost" className="w-full justify-start text-lg" onClick={handleLinkClick} asChild>
+                  <Link href={link.href}>
                     <link.icon className="h-4 w-4 mr-2"/>
                     {link.label}
+                  </Link>
                 </Button>
               ))}
             </nav>
@@ -96,9 +97,11 @@ const Header = () => {
             </div>
             <nav className="flex flex-col gap-2">
               {farmerMenuLinks.map((link) => (
-                <Button key={link.href} variant="ghost" className="w-full justify-start text-lg" onClick={() => handleLinkClick(link.href)}>
+                 <Button key={link.href} variant="ghost" className="w-full justify-start text-lg" onClick={handleLinkClick} asChild>
+                   <Link href={link.href}>
                     <link.icon className="h-4 w-4 mr-2"/>
                     {link.label}
+                   </Link>
                 </Button>
               ))}
             </nav>
