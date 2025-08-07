@@ -73,11 +73,11 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
             data-ai-hint={product.dataAiHint}
           />
         </div>
-        <CardContent className="p-4 flex-grow flex flex-col">
+        <CardContent className="p-4 flex-grow">
           <CardTitle className="text-xl font-headline text-primary">{product.name}</CardTitle>
           <CardDescription className="text-base mt-1 font-semibold text-foreground/90 flex-grow">{product.description}</CardDescription>
         </CardContent>
-         <CardFooter className="p-4 pt-0 flex flex-col items-start gap-4">
+         <CardFooter className="p-4 pt-2 flex flex-col items-start gap-4">
             <div className="flex items-center gap-2 text-sm text-muted-foreground font-semibold">
                 <Tractor className="h-4 w-4 text-primary" />
                 <span>Fornecedor: {farmerName}</span>
@@ -126,7 +126,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
                                       ? 'bg-accent text-accent-foreground hover:bg-accent/90' 
                                       : isFarmerDifferent 
                                       ? "bg-muted-foreground text-primary-foreground hover:bg-muted-foreground/80 cursor-pointer"
-                                      : 'bg-primary'
+                                      : 'bg-primary hover:bg-accent hover:text-accent-foreground'
                                 )}
                             >
                                 <ShoppingCart className="h-4 w-4 mr-2" />
