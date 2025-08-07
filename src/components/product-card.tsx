@@ -77,7 +77,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
           <CardTitle className="text-xl font-headline text-primary">{product.name}</CardTitle>
           <CardDescription className="text-base mt-1 font-semibold text-foreground/90 flex-grow">{product.description}</CardDescription>
         </CardContent>
-         <CardFooter className="p-4 pt-2 flex flex-col items-start gap-4">
+         <CardFooter className="p-4 pt-0 flex flex-col items-start gap-4">
             <div className="flex items-center gap-2 text-sm text-muted-foreground font-semibold">
                 <Tractor className="h-4 w-4 text-primary" />
                 <span>Fornecedor: {farmerName}</span>

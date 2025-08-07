@@ -53,11 +53,11 @@ export default function ProductBrowser() {
     <div className="py-6 md:py-8">
       {filteredProductsByFarmer.map((farmer) => (
         <section key={farmer.id} className="mb-12">
-          <div className="flex flex-col items-center gap-2 mb-6">
+          <div className="flex flex-col items-start gap-2 mb-6">
             <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl text-primary">
               {farmer.name}
             </h2>
-             <p className="text-lg font-semibold text-foreground/90 text-center max-w-2xl">{farmer.bio}</p>
+             <p className="text-lg font-semibold text-foreground/90 text-left max-w-2xl">{farmer.bio}</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
             {farmer.products.map((product) => (

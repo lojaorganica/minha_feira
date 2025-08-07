@@ -20,6 +20,7 @@ import { Input } from "./ui/input";
 import { useUser } from "@/hooks/use-user";
 import { Loader2 } from "lucide-react";
 import type { Farmer } from "@/lib/types";
+import { cn } from "@/lib/utils";
 
 const customerMenuLinks = [
     { href: "/profile", label: "Meu Perfil", icon: User },
@@ -79,7 +80,7 @@ const Header = () => {
                 >
                   <Button
                     variant="ghost"
-                    className="w-full justify-start text-lg"
+                    className="w-full justify-start text-lg hover:bg-accent hover:text-accent-foreground"
                   >
                     <link.icon className="h-4 w-4 mr-2" />
                     {link.label}
@@ -109,7 +110,7 @@ const Header = () => {
                   >
                     <Button
                       variant="ghost"
-                      className="w-full justify-start text-lg"
+                      className="w-full justify-start text-lg hover:bg-accent hover:text-accent-foreground"
                     >
                       <link.icon className="h-4 w-4 mr-2"/>
                       {link.label}
@@ -128,30 +129,29 @@ const Header = () => {
       return <Loader2 className="h-6 w-6 animate-spin text-primary" />;
     }
     
-    // Filtra os links que não são o carrinho para o menu desktop
-    const desktopCustomerLinks = customerMenuLinks.filter(link => link.href !== '/cart' && link.href !== '/profile');
-    const desktopFarmerLinks = farmerMenuLinks.filter(link => link.href !== '/profile');
+    const desktopCustomerLinks = customerMenuLinks.filter(link => link.href !== '/cart');
+    const desktopFarmerLinks = farmerMenuLinks;
+
+    const navLinkClasses = "font-semibold text-foreground/80 hover:text-primary transition-colors text-base";
 
     if (userType === 'customer') {
        return (
         <>
            {desktopCustomerLinks.map(link => (
-             <Link key={link.href} href={link.href} className="font-medium text-foreground/80 hover:text-foreground text-lg">
+             <Link key={link.href} href={link.href} className={navLinkClasses}>
                 {link.label}
               </Link>
           ))}
-          <Link href="/profile" className="font-medium text-foreground/80 hover:text-foreground text-lg">Meu Perfil</Link>
         </>
        )
     } else if (userType === 'farmer') {
       return (
         <>
           {desktopFarmerLinks.map(link => (
-             <Link key={link.href} href={link.href} className="font-medium text-foreground/80 hover:text-foreground text-lg">
+             <Link key={link.href} href={link.href} className={navLinkClasses}>
                 {link.label}
               </Link>
           ))}
-           <Link href="/profile" className="font-medium text-foreground/80 hover:text-foreground text-lg">Meu Perfil</Link>
         </>
       );
     } 
@@ -162,80 +162,86 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-auto items-center px-4 py-2 sm:px-6 lg:px-8">
-        <div className="mr-4 hidden lg:flex">
-          <Logo size="small" />
+      <div className="container flex h-auto items-center px-4 py-2 sm:px-6 lg:px-8 min-h-[60px]">
+        
+        {/* Left Side: Hamburger Menu (mobile) and Logo (desktop) */}
+        <div className="flex items-center">
+            <div className="lg:hidden mr-2">
+              <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <Menu className="h-8 w-8" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="left" className="p-0 flex flex-col">
+                  <div className="p-4 border-b">
+                     <Logo isClickable={false} />
+                  </div>
+                  
+                  <div className="flex flex-col flex-grow p-4">
+                      <div className="flex-grow">
+                          {renderMobileMenu()}
+                      </div>
+
+                      {isUserLoaded && user && (
+                        <div className="mt-auto">
+                            <Separator className="my-4" />
+                            <Button variant="outline" className="w-full justify-start" onClick={handleLogout}>
+                                <LogOut className="h-4 w-4 mr-2"/>
+                                Sair
+                            </Button>
+                        </div>
+                      )}
+                  </div>
+                </SheetContent>
+              </Sheet>
+            </div>
+            <div className="hidden lg:flex">
+              <Logo size="small" />
+            </div>
         </div>
         
-        <div className="lg:hidden">
-          <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon">
-                <Menu className="h-8 w-8" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="left" className="p-0 flex flex-col">
-              <div className="p-4 border-b">
-                 <Logo isClickable={false} />
-              </div>
-              
-              <div className="flex flex-col flex-grow p-4">
-                  <div className="flex-grow">
-                      {renderMobileMenu()}
+        {/* Center: Desktop Nav and Search (becomes primary on mobile) */}
+        <div className="flex-1 flex justify-center items-center px-4">
+            <nav className="hidden lg:flex items-center gap-x-4">
+              {renderDesktopNav()}
+            </nav>
+            <div className={cn("w-full flex-1 md:w-auto md:flex-none", !isCatalogPage && 'lg:hidden')}>
+                {isCatalogPage && (
+                  <div className="relative mx-auto lg:max-w-xs">
+                      <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                      <Input
+                          type="search"
+                          placeholder="Buscar produtos..."
+                          className="pl-10"
+                          value={searchTerm}
+                          onChange={(e) => setSearchTerm(e.target.value)}
+                      />
                   </div>
-
-                  {isUserLoaded && user && (
-                    <div className="mt-auto">
-                        <Separator className="my-4" />
-                        <Button variant="outline" className="w-full justify-start" onClick={handleLogout}>
-                            <LogOut className="h-4 w-4 mr-2"/>
-                            Sair
-                        </Button>
-                    </div>
-                  )}
-              </div>
-            </SheetContent>
-          </Sheet>
+                )}
+            </div>
         </div>
 
-        <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-          <div className="w-full flex-1 md:w-auto md:flex-none">
-            {isCatalogPage && (
-              <div className="relative">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                  <Input
-                      type="search"
-                      placeholder="Buscar produtos..."
-                      className="pl-10"
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                  />
-              </div>
+        {/* Right Side: Cart and Logout */}
+        <div className="flex items-center gap-2">
+            {isUserLoaded && userType === 'customer' && (
+              <Button variant="ghost" size="icon" asChild className="relative">
+                <Link href="/cart">
+                  <ShoppingCart className="h-6 w-6" strokeWidth={2.25} />
+                  {cartCount > 0 && (
+                    <span className="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-xs font-bold text-accent-foreground">
+                      {cartCount}
+                    </span>
+                  )}
+                  <span className="sr-only">Carrinho de Compras</span>
+                </Link>
+              </Button>
             )}
-          </div>
-          <div className="flex items-center gap-4">
-              <nav className="hidden lg:flex items-center gap-4 text-lg">
-                {renderDesktopNav()}
-              </nav>
-              {isUserLoaded && userType === 'customer' && (
-                <Button variant="ghost" size="icon" asChild className="relative">
-                  <Link href="/cart">
-                    <ShoppingCart className="h-6 w-6" strokeWidth={2.25} />
-                    {cartCount > 0 && (
-                      <span className="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-xs font-bold text-accent-foreground">
-                        {cartCount}
-                      </span>
-                    )}
-                    <span className="sr-only">Carrinho de Compras</span>
-                  </Link>
-                </Button>
-              )}
-             {isUserLoaded && user && (
-                <Button variant="outline" size="sm" onClick={handleLogout} className="hidden lg:flex">
-                    Sair
-                </Button>
-             )}
-          </div>
+            {isUserLoaded && user && (
+              <Button variant="outline" size="sm" onClick={handleLogout} className="hidden lg:flex">
+                  Sair
+              </Button>
+            )}
         </div>
       </div>
     </header>
