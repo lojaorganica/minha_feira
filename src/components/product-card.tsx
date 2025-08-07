@@ -5,7 +5,7 @@ import Image from "next/image";
 import type { Product } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardTitle, CardDescription } from "@/components/ui/card";
-import { Plus, Minus, ShoppingCart, Tractor } from "lucide-react";
+import { Plus, Minus, ShoppingCart, Tractor, X } from "lucide-react";
 import { useCart } from "@/hooks/use-cart";
 import { useState } from "react";
 import { Input } from "./ui/input";
@@ -123,7 +123,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
                                 className={cn(
                                     "w-full text-base font-semibold transition-colors duration-200",
                                     isAdded ? 'bg-accent hover:bg-accent/90' : 'bg-primary',
-                                    isFarmerDifferent && "bg-gray-400 text-white hover:bg-gray-400 cursor-pointer"
+                                    isFarmerDifferent && "bg-secondary text-secondary-foreground hover:bg-secondary/80 cursor-pointer"
                                 )}
                             >
                                 <ShoppingCart className="h-4 w-4 mr-2" />
@@ -144,7 +144,11 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
       </Card>
 
       <AlertDialog open={isAlertOpen} onOpenChange={setAlertOpen}>
-        <AlertDialogContent>
+        <AlertDialogContent className="relative">
+            <AlertDialogCancel className="absolute top-2 right-2 p-2 h-auto rounded-full border-none">
+                <X className="h-4 w-4" />
+                <span className="sr-only">Fechar</span>
+            </AlertDialogCancel>
           <AlertDialogHeader>
             <AlertDialogTitle className="text-xl">Seu carrinho já contém itens de outro agricultor.</AlertDialogTitle>
             <AlertDialogDescription className="text-base">
