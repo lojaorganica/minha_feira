@@ -51,7 +51,12 @@ const Header = () => {
     router.push('/welcome');
   };
 
-  const links = userType === 'customer' ? customerMenuLinks : farmerMenuLinks;
+  let links = [];
+  if (userType === 'customer') {
+    links = customerMenuLinks;
+  } else if (userType === 'farmer') {
+    links = farmerMenuLinks;
+  }
 
   const renderMobileMenu = () => {
     if (!isUserLoaded) {
@@ -164,7 +169,7 @@ const Header = () => {
             </div>
         </div>
         
-        <nav className="hidden lg:flex flex-1 justify-center items-center gap-2">
+        <nav className="hidden lg:flex flex-1 justify-center items-center gap-4">
              {isUserLoaded && (
               <>
                 {links.map(link => (
