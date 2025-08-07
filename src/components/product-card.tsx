@@ -77,7 +77,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
           <CardDescription className="text-base mt-1 font-semibold text-foreground/90 flex-grow">{product.description}</CardDescription>
         </CardContent>
          <CardFooter className="p-4 mt-auto flex flex-col items-start gap-4">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground font-semibold mt-2">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground font-semibold">
                 <Tractor className="h-4 w-4 text-primary" />
                 <span>Fornecedor: {farmerName}</span>
             </div>
@@ -102,8 +102,8 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
                         }}
                         onFocus={(e) => {
                             if(isFarmerDifferent) {
-                                setAlertOpen(true);
                                 e.target.blur();
+                                setAlertOpen(true);
                             }
                         }}
                         className="w-16 h-10 text-center font-bold text-base"
@@ -120,10 +120,10 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
                         <TooltipTrigger asChild>
                            <Button 
                                 onClick={handleAddToCartClick} 
-                                variant={isFarmerDifferent ? "secondary" : (isAdded ? "default" : "default")}
                                 className={cn(
                                     "w-full text-base font-semibold transition-colors duration-200",
-                                    isAdded ? 'bg-accent hover:bg-accent/90' : 'bg-primary'
+                                    isAdded ? 'bg-accent hover:bg-accent/90' : 'bg-primary',
+                                    isFarmerDifferent && "bg-gray-400 text-white hover:bg-gray-400 cursor-pointer"
                                 )}
                             >
                                 <ShoppingCart className="h-4 w-4 mr-2" />
