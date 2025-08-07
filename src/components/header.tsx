@@ -69,19 +69,22 @@ const Header = () => {
               <h2 className="text-xl font-bold text-primary">Olá, {firstName}!</h2>
               <h3 className="text-base font-semibold text-muted-foreground">Área do Cliente</h3>
             </div>
-            <nav className="flex flex-col gap-2">
+            <nav className="flex flex-col gap-1">
               {customerMenuLinks.map((link) => (
-                <Button
+                <Link
                   key={link.href}
-                  variant="ghost"
-                  className="w-full justify-start text-lg"
-                  asChild
+                  href={link.href}
+                  onClick={() => setSheetOpen(false)}
+                  className="w-full"
                 >
-                  <Link href={link.href}>
+                  <Button
+                    variant="ghost"
+                    className="w-full justify-start text-lg"
+                  >
                     <link.icon className="h-4 w-4 mr-2" />
                     {link.label}
-                  </Link>
-                </Button>
+                  </Button>
+                </Link>
               ))}
             </nav>
         </>
@@ -96,19 +99,22 @@ const Header = () => {
                 <h2 className="text-xl font-bold text-primary">Olá, {firstName}!</h2>
                 <h3 className="text-base font-semibold text-muted-foreground">Área do Agricultor / Empresário</h3>
             </div>
-            <nav className="flex flex-col gap-2">
+            <nav className="flex flex-col gap-1">
               {farmerMenuLinks.map((link) => (
-                <Button
-                  key={link.href}
-                  variant="ghost"
-                  className="w-full justify-start text-lg"
-                  asChild
-                >
-                   <Link href={link.href}>
-                    <link.icon className="h-4 w-4 mr-2"/>
-                    {link.label}
-                   </Link>
-                </Button>
+                 <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setSheetOpen(false)}
+                    className="w-full"
+                  >
+                    <Button
+                      variant="ghost"
+                      className="w-full justify-start text-lg"
+                    >
+                      <link.icon className="h-4 w-4 mr-2"/>
+                      {link.label}
+                    </Button>
+                  </Link>
               ))}
             </nav>
         </>
