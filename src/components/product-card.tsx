@@ -5,7 +5,7 @@ import Image from "next/image";
 import type { Product } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardTitle, CardDescription } from "@/components/ui/card";
-import { Plus, Minus, ShoppingCart, Tractor, Info } from "lucide-react";
+import { Plus, Minus, ShoppingCart, Tractor } from "lucide-react";
 import { useCart } from "@/hooks/use-cart";
 import { useState } from "react";
 import { Input } from "./ui/input";
@@ -29,11 +29,16 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
   const isFarmerDifferent = cartFarmerId !== null && product.farmerId !== cartFarmerId;
   const currentFarmerInCartName = cartFarmerId ? getFarmerById(cartFarmerId)?.name : '';
 
-  const handleAddToCartClick = () => {
+  const handleActionAttempt = () => {
     if (isFarmerDifferent) {
       setAlertOpen(true);
-      return;
+      return false; // Indica que a ação foi bloqueada
     }
+    return true; // Indica que a ação pode prosseguir
+  };
+
+  const handleAddToCartClick = () => {
+    if (!handleActionAttempt()) return;
 
     if (quantity > 0) {
       addToCart(product, quantity);
@@ -50,6 +55,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
   }
 
   const handleQuantityChange = (amount: number) => {
+    if (!handleActionAttempt()) return;
     setQuantity(prev => Math.max(1, prev + amount));
   };
 
@@ -57,12 +63,12 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
   return (
     <>
       <Card className="flex flex-col h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-        <div className="relative aspect-video rounded-t-lg overflow-hidden">
+        <div className="relative aspect-video rounded-t-lg">
           <Image
             src={product.image}
             alt={product.name}
             fill
-            className="object-cover"
+            className="object-cover rounded-t-lg"
             data-ai-hint={product.dataAiHint}
           />
         </div>
@@ -71,7 +77,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
           <CardDescription className="text-base mt-1 font-semibold text-foreground/90 flex-grow">{product.description}</CardDescription>
         </CardContent>
          <CardFooter className="p-4 mt-auto flex flex-col items-start gap-4">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground font-semibold">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground font-semibold mt-2">
                 <Tractor className="h-4 w-4 text-primary" />
                 <span>Fornecedor: {farmerName}</span>
             </div>
@@ -83,17 +89,28 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
             </div>
             <div className="w-full flex flex-col sm:flex-row items-center gap-2">
                 <div className="flex items-center gap-1">
-                    <Button size="icon" variant="outline" onClick={() => handleQuantityChange(-1)} aria-label="Diminuir quantidade" className="h-10 w-10 shrink-0">
+                    <Button size="icon" variant="outline" onClick={() => handleQuantityChange(-1)} aria-label="Diminuir quantidade" className="h-10 w-10 shrink-0" disabled={isFarmerDifferent}>
                         <Minus className="h-4 w-4" />
                     </Button>
                     <Input 
                         type="number" 
                         value={quantity} 
-                        onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+                        onChange={(e) => {
+                            if(handleActionAttempt()){
+                                setQuantity(Math.max(1, parseInt(e.target.value) || 1))
+                            }
+                        }}
+                        onFocus={(e) => {
+                            if(isFarmerDifferent) {
+                                setAlertOpen(true);
+                                e.target.blur();
+                            }
+                        }}
                         className="w-16 h-10 text-center font-bold text-base"
                         aria-label="Quantidade"
+                        disabled={isFarmerDifferent}
                     />
-                    <Button size="icon" variant="outline" onClick={() => handleQuantityChange(1)} aria-label="Aumentar quantidade" className="h-10 w-10 shrink-0">
+                    <Button size="icon" variant="outline" onClick={() => handleQuantityChange(1)} aria-label="Aumentar quantidade" className="h-10 w-10 shrink-0" disabled={isFarmerDifferent}>
                         <Plus className="h-4 w-4" />
                     </Button>
                 </div>
@@ -103,6 +120,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
                         <TooltipTrigger asChild>
                            <Button 
                                 onClick={handleAddToCartClick} 
+                                variant={isFarmerDifferent ? "secondary" : (isAdded ? "default" : "default")}
                                 className={cn(
                                     "w-full text-base font-semibold transition-colors duration-200",
                                     isAdded ? 'bg-accent hover:bg-accent/90' : 'bg-primary'
@@ -114,9 +132,8 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
                         </TooltipTrigger>
                         {isFarmerDifferent && (
                             <TooltipContent className="max-w-xs text-center p-2" side="top">
-                            <p className="flex items-center gap-2 font-semibold">
-                                <Info className="h-5 w-5 shrink-0 text-accent"/>
-                                <span>Seu pedido atual é com {currentFarmerInCartName}. Esvazie o carrinho para adicionar este item.</span>
+                            <p className="font-semibold">
+                                Seu pedido atual é com {currentFarmerInCartName}. Esvazie o carrinho para adicionar este item.
                             </p>
                             </TooltipContent>
                         )}
