@@ -237,7 +237,7 @@ function ProductsTabContent({ allProducts, onProductUpdate }: { allProducts: Pro
                                 <div className="flex w-full gap-2">
                                     <AlertDialog>
                                         <AlertDialogTrigger asChild>
-                                            <Button variant="destructive" className="w-full">
+                                            <Button variant="ghost" className="w-full text-destructive hover:bg-destructive hover:text-destructive-foreground">
                                                 <Trash2 className="h-4 w-4 mr-2" />
                                                 Excluir
                                             </Button>
