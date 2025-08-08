@@ -148,7 +148,7 @@ const Header = () => {
                 </SheetContent>
               </Sheet>
             </div>
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0 -ml-2">
             <Logo size="small" />
           </div>
         </div>
@@ -185,9 +185,9 @@ const Header = () => {
           {isUserLoaded && userType === 'customer' && (
             <Button variant="ghost" size="icon" asChild className="relative">
               <Link href="/cart">
-                <ShoppingCart className="h-6 w-6" strokeWidth={2.25} />
+                <ShoppingCart className="h-7 w-7" strokeWidth={2.5} />
                 {cartCount > 0 && (
-                  <span className="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-xs font-bold text-accent-foreground">
+                  <span className="absolute -top-0 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-accent text-sm font-bold text-accent-foreground">
                     {cartCount}
                   </span>
                 )}
