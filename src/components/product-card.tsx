@@ -115,10 +115,10 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
                            <Button 
                                 onClick={handleAddToCartClick} 
                                 className={cn(
-                                    "w-full text-base font-semibold transition-none active:bg-accent active:text-accent-foreground",
+                                    "w-full text-base font-semibold transition-none",
                                       isFarmerDifferent 
                                       ? "bg-muted-foreground text-primary-foreground hover:bg-muted-foreground/80 cursor-pointer"
-                                      : 'bg-primary hover:bg-primary/90'
+                                      : 'bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground active:bg-accent active:text-accent-foreground'
                                 )}
                             >
                                 <ShoppingCart className="h-4 w-4 mr-2" />
