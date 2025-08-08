@@ -8,7 +8,7 @@ import { OrderHistoryProvider } from '@/components/order-history-provider';
 import AppShell from '@/components/app-shell';
 
 export const metadata: Metadata = {
-  title: 'Mercado Verdante',
+  title: 'Minha Feira',
   description: 'Alimentos orgânicos de agricultores locais.',
 };
 
