@@ -4,14 +4,15 @@
 
 import { Suspense, useState, useMemo, useTransition } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { getOrders, getProducts, toggleProductPromotion, updateProduct } from "@/lib/data";
+import { getOrders, getProducts, toggleProductPromotion, updateProduct, deleteProduct } from "@/lib/data";
 import type { Order, Product } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
-import { Edit, PlusCircle, Trash2, ShoppingBag, User, DollarSign, Download, Share2, History, Search, Tag, CalendarIcon, Truck, Phone, Home, MapPin } from "lucide-react";
+import { Edit, PlusCircle, Trash2, ShoppingBag, User, DollarSign, Download, Share2, History, Search, Tag, CalendarIcon, Truck, Phone, Home, MapPin, AlertTriangle } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -169,6 +170,18 @@ function ProductsTabContent({ allProducts, onProductUpdate }: { allProducts: Pro
         });
     };
 
+    const handleDeleteProduct = (productId: string) => {
+        startTransition(() => {
+            deleteProduct(productId);
+            onProductUpdate();
+            toast({
+                variant: "destructive",
+                title: "Produto Excluído",
+                description: "O produto foi removido do seu inventário.",
+            });
+        });
+    };
+
     return (
         <Card>
             <CardHeader>
@@ -222,10 +235,35 @@ function ProductsTabContent({ allProducts, onProductUpdate }: { allProducts: Pro
                                     </Label>
                                 </div>
                                 <div className="flex w-full gap-2">
-                                    <Button variant="outline" className="w-full">
-                                        <Trash2 className="h-4 w-4 mr-2" />
-                                        Excluir
-                                    </Button>
+                                    <AlertDialog>
+                                        <AlertDialogTrigger asChild>
+                                            <Button variant="outline" className="w-full text-destructive hover:bg-destructive hover:text-destructive-foreground">
+                                                <Trash2 className="h-4 w-4 mr-2" />
+                                                Excluir
+                                            </Button>
+                                        </AlertDialogTrigger>
+                                        <AlertDialogContent>
+                                            <AlertDialogHeader>
+                                                <AlertDialogTitle className="flex items-center gap-2">
+                                                   <AlertTriangle className="text-destructive"/>
+                                                    Tem certeza que deseja excluir este produto?
+                                                </AlertDialogTitle>
+                                                <AlertDialogDescription>
+                                                    Esta ação não pode ser desfeita. Isso irá remover permanentemente o produto <span className="font-bold">"{product.name}"</span> do seu inventário.
+                                                </AlertDialogDescription>
+                                            </AlertDialogHeader>
+                                            <AlertDialogFooter>
+                                                <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                                                <AlertDialogAction 
+                                                    onClick={() => handleDeleteProduct(product.id)}
+                                                    className="bg-destructive hover:bg-destructive/90 text-destructive-foreground"
+                                                >
+                                                    Sim, Excluir
+                                                </AlertDialogAction>
+                                            </AlertDialogFooter>
+                                        </AlertDialogContent>
+                                    </AlertDialog>
+                                    
                                     <EditProductForm product={product} onSaveChanges={onProductUpdate} />
                                 </div>
                             </CardFooter>
