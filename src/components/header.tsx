@@ -135,86 +135,87 @@ const Header = () => {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8 gap-4">
         
+        {/* Left Section: Mobile Menu & Logo */}
         <div className="flex items-center gap-2 shrink-0">
-            <div className="lg:hidden">
-                <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
-                <SheetTrigger asChild>
-                    <Button variant="ghost" size="icon">
-                    <Menu className="h-8 w-8" />
-                    </Button>
-                </SheetTrigger>
-                <SheetContent side="left" className="p-0 flex flex-col w-[300px] sm:w-[350px]">
-                    <div className="p-4 border-b">
-                    <Logo isClickable={false} />
+          <div className="lg:hidden">
+            <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <Menu className="h-8 w-8" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="left" className="p-0 flex flex-col w-[300px] sm:w-[350px]">
+                <div className="p-4 border-b">
+                  <Logo isClickable={false} />
+                </div>
+                <div className="flex flex-col flex-grow p-4">
+                  <div className="flex-grow">{renderMobileMenu()}</div>
+                  {isUserLoaded && user && (
+                    <div className="mt-auto">
+                      <Separator className="my-4" />
+                      <Button variant="outline" className="w-full justify-start" onClick={handleLogout}>
+                        <LogOut className="h-4 w-4 mr-2"/>
+                        Sair
+                      </Button>
                     </div>
-                    <div className="flex flex-col flex-grow p-4">
-                        <div className="flex-grow">
-                            {renderMobileMenu()}
-                        </div>
-                        {isUserLoaded && user && (
-                        <div className="mt-auto">
-                            <Separator className="my-4" />
-                            <Button variant="outline" className="w-full justify-start" onClick={handleLogout}>
-                                <LogOut className="h-4 w-4 mr-2"/>
-                                Sair
-                            </Button>
-                        </div>
-                        )}
-                    </div>
-                </SheetContent>
-                </Sheet>
-            </div>
-            <div className="shrink-0">
-              <Logo size="small" />
-            </div>
+                  )}
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
+          <div className="shrink-0">
+            <Logo size="small" />
+          </div>
         </div>
         
+        {/* Center Section: Desktop Navigation & Search */}
         <nav className="hidden lg:flex flex-1 justify-center items-center gap-4">
-             {isUserLoaded && (
-              <>
-                {links.map(link => (
-                  <Button key={link.href} asChild variant="ghost" className="text-base hover:bg-accent hover:text-accent-foreground">
-                    <Link href={link.href}>{link.label}</Link>
-                  </Button>
-                ))}
-              </>
-            )}
-             {isCatalogPage && (
-                <div className="relative w-full max-w-xs ml-4">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                    <Input
-                        type="search"
-                        placeholder="Buscar produtos..."
-                        className="pl-10"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                    />
-                </div>
-            )}
+          {isUserLoaded && (
+            <>
+              {links.map(link => (
+                <Button key={link.href} asChild variant="ghost" className="text-base hover:bg-accent hover:text-accent-foreground">
+                  <Link href={link.href}>{link.label}</Link>
+                </Button>
+              ))}
+            </>
+          )}
+          {isCatalogPage && (
+            <div className="relative w-full max-w-xs ml-4">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+              <Input
+                type="search"
+                placeholder="Buscar produtos..."
+                className="pl-10"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+          )}
         </nav>
         
-         <div className="flex items-center gap-2">
-            {isUserLoaded && userType === 'customer' && (
-              <Button variant="ghost" size="icon" asChild className="relative">
-                <Link href="/cart">
-                  <ShoppingCart className="h-6 w-6" strokeWidth={2.25} />
-                  {cartCount > 0 && (
-                    <span className="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-xs font-bold text-accent-foreground">
-                      {cartCount}
-                    </span>
-                  )}
-                  <span className="sr-only">Carrinho de Compras</span>
-                </Link>
-              </Button>
-            )}
+        {/* Right Section: Actions */}
+        <div className="flex items-center gap-2">
+          {isUserLoaded && userType === 'customer' && (
+            <Button variant="ghost" size="icon" asChild className="relative">
+              <Link href="/cart">
+                <ShoppingCart className="h-6 w-6" strokeWidth={2.25} />
+                {cartCount > 0 && (
+                  <span className="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-xs font-bold text-accent-foreground">
+                    {cartCount}
+                  </span>
+                )}
+                <span className="sr-only">Carrinho de Compras</span>
+              </Link>
+            </Button>
+          )}
 
-            {isUserLoaded && user && (
-              <div className="hidden lg:flex">
-                <Button variant="outline" size="sm" onClick={handleLogout}>
-                    Sair
-                </Button>
-              </div>
-            )}
+          {isUserLoaded && user && (
+            <div className="hidden lg:flex">
+              <Button variant="outline" size="sm" onClick={handleLogout}>
+                Sair
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </header>
