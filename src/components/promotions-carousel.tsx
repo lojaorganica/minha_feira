@@ -15,7 +15,7 @@ import Link from 'next/link';
 export default function PromotionsCarousel() {
     const [promotions, setPromotions] = useState<(Product & { farmerName: string })[]>([]);
     const plugin = useRef(
-      Autoplay({ delay: 4000, stopOnInteraction: false, stopOnMouseEnter: true })
+      Autoplay({ delay: 6000, stopOnInteraction: false, stopOnMouseEnter: true })
     )
 
     useEffect(() => {
