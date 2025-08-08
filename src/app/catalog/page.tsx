@@ -13,7 +13,7 @@ export default function CatalogPage() {
             <h1 className="text-3xl font-bold font-headline text-primary tracking-tight sm:text-4xl">
                 Catálogo de Produtos
             </h1>
-            <p className="mt-2 text-base font-semibold text-foreground/90 max-w-3xl">Explore todos os alimentos frescos e orgânicos disponíveis em nossa rede de agricultores.</p>
+            <p className="mt-2 text-base font-medium text-foreground/90 max-w-3xl">Explore todos os alimentos orgânicos de nossa rede de agricultores e fornecedores. Você também pode filtrar e visualizar os produtos por agricultor ou fornecedor. Lembre-se: suas compras devem ser feitas com apenas um agricultor/fornecedor por vez, pois o pagamento via PIX é individual para cada um.</p>
         </div>
         <ProductBrowser />
     </div>
