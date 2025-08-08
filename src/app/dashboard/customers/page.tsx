@@ -19,11 +19,12 @@ const classificationConfig: Record<CustomerClassification, {
     icon: React.ElementType;
     color: string;
     bgColor: string;
+    iconColor: string;
 }> = {
-    bronze: { label: 'Bronze', icon: Shield, color: 'text-white', bgColor: 'bg-orange-700' },
-    prata: { label: 'Prata', icon: Medal, color: 'text-white', bgColor: 'bg-slate-500' },
-    ouro: { label: 'Ouro', icon: Award, color: 'text-white', bgColor: 'bg-amber-500' },
-    diamante: { label: 'Diamante', icon: Gem, color: 'text-white', bgColor: 'bg-blue-600' },
+    bronze: { label: 'Bronze', icon: Shield, color: 'text-white', bgColor: 'bg-orange-700', iconColor: 'text-orange-700' },
+    prata: { label: 'Prata', icon: Medal, color: 'text-white', bgColor: 'bg-slate-500', iconColor: 'text-slate-500' },
+    ouro: { label: 'Ouro', icon: Award, color: 'text-white', bgColor: 'bg-amber-500', iconColor: 'text-amber-500' },
+    diamante: { label: 'Diamante', icon: Gem, color: 'text-white', bgColor: 'bg-blue-600', iconColor: 'text-blue-600' },
 };
 
 
@@ -117,11 +118,11 @@ export default function MyCustomersPage() {
                                     </SelectTrigger>
                                     <SelectContent>
                                         {(Object.keys(classificationConfig) as CustomerClassification[]).map((key) => {
-                                            const { label, icon: Icon } = classificationConfig[key];
+                                            const { label, icon: Icon, iconColor } = classificationConfig[key];
                                             return (
                                                 <SelectItem key={key} value={key} className="font-bold text-base">
                                                     <div className="flex items-center gap-2">
-                                                        <Icon className="h-4 w-4" />
+                                                        <Icon className={cn("h-4 w-4", iconColor)} />
                                                         <span>{label}</span>
                                                     </div>
                                                 </SelectItem>
