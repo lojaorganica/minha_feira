@@ -81,7 +81,7 @@ export default function StatisticsPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mb-8">
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-base font-medium">Receita Total</CardTitle>
+                        <CardTitle className="text-lg font-bold">Receita Total</CardTitle>
                         <DollarSign className="h-5 w-5 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
@@ -92,7 +92,7 @@ export default function StatisticsPage() {
                  <Card>
                     <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-2">
                          <div className="space-y-1">
-                            <CardTitle className="text-base font-medium">Receita Mensal</CardTitle>
+                            <CardTitle className="text-lg font-bold">Receita Mensal</CardTitle>
                              <p className="text-xs font-bold text-accent capitalize">{stats.currentMonthName}</p>
                          </div>
                         <CalendarDays className="h-5 w-5 text-muted-foreground" />
@@ -104,7 +104,7 @@ export default function StatisticsPage() {
                 </Card>
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-base font-medium">Ticket Médio</CardTitle>
+                        <CardTitle className="text-lg font-bold">Ticket Médio</CardTitle>
                         <TrendingUp className="h-5 w-5 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
@@ -114,7 +114,7 @@ export default function StatisticsPage() {
                 </Card>
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-base font-medium">Clientes Únicos</CardTitle>
+                        <CardTitle className="text-lg font-bold">Clientes Únicos</CardTitle>
                         <Users className="h-5 w-5 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
@@ -124,7 +124,7 @@ export default function StatisticsPage() {
                 </Card>
                  <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-base font-medium">Produtos mais vendidos</CardTitle>
+                        <CardTitle className="text-lg font-bold">Produtos mais vendidos</CardTitle>
                         <Package className="h-5 w-5 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
