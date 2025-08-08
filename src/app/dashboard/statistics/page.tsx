@@ -86,7 +86,7 @@ export default function StatisticsPage() {
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">R$ {stats.totalRevenue.toFixed(2).replace('.', ',')}</div>
-                        <p className="text-xs text-muted-foreground">de {stats.totalOrders} pedidos</p>
+                        <p className="text-sm text-muted-foreground">de {stats.totalOrders} pedidos</p>
                     </CardContent>
                 </Card>
                  <Card>
@@ -99,7 +99,7 @@ export default function StatisticsPage() {
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">R$ {stats.currentMonthRevenue.toFixed(2).replace('.', ',')}</div>
-                        <p className="text-xs text-muted-foreground">no mês atual</p>
+                        <p className="text-sm text-muted-foreground">no mês atual</p>
                     </CardContent>
                 </Card>
                 <Card>
@@ -109,7 +109,7 @@ export default function StatisticsPage() {
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">R$ {stats.averageTicket.toFixed(2).replace('.', ',')}</div>
-                        <p className="text-xs text-muted-foreground">por pedido</p>
+                        <p className="text-sm text-muted-foreground">por pedido</p>
                     </CardContent>
                 </Card>
                 <Card>
@@ -119,7 +119,7 @@ export default function StatisticsPage() {
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">{stats.uniqueCustomers}</div>
-                        <p className="text-xs text-muted-foreground">que compraram de você</p>
+                        <p className="text-sm text-muted-foreground">que compraram de você</p>
                     </CardContent>
                 </Card>
                  <Card>
@@ -129,7 +129,7 @@ export default function StatisticsPage() {
                     </CardHeader>
                     <CardContent>
                         {stats.topSellingProducts.length > 0 ? (
-                           <ol className="text-sm list-decimal list-inside text-muted-foreground space-y-1">
+                           <ol className="text-base list-decimal list-inside text-muted-foreground space-y-1">
                              {stats.topSellingProducts.slice(0, 2).map(p => <li key={p.name}><span className="font-semibold text-foreground">{p.name}</span> ({p.quantity} un)</li>)}
                            </ol>
                         ) : (
@@ -199,5 +199,3 @@ export default function StatisticsPage() {
         </div>
     );
 }
-
-    
