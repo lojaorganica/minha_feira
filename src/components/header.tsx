@@ -20,7 +20,6 @@ import { Input } from "./ui/input";
 import { useUser } from "@/hooks/use-user";
 import { Loader2 } from "lucide-react";
 import type { Farmer } from "@/lib/types";
-import { cn } from "@/lib/utils";
 
 const customerMenuLinks = [
     { href: "/catalog", label: "Catálogo", icon: BookOpen },
@@ -123,43 +122,41 @@ const Header = () => {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8 gap-4">
         
-        {/* Left Side: Logo and Mobile Menu Trigger */}
         <div className="flex items-center gap-2 flex-shrink-0">
-          <div className="lg:hidden">
-            <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  <Menu className="h-8 w-8" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="left" className="p-0 flex flex-col w-[300px] sm:w-[350px]">
-                <div className="p-4 border-b">
-                  <Logo isClickable={false} />
-                </div>
-                <div className="flex flex-col flex-grow p-4">
-                  <div className="flex-grow">{renderMobileMenu()}</div>
-                  {isUserLoaded && user && (
-                    <div className="mt-auto">
-                      <Separator className="my-4" />
-                      <Button variant="outline" className="w-full justify-start" onClick={handleLogout}>
-                        <LogOut className="h-4 w-4 mr-2"/>
-                        Sair
-                      </Button>
-                    </div>
-                  )}
-                </div>
-              </SheetContent>
-            </Sheet>
-          </div>
+            <div className="lg:hidden">
+              <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <Menu className="h-8 w-8" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="left" className="p-0 flex flex-col w-[300px] sm:w-[350px]">
+                  <div className="p-4 border-b">
+                    <Logo isClickable={false} />
+                  </div>
+                  <div className="flex flex-col flex-grow p-4">
+                    <div className="flex-grow">{renderMobileMenu()}</div>
+                    {isUserLoaded && user && (
+                      <div className="mt-auto">
+                        <Separator className="my-4" />
+                        <Button variant="outline" className="w-full justify-start" onClick={handleLogout}>
+                          <LogOut className="h-4 w-4 mr-2"/>
+                          Sair
+                        </Button>
+                      </div>
+                    )}
+                  </div>
+                </SheetContent>
+              </Sheet>
+            </div>
           <div className="flex-shrink-0">
             <Logo size="small" />
           </div>
         </div>
         
-        {/* Center Nav (Desktop) */}
         <nav className="hidden lg:flex flex-1 justify-center items-center gap-4">
            {isUserLoaded && links.map(link => (
-            <Button key={link.href} asChild variant="ghost" className="text-base font-bold text-primary-foreground/90 bg-primary/0 hover:bg-accent hover:text-accent-foreground transition-none">
+            <Button key={link.href} asChild variant="ghost" className="text-base font-bold text-primary hover:bg-accent hover:text-accent-foreground transition-none">
               <Link href={link.href}>{link.label}</Link>
             </Button>
           ))}
@@ -177,7 +174,6 @@ const Header = () => {
           )}
         </nav>
         
-        {/* Right Side */}
         <div className="flex items-center gap-2">
            <Link href="/profile" className="hidden lg:flex">
                 <Button variant="ghost" size="icon" aria-label="Meu Perfil">
