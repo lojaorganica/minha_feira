@@ -273,6 +273,14 @@ function ProductsTabContent({ allProducts, onProductUpdate }: { allProducts: Pro
                                             </Button>
                                         </AlertDialogTrigger>
                                         <AlertDialogContent>
+                                             <AlertDialogCancel asChild>
+                                                 <button
+                                                    className="absolute top-2 right-2 p-1 rounded-full bg-accent text-accent-foreground hover:bg-accent/90 transition-opacity"
+                                                >
+                                                    <X className="h-4 w-4" />
+                                                    <span className="sr-only">Fechar</span>
+                                                </button>
+                                            </AlertDialogCancel>
                                             <AlertDialogHeader>
                                                 <AlertDialogTitle className="flex items-center gap-2 text-xl">
                                                    <AlertTriangle className="text-destructive"/>
@@ -291,14 +299,6 @@ function ProductsTabContent({ allProducts, onProductUpdate }: { allProducts: Pro
                                                     Sim, Excluir
                                                 </AlertDialogAction>
                                             </AlertDialogFooter>
-                                            <AlertDialogCancel asChild>
-                                                 <button
-                                                    className="absolute top-2 right-2 p-1 rounded-full text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-opacity"
-                                                >
-                                                    <X className="h-5 w-5" />
-                                                    <span className="sr-only">Fechar</span>
-                                                </button>
-                                            </AlertDialogCancel>
                                         </AlertDialogContent>
                                     </AlertDialog>
                                     
