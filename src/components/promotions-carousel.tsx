@@ -31,14 +31,14 @@ export default function PromotionsCarousel() {
     }
 
     return (
-        <div className="w-full">
+        <div className="w-full max-w-xs sm:max-w-xl md:max-w-3xl lg:max-w-5xl xl:max-w-6xl mx-auto relative">
                 <Carousel
                     plugins={[plugin.current]}
                     opts={{
                         align: "start",
                         loop: true,
                     }}
-                    className="w-full max-w-xs sm:max-w-xl md:max-w-3xl lg:max-w-5xl xl:max-w-6xl mx-auto"
+                    className="w-full"
                 >
                     <CarouselContent className="-ml-4">
                         {promotions.map((product) => (
@@ -75,8 +75,8 @@ export default function PromotionsCarousel() {
                             </CarouselItem>
                         ))}
                     </CarouselContent>
-                    <CarouselPrevious className="absolute left-[-50px] top-1/2 -translate-y-1/2 hidden h-10 w-10 items-center justify-center rounded-full bg-accent text-accent-foreground transition-opacity hover:bg-accent/90 disabled:opacity-50 sm:flex" />
-                    <CarouselNext className="absolute right-[-50px] top-1/2 -translate-y-1/2 hidden h-10 w-10 items-center justify-center rounded-full bg-accent text-accent-foreground transition-opacity hover:bg-accent/90 disabled:opacity-50 sm:flex" />
+                    <CarouselPrevious className="absolute left-[-20px] top-1/2 -translate-y-1/2 hidden h-10 w-10 items-center justify-center rounded-full bg-accent text-accent-foreground transition-opacity hover:bg-accent/90 disabled:opacity-50 sm:flex" />
+                    <CarouselNext className="absolute right-[-20px] top-1/2 -translate-y-1/2 hidden h-10 w-10 items-center justify-center rounded-full bg-accent text-accent-foreground transition-opacity hover:bg-accent/90 disabled:opacity-50 sm:flex" />
                 </Carousel>
         </div>
     );
