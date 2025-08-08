@@ -69,7 +69,7 @@ export function getFarmerStatistics(farmerId: string) {
     const monthlySales = monthOrder.map(month => ({
         month: month.charAt(0).toUpperCase() + month.slice(1),
         sales: monthlySalesData[month] || 0,
-    })).filter(m => m.sales > 0);
+    }));
 
     // 7. Vendas por Categoria
     const salesByCategoryData: { [key: string]: number } = { 'Vegetal': 0, 'Fruta': 0, 'Laticínio': 0, 'Padaria': 0 };
