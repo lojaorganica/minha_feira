@@ -20,6 +20,7 @@ import { Input } from "./ui/input";
 import { useUser } from "@/hooks/use-user";
 import { Loader2 } from "lucide-react";
 import type { Farmer } from "@/lib/types";
+import { cn } from "@/lib/utils";
 
 const customerMenuLinks = [
     { href: "/catalog", label: "Catálogo", icon: BookOpen },
@@ -48,8 +49,6 @@ const Header = () => {
     router.push('/welcome');
   };
 
-  const isCatalogPage = pathname === '/catalog';
-  
   let links: { href: string; label: string; icon: React.ElementType; }[] = [];
   if (userType === 'customer') {
     links = customerMenuLinks;
@@ -60,6 +59,8 @@ const Header = () => {
   const mobileMenuLinks = userType === 'customer' 
     ? [...links, { href: "/cart", label: "Meu Carrinho", icon: ShoppingCart }] 
     : links;
+
+  const isCatalogPage = pathname === '/catalog';
 
 
   const renderMobileMenu = () => {
@@ -157,8 +158,8 @@ const Header = () => {
         
         {/* Center Nav (Desktop) */}
         <nav className="hidden lg:flex flex-1 justify-center items-center gap-4">
-          {isUserLoaded && links.map(link => (
-            <Button key={link.href} asChild variant="ghost" className="text-base hover:bg-accent hover:text-accent-foreground">
+           {isUserLoaded && links.map(link => (
+            <Button key={link.href} asChild variant="ghost" className="text-base font-bold text-primary-foreground/90 bg-primary/0 hover:bg-accent hover:text-accent-foreground transition-none">
               <Link href={link.href}>{link.label}</Link>
             </Button>
           ))}
