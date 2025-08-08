@@ -75,8 +75,8 @@ export default function PromotionsCarousel() {
                             </CarouselItem>
                         ))}
                     </CarouselContent>
-                    <CarouselPrevious className="absolute left-[-50px] top-1/2 -translate-y-1/2 h-10 w-10 items-center justify-center rounded-full bg-accent text-accent-foreground transition-opacity hover:bg-accent/90 disabled:opacity-50 flex" />
-                    <CarouselNext className="absolute right-[-50px] top-1/2 -translate-y-1/2 h-10 w-10 items-center justify-center rounded-full bg-accent text-accent-foreground transition-opacity hover:bg-accent/90 disabled:opacity-50 flex" />
+                    <CarouselPrevious className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full bg-accent text-accent-foreground transition-opacity hover:bg-accent/90 disabled:opacity-50 flex items-center justify-center" />
+                    <CarouselNext className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full bg-accent text-accent-foreground transition-opacity hover:bg-accent/90 disabled:opacity-50 flex items-center justify-center" />
                 </Carousel>
         </div>
     );

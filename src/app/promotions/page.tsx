@@ -15,7 +15,7 @@ export default function PromotionsPage() {
         </h1>
         <p className="mt-2 text-lg font-semibold text-foreground/90">Aproveite as ofertas especiais dos nossos agricultores.</p>
       </div>
-      <Separator className="my-6" />
+      <Separator className="my-4" />
       <PromotionsCarousel />
     </div>
   );
