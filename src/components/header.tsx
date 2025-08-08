@@ -37,7 +37,6 @@ const farmerMenuLinks = [
 
 const Header = () => {
   const { cartCount } = useCart();
-  const [isSheetOpen, setSheetOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
   const { searchTerm, setSearchTerm } = useSearch();
@@ -45,7 +44,6 @@ const Header = () => {
   
   const handleLogout = () => {
     logout();
-    setSheetOpen(false);
     router.push('/welcome');
   };
 
@@ -93,15 +91,18 @@ const Header = () => {
                     <Link
                         key={link.href}
                         href={link.href}
-                        onClick={() => setSheetOpen(false)}
-                        asChild
+                        legacyBehavior
+                        passHref
                     >
                     <Button
+                        asChild
                         variant="ghost"
                         className="w-full justify-start text-lg hover:bg-accent hover:text-accent-foreground"
                     >
-                        <link.icon className="h-4 w-4 mr-2" />
-                        {link.label}
+                        <a>
+                            <link.icon className="h-4 w-4 mr-2" />
+                            {link.label}
+                        </a>
                     </Button>
                     </Link>
                 ))}
@@ -120,7 +121,7 @@ const Header = () => {
         {/* Left Section */}
         <div className="flex items-center gap-2 lg:w-1/4 lg:flex-shrink-0">
             <div className="lg:hidden">
-              <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
+              <Sheet>
                 <SheetTrigger asChild>
                   <Button variant="ghost" size="icon">
                     <Menu className="h-8 w-8" />
