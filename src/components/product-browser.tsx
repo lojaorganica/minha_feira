@@ -19,13 +19,12 @@ function FarmerFilter({
   onSelectFarmer: (id: string | null) => void;
 }) {
   return (
-    <div className="mb-8">
+    <div className="mb-6">
       <div className="flex flex-wrap gap-2">
         <Button
           size="sm"
           onClick={() => onSelectFarmer(null)}
           className={cn(
-            "text-base",
             selectedFarmerId === null
               ? "bg-accent text-accent-foreground hover:bg-accent/90"
               : "bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground"
@@ -39,7 +38,6 @@ function FarmerFilter({
             size="sm"
             onClick={() => onSelectFarmer(farmer.id)}
             className={cn(
-            "text-base",
               selectedFarmerId === farmer.id
                 ? "bg-accent text-accent-foreground hover:bg-accent/90"
                 : "bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground"
@@ -102,7 +100,7 @@ export default function ProductBrowser() {
   }
 
   return (
-    <div className="py-6 md:py-8">
+    <div>
       <FarmerFilter 
         farmers={allFarmers}
         selectedFarmerId={selectedFarmerId}
