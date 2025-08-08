@@ -158,6 +158,7 @@ export default function StatisticsPage() {
                                     axisLine={false}
                                     tickFormatter={(value) => value.slice(0, 3)}
                                     tick={{ fill: 'hsl(var(--chart-2))', fontWeight: 'bold' }}
+                                    interval={0}
                                 />
                                 <ChartTooltip content={<ChartTooltipContent />} />
                                 <Bar dataKey="sales" fill="var(--color-sales)" radius={4} />
