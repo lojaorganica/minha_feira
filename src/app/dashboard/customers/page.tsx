@@ -20,11 +20,12 @@ const classificationConfig: Record<CustomerClassification, {
     color: string;
     bgColor: string;
     iconColor: string;
+    hoverClass: string;
 }> = {
-    bronze: { label: 'Bronze', icon: Shield, color: 'text-white', bgColor: 'bg-orange-700', iconColor: 'text-orange-700' },
-    prata: { label: 'Prata', icon: Medal, color: 'text-white', bgColor: 'bg-slate-500', iconColor: 'text-slate-500' },
-    ouro: { label: 'Ouro', icon: Award, color: 'text-white', bgColor: 'bg-amber-500', iconColor: 'text-amber-500' },
-    diamante: { label: 'Diamante', icon: Gem, color: 'text-white', bgColor: 'bg-blue-600', iconColor: 'text-blue-600' },
+    bronze: { label: 'Bronze', icon: Shield, color: 'text-white', bgColor: 'bg-orange-700', iconColor: 'text-orange-700', hoverClass: 'select-item-bronze' },
+    prata: { label: 'Prata', icon: Medal, color: 'text-white', bgColor: 'bg-slate-500', iconColor: 'text-slate-500', hoverClass: 'select-item-prata' },
+    ouro: { label: 'Ouro', icon: Award, color: 'text-white', bgColor: 'bg-amber-500', iconColor: 'text-amber-500', hoverClass: 'select-item-ouro' },
+    diamante: { label: 'Diamante', icon: Gem, color: 'text-white', bgColor: 'bg-blue-600', iconColor: 'text-blue-600', hoverClass: 'select-item-diamante' },
 };
 
 
@@ -118,9 +119,9 @@ export default function MyCustomersPage() {
                                     </SelectTrigger>
                                     <SelectContent>
                                         {(Object.keys(classificationConfig) as CustomerClassification[]).map((key) => {
-                                            const { label, icon: Icon, iconColor } = classificationConfig[key];
+                                            const { label, icon: Icon, iconColor, hoverClass } = classificationConfig[key];
                                             return (
-                                                <SelectItem key={key} value={key} className="font-bold text-base">
+                                                <SelectItem key={key} value={key} className={cn("font-bold text-base", hoverClass)}>
                                                     <div className="flex items-center gap-2">
                                                         <Icon className={cn("h-4 w-4", iconColor)} />
                                                         <span>{label}</span>

@@ -80,4 +80,16 @@
     -webkit-appearance: none;
     margin: 0;
   }
+   .select-item-bronze[data-highlighted] {
+    @apply bg-orange-700 text-white;
+  }
+  .select-item-prata[data-highlighted] {
+    @apply bg-slate-500 text-white;
+  }
+  .select-item-ouro[data-highlighted] {
+    @apply bg-amber-500 text-white;
+  }
+  .select-item-diamante[data-highlighted] {
+    @apply bg-blue-600 text-white;
+  }
 }
