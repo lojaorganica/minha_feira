@@ -122,7 +122,7 @@ const Header = () => {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8 gap-4">
         
-        {/* Left Side */}
+        {/* Left Side: Logo and Mobile Menu Trigger */}
         <div className="flex items-center gap-2 flex-shrink-0">
           <div className="lg:hidden">
             <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
@@ -157,16 +157,12 @@ const Header = () => {
         
         {/* Center Nav (Desktop) */}
         <nav className="hidden lg:flex flex-1 justify-center items-center gap-4">
-          {isUserLoaded && (
-            <>
-              {links.map(link => (
-                <Button key={link.href} asChild variant="ghost" className="text-base hover:bg-accent hover:text-accent-foreground">
-                  <Link href={link.href}>{link.label}</Link>
-                </Button>
-              ))}
-            </>
-          )}
-          {isCatalogPage && (
+          {isUserLoaded && links.map(link => (
+            <Button key={link.href} asChild variant="ghost" className="text-base hover:bg-accent hover:text-accent-foreground">
+              <Link href={link.href}>{link.label}</Link>
+            </Button>
+          ))}
+           {isCatalogPage && (
             <div className="relative w-full max-w-xs ml-4">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
               <Input
