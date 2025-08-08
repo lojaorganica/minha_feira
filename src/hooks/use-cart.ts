@@ -30,7 +30,7 @@ export function useCartState() {
 
   useEffect(() => {
     try {
-      const storedCart = localStorage.getItem("verdant_market_cart");
+      const storedCart = localStorage.getItem("minha_feira_cart");
       if (storedCart) {
         setCartItems(JSON.parse(storedCart));
       }
@@ -44,7 +44,7 @@ export function useCartState() {
   useEffect(() => {
     if (isCartLoaded) {
       try {
-        localStorage.setItem("verdant_market_cart", JSON.stringify(cartItems));
+        localStorage.setItem("minha_feira_cart", JSON.stringify(cartItems));
       } catch (error) {
         console.error("Falha ao salvar o carrinho no localStorage", error);
       }

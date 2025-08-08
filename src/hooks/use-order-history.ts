@@ -18,7 +18,7 @@ export function useOrderHistoryState() {
 
   useEffect(() => {
     try {
-      const storedOrders = localStorage.getItem("verdant_market_order_history");
+      const storedOrders = localStorage.getItem("minha_feira_order_history");
       if (storedOrders) {
         // Ordena do mais recente para o mais antigo ao carregar
         const parsedOrders = JSON.parse(storedOrders);
@@ -34,7 +34,7 @@ export function useOrderHistoryState() {
   useEffect(() => {
     if (isLoaded) {
       try {
-        localStorage.setItem("verdant_market_order_history", JSON.stringify(orders));
+        localStorage.setItem("minha_feira_order_history", JSON.stringify(orders));
       } catch (error) {
         console.error("Falha ao salvar o histórico de pedidos no localStorage", error);
       }

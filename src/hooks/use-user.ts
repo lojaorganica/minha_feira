@@ -6,8 +6,8 @@ import type { Customer, Farmer } from "@/lib/types";
 import { getCustomerById, getFarmerById, addFarmer as saveFarmer, updateFarmer as persistFarmer, updateCustomer as persistCustomer } from "@/lib/data";
 import { CartContext } from "./use-cart";
 
-const USER_STORAGE_KEY = "verdant_market_user";
-const USER_TYPE_STORAGE_KEY = "verdant_market_user_type";
+const USER_STORAGE_KEY = "minha_feira_user";
+const USER_TYPE_STORAGE_KEY = "minha_feira_user_type";
 
 const getInitialUserState = (): { user: Customer | Farmer | null; userType: 'customer' | 'farmer' | null } => {
     if (typeof window === 'undefined') {
