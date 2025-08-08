@@ -69,4 +69,6 @@ export interface Customer {
   phone: string;
   image: string;
   classification?: CustomerClassification;
+  cep?: string;
 }
+

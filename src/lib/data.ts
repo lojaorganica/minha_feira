@@ -278,7 +278,8 @@ let customers: Customer[] = [
         address: 'Rua de Exemplo, 123, Bairro, Rio de Janeiro, RJ',
         phone: '21912345678',
         image: 'https://placehold.co/100x100.png',
-        classification: 'ouro'
+        classification: 'ouro',
+        cep: '22221-010'
     },
     {
         id: 'cust-alice',

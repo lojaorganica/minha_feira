@@ -150,6 +150,10 @@ export default function ProfileForm() {
                             <Label htmlFor="address">Endereço de Entrega</Label>
                             <Input id="address" value={customerData.address || ''} onChange={handleInputChange} />
                         </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="cep">CEP</Label>
+                            <Input id="cep" value={customerData.cep || ''} onChange={handleInputChange} placeholder="Ex: 22221-010" />
+                        </div>
                     </CardContent>
                     <CardFooter>
                         <Button type="submit">Salvar Alterações</Button>
