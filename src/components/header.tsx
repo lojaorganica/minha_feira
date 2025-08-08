@@ -36,7 +36,6 @@ const farmerMenuLinks = [
     { href: "/dashboard/customers", label: "Meus Clientes", icon: Users },
 ];
 
-
 const Header = () => {
   const { cartCount } = useCart();
   const [isSheetOpen, setSheetOpen] = useState(false);
@@ -50,7 +49,7 @@ const Header = () => {
     setSheetOpen(false);
     router.push('/welcome');
   };
-
+  
   let links = [];
   if (userType === 'customer') {
     links = customerMenuLinks;
@@ -135,7 +134,6 @@ const Header = () => {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8 gap-4">
         
-        {/* Left Section: Mobile Menu & Logo */}
         <div className="flex items-center gap-2 shrink-0">
           <div className="lg:hidden">
             <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
@@ -168,7 +166,6 @@ const Header = () => {
           </div>
         </div>
         
-        {/* Center Section: Desktop Navigation & Search */}
         <nav className="hidden lg:flex flex-1 justify-center items-center gap-4">
           {isUserLoaded && (
             <>
@@ -193,7 +190,6 @@ const Header = () => {
           )}
         </nav>
         
-        {/* Right Section: Actions */}
         <div className="flex items-center gap-2">
           {isUserLoaded && userType === 'customer' && (
             <Button variant="ghost" size="icon" asChild className="relative">
@@ -209,13 +205,13 @@ const Header = () => {
             </Button>
           )}
 
-          {isUserLoaded && user && (
-            <div className="hidden lg:flex">
-              <Button variant="outline" size="sm" onClick={handleLogout}>
-                Sair
-              </Button>
-            </div>
-          )}
+          <div className="hidden lg:flex">
+            {isUserLoaded && user && (
+                <Button variant="outline" size="sm" onClick={handleLogout}>
+                    Sair
+                </Button>
+            )}
+          </div>
         </div>
       </div>
     </header>
