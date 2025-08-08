@@ -118,7 +118,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
                                     "w-full text-base font-semibold",
                                       isFarmerDifferent 
                                       ? "bg-muted-foreground text-primary-foreground hover:bg-muted-foreground/80 cursor-pointer"
-                                      : 'bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground active:bg-accent active:text-accent-foreground focus-visible:ring-0'
+                                      : 'bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground active:bg-accent focus:bg-primary'
                                 )}
                             >
                                 <ShoppingCart className="h-4 w-4 mr-2" />
