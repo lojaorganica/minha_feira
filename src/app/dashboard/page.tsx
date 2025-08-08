@@ -222,7 +222,7 @@ function ProductsTabContent({ allProducts, onProductUpdate }: { allProducts: Pro
                                     data-ai-hint={product.dataAiHint} 
                                 />
                                 {product.promotion?.isActive && (
-                                    <Badge className="absolute top-2 right-2 bg-accent text-accent-foreground">
+                                    <Badge className="absolute top-2 right-2 bg-accent text-accent-foreground hover:bg-accent">
                                         <Tag className="h-3 w-3 mr-1"/>
                                         Promoção
                                     </Badge>
@@ -273,6 +273,10 @@ function ProductsTabContent({ allProducts, onProductUpdate }: { allProducts: Pro
                                             </Button>
                                         </AlertDialogTrigger>
                                         <AlertDialogContent>
+                                            <AlertDialogCancel className="absolute top-2 right-2 p-1 rounded-full bg-accent text-accent-foreground hover:bg-accent/90 transition-opacity h-auto">
+                                                <X className="h-4 w-4" />
+                                                <span className="sr-only">Fechar</span>
+                                            </AlertDialogCancel>
                                             <AlertDialogHeader>
                                                 <AlertDialogTitle className="flex items-center gap-2 text-xl">
                                                    <AlertTriangle className="text-destructive"/>
