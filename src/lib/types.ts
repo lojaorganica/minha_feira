@@ -1,4 +1,6 @@
 
+export type CustomerClassification = 'bronze' | 'prata' | 'ouro' | 'diamante';
+
 export interface Product {
   id: string;
   name: string;
@@ -66,4 +68,5 @@ export interface Customer {
   address: string;
   phone: string;
   image: string;
+  classification?: CustomerClassification;
 }

@@ -1,67 +1,75 @@
 
 'use client';
 
-import { useMemo } from 'react';
-import { getOrders, getCustomers } from '@/lib/data';
-import type { Order, Customer } from '@/lib/types';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useState, useMemo } from 'react';
+import { getOrders, getCustomers, updateCustomerClassification } from '@/lib/data';
+import type { Order, Customer, CustomerClassification } from '@/lib/types';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import BackButton from '@/components/back-button';
-import { Home, Mail, Phone, User } from 'lucide-react';
+import { Home, Mail, Phone, User, Award, Gem, Medal, Shield } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { cn } from '@/lib/utils';
+import { useToast } from '@/hooks/use-toast';
 
-function getCustomerDetails(customerId: string): Customer | undefined {
-    // In a real app, this would be an efficient DB lookup.
-    // For now, we find the customer in our mock data.
-    const allCustomers = getCustomers(); 
-    // This is a placeholder, as we don't have multiple customers yet.
-    // We will find by name for this example.
-    const customer = allCustomers.find(c => c.name === customerId);
-    if(customer) return customer;
-    
-    // Fallback for mock data that might not be in the customers array
-    const orders = getOrders();
-    const order = orders.find(o => o.customerName === customerId);
-    if (order && order.customerContact) {
-        return {
-            id: `cust-${Math.random()}`,
-            name: order.customerName,
-            address: order.customerContact.address,
-            phone: order.customerContact.phone,
-            favoriteFarmerIds: [],
-            image: 'https://placehold.co/100x100.png'
-        };
+const classificationConfig: Record<CustomerClassification, {
+    label: string;
+    icon: React.ElementType;
+    color: string;
+    bgColor: string;
+}> = {
+    bronze: { label: 'Bronze', icon: Shield, color: 'text-yellow-700', bgColor: 'bg-yellow-100' },
+    prata: { label: 'Prata', icon: Medal, color: 'text-gray-600', bgColor: 'bg-gray-200' },
+    ouro: { label: 'Ouro', icon: Award, color: 'text-amber-500', bgColor: 'bg-amber-100' },
+    diamante: { label: 'Diamante', icon: Gem, color: 'text-sky-500', bgColor: 'bg-sky-100' },
+};
+
+
+function CustomerClassificationBadge({ classification }: { classification?: CustomerClassification }) {
+    if (!classification) {
+        return <p className="text-sm font-bold text-muted-foreground">Sem classificação</p>;
     }
 
-    return undefined;
+    const { label, icon: Icon, color, bgColor } = classificationConfig[classification];
+
+    return (
+        <div className={cn("flex items-center gap-2 rounded-full px-3 py-1 text-sm font-bold", color, bgColor)}>
+            <Icon className="h-4 w-4" />
+            <span>{label}</span>
+        </div>
+    );
 }
 
-
 export default function MyCustomersPage() {
-    const farmerId = '1'; // Placeholder for logged-in farmer
+    // Usando estado para permitir a atualização da UI
+    const [customers, setCustomers] = useState(() => getCustomers());
+    const { toast } = useToast();
 
-    const customers = useMemo(() => {
-        const farmerOrders = getOrders().filter(order => {
-            // In a real app, orders would have a farmerId. We simulate this.
-            // Let's assume all orders could be from any farmer for now,
-            // and we'll just show all customers who have ordered.
-            // This logic would be more specific with a real database.
-            return true; 
+    const handleClassificationChange = (customerId: string, newClassification: CustomerClassification) => {
+        updateCustomerClassification(customerId, newClassification);
+        setCustomers(prevCustomers => 
+            prevCustomers.map(c => 
+                c.id === customerId ? { ...c, classification: newClassification } : c
+            )
+        );
+        toast({
+            title: "Classificação Atualizada",
+            description: `O cliente foi classificado como ${classificationConfig[newClassification].label}.`,
         });
-
-        const customerNames = [...new Set(farmerOrders.map(order => order.customerName))];
-
-        return customerNames.map(name => getCustomerDetails(name)).filter((c): c is Customer => Boolean(c));
-    }, []);
+    };
 
     return (
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div className="mb-4">
                 <BackButton />
             </div>
-            <h1 className="text-3xl font-bold font-headline text-primary tracking-tight sm:text-4xl mb-6">
-                Meus Clientes
-            </h1>
+            <div className="mb-6">
+                <h1 className="text-3xl font-bold font-headline text-primary tracking-tight sm:text-4xl">
+                    Meus Clientes
+                </h1>
+                <p className="mt-2 text-lg font-semibold text-foreground/90 max-w-3xl">Gerencie e classifique seus clientes para fortalecer o relacionamento e identificar seus compradores mais fiéis.</p>
+            </div>
 
             {customers.length === 0 ? (
                 <div className="text-center py-20">
@@ -72,18 +80,21 @@ export default function MyCustomersPage() {
             ) : (
                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {customers.map((customer) => (
-                        <Card key={customer.id}>
+                        <Card key={customer.id} className="flex flex-col">
                             <CardHeader className="flex flex-row items-center gap-4">
-                                <Avatar className="h-12 w-12">
+                                <Avatar className="h-16 w-16">
                                     <AvatarImage src={customer.image} data-ai-hint="person portrait" />
                                     <AvatarFallback>{customer.name.charAt(0)}</AvatarFallback>
                                 </Avatar>
-                                <div>
+                                <div className="flex-1">
                                     <CardTitle className="font-headline text-primary text-xl">{customer.name}</CardTitle>
+                                    <div className="mt-2">
+                                       <CustomerClassificationBadge classification={customer.classification} />
+                                    </div>
                                 </div>
                             </CardHeader>
                             <Separator />
-                            <CardContent className="pt-6 space-y-3 text-base font-semibold text-foreground/90">
+                            <CardContent className="pt-6 space-y-3 text-base font-semibold text-foreground/90 flex-grow">
                                <div className="flex items-center gap-3">
                                     <Phone className="h-5 w-5 text-accent"/>
                                     <span>{customer.phone || 'Não informado'}</span>
@@ -93,6 +104,32 @@ export default function MyCustomersPage() {
                                     <span>{customer.address || 'Não informado'}</span>
                                </div>
                             </CardContent>
+                            <CardFooter className="bg-muted/50 p-4">
+                               <div className="w-full space-y-2">
+                                 <Label htmlFor={`classification-${customer.id}`} className="font-bold text-sm text-foreground/80">Classificar Cliente:</Label>
+                                  <Select 
+                                    defaultValue={customer.classification} 
+                                    onValueChange={(value) => handleClassificationChange(customer.id, value as CustomerClassification)}
+                                  >
+                                    <SelectTrigger id={`classification-${customer.id}`} className="w-full bg-background font-bold">
+                                        <SelectValue placeholder="Definir classificação..." />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {(Object.keys(classificationConfig) as CustomerClassification[]).map((key) => {
+                                            const { label, icon: Icon } = classificationConfig[key];
+                                            return (
+                                                <SelectItem key={key} value={key} className="font-bold text-base">
+                                                    <div className="flex items-center gap-2">
+                                                        <Icon className="h-4 w-4" />
+                                                        <span>{label}</span>
+                                                    </div>
+                                                </SelectItem>
+                                            );
+                                        })}
+                                    </SelectContent>
+                                </Select>
+                               </div>
+                            </CardFooter>
                         </Card>
                     ))}
                 </div>

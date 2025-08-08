@@ -1,5 +1,5 @@
 
-import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerOrder } from './types';
+import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerOrder, CustomerClassification } from './types';
 
 let products: Product[] = [
   {
@@ -215,7 +215,7 @@ let farmers: Farmer[] = [
   },
 ];
 
-const orders: Order[] = [
+let orders: Order[] = [
     {
         id: 'ORD-001',
         customerName: 'Alice Johnson',
@@ -270,13 +270,49 @@ const orders: Order[] = [
     }
 ];
 
-const customers: Customer[] = [
+let customers: Customer[] = [
     {
         id: 'cust-001',
         name: 'Cliente Exemplo',
         favoriteFarmerIds: ['1', '2'],
         address: 'Rua de Exemplo, 123, Bairro, Rio de Janeiro, RJ',
         phone: '21912345678',
+        image: 'https://placehold.co/100x100.png',
+        classification: 'ouro'
+    },
+    {
+        id: 'cust-alice',
+        name: 'Alice Johnson',
+        address: 'Rua das Flores, 123, Rio de Janeiro, RJ',
+        phone: '21999991111',
+        favoriteFarmerIds: ['1', '3'],
+        image: 'https://placehold.co/100x100.png',
+        classification: 'prata'
+    },
+     {
+        id: 'cust-bob',
+        name: 'Bob Williams',
+        address: 'Praça da Bandeira, 789, Rio de Janeiro, RJ',
+        phone: '21977773333',
+        favoriteFarmerIds: ['4', '3'],
+        image: 'https://placehold.co/100x100.png',
+        classification: 'bronze'
+    },
+     {
+        id: 'cust-charlie',
+        name: 'Charlie Brown',
+        address: 'Avenida Atlântica, 123, Rio de Janeiro, RJ',
+        phone: '21966664444',
+        favoriteFarmerIds: ['2'],
+        image: 'https://placehold.co/100x100.png',
+        classification: 'diamante'
+    },
+    {
+        id: 'cust-diana',
+        name: 'Diana Miller',
+        address: 'Av. Copacabana, 456, Rio de Janeiro, RJ',
+        phone: '21988882222',
+        favoriteFarmerIds: ['1'],
         image: 'https://placehold.co/100x100.png'
     }
 ];
@@ -402,9 +438,55 @@ export function getOrders(): Order[] {
 }
 
 export function getCustomers(): Customer[] {
-    return customers;
+    const customerIdsFromOrders = new Set(orders.map(o => o.customerName));
+    
+    // Simula a criação de um 'id' para clientes que só existem em pedidos
+    const customersFromOrders: Customer[] = Array.from(customerIdsFromOrders)
+      .map(name => {
+          const existingCustomer = customers.find(c => c.name === name);
+          if (existingCustomer) return null; // Já existe na lista principal
+
+          const order = orders.find(o => o.customerName === name);
+          if (!order) return null;
+
+          return {
+              id: `cust-${name.toLowerCase().replace(' ', '-')}`,
+              name: order.customerName,
+              address: order.customerContact?.address || 'Endereço não informado',
+              phone: order.customerContact?.phone || 'Telefone não informado',
+              favoriteFarmerIds: [],
+              image: 'https://placehold.co/100x100.png'
+          };
+      }).filter((c): c is Customer => Boolean(c));
+      
+    // Une a lista principal com os clientes derivados dos pedidos, sem duplicatas
+    const allKnownCustomers = [...customers];
+    customersFromOrders.forEach(c => {
+      if (!allKnownCustomers.some(ac => ac.id === c.id)) {
+        allKnownCustomers.push(c);
+      }
+    });
+
+    return allKnownCustomers;
 }
 
 export function getCustomerById(id: string): Customer | undefined {
-    return customers.find(c => c.id === id);
+    return getCustomers().find(c => c.id === id);
+}
+
+export function updateCustomerClassification(customerId: string, classification: CustomerClassification): Customer | undefined {
+    const customerIndex = customers.findIndex(c => c.id === customerId);
+    if (customerIndex !== -1) {
+        customers[customerIndex].classification = classification;
+        return customers[customerIndex];
+    }
+    // Se o cliente não estava na lista original (veio dos pedidos), adiciona-o
+    const orderCustomer = getCustomerById(customerId);
+    if (orderCustomer) {
+        const newCustomer = { ...orderCustomer, classification };
+        customers.push(newCustomer);
+        return newCustomer;
+    }
+
+    return undefined;
 }
