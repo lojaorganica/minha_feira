@@ -12,6 +12,7 @@ export interface Product {
   farmerId: string;
   description: string;
   dataAiHint: string;
+  status: 'active' | 'paused';
   promotion?: {
     isActive: boolean;
     expiresAt: Date;
@@ -71,4 +72,3 @@ export interface Customer {
   classification?: CustomerClassification;
   cep?: string;
 }
-

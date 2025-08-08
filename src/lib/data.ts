@@ -13,6 +13,7 @@ let products: Product[] = [
     dataAiHint: 'organic carrots',
     farmerId: '1',
     description: 'Cenouras orgânicas frescas e crocantes, perfeitas para lanches ou para cozinhar.',
+    status: 'active',
   },
   {
     id: '2',
@@ -25,6 +26,7 @@ let products: Product[] = [
     dataAiHint: 'heirloom tomatoes',
     farmerId: '1',
     description: 'Tomates antigos suculentos e saborosos, ideais para saladas e molhos.',
+    status: 'active',
     promotion: {
         isActive: true,
         expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
@@ -41,6 +43,7 @@ let products: Product[] = [
     dataAiHint: 'crisp apples',
     farmerId: '2',
     description: 'Maçãs orgânicas doces e crocantes, ótimas para um lanche saudável.',
+    status: 'active',
   },
   {
     id: '4',
@@ -53,6 +56,7 @@ let products: Product[] = [
     dataAiHint: 'fresh strawberries',
     farmerId: '2',
     description: 'Morangos orgânicos maduros e doces, colhidos no pico do frescor.',
+    status: 'active',
     promotion: {
         isActive: true,
         expiresAt: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000)
@@ -69,6 +73,7 @@ let products: Product[] = [
     dataAiHint: 'farm milk',
     farmerId: '3',
     description: 'Leite integral cremoso e rico de vacas alimentadas com pasto.',
+    status: 'active',
   },
   {
     id: '6',
@@ -81,6 +86,7 @@ let products: Product[] = [
     dataAiHint: 'artisan cheese',
     farmerId: '3',
     description: 'Um queijo cheddar forte e quebradiço, maturado por 12 meses.',
+    status: 'active',
   },
   {
     id: '7',
@@ -93,6 +99,7 @@ let products: Product[] = [
     dataAiHint: 'sourdough bread',
     farmerId: '4',
     description: 'Um pão de fermentação natural ácido e mastigável, assado fresco diariamente.',
+    status: 'active',
     promotion: {
         isActive: true,
         expiresAt: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000)
@@ -109,6 +116,7 @@ let products: Product[] = [
     dataAiHint: 'organic kale',
     farmerId: '1',
     description: 'Couve orgânica rica em nutrientes, perfeita para saladas e smoothies.',
+    status: 'active',
   },
    {
     id: '9',
@@ -121,6 +129,7 @@ let products: Product[] = [
     dataAiHint: 'sweet oranges',
     farmerId: '2',
     description: 'Laranjas doces e suculentas, cheias de Vitamina C.',
+    status: 'active',
   },
   {
     id: '10',
@@ -133,6 +142,7 @@ let products: Product[] = [
     dataAiHint: 'greek yogurt',
     farmerId: '3',
     description: 'Iogurte grego espesso e cremoso, rico em proteínas.',
+    status: 'active',
   },
   {
     id: '11',
@@ -145,6 +155,7 @@ let products: Product[] = [
     dataAiHint: 'wheat baguette',
     farmerId: '4',
     description: 'Uma baguete de trigo integral robusta com uma crosta crocante.',
+    status: 'active',
   },
   {
     id: '12',
@@ -157,6 +168,7 @@ let products: Product[] = [
     dataAiHint: 'bell peppers',
     farmerId: '1',
     description: 'Uma mistura colorida de pimentões doces.',
+    status: 'active',
   },
 ];
 
@@ -318,18 +330,25 @@ let customers: Customer[] = [
     }
 ];
 
-export function getProducts(): Product[] {
-  // Simula a expiração da promoção
-  return products.map(p => {
+export function getProducts(options: { includePaused?: boolean } = {}): Product[] {
+  const { includePaused = false } = options;
+  const allProducts = products.map(p => {
+    // Simula a expiração da promoção
     if (p.promotion && p.promotion.isActive && new Date() > p.promotion.expiresAt) {
       return { ...p, promotion: { ...p.promotion, isActive: false } };
     }
     return p;
   });
+
+  if (includePaused) {
+    return allProducts;
+  }
+  
+  return allProducts.filter(p => p.status === 'active');
 }
 
 export function getProductById(id: string): Product | undefined {
-  return getProducts().find((p) => p.id === id);
+  return getProducts({ includePaused: true }).find((p) => p.id === id);
 }
 
 export function deleteProduct(productId: string): boolean {
@@ -342,6 +361,15 @@ export function updateProduct(productId: string, updatedData: Partial<Product>):
     const productIndex = products.findIndex(p => p.id === productId);
     if (productIndex !== -1) {
         products[productIndex] = { ...products[productIndex], ...updatedData };
+        return products[productIndex];
+    }
+    return undefined;
+}
+
+export function toggleProductStatus(productId: string, status: 'active' | 'paused'): Product | undefined {
+    const productIndex = products.findIndex(p => p.id === productId);
+    if (productIndex !== -1) {
+        products[productIndex].status = status;
         return products[productIndex];
     }
     return undefined;

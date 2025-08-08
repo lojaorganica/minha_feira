@@ -4,12 +4,12 @@
 
 import { Suspense, useState, useMemo, useTransition } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { getOrders, getProducts, toggleProductPromotion, updateProduct, deleteProduct } from "@/lib/data";
+import { getOrders, getProducts, toggleProductPromotion, updateProduct, deleteProduct, toggleProductStatus } from "@/lib/data";
 import type { Order, Product } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
-import { Edit, PlusCircle, Trash2, ShoppingBag, User, DollarSign, Download, Share2, History, Search, Tag, CalendarIcon, Truck, Phone, Home, MapPin, AlertTriangle } from "lucide-react";
+import { Edit, PlusCircle, Trash2, ShoppingBag, User, DollarSign, Download, Share2, History, Search, Tag, CalendarIcon, Truck, Phone, Home, MapPin, AlertTriangle, Power } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
@@ -27,6 +27,7 @@ import { useToast } from "@/hooks/use-toast";
 import BackButton from "@/components/back-button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Loader2 } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 function getFairDisplayName(fair: string): string {
     const doExceptions = ['Grajaú', 'Flamengo', 'Leme'];
@@ -170,6 +171,18 @@ function ProductsTabContent({ allProducts, onProductUpdate }: { allProducts: Pro
         });
     };
 
+    const handleStatusToggle = (productId: string, checked: boolean) => {
+        const newStatus = checked ? 'active' : 'paused';
+        startTransition(() => {
+            toggleProductStatus(productId, newStatus);
+            onProductUpdate();
+             toast({
+                title: newStatus === 'active' ? "Produto Ativado" : "Produto Pausado",
+                description: newStatus === 'active' ? "Seu produto agora está visível no catálogo." : "Seu produto foi ocultado do catálogo.",
+            });
+        });
+    }
+
     const handleDeleteProduct = (productId: string) => {
         startTransition(() => {
             deleteProduct(productId);
@@ -199,7 +212,7 @@ function ProductsTabContent({ allProducts, onProductUpdate }: { allProducts: Pro
             <CardContent>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     {products.map((product) => (
-                        <Card key={product.id} className="flex flex-col border-primary border-2">
+                        <Card key={product.id} className={cn("flex flex-col border-primary border-2 transition-opacity", product.status === 'paused' && 'opacity-50')}>
                             <div className="relative aspect-video">
                                 <Image 
                                     src={product.image} 
@@ -214,6 +227,12 @@ function ProductsTabContent({ allProducts, onProductUpdate }: { allProducts: Pro
                                         Promoção
                                     </Badge>
                                 )}
+                                 {product.status === 'paused' && (
+                                    <Badge variant="destructive" className="absolute top-2 left-2">
+                                        <Power className="h-3 w-3 mr-1"/>
+                                        Pausado
+                                    </Badge>
+                                )}
                             </div>
                             <CardHeader>
                                 <CardTitle className="font-headline text-primary">{product.name}</CardTitle>
@@ -223,6 +242,17 @@ function ProductsTabContent({ allProducts, onProductUpdate }: { allProducts: Pro
                                 <p className="text-base font-semibold text-foreground/90 mt-2 line-clamp-3">{product.description}</p>
                             </CardContent>
                             <CardFooter className="flex flex-col gap-4">
+                                <div className="flex items-center space-x-2 w-full justify-center p-2 bg-muted rounded-md">
+                                    <Switch
+                                        id={`status-${product.id}`}
+                                        checked={product.status === 'active'}
+                                        onCheckedChange={(checked) => handleStatusToggle(product.id, checked)}
+                                        disabled={isPending}
+                                    />
+                                    <Label htmlFor={`status-${product.id}`} className="text-sm font-semibold cursor-pointer">
+                                       Ativo no catálogo
+                                    </Label>
+                                </div>
                                 <div className="flex items-center space-x-2 w-full justify-center p-2 bg-muted rounded-md">
                                     <Switch
                                         id={`promo-${product.id}`}
@@ -480,14 +510,14 @@ function DashboardContent() {
     const searchParams = useSearchParams();
     const tab = searchParams.get('tab') || 'orders';
 
-    const [allProducts, setAllProducts] = useState(() => getProducts());
+    const [allProducts, setAllProducts] = useState(() => getProducts({ includePaused: true }));
     const [allOrders, setAllOrders] = useState(() => getOrders());
     const [isHistoryDialogOpen, setHistoryDialogOpen] = useState(false);
 
     const pendingOrders = allOrders.filter(o => o.status === 'Pendente');
 
     const handleProductUpdate = () => {
-        setAllProducts(getProducts());
+        setAllProducts(getProducts({ includePaused: true }));
     };
 
     const handleTabChange = (newTab: string) => {
@@ -501,7 +531,7 @@ function DashboardContent() {
             <Dialog open={isHistoryDialogOpen} onOpenChange={setHistoryDialogOpen}>
                 <Tabs value={tab} onValueChange={handleTabChange} className="w-full">
                     <TabsList className="grid w-full grid-cols-2">
-                        <TabsTrigger value="orders" className="text-base font-semibold">Pedidos</TabsTrigger>
+                        <TabsTrigger value="orders" className="text-base font-semibold data-[state=active]:bg-accent data-[state=active]:text-accent-foreground">Pedidos</TabsTrigger>
                         <TabsTrigger value="products" className="text-base font-semibold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Meus Produtos</TabsTrigger>
                     </TabsList>
                     <TabsContent value="orders" className="mt-6">

@@ -78,7 +78,7 @@ export default function ProductBrowser() {
     return farmers
       .map(farmer => {
         const filteredProducts = farmer.products.filter(product =>
-          product.name.toLowerCase().includes(searchTerm.toLowerCase())
+          product.name.toLowerCase().includes(searchTerm.toLowerCase()) && product.status === 'active'
         );
         return { ...farmer, products: filteredProducts };
       })
