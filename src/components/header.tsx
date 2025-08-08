@@ -41,10 +41,16 @@ const Header = () => {
   const pathname = usePathname();
   const { searchTerm, setSearchTerm } = useSearch();
   const { user, userType, isUserLoaded, logout } = useUser();
+  const [isSheetOpen, setSheetOpen] = useState(false);
   
   const handleLogout = () => {
     logout();
     router.push('/welcome');
+  };
+
+  const handleNavigate = (href: string) => {
+    setSheetOpen(false);
+    router.push(href);
   };
 
   const isCatalogPage = pathname === '/catalog';
@@ -88,23 +94,15 @@ const Header = () => {
                 </div>
                 <nav className="flex flex-col gap-1">
                 {menuItems.map((link) => (
-                    <Link
-                        key={link.href}
-                        href={link.href}
-                        legacyBehavior
-                        passHref
-                    >
                     <Button
-                        asChild
+                        key={link.href}
                         variant="ghost"
                         className="w-full justify-start text-lg hover:bg-accent hover:text-accent-foreground"
+                        onClick={() => handleNavigate(link.href)}
                     >
-                        <a>
-                            <link.icon className="h-4 w-4 mr-2" />
-                            {link.label}
-                        </a>
+                        <link.icon className="h-4 w-4 mr-2" />
+                        {link.label}
                     </Button>
-                    </Link>
                 ))}
                 </nav>
             </>
@@ -121,10 +119,11 @@ const Header = () => {
         {/* Left Section */}
         <div className="flex items-center gap-2 lg:w-1/4 lg:flex-shrink-0">
             <div className="lg:hidden">
-              <Sheet>
+              <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
                 <SheetTrigger asChild>
                   <Button variant="ghost" size="icon">
                     <Menu className="h-8 w-8" />
+                    <span className="sr-only">Abrir menu</span>
                   </Button>
                 </SheetTrigger>
                 <SheetContent side="left" className="p-0 flex flex-col w-[300px] sm:w-[350px]">
