@@ -273,7 +273,7 @@ function ProductsTabContent({ allProducts, onProductUpdate }: { allProducts: Pro
                                             </Button>
                                         </AlertDialogTrigger>
                                         <AlertDialogContent>
-                                             <AlertDialogCancel asChild>
+                                            <AlertDialogCancel asChild>
                                                 <button
                                                     className="absolute top-2 right-2 p-1 rounded-full bg-accent text-accent-foreground hover:bg-accent/90 transition-opacity"
                                                 >
