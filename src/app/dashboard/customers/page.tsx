@@ -20,10 +20,10 @@ const classificationConfig: Record<CustomerClassification, {
     color: string;
     bgColor: string;
 }> = {
-    bronze: { label: 'Bronze', icon: Shield, color: 'text-yellow-700', bgColor: 'bg-yellow-100' },
-    prata: { label: 'Prata', icon: Medal, color: 'text-gray-600', bgColor: 'bg-gray-200' },
-    ouro: { label: 'Ouro', icon: Award, color: 'text-amber-500', bgColor: 'bg-amber-100' },
-    diamante: { label: 'Diamante', icon: Gem, color: 'text-sky-500', bgColor: 'bg-sky-100' },
+    bronze: { label: 'Bronze', icon: Shield, color: 'text-white', bgColor: 'bg-orange-700' },
+    prata: { label: 'Prata', icon: Medal, color: 'text-white', bgColor: 'bg-slate-500' },
+    ouro: { label: 'Ouro', icon: Award, color: 'text-white', bgColor: 'bg-amber-500' },
+    diamante: { label: 'Diamante', icon: Gem, color: 'text-white', bgColor: 'bg-blue-600' },
 };
 
 
@@ -35,7 +35,7 @@ function CustomerClassificationBadge({ classification }: { classification?: Cust
     const { label, icon: Icon, color, bgColor } = classificationConfig[classification];
 
     return (
-        <div className={cn("flex items-center gap-2 rounded-full px-3 py-1 text-sm font-bold", color, bgColor)}>
+        <div className={cn("inline-flex items-center gap-2 rounded-full px-3 py-1 text-sm font-bold w-auto", color, bgColor)}>
             <Icon className="h-4 w-4" />
             <span>{label}</span>
         </div>
