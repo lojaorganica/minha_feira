@@ -9,7 +9,7 @@ import type { Order, Product } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
-import { Edit, PlusCircle, Trash2, ShoppingBag, User, DollarSign, Download, Share2, History, Search, Tag, CalendarIcon, Truck, Phone, Home, MapPin, AlertTriangle, Power } from "lucide-react";
+import { Edit, PlusCircle, Trash2, ShoppingBag, User, DollarSign, Download, Share2, History, Search, Tag, CalendarIcon, Truck, Phone, Home, MapPin, AlertTriangle, Power, X } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
@@ -291,6 +291,14 @@ function ProductsTabContent({ allProducts, onProductUpdate }: { allProducts: Pro
                                                     Sim, Excluir
                                                 </AlertDialogAction>
                                             </AlertDialogFooter>
+                                            <AlertDialogCancel asChild>
+                                                 <button
+                                                    className="absolute top-2 right-2 p-1 rounded-full text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-opacity"
+                                                >
+                                                    <X className="h-5 w-5" />
+                                                    <span className="sr-only">Fechar</span>
+                                                </button>
+                                            </AlertDialogCancel>
                                         </AlertDialogContent>
                                     </AlertDialog>
                                     
