@@ -24,7 +24,7 @@ export default function CustomerLoginPage() {
   const handleLogin = () => {
     // Para fins de protótipo, faz o login do primeiro cliente
     login('cust-001', 'customer');
-    router.push('/select-farmers');
+    router.push('/catalog');
   };
 
   return (
