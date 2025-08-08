@@ -23,7 +23,6 @@ interface ProductCardProps {
 const ProductCard = ({ product, farmerName }: ProductCardProps) => {
   const { addToCart, cartFarmerId, handleConfirmClearAndAddToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
-  const [isAdded, setIsAdded] = useState(false);
   const [isAlertOpen, setAlertOpen] = useState(false);
 
   const isFarmerDifferent = cartFarmerId !== null && product.farmerId !== cartFarmerId;
@@ -38,20 +37,15 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
   };
 
   const handleAddToCartClick = () => {
-    if (isAdded) return;
     if (!handleActionAttempt()) return;
 
     if (quantity > 0) {
       addToCart(product, quantity);
-      setIsAdded(true);
-      setTimeout(() => setIsAdded(false), 1500);
     }
   };
 
   const confirmAndAdd = () => {
     handleConfirmClearAndAddToCart(product, quantity);
-    setIsAdded(true);
-    setTimeout(() => setIsAdded(false), 1500);
     setAlertOpen(false);
   }
 
@@ -121,16 +115,14 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
                            <Button 
                                 onClick={handleAddToCartClick} 
                                 className={cn(
-                                    "w-full text-base font-semibold transition-colors duration-200",
-                                      isAdded 
-                                      ? 'bg-accent text-accent-foreground hover:bg-accent/90' 
-                                      : isFarmerDifferent 
+                                    "w-full text-base font-semibold transition-none active:bg-accent active:text-accent-foreground",
+                                      isFarmerDifferent 
                                       ? "bg-muted-foreground text-primary-foreground hover:bg-muted-foreground/80 cursor-pointer"
-                                      : 'bg-primary hover:bg-accent hover:text-accent-foreground'
+                                      : 'bg-primary hover:bg-primary/90'
                                 )}
                             >
                                 <ShoppingCart className="h-4 w-4 mr-2" />
-                                {isAdded ? "Adicionado!" : "Adicionar"}
+                                Adicionar
                             </Button>
                         </TooltipTrigger>
                         {isFarmerDifferent && (
