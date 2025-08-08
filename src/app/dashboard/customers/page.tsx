@@ -12,6 +12,7 @@ import { Separator } from '@/components/ui/separator';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
+import { Label } from '@/components/ui/label';
 
 const classificationConfig: Record<CustomerClassification, {
     label: string;
