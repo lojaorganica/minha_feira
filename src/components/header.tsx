@@ -20,6 +20,7 @@ import { Input } from "./ui/input";
 import { useUser } from "@/hooks/use-user";
 import { Loader2 } from "lucide-react";
 import type { Farmer } from "@/lib/types";
+import { cn } from "@/lib/utils";
 
 const customerMenuLinks = [
     { href: "/catalog", label: "Catálogo", icon: BookOpen },
@@ -50,12 +51,7 @@ const Header = () => {
 
   const isCatalogPage = pathname === '/catalog';
   
-  let links: { href: string; label: string; icon: React.ElementType; }[] = [];
-  if (userType === 'customer') {
-    links = customerMenuLinks;
-  } else if (userType === 'farmer') {
-    links = farmerMenuLinks;
-  }
+  const links = userType === 'customer' ? customerMenuLinks : userType === 'farmer' ? farmerMenuLinks : [];
 
   const renderMobileMenu = () => {
     if (!isUserLoaded) {
@@ -119,9 +115,10 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8 gap-4">
+      <div className="container flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
         
-        <div className="flex items-center gap-2 flex-shrink-0 lg:w-1/4">
+        {/* Left Section */}
+        <div className="flex items-center gap-2 lg:w-1/4 lg:flex-shrink-0">
             <div className="lg:hidden">
               <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
                 <SheetTrigger asChild>
@@ -153,6 +150,7 @@ const Header = () => {
           </div>
         </div>
         
+        {/* Center Section (Desktop Navigation) */}
         <nav className="hidden lg:flex flex-1 justify-center items-center gap-2">
            {isUserLoaded && links.map(link => (
             <Button key={link.href} asChild variant="ghost" className="text-base font-bold text-primary hover:text-accent-foreground hover:bg-accent transition-none">
@@ -173,6 +171,7 @@ const Header = () => {
           )}
         </nav>
         
+        {/* Right Section */}
         <div className="flex items-center justify-end gap-2 lg:w-1/4">
            <Link href="/profile" className="hidden lg:flex">
                 <Button variant="ghost" size="icon" aria-label="Meu Perfil">
