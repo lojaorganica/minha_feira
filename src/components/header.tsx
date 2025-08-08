@@ -22,7 +22,6 @@ import { Loader2 } from "lucide-react";
 import type { Farmer } from "@/lib/types";
 
 const customerMenuLinks = [
-    { href: "/profile", label: "Meu Perfil", icon: User },
     { href: "/catalog", label: "Catálogo", icon: BookOpen },
     { href: "/select-farmers", label: "Meus Agricultores", icon: Heart },
     { href: "/promotions",label: "Promoções", icon: Tag },
@@ -30,7 +29,6 @@ const customerMenuLinks = [
 ];
 
 const farmerMenuLinks = [
-    { href: "/profile", label: "Meu Perfil", icon: User },
     { href: "/dashboard?tab=orders", label: "Pedidos", icon: ShoppingBasket },
     { href: "/dashboard?tab=products", label: "Meus Produtos", icon: Package },
     { href: "/dashboard/customers", label: "Meus Clientes", icon: Users },
@@ -49,13 +47,20 @@ const Header = () => {
     setSheetOpen(false);
     router.push('/welcome');
   };
+
+  const isCatalogPage = pathname === '/catalog';
   
-  let links = [];
+  let links: { href: string; label: string; icon: React.ElementType; }[] = [];
   if (userType === 'customer') {
     links = customerMenuLinks;
   } else if (userType === 'farmer') {
     links = farmerMenuLinks;
   }
+  
+  const mobileMenuLinks = userType === 'customer' 
+    ? [...links, { href: "/cart", label: "Meu Carrinho", icon: ShoppingCart }] 
+    : links;
+
 
   const renderMobileMenu = () => {
     if (!isUserLoaded) {
@@ -66,75 +71,59 @@ const Header = () => {
       );
     }
     
-    if (userType === 'customer' && user) {
-      const firstName = user.name.split(' ')[0];
-      return (
-        <>
-            <div className="px-2 mb-4">
-              <h2 className="text-xl font-bold text-primary">Olá, {firstName}!</h2>
-              <h3 className="text-base font-semibold text-muted-foreground">Área do Cliente</h3>
-            </div>
-            <nav className="flex flex-col gap-1">
-              {[...links, { href: "/cart", label: "Meu Carrinho", icon: ShoppingCart }].map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setSheetOpen(false)}
-                  className="w-full"
-                >
-                  <Button
-                    variant="ghost"
-                    className="w-full justify-start text-lg hover:bg-accent hover:text-accent-foreground"
-                  >
-                    <link.icon className="h-4 w-4 mr-2" />
-                    {link.label}
-                  </Button>
-                </Link>
-              ))}
-            </nav>
-        </>
-      );
-    } else if (userType === 'farmer' && user) {
-      const farmer = user as Farmer;
-      const nameToGreet = farmer.responsibleName || farmer.name;
-      const firstName = nameToGreet.split(' ')[0];
-      return (
-        <>
-            <div className="px-2 mb-4">
-                <h2 className="text-xl font-bold text-primary">Olá, {firstName}!</h2>
-                <h3 className="text-base font-semibold text-muted-foreground">Área do Agricultor / Empresário</h3>
-            </div>
-            <nav className="flex flex-col gap-1">
-              {links.map((link) => (
-                 <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setSheetOpen(false)}
-                    className="w-full"
-                  >
-                    <Button
-                      variant="ghost"
-                      className="w-full justify-start text-lg hover:bg-accent hover:text-accent-foreground"
+    if (user) {
+        let title, subtitle, menuItems;
+        if(userType === 'customer') {
+            const firstName = user.name.split(' ')[0];
+            title = `Olá, ${firstName}!`;
+            subtitle = "Área do Cliente";
+            menuItems = [{ href: "/profile", label: "Meu Perfil", icon: User }, ...mobileMenuLinks];
+        } else {
+            const farmer = user as Farmer;
+            const nameToGreet = farmer.responsibleName || farmer.name;
+            const firstName = nameToGreet.split(' ')[0];
+            title = `Olá, ${firstName}!`;
+            subtitle = "Área do Agricultor";
+            menuItems = [{ href: "/profile", label: "Meu Perfil", icon: User },...links];
+        }
+
+        return (
+            <>
+                <div className="px-2 mb-4">
+                    <h2 className="text-xl font-bold text-primary">{title}</h2>
+                    <h3 className="text-base font-semibold text-muted-foreground">{subtitle}</h3>
+                </div>
+                <nav className="flex flex-col gap-1">
+                {menuItems.map((link) => (
+                    <Link
+                        key={link.href}
+                        href={link.href}
+                        onClick={() => setSheetOpen(false)}
+                        className="w-full"
                     >
-                      <link.icon className="h-4 w-4 mr-2"/>
-                      {link.label}
+                    <Button
+                        variant="ghost"
+                        className="w-full justify-start text-lg hover:bg-accent hover:text-accent-foreground"
+                    >
+                        <link.icon className="h-4 w-4 mr-2" />
+                        {link.label}
                     </Button>
-                  </Link>
-              ))}
-            </nav>
-        </>
-      );
-    } 
+                    </Link>
+                ))}
+                </nav>
+            </>
+        );
+    }
     return null;
   }
 
-  const isCatalogPage = pathname === '/catalog';
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8 gap-4">
         
-        <div className="flex items-center gap-2 shrink-0">
+        {/* Left Side */}
+        <div className="flex items-center gap-2 flex-shrink-0">
           <div className="lg:hidden">
             <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
               <SheetTrigger asChild>
@@ -161,11 +150,12 @@ const Header = () => {
               </SheetContent>
             </Sheet>
           </div>
-          <div className="shrink-0">
+          <div className="flex-shrink-0">
             <Logo size="small" />
           </div>
         </div>
         
+        {/* Center Nav (Desktop) */}
         <nav className="hidden lg:flex flex-1 justify-center items-center gap-4">
           {isUserLoaded && (
             <>
@@ -190,7 +180,14 @@ const Header = () => {
           )}
         </nav>
         
+        {/* Right Side */}
         <div className="flex items-center gap-2">
+           <Link href="/profile" className="hidden lg:flex">
+                <Button variant="ghost" size="icon" aria-label="Meu Perfil">
+                   <User className="h-6 w-6" />
+                </Button>
+            </Link>
+            
           {isUserLoaded && userType === 'customer' && (
             <Button variant="ghost" size="icon" asChild className="relative">
               <Link href="/cart">
