@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { getFarmerStatistics } from '@/lib/statistics';
 import BackButton from '@/components/back-button';
-import { DollarSign, ShoppingCart, Users, BarChart3, TrendingUp, Package } from 'lucide-react';
+import { DollarSign, ShoppingCart, Users, BarChart3, TrendingUp, Package, CalendarDays } from 'lucide-react';
 import { useUser } from '@/hooks/use-user';
 import { Separator } from '@/components/ui/separator';
 
@@ -51,7 +51,6 @@ const chartConfigCategory = {
 export default function StatisticsPage() {
     const { user } = useUser();
     
-    // Usamos useMemo para calcular as estatísticas apenas quando o usuário mudar
     const stats = useMemo(() => {
         if (user && user.id) {
             return getFarmerStatistics(user.id);
@@ -79,21 +78,34 @@ export default function StatisticsPage() {
                 <p className="mt-2 text-lg font-semibold text-foreground/90 max-w-3xl">Acompanhe o desempenho de suas vendas e entenda o comportamento dos seus clientes.</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mb-8">
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Receita Total</CardTitle>
-                        <DollarSign className="h-4 w-4 text-muted-foreground" />
+                        <CardTitle className="text-base font-medium">Receita Total</CardTitle>
+                        <DollarSign className="h-5 w-5 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">R$ {stats.totalRevenue.toFixed(2).replace('.', ',')}</div>
                         <p className="text-xs text-muted-foreground">de {stats.totalOrders} pedidos</p>
                     </CardContent>
                 </Card>
+                 <Card>
+                    <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-2">
+                         <div className="space-y-1">
+                            <CardTitle className="text-base font-medium">Receita Mensal</CardTitle>
+                             <p className="text-xs font-bold text-accent capitalize">{stats.currentMonthName}</p>
+                         </div>
+                        <CalendarDays className="h-5 w-5 text-muted-foreground" />
+                    </CardHeader>
+                    <CardContent>
+                        <div className="text-2xl font-bold">R$ {stats.currentMonthRevenue.toFixed(2).replace('.', ',')}</div>
+                        <p className="text-xs text-muted-foreground">no mês atual</p>
+                    </CardContent>
+                </Card>
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Ticket Médio</CardTitle>
-                        <TrendingUp className="h-4 w-4 text-muted-foreground" />
+                        <CardTitle className="text-base font-medium">Ticket Médio</CardTitle>
+                        <TrendingUp className="h-5 w-5 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">R$ {stats.averageTicket.toFixed(2).replace('.', ',')}</div>
@@ -102,8 +114,8 @@ export default function StatisticsPage() {
                 </Card>
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Clientes Únicos</CardTitle>
-                        <Users className="h-4 w-4 text-muted-foreground" />
+                        <CardTitle className="text-base font-medium">Clientes Únicos</CardTitle>
+                        <Users className="h-5 w-5 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">{stats.uniqueCustomers}</div>
@@ -112,8 +124,8 @@ export default function StatisticsPage() {
                 </Card>
                  <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Produtos mais vendidos</CardTitle>
-                        <Package className="h-4 w-4 text-muted-foreground" />
+                        <CardTitle className="text-base font-medium">Produtos mais vendidos</CardTitle>
+                        <Package className="h-5 w-5 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
                         {stats.topSellingProducts.length > 0 ? (
@@ -187,4 +199,3 @@ export default function StatisticsPage() {
         </div>
     );
 }
-

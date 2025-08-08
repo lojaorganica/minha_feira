@@ -21,32 +21,42 @@ export function getFarmerStatistics(farmerId: string) {
     const farmerProductNames = new Set(farmerProducts.map(p => p.name));
 
     // Filtra os pedidos para incluir apenas aqueles que contêm pelo menos um produto do agricultor.
-    // Isso é uma simplificação, assumindo que um pedido é "do agricultor" se contiver um de seus produtos.
-    // Em uma aplicação real, o pedido teria uma referência direta ao farmerId.
     const farmerOrders = allOrders.filter(order =>
         order.items.some(item => farmerProductNames.has(item.productName))
     );
+    
+    const now = new Date();
+    const currentYear = now.getFullYear();
+    const currentMonth = now.getMonth();
 
     // 1. Receita Total
     const totalRevenue = farmerOrders.reduce((sum, order) => sum + order.total, 0);
 
-    // 2. Total de Pedidos
+    // 2. Receita do Mês Atual
+    const currentMonthName = getMonthName(now);
+    const currentMonthRevenue = farmerOrders
+        .filter(order => {
+            const orderDate = new Date(order.date);
+            return orderDate.getFullYear() === currentYear && orderDate.getMonth() === currentMonth;
+        })
+        .reduce((sum, order) => sum + order.total, 0);
+
+    // 3. Total de Pedidos
     const totalOrders = farmerOrders.length;
     
-    // 3. Ticket Médio
+    // 4. Ticket Médio
     const averageTicket = totalOrders > 0 ? totalRevenue / totalOrders : 0;
 
-    // 4. Clientes Únicos
+    // 5. Clientes Únicos
     const uniqueCustomers = new Set(farmerOrders.map(order => order.customerName)).size;
 
-    // 5. Vendas Mensais (para o ano atual)
+    // 6. Vendas Mensais (para o ano atual)
     const monthlySalesData: { [key: string]: number } = {};
-    const currentYear = new Date().getFullYear();
-
+    
     farmerOrders.forEach(order => {
-        const orderYear = new Date(order.date).getFullYear();
-        if (orderYear === currentYear) {
-            const month = getMonthName(new Date(order.date));
+        const orderDate = new Date(order.date);
+        if (orderDate.getFullYear() === currentYear) {
+            const month = getMonthName(orderDate);
             if (!monthlySalesData[month]) {
                 monthlySalesData[month] = 0;
             }
@@ -59,9 +69,9 @@ export function getFarmerStatistics(farmerId: string) {
     const monthlySales = monthOrder.map(month => ({
         month: month.charAt(0).toUpperCase() + month.slice(1),
         sales: monthlySalesData[month] || 0,
-    })).filter(m => m.sales > 0); // Mostra apenas meses com vendas
+    })).filter(m => m.sales > 0);
 
-    // 6. Vendas por Categoria
+    // 7. Vendas por Categoria
     const salesByCategoryData: { [key: string]: number } = { 'Vegetal': 0, 'Fruta': 0, 'Laticínio': 0, 'Padaria': 0 };
     farmerOrders.forEach(order => {
         order.items.forEach(item => {
@@ -80,7 +90,7 @@ export function getFarmerStatistics(farmerId: string) {
         .map(([name, value]) => ({ name, value }))
         .filter(cat => cat.value > 0);
 
-    // 7. Produtos mais vendidos
+    // 8. Produtos mais vendidos
     const productSalesCount: { [key: string]: number } = {};
     farmerOrders.forEach(order => {
         order.items.forEach(item => {
@@ -101,6 +111,8 @@ export function getFarmerStatistics(farmerId: string) {
 
     return {
         totalRevenue,
+        currentMonthRevenue,
+        currentMonthName,
         totalOrders,
         averageTicket,
         uniqueCustomers,
