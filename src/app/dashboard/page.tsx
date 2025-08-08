@@ -199,7 +199,7 @@ function ProductsTabContent({ allProducts, onProductUpdate }: { allProducts: Pro
             <CardContent>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     {products.map((product) => (
-                        <Card key={product.id} className="flex flex-col">
+                        <Card key={product.id} className="flex flex-col border-primary border-2">
                             <div className="relative aspect-video">
                                 <Image 
                                     src={product.image} 
