@@ -244,11 +244,11 @@ function ProductsTabContent({ allProducts, onProductUpdate }: { allProducts: Pro
                                         </AlertDialogTrigger>
                                         <AlertDialogContent>
                                             <AlertDialogHeader>
-                                                <AlertDialogTitle className="flex items-center gap-2">
+                                                <AlertDialogTitle className="flex items-center gap-2 text-xl">
                                                    <AlertTriangle className="text-destructive"/>
                                                     Tem certeza que deseja excluir este produto?
                                                 </AlertDialogTitle>
-                                                <AlertDialogDescription>
+                                                <AlertDialogDescription className="text-base">
                                                     Esta ação não pode ser desfeita. Isso irá remover permanentemente o produto <span className="font-bold">"{product.name}"</span> do seu inventário.
                                                 </AlertDialogDescription>
                                             </AlertDialogHeader>
