@@ -45,12 +45,15 @@ const Header = () => {
   
   const handleLogout = () => {
     logout();
+    setSheetOpen(false);
     router.push('/welcome');
   };
 
   const handleNavigate = (href: string) => {
     setSheetOpen(false);
-    router.push(href);
+    setTimeout(() => {
+        router.push(href);
+    }, 150);
   };
 
   const isCatalogPage = pathname === '/catalog';
