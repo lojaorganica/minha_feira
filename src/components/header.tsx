@@ -48,19 +48,14 @@ const Header = () => {
     router.push('/welcome');
   };
 
+  const isCatalogPage = pathname === '/catalog';
+  
   let links: { href: string; label: string; icon: React.ElementType; }[] = [];
   if (userType === 'customer') {
     links = customerMenuLinks;
   } else if (userType === 'farmer') {
     links = farmerMenuLinks;
   }
-  
-  const mobileMenuLinks = userType === 'customer' 
-    ? [...links, { href: "/cart", label: "Meu Carrinho", icon: ShoppingCart }] 
-    : links;
-
-  const isCatalogPage = pathname === '/catalog';
-
 
   const renderMobileMenu = () => {
     if (!isUserLoaded) {
@@ -73,6 +68,10 @@ const Header = () => {
     
     if (user) {
         let title, subtitle, menuItems;
+        const mobileMenuLinks = userType === 'customer' 
+          ? [...links, { href: "/cart", label: "Meu Carrinho", icon: ShoppingCart }] 
+          : links;
+          
         if(userType === 'customer') {
             const firstName = user.name.split(' ')[0];
             title = `Olá, ${firstName}!`;
@@ -99,7 +98,7 @@ const Header = () => {
                         key={link.href}
                         href={link.href}
                         onClick={() => setSheetOpen(false)}
-                        className="w-full"
+                        asChild
                     >
                     <Button
                         variant="ghost"
@@ -122,7 +121,7 @@ const Header = () => {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8 gap-4">
         
-        <div className="flex items-center gap-2 flex-shrink-0">
+        <div className="flex items-center gap-2 flex-shrink-0 lg:w-1/4">
             <div className="lg:hidden">
               <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
                 <SheetTrigger asChild>
@@ -154,9 +153,9 @@ const Header = () => {
           </div>
         </div>
         
-        <nav className="hidden lg:flex flex-1 justify-center items-center gap-4">
+        <nav className="hidden lg:flex flex-1 justify-center items-center gap-2">
            {isUserLoaded && links.map(link => (
-            <Button key={link.href} asChild variant="ghost" className="text-base font-bold text-primary hover:bg-accent hover:text-accent-foreground transition-none">
+            <Button key={link.href} asChild variant="ghost" className="text-base font-bold text-primary hover:text-accent-foreground hover:bg-accent transition-none">
               <Link href={link.href}>{link.label}</Link>
             </Button>
           ))}
@@ -174,7 +173,7 @@ const Header = () => {
           )}
         </nav>
         
-        <div className="flex items-center gap-2">
+        <div className="flex items-center justify-end gap-2 lg:w-1/4">
            <Link href="/profile" className="hidden lg:flex">
                 <Button variant="ghost" size="icon" aria-label="Meu Perfil">
                    <User className="h-6 w-6" />
