@@ -36,7 +36,7 @@ function getFairDisplayName(fair: string): string {
     }
     const deExceptions = ['Laranjeiras'];
     if (deExceptions.includes(fair)) {
-        return `Feira de ${fair}`;
+        return `Feira de ${deExceptions}`;
     }
     return `Feira da ${fair}`;
 }
@@ -242,7 +242,7 @@ function ProductsTabContent({ allProducts, onProductUpdate }: { allProducts: Pro
                                 <p className="text-base font-semibold text-foreground/90 mt-2 line-clamp-3">{product.description}</p>
                             </CardContent>
                             <CardFooter className="flex flex-col gap-4">
-                                <div className="flex items-center space-x-2 w-full justify-center p-2 bg-muted rounded-md">
+                                <div className="flex items-center space-x-2 w-full justify-start p-2 bg-muted rounded-md">
                                     <Switch
                                         id={`status-${product.id}`}
                                         checked={product.status === 'active'}
@@ -253,7 +253,7 @@ function ProductsTabContent({ allProducts, onProductUpdate }: { allProducts: Pro
                                        Ativo no catálogo
                                     </Label>
                                 </div>
-                                <div className="flex items-center space-x-2 w-full justify-center p-2 bg-muted rounded-md">
+                                <div className="flex items-center space-x-2 w-full justify-start p-2 bg-muted rounded-md">
                                     <Switch
                                         id={`promo-${product.id}`}
                                         checked={product.promotion?.isActive || false}
