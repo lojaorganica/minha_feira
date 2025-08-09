@@ -12,8 +12,9 @@ import { Separator } from '@/components/ui/separator';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { useCart } from '@/hooks/use-cart';
-import { AlertCircle, ShoppingCart } from 'lucide-react';
+import { AlertCircle, ShoppingCart, CheckCircle } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { cn } from '@/lib/utils';
 
 export default function FarmerSelection() {
   const router = useRouter();
@@ -33,7 +34,9 @@ export default function FarmerSelection() {
       // Impede a seleção se o carrinho estiver ativo com outro agricultor
       return;
     }
-    setSelectedFarmerId(farmerId);
+
+    // Lógica de toggle: se clicar no mesmo, deseleciona. Senão, seleciona o novo.
+    setSelectedFarmerId(prevId => (prevId === farmerId ? null : farmerId));
   };
   
   const handleViewProducts = (farmerId: string) => {
@@ -58,60 +61,70 @@ export default function FarmerSelection() {
         </Alert>
       )}
 
-      <RadioGroup value={selectedFarmerId ?? undefined} onValueChange={handleFarmerSelect}>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {allFarmers.map(farmer => {
-            const isThisFarmerInCart = isCartActive && farmer.id === cartFarmerId;
-            const isDisabled = isCartActive && !isThisFarmerInCart;
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {allFarmers.map(farmer => {
+          const isThisFarmerInCart = isCartActive && farmer.id === cartFarmerId;
+          const isDisabled = isCartActive && !isThisFarmerInCart;
+          const isSelected = selectedFarmerId === farmer.id;
 
-            return (
-              <Label 
-                htmlFor={`farmer-${farmer.id}`} 
-                key={farmer.id} 
-                className={`cursor-pointer transition-opacity ${isDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+          return (
+            <div 
+              key={farmer.id} 
+              onClick={() => !isDisabled && handleFarmerSelect(farmer.id)}
+              className={`cursor-pointer transition-opacity ${isDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+            >
+              <Card
+                className={cn(
+                  'flex flex-col transition-all h-full', 
+                  isSelected ? 'border-primary ring-2 ring-primary' : ''
+                )}
               >
-                <Card
-                  className={`flex flex-col transition-all h-full ${selectedFarmerId === farmer.id ? 'border-primary ring-2 ring-primary' : ''}`}
-                >
-                  <CardHeader>
-                    <div className="flex flex-row items-center gap-4">
-                      <Image src={farmer.image} alt={farmer.name} width={60} height={60} className="rounded-full object-cover" data-ai-hint="farmer portrait" />
-                      <div className="flex-1">
-                        <CardTitle className="text-2xl">{farmer.name}</CardTitle>
-                        {farmer.responsibleName && (
-                            <p className="text-sm font-semibold text-foreground/80 mt-1">
-                                Responsável: {farmer.responsibleName}
-                            </p>
-                        )}
-                      </div>
+                <CardHeader>
+                  <div className="flex flex-row items-center gap-4">
+                    <Image src={farmer.image} alt={farmer.name} width={60} height={60} className="rounded-full object-cover" data-ai-hint="farmer portrait" />
+                    <div className="flex-1">
+                      <CardTitle className="text-2xl">{farmer.name}</CardTitle>
+                      {farmer.responsibleName && (
+                          <p className="text-sm font-semibold text-foreground/80 mt-1">
+                              Responsável: {farmer.responsibleName}
+                          </p>
+                      )}
                     </div>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription className="line-clamp-3">{farmer.bio}</CardDescription>
-                  </CardContent>
-                  <Separator />
-                  <CardFooter className="p-4 bg-muted/50 flex-grow flex items-center justify-start gap-4">
-                    <RadioGroupItem value={farmer.id} id={`farmer-${farmer.id}`} disabled={isDisabled} />
-                    <span className="font-semibold text-base">Selecionar este agricultor</span>
-                  </CardFooter>
-                  {selectedFarmerId === farmer.id && (
-                      <>
-                        <Separator />
-                        <div className="p-4">
-                            <Button className="w-full" onClick={() => handleViewProducts(farmer.id)}>
-                                Ver Alimentos
-                            </Button>
-                        </div>
-                      </>
-                    )}
-                </Card>
-              </Label>
-            )
-          })}
-        </div>
-      </RadioGroup>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription className="line-clamp-3">{farmer.bio}</CardDescription>
+                </CardContent>
+                <Separator />
+                <CardFooter className="p-4 bg-muted/50 flex-grow flex items-center justify-start gap-4">
+                  <div className={cn(
+                    "w-5 h-5 rounded-full border-2 flex items-center justify-center",
+                    isSelected ? "bg-primary border-primary" : "bg-background border-muted-foreground/50"
+                  )}>
+                    {isSelected && <CheckCircle className="h-5 w-5 text-primary-foreground" />}
+                  </div>
+                  <span className="font-semibold text-base">
+                    {isSelected ? "Selecionado" : "Selecionar este agricultor"}
+                  </span>
+                </CardFooter>
+                {isSelected && (
+                    <>
+                      <Separator />
+                      <div className="p-4">
+                          <Button className="w-full" onClick={(e) => {
+                            e.stopPropagation(); // Evita que o clique no botão deselecione o card
+                            handleViewProducts(farmer.id);
+                          }}>
+                              Ver Alimentos
+                          </Button>
+                      </div>
+                    </>
+                  )}
+              </Card>
+            </div>
+          )
+        })}
+      </div>
     </>
   );
 }
-
-    
