@@ -10,8 +10,8 @@ import { suggestComplementaryProducts } from "@/ai/flows/suggest-complementary-p
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
-import { useEffect, useState, useMemo } from "react";
-import { Loader2, Sparkles, Trash2, MessageSquare, Copy, Send, MapPin, Tractor } from "lucide-react";
+import { useEffect, useState, useMemo, useRef } from "react";
+import { Loader2, Sparkles, Trash2, MessageSquare, Copy, Send, MapPin, Tractor, Upload, CheckCircle } from "lucide-react";
 import { getProducts, getFarmerById } from "@/lib/data";
 import type { Product } from "@/lib/types";
 import { useToast } from "@/hooks/use-toast";
@@ -110,7 +110,9 @@ export default function CartView() {
   const [message, setMessage] = useState("");
   const [deliveryOption, setDeliveryOption] = useState<'pickup' | 'delivery'>('pickup');
   const [pickupLocation, setPickupLocation] = useState<string>('');
+  const [isProofAttached, setIsProofAttached] = useState(false);
   const router = useRouter();
+  const fileInputRef = useRef<HTMLInputElement>(null);
   
   const farmer = useMemo(() => {
     if (cartItems.length > 0) {
@@ -156,6 +158,26 @@ export default function CartView() {
         });
     }
   };
+
+  const handleAttachProof = () => {
+     // Simula a abertura do seletor de arquivos.
+     // Em um app real, aqui você usaria <input type="file" />
+    if (fileInputRef.current) {
+        fileInputRef.current.click();
+    }
+  };
+
+  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // Simula que um arquivo foi selecionado.
+    if (event.target.files && event.target.files.length > 0) {
+        setIsProofAttached(true);
+        toast({
+            title: "Comprovante anexado!",
+            description: "Seu comprovante foi anexado com sucesso. Agora você pode enviar o pedido.",
+        });
+    }
+  };
+
 
   const handleSendOrder = () => {
     if (deliveryOption === 'pickup' && !pickupLocation) {
@@ -404,10 +426,35 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
                 <CardFooter className="flex flex-col gap-4">
                      <div className="w-full text-center">
                         <p className="text-sm text-foreground/80">
-                            Efetue o pagamento para a chave PIX e, em seguida, envie o pedido para compartilhar os detalhes e o comprovante com o agricultor.
+                           Efetue o pagamento para a chave PIX e, em seguida, anexe o comprovante abaixo antes de enviar o pedido.
                         </p>
                     </div>
-                    <Button className="w-full text-base font-bold" size="lg" onClick={handleSendOrder}>
+                    <Input type="file" ref={fileInputRef} className="hidden" onChange={handleFileSelect} accept="image/*,.pdf" />
+                    <Button 
+                        variant="outline"
+                        className="w-full text-base font-bold" 
+                        size="lg"
+                        onClick={handleAttachProof}
+                        disabled={isProofAttached}
+                    >
+                        {isProofAttached ? (
+                            <>
+                                <CheckCircle className="h-4 w-4 mr-2 text-green-500"/>
+                                Comprovante Anexado
+                            </>
+                        ) : (
+                            <>
+                                <Upload className="h-4 w-4 mr-2"/>
+                                Anexar Comprovante
+                            </>
+                        )}
+                    </Button>
+                    <Button 
+                        className="w-full text-base font-bold" 
+                        size="lg" 
+                        onClick={handleSendOrder}
+                        disabled={!isProofAttached}
+                    >
                        <Send className="h-4 w-4 mr-2"/>
                        ENVIAR PEDIDO
                     </Button>
@@ -444,4 +491,3 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
     </div>
   );
 }
-
