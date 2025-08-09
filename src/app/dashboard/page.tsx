@@ -273,10 +273,6 @@ function ProductsTabContent({ allProducts, onProductUpdate }: { allProducts: Pro
                                             </Button>
                                         </AlertDialogTrigger>
                                         <AlertDialogContent>
-                                            <AlertDialogCancel className="absolute top-2 right-2 p-1 rounded-full bg-accent text-accent-foreground hover:bg-accent/90 transition-opacity h-auto">
-                                                <X className="h-4 w-4" />
-                                                <span className="sr-only">Fechar</span>
-                                            </AlertDialogCancel>
                                             <AlertDialogHeader>
                                                 <AlertDialogTitle className="flex items-center gap-2 text-xl">
                                                    <AlertTriangle className="text-destructive"/>
@@ -393,7 +389,7 @@ function OrdersTabContent({ orders }: { orders: Order[] }) {
                             </div>
                         </CardContent>
                         <CardFooter className="flex flex-col gap-2">
-                             <div className="flex w-full gap-2">
+                             <div className="flex w-full flex-col sm:flex-row gap-2">
                                 <Button variant="outline" className="w-full">
                                     <Share2 className="h-4 w-4 mr-2" />
                                     WhatsApp
