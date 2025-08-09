@@ -157,7 +157,7 @@ export default function CartView() {
     }
   };
 
-  const handleSendOrder = async () => {
+  const handleSendOrder = () => {
     if (deliveryOption === 'pickup' && !pickupLocation) {
         toast({
             variant: 'destructive',
@@ -193,7 +193,7 @@ export default function CartView() {
 
     const messageText = message ? `\n*Observação:* ${message}` : '';
 
-    const shareMessage =
+    const whatsappMessage =
 `Olá, ${farmer.name}! 👋
 
 Acabei de fazer um pedido pelo app *Minha Feira* e já realizei o pagamento via PIX. Segue o resumo:
@@ -208,34 +208,9 @@ ${messageText}
 
 Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a)!`;
 
-    if (navigator.share) {
-        try {
-            await navigator.share({
-                title: 'Meu Pedido - Minha Feira',
-                text: shareMessage,
-            });
-            toast({
-                title: 'Pedido compartilhado!',
-                description: 'Agora é só enviar a mensagem para o agricultor e anexar o comprovante.',
-            });
-        } catch (error) {
-            toast({
-                variant: 'destructive',
-                title: 'Compartilhamento cancelado',
-                description: 'O compartilhamento foi cancelado ou não pôde ser concluído.',
-            });
-            return; // Impede o fluxo de continuar se o compartilhamento falhar
-        }
-    } else {
-        toast({
-            variant: 'destructive',
-            title: 'Compartilhamento não suportado',
-            description: 'Seu navegador não suporta compartilhamento. Por favor, copie a mensagem manualmente.',
-        });
-        // Oferecer uma alternativa, como copiar para a área de transferência, seria ideal aqui.
-        return;
-    }
 
+    const whatsappUrl = `https://wa.me/${farmer.phone}?text=${encodeURIComponent(whatsappMessage)}`;
+    window.open(whatsappUrl, '_blank');
 
     const newOrder = {
       id: `ORD-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
@@ -257,6 +232,11 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
       })
     };
     addOrder(newOrder);
+
+    toast({
+        title: "Pedido enviado!",
+        description: "Seu pedido foi registrado e enviado ao agricultor. Não se esqueça de anexar o comprovante na conversa do WhatsApp.",
+    });
 
     setTimeout(() => {
         clearCart();
@@ -464,3 +444,4 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
     </div>
   );
 }
+
