@@ -29,6 +29,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useUser } from '@/hooks/use-user';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import jsPDF from 'jspdf';
+
 
 function getFairDisplayName(fair: string): string {
     const doExceptions = ['Grajaú', 'Flamengo', 'Leme'];
@@ -311,20 +314,20 @@ function OrdersTabContent({ orders }: { orders: Order[] }) {
     const { user: farmerUser } = useUser();
     const { toast } = useToast();
 
-    const handleShareClick = async (order: Order) => {
-        const farmerName = (farmerUser as any)?.name || 'seu agricultor';
-        
+    const getOrderSummary = (order: Order) => {
         const itemsText = order.items.map(item => `- ${item.quantity}x ${item.productName}`).join('\n');
         
         const deliveryText = order.deliveryOption === 'pickup' && order.pickupLocation
             ? `Retirar na ${order.pickupLocation}`
             : `Delivery para: ${order.customerContact?.address || 'Endereço não informado'}`;
         
-        const shareMessage = `
+        return `
 Resumo do Pedido - Minha Feira
 ------------------------------------
 ID do Pedido: ${order.id}
+Data: ${format(new Date(order.date), "dd/MM/yyyy HH:mm", { locale: ptBR })}
 Cliente: ${order.customerName}
+Contato: ${order.customerContact?.phone || 'Não informado'}
 Status: ${order.status}
 ------------------------------------
 Itens:
@@ -333,8 +336,11 @@ ${itemsText}
 Total: R$ ${order.total.toFixed(2).replace('.', ',')}
 Entrega: ${deliveryText}
 ------------------------------------
-Gerado por: ${farmerName}
         `.trim();
+    };
+
+    const handleShareClick = async (order: Order) => {
+        const shareMessage = getOrderSummary(order);
         
         if (navigator.share) {
             try {
@@ -358,31 +364,9 @@ Gerado por: ${farmerName}
         }
     };
 
-    const handleSaveOrderClick = (order: Order) => {
-        const itemsText = order.items.map(item => `- ${item.quantity}x ${item.productName}`).join('\n');
-        
-        const deliveryText = order.deliveryOption === 'pickup' && order.pickupLocation
-            ? `Retirar na ${order.pickupLocation}`
-            : `Delivery para: ${order.customerContact?.address || 'Endereço não informado'}`;
-        
-        const orderSummary = `
-Resumo do Pedido - Minha Feira
-------------------------------------
-ID do Pedido: ${order.id}
-Data: ${format(new Date(order.date), "dd/MM/yyyy HH:mm", { locale: ptBR })}
-Cliente: ${order.customerName}
-Contato: ${order.customerContact?.phone || 'Não informado'}
-Status: ${order.status}
-------------------------------------
-Itens:
-${itemsText}
-------------------------------------
-Total: R$ ${order.total.toFixed(2).replace('.', ',')}
-Entrega: ${deliveryText}
-------------------------------------
-        `;
-
-        const blob = new Blob([orderSummary.trim()], { type: 'text/plain;charset=utf-8' });
+    const handleSaveOrderAsTxt = (order: Order) => {
+        const orderSummary = getOrderSummary(order);
+        const blob = new Blob([orderSummary], { type: 'text/plain;charset=utf-8' });
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
@@ -391,6 +375,16 @@ Entrega: ${deliveryText}
         link.click();
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
+    };
+
+    const handleSaveOrderAsPdf = (order: Order) => {
+        const doc = new jsPDF();
+        const orderSummary = getOrderSummary(order);
+        
+        doc.setFont("helvetica");
+        doc.setFontSize(12);
+        doc.text(orderSummary, 10, 10);
+        doc.save(`pedido_${order.id}.pdf`);
     };
 
     return (
@@ -479,10 +473,22 @@ Entrega: ${deliveryText}
                                     <Share2 className="h-4 w-4 mr-1 sm:mr-2" />
                                     WhatsApp
                                 </Button>
-                                <Button variant="outline" className="w-full" onClick={() => handleSaveOrderClick(order)}>
-                                    <Download className="h-4 w-4 mr-1 sm:mr-2" />
-                                    Salvar
-                                </Button>
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
+                                        <Button variant="outline" className="w-full">
+                                            <Download className="h-4 w-4 mr-1 sm:mr-2" />
+                                            Salvar
+                                        </Button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent>
+                                        <DropdownMenuItem onClick={() => handleSaveOrderAsTxt(order)}>
+                                            Salvar como .txt
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem onClick={() => handleSaveOrderAsPdf(order)}>
+                                            Salvar como .pdf
+                                        </DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
                             </div>
                         </CardFooter>
                     </Card>
