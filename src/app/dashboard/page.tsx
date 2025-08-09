@@ -29,7 +29,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useUser } from '@/hooks/use-user';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import jsPDF from 'jspdf';
 
 
@@ -473,22 +472,35 @@ Entrega: ${deliveryText}
                                     <Share2 className="h-4 w-4 mr-1 sm:mr-2" />
                                     WhatsApp
                                 </Button>
-                                <DropdownMenu>
-                                    <DropdownMenuTrigger asChild>
+                                <AlertDialog>
+                                    <AlertDialogTrigger asChild>
                                         <Button variant="outline" className="w-full">
                                             <Download className="h-4 w-4 mr-1 sm:mr-2" />
                                             Salvar
                                         </Button>
-                                    </DropdownMenuTrigger>
-                                    <DropdownMenuContent>
-                                        <DropdownMenuItem onClick={() => handleSaveOrderAsTxt(order)}>
-                                            Salvar como .txt
-                                        </DropdownMenuItem>
-                                        <DropdownMenuItem onClick={() => handleSaveOrderAsPdf(order)}>
-                                            Salvar como .pdf
-                                        </DropdownMenuItem>
-                                    </DropdownMenuContent>
-                                </DropdownMenu>
+                                    </AlertDialogTrigger>
+                                    <AlertDialogContent>
+                                        <AlertDialogHeader>
+                                            <AlertDialogTitle>Salvar Pedido</AlertDialogTitle>
+                                            <AlertDialogDescription>
+                                                Escolha o formato no qual você deseja salvar os detalhes deste pedido.
+                                            </AlertDialogDescription>
+                                        </AlertDialogHeader>
+                                        <AlertDialogFooter className="sm:justify-center gap-2 pt-4">
+                                            <AlertDialogAction asChild>
+                                                <Button className="w-full" onClick={() => handleSaveOrderAsTxt(order)}>
+                                                    Salvar como .txt
+                                                </Button>
+                                            </AlertDialogAction>
+                                            <AlertDialogAction asChild>
+                                                <Button className="w-full" onClick={() => handleSaveOrderAsPdf(order)}>
+                                                    Salvar como .pdf
+                                                </Button>
+                                            </AlertDialogAction>
+                                            <AlertDialogCancel className="w-full mt-2 sm:mt-0">Cancelar</AlertDialogCancel>
+                                        </AlertDialogFooter>
+                                    </AlertDialogContent>
+                                </AlertDialog>
                             </div>
                         </CardFooter>
                     </Card>
