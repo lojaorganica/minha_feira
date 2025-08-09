@@ -11,7 +11,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
 import { useEffect, useState, useMemo, useRef } from "react";
-import { Loader2, Sparkles, Trash2, MessageSquare, Copy, Send, MapPin, Tractor, Upload, CheckCircle } from "lucide-react";
+import { Loader2, Sparkles, Trash2, MessageSquare, Copy, Send, MapPin, Tractor, Upload, CheckCircle, Plus, Minus } from "lucide-react";
 import { getProducts, getFarmerById } from "@/lib/data";
 import type { Product } from "@/lib/types";
 import { useToast } from "@/hooks/use-toast";
@@ -320,15 +320,15 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
                         </div>
                         <div className="flex flex-1 items-end justify-between text-base">
                             <div className="flex items-center gap-2">
-                                <label htmlFor={`quantity-${product.id}`} className="sr-only">Quantidade</label>
-                                <Input
-                                    id={`quantity-${product.id}`}
-                                    type="number"
-                                    min="1"
-                                    value={product.quantity}
-                                    onChange={(e) => updateQuantity(product.id, parseInt(e.target.value))}
-                                    className="w-20 h-9 font-bold text-base"
-                                />
+                                <Button size="icon" variant="outline" className="h-8 w-8" onClick={() => updateQuantity(product.id, product.quantity - 1)}>
+                                    <Minus className="h-4 w-4" />
+                                    <span className="sr-only">Diminuir quantidade</span>
+                                </Button>
+                                <span className="font-bold text-lg w-10 text-center">{product.quantity}</span>
+                                 <Button size="icon" variant="outline" className="h-8 w-8" onClick={() => updateQuantity(product.id, product.quantity + 1)}>
+                                    <Plus className="h-4 w-4" />
+                                     <span className="sr-only">Aumentar quantidade</span>
+                                </Button>
                             </div>
                             <div className="flex">
                                 <Button
@@ -491,3 +491,5 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
     </div>
   );
 }
+
+    
