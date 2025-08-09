@@ -40,7 +40,7 @@ export default function WelcomePage() {
                 <Button asChild size="lg">
                     <Link href="/login/customer">Sou Cliente</Link>
                 </Button>
-                <Button asChild size="lg" variant="outline">
+                <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
                     <Link href="/login/farmer">Sou Agricultor</Link>
                 </Button>
             </div>
