@@ -2,14 +2,14 @@
 
 'use client';
 
-import { Suspense, useState, useMemo, useTransition } from 'react';
+import { Suspense, useState, useMemo, useTransition, useRef } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { getOrders, getProducts, toggleProductPromotion, updateProduct, deleteProduct, toggleProductStatus, getFarmerById } from "@/lib/data";
 import type { Order, Product } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
-import { Edit, PlusCircle, Trash2, ShoppingBag, User, DollarSign, Download, Share2, History, Search, Tag, CalendarIcon, Truck, Phone, Home, MapPin, AlertTriangle, Power, X } from "lucide-react";
+import { Edit, PlusCircle, Trash2, ShoppingBag, User, DollarSign, Download, Share2, History, Search, Tag, CalendarIcon, Truck, Phone, Home, MapPin, AlertTriangle, Power, X, FileText, FileImage, FileJson } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
@@ -30,6 +30,7 @@ import { Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useUser } from '@/hooks/use-user';
 import jsPDF from 'jspdf';
+import * as htmlToImage from 'html-to-image';
 
 
 function getFairDisplayName(fair: string): string {
@@ -308,10 +309,43 @@ function ProductsTabContent({ allProducts, onProductUpdate }: { allProducts: Pro
     );
 }
 
+// Componente para renderizar o recibo do pedido (usado para gerar imagem)
+function OrderReceipt({ order, farmerName, ref }: { order: Order, farmerName: string, ref: React.Ref<HTMLDivElement>}) {
+    return (
+        <div ref={ref} className="bg-white p-6 rounded-lg text-black w-[400px]">
+             <h2 className="text-2xl font-bold mb-4 text-center">Resumo do Pedido</h2>
+             <p><strong>ID do Pedido:</strong> {order.id}</p>
+             <p><strong>Cliente:</strong> {order.customerName}</p>
+             <p><strong>Data:</strong> {format(new Date(order.date), "dd/MM/yyyy HH:mm", { locale: ptBR })}</p>
+             <Separator className="my-4" />
+             <h3 className="text-lg font-bold">Itens:</h3>
+             <ul className="list-disc pl-5">
+                 {order.items.map((item, index) => (
+                     <li key={index}>{item.quantity}x {item.productName}</li>
+                 ))}
+             </ul>
+             <Separator className="my-4" />
+             <p><strong>Vendido por:</strong> {farmerName}</p>
+             <p><strong>Entrega:</strong> {order.deliveryOption === 'pickup' && order.pickupLocation ? `Retirar em ${order.pickupLocation}` : 'Delivery'}</p>
+             {order.deliveryOption === 'delivery' && (
+                <>
+                  <p><strong>Endereço:</strong> {order.customerContact?.address}</p>
+                  <p><strong>Telefone:</strong> {order.customerContact?.phone}</p>
+                </>
+             )}
+             <Separator className="my-4" />
+             <p className="text-xl font-bold text-right">Total: R$ {order.total.toFixed(2).replace('.', ',')}</p>
+        </div>
+    );
+}
+
+
 // Componente Isolado para a Aba de Pedidos
 function OrdersTabContent({ orders }: { orders: Order[] }) {
     const { user: farmerUser } = useUser();
     const { toast } = useToast();
+    const receiptRef = useRef<HTMLDivElement>(null);
+    const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
 
     const getOrderSummary = (order: Order) => {
         const itemsText = order.items.map(item => `- ${item.quantity}x ${item.productName}`).join('\n');
@@ -338,30 +372,67 @@ Entrega: ${deliveryText}
         `.trim();
     };
 
-    const handleShareClick = async (order: Order) => {
-        const shareMessage = getOrderSummary(order);
-        
-        if (navigator.share) {
+    const shareFile = async (file: File, title: string) => {
+         if (navigator.canShare && navigator.canShare({ files: [file] })) {
             try {
                 await navigator.share({
-                    title: `Pedido ${order.id.split('-')[1]}`,
-                    text: shareMessage,
+                    files: [file],
+                    title: title,
+                    text: `Segue o resumo do pedido ${selectedOrder?.id}.`,
                 });
             } catch (error) {
-                toast({
+                 toast({
                     variant: "destructive",
                     title: "Compartilhamento cancelado",
                     description: "A ação de compartilhar foi cancelada ou falhou.",
                 });
             }
         } else {
+            toast({
+                variant: "destructive",
+                title: "Compartilhamento não suportado",
+                description: "Seu navegador não suporta o compartilhamento de arquivos.",
+            });
+        }
+        setSelectedOrder(null);
+    }
+    
+    const handleShareAsTxt = async () => {
+        if (!selectedOrder) return;
+        const text = getOrderSummary(selectedOrder);
+        const file = new File([text], `pedido_${selectedOrder.id}.txt`, { type: 'text/plain' });
+        await shareFile(file, `Pedido ${selectedOrder.id}`);
+    };
+
+    const handleShareAsPdf = async () => {
+        if (!selectedOrder) return;
+        const doc = new jsPDF();
+        doc.setFont("helvetica");
+        doc.setFontSize(12);
+        doc.text(getOrderSummary(selectedOrder), 10, 10);
+        const pdfBlob = doc.output('blob');
+        const file = new File([pdfBlob], `pedido_${selectedOrder.id}.pdf`, { type: 'application/pdf' });
+        await shareFile(file, `Pedido ${selectedOrder.id}`);
+    };
+
+    const handleShareAsJpg = async () => {
+        if (!receiptRef.current || !selectedOrder) return;
+        try {
+            const dataUrl = await htmlToImage.toJpeg(receiptRef.current, { quality: 0.95 });
+            const res = await fetch(dataUrl);
+            const blob = await res.blob();
+            const file = new File([blob], `pedido_${selectedOrder.id}.jpg`, { type: 'image/jpeg' });
+            await shareFile(file, `Pedido ${selectedOrder.id}`);
+        } catch (error) {
+            console.error('oops, something went wrong!', error);
              toast({
                 variant: "destructive",
-                title: "Não é possível compartilhar",
-                description: "Seu navegador não suporta a função de compartilhamento.",
+                title: "Erro ao gerar imagem",
+                description: "Não foi possível criar a imagem do pedido.",
             });
         }
     };
+
 
     const handleSaveOrderAsTxt = (order: Order) => {
         const orderSummary = getOrderSummary(order);
@@ -468,7 +539,7 @@ Entrega: ${deliveryText}
                         </CardContent>
                         <CardFooter>
                              <div className="flex w-full gap-2">
-                                <Button variant="outline" className="w-full" onClick={() => handleShareClick(order)}>
+                                <Button variant="outline" className="w-full" onClick={() => setSelectedOrder(order)}>
                                     <Share2 className="h-4 w-4 mr-1 sm:mr-2" />
                                     WhatsApp
                                 </Button>
@@ -510,6 +581,30 @@ Entrega: ${deliveryText}
                     </div>
                 )}
             </CardContent>
+
+             <AlertDialog open={!!selectedOrder} onOpenChange={(open) => !open && setSelectedOrder(null)}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Compartilhar Pedido</AlertDialogTitle>
+                        <AlertDialogDescription>
+                           Escolha o formato para compartilhar o resumo do pedido.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <div className="flex flex-col gap-3 py-4">
+                         <Button onClick={handleShareAsJpg}><FileImage className="h-4 w-4 mr-2" /> Imagem (.jpg)</Button>
+                         <Button onClick={handleShareAsPdf}><FileJson className="h-4 w-4 mr-2" /> PDF (.pdf)</Button>
+                         <Button onClick={handleShareAsTxt}><FileText className="h-4 w-4 mr-2" /> Texto (.txt)</Button>
+                    </div>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+            
+             {/* Elemento oculto para renderizar o recibo para a imagem */}
+             <div className="fixed -left-[9999px] top-0">
+                {selectedOrder && farmerUser && <OrderReceipt order={selectedOrder} farmerName={farmerUser.name} ref={receiptRef} />}
+            </div>
         </Card>
     );
 }
