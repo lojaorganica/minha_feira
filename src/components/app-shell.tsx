@@ -10,6 +10,8 @@ const publicPaths = [
     '/login/farmer',
     '/register/farmer',
     '/register/farmer/security-check',
+    '/terms',
+    '/privacy',
 ];
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
