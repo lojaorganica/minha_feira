@@ -11,7 +11,7 @@ export default function WelcomePage() {
       <section className="relative w-full py-8 md:py-16 lg:py-20 flex-grow flex items-center overflow-hidden">
         <div className="absolute inset-0 z-0">
             <Image 
-                src="https://placehold.co/1920x1080.png"
+                src="/background.jpg"
                 alt="Fundo de uma feira orgânica"
                 fill
                 className="object-cover opacity-20"
