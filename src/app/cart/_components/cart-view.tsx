@@ -10,10 +10,10 @@ import { suggestComplementaryProducts } from "@/ai/flows/suggest-complementary-p
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
-import { useEffect, useState, useMemo, useRef } from "react";
-import { Loader2, Sparkles, Trash2, Upload, MessageSquare, Copy, Send, MapPin, Tractor } from "lucide-react";
+import { useEffect, useState, useMemo } from "react";
+import { Loader2, Sparkles, Trash2, MessageSquare, Copy, Send, MapPin, Tractor } from "lucide-react";
 import { getProducts, getFarmerById } from "@/lib/data";
-import type { Product, Farmer } from "@/lib/types";
+import type { Product } from "@/lib/types";
 import { useToast } from "@/hooks/use-toast";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -97,7 +97,7 @@ function getFairDisplayName(fair: string): string {
     }
     const deExceptions = ['Laranjeiras'];
     if (deExceptions.includes(fair)) {
-        return `Feira de ${fair}`;
+        return `Feira de ${deExceptions}`;
     }
     return `Feira da ${fair}`;
 }
@@ -106,8 +106,6 @@ export default function CartView() {
   const { cartItems, removeFromCart, updateQuantity, cartTotal, isCartLoaded, clearCart } = useCart();
   const { addOrder } = useOrderHistory();
   const { user } = useUser();
-  const [proof, setProof] = useState<File | null>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
   const [message, setMessage] = useState("");
   const [deliveryOption, setDeliveryOption] = useState<'pickup' | 'delivery'>('pickup');
@@ -149,27 +147,6 @@ export default function CartView() {
   const finalTotal = cartTotal + shippingCost;
 
 
-  const handleProofUploadClick = () => {
-    fileInputRef.current?.click();
-  }
-
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file && (file.type.startsWith('image/') || file.type === 'application/pdf')) {
-      setProof(file);
-      toast({
-        title: "Comprovante anexado",
-        description: `${file.name} foi selecionado.`,
-      });
-    } else {
-      toast({
-        variant: 'destructive',
-        title: "Arquivo inválido",
-        description: "Por favor, selecione um arquivo de imagem ou PDF.",
-      });
-    }
-  }
-
   const handleCopyPixKey = () => {
     if (farmer?.pixKey) {
         navigator.clipboard.writeText(farmer.pixKey);
@@ -180,17 +157,7 @@ export default function CartView() {
     }
   };
 
-  const handleSendOrder = () => {
-    if (!proof) {
-        toast({
-            variant: 'destructive',
-            title: "Comprovante necessário",
-            description: "Por favor, anexe o comprovante de pagamento antes de enviar o pedido.",
-        });
-        fileInputRef.current?.click();
-        return;
-    }
-    
+  const handleSendOrder = async () => {
     if (deliveryOption === 'pickup' && !pickupLocation) {
         toast({
             variant: 'destructive',
@@ -226,10 +193,10 @@ export default function CartView() {
 
     const messageText = message ? `\n*Observação:* ${message}` : '';
 
-    const whatsappMessage = encodeURIComponent(
+    const shareMessage =
 `Olá, ${farmer.name}! 👋
 
-Acabei de fazer um pedido pelo app *Minha Feira* e já realizei o pagamento. Segue o resumo:
+Acabei de fazer um pedido pelo app *Minha Feira* e já realizei o pagamento via PIX. Segue o resumo:
 
 *Itens do Pedido:*
 ${orderItemsText}
@@ -239,16 +206,36 @@ ${deliveryText}
 *Total do Pedido:* R$ ${finalTotal.toFixed(2).replace('.', ',')}
 ${messageText}
 
-O comprovante está anexado nesta conversa. Aguardo a confirmação. Obrigado(a)!`
-    );
+Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a)!`;
 
-    const whatsappUrl = `https://wa.me/${farmer.phone.replace(/\D/g, '')}?text=${whatsappMessage}`;
-    
-    // Simula o envio do comprovante e abre o WhatsApp
-    toast({
-      title: "Pedido pronto para envio!",
-      description: "Seu comprovante foi anexado e o WhatsApp será aberto para você enviar a mensagem.",
-    });
+    if (navigator.share) {
+        try {
+            await navigator.share({
+                title: 'Meu Pedido - Minha Feira',
+                text: shareMessage,
+            });
+            toast({
+                title: 'Pedido compartilhado!',
+                description: 'Agora é só enviar a mensagem para o agricultor e anexar o comprovante.',
+            });
+        } catch (error) {
+            toast({
+                variant: 'destructive',
+                title: 'Compartilhamento cancelado',
+                description: 'O compartilhamento foi cancelado ou não pôde ser concluído.',
+            });
+            return; // Impede o fluxo de continuar se o compartilhamento falhar
+        }
+    } else {
+        toast({
+            variant: 'destructive',
+            title: 'Compartilhamento não suportado',
+            description: 'Seu navegador não suporta compartilhamento. Por favor, copie a mensagem manualmente.',
+        });
+        // Oferecer uma alternativa, como copiar para a área de transferência, seria ideal aqui.
+        return;
+    }
+
 
     const newOrder = {
       id: `ORD-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
@@ -270,8 +257,6 @@ O comprovante está anexado nesta conversa. Aguardo a confirmação. Obrigado(a)
       })
     };
     addOrder(newOrder);
-
-    window.open(whatsappUrl, '_blank');
 
     setTimeout(() => {
         clearCart();
@@ -437,24 +422,11 @@ O comprovante está anexado nesta conversa. Aguardo a confirmação. Obrigado(a)
                     )}
                 </CardContent>
                 <CardFooter className="flex flex-col gap-4">
-                     <input 
-                        type="file" 
-                        ref={fileInputRef} 
-                        className="hidden" 
-                        onChange={handleFileChange}
-                        accept="image/*,application/pdf"
-                    />
-                    <div className="w-full text-center">
+                     <div className="w-full text-center">
                         <p className="text-sm text-foreground/80">
-                            Efetue o pagamento para a chave PIX e anexe o comprovante antes de enviar.
+                            Efetue o pagamento para a chave PIX e, em seguida, envie o pedido para compartilhar os detalhes e o comprovante com o agricultor.
                         </p>
-                        <Button className="w-full mt-2 text-base font-bold" size="lg" onClick={handleProofUploadClick}>
-                            <Upload className="h-4 w-4 mr-2"/>
-                            {proof ? "TROCAR COMPROVANTE" : "ANEXAR COMPROVANTE"}
-                        </Button>
-                        {proof && <p className="text-sm text-muted-foreground mt-2">Arquivo: {proof.name}</p>}
                     </div>
-                    <Separator className="my-2" />
                     <Button className="w-full text-base font-bold" size="lg" onClick={handleSendOrder}>
                        <Send className="h-4 w-4 mr-2"/>
                        ENVIAR PEDIDO
@@ -492,7 +464,3 @@ O comprovante está anexado nesta conversa. Aguardo a confirmação. Obrigado(a)
     </div>
   );
 }
-
-    
-
-    
