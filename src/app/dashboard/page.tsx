@@ -388,14 +388,14 @@ function OrdersTabContent({ orders }: { orders: Order[] }) {
                                 <span>R${order.total.toFixed(2).replace('.', ',')}</span>
                             </div>
                         </CardContent>
-                        <CardFooter className="flex flex-col gap-2">
+                        <CardFooter>
                              <div className="flex w-full gap-2">
                                 <Button variant="outline" className="w-full">
-                                    <Share2 className="h-4 w-4 mr-2" />
+                                    <Share2 className="h-4 w-4 mr-1 sm:mr-2" />
                                     WhatsApp
                                 </Button>
                                 <Button variant="outline" className="w-full">
-                                    <Download className="h-4 w-4 mr-2" />
+                                    <Download className="h-4 w-4 mr-1 sm:mr-2" />
                                     Salvar
                                 </Button>
                             </div>
