@@ -389,7 +389,7 @@ function OrdersTabContent({ orders }: { orders: Order[] }) {
                             </div>
                         </CardContent>
                         <CardFooter className="flex flex-col gap-2">
-                             <div className="flex w-full flex-col sm:flex-row gap-2">
+                             <div className="flex w-full gap-2">
                                 <Button variant="outline" className="w-full">
                                     <Share2 className="h-4 w-4 mr-2" />
                                     WhatsApp
