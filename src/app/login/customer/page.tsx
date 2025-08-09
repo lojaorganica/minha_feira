@@ -45,8 +45,16 @@ export default function CustomerLoginPage() {
                 <Input id="email" type="email" placeholder="m@exemplo.com" required defaultValue="cliente@exemplo.com" />
                 </div>
                 <div className="grid gap-2">
-                <Label htmlFor="password">Senha</Label>
-                <Input id="password" type="password" required defaultValue="senha123" />
+                  <div className="flex items-center">
+                    <Label htmlFor="password">Senha</Label>
+                    <Link
+                      href="#"
+                      className="ml-auto inline-block text-sm underline"
+                    >
+                      Esqueceu sua senha?
+                    </Link>
+                  </div>
+                  <Input id="password" type="password" required defaultValue="senha123" />
                 </div>
             </CardContent>
             <CardFooter className="flex flex-col gap-4">
