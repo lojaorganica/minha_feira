@@ -311,23 +311,51 @@ function OrdersTabContent({ orders }: { orders: Order[] }) {
     const { user: farmerUser } = useUser();
     const { toast } = useToast();
 
-    const handleWhatsAppClick = (order: Order) => {
-        if (!order.customerContact?.phone) {
-            toast({
-                variant: 'destructive',
-                title: 'Erro de Contato',
-                description: 'O número de telefone do cliente não está disponível.',
-            });
-            return;
-        }
-
+    const handleShareClick = async (order: Order) => {
         const farmerName = (farmerUser as any)?.name || 'seu agricultor';
-        const cleanPhone = order.customerContact.phone.replace(/\D/g, '');
-        const message = encodeURIComponent(
-            `Olá, ${order.customerName}! Sou ${farmerName} do app Minha Feira. Seu pedido ${order.id.split('-')[1]} foi ${order.status}. Podemos combinar a entrega?`
-        );
-        const whatsappUrl = `https://wa.me/${cleanPhone}?text=${message}`;
-        window.open(whatsappUrl, '_blank');
+        
+        const itemsText = order.items.map(item => `- ${item.quantity}x ${item.productName}`).join('\n');
+        
+        const deliveryText = order.deliveryOption === 'pickup' && order.pickupLocation
+            ? `Retirar na ${order.pickupLocation}`
+            : `Delivery para: ${order.customerContact?.address || 'Endereço não informado'}`;
+        
+        const shareMessage = `
+Resumo do Pedido - Minha Feira
+------------------------------------
+ID do Pedido: ${order.id}
+Cliente: ${order.customerName}
+Status: ${order.status}
+------------------------------------
+Itens:
+${itemsText}
+------------------------------------
+Total: R$ ${order.total.toFixed(2).replace('.', ',')}
+Entrega: ${deliveryText}
+------------------------------------
+Gerado por: ${farmerName}
+        `.trim();
+        
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    title: `Pedido ${order.id.split('-')[1]}`,
+                    text: shareMessage,
+                });
+            } catch (error) {
+                toast({
+                    variant: "destructive",
+                    title: "Compartilhamento cancelado",
+                    description: "A ação de compartilhar foi cancelada ou falhou.",
+                });
+            }
+        } else {
+             toast({
+                variant: "destructive",
+                title: "Não é possível compartilhar",
+                description: "Seu navegador não suporta a função de compartilhamento.",
+            });
+        }
     };
 
     const handleSaveOrderClick = (order: Order) => {
@@ -447,7 +475,7 @@ Entrega: ${deliveryText}
                         </CardContent>
                         <CardFooter>
                              <div className="flex w-full gap-2">
-                                <Button variant="outline" className="w-full" onClick={() => handleWhatsAppClick(order)}>
+                                <Button variant="outline" className="w-full" onClick={() => handleShareClick(order)}>
                                     <Share2 className="h-4 w-4 mr-1 sm:mr-2" />
                                     WhatsApp
                                 </Button>
