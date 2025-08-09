@@ -2,13 +2,26 @@
 import Logo from '@/components/logo';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
+import Image from 'next/image';
 import Link from 'next/link';
 
 export default function WelcomePage() {
   return (
     <div className="flex flex-col flex-grow">
-      <section className="w-full py-8 md:py-16 lg:py-20 bg-primary/10 flex-grow flex items-center">
-        <div className="container px-4 md:px-6">
+      <section className="relative w-full py-8 md:py-16 lg:py-20 flex-grow flex items-center overflow-hidden">
+        <div className="absolute inset-0 z-0">
+            <Image 
+                src="https://placehold.co/1920x1080.png"
+                alt="Fundo de uma feira orgânica"
+                fill
+                className="object-cover opacity-20"
+                data-ai-hint="organic farm"
+                priority
+            />
+            <div className="absolute inset-0 bg-background/40" />
+        </div>
+        
+        <div className="container px-4 md:px-6 relative z-10">
           <div className="flex flex-col items-center justify-center space-y-6 text-center">
             <Logo size="large" />
             <div className="space-y-3">
