@@ -4,7 +4,7 @@
 
 import { Suspense, useState, useMemo, useTransition } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { getOrders, getProducts, toggleProductPromotion, updateProduct, deleteProduct, toggleProductStatus } from "@/lib/data";
+import { getOrders, getProducts, toggleProductPromotion, updateProduct, deleteProduct, toggleProductStatus, getFarmerById } from "@/lib/data";
 import type { Order, Product } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -28,6 +28,7 @@ import BackButton from "@/components/back-button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useUser } from '@/hooks/use-user';
 
 function getFairDisplayName(fair: string): string {
     const doExceptions = ['Grajaú', 'Flamengo', 'Leme'];
@@ -307,6 +308,62 @@ function ProductsTabContent({ allProducts, onProductUpdate }: { allProducts: Pro
 
 // Componente Isolado para a Aba de Pedidos
 function OrdersTabContent({ orders }: { orders: Order[] }) {
+    const { user: farmerUser } = useUser();
+    const { toast } = useToast();
+
+    const handleWhatsAppClick = (order: Order) => {
+        if (!order.customerContact?.phone) {
+            toast({
+                variant: 'destructive',
+                title: 'Erro de Contato',
+                description: 'O número de telefone do cliente não está disponível.',
+            });
+            return;
+        }
+
+        const farmerName = (farmerUser as any)?.name || 'seu agricultor';
+        const cleanPhone = order.customerContact.phone.replace(/\D/g, '');
+        const message = encodeURIComponent(
+            `Olá, ${order.customerName}! Sou ${farmerName} do app Minha Feira. Seu pedido ${order.id.split('-')[1]} foi ${order.status}. Podemos combinar a entrega?`
+        );
+        const whatsappUrl = `https://wa.me/${cleanPhone}?text=${message}`;
+        window.open(whatsappUrl, '_blank');
+    };
+
+    const handleSaveOrderClick = (order: Order) => {
+        const itemsText = order.items.map(item => `- ${item.quantity}x ${item.productName}`).join('\n');
+        
+        const deliveryText = order.deliveryOption === 'pickup' && order.pickupLocation
+            ? `Retirar na ${order.pickupLocation}`
+            : `Delivery para: ${order.customerContact?.address || 'Endereço não informado'}`;
+        
+        const orderSummary = `
+Resumo do Pedido - Minha Feira
+------------------------------------
+ID do Pedido: ${order.id}
+Data: ${format(new Date(order.date), "dd/MM/yyyy HH:mm", { locale: ptBR })}
+Cliente: ${order.customerName}
+Contato: ${order.customerContact?.phone || 'Não informado'}
+Status: ${order.status}
+------------------------------------
+Itens:
+${itemsText}
+------------------------------------
+Total: R$ ${order.total.toFixed(2).replace('.', ',')}
+Entrega: ${deliveryText}
+------------------------------------
+        `;
+
+        const blob = new Blob([orderSummary.trim()], { type: 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `pedido_${order.id}.txt`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    };
 
     return (
         <Card>
@@ -390,11 +447,11 @@ function OrdersTabContent({ orders }: { orders: Order[] }) {
                         </CardContent>
                         <CardFooter>
                              <div className="flex w-full gap-2">
-                                <Button variant="outline" className="w-full">
+                                <Button variant="outline" className="w-full" onClick={() => handleWhatsAppClick(order)}>
                                     <Share2 className="h-4 w-4 mr-1 sm:mr-2" />
                                     WhatsApp
                                 </Button>
-                                <Button variant="outline" className="w-full">
+                                <Button variant="outline" className="w-full" onClick={() => handleSaveOrderClick(order)}>
                                     <Download className="h-4 w-4 mr-1 sm:mr-2" />
                                     Salvar
                                 </Button>
@@ -509,12 +566,32 @@ function DashboardContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const tab = searchParams.get('tab') || 'orders';
+    const { user } = useUser();
 
     const [allProducts, setAllProducts] = useState(() => getProducts({ includePaused: true }));
     const [allOrders, setAllOrders] = useState(() => getOrders());
     const [isHistoryDialogOpen, setHistoryDialogOpen] = useState(false);
 
-    const pendingOrders = allOrders.filter(o => o.status === 'Pendente');
+    const { pendingOrders, historyOrders } = useMemo(() => {
+        const farmerId = user?.id;
+        if (!farmerId) return { pendingOrders: [], historyOrders: [] };
+
+        const farmerProductNames = new Set(
+            getProducts({ includePaused: true })
+                .filter(p => p.farmerId === farmerId)
+                .map(p => p.name)
+        );
+
+        const relevantOrders = allOrders.filter(order =>
+            order.items.some(item => farmerProductNames.has(item.productName))
+        );
+        
+        return {
+            pendingOrders: relevantOrders.filter(o => o.status === 'Pendente'),
+            historyOrders: relevantOrders.filter(o => o.status !== 'Pendente')
+        };
+    }, [allOrders, user]);
+
 
     const handleProductUpdate = () => {
         setAllProducts(getProducts({ includePaused: true }));
@@ -551,7 +628,7 @@ function DashboardContent() {
                 </Tabs>
                 
                 <OrderHistoryDialog 
-                    allOrders={allOrders} 
+                    allOrders={historyOrders} 
                     open={isHistoryDialogOpen}
                     onOpenChange={setHistoryDialogOpen}
                 />
