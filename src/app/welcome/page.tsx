@@ -61,7 +61,7 @@ export default function WelcomePage() {
           </div>
           <div className="grid gap-1">
             <h3 className="font-semibold font-headline text-primary">Suporte</h3>
-            <Link href="#" className="text-muted-foreground hover:text-foreground font-semibold">Fale Conosco</Link>
+            <Link href="https://www.facebook.com/feirasorganicas/" className="text-muted-foreground hover:text-foreground font-semibold">Fale Conosco</Link>
             <Link href="#" className="text-muted-foreground hover:text-foreground font-semibold">FAQ</Link>
           </div>
         </div>
