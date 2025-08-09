@@ -52,7 +52,7 @@ export default function WelcomePage() {
         <div className="container max-w-7xl grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 text-base">
           <div className="grid gap-1">
             <h3 className="font-semibold font-headline text-primary">Minha Feira</h3>
-            <p className="text-muted-foreground font-semibold">© 2024 Minha Feira Inc.</p>
+            <p className="text-muted-foreground font-semibold">© 2025 Minha Feira Inc.</p>
           </div>
           <div className="grid gap-1">
             <h3 className="font-semibold font-headline text-primary">Legal</h3>
