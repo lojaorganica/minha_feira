@@ -30,12 +30,17 @@ export default function FarmerSelection() {
 
 
   const handleFarmerSelect = (farmerId: string) => {
+    // Se o carrinho estiver ativo com outro agricultor, não faz nada.
     if (isCartActive && farmerId !== cartFarmerId) {
-      // Impede a seleção se o carrinho estiver ativo com outro agricultor
       return;
     }
 
-    // Lógica de toggle: se clicar no mesmo, deseleciona. Senão, seleciona o novo.
+    // Se o carrinho estiver ativo e o cliente tentar desmarcar o agricultor do carrinho, não faz nada.
+    if (isCartActive && selectedFarmerId === farmerId) {
+        return;
+    }
+
+    // Lógica de toggle: se clicar no mesmo, deseleciona (só se o carrinho estiver vazio). Senão, seleciona o novo.
     setSelectedFarmerId(prevId => (prevId === farmerId ? null : farmerId));
   };
   
@@ -70,13 +75,18 @@ export default function FarmerSelection() {
           return (
             <div 
               key={farmer.id} 
-              onClick={() => !isDisabled && handleFarmerSelect(farmer.id)}
-              className={`cursor-pointer transition-opacity ${isDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+              onClick={() => handleFarmerSelect(farmer.id)}
+              className={cn(
+                  'cursor-pointer transition-opacity',
+                  isDisabled ? 'opacity-50 cursor-not-allowed' : 'hover:opacity-100',
+                  isCartActive && !isThisFarmerInCart ? '' : 'hover:shadow-lg hover:-translate-y-1'
+              )}
             >
               <Card
                 className={cn(
                   'flex flex-col transition-all h-full', 
-                  isSelected ? 'border-primary ring-2 ring-primary' : ''
+                  isSelected ? 'border-primary ring-2 ring-primary' : '',
+                  isDisabled ? '' : 'cursor-pointer'
                 )}
               >
                 <CardHeader>
