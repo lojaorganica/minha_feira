@@ -368,7 +368,7 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
                         <RadioGroup defaultValue="pickup" onValueChange={(value: 'pickup' | 'delivery') => setDeliveryOption(value)} className="text-base">
                             <div className="flex items-center space-x-2">
                                 <RadioGroupItem value="pickup" id="pickup" />
-                                <Label htmlFor="pickup">Pegar na Feira</Label>
+                                <Label htmlFor="pickup">Pegar na Feira | Grátis</Label>
                             </div>
                             {farmer?.shippingCost !== undefined && farmer.shippingCost > 0 && (
                                 <div className="flex items-center space-x-2">
