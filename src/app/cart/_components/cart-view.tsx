@@ -381,15 +381,15 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
                         </RadioGroup>
 
                          {deliveryOption === 'pickup' && farmer && farmer.fairs.length > 0 && (
-                            <div className="grid gap-2 text-base font-normal pl-6">
-                                <Label htmlFor="pickup-location" className="font-semibold flex items-center gap-2"><MapPin className="h-4 w-4"/>Onde você irá buscar?</Label>
+                            <div className="grid gap-2 font-normal pl-6">
+                                <Label htmlFor="pickup-location" className="font-semibold text-base flex items-center gap-2"><MapPin className="h-4 w-4"/>Onde você irá buscar?</Label>
                                 <Select onValueChange={setPickupLocation} value={pickupLocation}>
                                     <SelectTrigger id="pickup-location" className="text-base">
                                         <SelectValue placeholder="Selecione uma feira" />
                                     </SelectTrigger>
                                     <SelectContent>
                                         {farmer.fairs.map(fair => (
-                                            <SelectItem key={fair} value={fair}>{getFairDisplayName(fair)}</SelectItem>
+                                            <SelectItem key={fair} value={fair} className="text-base">{getFairDisplayName(fair)}</SelectItem>
                                         ))}
                                     </SelectContent>
                                 </Select>
