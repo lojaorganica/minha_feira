@@ -389,7 +389,7 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
                                     </SelectTrigger>
                                     <SelectContent>
                                         {farmer.fairs.map(fair => (
-                                            <SelectItem key={fair} value={fair} className="text-base">{getFairDisplayName(fair)}</SelectItem>
+                                            <SelectItem key={fair} value={fair}>{getFairDisplayName(fair)}</SelectItem>
                                         ))}
                                     </SelectContent>
                                 </Select>
@@ -523,3 +523,4 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
     </div>
   );
 }
+    
