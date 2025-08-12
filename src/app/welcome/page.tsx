@@ -57,6 +57,11 @@ export default function WelcomePage() {
             <p className="text-muted-foreground font-semibold">© 2025 Minha Feira Inc.</p>
           </div>
           <div className="grid gap-1">
+            <h3 className="font-semibold font-headline text-primary">Navegue</h3>
+             <Link href="/conheca" className="text-muted-foreground hover:text-foreground font-semibold">Conheça o App</Link>
+            <Link href="/faq" className="text-muted-foreground hover:text-foreground font-semibold">FAQ</Link>
+          </div>
+          <div className="grid gap-1">
             <h3 className="font-semibold font-headline text-primary">Legal</h3>
             <Link href="/terms" className="text-muted-foreground hover:text-foreground font-semibold">Termos de Serviço</Link>
             <Link href="/privacy" className="text-muted-foreground hover:text-foreground font-semibold">Política de Privacidade</Link>
@@ -64,7 +69,6 @@ export default function WelcomePage() {
           <div className="grid gap-1">
             <h3 className="font-semibold font-headline text-primary">Suporte</h3>
             <Link href="https://www.facebook.com/feirasorganicas/" className="text-muted-foreground hover:text-foreground font-semibold">Fale Conosco</Link>
-            <Link href="/faq" className="text-muted-foreground hover:text-foreground font-semibold">FAQ</Link>
           </div>
         </div>
       </footer>
