@@ -426,7 +426,7 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
                 </CardContent>
                 <CardFooter className="flex flex-col gap-4">
                      <div className="w-full text-center">
-                        <p className="text-base text-foreground/80">
+                        <p className="text-lg text-foreground/80">
                            Efetue o pagamento para a chave PIX e, em seguida, anexe o comprovante abaixo antes de enviar o pedido.
                         </p>
                     </div>
@@ -511,7 +511,7 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
                     </button>
                     <AlertDialogHeader>
                         <AlertDialogTitle>Quase lá! Falta pouco para enviar seu pedido.</AlertDialogTitle>
-                        <AlertDialogDescription className="text-base">
+                        <AlertDialogDescription className="text-lg">
                             Primeiro, efetue o pagamento para a chave PIX informada.
                             <br/><br/>
                             Depois, clique no botão <strong>"Anexar Comprovante"</strong> para selecionar o arquivo do seu comprovante. Só então o botão para enviar o pedido será habilitado.
