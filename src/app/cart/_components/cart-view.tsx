@@ -358,52 +358,46 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
                 <CardHeader>
                     <CardTitle className="font-headline">Resumo do pedido</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4 text-lg font-bold">
-                    <div className="flex justify-between">
+                <CardContent className="space-y-4">
+                    <div className="flex justify-between text-lg font-bold">
                         <span>Subtotal</span>
                         <span>R${cartTotal.toFixed(2).replace('.', ',')}</span>
                     </div>
 
                     <Separator />
 
-                    <div className="space-y-4">
-                        <RadioGroup defaultValue="pickup" onValueChange={(value: 'pickup' | 'delivery') => setDeliveryOption(value)} className="text-base">
+                    <RadioGroup defaultValue="pickup" onValueChange={(value: 'pickup' | 'delivery') => setDeliveryOption(value)} className="space-y-2">
+                        <Label className="text-lg font-bold">Opções de Entrega</Label>
+                        <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="pickup" id="pickup" />
+                            <Label htmlFor="pickup" className="font-semibold">Pegar na Feira | Grátis</Label>
+                        </div>
+                        {farmer?.shippingCost !== undefined && farmer.shippingCost > 0 && (
                             <div className="flex items-center space-x-2">
-                                <RadioGroupItem value="pickup" id="pickup" />
-                                <Label htmlFor="pickup">Pegar na Feira | Grátis</Label>
-                            </div>
-                            {farmer?.shippingCost !== undefined && farmer.shippingCost > 0 && (
-                                <div className="flex items-center space-x-2">
-                                    <RadioGroupItem value="delivery" id="delivery" />
-                                    <Label htmlFor="delivery">Delivery</Label>
-                                </div>
-                            )}
-                        </RadioGroup>
-
-                        {deliveryOption === 'pickup' && farmer && farmer.fairs.length > 0 && (
-                            <div className="pl-6 pt-2 space-y-2">
-                                <Label htmlFor="pickup-location" className="font-semibold flex items-center gap-2">
-                                    <MapPin className="h-4 w-4"/>
-                                    Onde você irá buscar?
-                                </Label>
-                                <Select onValueChange={setPickupLocation} value={pickupLocation}>
-                                    <SelectTrigger id="pickup-location">
-                                        <SelectValue placeholder="Selecione uma feira" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        {farmer.fairs.map(fair => (
-                                            <SelectItem key={fair} value={fair} className="text-sm">
-                                                {getFairDisplayName(fair)}
-                                            </SelectItem>
-                                        ))}
-                                    </SelectContent>
-                                </Select>
+                                <RadioGroupItem value="delivery" id="delivery" />
+                                <Label htmlFor="delivery" className="font-semibold">Delivery</Label>
                             </div>
                         )}
-                    </div>
-                    
+                    </RadioGroup>
 
-                    <div className="flex justify-between text-foreground/80">
+                    {deliveryOption === 'pickup' && farmer && farmer.fairs.length > 0 && (
+                        <div className="pt-2 pl-2">
+                             <Label className="font-semibold flex items-center gap-2 mb-2 text-base">
+                                <MapPin className="h-4 w-4 text-primary"/>
+                                Onde você irá buscar?
+                            </Label>
+                            <RadioGroup value={pickupLocation} onValueChange={setPickupLocation} className="space-y-1 pl-4">
+                                {farmer.fairs.map(fair => (
+                                    <div key={fair} className="flex items-center space-x-2">
+                                        <RadioGroupItem value={fair} id={`fair-${fair}`} />
+                                        <Label htmlFor={`fair-${fair}`} className="font-normal">{getFairDisplayName(fair)}</Label>
+                                    </div>
+                                ))}
+                            </RadioGroup>
+                        </div>
+                    )}
+                    
+                    <div className="flex justify-between text-lg text-foreground/80 font-bold">
                         <span>Estimativa de frete</span>
                         <span className={deliveryOption === 'pickup' ? 'text-muted-foreground' : ''}>
                            R${shippingCost.toFixed(2).replace('.', ',')}
@@ -529,6 +523,8 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
   );
 }
     
+    
+
     
 
     
