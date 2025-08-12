@@ -11,7 +11,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
 import { useEffect, useState, useMemo, useRef } from "react";
-import { Loader2, Sparkles, Trash2, MessageSquare, Copy, Send, MapPin, Tractor, Upload, CheckCircle, Plus, Minus } from "lucide-react";
+import { Loader2, Sparkles, Trash2, MessageSquare, Copy, Send, MapPin, Tractor, Upload, CheckCircle, Plus, Minus, X } from "lucide-react";
 import { getProducts, getFarmerById } from "@/lib/data";
 import type { Product } from "@/lib/types";
 import { useToast } from "@/hooks/use-toast";
@@ -21,6 +21,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useOrderHistory } from "@/hooks/use-order-history";
 import { useUser } from "@/hooks/use-user";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { AlertDialog, AlertDialogContent, AlertDialogDescription, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 
 
 function ComplementarySuggestions() {
@@ -111,6 +112,7 @@ export default function CartView() {
   const [deliveryOption, setDeliveryOption] = useState<'pickup' | 'delivery'>('pickup');
   const [pickupLocation, setPickupLocation] = useState<string>('');
   const [isProofAttached, setIsProofAttached] = useState(false);
+  const [isSendDisabledAlertOpen, setSendDisabledAlertOpen] = useState(false);
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
   
@@ -211,7 +213,7 @@ export default function CartView() {
     
     const deliveryText = deliveryOption === 'delivery' 
         ? `*Opção de Entrega:* Delivery (Frete: R$ ${shippingCost.toFixed(2).replace('.', ',')})` 
-        : `*Opção de Entrega:* Retirar na Feira (Frete Grátis)\n*Local de Retirada:* ${getFairDisplayName(pickupLocation)}`;
+        : `*Opção de Entrega:* Retirar na Feira | Grátis\n*Local de Retirada:* ${getFairDisplayName(pickupLocation)}`;
 
     const messageText = message ? `\n*Observação:* ${message}` : '';
 
@@ -449,15 +451,25 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
                             </>
                         )}
                     </Button>
-                    <Button 
-                        className="w-full text-base font-bold" 
-                        size="lg" 
-                        onClick={handleSendOrder}
-                        disabled={!isProofAttached}
+                     <div 
+                        className="w-full cursor-pointer"
+                        onClick={(e) => {
+                            if (!isProofAttached) {
+                                e.stopPropagation();
+                                setSendDisabledAlertOpen(true);
+                            }
+                        }}
                     >
-                       <Send className="h-4 w-4 mr-2"/>
-                       ENVIAR PEDIDO
-                    </Button>
+                        <Button 
+                            className="w-full text-base font-bold" 
+                            size="lg" 
+                            onClick={handleSendOrder}
+                            disabled={!isProofAttached}
+                        >
+                           <Send className="h-4 w-4 mr-2"/>
+                           ENVIAR PEDIDO
+                        </Button>
+                    </div>
                 </CardFooter>
             </Card>
 
@@ -487,6 +499,26 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
             </Card>
 
             <ComplementarySuggestions />
+
+            <AlertDialog open={isSendDisabledAlertOpen} onOpenChange={setSendDisabledAlertOpen}>
+                <AlertDialogContent>
+                     <button
+                        onClick={() => setSendDisabledAlertOpen(false)}
+                        className="absolute top-2 right-2 p-1 rounded-full bg-accent text-accent-foreground hover:bg-accent/90 transition-opacity"
+                        aria-label="Fechar"
+                    >
+                        <X className="h-4 w-4" />
+                    </button>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Quase lá! Falta pouco para enviar seu pedido.</AlertDialogTitle>
+                        <AlertDialogDescription className="text-base">
+                            Primeiro, efetue o pagamento para a chave PIX informada.
+                            <br/><br/>
+                            Depois, clique no botão <strong>"Anexar Comprovante"</strong> para selecionar o arquivo do seu comprovante. Só então o botão para enviar o pedido será habilitado.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                </AlertDialogContent>
+            </AlertDialog>
         </aside>
     </div>
   );
