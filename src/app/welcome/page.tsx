@@ -7,13 +7,17 @@ import Link from 'next/link';
 
 export default function WelcomePage() {
   // TODO: Cole aqui a URL da imagem que você subiu para o Firebase Storage
-  const backgroundImageUrl = "https://placehold.co/1920x1080.png";
+  const backgroundImageUrl = "COLE_A_URL_DA_SUA_IMAGEM_AQUI";
 
   return (
     <div className="flex flex-col flex-grow">
       <section className="relative w-full py-8 md:py-16 lg:py-20 flex-grow flex items-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-            {/* Se você ainda não tiver um link, pode usar um placeholder como "https://placehold.co/1920x1080.png" */}
+            {/* 
+              IMPORTANTE: 
+              Se a imagem não aparecer, certifique-se de que você colou o URL do Firebase Storage na variável 'backgroundImageUrl' acima.
+              Se a variável estiver com o valor "COLE_A_URL_DA_SUA_IMAGEM_AQUI", a imagem não será carregada.
+            */}
             <Image 
                 src={backgroundImageUrl}
                 alt="Fundo de uma feira orgânica"
