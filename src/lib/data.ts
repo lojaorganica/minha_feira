@@ -170,6 +170,19 @@ let products: Product[] = [
     description: 'Uma mistura colorida de pimentões doces.',
     status: 'active',
   },
+   {
+    id: '13',
+    name: 'Maçã Fuji',
+    category: 'Fruta',
+    price: 1.8,
+    unitAmount: 1,
+    unit: 'unidade',
+    image: 'https://placehold.co/600x400.png',
+    dataAiHint: 'fuji apple',
+    farmerId: '2',
+    description: 'Maçãs Fuji orgânicas, conhecidas por sua doçura e textura crocante.',
+    status: 'active',
+  },
 ];
 
 let farmers: Farmer[] = [
@@ -332,7 +345,7 @@ let customers: Customer[] = [
 
 // Mapa de imagens padrão para produtos básicos
 const defaultProductImages = new Map<string, string>([
-    ['maçã', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/product_images%2Fmaca.webp?alt=media&token=863c8b41-f6a5-4f4c-83b6-27a3c395913f'],
+    ['maçã', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/macas_fuji.webp?alt=media&token=d9b195e6-0e42-4976-83fe-fdf87dfafd7c'],
     ['tomate', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/product_images%2Ftomate.webp?alt=media&token=18037a34-52d3-4e89-a579-7a7114483758'],
     ['cenoura', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/product_images%2Fcenoura.webp?alt=media&token=7d4a464a-2b72-4e4b-b54c-5d55b357f8a4'],
     ['morango', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/product_images%2Fmorango.webp?alt=media&token=a88b5c92-7476-4b2a-89a3-5cde78a38b13'],
