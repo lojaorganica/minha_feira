@@ -67,7 +67,7 @@ export default function ConhecaPage() {
             Comprar seus orgânicos direto do agricultor é simples e rápido. Siga os passos abaixo!
           </p>
            <Image 
-              src="https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/oDCkRtc7/5d2d5a370e0a4df0a9972323e1f57991" 
+              src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/cliente_cesta_organicos.webp?alt=media&token=9d32d6f7-3a13-4e4c-b844-0a67a541617c" 
               alt="Ilustração de uma cliente recebendo uma cesta de orgânicos"
               width={400} 
               height={300} 
@@ -178,7 +178,7 @@ export default function ConhecaPage() {
                 Agora é só aguardar a confirmação do agricultor via WhatsApp e combinar os detalhes da entrega ou retirada. Boas compras!
             </p>
             <Button size="lg" asChild>
-                <a href="/catalog">Começar a Comprar</a>
+                <Link href="/catalog">Começar a Comprar</Link>
             </Button>
         </motion.div>
 
