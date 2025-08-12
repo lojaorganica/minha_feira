@@ -13,6 +13,7 @@ const publicPaths = [
     '/terms',
     '/privacy',
     '/faq',
+    '/conheca',
 ];
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
