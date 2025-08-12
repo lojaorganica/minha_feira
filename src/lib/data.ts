@@ -346,17 +346,17 @@ let customers: Customer[] = [
 // Mapa de imagens padrão para produtos básicos
 const defaultProductImages = new Map<string, string>([
     ['maçã', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/macas_fuji.webp?alt=media&token=d9b195e6-0e42-4976-83fe-fdf87dfafd7c'],
-    ['tomate', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/product_images%2Ftomate.webp?alt=media&token=18037a34-52d3-4e89-a579-7a7114483758'],
-    ['cenoura', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/product_images%2Fcenoura.webp?alt=media&token=7d4a464a-2b72-4e4b-b54c-5d55b357f8a4'],
-    ['morango', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/product_images%2Fmorango.webp?alt=media&token=a88b5c92-7476-4b2a-89a3-5cde78a38b13'],
-    ['pão', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/product_images%2Fpao.webp?alt=media&token=3b3d9c84-18a7-4b7e-9b3d-55e1d4d12c8a'],
-    ['leite', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/product_images%2Fleite.webp?alt=media&token=68a28424-3a9d-4c3e-9b1a-8a1d7c3b4d5e'],
-    ['queijo', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/product_images%2Fqueijo.webp?alt=media&token=7a9c3b8a-1d5a-4c8e-a9d5-7c3e1b4a8d2c'],
-    ['couve', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/product_images%2Fcouve.webp?alt=media&token=8d2c4b8a-3e5a-4b9e-a1d5-8c3e1b4a8d2c'],
-    ['laranja', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/product_images%2Flaranja.webp?alt=media&token=9c3b8a1d-5a4c-8e9d-57c3-e1b4a8d2c3b4'],
-    ['iogurte', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/product_images%2Fiogurte.webp?alt=media&token=a1b2c3d4-5e6f-7g8h-9i0j-k1l2m3n4o5p6'],
-    ['baguete', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/product_images%2Fbaguete.webp?alt=media&token=b1a2c3d4-e5f6-g7h8-i9j0-k1l2m3n4o5p6'],
-    ['pimentão', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/product_images%2Fpimentao.webp?alt=media&token=c1b2a3d4-f5e6-g7h8-i9j0-k1l2m3n4o5p6'],
+    ['tomate', 'https://placehold.co/600x400.png'],
+    ['cenoura', 'https://placehold.co/600x400.png'],
+    ['morango', 'https://placehold.co/600x400.png'],
+    ['pão', 'https://placehold.co/600x400.png'],
+    ['leite', 'https://placehold.co/600x400.png'],
+    ['queijo', 'https://placehold.co/600x400.png'],
+    ['couve', 'https://placehold.co/600x400.png'],
+    ['laranja', 'https://placehold.co/600x400.png'],
+    ['iogurte', 'https://placehold.co/600x400.png'],
+    ['baguete', 'https://placehold.co/600x400.png'],
+    ['pimentão', 'https://placehold.co/600x400.png'],
 ]);
 
 
@@ -377,6 +377,10 @@ export function getProducts(options: { includePaused?: boolean } = {}): Product[
           if (productNameLower.includes(keyword)) {
               return { ...product, image: imageUrl };
           }
+      }
+      // Se nenhuma palavra-chave corresponder, garante que haja uma imagem de placeholder válida
+      if (!product.image || !product.image.startsWith('http')) {
+        return { ...product, image: 'https://placehold.co/600x400.png' };
       }
       return product;
   });
