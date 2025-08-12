@@ -85,7 +85,7 @@ export default function ProfileForm() {
                             <Input id="name" value={farmerData.name || ''} onChange={handleInputChange} />
                         </div>
                          <div className="space-y-2">
-                            <Label htmlFor="bio" className="text-base font-semibold">Bio</Label>
+                            <Label htmlFor="bio" className="text-base font-semibold">Bio (Escreva um pouquinho sobre seu sítio ou negócio nas feiras.)</Label>
                             <Textarea id="bio" value={farmerData.bio || ''} onChange={handleInputChange} placeholder="Escreva aqui, em poucas palavras, sobre seu trabalho ou produção." />
                         </div>
                          <div className="space-y-2">
