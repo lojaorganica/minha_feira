@@ -381,16 +381,16 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
                     </RadioGroup>
 
                     {deliveryOption === 'pickup' && farmer && farmer.fairs.length > 0 && (
-                        <div className="pt-2 pl-2">
-                             <Label className="font-semibold flex items-center gap-2 mb-2 text-base">
-                                <MapPin className="h-4 w-4 text-primary"/>
+                        <div className="pt-4 pl-1 space-y-3">
+                             <Label className="text-base font-bold flex items-center gap-2 mb-2">
+                                <MapPin className="h-5 w-5 text-primary"/>
                                 Onde você irá buscar?
                             </Label>
-                            <RadioGroup value={pickupLocation} onValueChange={setPickupLocation} className="space-y-1 pl-4">
+                            <RadioGroup value={pickupLocation} onValueChange={setPickupLocation} className="space-y-2 pl-4">
                                 {farmer.fairs.map(fair => (
-                                    <div key={fair} className="flex items-center space-x-2">
+                                    <div key={fair} className="flex items-center space-x-3">
                                         <RadioGroupItem value={fair} id={`fair-${fair}`} />
-                                        <Label htmlFor={`fair-${fair}`} className="font-normal">{getFairDisplayName(fair)}</Label>
+                                        <Label htmlFor={`fair-${fair}`} className="font-normal text-base cursor-pointer">{getFairDisplayName(fair)}</Label>
                                     </div>
                                 ))}
                             </RadioGroup>
@@ -523,6 +523,8 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
   );
 }
     
+    
+
     
 
     
