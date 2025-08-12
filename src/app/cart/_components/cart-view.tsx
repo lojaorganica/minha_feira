@@ -426,7 +426,7 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
                 </CardContent>
                 <CardFooter className="flex flex-col gap-4">
                      <div className="w-full text-center">
-                        <p className="text-sm text-foreground/80">
+                        <p className="text-base text-foreground/80">
                            Efetue o pagamento para a chave PIX e, em seguida, anexe o comprovante abaixo antes de enviar o pedido.
                         </p>
                     </div>
@@ -476,12 +476,13 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
                 <CardHeader>
                    <CardTitle className="flex items-center gap-2 font-headline">
                         <MessageSquare className="h-5 w-5 text-primary" />
-                        Mensagem para o agricultor
+                        <span>Mensagem para o agricultor</span>
+                        <span className="font-normal text-lg">(opcional)</span>
                    </CardTitle>
                 </CardHeader>
                 <CardContent>
                     <div className="grid w-full gap-1.5">
-                        <Label htmlFor="message">Deixe uma observação para o agricultor (opcional):</Label>
+                        <Label htmlFor="message">Deixe uma observação para o agricultor:</Label>
                         <Textarea 
                             placeholder="Ex: Por favor, embale os tomates para presente." 
                             id="message" 
