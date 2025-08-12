@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export default function WelcomePage() {
-  const backgroundImageUrl = "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/background_capa.webp?alt=media&token=102e041f-5550-461d-af13-ee529ce0b6e0";
+  const backgroundImageUrl = "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/background_capa_02.webp?alt=media&token=49a9d645-6b3f-4308-a963-8018442aeb89";
 
   return (
     <div className="flex flex-col flex-grow">
