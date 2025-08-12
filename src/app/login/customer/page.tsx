@@ -41,15 +41,15 @@ export default function CustomerLoginPage() {
             </CardHeader>
             <CardContent className="grid gap-4">
                 <div className="grid gap-2">
-                <Label htmlFor="email">E-mail</Label>
+                <Label htmlFor="email" className="text-base">E-mail</Label>
                 <Input id="email" type="email" placeholder="m@exemplo.com" required defaultValue="cliente@exemplo.com" />
                 </div>
                 <div className="grid gap-2">
                   <div className="flex items-center">
-                    <Label htmlFor="password">Senha</Label>
+                    <Label htmlFor="password" className="text-base">Senha</Label>
                     <Link
                       href="#"
-                      className="ml-auto inline-block text-sm underline"
+                      className="ml-auto inline-block text-base underline"
                     >
                       Esqueceu sua senha?
                     </Link>
@@ -61,7 +61,7 @@ export default function CustomerLoginPage() {
                 <Button className="w-full" onClick={handleLogin}>
                     Entrar
                 </Button>
-                 <div className="text-center text-sm">
+                 <div className="text-center text-base">
                     Não tem uma conta?{" "}
                     <Link href="#" className="underline">
                         Cadastre-se
