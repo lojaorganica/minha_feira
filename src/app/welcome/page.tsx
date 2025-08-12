@@ -6,8 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export default function WelcomePage() {
-  // TODO: Cole aqui a URL da imagem que você subiu para o Firebase Storage
-  const backgroundImageUrl = "https://placehold.co/1920x1080.png";
+  const backgroundImageUrl = "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/background_capa.webp?alt=media&token=102e041f-5550-461d-af13-ee529ce0b6e0";
 
   return (
     <div className="flex flex-col flex-grow">
