@@ -8,7 +8,6 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import Link from "next/link";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -68,7 +67,7 @@ export default function ConhecaPage() {
             Comprar seus orgânicos direto do agricultor é simples e rápido. Siga os passos abaixo!
           </p>
            <Image 
-              src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/cliente_cesta_organicos.webp?alt=media&token=9d32d6f7-3a13-4e4c-b844-0a67a541617c" 
+              src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/background_capa_02.webp?alt=media&token=49a9d645-6b3f-4308-a963-8018442aeb89" 
               alt="Ilustração de uma cliente recebendo uma cesta de orgânicos"
               width={400} 
               height={300} 
@@ -178,8 +177,8 @@ export default function ConhecaPage() {
             <p className="text-xl font-semibold text-foreground/90 max-w-2xl mx-auto">
                 Agora é só aguardar a confirmação do agricultor via WhatsApp e combinar os detalhes da entrega ou retirada. Boas compras!
             </p>
-            <Button size="lg" asChild>
-                <Link href="/catalog">Começar a Comprar</Link>
+            <Button size="lg">
+                Começar a Comprar
             </Button>
         </motion.div>
 
