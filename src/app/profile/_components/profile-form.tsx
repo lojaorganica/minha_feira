@@ -77,23 +77,23 @@ export default function ProfileForm() {
                 <form onSubmit={handleSubmit}>
                     <CardContent className="space-y-4">
                          <div className="space-y-2">
-                            <Label htmlFor="responsibleName">Nome do Agricultor(a) ou Empresário(a) Responsável</Label>
+                            <Label htmlFor="responsibleName" className="text-base font-semibold">Nome do Agricultor(a) ou Empresário(a) Responsável</Label>
                             <Input id="responsibleName" value={farmerData.responsibleName || ''} onChange={handleInputChange} />
                         </div>
                          <div className="space-y-2">
-                            <Label htmlFor="name">Nome da Fazenda / Marca</Label>
+                            <Label htmlFor="name" className="text-base font-semibold">Nome da Fazenda / Marca</Label>
                             <Input id="name" value={farmerData.name || ''} onChange={handleInputChange} />
                         </div>
                          <div className="space-y-2">
-                            <Label htmlFor="bio">Bio</Label>
+                            <Label htmlFor="bio" className="text-base font-semibold">Bio</Label>
                             <Textarea id="bio" value={farmerData.bio || ''} onChange={handleInputChange} placeholder="Escreva aqui, em poucas palavras, sobre seu trabalho ou produção." />
                         </div>
                          <div className="space-y-2">
-                            <Label htmlFor="address">Endereço</Label>
+                            <Label htmlFor="address" className="text-base font-semibold">Endereço</Label>
                             <Input id="address" value={farmerData.address || ''} onChange={handleInputChange} />
                         </div>
                         <div className="space-y-2">
-                            <Label>Feiras onde trabalho</Label>
+                            <Label className="text-base font-semibold">Feiras onde trabalho</Label>
                             <div className="grid grid-cols-2 gap-x-4 gap-y-2 rounded-md border p-4">
                                 {allFairs.map((fair) => (
                                     <div key={fair} className="flex items-center space-x-2">
@@ -102,21 +102,21 @@ export default function ProfileForm() {
                                         onCheckedChange={() => handleFairChange(fair)}
                                         checked={farmerData.fairs?.includes(fair)}
                                         />
-                                        <Label htmlFor={`fair-${fair.toLowerCase()}`} className="font-normal">{fair}</Label>
+                                        <Label htmlFor={`fair-${fair.toLowerCase()}`} className="font-normal text-base">{fair}</Label>
                                     </div>
                                 ))}
                             </div>
                         </div>
                         <div className="space-y-2">
-                            <Label htmlFor="phone">Telefone / WhatsApp</Label>
+                            <Label htmlFor="phone" className="text-base font-semibold">Telefone / WhatsApp</Label>
                             <Input id="phone" value={farmerData.phone || ''} onChange={handleInputChange} />
                         </div>
                          <div className="space-y-2">
-                            <Label htmlFor="pixKey">Chave PIX</Label>
+                            <Label htmlFor="pixKey" className="text-base font-semibold">Chave PIX</Label>
                             <Input id="pixKey" value={farmerData.pixKey || ''} onChange={handleInputChange} />
                         </div>
                          <div className="space-y-2">
-                            <Label htmlFor="shippingCost">Custo de Frete (Delivery)</Label>
+                            <Label htmlFor="shippingCost" className="text-base font-semibold">Custo de Frete (Delivery)</Label>
                             <Input id="shippingCost" type="number" value={farmerData.shippingCost || ''} onChange={handleNumberInputChange} placeholder="Deixe em branco se não oferecer"/>
                         </div>
                     </CardContent>
@@ -139,19 +139,19 @@ export default function ProfileForm() {
                 <form onSubmit={handleSubmit}>
                     <CardContent className="space-y-4">
                         <div className="space-y-2">
-                            <Label htmlFor="name">Nome Completo</Label>
+                            <Label htmlFor="name" className="text-base font-semibold">Nome Completo</Label>
                             <Input id="name" value={customerData.name || ''} onChange={handleInputChange} />
                         </div>
                          <div className="space-y-2">
-                            <Label htmlFor="phone">Telefone / WhatsApp</Label>
+                            <Label htmlFor="phone" className="text-base font-semibold">Telefone / WhatsApp</Label>
                             <Input id="phone" value={customerData.phone || ''} onChange={handleInputChange} />
                         </div>
                         <div className="space-y-2">
-                            <Label htmlFor="address">Endereço de Entrega</Label>
+                            <Label htmlFor="address" className="text-base font-semibold">Endereço de Entrega</Label>
                             <Input id="address" value={customerData.address || ''} onChange={handleInputChange} />
                         </div>
                         <div className="space-y-2">
-                            <Label htmlFor="cep">CEP</Label>
+                            <Label htmlFor="cep" className="text-base font-semibold">CEP</Label>
                             <Input id="cep" value={customerData.cep || ''} onChange={handleInputChange} placeholder="Ex: 22221-010" />
                         </div>
                     </CardContent>
