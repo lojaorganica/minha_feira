@@ -183,6 +183,19 @@ let products: Product[] = [
     description: 'Maçãs Fuji orgânicas, conhecidas por sua doçura e textura crocante.',
     status: 'active',
   },
+  {
+    id: '14',
+    name: 'Alface Americana',
+    category: 'Vegetal',
+    price: 3.50,
+    unitAmount: 1,
+    unit: 'unidade',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_americana.webp?alt=media&token=d745a4e5-1f8c-4333-8a8a-48a4201d308a',
+    dataAiHint: 'iceberg lettuce',
+    farmerId: '1',
+    description: 'Alface americana crocante e refrescante, ideal para sanduíches e saladas.',
+    status: 'active',
+  },
 ];
 
 let farmers: Farmer[] = [
@@ -346,6 +359,7 @@ let customers: Customer[] = [
 // Mapa de imagens padrão para produtos básicos
 const defaultProductImages = new Map<string, string>([
     ['maçã', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/macas_fuji.webp?alt=media&token=d9b195e6-0e42-4976-83fe-fdf87dfafd7c'],
+    ['alface americana', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_americana.webp?alt=media&token=d745a4e5-1f8c-4333-8a8a-48a4201d308a'],
     ['tomate', 'https://placehold.co/600x400.png'],
     ['cenoura', 'https://placehold.co/600x400.png'],
     ['morango', 'https://placehold.co/600x400.png'],
