@@ -33,19 +33,6 @@ let products: Product[] = [
     }
   },
   {
-    id: '3',
-    name: 'Maçãs Crocantes Orgânicas',
-    category: 'Fruta',
-    price: 1.5,
-    unitAmount: 1,
-    unit: 'unidade',
-    image: 'https://placehold.co/600x400.png',
-    dataAiHint: 'crisp apples',
-    farmerId: '2',
-    description: 'Maçãs orgânicas doces e crocantes, ótimas para um lanche saudável.',
-    status: 'active',
-  },
-  {
     id: '4',
     name: 'Morangos Frescos Orgânicos',
     category: 'Fruta',
@@ -177,7 +164,7 @@ let products: Product[] = [
     price: 1.8,
     unitAmount: 1,
     unit: 'unidade',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/maca_fuji.webp?alt=media&token=2eba23fb-a8d1-46a7-842c-87bc88390ccd',
     dataAiHint: 'fuji apple',
     farmerId: '2',
     description: 'Maçãs Fuji orgânicas, conhecidas por sua doçura e textura crocante.',
@@ -323,7 +310,7 @@ let orders: Order[] = [
         id: 'ORD-003',
         customerName: 'Charlie Brown',
         items: [
-            { productName: 'Maçãs Crocantes Orgânicas', quantity: 4 },
+            { productName: 'Maçã Fuji Orgânica', quantity: 4 },
             { productName: 'Morangos Frescos Orgânicos', quantity: 1 },
         ],
         status: 'Pendente',
@@ -397,7 +384,7 @@ let customers: Customer[] = [
 
 // Mapa de imagens padrão para produtos básicos
 const defaultProductImages = new Map<string, string>([
-    ['maçã', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/macas_fuji.webp?alt=media&token=d9b195e6-0e42-4976-83fe-fdf87dfafd7c'],
+    ['maca fuji', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/maca_fuji.webp?alt=media&token=2eba23fb-a8d1-46a7-842c-87bc88390ccd'],
     ['alface americana', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_americana.webp?alt=media&token=d745a4e5-1f8c-4333-8a8a-48a4201d308a'],
     ['brocolis americano', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/brocolis_americano.webp?alt=media&token=fd124564-9af1-438e-8e3b-34c320279c8b'],
     ['brocolis', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/brocolis_americano.webp?alt=media&token=fd124564-9af1-438e-8e3b-34c320279c8b'],
