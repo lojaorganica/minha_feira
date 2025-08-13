@@ -1,13 +1,14 @@
 
 'use client';
 
-import { ArrowDown, CheckCircle, Hand, MousePointerClick, ShoppingCart, Tractor } from "lucide-react";
-import BackButton from "@/components/back-button";
+import { ArrowDown, CheckCircle, Hand, MousePointerClick, ShoppingCart, Tractor, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -47,10 +48,15 @@ const TutorialStep = ({ number, title, description, children }: { number: string
 );
 
 export default function ConhecaPage() {
+  const router = useRouter();
+
   return (
     <div className="container mx-auto px-4 py-6 sm:px-6 lg:px-8">
       <div className="mb-4">
-        <BackButton />
+        <Button onClick={() => router.push('/welcome')}>
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Voltar
+        </Button>
       </div>
 
       <motion.div 
@@ -177,7 +183,7 @@ export default function ConhecaPage() {
             <p className="text-xl font-semibold text-foreground/90 max-w-2xl mx-auto">
                 Agora é só aguardar a confirmação do agricultor via WhatsApp e combinar os detalhes da entrega ou retirada. Boas compras!
             </p>
-            <Button size="lg">
+            <Button size="lg" disabled>
                 Começar a Comprar
             </Button>
         </motion.div>
