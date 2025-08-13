@@ -17,7 +17,7 @@ let products: Product[] = [
   },
   {
     id: '2',
-    name: 'Tomates Antigos',
+    name: 'Tomates Antigos Orgânicos',
     category: 'Vegetal',
     price: 3.0,
     unitAmount: 1,
@@ -34,7 +34,7 @@ let products: Product[] = [
   },
   {
     id: '3',
-    name: 'Maçãs Crocantes',
+    name: 'Maçãs Crocantes Orgânicas',
     category: 'Fruta',
     price: 1.5,
     unitAmount: 1,
@@ -47,7 +47,7 @@ let products: Product[] = [
   },
   {
     id: '4',
-    name: 'Morangos Frescos',
+    name: 'Morangos Frescos Orgânicos',
     category: 'Fruta',
     price: 4.0,
     unitAmount: 1,
@@ -64,7 +64,7 @@ let products: Product[] = [
   },
   {
     id: '5',
-    name: 'Leite Fresco da Fazenda',
+    name: 'Leite Fresco da Fazenda Orgânico',
     category: 'Laticínio',
     price: 3.5,
     unitAmount: 1,
@@ -77,7 +77,7 @@ let products: Product[] = [
   },
   {
     id: '6',
-    name: 'Queijo Artesanal',
+    name: 'Queijo Artesanal Orgânico',
     category: 'Laticínio',
     price: 8.0,
     unitAmount: 100,
@@ -90,7 +90,7 @@ let products: Product[] = [
   },
   {
     id: '7',
-    name: 'Pão de Fermentação Natural',
+    name: 'Pão de Fermentação Natural Orgânico',
     category: 'Padaria',
     price: 5.0,
     unitAmount: 1,
@@ -120,7 +120,7 @@ let products: Product[] = [
   },
    {
     id: '9',
-    name: 'Laranjas Doces',
+    name: 'Laranjas Doces Orgânicas',
     category: 'Fruta',
     price: 2.0,
     unitAmount: 1,
@@ -133,7 +133,7 @@ let products: Product[] = [
   },
   {
     id: '10',
-    name: 'Iogurte Grego',
+    name: 'Iogurte Grego Orgânico',
     category: 'Laticínio',
     price: 4.5,
     unitAmount: 1,
@@ -146,7 +146,7 @@ let products: Product[] = [
   },
   {
     id: '11',
-    name: 'Baguete de Trigo Integral',
+    name: 'Baguete de Trigo Integral Orgânica',
     category: 'Padaria',
     price: 4.0,
     unitAmount: 1,
@@ -159,7 +159,7 @@ let products: Product[] = [
   },
   {
     id: '12',
-    name: 'Pimentões',
+    name: 'Pimentões Orgânicos',
     category: 'Vegetal',
     price: 2.75,
     unitAmount: 1,
@@ -172,7 +172,7 @@ let products: Product[] = [
   },
    {
     id: '13',
-    name: 'Maçã Fuji',
+    name: 'Maçã Fuji Orgânica',
     category: 'Fruta',
     price: 1.8,
     unitAmount: 1,
@@ -185,7 +185,7 @@ let products: Product[] = [
   },
   {
     id: '14',
-    name: 'Alface Americana',
+    name: 'Alface Americana Orgânica',
     category: 'Vegetal',
     price: 3.50,
     unitAmount: 1,
@@ -198,7 +198,7 @@ let products: Product[] = [
   },
   {
     id: '15',
-    name: 'Brócolis Americano',
+    name: 'Brócolis Americano Orgânico',
     category: 'Vegetal',
     price: 4.50,
     unitAmount: 1,
@@ -211,7 +211,7 @@ let products: Product[] = [
   },
   {
     id: '16',
-    name: 'Beterraba',
+    name: 'Beterraba Orgânica',
     category: 'Vegetal',
     price: 3.20,
     unitAmount: 1,
@@ -224,7 +224,7 @@ let products: Product[] = [
   },
   {
     id: '17',
-    name: 'Manga Palmer',
+    name: 'Manga Palmer Orgânica',
     category: 'Fruta',
     price: 6.50,
     unitAmount: 1,
@@ -298,7 +298,7 @@ let orders: Order[] = [
         customerName: 'Alice Johnson',
         items: [
             { productName: 'Cenouras Orgânicas', quantity: 2 },
-            { productName: 'Leite Fresco da Fazenda', quantity: 1 },
+            { productName: 'Leite Fresco da Fazenda Orgânico', quantity: 1 },
         ],
         status: 'Pendente',
         total: 8.50,
@@ -310,8 +310,8 @@ let orders: Order[] = [
         id: 'ORD-002',
         customerName: 'Bob Williams',
         items: [
-            { productName: 'Pão de Fermentação Natural', quantity: 1 },
-            { productName: 'Queijo Artesanal', quantity: 1 },
+            { productName: 'Pão de Fermentação Natural Orgânico', quantity: 1 },
+            { productName: 'Queijo Artesanal Orgânico', quantity: 1 },
         ],
         status: 'Confirmado',
         total: 13.00,
@@ -323,8 +323,8 @@ let orders: Order[] = [
         id: 'ORD-003',
         customerName: 'Charlie Brown',
         items: [
-            { productName: 'Maçãs Crocantes', quantity: 4 },
-            { productName: 'Morangos Frescos', quantity: 1 },
+            { productName: 'Maçãs Crocantes Orgânicas', quantity: 4 },
+            { productName: 'Morangos Frescos Orgânicos', quantity: 1 },
         ],
         status: 'Pendente',
         total: 10.00,
@@ -336,7 +336,7 @@ let orders: Order[] = [
         id: 'ORD-004',
         customerName: 'Diana Miller',
         items: [
-            { productName: 'Tomates Antigos', quantity: 2 },
+            { productName: 'Tomates Antigos Orgânicos', quantity: 2 },
             { productName: 'Couve Orgânica', quantity: 1 },
         ],
         status: 'Rejeitado',
