@@ -196,6 +196,19 @@ let products: Product[] = [
     description: 'Alface americana crocante e refrescante, ideal para sanduíches e saladas.',
     status: 'active',
   },
+  {
+    id: '15',
+    name: 'Brócolis Americano',
+    category: 'Vegetal',
+    price: 4.50,
+    unitAmount: 1,
+    unit: 'unidade',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/brocolis_americano.webp?alt=media&token=fd124564-9af1-438e-8e3b-34c320279c8b',
+    dataAiHint: 'american broccoli',
+    farmerId: '1',
+    description: 'Brócolis americano fresco, perfeito para cozinhar no vapor ou assar.',
+    status: 'active',
+  },
 ];
 
 let farmers: Farmer[] = [
@@ -360,6 +373,7 @@ let customers: Customer[] = [
 const defaultProductImages = new Map<string, string>([
     ['maçã', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/macas_fuji.webp?alt=media&token=d9b195e6-0e42-4976-83fe-fdf87dfafd7c'],
     ['alface americana', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_americana.webp?alt=media&token=d745a4e5-1f8c-4333-8a8a-48a4201d308a'],
+    ['brocolis americano', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/brocolis_americano.webp?alt=media&token=fd124564-9af1-438e-8e3b-34c320279c8b'],
     ['tomate', 'https://placehold.co/600x400.png'],
     ['cenoura', 'https://placehold.co/600x400.png'],
     ['morango', 'https://placehold.co/600x400.png'],
@@ -386,7 +400,7 @@ export function getProducts(options: { includePaused?: boolean } = {}): Product[
 
   // Aplica imagens padrão
   allProducts = allProducts.map(product => {
-      const productNameLower = product.name.toLowerCase();
+      const productNameLower = product.name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
       for (const [keyword, imageUrl] of defaultProductImages.entries()) {
           if (productNameLower.includes(keyword)) {
               return { ...product, image: imageUrl };
