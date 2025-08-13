@@ -370,7 +370,9 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
                         <Label className="text-lg font-bold">Opções de Entrega</Label>
                         <div className="flex items-center space-x-2">
                             <RadioGroupItem value="pickup" id="pickup" />
-                            <Label htmlFor="pickup" className="font-semibold">Pegar na Feira | Grátis</Label>
+                            <Label htmlFor="pickup" className="font-semibold">
+                                Pegar na Feira | <span className="text-accent">Grátis</span>
+                            </Label>
                         </div>
                         {farmer?.shippingCost !== undefined && farmer.shippingCost > 0 && (
                             <div className="flex items-center space-x-2">
@@ -477,7 +479,7 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
                    <CardTitle className="flex items-center gap-2 font-headline">
                         <MessageSquare className="h-5 w-5 text-primary" />
                         <span>Mensagem para o agricultor</span>
-                        <span className="font-normal text-lg">(opcional)</span>
+                        <span className="font-normal text-lg text-accent">(opcional)</span>
                    </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -524,6 +526,8 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
   );
 }
     
+    
+
     
 
     
