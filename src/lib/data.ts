@@ -222,6 +222,19 @@ let products: Product[] = [
     description: 'Beterraba orgânica, ótima para sucos, saladas e assados.',
     status: 'active',
   },
+  {
+    id: '17',
+    name: 'Manga Palmer',
+    category: 'Fruta',
+    price: 6.50,
+    unitAmount: 1,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/manga_palmer.webp?alt=media&token=fdf4085f-fbef-41b1-be8a-a613dde3c2e4',
+    dataAiHint: 'palmer mango',
+    farmerId: '2',
+    description: 'Manga Palmer doce e sem fibras, perfeita para consumo in natura ou sucos.',
+    status: 'active',
+  },
 ];
 
 let farmers: Farmer[] = [
@@ -400,6 +413,7 @@ const defaultProductImages = new Map<string, string>([
     ['iogurte', 'https://placehold.co/600x400.png'],
     ['baguete', 'https://placehold.co/600x400.png'],
     ['pimentão', 'https://placehold.co/600x400.png'],
+    ['manga palmer', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/manga_palmer.webp?alt=media&token=fdf4085f-fbef-41b1-be8a-a613dde3c2e4'],
 ]);
 
 
