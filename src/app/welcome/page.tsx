@@ -53,21 +53,21 @@ export default function WelcomePage() {
       <footer className="bg-muted p-6 md:py-12 w-full mt-auto">
         <div className="container max-w-7xl grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 text-base">
           <div className="grid gap-1">
-            <h3 className="font-semibold font-headline text-primary">Minha Feira</h3>
+            <h3 className="font-semibold font-headline text-primary select-none">Minha Feira</h3>
             <p className="text-muted-foreground font-semibold">© 2025 Minha Feira Inc.</p>
           </div>
           <div className="grid gap-1">
-            <h3 className="font-semibold font-headline text-primary">Navegue</h3>
+            <h3 className="font-semibold font-headline text-primary select-none">Navegue</h3>
              <Link href="/conheca" className="text-muted-foreground hover:text-foreground font-semibold">Conheça o App</Link>
             <Link href="/faq" className="text-muted-foreground hover:text-foreground font-semibold">FAQ</Link>
           </div>
           <div className="grid gap-1">
-            <h3 className="font-semibold font-headline text-primary">Legal</h3>
+            <h3 className="font-semibold font-headline text-primary select-none">Legal</h3>
             <Link href="/terms" className="text-muted-foreground hover:text-foreground font-semibold">Termos de Serviço</Link>
             <Link href="/privacy" className="text-muted-foreground hover:text-foreground font-semibold">Política de Privacidade</Link>
           </div>
           <div className="grid gap-1">
-            <h3 className="font-semibold font-headline text-primary">Suporte</h3>
+            <h3 className="font-semibold font-headline text-primary select-none">Suporte</h3>
             <Link href="https://www.facebook.com/feirasorganicas/" className="text-muted-foreground hover:text-foreground font-semibold">Fale Conosco</Link>
           </div>
         </div>
