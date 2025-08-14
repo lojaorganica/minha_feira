@@ -351,6 +351,19 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Abacaxi pérola orgânico, doce e suculento, perfeito para o verão.',
     status: 'active',
+  },
+  {
+    id: '28',
+    name: 'Berinjela Orgânica',
+    category: 'Vegetal',
+    price: 3.70,
+    unitAmount: 1,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/berinjela.webp?alt=media&token=ad1f7bd9-75db-4fc4-ac6d-3608733d71e9',
+    dataAiHint: 'eggplant',
+    farmerId: '1',
+    description: 'Berinjela orgânica, ideal para antepastos, lasanhas e parmegiana.',
+    status: 'active',
   }
 ];
 
@@ -547,6 +560,7 @@ const defaultProductImages = new Map<string, string>([
     ['banana prata', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/banana_prata.webp?alt=media&token=d38fe201-0312-48fc-9cf7-6e2b1fd97bf8'],
     ['goiaba vermelha', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/goiaba_vermelha.webp?alt=media&token=da3e5869-d746-4b9b-b23c-ab5418912991'],
     ['abacaxi', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/abacaxi.webp?alt=media&token=4caa0219-8635-4fbb-8e1c-fdec6909ebda'],
+    ['berinjela', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/berinjela.webp?alt=media&token=ad1f7bd9-75db-4fc4-ac6d-3608733d71e9'],
 ]);
 
 
