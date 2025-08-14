@@ -474,7 +474,6 @@ const defaultProductImages = new Map<string, string>([
     ['tangerina pokan', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tangerina_pokan.webp?alt=media&token=ca18499e-b35d-43f7-9b73-9c77684ef3b4'],
     ['batata doce', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batata_doce.webp?alt=media&token=9777102d-626a-4f4e-b2d7-1045f0cc4148'],
     ['couve flor', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_flor.webp?alt=media&token=43dc0a43-dd1c-447e-aa04-d4e067907a9c'],
-    ['couve-flor', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_flor.webp?alt=media&token=43dc0a43-dd1c-447e-aa04-d4e067907a9c'],
     ['mamao papaya', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mamao_papaya.webp?alt=media&token=6935a389-a40d-4eb2-b1ae-cdaed2be18a3'],
 ]);
 
@@ -491,7 +490,7 @@ export function getProducts(options: { includePaused?: boolean } = {}): Product[
 
   // Aplica imagens padrão
   allProducts = allProducts.map(product => {
-      const productNameLower = product.name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      const productNameLower = product.name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]|-/g, "");
       for (const [keyword, imageUrl] of defaultProductImages.entries()) {
           if (productNameLower.includes(keyword)) {
               return { ...product, image: imageUrl };
