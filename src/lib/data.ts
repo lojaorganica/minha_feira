@@ -274,6 +274,19 @@ let products: Product[] = [
     description: 'Couve-flor orgânica fresca, versátil para diversas receitas, desde purês a assados.',
     status: 'active',
   },
+  {
+    id: '22',
+    name: 'Mamão Papaya Orgânico',
+    category: 'Fruta',
+    price: 5.20,
+    unitAmount: 1,
+    unit: 'unidade',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mamao_papaya.webp?alt=media&token=6935a389-a40d-4eb2-b1ae-cdaed2be18a3',
+    dataAiHint: 'papaya',
+    farmerId: '2',
+    description: 'Mamão Papaya orgânico, doce e macio. Perfeito para o café da manhã ou sobremesas.',
+    status: 'active',
+  },
 ];
 
 let farmers: Farmer[] = [
@@ -461,6 +474,7 @@ const defaultProductImages = new Map<string, string>([
     ['batata doce', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batata_doce.webp?alt=media&token=9777102d-626a-4f4e-b2d7-1045f0cc4148'],
     ['couve flor', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_flor.webp?alt=media&token=43dc0a43-dd1c-447e-aa04-d4e067907a9c'],
     ['couve-flor', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_flor.webp?alt=media&token=43dc0a43-dd1c-447e-aa04-d4e067907a9c'],
+    ['mamao papaya', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mamao_papaya.webp?alt=media&token=6935a389-a40d-4eb2-b1ae-cdaed2be18a3'],
 ]);
 
 
