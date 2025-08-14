@@ -164,7 +164,7 @@ let products: Product[] = [
     price: 1.8,
     unitAmount: 1,
     unit: 'unidade',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/maca_fuji.webp?alt=media&token=d9b195e6-0e42-4976-83fe-fdf87dfafd7c',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/maca_fuji.webp?alt=media&token=2eba23fb-a8d1-46a7-842c-87bc88390ccd',
     dataAiHint: 'fuji apple',
     farmerId: '2',
     description: 'Maçãs Fuji orgânicas, conhecidas por sua doçura e textura crocante.',
@@ -233,6 +233,19 @@ let products: Product[] = [
     dataAiHint: 'garlic',
     farmerId: '1',
     description: 'Alho orgânico de sabor intenso, essencial para temperar seus pratos.',
+    status: 'active',
+  },
+  {
+    id: '19',
+    name: 'Tangerina Pokan Orgânica',
+    category: 'Fruta',
+    price: 4.80,
+    unitAmount: 1,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tangerina_pokan.webp?alt=media&token=ca18499e-b35d-43f7-9b73-9c77684ef3b4',
+    dataAiHint: 'pokan tangerine',
+    farmerId: '2',
+    description: 'Tangerina Pokan suculenta e fácil de descascar, colhida no ponto certo de doçura.',
     status: 'active',
   },
 ];
@@ -397,8 +410,8 @@ let customers: Customer[] = [
 
 // Mapa de imagens padrão para produtos básicos
 const defaultProductImages = new Map<string, string>([
-    ['maca fuji', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/maca_fuji.webp?alt=media&token=d9b195e6-0e42-4976-83fe-fdf87dfafd7c'],
-    ['maca', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/maca_fuji.webp?alt=media&token=d9b195e6-0e42-4976-83fe-fdf87dfafd7c'],
+    ['maca fuji', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/maca_fuji.webp?alt=media&token=2eba23fb-a8d1-46a7-842c-87bc88390ccd'],
+    ['maca', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/maca_fuji.webp?alt=media&token=2eba23fb-a8d1-46a7-842c-87bc88390ccd'],
     ['alface americana', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_americana.webp?alt=media&token=d745a4e5-1f8c-4333-8a8a-48a4201d308a'],
     ['brocolis americano', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/brocolis_americano.webp?alt=media&token=fd124564-9af1-438e-8e3b-34c320279c8b'],
     ['brocolis', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/brocolis_americano.webp?alt=media&token=fd124564-9af1-438e-8e3b-34c320279c8b'],
@@ -416,6 +429,7 @@ const defaultProductImages = new Map<string, string>([
     ['pimentão', 'https://placehold.co/600x400.png'],
     ['manga palmer', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/manga_palmer.webp?alt=media&token=fdf4085f-fbef-41b1-be8a-a613dde3c2e4'],
     ['alho', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alho.webp?alt=media&token=8071bc57-cdd1-4105-98da-6253f6f13050'],
+    ['tangerina pokan', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tangerina_pokan.webp?alt=media&token=ca18499e-b35d-43f7-9b73-9c77684ef3b4'],
 ]);
 
 
