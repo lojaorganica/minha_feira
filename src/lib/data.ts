@@ -94,15 +94,15 @@ let products: Product[] = [
   },
   {
     id: '8',
-    name: 'Couve Orgânica',
+    name: 'Couve Mineira Orgânica',
     category: 'Vegetal',
-    price: 2.0,
+    price: 2.20,
     unitAmount: 1,
     unit: 'maço',
-    image: 'https://placehold.co/600x400.png',
-    dataAiHint: 'organic kale',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_mineira.webp?alt=media&token=fb0702ac-1c9a-4414-9857-bd0908d68348',
+    dataAiHint: 'collard greens',
     farmerId: '1',
-    description: 'Couve orgânica rica em nutrientes, perfeita para saladas e smoothies.',
+    description: 'Couve mineira orgânica, ideal para refogados e para acompanhar a tradicional feijoada.',
     status: 'active',
   },
    {
@@ -376,7 +376,7 @@ let orders: Order[] = [
         customerName: 'Diana Miller',
         items: [
             { productName: 'Tomates Italianos Orgânicos', quantity: 2 },
-            { productName: 'Couve Orgânica', quantity: 1 },
+            { productName: 'Couve Mineira Orgânica', quantity: 1 },
         ],
         status: 'Rejeitado',
         total: 8.00,
@@ -450,8 +450,8 @@ const defaultProductImages = new Map<string, string>([
     ['pão', 'https://placehold.co/600x400.png'],
     ['leite', 'https://placehold.co/600x400.png'],
     ['queijo', 'https://placehold.co/600x400.png'],
-    ['couve', 'https://placehold.co/600x400.png'],
-    ['couve flor', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_flor.webp?alt=media&token=43dc0a43-dd1c-447e-aa04-d4e067907a9c'],
+    ['couve mineira', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_mineira.webp?alt=media&token=fb0702ac-1c9a-4414-9857-bd0908d68348'],
+    ['couve', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_mineira.webp?alt=media&token=fb0702ac-1c9a-4414-9857-bd0908d68348'],
     ['laranja', 'https://placehold.co/600x400.png'],
     ['iogurte', 'https://placehold.co/600x400.png'],
     ['baguete', 'https://placehold.co/600x400.png'],
@@ -487,7 +487,8 @@ export function getProducts(options: { includePaused?: boolean } = {}): Product[
 
       // Itera sobre as palavras-chave do mapa para encontrar a correspondência mais longa
       for (const [keyword, imageUrl] of defaultProductImages.entries()) {
-          if (normalizedProductName.includes(keyword) && keyword.length > bestMatch.length) {
+          const normalizedKeyword = keyword.normalize("NFD").replace(/[\u0300-\u036f]|-/g, "");
+          if (normalizedProductName.includes(normalizedKeyword) && normalizedKeyword.length > bestMatch.length) {
               bestMatch = keyword;
               bestMatchImageUrl = imageUrl;
           }
