@@ -300,6 +300,19 @@ let products: Product[] = [
     description: 'Inhame orgânico, nutritivo e versátil, ideal para sopas, purês e assados.',
     status: 'active',
   },
+  {
+    id: '24',
+    name: 'Limão Taiti Orgânico',
+    category: 'Fruta',
+    price: 3.90,
+    unitAmount: 1,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/limao_taiti.webp?alt=media&token=5f538bf1-e909-4346-8c0d-92c1e145b897',
+    dataAiHint: 'tahiti lime',
+    farmerId: '2',
+    description: 'Limão Taiti orgânico, suculento e com poucas sementes. Ideal para sucos, temperos e sobremesas.',
+    status: 'active',
+  },
 ];
 
 let farmers: Farmer[] = [
@@ -488,7 +501,9 @@ const defaultProductImages = new Map<string, string>([
     ['batata doce', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batata_doce.webp?alt=media&token=9777102d-626a-4f4e-b2d7-1045f0cc4148'],
     ['mamao papaya', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mamao_papaya.webp?alt=media&token=6935a389-a40d-4eb2-b1ae-cdaed2be18a3'],
     ['couve flor', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_flor.webp?alt=media&token=060ec6fe-51d8-49de-b75a-d58e675b2ca4'],
+    ['couve-flor', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_flor.webp?alt=media&token=060ec6fe-51d8-49de-b75a-d58e675b2ca4'],
     ['inhame', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/inhame.webp?alt=media&token=230229d4-3136-45a0-a5df-605c7de2592b'],
+    ['limao taiti', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/limao_taiti.webp?alt=media&token=5f538bf1-e909-4346-8c0d-92c1e145b897'],
 ]);
 
 
