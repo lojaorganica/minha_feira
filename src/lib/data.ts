@@ -465,6 +465,7 @@ const defaultProductImages = new Map<string, string>([
     ['leite', 'https://placehold.co/600x400.png'],
     ['queijo', 'https://placehold.co/600x400.png'],
     ['couve', 'https://placehold.co/600x400.png'],
+    ['couve flor', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_flor.webp?alt=media&token=43dc0a43-dd1c-447e-aa04-d4e067907a9c'],
     ['laranja', 'https://placehold.co/600x400.png'],
     ['iogurte', 'https://placehold.co/600x400.png'],
     ['baguete', 'https://placehold.co/600x400.png'],
@@ -473,7 +474,6 @@ const defaultProductImages = new Map<string, string>([
     ['alho', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alho.webp?alt=media&token=8071bc57-cdd1-4105-98da-6253f6f13050'],
     ['tangerina pokan', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tangerina_pokan.webp?alt=media&token=ca18499e-b35d-43f7-9b73-9c77684ef3b4'],
     ['batata doce', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batata_doce.webp?alt=media&token=9777102d-626a-4f4e-b2d7-1045f0cc4148'],
-    ['couve flor', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_flor.webp?alt=media&token=43dc0a43-dd1c-447e-aa04-d4e067907a9c'],
     ['mamao papaya', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mamao_papaya.webp?alt=media&token=6935a389-a40d-4eb2-b1ae-cdaed2be18a3'],
 ]);
 
@@ -488,18 +488,35 @@ export function getProducts(options: { includePaused?: boolean } = {}): Product[
     return p;
   });
 
-  // Aplica imagens padrão
+  // Aplica imagens padrão com lógica aprimorada
   allProducts = allProducts.map(product => {
-      const productNameLower = product.name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]|-/g, "");
+      // Normaliza o nome do produto para busca: minúsculas, sem acentos, sem hífen
+      const normalizedProductName = product.name
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]|-/g, "");
+
+      let bestMatch = '';
+      let bestMatchImageUrl = '';
+
+      // Itera sobre as palavras-chave do mapa para encontrar a correspondência mais longa
       for (const [keyword, imageUrl] of defaultProductImages.entries()) {
-          if (productNameLower.includes(keyword)) {
-              return { ...product, image: imageUrl };
+          if (normalizedProductName.includes(keyword) && keyword.length > bestMatch.length) {
+              bestMatch = keyword;
+              bestMatchImageUrl = imageUrl;
           }
       }
+
+      // Se uma correspondência foi encontrada, atualiza a imagem do produto
+      if (bestMatchImageUrl) {
+          return { ...product, image: bestMatchImageUrl };
+      }
+      
       // Se nenhuma palavra-chave corresponder, garante que haja uma imagem de placeholder válida
       if (!product.image || !product.image.startsWith('http')) {
         return { ...product, image: 'https://placehold.co/600x400.png' };
       }
+
       return product;
   });
 
