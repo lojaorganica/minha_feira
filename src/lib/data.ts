@@ -326,6 +326,19 @@ let products: Product[] = [
     description: 'Banana prata orgânica, ideal para o consumo diário, rica em potássio e de sabor suave.',
     status: 'active',
   },
+  {
+    id: '26',
+    name: 'Goiaba Vermelha Orgânica',
+    category: 'Fruta',
+    price: 5.80,
+    unitAmount: 1,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/goiaba_vermelha.webp?alt=media&token=da3e5869-d746-4b9b-b23c-ab5418912991',
+    dataAiHint: 'red guava',
+    farmerId: '2',
+    description: 'Goiabas vermelhas orgânicas, doces e perfumadas, perfeitas para sucos e sobremesas.',
+    status: 'active',
+  },
 ];
 
 let farmers: Farmer[] = [
@@ -519,6 +532,7 @@ const defaultProductImages = new Map<string, string>([
     ['inhame', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/inhame.webp?alt=media&token=230229d4-3136-45a0-a5df-605c7de2592b'],
     ['limao taiti', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/limao_taiti.webp?alt=media&token=5f538bf1-e909-4346-8c0d-92c1e145b897'],
     ['banana prata', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/banana_prata.webp?alt=media&token=d38fe201-0312-48fc-9cf7-6e2b1fd97bf8'],
+    ['goiaba vermelha', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/goiaba_vermelha.webp?alt=media&token=da3e5869-d746-4b9b-b23c-ab5418912991'],
 ]);
 
 
