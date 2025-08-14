@@ -1,4 +1,5 @@
 
+
 import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerOrder, CustomerClassification } from './types';
 
 let products: Product[] = [
@@ -388,7 +389,7 @@ let orders: Order[] = [
         id: 'ORD-004',
         customerName: 'Diana Miller',
         items: [
-            { productName: 'Tomates Antigos Orgânicos', quantity: 2 },
+            { productName: 'Tomates Italianos Orgânicos', quantity: 2 },
             { productName: 'Couve Orgânica', quantity: 1 },
         ],
         status: 'Rejeitado',
