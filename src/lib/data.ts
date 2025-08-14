@@ -1,5 +1,4 @@
 
-
 import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerOrder, CustomerClassification } from './types';
 
 let products: Product[] = [
@@ -260,19 +259,6 @@ let products: Product[] = [
     dataAiHint: 'sweet potato',
     farmerId: '1',
     description: 'Batata doce orgânica, rica em nutrientes e sabor adocicado. Perfeita para assar ou cozinhar.',
-    status: 'active',
-  },
-  {
-    id: '21',
-    name: 'Couve-Flor Orgânica',
-    category: 'Vegetal',
-    price: 5.50,
-    unitAmount: 1,
-    unit: 'unidade',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_flor.webp?alt=media&token=43dc0a43-dd1c-447e-aa04-d4e067907a9c',
-    dataAiHint: 'cauliflower',
-    farmerId: '1',
-    description: 'Couve-flor orgânica fresca, versátil para diversas receitas, desde purês a assados.',
     status: 'active',
   },
   {
