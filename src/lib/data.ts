@@ -262,6 +262,19 @@ let products: Product[] = [
     status: 'active',
   },
   {
+    id: '21',
+    name: 'Couve-Flor Orgânica',
+    category: 'Vegetal',
+    price: 4.0,
+    unitAmount: 1,
+    unit: 'unidade',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_flor.webp?alt=media&token=060ec6fe-51d8-49de-b75a-d58e675b2ca4',
+    dataAiHint: 'cauliflower',
+    farmerId: '1',
+    description: 'Couve-flor orgânica fresca, versátil para diversas receitas.',
+    status: 'active',
+  },
+  {
     id: '22',
     name: 'Mamão Papaya Orgânico',
     category: 'Fruta',
@@ -442,8 +455,8 @@ const defaultProductImages = new Map<string, string>([
     ['brocolis americano', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/brocolis_americano.webp?alt=media&token=fd124564-9af1-438e-8e3b-34c320279c8b'],
     ['brocolis', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/brocolis_americano.webp?alt=media&token=fd124564-9af1-438e-8e3b-34c320279c8b'],
     ['beterraba', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/beterraba.webp?alt=media&token=d33b9ad6-d6c9-4641-b2fc-e4ed9893cbb0'],
-    ['tomates italianos', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tomate_italiano.webp?alt=media&token=08336411-6ae5-4051-b378-cc4eb7c7e4ba'],
     ['tomate italiano', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tomate_italiano.webp?alt=media&token=08336411-6ae5-4051-b378-cc4eb7c7e4ba'],
+    ['tomates italianos', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tomate_italiano.webp?alt=media&token=08336411-6ae5-4051-b378-cc4eb7c7e4ba'],
     ['tomate', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tomate_italiano.webp?alt=media&token=08336411-6ae5-4051-b378-cc4eb7c7e4ba'],
     ['cenoura', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/cenoura.webp?alt=media&token=83e659dc-2bd5-42f5-bc98-a178690858f1'],
     ['morango', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/morango.webp?alt=media&token=086479b1-5b7e-451d-9635-193264f55e31'],
@@ -461,6 +474,7 @@ const defaultProductImages = new Map<string, string>([
     ['tangerina pokan', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tangerina_pokan.webp?alt=media&token=ca18499e-b35d-43f7-9b73-9c77684ef3b4'],
     ['batata doce', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batata_doce.webp?alt=media&token=9777102d-626a-4f4e-b2d7-1045f0cc4148'],
     ['mamao papaya', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mamao_papaya.webp?alt=media&token=6935a389-a40d-4eb2-b1ae-cdaed2be18a3'],
+    ['couve flor', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_flor.webp?alt=media&token=060ec6fe-51d8-49de-b75a-d58e675b2ca4'],
 ]);
 
 
@@ -686,3 +700,4 @@ export function updateCustomerClassification(customerId: string, classification:
 
     return undefined;
 }
+
