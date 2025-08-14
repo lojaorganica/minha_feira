@@ -339,6 +339,19 @@ let products: Product[] = [
     description: 'Goiabas vermelhas orgânicas, doces e perfumadas, perfeitas para sucos e sobremesas.',
     status: 'active',
   },
+  {
+    id: '27',
+    name: 'Abacaxi Orgânico',
+    category: 'Fruta',
+    price: 7.00,
+    unitAmount: 1,
+    unit: 'unidade',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/abacaxi.webp?alt=media&token=4caa0219-8635-4fbb-8e1c-fdec6909ebda',
+    dataAiHint: 'pineapple',
+    farmerId: '2',
+    description: 'Abacaxi pérola orgânico, doce e suculento, perfeito para o verão.',
+    status: 'active',
+  }
 ];
 
 let farmers: Farmer[] = [
@@ -533,6 +546,7 @@ const defaultProductImages = new Map<string, string>([
     ['limao taiti', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/limao_taiti.webp?alt=media&token=5f538bf1-e909-4346-8c0d-92c1e145b897'],
     ['banana prata', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/banana_prata.webp?alt=media&token=d38fe201-0312-48fc-9cf7-6e2b1fd97bf8'],
     ['goiaba vermelha', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/goiaba_vermelha.webp?alt=media&token=da3e5869-d746-4b9b-b23c-ab5418912991'],
+    ['abacaxi', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/abacaxi.webp?alt=media&token=4caa0219-8635-4fbb-8e1c-fdec6909ebda'],
 ]);
 
 
