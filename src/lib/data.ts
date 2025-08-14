@@ -157,7 +157,7 @@ let products: Product[] = [
     description: 'Uma mistura colorida de pimentões doces.',
     status: 'active',
   },
-   {
+  {
     id: '13',
     name: 'Maçã Fuji Orgânica',
     category: 'Fruta',
@@ -246,6 +246,19 @@ let products: Product[] = [
     dataAiHint: 'pokan tangerine',
     farmerId: '2',
     description: 'Tangerina Pokan suculenta e fácil de descascar, colhida no ponto certo de doçura.',
+    status: 'active',
+  },
+  {
+    id: '20',
+    name: 'Batata Doce Orgânica',
+    category: 'Vegetal',
+    price: 3.80,
+    unitAmount: 1,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batata_doce.webp?alt=media&token=9777102d-626a-4f4e-b2d7-1045f0cc4148',
+    dataAiHint: 'sweet potato',
+    farmerId: '1',
+    description: 'Batata doce orgânica, rica em nutrientes e sabor adocicado. Perfeita para assar ou cozinhar.',
     status: 'active',
   },
 ];
@@ -430,6 +443,7 @@ const defaultProductImages = new Map<string, string>([
     ['manga palmer', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/manga_palmer.webp?alt=media&token=fdf4085f-fbef-41b1-be8a-a613dde3c2e4'],
     ['alho', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alho.webp?alt=media&token=8071bc57-cdd1-4105-98da-6253f6f13050'],
     ['tangerina pokan', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tangerina_pokan.webp?alt=media&token=ca18499e-b35d-43f7-9b73-9c77684ef3b4'],
+    ['batata doce', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batata_doce.webp?alt=media&token=9777102d-626a-4f4e-b2d7-1045f0cc4148'],
 ]);
 
 
