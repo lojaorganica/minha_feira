@@ -51,7 +51,7 @@ let products: Product[] = [
   },
   {
     id: '5',
-    name: 'Leite Fresco Orgânico da Fazenda',
+    name: 'Leite Fresco Orgânico',
     category: 'Laticínio',
     price: 3.5,
     unitAmount: 1,
@@ -261,6 +261,19 @@ let products: Product[] = [
     description: 'Batata doce orgânica, rica em nutrientes e sabor adocicado. Perfeita para assar ou cozinhar.',
     status: 'active',
   },
+  {
+    id: '21',
+    name: 'Couve-Flor Orgânica',
+    category: 'Vegetal',
+    price: 5.50,
+    unitAmount: 1,
+    unit: 'unidade',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_flor.webp?alt=media&token=43dc0a43-dd1c-447e-aa04-d4e067907a9c',
+    dataAiHint: 'cauliflower',
+    farmerId: '1',
+    description: 'Couve-flor orgânica fresca, versátil para diversas receitas, desde purês a assados.',
+    status: 'active',
+  },
 ];
 
 let farmers: Farmer[] = [
@@ -444,6 +457,8 @@ const defaultProductImages = new Map<string, string>([
     ['alho', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alho.webp?alt=media&token=8071bc57-cdd1-4105-98da-6253f6f13050'],
     ['tangerina pokan', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tangerina_pokan.webp?alt=media&token=ca18499e-b35d-43f7-9b73-9c77684ef3b4'],
     ['batata doce', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batata_doce.webp?alt=media&token=9777102d-626a-4f4e-b2d7-1045f0cc4148'],
+    ['couve flor', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_flor.webp?alt=media&token=43dc0a43-dd1c-447e-aa04-d4e067907a9c'],
+    ['couve-flor', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_flor.webp?alt=media&token=43dc0a43-dd1c-447e-aa04-d4e067907a9c'],
 ]);
 
 
