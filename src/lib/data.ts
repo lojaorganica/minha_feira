@@ -313,6 +313,19 @@ let products: Product[] = [
     description: 'Limão Taiti orgânico, suculento e com poucas sementes. Ideal para sucos, temperos e sobremesas.',
     status: 'active',
   },
+   {
+    id: '25',
+    name: 'Banana Prata Orgânica',
+    category: 'Fruta',
+    price: 5.50,
+    unitAmount: 1,
+    unit: 'dúzia',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/banana_prata.webp?alt=media&token=d38fe201-0312-48fc-9cf7-6e2b1fd97bf8',
+    dataAiHint: 'silver banana',
+    farmerId: '2',
+    description: 'Banana prata orgânica, ideal para o consumo diário, rica em potássio e de sabor suave.',
+    status: 'active',
+  },
 ];
 
 let farmers: Farmer[] = [
@@ -505,6 +518,7 @@ const defaultProductImages = new Map<string, string>([
     ['couve-flor', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_flor.webp?alt=media&token=060ec6fe-51d8-49de-b75a-d58e675b2ca4'],
     ['inhame', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/inhame.webp?alt=media&token=230229d4-3136-45a0-a5df-605c7de2592b'],
     ['limao taiti', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/limao_taiti.webp?alt=media&token=5f538bf1-e909-4346-8c0d-92c1e145b897'],
+    ['banana prata', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/banana_prata.webp?alt=media&token=d38fe201-0312-48fc-9cf7-6e2b1fd97bf8'],
 ]);
 
 
