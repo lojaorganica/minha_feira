@@ -1411,6 +1411,10 @@ let customers: Customer[] = [
 
 // Mapa de imagens padrão para produtos básicos
 const defaultProductImages = new Map<string, string>([
+    ['couve flor', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_flor.webp?alt=media&token=060ec6fe-51d8-49de-b75a-d58e675b2ca4'],
+    ['couve mineira', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_mineira.webp?alt=media&token=fb0702ac-1c9a-4414-9857-bd0908d68348'],
+    ['couve toscana', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_toscana.webp?alt=media&token=d4d592f2-8fbe-4489-a044-6d46d2fc3753'],
+    ['couve', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_mineira.webp?alt=media&token=fb0702ac-1c9a-4414-9857-bd0908d68348'],
     ['maca fuji', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/maca_fuji.webp?alt=media&token=d9b195e6-0e42-4976-83fe-fdf87dfafd7c'],
     ['maca', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/maca_fuji.webp?alt=media&token=d9b195e6-0e42-4976-83fe-fdf87dfafd7c'],
     ['alface americana', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_americana.webp?alt=media&token=d745a4e5-1f8c-4333-8a8a-48a4201d308a'],
@@ -1425,9 +1429,6 @@ const defaultProductImages = new Map<string, string>([
     ['pão', 'https://placehold.co/600x400.png'],
     ['leite', 'https://placehold.co/600x400.png'],
     ['queijo', 'https://placehold.co/600x400.png'],
-    ['couve mineira', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_mineira.webp?alt=media&token=fb0702ac-1c9a-4414-9857-bd0908d68348'],
-    ['couve flor', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_flor.webp?alt=media&token=060ec6fe-51d8-49de-b75a-d58e675b2ca4'],
-    ['couve', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_mineira.webp?alt=media&token=fb0702ac-1c9a-4414-9857-bd0908d68348'],
     ['laranja pera', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/laranja_pera.webp?alt=media&token=b4db9a4e-b349-4805-ac9d-fee1fcb4d5d8'],
     ['laranja', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/laranja_pera.webp?alt=media&token=b4db9a4e-b349-4805-ac9d-fee1fcb4d5d8'],
     ['iogurte', 'https://placehold.co/600x400.png'],
@@ -1490,7 +1491,6 @@ const defaultProductImages = new Map<string, string>([
     ['limão cravo', 'https://placehold.co/600x400.png'],
     ['limão galego', 'https://placehold.co/600x400.png'],
     ['pepino', 'https://placehold.co/600x400.png'],
-    ['couve toscana', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_toscana.webp?alt=media&token=d4d592f2-8fbe-4489-a044-6d46d2fc3753'],
     ['kiwi', 'https://placehold.co/600x400.png'],
     ['tangerina murcote', 'https://placehold.co/600x400.png'],
     ['abóbora paulista', 'https://placehold.co/600x400.png'],
@@ -1741,9 +1741,4 @@ export function updateCustomerClassification(customerId: string, classification:
     return undefined;
 }
 
-
-
-
-
-
-
+    
