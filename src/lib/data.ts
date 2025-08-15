@@ -1196,6 +1196,19 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Poejo, uma erva de aroma intenso semelhante à menta, usada em chás e licores.',
     status: 'active',
+  },
+  {
+    id: '93',
+    name: 'Radicchio Orgânico',
+    category: 'Vegetal',
+    price: 4.00,
+    unitAmount: 1,
+    unit: 'unidade',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/radicchio.webp?alt=media&token=473281ea-32f7-4a12-a93a-23a821b91505',
+    dataAiHint: 'radicchio',
+    farmerId: '1',
+    description: 'Radicchio orgânico com folhas crocantes e sabor amargo, ideal para dar um toque especial em saladas.',
+    status: 'active',
   }
 ];
 
@@ -1456,6 +1469,7 @@ const defaultProductImages = new Map<string, string>([
     ['laranja seleta', 'https://placehold.co/600x400.png'],
     ['hortelã', 'https://placehold.co/600x400.png'],
     ['poejo', 'https://placehold.co/600x400.png'],
+    ['radicchio', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/radicchio.webp?alt=media&token=473281ea-32f7-4a12-a93a-23a821b91505'],
 ]);
 
 
