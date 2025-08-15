@@ -970,7 +970,7 @@ let products: Product[] = [
     price: 3.80,
     unitAmount: 1,
     unit: 'maço',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_toscana.webp?alt=media&token=d4d592f2-8fbe-4489-a044-6d46d2fc3753',
     dataAiHint: 'lacinato kale',
     farmerId: '1',
     description: 'Couve toscana (ou cavolo nero), de folhas escuras e sabor intenso, ótima para caldos e refogados.',
@@ -1438,7 +1438,7 @@ const defaultProductImages = new Map<string, string>([
     ['limão cravo', 'https://placehold.co/600x400.png'],
     ['limão galego', 'https://placehold.co/600x400.png'],
     ['pepino', 'https://placehold.co/600x400.png'],
-    ['couve toscana', 'https://placehold.co/600x400.png'],
+    ['couve toscana', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_toscana.webp?alt=media&token=d4d592f2-8fbe-4489-a044-6d46d2fc3753'],
     ['kiwi', 'https://placehold.co/600x400.png'],
     ['tangerina murcote', 'https://placehold.co/600x400.png'],
     ['abóbora paulista', 'https://placehold.co/600x400.png'],
@@ -1681,5 +1681,6 @@ export function updateCustomerClassification(customerId: string, classification:
 
     return undefined;
 }
+
 
 
