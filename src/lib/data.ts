@@ -164,7 +164,7 @@ let products: Product[] = [
     price: 1.8,
     unitAmount: 1,
     unit: 'unidade',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/maca_fuji.webp?alt=media&token=2eba23fb-a8d1-46a7-842c-87bc88390ccd',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/maca_fuji.webp?alt=media&token=d9b195e6-0e42-4976-83fe-fdf87dfafd7c',
     dataAiHint: 'fuji apple',
     farmerId: '2',
     description: 'Maçãs Fuji orgânicas, conhecidas por sua doçura e textura crocante.',
@@ -743,29 +743,16 @@ let products: Product[] = [
     status: 'active',
   },
   {
-    id: '58',
-    name: 'Couve Chinesa Orgânica',
-    category: 'Vegetal',
-    price: 4.00,
-    unitAmount: 1,
-    unit: 'unidade',
-    image: 'https://placehold.co/600x400.png',
-    dataAiHint: 'napa cabbage',
-    farmerId: '1',
-    description: 'Couve chinesa (acelga chinesa) de textura crocante, ideal para o preparo de kimchi e refogados.',
-    status: 'active',
-  },
-  {
     id: '59',
     name: 'Acelga Orgânica',
     category: 'Vegetal',
     price: 3.80,
     unitAmount: 1,
     unit: 'maço',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/acelga.webp?alt=media&token=0721f75b-65a2-40cf-8754-c10afd93acc6',
     dataAiHint: 'swiss chard',
     farmerId: '1',
-    description: 'Acelga de talos coloridos e folhas macias, nutritiva e versátil na cozinha.',
+    description: 'Acelga (couve chinesa) de textura crocante, ideal para o preparo de saladas e refogados.',
     status: 'active',
   },
   {
@@ -1372,8 +1359,8 @@ let customers: Customer[] = [
 
 // Mapa de imagens padrão para produtos básicos
 const defaultProductImages = new Map<string, string>([
-    ['maca fuji', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/maca_fuji.webp?alt=media&token=2eba23fb-a8d1-46a7-842c-87bc88390ccd'],
-    ['maca', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/maca_fuji.webp?alt=media&token=2eba23fb-a8d1-46a7-842c-87bc88390ccd'],
+    ['maca fuji', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/maca_fuji.webp?alt=media&token=d9b195e6-0e42-4976-83fe-fdf87dfafd7c'],
+    ['maca', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/maca_fuji.webp?alt=media&token=d9b195e6-0e42-4976-83fe-fdf87dfafd7c'],
     ['alface americana', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_americana.webp?alt=media&token=d745a4e5-1f8c-4333-8a8a-48a4201d308a'],
     ['brocolis americano', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/brocolis_americano.webp?alt=media&token=fd124564-9af1-438e-8e3b-34c320279c8b'],
     ['brocolis', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/brocolis_americano.webp?alt=media&token=fd124564-9af1-438e-8e3b-34c320279c8b'],
@@ -1434,8 +1421,7 @@ const defaultProductImages = new Map<string, string>([
     ['melão orange', 'https://placehold.co/600x400.png'],
     ['melão pele de sapo', 'https://placehold.co/600x400.png'],
     ['melão cantaloupe', 'https://placehold.co/600x400.png'],
-    ['couve chinesa', 'https://placehold.co/600x400.png'],
-    ['acelga', 'https://placehold.co/600x400.png'],
+    ['acelga', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/acelga.webp?alt=media&token=0721f75b-65a2-40cf-8754-c10afd93acc6'],
     ['alho poró', 'https://placehold.co/600x400.png'],
     ['chuchu', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/chuchu.webp?alt=media&token=4ef6fcb9-2d57-47b6-b397-ec466ccfc6cd'],
     ['batata inglesa', 'https://placehold.co/600x400.png'],
@@ -1695,3 +1681,4 @@ export function updateCustomerClassification(customerId: string, classification:
 
     return undefined;
 }
+
