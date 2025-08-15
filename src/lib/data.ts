@@ -1126,7 +1126,7 @@ let products: Product[] = [
     price: 3.50,
     unitAmount: 1,
     unit: 'maço',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/espinafre.webp?alt=media&token=314e18aa-482f-4cef-badc-db518683d218',
     dataAiHint: 'spinach',
     farmerId: '1',
     description: 'Espinafre fresco, rico em ferro e nutrientes, perfeito para refogados e recheios.',
@@ -1450,7 +1450,7 @@ const defaultProductImages = new Map<string, string>([
     ['rabanete', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/rabanete.webp?alt=media&token=fd084d85-6e5f-4519-ae09-e0606e54b063'],
     ['alface romana', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_romana.webp?alt=media&token=f0a4afb0-0d99-48ad-88a2-0e3a8f048d17'],
     ['agrião', 'https://placehold.co/600x400.png'],
-    ['espinafre', 'https://placehold.co/600x400.png'],
+    ['espinafre', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/espinafre.webp?alt=media&token=314e18aa-482f-4cef-badc-db518683d218'],
     ['laranja bahia', 'https://placehold.co/600x400.png'],
     ['laranja seleta', 'https://placehold.co/600x400.png'],
     ['hortelã', 'https://placehold.co/600x400.png'],
@@ -1681,6 +1681,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
     return undefined;
 }
+
 
 
 
