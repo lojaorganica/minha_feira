@@ -424,7 +424,7 @@ let products: Product[] = [
     price: 5.50,
     unitAmount: 1,
     unit: 'unidade',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/abacate.webp?alt=media&token=90d0ec6c-ca97-40eb-b694-5f489d925864',
     dataAiHint: 'avocado',
     farmerId: '2',
     description: 'Abacate cremoso e rico em gorduras saudáveis, perfeito para guacamole ou vitaminas.',
@@ -1396,7 +1396,7 @@ const defaultProductImages = new Map<string, string>([
     ['alface lisa', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_lisa.webp?alt=media&token=ced73d99-300e-4904-9072-9c8e4fcecd79'],
     ['alface crespa', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_crespa.webp?alt=media&token=a057c9ac-0fe9-40b0-a016-49d16b016941'],
     ['alface roxa', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_roxa.webp?alt=media&token=c566920b-b13c-4d87-916a-813e320aedec'],
-    ['abacate', 'https://placehold.co/600x400.png'],
+    ['abacate', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/abacate.webp?alt=media&token=90d0ec6c-ca97-40eb-b694-5f489d925864'],
     ['aipim', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/aipim.webp?alt=media&token=ab467c17-50b2-4319-8aad-0845e323b526'],
     ['almeirão', 'https://placehold.co/600x400.png'],
     ['ameixa', 'https://placehold.co/600x400.png'],
@@ -1681,4 +1681,5 @@ export function updateCustomerClassification(customerId: string, classification:
 
     return undefined;
 }
+
 
