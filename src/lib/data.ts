@@ -1,4 +1,5 @@
 
+
 import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerOrder, CustomerClassification } from './types';
 
 let products: Product[] = [
@@ -1196,6 +1197,58 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Radicchio orgânico com folhas crocantes e sabor amargo, ideal para dar um toque especial em saladas.',
     status: 'active',
+  },
+  {
+    id: '94',
+    name: 'Milho Verde Orgânico',
+    category: 'Vegetal',
+    price: 4.00,
+    unitAmount: 1,
+    unit: 'unidade',
+    image: 'https://placehold.co/600x400.png',
+    dataAiHint: 'corn cob',
+    farmerId: '1',
+    description: 'Milho verde doce e macio, perfeito para cozinhar, assar ou fazer pamonha.',
+    status: 'active',
+  },
+  {
+    id: '95',
+    name: 'Vagem Orgânica',
+    category: 'Vegetal',
+    price: 5.00,
+    unitAmount: 1,
+    unit: 'kg',
+    image: 'https://placehold.co/600x400.png',
+    dataAiHint: 'green beans',
+    farmerId: '1',
+    description: 'Vagem fresca e crocante, ótima para refogados, saladas e cozidos.',
+    status: 'active',
+  },
+  {
+    id: '96',
+    name: 'Feijão Preto Orgânico',
+    category: 'Vegetal',
+    price: 8.00,
+    unitAmount: 1,
+    unit: 'kg',
+    image: 'https://placehold.co/600x400.png',
+    dataAiHint: 'black beans',
+    farmerId: '1',
+    description: 'Feijão preto orgânico, a base para a tradicional feijoada e pratos do dia a dia.',
+    status: 'active',
+  },
+  {
+    id: '97',
+    name: 'Feijão Carioca Orgânico',
+    category: 'Vegetal',
+    price: 7.50,
+    unitAmount: 1,
+    unit: 'kg',
+    image: 'https://placehold.co/600x400.png',
+    dataAiHint: 'carioca beans',
+    farmerId: '1',
+    description: 'Feijão carioca orgânico, o mais popular do Brasil, com caldo encorpado e sabor suave.',
+    status: 'active',
   }
 ];
 
@@ -1456,6 +1509,10 @@ const defaultProductImages = new Map<string, string>([
     ['hortelã', 'https://placehold.co/600x400.png'],
     ['poejo', 'https://placehold.co/600x400.png'],
     ['radicchio', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/radicchio.webp?alt=media&token=473281ea-32f7-4a12-a93a-23a821b91505'],
+    ['milho', 'https://placehold.co/600x400.png'],
+    ['vagem', 'https://placehold.co/600x400.png'],
+    ['feijao preto', 'https://placehold.co/600x400.png'],
+    ['feijao carioca', 'https://placehold.co/600x400.png'],
 ]);
 
 
@@ -1684,6 +1741,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
     return undefined;
 }
+
 
 
 
