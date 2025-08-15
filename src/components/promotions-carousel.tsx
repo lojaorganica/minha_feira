@@ -19,7 +19,9 @@ export default function PromotionsCarousel() {
     )
 
     useEffect(() => {
-        setPromotions(getPromotionalProducts());
+        const promotionalProducts = getPromotionalProducts();
+        promotionalProducts.sort((a, b) => a.name.localeCompare(b.name, 'pt-BR', { sensitivity: 'base' }));
+        setPromotions(promotionalProducts);
     }, []);
 
     if (promotions.length === 0) {
