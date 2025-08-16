@@ -11,7 +11,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Calendar } from '@/components/ui/calendar';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { CalendarIcon, Download, FileText, Loader2, Printer, Save, Share2 } from 'lucide-react';
 import BackButton from '@/components/back-button';
@@ -29,15 +29,16 @@ interface RomaneioItem {
 }
 
 const getFairDisplayName = (fair: string): string => {
+    if (!fair) return '';
     const doExceptions = ['Grajaú', 'Flamengo', 'Leme'];
     if (doExceptions.includes(fair)) {
-        return `Feira do ${fair}`;
+        return `do ${fair}`;
     }
     const deExceptions = ['Laranjeiras'];
     if (deExceptions.includes(fair)) {
-        return `Feira de ${deExceptions}`;
+        return `de ${deExceptions}`;
     }
-    return `Feira da ${fair}`;
+    return `da ${fair}`;
 };
 
 export default function RomaneioPage() {
@@ -60,7 +61,7 @@ export default function RomaneioPage() {
     if (farmer && farmer.fairs.length > 0 && !selectedFair) {
       setSelectedFair(farmer.fairs[0]);
     }
-  }, [farmer]);
+  }, [farmer, selectedFair]);
   
   useEffect(() => {
       const initialData = farmerProducts.map(p => ({
@@ -126,17 +127,16 @@ export default function RomaneioPage() {
 
     doc.setFont("helvetica", "bold");
     doc.setFontSize(16);
-    doc.text("Romaneio de Feira", 105, 20, { align: "center" });
+    doc.text(`Romaneio da Feira Orgânica ${getFairDisplayName(selectedFair)}`, 105, 20, { align: "center" });
 
     doc.setFont("helvetica", "normal");
     doc.setFontSize(12);
     doc.text(`Data: ${format(date, "dd/MM/yyyy", { locale: ptBR })}`, 20, 30);
-    doc.text(`Feira: ${getFairDisplayName(selectedFair)}`, 20, 35);
-    doc.text(`Agricultor: ${farmer.responsibleName || farmer.name}`, 20, 40);
-    doc.text(`Sítio/Marca: ${farmer.name}`, 20, 45);
+    doc.text(`Agricultor: ${farmer.responsibleName || farmer.name}`, 20, 35);
+    doc.text(`Sítio/Marca: ${farmer.name}`, 20, 40);
 
     (doc as any).autoTable({
-      startY: 55,
+      startY: 50,
       head: [['#', 'Produto', 'Fornecedor Parceiro', 'Quantidade']],
       body: romaneioData.map((item, index) => [
         index + 1,
@@ -145,6 +145,12 @@ export default function RomaneioPage() {
         item.quantidade,
       ]),
        headStyles: { fillColor: [63, 112, 79] }, // Cor --primary
+       columnStyles: {
+        0: { cellWidth: 10 },
+        1: { cellWidth: 'auto' },
+        2: { cellWidth: 40 },
+        3: { cellWidth: 30 },
+       }
     });
 
     doc.save(`romaneio_${farmer.name}_${selectedFair}_${format(date, 'yyyy-MM-dd')}.pdf`);
@@ -157,7 +163,7 @@ export default function RomaneioPage() {
   const handleShare = async () => {
     if (!farmer || !date || !selectedFair) return;
 
-    let shareText = `*Romaneio - ${getFairDisplayName(selectedFair)} - ${format(date, 'dd/MM/yyyy')}*\n\n`;
+    let shareText = `*Romaneio - Feira Orgânica ${getFairDisplayName(selectedFair)} - ${format(date, 'dd/MM/yyyy')}*\n\n`;
     shareText += `*Agricultor:* ${farmer.responsibleName || farmer.name}\n`;
     shareText += `*Sítio/Marca:* ${farmer.name}\n\n`;
     
@@ -172,7 +178,7 @@ export default function RomaneioPage() {
 
     if (navigator.share) {
       await navigator.share({
-        title: `Romaneio ${getFairDisplayName(selectedFair)}`,
+        title: `Romaneio da Feira Orgânica ${getFairDisplayName(selectedFair)}`,
         text: shareText,
       }).catch(console.error);
     } else {
@@ -219,12 +225,12 @@ export default function RomaneioPage() {
       <div ref={printRef} className="print-container">
         <Card>
           <CardHeader>
-             <div className="flex flex-col md:flex-row gap-4 no-print">
-                <div className="flex-1 space-y-2">
-                  <Label className="font-bold">Data da Feira</Label>
+             <div className="flex flex-col md:flex-row gap-8 no-print p-4 border rounded-lg">
+                <div className="flex-1 space-y-3">
+                  <Label className="text-lg font-bold">Data da Feira</Label>
                    <Popover>
                         <PopoverTrigger asChild>
-                        <Button variant={"outline"} className="w-full justify-start text-left font-normal">
+                        <Button variant={"outline"} className="w-full justify-start text-left font-normal text-base">
                             <CalendarIcon className="mr-2 h-4 w-4" />
                             {date ? format(date, "PPP", { locale: ptBR }) : <span>Escolha uma data</span>}
                         </Button>
@@ -234,22 +240,22 @@ export default function RomaneioPage() {
                         </PopoverContent>
                     </Popover>
                 </div>
-                <div className="flex-1 space-y-2">
-                  <Label className="font-bold">Selecione a Feira</Label>
-                  <Select value={selectedFair} onValueChange={setSelectedFair} disabled={farmer.fairs.length === 0}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Escolha uma feira..." />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {farmer.fairs.map(fair => (
-                        <SelectItem key={fair} value={fair}>{getFairDisplayName(fair)}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                {farmer.fairs.length > 0 && (
+                <div className="flex-1 space-y-3">
+                  <Label className="text-lg font-bold">Selecione a Feira</Label>
+                  <RadioGroup value={selectedFair} onValueChange={setSelectedFair} className="grid grid-cols-2 gap-x-4 gap-y-2">
+                        {farmer.fairs.map(fair => (
+                            <div key={fair} className="flex items-center space-x-2">
+                                <RadioGroupItem value={fair} id={`fair-${fair}`} />
+                                <Label htmlFor={`fair-${fair}`} className="font-normal text-base cursor-pointer">Feira {getFairDisplayName(fair)}</Label>
+                            </div>
+                        ))}
+                    </RadioGroup>
                 </div>
+                )}
               </div>
               <div className="print-header pt-6">
-                <CardTitle className="font-headline text-2xl text-center text-primary">Romaneio de Feira</CardTitle>
+                <CardTitle className="font-headline text-2xl text-center text-primary">Romaneio da Feira Orgânica {getFairDisplayName(selectedFair)}</CardTitle>
                 <Separator className="my-4" />
                 <div className="flex justify-between text-base font-semibold text-foreground/90">
                     <div>
@@ -257,7 +263,6 @@ export default function RomaneioPage() {
                         <p><span className="font-bold">Sítio/Marca:</span> {farmer.name}</p>
                     </div>
                      <div>
-                        <p><span className="font-bold">Feira:</span> {getFairDisplayName(selectedFair)}</p>
                         <p><span className="font-bold">Data:</span> {date ? format(date, "dd/MM/yyyy", { locale: ptBR }) : 'N/A'}</p>
                     </div>
                 </div>
@@ -270,7 +275,7 @@ export default function RomaneioPage() {
                   <TableHead className="w-[40px]">#</TableHead>
                   <TableHead>Produto</TableHead>
                   <TableHead className="w-[200px]">Fornecedor Parceiro</TableHead>
-                  <TableHead className="w-[150px]">Quantidade</TableHead>
+                  <TableHead className="w-[120px]">Quantidade</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -308,3 +313,5 @@ export default function RomaneioPage() {
     </div>
   );
 }
+
+    
