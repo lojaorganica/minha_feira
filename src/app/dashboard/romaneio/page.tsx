@@ -135,7 +135,7 @@ export default function RomaneioPage() {
 
     doc.setFont("helvetica", "bold");
     doc.setFontSize(14);
-    doc.text(`Romaneio da Feira Orgânica ${getFairPreposition(selectedFair)} ${selectedFair}`, doc.internal.pageSize.getWidth() / 2, 40, { align: "center" });
+    doc.text(getFairDisplayName(selectedFair), doc.internal.pageSize.getWidth() / 2, 40, { align: "center" });
 
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
@@ -325,15 +325,16 @@ export default function RomaneioPage() {
               </div>
               <div className="print-header pt-6 px-6">
                 <CardTitle className="font-headline text-2xl text-center text-primary leading-tight">
-                    <span className="sm:hidden">Romaneio {getFairPreposition(selectedFair)}</span>
-                    <br className="sm:hidden" />
+                    <span className="sm:hidden">
+                        Romaneio {getFairPreposition(selectedFair)}<br/>
+                        {`Feira Orgânica ${getFairPreposition(selectedFair)} ${selectedFair}`}
+                    </span>
                     <span className="hidden sm:inline">
                       {`Romaneio da Feira Orgânica ${getFairPreposition(selectedFair)} ${selectedFair}`}
                     </span>
-                     <span className="sm:hidden">{getFairDisplayName(selectedFair)}</span>
                 </CardTitle>
                 <Separator className="my-4" />
-                 <div className="space-y-1 pl-1">
+                 <div className="space-y-1 pl-1 sm:pl-0">
                     <p className="font-semibold text-foreground/90 text-base"><span className="font-bold text-accent">Agricultor:</span> {farmer.responsibleName || farmer.name}</p>
                     {farmer.prepostos && farmer.prepostos.length > 0 && (
                        <p className="font-semibold text-foreground/90 text-base"><span className="font-bold text-accent">Prepostos:</span> {farmer.prepostos.join(', ')}</p>
@@ -362,7 +363,7 @@ export default function RomaneioPage() {
                       <Input
                         value={item.fornecedor}
                         onChange={(e) => handleInputChange(index, 'fornecedor', e.target.value)}
-                        className="bg-card no-print border-primary/50 focus-visible:ring-primary/50 h-8"
+                        className="bg-card no-print border-primary/50 focus-visible:ring-primary/50 h-8 text-sm"
                       />
                       <span className="print-only hidden">{item.fornecedor}</span>
                     </div>
@@ -370,7 +371,7 @@ export default function RomaneioPage() {
                       <Input
                         value={item.quantidade}
                         onChange={(e) => handleInputChange(index, 'quantidade', e.target.value)}
-                        className="bg-card no-print border-primary/50 focus-visible:ring-primary/50 h-8 text-center"
+                        className="bg-card no-print border-primary/50 focus-visible:ring-primary/50 h-8 text-center text-sm"
                       />
                       <span className="print-only hidden text-center">{item.quantidade}</span>
                     </div>
@@ -390,3 +391,5 @@ export default function RomaneioPage() {
     </div>
   );
 }
+
+    
