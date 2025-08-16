@@ -318,9 +318,12 @@ export default function RomaneioPage() {
               </div>
               <div className="print-header pt-6 px-6">
                 <CardTitle className="font-headline text-2xl text-center text-primary leading-tight">
-                    <span className="sm:inline">Romaneio {getFairPreposition(selectedFair)}</span>
-                    <br className="sm:hidden"/>
-                    <span className="sm:inline"> {getFairDisplayName(selectedFair).replace(`Feira Orgânica ${getFairPreposition(selectedFair)} `, '')}</span>
+                    <span className="sm:hidden">Romaneio {getFairPreposition(selectedFair)}</span>
+                    <br className="sm:hidden" />
+                    <span className="hidden sm:inline">
+                      Romaneio {getFairPreposition(selectedFair)} {getFairDisplayName(selectedFair).replace(`Feira Orgânica ${getFairPreposition(selectedFair)} `, '')}
+                    </span>
+                     <span className="sm:hidden">{getFairDisplayName(selectedFair)}</span>
                 </CardTitle>
                 <Separator className="my-4" />
                  <div className="space-y-1 pl-1">
