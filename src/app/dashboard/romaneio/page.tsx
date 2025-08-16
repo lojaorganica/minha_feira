@@ -130,9 +130,9 @@ export default function RomaneioPage() {
 
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
-    doc.text(`Data: ${format(date, "dd/MM/yyyy", { locale: ptBR })}`, 40, 60);
-    doc.text(`Agricultor: ${farmer.responsibleName || farmer.name}`, 40, 75);
-    doc.text(`Sítio/Marca: ${farmer.name}`, 40, 90);
+    doc.text(`Agricultor: ${farmer.responsibleName || farmer.name}`, 40, 60);
+    doc.text(`Sítio/Marca: ${farmer.name}`, 40, 75);
+    doc.text(`Data: ${format(date, "dd/MM/yyyy", { locale: ptBR })}`, 40, 90);
 
     const filteredData = romaneioData.filter(item => item.fornecedor || item.quantidade);
 
@@ -310,22 +310,18 @@ export default function RomaneioPage() {
               <div className="print-header pt-6 px-6">
                 <CardTitle className="font-headline text-2xl text-center text-primary">Romaneio {getFairDisplayName(selectedFair)}</CardTitle>
                 <Separator className="my-4" />
-                <div className="flex justify-between text-base font-semibold text-foreground/90">
-                    <div>
-                        <p><span className="font-bold">Agricultor:</span> {farmer.responsibleName || farmer.name}</p>
-                        <p><span className="font-bold">Sítio/Marca:</span> {farmer.name}</p>
-                    </div>
-                     <div>
-                        <p><span className="font-bold">Data:</span> {date ? format(date, "dd/MM/yyyy", { locale: ptBR }) : 'N/A'}</p>
-                    </div>
+                <div className="text-base font-semibold text-foreground/90 space-y-1">
+                    <p><span className="font-bold text-accent">Agricultor:</span> {farmer.responsibleName || farmer.name}</p>
+                    <p><span className="font-bold text-accent">Sítio/Marca:</span> {farmer.name}</p>
+                    <p><span className="font-bold text-accent">Data:</span> {date ? format(date, "dd/MM/yyyy", { locale: ptBR }) : 'N/A'}</p>
                 </div>
               </div>
           </CardHeader>
           <CardContent className="px-2 sm:px-6">
             <div className="w-full">
               {/* Cabeçalho da Tabela */}
-              <div className="grid grid-cols-[20px_1fr_100px_70px] sm:grid-cols-[30px_1fr_250px_150px] gap-2 border-b pb-2">
-                <div className="p-2 text-center font-bold text-lg">#</div>
+              <div className="grid grid-cols-[20px_1fr_100px_60px] sm:grid-cols-[30px_1fr_250px_120px] gap-2 border-b pb-2">
+                <div className="p-2 text-center font-bold text-lg text-accent">#</div>
                 <div className="font-bold text-lg">Produto</div>
                 <div className="font-bold text-lg">Fornecedor</div>
                 <div className="font-bold text-lg">Qtde</div>
@@ -333,9 +329,9 @@ export default function RomaneioPage() {
               {/* Itens da Tabela */}
               <div>
                 {romaneioData.map((item, index) => (
-                  <div key={index} className="grid grid-cols-[20px_1fr_100px_70px] sm:grid-cols-[30px_1fr_250px_150px] gap-2 items-center border-b last:border-b-0 py-2">
-                    <div className="font-medium text-center">{index + 1}</div>
-                    <div className="font-medium break-words leading-tight max-w-full">{item.produto}</div>
+                  <div key={index} className="grid grid-cols-[20px_1fr_100px_60px] sm:grid-cols-[30px_1fr_250px_120px] gap-2 items-center border-b last:border-b-0 py-2">
+                    <div className="font-bold text-center text-accent">{index + 1}</div>
+                    <div className="font-medium break-words leading-tight max-w-full text-sm sm:text-base">{item.produto}</div>
                     <div>
                       <Input
                         value={item.fornecedor}
@@ -368,3 +364,4 @@ export default function RomaneioPage() {
     </div>
   );
 }
+
