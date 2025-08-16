@@ -43,9 +43,7 @@ const getFairPreposition = (fair: string): string => {
 const getFairDisplayName = (fair: string): string => {
     if (!fair) return '';
     const preposition = getFairPreposition(fair);
-    if (preposition === 'de') {
-         return `Feira Orgânica de ${fair}`;
-    }
+    // Para o título completo
     return `Feira Orgânica ${preposition} ${fair}`;
 };
 
@@ -195,6 +193,9 @@ export default function RomaneioPage() {
 
     let shareText = `*Romaneio - ${getFairDisplayName(selectedFair)} - ${format(date, 'dd/MM/yyyy')}*\n\n`;
     shareText += `*Agricultor:* ${farmer.responsibleName || farmer.name}\n`;
+    if (farmer.prepostos && farmer.prepostos.length > 0) {
+      shareText += `*Prepostos:* ${farmer.prepostos.join(', ')}\n`;
+    }
     shareText += `*Sítio/Marca:* ${farmer.name}\n\n`;
     
     romaneioData.forEach((item, index) => {
@@ -293,7 +294,7 @@ export default function RomaneioPage() {
 
       <div ref={printRef} className="print-container">
         <Card>
-          <CardHeader>
+          <CardHeader className="px-2 sm:px-6">
              <div className="flex flex-col md:flex-row gap-8 no-print p-4 border rounded-lg">
                 <div className="flex-1 space-y-3">
                   <Label className="text-xl font-bold text-accent">Data da Feira</Label>
@@ -323,7 +324,7 @@ export default function RomaneioPage() {
                 </div>
                 )}
               </div>
-              <div className="print-header pt-6 px-6">
+              <div className="print-header pt-6">
                 <CardTitle className="font-headline text-2xl text-center text-primary leading-tight">
                     <span className="sm:hidden">
                         Romaneio {getFairPreposition(selectedFair)}<br/>
@@ -334,7 +335,7 @@ export default function RomaneioPage() {
                     </span>
                 </CardTitle>
                 <Separator className="my-4" />
-                 <div className="space-y-1 pl-1 sm:pl-0">
+                 <div className="space-y-1 sm:pl-0">
                     <p className="font-semibold text-foreground/90 text-base"><span className="font-bold text-accent">Agricultor:</span> {farmer.responsibleName || farmer.name}</p>
                     {farmer.prepostos && farmer.prepostos.length > 0 && (
                        <p className="font-semibold text-foreground/90 text-base"><span className="font-bold text-accent">Prepostos:</span> {farmer.prepostos.join(', ')}</p>
@@ -391,5 +392,3 @@ export default function RomaneioPage() {
     </div>
   );
 }
-
-    
