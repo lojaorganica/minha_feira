@@ -12,7 +12,7 @@ import { Label } from '@/components/ui/label';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Calendar } from '@/components/ui/calendar';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { CalendarIcon, Download, FileText, Loader2, Printer, Save, Share2 } from 'lucide-react';
+import { CalendarIcon, Download, FileText, Loader2, Printer, Save, Share2, Mic, MicOff } from 'lucide-react';
 import BackButton from '@/components/back-button';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
@@ -20,6 +20,10 @@ import { useToast } from '@/hooks/use-toast';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { Separator } from '@/components/ui/separator';
+import { processRomaneioAudio } from '@/ai/flows/process-romaneio-audio';
+import { Badge } from '@/components/ui/badge';
+import { cn } from '@/lib/utils';
+
 
 interface RomaneioItem {
   produto: string;
@@ -29,15 +33,7 @@ interface RomaneioItem {
 
 const getFairDisplayName = (fair: string): string => {
     if (!fair) return '';
-    const doExceptions = ['Grajaú', 'Flamengo', 'Leme'];
-    if (doExceptions.includes(fair)) {
-        return `Feira Orgânica do ${fair}`;
-    }
-    const deExceptions = ['Laranjeiras', 'Botafogo'];
-    if (deExceptions.includes(fair)) {
-        return `Feira Orgânica de ${fair}`;
-    }
-    return `Feira Orgânica da ${fair}`;
+    return `Feira Orgânica de ${fair}`;
 }
 
 export default function RomaneioPage() {
@@ -49,6 +45,11 @@ export default function RomaneioPage() {
   const [selectedFair, setSelectedFair] = useState<string>('');
   const [romaneioData, setRomaneioData] = useState<RomaneioItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isRecording, setIsRecording] = useState(false);
+  const [isProcessingAudio, setIsProcessingAudio] = useState(false);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const audioChunksRef = useRef<Blob[]>([]);
+  
   const printRef = useRef<HTMLDivElement>(null);
 
   const farmerProducts = useMemo(() => {
@@ -126,7 +127,7 @@ export default function RomaneioPage() {
 
     doc.setFont("helvetica", "bold");
     doc.setFontSize(14);
-    doc.text(`Romaneio da ${getFairDisplayName(selectedFair)}`, doc.internal.pageSize.getWidth() / 2, 40, { align: "center" });
+    doc.text(`Romaneio da Feira Orgânica de ${selectedFair}`, doc.internal.pageSize.getWidth() / 2, 40, { align: "center" });
 
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
@@ -184,7 +185,7 @@ export default function RomaneioPage() {
   const handleShare = async () => {
     if (!farmer || !date || !selectedFair) return;
 
-    let shareText = `*Romaneio da ${getFairDisplayName(selectedFair)} - ${format(date, 'dd/MM/yyyy')}*\n\n`;
+    let shareText = `*Romaneio da Feira Orgânica de ${selectedFair} - ${format(date, 'dd/MM/yyyy')}*\n\n`;
     shareText += `*Agricultor:* ${farmer.responsibleName || farmer.name}\n`;
     if (farmer.prepostos && farmer.prepostos.length > 0) {
       shareText += `*Prepostos:* ${farmer.prepostos.join(', ')}\n`;
@@ -202,7 +203,7 @@ export default function RomaneioPage() {
 
     if (navigator.share) {
       await navigator.share({
-        title: `Romaneio da ${getFairDisplayName(selectedFair)}`,
+        title: `Romaneio da Feira Orgânica de ${selectedFair}`,
         text: shareText,
       }).catch(console.error);
     } else {
@@ -211,6 +212,80 @@ export default function RomaneioPage() {
           title: "Romaneio Copiado!",
           description: "O texto do romaneio foi copiado para a área de transferência.",
         });
+    }
+  };
+
+  const startRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      mediaRecorderRef.current = new MediaRecorder(stream);
+      audioChunksRef.current = [];
+
+      mediaRecorderRef.current.ondataavailable = (event) => {
+        audioChunksRef.current.push(event.data);
+      };
+
+      mediaRecorderRef.current.onstop = async () => {
+        const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
+        const reader = new FileReader();
+        reader.readAsDataURL(audioBlob);
+        reader.onloadend = async () => {
+          const base64Audio = reader.result as string;
+          setIsProcessingAudio(true);
+          try {
+            const result = await processRomaneioAudio({
+              audioDataUri: base64Audio,
+              productList: farmerProducts.map(p => p.name)
+            });
+            
+            // Atualizar o romaneio com os dados extraídos
+            const updatedData = [...romaneioData];
+            let itemsUpdated = 0;
+            result.items.forEach(extractedItem => {
+              const itemIndex = updatedData.findIndex(
+                romaneioItem => romaneioItem.produto.toLowerCase() === extractedItem.product.toLowerCase()
+              );
+              if (itemIndex !== -1) {
+                updatedData[itemIndex].quantidade = extractedItem.quantity;
+                itemsUpdated++;
+              }
+            });
+            setRomaneioData(updatedData);
+            toast({
+              title: "Romaneio Atualizado!",
+              description: `${itemsUpdated} ite${itemsUpdated === 1 ? 'm foi' : 'ns foram'} atualizado${itemsUpdated === 1 ? '' : 's'} com sucesso.`,
+            });
+
+          } catch (e) {
+            console.error(e);
+            toast({
+              variant: 'destructive',
+              title: "Erro ao processar áudio",
+              description: "Não foi possível extrair os dados do áudio. Tente novamente.",
+            });
+          } finally {
+            setIsProcessingAudio(false);
+          }
+        };
+        stream.getTracks().forEach(track => track.stop());
+      };
+
+      mediaRecorderRef.current.start();
+      setIsRecording(true);
+    } catch (err) {
+      console.error("Erro ao iniciar a gravação:", err);
+      toast({
+        variant: "destructive",
+        title: "Erro de Microfone",
+        description: "Não foi possível acessar o microfone. Verifique as permissões do seu navegador.",
+      });
+    }
+  };
+
+  const stopRecording = () => {
+    if (mediaRecorderRef.current && isRecording) {
+      mediaRecorderRef.current.stop();
+      setIsRecording(false);
     }
   };
 
@@ -317,7 +392,7 @@ export default function RomaneioPage() {
                 </div>
                 )}
               </div>
-              <div className="print-header pt-6 px-1 sm:px-0">
+              <div className="print-header pt-6 px-1 sm:pl-1">
                 <CardTitle className="font-headline text-2xl text-center text-primary leading-tight">
                     <span className="sm:hidden">
                        Romaneio da<br/>{getFairDisplayName(selectedFair)}
@@ -373,11 +448,41 @@ export default function RomaneioPage() {
               </div>
             </div>
           </CardContent>
-          <CardFooter className="flex-col md:flex-row gap-2 justify-end no-print p-6">
-            <Button variant="outline" onClick={handleSave}><Save className="mr-2 h-4 w-4" /> Salvar Rascunho</Button>
-            <Button variant="outline" onClick={handleShare}><Share2 className="mr-2 h-4 w-4" /> Compartilhar</Button>
-            <Button variant="outline" onClick={handlePrint}><Printer className="mr-2 h-4 w-4" /> Imprimir</Button>
-            <Button onClick={generatePdf}><Download className="mr-2 h-4 w-4" /> Gerar PDF</Button>
+          <CardFooter className="flex-col md:flex-row gap-2 justify-between no-print p-6">
+             <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
+                <Button 
+                    onClick={isRecording ? stopRecording : startRecording} 
+                    disabled={isProcessingAudio}
+                    className={cn(
+                        "w-full sm:w-auto",
+                        isRecording ? "bg-red-600 hover:bg-red-700" : ""
+                    )}
+                >
+                    {isProcessingAudio ? (
+                        <>
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            Processando...
+                        </>
+                    ) : isRecording ? (
+                        <>
+                            <MicOff className="mr-2 h-4 w-4" />
+                            Parar Gravação
+                        </>
+                    ) : (
+                        <>
+                            <Mic className="mr-2 h-4 w-4" />
+                            Preencher por Voz
+                        </>
+                    )}
+                </Button>
+                {isRecording && <Badge variant="destructive" className="animate-pulse mx-auto mt-2 sm:mt-0 sm:mx-2">Gravando...</Badge>}
+            </div>
+             <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
+                <Button variant="outline" onClick={handleSave}><Save className="mr-2 h-4 w-4" /> Salvar</Button>
+                <Button variant="outline" onClick={handleShare}><Share2 className="mr-2 h-4 w-4" /> Compartilhar</Button>
+                <Button variant="outline" onClick={handlePrint}><Printer className="mr-2 h-4 w-4" /> Imprimir</Button>
+                <Button onClick={generatePdf}><Download className="mr-2 h-4 w-4" /> PDF</Button>
+            </div>
           </CardFooter>
         </Card>
       </div>
