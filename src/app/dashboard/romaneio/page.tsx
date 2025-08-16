@@ -28,23 +28,14 @@ interface RomaneioItem {
 }
 
 const getFairPreposition = (fair: string): string => {
-    if (!fair) return 'da';
+    if (!fair) return 'de';
     const doExceptions = ['Grajaú', 'Flamengo', 'Leme'];
     if (doExceptions.includes(fair)) {
         return 'do';
     }
-    const deExceptions = ['Laranjeiras'];
-    if (deExceptions.includes(fair)) {
-        return 'de';
-    }
-    return 'da';
+    return 'de';
 };
 
-const getFairDisplayName = (fair: string): string => {
-    if (!fair) return '';
-    const preposition = getFairPreposition(fair);
-    return `Feira Orgânica ${preposition} ${fair}`;
-};
 
 export default function RomaneioPage() {
   const { user, isUserLoaded } = useUser();
@@ -132,7 +123,7 @@ export default function RomaneioPage() {
 
     doc.setFont("helvetica", "bold");
     doc.setFontSize(14);
-    doc.text(`Romaneio da ${getFairDisplayName(selectedFair)}`, doc.internal.pageSize.getWidth() / 2, 40, { align: "center" });
+    doc.text(`Romaneio da Feira Orgânica ${getFairPreposition(selectedFair)} ${selectedFair}`, doc.internal.pageSize.getWidth() / 2, 40, { align: "center" });
 
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
@@ -190,7 +181,7 @@ export default function RomaneioPage() {
   const handleShare = async () => {
     if (!farmer || !date || !selectedFair) return;
 
-    let shareText = `*Romaneio da ${getFairDisplayName(selectedFair)} - ${format(date, 'dd/MM/yyyy')}*\n\n`;
+    let shareText = `*Romaneio da Feira Orgânica ${getFairPreposition(selectedFair)} ${selectedFair} - ${format(date, 'dd/MM/yyyy')}*\n\n`;
     shareText += `*Agricultor:* ${farmer.responsibleName || farmer.name}\n`;
     if (farmer.prepostos && farmer.prepostos.length > 0) {
       shareText += `*Prepostos:* ${farmer.prepostos.join(', ')}\n`;
@@ -208,7 +199,7 @@ export default function RomaneioPage() {
 
     if (navigator.share) {
       await navigator.share({
-        title: `Romaneio da ${getFairDisplayName(selectedFair)}`,
+        title: `Romaneio da Feira Orgânica ${getFairPreposition(selectedFair)} ${selectedFair}`,
         text: shareText,
       }).catch(console.error);
     } else {
@@ -323,14 +314,13 @@ export default function RomaneioPage() {
                 </div>
                 )}
               </div>
-              <div className="print-header pt-6 px-1">
+              <div className="print-header pt-6 px-1 sm:px-0">
                 <CardTitle className="font-headline text-2xl text-center text-primary leading-tight">
                     <span className="sm:hidden">
-                        Romaneio {getFairPreposition(selectedFair)}<br/>
-                        Feira Orgânica {getFairPreposition(selectedFair)} {selectedFair}
+                        Romaneio da<br/>Feira Orgânica de {selectedFair}
                     </span>
                     <span className="hidden sm:inline">
-                      {`Romaneio da ${getFairDisplayName(selectedFair)}`}
+                      Romaneio da Feira Orgânica de {selectedFair}
                     </span>
                 </CardTitle>
                 <Separator className="my-4" />
