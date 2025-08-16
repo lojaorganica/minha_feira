@@ -28,7 +28,7 @@ interface RomaneioItem {
 }
 
 const getFairPreposition = (fair: string): string => {
-    if (!fair) return '';
+    if (!fair) return 'da';
     const doExceptions = ['Grajaú', 'Flamengo', 'Leme'];
     if (doExceptions.includes(fair)) {
         return 'do';
@@ -43,7 +43,6 @@ const getFairPreposition = (fair: string): string => {
 const getFairDisplayName = (fair: string): string => {
     if (!fair) return '';
     const preposition = getFairPreposition(fair);
-    // Para o título completo
     return `Feira Orgânica ${preposition} ${fair}`;
 };
 
@@ -133,7 +132,7 @@ export default function RomaneioPage() {
 
     doc.setFont("helvetica", "bold");
     doc.setFontSize(14);
-    doc.text(getFairDisplayName(selectedFair), doc.internal.pageSize.getWidth() / 2, 40, { align: "center" });
+    doc.text(`Romaneio da ${getFairDisplayName(selectedFair)}`, doc.internal.pageSize.getWidth() / 2, 40, { align: "center" });
 
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
@@ -191,7 +190,7 @@ export default function RomaneioPage() {
   const handleShare = async () => {
     if (!farmer || !date || !selectedFair) return;
 
-    let shareText = `*Romaneio - ${getFairDisplayName(selectedFair)} - ${format(date, 'dd/MM/yyyy')}*\n\n`;
+    let shareText = `*Romaneio da ${getFairDisplayName(selectedFair)} - ${format(date, 'dd/MM/yyyy')}*\n\n`;
     shareText += `*Agricultor:* ${farmer.responsibleName || farmer.name}\n`;
     if (farmer.prepostos && farmer.prepostos.length > 0) {
       shareText += `*Prepostos:* ${farmer.prepostos.join(', ')}\n`;
@@ -209,7 +208,7 @@ export default function RomaneioPage() {
 
     if (navigator.share) {
       await navigator.share({
-        title: `Romaneio ${getFairDisplayName(selectedFair)}`,
+        title: `Romaneio da ${getFairDisplayName(selectedFair)}`,
         text: shareText,
       }).catch(console.error);
     } else {
@@ -324,18 +323,18 @@ export default function RomaneioPage() {
                 </div>
                 )}
               </div>
-              <div className="print-header pt-6">
+              <div className="print-header pt-6 px-1">
                 <CardTitle className="font-headline text-2xl text-center text-primary leading-tight">
                     <span className="sm:hidden">
                         Romaneio {getFairPreposition(selectedFair)}<br/>
-                        {`Feira Orgânica ${getFairPreposition(selectedFair)} ${selectedFair}`}
+                        Feira Orgânica {getFairPreposition(selectedFair)} {selectedFair}
                     </span>
                     <span className="hidden sm:inline">
-                      {`Romaneio da Feira Orgânica ${getFairPreposition(selectedFair)} ${selectedFair}`}
+                      {`Romaneio da ${getFairDisplayName(selectedFair)}`}
                     </span>
                 </CardTitle>
                 <Separator className="my-4" />
-                 <div className="space-y-1 sm:pl-0">
+                 <div className="space-y-1 sm:px-1">
                     <p className="font-semibold text-foreground/90 text-base"><span className="font-bold text-accent">Agricultor:</span> {farmer.responsibleName || farmer.name}</p>
                     {farmer.prepostos && farmer.prepostos.length > 0 && (
                        <p className="font-semibold text-foreground/90 text-base"><span className="font-bold text-accent">Prepostos:</span> {farmer.prepostos.join(', ')}</p>
