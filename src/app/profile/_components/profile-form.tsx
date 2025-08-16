@@ -19,16 +19,24 @@ export default function ProfileForm() {
     const { user, isUserLoaded, userType, updateUser } = useUser();
     const { toast } = useToast();
     const [formData, setFormData] = useState<Partial<Customer & Farmer>>({});
+    const [prepostos, setPrepostos] = useState('');
 
     useEffect(() => {
         if (user) {
             setFormData(user);
+            if (userType === 'farmer' && (user as Farmer).prepostos) {
+                setPrepostos((user as Farmer).prepostos!.join(', '));
+            }
         }
-    }, [user]);
+    }, [user, userType]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { id, value } = e.target;
         setFormData(prev => ({ ...prev, [id]: value }));
+    };
+
+    const handlePrepostosChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setPrepostos(e.target.value);
     };
 
     const handleNumberInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,7 +57,15 @@ export default function ProfileForm() {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (user) {
-            updateUser(formData as Customer | Farmer);
+            let dataToUpdate = { ...formData };
+            if (userType === 'farmer') {
+                dataToUpdate = {
+                    ...dataToUpdate,
+                    prepostos: prepostos.split(',').map(p => p.trim()).filter(p => p.length > 0)
+                };
+            }
+
+            updateUser(dataToUpdate as Customer | Farmer);
             toast({
                 title: "Perfil Atualizado",
                 description: "Seus dados foram atualizados com sucesso.",
@@ -83,6 +99,10 @@ export default function ProfileForm() {
                          <div className="space-y-2">
                             <Label htmlFor="name" className="text-base font-semibold">Nome da Fazenda / Marca</Label>
                             <Input id="name" value={farmerData.name || ''} onChange={handleInputChange} />
+                        </div>
+                         <div className="space-y-2">
+                            <Label htmlFor="prepostos" className="text-base font-semibold">Prepostos (separe os nomes por vírgula)</Label>
+                            <Textarea id="prepostos" value={prepostos} onChange={handlePrepostosChange} placeholder="Ex: Maria, João, etc."/>
                         </div>
                          <div className="space-y-2">
                             <Label htmlFor="bio" className="text-base font-semibold">Bio (Escreva um pouquinho sobre seu sítio ou negócio nas feiras.)</Label>

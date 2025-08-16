@@ -135,18 +135,25 @@ export default function RomaneioPage() {
 
     doc.setFont("helvetica", "bold");
     doc.setFontSize(14);
-    doc.text(`Romaneio da ${getFairDisplayName(selectedFair)}`, doc.internal.pageSize.getWidth() / 2, 40, { align: "center" });
+    doc.text(`Romaneio da Feira Orgânica ${getFairPreposition(selectedFair)} ${selectedFair}`, doc.internal.pageSize.getWidth() / 2, 40, { align: "center" });
 
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
     doc.text(`Agricultor: ${farmer.responsibleName || farmer.name}`, 40, 60);
-    doc.text(`Sítio/Marca: ${farmer.name}`, 40, 75);
-    doc.text(`Data: ${format(date, "dd/MM/yyyy", { locale: ptBR })}`, 40, 90);
+    if(farmer.prepostos && farmer.prepostos.length > 0) {
+      doc.text(`Prepostos: ${farmer.prepostos.join(', ')}`, 40, 75);
+      doc.text(`Sítio/Marca: ${farmer.name}`, 40, 90);
+      doc.text(`Data: ${format(date, "dd/MM/yyyy", { locale: ptBR })}`, 40, 105);
+    } else {
+      doc.text(`Sítio/Marca: ${farmer.name}`, 40, 75);
+      doc.text(`Data: ${format(date, "dd/MM/yyyy", { locale: ptBR })}`, 40, 90);
+    }
+    
 
     const filteredData = romaneioData.filter(item => item.fornecedor || item.quantidade);
 
     (doc as any).autoTable({
-      startY: 110,
+      startY: 120,
       head: [['#', 'Produto', 'Fornecedor Parceiro', 'Quantidade']],
       body: filteredData.map((item, index) => [
         index + 1,
@@ -321,33 +328,36 @@ export default function RomaneioPage() {
                     <span className="sm:hidden">Romaneio {getFairPreposition(selectedFair)}</span>
                     <br className="sm:hidden" />
                     <span className="hidden sm:inline">
-                      Romaneio {getFairPreposition(selectedFair)} {getFairDisplayName(selectedFair).replace(`Feira Orgânica ${getFairPreposition(selectedFair)} `, '')}
+                      {`Romaneio da Feira Orgânica ${getFairPreposition(selectedFair)} ${selectedFair}`}
                     </span>
                      <span className="sm:hidden">{getFairDisplayName(selectedFair)}</span>
                 </CardTitle>
                 <Separator className="my-4" />
                  <div className="space-y-1 pl-1">
                     <p className="font-semibold text-foreground/90 text-base"><span className="font-bold text-accent">Agricultor:</span> {farmer.responsibleName || farmer.name}</p>
+                    {farmer.prepostos && farmer.prepostos.length > 0 && (
+                       <p className="font-semibold text-foreground/90 text-base"><span className="font-bold text-accent">Prepostos:</span> {farmer.prepostos.join(', ')}</p>
+                    )}
                     <p className="font-semibold text-foreground/90 text-base"><span className="font-bold text-accent">Sítio/Marca:</span> {farmer.name}</p>
                     <p className="font-semibold text-foreground/90 text-base"><span className="font-bold text-accent">Data:</span> {date ? format(date, "dd/MM/yyyy", { locale: ptBR }) : 'N/A'}</p>
                 </div>
               </div>
           </CardHeader>
           <CardContent className="px-2 sm:px-6">
-            <div className="w-full">
+            <div className="w-full overflow-x-auto">
               {/* Cabeçalho da Tabela */}
-              <div className="grid grid-cols-[20px_1fr_100px_60px] sm:grid-cols-[30px_1fr_180px_80px] gap-2 border-b pb-2">
+              <div className="grid grid-cols-[25px_1fr_100px_60px] sm:grid-cols-[30px_1fr_180px_80px] gap-2 border-b pb-2">
                 <div className="p-2 text-center font-bold text-lg text-accent">#</div>
                 <div className="font-bold text-lg">Produto</div>
                 <div className="font-bold text-lg">Fornecedor</div>
-                <div className="font-bold text-lg">Qtde</div>
+                <div className="font-bold text-lg text-center">Qtde</div>
               </div>
               {/* Itens da Tabela */}
               <div>
                 {romaneioData.map((item, index) => (
-                  <div key={index} className="grid grid-cols-[20px_1fr_100px_60px] sm:grid-cols-[30px_1fr_180px_80px] gap-2 items-center border-b last:border-b-0 py-2">
+                  <div key={index} className="grid grid-cols-[25px_1fr_100px_60px] sm:grid-cols-[30px_1fr_180px_80px] gap-2 items-center border-b last:border-b-0 py-2">
                     <div className="font-bold text-center text-accent">{index + 1}</div>
-                    <div className="font-medium break-words leading-tight max-w-full text-sm">{item.produto}</div>
+                    <div className="font-medium break-words leading-tight max-w-full text-sm sm:text-base">{item.produto}</div>
                     <div>
                       <Input
                         value={item.fornecedor}
@@ -360,9 +370,9 @@ export default function RomaneioPage() {
                       <Input
                         value={item.quantidade}
                         onChange={(e) => handleInputChange(index, 'quantidade', e.target.value)}
-                        className="bg-card no-print border-primary/50 focus-visible:ring-primary/50 h-8"
+                        className="bg-card no-print border-primary/50 focus-visible:ring-primary/50 h-8 text-center"
                       />
-                      <span className="print-only hidden">{item.quantidade}</span>
+                      <span className="print-only hidden text-center">{item.quantidade}</span>
                     </div>
                   </div>
                 ))}

@@ -1320,56 +1320,116 @@ let products: Product[] = [
 let farmers: Farmer[] = [
   {
     id: '1',
-    responsibleName: 'João da Silva',
-    name: 'Fazendas Vale Verde',
-    location: { lat: -22.9068, lng: -43.1729 }, // Rio de Janeiro
+    responsibleName: 'Matias Ponte',
+    name: 'Sítio Fazenda Mata Verde',
+    prepostos: ['David Bulhões', 'Rosana Santos', 'Evelyn Alcântara'],
+    fairs: ['Flamengo', 'Grajaú', 'Tijuca'],
+    location: { lat: -22.9068, lng: -43.1729 },
     bio: 'Uma fazenda familiar dedicada à agricultura orgânica e sustentável há mais de 30 anos.',
     address: 'Estrada da Paciência, 123, Santa Cruz, Rio de Janeiro, RJ',
-    pixKey: 'fazenda.vale.verde@email.com',
+    pixKey: 'fazenda.mata.verde@email.com',
     shippingCost: 15.00,
     phone: '5521987654321',
-    fairs: ['Tijuca', 'Grajaú', 'Laranjeiras'],
     image: 'https://placehold.co/100x100.png'
   },
   {
     id: '2',
-    responsibleName: 'Maria Oliveira',
-    name: 'Pomares do Amanhecer',
-    location: { lat: -22.91, lng: -43.2 }, // Near Rio
+    responsibleName: 'Ailton Lima',
+    name: 'Sítio Tapera',
+    prepostos: ['Felipe Carvalho', 'Thiago Carvalho'],
+    fairs: ['Laranjeiras', 'Botafogo'],
+    location: { lat: -22.91, lng: -43.2 },
     bio: 'Somos especializados no cultivo das frutas orgânicas mais doces e suculentas com amor e carinho.',
     address: 'Rua das Maçãs, 45, Nova Iguaçu, RJ',
-    pixKey: '123.456.789-00',
+    pixKey: '123.456.789-01',
     shippingCost: 12.50,
     phone: '5521987654322',
-    fairs: ['Flamengo', 'Botafogo', 'Leme'],
     image: 'https://placehold.co/100x100.png'
   },
   {
     id: '3',
-    responsibleName: 'Carlos Pereira',
-    name: "Laticínios Margarida",
-    location: { lat: -22.88, lng: -43.15 }, // Near Rio
+    responsibleName: 'Onéias Gonçalves',
+    name: "Sítio Cachoeirinha I",
+    prepostos: ['Luciene Silva'],
+    fairs: [],
+    location: { lat: -22.88, lng: -43.15 },
     bio: 'Vacas felizes fazem o melhor leite. Nossos produtos lácteos são todos naturais e de vacas alimentadas com pasto.',
     address: 'Avenida do Leite, 789, Duque de Caxias, RJ',
     pixKey: '(21) 99999-8888',
     shippingCost: 10.00,
     phone: '5521987654323',
-    fairs: ['Tijuca', 'Botafogo'],
     image: 'https://placehold.co/100x100.png'
   },
   {
     id: '4',
-    responsibleName: 'Ana Souza',
-    name: 'O Pão Rústico',
-    location: { lat: -22.95, lng: -43.22 }, // Near Rio
+    responsibleName: 'Walace Oliveira',
+    name: 'Sítio Cachoeirinha II',
+    prepostos: ['Vitor Hugo', 'Michele Conceição'],
+    fairs: ['Laranjeiras', 'Leme'],
+    location: { lat: -22.95, lng: -43.22 },
     bio: 'Pães artesanais assados em forno a lenha tradicional com farinha orgânica de origem local.',
     address: 'Travessa do Pão, 10, Niterói, RJ',
-    pixKey: 'paorustico@email.com',
-    shippingCost: 0, // Não oferece delivery
+    pixKey: 'sitio.cachoeirinha2@email.com',
+    shippingCost: 0,
     phone: '5521987654324',
-    fairs: ['Laranjeiras', 'Grajaú'],
     image: 'https://placehold.co/100x100.png'
   },
+  {
+    id: '5',
+    responsibleName: 'Wendel Oliveira',
+    name: 'Sítio Cachoeirinha III',
+    prepostos: [],
+    fairs: ['Flamengo'],
+    location: { lat: -22.93, lng: -43.19 },
+    bio: 'Cultivando o futuro, um vegetal de cada vez. Frescor e qualidade direto da terra para sua mesa.',
+    address: 'Estrada da Cachoeira, 55, Magé, RJ',
+    pixKey: 'wendel.oliveira@email.com',
+    shippingCost: 18.00,
+    phone: '5521987654325',
+    image: 'https://placehold.co/100x100.png'
+  },
+  {
+    id: '6',
+    responsibleName: 'Ivison Fragoso',
+    name: 'Domicílio Orgânico',
+    prepostos: ['Cristina Marques', 'Nathalia Souza'],
+    fairs: ['Flamengo', 'Laranjeiras', 'Botafogo'],
+    location: { lat: -22.96, lng: -43.18 },
+    bio: 'Levando o melhor do campo para a sua casa. Produtos orgânicos com entrega rápida e segura.',
+    address: 'Rua do Domicílio, 20, Rio de Janeiro, RJ',
+    pixKey: '12.345.678/0001-99',
+    shippingCost: 14.00,
+    phone: '5521987654326',
+    image: 'https://placehold.co/100x100.png'
+  },
+  {
+    id: '7',
+    responsibleName: 'Lúcia Rodrigues',
+    name: 'Naturalmente Orgânicos',
+    prepostos: [],
+    fairs: ['Tijuca'],
+    location: { lat: -22.92, lng: -43.23 },
+    bio: 'Saúde e sabor em cada folha. Nossos produtos são cultivados sem agrotóxicos, com respeito à natureza.',
+    address: 'Rua Natural, 30, Rio de Janeiro, RJ',
+    pixKey: 'naturalmente.organicos@email.com',
+    shippingCost: 0,
+    phone: '5521987654327',
+    image: 'https://placehold.co/100x100.png'
+  },
+  {
+    id: '8',
+    responsibleName: 'Ronilson (Ronin)',
+    name: 'Sítio Paraíso',
+    prepostos: ['Ruan'],
+    fairs: ['Tijuca'],
+    location: { lat: -22.89, lng: -43.25 },
+    bio: 'O paraíso dos orgânicos. Produção familiar com foco na qualidade e no sabor autêntico dos alimentos.',
+    address: 'Caminho do Paraíso, 77, Teresópolis, RJ',
+    pixKey: 'ronin.paraiso@email.com',
+    shippingCost: 20.00,
+    phone: '5521987654328',
+    image: 'https://placehold.co/100x100.png'
+  }
 ];
 
 let orders: Order[] = [
@@ -1724,7 +1784,7 @@ export function updateCustomer(customerId: string, updatedData: Partial<Customer
 }
 
 export function addFarmer(farmerData: Omit<Farmer, 'id' | 'location' | 'image'>): Farmer {
-    const newId = `${farmers.length + 1}`;
+    const newId = `farmer-${farmers.length + 1 + Date.now()}`;
     const newFarmer: Farmer = {
         id: newId,
         // Usando uma localização aleatória perto do Rio de Janeiro para simulação
@@ -1812,5 +1872,3 @@ export function updateCustomerClassification(customerId: string, classification:
 
     return undefined;
 }
-
-    

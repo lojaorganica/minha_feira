@@ -39,6 +39,7 @@ export default function FarmerRegisterPage() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [bio, setBio] = useState('');
+  const [prepostos, setPrepostos] = useState('');
 
 
   const handleFairChange = (fair: string) => {
@@ -75,6 +76,7 @@ export default function FarmerRegisterPage() {
       shippingCost: parseFloat(shippingCost) || 0,
       phone,
       fairs: selectedFairs,
+      prepostos: prepostos.split(',').map(p => p.trim()).filter(p => p.length > 0),
     };
 
     const newFarmer = addFarmer(newFarmerData);
@@ -107,6 +109,10 @@ export default function FarmerRegisterPage() {
                 <div className="grid gap-2">
                     <Label htmlFor="farm-name">Nome da Fazenda / Marca</Label>
                     <Input id="farm-name" placeholder="Ex: Fazenda Vale Verde" required className="bg-background" value={farmName} onChange={e => setFarmName(e.target.value)} />
+                </div>
+                 <div className="grid gap-2">
+                    <Label htmlFor="prepostos">Prepostos (separe os nomes por vírgula)</Label>
+                    <Textarea id="prepostos" placeholder="Ex: Maria, João, etc." className="bg-background" value={prepostos} onChange={e => setPrepostos(e.target.value)} />
                 </div>
                  <div className="grid gap-2">
                     <Label htmlFor="address">Endereço</Label>
