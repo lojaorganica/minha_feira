@@ -1,4 +1,5 @@
 
+
 import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerOrder, CustomerClassification } from './types';
 
 let products: Product[] = [
@@ -263,7 +264,7 @@ let products: Product[] = [
   },
   {
     id: '21',
-    name: 'Couve-Flor Orgânica',
+    name: 'Couve Flor Orgânica',
     category: 'Vegetal',
     price: 4.0,
     unitAmount: 1,
