@@ -300,7 +300,7 @@ export default function RomaneioPage() {
                         {farmer.fairs.map(fair => (
                             <div key={fair} className="flex items-center space-x-2">
                                 <RadioGroupItem value={fair} id={`fair-${fair}`} />
-                                <Label htmlFor={`fair-${fair}`} className="font-normal text-base cursor-pointer">{`Feira ${fair}`}</Label>
+                                <Label htmlFor={`fair-${fair}`} className="font-normal text-base cursor-pointer">{getFairDisplayName(fair).replace('da Feira Orgânica ', 'Feira ')}</Label>
                             </div>
                         ))}
                     </RadioGroup>
@@ -324,23 +324,23 @@ export default function RomaneioPage() {
           <CardContent className="px-2 sm:px-6">
             <div className="w-full">
               {/* Cabeçalho da Tabela */}
-              <div className="grid grid-cols-[20px_1fr_100px_90px] sm:grid-cols-[30px_1fr_250px_150px] gap-2 border-b pb-2">
-                <div className="p-2 text-center font-bold text-sm sm:text-lg">#</div>
-                <div className="font-bold text-sm sm:text-lg">Produto</div>
-                <div className="font-bold text-sm sm:text-lg">Fornecedor</div>
-                <div className="font-bold text-sm sm:text-lg">Quantidade</div>
+              <div className="grid grid-cols-[20px_1fr_100px_70px] sm:grid-cols-[30px_1fr_250px_150px] gap-2 border-b pb-2">
+                <div className="p-2 text-center font-bold text-lg">#</div>
+                <div className="font-bold text-lg">Produto</div>
+                <div className="font-bold text-lg">Fornecedor</div>
+                <div className="font-bold text-lg">Qtde</div>
               </div>
               {/* Itens da Tabela */}
               <div>
                 {romaneioData.map((item, index) => (
-                  <div key={index} className="grid grid-cols-[20px_1fr_100px_90px] sm:grid-cols-[30px_1fr_250px_150px] gap-2 items-center border-b last:border-b-0 py-2">
-                    <div className="font-medium text-center text-sm">{index + 1}</div>
-                    <div className="font-medium break-words text-sm leading-tight max-w-full">{item.produto}</div>
+                  <div key={index} className="grid grid-cols-[20px_1fr_100px_70px] sm:grid-cols-[30px_1fr_250px_150px] gap-2 items-center border-b last:border-b-0 py-2">
+                    <div className="font-medium text-center">{index + 1}</div>
+                    <div className="font-medium break-words leading-tight max-w-full">{item.produto}</div>
                     <div>
                       <Input
                         value={item.fornecedor}
                         onChange={(e) => handleInputChange(index, 'fornecedor', e.target.value)}
-                        className="bg-card no-print border-primary/50 focus-visible:ring-primary/50 h-8 text-sm p-1"
+                        className="bg-card no-print border-primary/50 focus-visible:ring-primary/50 h-8"
                       />
                       <span className="print-only hidden">{item.fornecedor}</span>
                     </div>
@@ -348,7 +348,7 @@ export default function RomaneioPage() {
                       <Input
                         value={item.quantidade}
                         onChange={(e) => handleInputChange(index, 'quantidade', e.target.value)}
-                        className="bg-card no-print border-primary/50 focus-visible:ring-primary/50 h-8 text-sm p-1"
+                        className="bg-card no-print border-primary/50 focus-visible:ring-primary/50 h-8"
                       />
                       <span className="print-only hidden">{item.quantidade}</span>
                     </div>
