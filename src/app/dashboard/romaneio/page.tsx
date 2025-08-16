@@ -280,7 +280,7 @@ export default function RomaneioPage() {
           <CardHeader>
              <div className="flex flex-col md:flex-row gap-8 no-print p-4 border rounded-lg">
                 <div className="flex-1 space-y-3">
-                  <Label className="text-lg font-bold">Data da Feira</Label>
+                  <Label className="text-lg font-bold text-accent">Data da Feira</Label>
                    <Popover>
                         <PopoverTrigger asChild>
                         <Button variant={"outline"} className="w-full justify-start text-left font-normal text-base">
@@ -295,7 +295,7 @@ export default function RomaneioPage() {
                 </div>
                 {farmer.fairs.length > 0 && (
                 <div className="flex-1 space-y-3">
-                  <Label className="text-lg font-bold">Selecione a Feira</Label>
+                  <Label className="text-lg font-bold text-accent">Selecione a Feira</Label>
                   <RadioGroup value={selectedFair} onValueChange={setSelectedFair} className="grid grid-cols-2 gap-x-4 gap-y-2">
                         {farmer.fairs.map(fair => (
                             <div key={fair} className="flex items-center space-x-2">
@@ -310,17 +310,17 @@ export default function RomaneioPage() {
               <div className="print-header pt-6 px-6">
                 <CardTitle className="font-headline text-2xl text-center text-primary">Romaneio {getFairDisplayName(selectedFair)}</CardTitle>
                 <Separator className="my-4" />
-                <div className="text-base font-semibold text-foreground/90 space-y-1">
-                    <p><span className="font-bold text-accent">Agricultor:</span> {farmer.responsibleName || farmer.name}</p>
-                    <p><span className="font-bold text-accent">Sítio/Marca:</span> {farmer.name}</p>
-                    <p><span className="font-bold text-accent">Data:</span> {date ? format(date, "dd/MM/yyyy", { locale: ptBR }) : 'N/A'}</p>
+                <div className="space-y-1 pl-1">
+                    <p className="font-semibold text-foreground/90 text-base"><span className="font-bold text-accent">Agricultor:</span> {farmer.responsibleName || farmer.name}</p>
+                    <p className="font-semibold text-foreground/90 text-base"><span className="font-bold text-accent">Sítio/Marca:</span> {farmer.name}</p>
+                    <p className="font-semibold text-foreground/90 text-base"><span className="font-bold text-accent">Data:</span> {date ? format(date, "dd/MM/yyyy", { locale: ptBR }) : 'N/A'}</p>
                 </div>
               </div>
           </CardHeader>
           <CardContent className="px-2 sm:px-6">
             <div className="w-full">
               {/* Cabeçalho da Tabela */}
-              <div className="grid grid-cols-[20px_1fr_100px_60px] sm:grid-cols-[30px_1fr_250px_120px] gap-2 border-b pb-2">
+              <div className="grid grid-cols-[20px_1fr_100px_60px] sm:grid-cols-[30px_1fr_180px_80px] gap-2 border-b pb-2">
                 <div className="p-2 text-center font-bold text-lg text-accent">#</div>
                 <div className="font-bold text-lg">Produto</div>
                 <div className="font-bold text-lg">Fornecedor</div>
@@ -329,9 +329,9 @@ export default function RomaneioPage() {
               {/* Itens da Tabela */}
               <div>
                 {romaneioData.map((item, index) => (
-                  <div key={index} className="grid grid-cols-[20px_1fr_100px_60px] sm:grid-cols-[30px_1fr_250px_120px] gap-2 items-center border-b last:border-b-0 py-2">
+                  <div key={index} className="grid grid-cols-[20px_1fr_100px_60px] sm:grid-cols-[30px_1fr_180px_80px] gap-2 items-center border-b last:border-b-0 py-2">
                     <div className="font-bold text-center text-accent">{index + 1}</div>
-                    <div className="font-medium break-words leading-tight max-w-full text-sm sm:text-base">{item.produto}</div>
+                    <div className="font-medium break-words leading-tight max-w-full text-sm">{item.produto}</div>
                     <div>
                       <Input
                         value={item.fornecedor}
