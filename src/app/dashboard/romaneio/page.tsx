@@ -123,33 +123,48 @@ export default function RomaneioPage() {
   
   const generatePdf = () => {
     if (!farmer || !date || !selectedFair) return;
-    const doc = new jsPDF();
+    const doc = new jsPDF('p', 'pt', 'a4');
 
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(16);
-    doc.text(`Romaneio da Feira Orgânica ${getFairDisplayName(selectedFair)}`, 105, 20, { align: "center" });
+    doc.setFontSize(14);
+    doc.text(`Romaneio da Feira Orgânica ${getFairDisplayName(selectedFair)}`, doc.internal.pageSize.getWidth() / 2, 40, { align: "center" });
 
     doc.setFont("helvetica", "normal");
-    doc.setFontSize(12);
-    doc.text(`Data: ${format(date, "dd/MM/yyyy", { locale: ptBR })}`, 20, 30);
-    doc.text(`Agricultor: ${farmer.responsibleName || farmer.name}`, 20, 35);
-    doc.text(`Sítio/Marca: ${farmer.name}`, 20, 40);
+    doc.setFontSize(10);
+    doc.text(`Data: ${format(date, "dd/MM/yyyy", { locale: ptBR })}`, 40, 60);
+    doc.text(`Agricultor: ${farmer.responsibleName || farmer.name}`, 40, 75);
+    doc.text(`Sítio/Marca: ${farmer.name}`, 40, 90);
+
+    const filteredData = romaneioData.filter(item => item.fornecedor || item.quantidade);
 
     (doc as any).autoTable({
-      startY: 50,
+      startY: 110,
       head: [['#', 'Produto', 'Fornecedor Parceiro', 'Quantidade']],
-      body: romaneioData.map((item, index) => [
+      body: filteredData.map((item, index) => [
         index + 1,
         item.produto,
         item.fornecedor,
         item.quantidade,
       ]),
-       headStyles: { fillColor: [63, 112, 79] }, // Cor --primary
+       headStyles: { 
+         fillColor: [39, 78, 54], // primary
+         fontSize: 10
+       },
+       bodyStyles: {
+         fontSize: 9
+       },
        columnStyles: {
-        0: { cellWidth: 10 },
+        0: { cellWidth: 25, halign: 'center' },
         1: { cellWidth: 'auto' },
-        2: { cellWidth: 40 },
-        3: { cellWidth: 30 },
+        2: { cellWidth: 120 },
+        3: { cellWidth: 80, halign: 'center' },
+       },
+       margin: { top: 100, left: 40, right: 40, bottom: 40 },
+       didDrawPage: (data: any) => {
+         // Footer
+         const pageCount = doc.internal.pages.length;
+         doc.setFontSize(8);
+         doc.text('Página ' + String(pageCount), data.settings.margin.left, doc.internal.pageSize.height - 20);
        }
     });
 
@@ -203,10 +218,43 @@ export default function RomaneioPage() {
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
       <style>{`
         @media print {
-          body * { visibility: hidden; }
-          .print-container, .print-container * { visibility: visible; }
-          .print-container { position: absolute; left: 0; top: 0; width: 100%; }
-          .no-print { display: none; }
+          body, html {
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+          }
+          body * { 
+            visibility: hidden; 
+            background: transparent !important;
+            color: #000 !important;
+            box-shadow: none !important;
+            text-shadow: none !important;
+          }
+          .print-container, .print-container * { 
+            visibility: visible; 
+          }
+          .print-container { 
+            position: absolute; 
+            left: 0; 
+            top: 0; 
+            width: 100%;
+            margin: 0;
+            padding: 20px;
+          }
+          .no-print { 
+            display: none !important; 
+          }
+          table {
+            width: 100%;
+            border-collapse: collapse;
+          }
+          th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+          }
+          thead {
+            background-color: #f2f2f2 !important;
+          }
         }
       `}</style>
 
@@ -254,7 +302,7 @@ export default function RomaneioPage() {
                 </div>
                 )}
               </div>
-              <div className="print-header pt-6">
+              <div className="print-header pt-6 px-6">
                 <CardTitle className="font-headline text-2xl text-center text-primary">Romaneio da Feira Orgânica {getFairDisplayName(selectedFair)}</CardTitle>
                 <Separator className="my-4" />
                 <div className="flex justify-between text-base font-semibold text-foreground/90">
@@ -272,7 +320,7 @@ export default function RomaneioPage() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead className="w-[40px]">#</TableHead>
+                  <TableHead className="w-[40px] text-center">#</TableHead>
                   <TableHead>Produto</TableHead>
                   <TableHead className="w-[200px]">Fornecedor Parceiro</TableHead>
                   <TableHead className="w-[120px]">Quantidade</TableHead>
@@ -281,28 +329,30 @@ export default function RomaneioPage() {
               <TableBody>
                 {romaneioData.map((item, index) => (
                   <TableRow key={index}>
-                    <TableCell className="font-medium">{index + 1}</TableCell>
+                    <TableCell className="font-medium text-center">{index + 1}</TableCell>
                     <TableCell className="font-medium">{item.produto}</TableCell>
                     <TableCell>
                       <Input
                         value={item.fornecedor}
                         onChange={(e) => handleInputChange(index, 'fornecedor', e.target.value)}
-                        className="bg-card"
+                        className="bg-card no-print"
                       />
+                       <span className="print-only">{item.fornecedor}</span>
                     </TableCell>
                     <TableCell>
                       <Input
                         value={item.quantidade}
                         onChange={(e) => handleInputChange(index, 'quantidade', e.target.value)}
-                         className="bg-card"
+                         className="bg-card no-print"
                       />
+                       <span className="print-only">{item.quantidade}</span>
                     </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
           </CardContent>
-          <CardFooter className="flex-col md:flex-row gap-2 justify-end no-print">
+          <CardFooter className="flex-col md:flex-row gap-2 justify-end no-print p-6">
             <Button variant="outline" onClick={handleSave}><Save className="mr-2 h-4 w-4" /> Salvar Rascunho</Button>
             <Button variant="outline" onClick={handleShare}><Share2 className="mr-2 h-4 w-4" /> Compartilhar</Button>
             <Button variant="outline" onClick={handlePrint}><Printer className="mr-2 h-4 w-4" /> Imprimir</Button>
@@ -314,4 +364,3 @@ export default function RomaneioPage() {
   );
 }
 
-    
