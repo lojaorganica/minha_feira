@@ -1249,6 +1249,45 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Feijão carioca orgânico, o mais popular do Brasil, com caldo encorpado e sabor suave.',
     status: 'active',
+  },
+  {
+    id: '98',
+    name: 'Feijão Vermelho Orgânico',
+    category: 'Vegetal',
+    price: 8.50,
+    unitAmount: 1,
+    unit: 'kg',
+    image: 'https://placehold.co/600x400.png',
+    dataAiHint: 'red beans',
+    farmerId: '1',
+    description: 'Feijão vermelho orgânico, ideal para sopas, saladas e pratos com sabor mais robusto.',
+    status: 'active',
+  },
+  {
+    id: '99',
+    name: 'Couve Kale Orgânica',
+    category: 'Vegetal',
+    price: 4.50,
+    unitAmount: 1,
+    unit: 'maço',
+    image: 'https://placehold.co/600x400.png',
+    dataAiHint: 'kale',
+    farmerId: '1',
+    description: 'Couve Kale, a super-hortaliça, rica em nutrientes e perfeita para sucos verdes, saladas e chips.',
+    status: 'active',
+  },
+  {
+    id: '100',
+    name: 'Orégano Orgânico',
+    category: 'Vegetal',
+    price: 3.50,
+    unitAmount: 1,
+    unit: 'maço',
+    image: 'https://placehold.co/600x400.png',
+    dataAiHint: 'oregano',
+    farmerId: '1',
+    description: 'Orégano fresco, com aroma e sabor que transformam molhos, pizzas e saladas.',
+    status: 'active',
   }
 ];
 
@@ -1415,6 +1454,7 @@ const defaultProductImages = new Map<string, string>([
     ['couve flor', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_flor.webp?alt=media&token=5e32779d-a643-4845-9b4b-6f3b6474b444'],
     ['couve mineira', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_mineira.webp?alt=media&token=fb0702ac-1c9a-4414-9857-bd0908d68348'],
     ['couve toscana', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_toscana.webp?alt=media&token=d4d592f2-8fbe-4489-a044-6d46d2fc3753'],
+    ['couve kale', 'https://placehold.co/600x400.png'],
     ['couve', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_mineira.webp?alt=media&token=fb0702ac-1c9a-4414-9857-bd0908d68348'],
     ['maca fuji', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/maca_fuji.webp?alt=media&token=d9b195e6-0e42-4976-83fe-fdf87dfafd7c'],
     ['maca', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/maca_fuji.webp?alt=media&token=d9b195e6-0e42-4976-83fe-fdf87dfafd7c'],
@@ -1514,6 +1554,8 @@ const defaultProductImages = new Map<string, string>([
     ['vagem', 'https://placehold.co/600x400.png'],
     ['feijao preto', 'https://placehold.co/600x400.png'],
     ['feijao carioca', 'https://placehold.co/600x400.png'],
+    ['feijao vermelho', 'https://placehold.co/600x400.png'],
+    ['oregano', 'https://placehold.co/600x400.png'],
 ]);
 
 
