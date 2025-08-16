@@ -1301,6 +1301,19 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Alface Mimosa com folhas tenras e sabor suave, ótima para saladas.',
     status: 'active',
+  },
+  {
+    id: '102',
+    name: 'Abóbora Baianinha Orgânica',
+    category: 'Vegetal',
+    price: 3.60,
+    unitAmount: 1,
+    unit: 'kg',
+    image: 'https://placehold.co/600x400.png',
+    dataAiHint: 'baianinha squash',
+    farmerId: '1',
+    description: 'Abóbora Baianinha orgânica, de polpa adocicada, ótima para doces e purês.',
+    status: 'active',
   }
 ];
 
@@ -1500,6 +1513,7 @@ const defaultProductImages = new Map<string, string>([
     ['abacaxi', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/abacaxi.webp?alt=media&token=4caa0219-8635-4fbb-8e1c-fdec6909ebda'],
     ['berinjela', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/berinjela.webp?alt=media&token=ad1f7bd9-75db-4fc4-ac6d-3608733d71e9'],
     ['abóbora japonesa', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/abobora_japonesa.webp?alt=media&token=cfa98bbc-c0f2-4063-8047-83e2e44ac76a'],
+    ['abobora baianinha', 'https://placehold.co/600x400.png'],
     ['alface lisa', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_lisa.webp?alt=media&token=ced73d99-300e-4904-9072-9c8e4fcecd79'],
     ['alface crespa', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_crespa.webp?alt=media&token=a057c9ac-0fe9-40b0-a016-49d16b016941'],
     ['alface roxa', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_roxa.webp?alt=media&token=c566920b-b13c-4d87-916a-813e320aedec'],
