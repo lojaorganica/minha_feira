@@ -320,10 +320,10 @@ export default function RomaneioPage() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead className="w-[40px] text-center">#</TableHead>
-                  <TableHead>Produto</TableHead>
-                  <TableHead className="w-[200px]">Fornecedor Parceiro</TableHead>
-                  <TableHead className="w-[120px]">Quantidade</TableHead>
+                  <TableHead className="w-[30px] p-2 text-center font-bold text-lg">#</TableHead>
+                  <TableHead className="w-auto font-bold text-lg">Produto</TableHead>
+                  <TableHead className="w-[250px] font-bold text-lg">Fornecedor Parceiro</TableHead>
+                  <TableHead className="w-[150px] font-bold text-lg">Quantidade</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -335,7 +335,7 @@ export default function RomaneioPage() {
                       <Input
                         value={item.fornecedor}
                         onChange={(e) => handleInputChange(index, 'fornecedor', e.target.value)}
-                        className="bg-card no-print"
+                        className="bg-card no-print border-primary/50 focus-visible:ring-primary/50"
                       />
                        <span className="print-only">{item.fornecedor}</span>
                     </TableCell>
@@ -343,7 +343,7 @@ export default function RomaneioPage() {
                       <Input
                         value={item.quantidade}
                         onChange={(e) => handleInputChange(index, 'quantidade', e.target.value)}
-                         className="bg-card no-print"
+                         className="bg-card no-print border-primary/50 focus-visible:ring-primary/50"
                       />
                        <span className="print-only">{item.quantidade}</span>
                     </TableCell>
