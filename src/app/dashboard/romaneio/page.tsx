@@ -27,15 +27,18 @@ interface RomaneioItem {
   quantidade: string;
 }
 
-const getFairPreposition = (fair: string): string => {
-    if (!fair) return 'de';
+const getFairDisplayName = (fair: string): string => {
+    if (!fair) return '';
     const doExceptions = ['Grajaú', 'Flamengo', 'Leme'];
     if (doExceptions.includes(fair)) {
-        return 'do';
+        return `Feira Orgânica do ${fair}`;
     }
-    return 'de';
-};
-
+    const deExceptions = ['Laranjeiras', 'Botafogo'];
+    if (deExceptions.includes(fair)) {
+        return `Feira Orgânica de ${fair}`;
+    }
+    return `Feira Orgânica da ${fair}`;
+}
 
 export default function RomaneioPage() {
   const { user, isUserLoaded } = useUser();
@@ -123,7 +126,7 @@ export default function RomaneioPage() {
 
     doc.setFont("helvetica", "bold");
     doc.setFontSize(14);
-    doc.text(`Romaneio da Feira Orgânica ${getFairPreposition(selectedFair)} ${selectedFair}`, doc.internal.pageSize.getWidth() / 2, 40, { align: "center" });
+    doc.text(`Romaneio da ${getFairDisplayName(selectedFair)}`, doc.internal.pageSize.getWidth() / 2, 40, { align: "center" });
 
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
@@ -181,7 +184,7 @@ export default function RomaneioPage() {
   const handleShare = async () => {
     if (!farmer || !date || !selectedFair) return;
 
-    let shareText = `*Romaneio da Feira Orgânica ${getFairPreposition(selectedFair)} ${selectedFair} - ${format(date, 'dd/MM/yyyy')}*\n\n`;
+    let shareText = `*Romaneio da ${getFairDisplayName(selectedFair)} - ${format(date, 'dd/MM/yyyy')}*\n\n`;
     shareText += `*Agricultor:* ${farmer.responsibleName || farmer.name}\n`;
     if (farmer.prepostos && farmer.prepostos.length > 0) {
       shareText += `*Prepostos:* ${farmer.prepostos.join(', ')}\n`;
@@ -199,7 +202,7 @@ export default function RomaneioPage() {
 
     if (navigator.share) {
       await navigator.share({
-        title: `Romaneio da Feira Orgânica ${getFairPreposition(selectedFair)} ${selectedFair}`,
+        title: `Romaneio da ${getFairDisplayName(selectedFair)}`,
         text: shareText,
       }).catch(console.error);
     } else {
@@ -284,7 +287,7 @@ export default function RomaneioPage() {
 
       <div ref={printRef} className="print-container">
         <Card>
-          <CardHeader className="px-2 sm:px-6">
+          <CardHeader className="sm:px-6">
              <div className="flex flex-col md:flex-row gap-8 no-print p-4 border rounded-lg">
                 <div className="flex-1 space-y-3">
                   <Label className="text-xl font-bold text-accent">Data da Feira</Label>
@@ -307,7 +310,7 @@ export default function RomaneioPage() {
                         {farmer.fairs.map(fair => (
                             <div key={fair} className="flex items-center space-x-2">
                                 <RadioGroupItem value={fair} id={`fair-${fair}`} />
-                                <Label htmlFor={`fair-${fair}`} className="font-normal text-base cursor-pointer">{`Feira ${getFairPreposition(fair)} ${fair}`}</Label>
+                                <Label htmlFor={`fair-${fair}`} className="font-normal text-base cursor-pointer">{`Feira de ${fair}`}</Label>
                             </div>
                         ))}
                     </RadioGroup>
@@ -317,14 +320,14 @@ export default function RomaneioPage() {
               <div className="print-header pt-6 px-1 sm:px-0">
                 <CardTitle className="font-headline text-2xl text-center text-primary leading-tight">
                     <span className="sm:hidden">
-                        Romaneio da<br/>Feira Orgânica de {selectedFair}
+                       Romaneio da<br/>{getFairDisplayName(selectedFair)}
                     </span>
                     <span className="hidden sm:inline">
-                      Romaneio da Feira Orgânica de {selectedFair}
+                      Romaneio da {getFairDisplayName(selectedFair)}
                     </span>
                 </CardTitle>
                 <Separator className="my-4" />
-                 <div className="space-y-1 sm:px-1">
+                 <div className="space-y-1 pl-1">
                     <p className="font-semibold text-foreground/90 text-base"><span className="font-bold text-accent">Agricultor:</span> {farmer.responsibleName || farmer.name}</p>
                     {farmer.prepostos && farmer.prepostos.length > 0 && (
                        <p className="font-semibold text-foreground/90 text-base"><span className="font-bold text-accent">Prepostos:</span> {farmer.prepostos.join(', ')}</p>
@@ -353,7 +356,7 @@ export default function RomaneioPage() {
                       <Input
                         value={item.fornecedor}
                         onChange={(e) => handleInputChange(index, 'fornecedor', e.target.value)}
-                        className="bg-card no-print border-primary/50 focus-visible:ring-primary/50 h-8 text-sm"
+                        className="bg-card no-print border-2 border-primary/50 focus-visible:ring-primary/50 h-8 text-sm"
                       />
                       <span className="print-only hidden">{item.fornecedor}</span>
                     </div>
@@ -361,7 +364,7 @@ export default function RomaneioPage() {
                       <Input
                         value={item.quantidade}
                         onChange={(e) => handleInputChange(index, 'quantidade', e.target.value)}
-                        className="bg-card no-print border-primary/50 focus-visible:ring-primary/50 h-8 text-center text-sm"
+                        className="bg-card no-print border-2 border-primary/50 focus-visible:ring-primary/50 h-8 text-center text-sm"
                       />
                       <span className="print-only hidden text-center">{item.quantidade}</span>
                     </div>
