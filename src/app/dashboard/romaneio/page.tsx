@@ -1,0 +1,310 @@
+
+'use client';
+
+import { useState, useMemo, useEffect, useRef } from 'react';
+import { useUser } from '@/hooks/use-user';
+import { getProducts } from '@/lib/data';
+import type { Product, Farmer } from '@/lib/types';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Calendar } from '@/components/ui/calendar';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { CalendarIcon, Download, FileText, Loader2, Printer, Save, Share2 } from 'lucide-react';
+import BackButton from '@/components/back-button';
+import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
+import { useToast } from '@/hooks/use-toast';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
+import { Separator } from '@/components/ui/separator';
+
+interface RomaneioItem {
+  produto: string;
+  fornecedor: string;
+  quantidade: string;
+}
+
+const getFairDisplayName = (fair: string): string => {
+    const doExceptions = ['Grajaú', 'Flamengo', 'Leme'];
+    if (doExceptions.includes(fair)) {
+        return `Feira do ${fair}`;
+    }
+    const deExceptions = ['Laranjeiras'];
+    if (deExceptions.includes(fair)) {
+        return `Feira de ${deExceptions}`;
+    }
+    return `Feira da ${fair}`;
+};
+
+export default function RomaneioPage() {
+  const { user, isUserLoaded } = useUser();
+  const farmer = user as Farmer | null;
+  const { toast } = useToast();
+
+  const [date, setDate] = useState<Date | undefined>(new Date());
+  const [selectedFair, setSelectedFair] = useState<string>('');
+  const [romaneioData, setRomaneioData] = useState<RomaneioItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const printRef = useRef<HTMLDivElement>(null);
+
+  const farmerProducts = useMemo(() => {
+    if (!farmer) return [];
+    return getProducts({ includePaused: true }).filter(p => p.farmerId === farmer.id);
+  }, [farmer]);
+
+  useEffect(() => {
+    if (farmer && farmer.fairs.length > 0 && !selectedFair) {
+      setSelectedFair(farmer.fairs[0]);
+    }
+  }, [farmer]);
+  
+  useEffect(() => {
+      const initialData = farmerProducts.map(p => ({
+        produto: p.name,
+        fornecedor: '',
+        quantidade: '',
+      }));
+      setRomaneioData(initialData);
+  }, [farmerProducts]);
+
+
+  useEffect(() => {
+    if (selectedFair && date) {
+      try {
+        const key = `romaneio_${farmer?.id}_${selectedFair}_${format(date, 'yyyy-MM-dd')}`;
+        const savedData = localStorage.getItem(key);
+        if (savedData) {
+          setRomaneioData(JSON.parse(savedData));
+        } else {
+           const initialData = farmerProducts.map(p => ({
+            produto: p.name,
+            fornecedor: '',
+            quantidade: '',
+          }));
+          setRomaneioData(initialData);
+        }
+      } catch (error) {
+        console.error("Falha ao carregar dados do localStorage", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  }, [selectedFair, date, farmer, farmerProducts]);
+
+  const handleInputChange = (index: number, field: 'fornecedor' | 'quantidade', value: string) => {
+    const updatedData = [...romaneioData];
+    updatedData[index] = { ...updatedData[index], [field]: value };
+    setRomaneioData(updatedData);
+  };
+
+  const handleSave = () => {
+    if (selectedFair && date) {
+      try {
+        const key = `romaneio_${farmer?.id}_${selectedFair}_${format(date, 'yyyy-MM-dd')}`;
+        localStorage.setItem(key, JSON.stringify(romaneioData));
+        toast({
+          title: "Romaneio Salvo!",
+          description: "As informações do seu romaneio foram salvas localmente.",
+        });
+      } catch (error) {
+        toast({
+          variant: "destructive",
+          title: "Erro ao Salvar",
+          description: "Não foi possível salvar os dados do romaneio.",
+        });
+      }
+    }
+  };
+  
+  const generatePdf = () => {
+    if (!farmer || !date || !selectedFair) return;
+    const doc = new jsPDF();
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(16);
+    doc.text("Romaneio de Feira", 105, 20, { align: "center" });
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(12);
+    doc.text(`Data: ${format(date, "dd/MM/yyyy", { locale: ptBR })}`, 20, 30);
+    doc.text(`Feira: ${getFairDisplayName(selectedFair)}`, 20, 35);
+    doc.text(`Agricultor: ${farmer.responsibleName || farmer.name}`, 20, 40);
+    doc.text(`Sítio/Marca: ${farmer.name}`, 20, 45);
+
+    (doc as any).autoTable({
+      startY: 55,
+      head: [['#', 'Produto', 'Fornecedor Parceiro', 'Quantidade']],
+      body: romaneioData.map((item, index) => [
+        index + 1,
+        item.produto,
+        item.fornecedor,
+        item.quantidade,
+      ]),
+       headStyles: { fillColor: [63, 112, 79] }, // Cor --primary
+    });
+
+    doc.save(`romaneio_${farmer.name}_${selectedFair}_${format(date, 'yyyy-MM-dd')}.pdf`);
+  };
+
+  const handlePrint = () => {
+    window.print();
+  };
+
+  const handleShare = async () => {
+    if (!farmer || !date || !selectedFair) return;
+
+    let shareText = `*Romaneio - ${getFairDisplayName(selectedFair)} - ${format(date, 'dd/MM/yyyy')}*\n\n`;
+    shareText += `*Agricultor:* ${farmer.responsibleName || farmer.name}\n`;
+    shareText += `*Sítio/Marca:* ${farmer.name}\n\n`;
+    
+    romaneioData.forEach((item, index) => {
+        if(item.quantidade || item.fornecedor) {
+            shareText += `*${item.produto}:*`;
+            if (item.fornecedor) shareText += ` (Fornecedor: ${item.fornecedor})`;
+            if (item.quantidade) shareText += ` - Qtd: ${item.quantidade}`;
+            shareText += '\n';
+        }
+    });
+
+    if (navigator.share) {
+      await navigator.share({
+        title: `Romaneio ${getFairDisplayName(selectedFair)}`,
+        text: shareText,
+      }).catch(console.error);
+    } else {
+        navigator.clipboard.writeText(shareText);
+        toast({
+          title: "Romaneio Copiado!",
+          description: "O texto do romaneio foi copiado para a área de transferência.",
+        });
+    }
+  };
+
+
+  if (!isUserLoaded || isLoading) {
+    return <div className="flex justify-center items-center p-12"><Loader2 className="h-12 w-12 animate-spin text-primary" /></div>;
+  }
+
+  if (!farmer) {
+    return <div className="container mx-auto p-6 text-center">Por favor, faça login como agricultor para acessar esta página.</div>;
+  }
+
+  return (
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <style>{`
+        @media print {
+          body * { visibility: hidden; }
+          .print-container, .print-container * { visibility: visible; }
+          .print-container { position: absolute; left: 0; top: 0; width: 100%; }
+          .no-print { display: none; }
+        }
+      `}</style>
+
+      <div className="mb-4 no-print">
+        <BackButton />
+      </div>
+      <div className="mb-6 no-print">
+        <h1 className="text-3xl font-bold font-headline text-primary tracking-tight sm:text-4xl">
+          Gerador de Romaneio
+        </h1>
+        <p className="mt-2 text-lg font-semibold text-foreground/90 max-w-3xl">
+          Crie, edite e exporte o romaneio para levar para a feira. Os dados são salvos automaticamente no seu navegador.
+        </p>
+      </div>
+
+      <div ref={printRef} className="print-container">
+        <Card>
+          <CardHeader>
+             <div className="flex flex-col md:flex-row gap-4 no-print">
+                <div className="flex-1 space-y-2">
+                  <Label className="font-bold">Data da Feira</Label>
+                   <Popover>
+                        <PopoverTrigger asChild>
+                        <Button variant={"outline"} className="w-full justify-start text-left font-normal">
+                            <CalendarIcon className="mr-2 h-4 w-4" />
+                            {date ? format(date, "PPP", { locale: ptBR }) : <span>Escolha uma data</span>}
+                        </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0">
+                            <Calendar mode="single" selected={date} onSelect={setDate} initialFocus locale={ptBR} />
+                        </PopoverContent>
+                    </Popover>
+                </div>
+                <div className="flex-1 space-y-2">
+                  <Label className="font-bold">Selecione a Feira</Label>
+                  <Select value={selectedFair} onValueChange={setSelectedFair} disabled={farmer.fairs.length === 0}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Escolha uma feira..." />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {farmer.fairs.map(fair => (
+                        <SelectItem key={fair} value={fair}>{getFairDisplayName(fair)}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              <div className="print-header pt-6">
+                <CardTitle className="font-headline text-2xl text-center text-primary">Romaneio de Feira</CardTitle>
+                <Separator className="my-4" />
+                <div className="flex justify-between text-base font-semibold text-foreground/90">
+                    <div>
+                        <p><span className="font-bold">Agricultor:</span> {farmer.responsibleName || farmer.name}</p>
+                        <p><span className="font-bold">Sítio/Marca:</span> {farmer.name}</p>
+                    </div>
+                     <div>
+                        <p><span className="font-bold">Feira:</span> {getFairDisplayName(selectedFair)}</p>
+                        <p><span className="font-bold">Data:</span> {date ? format(date, "dd/MM/yyyy", { locale: ptBR }) : 'N/A'}</p>
+                    </div>
+                </div>
+              </div>
+          </CardHeader>
+          <CardContent>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="w-[40px]">#</TableHead>
+                  <TableHead>Produto</TableHead>
+                  <TableHead className="w-[200px]">Fornecedor Parceiro</TableHead>
+                  <TableHead className="w-[150px]">Quantidade</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {romaneioData.map((item, index) => (
+                  <TableRow key={index}>
+                    <TableCell className="font-medium">{index + 1}</TableCell>
+                    <TableCell className="font-medium">{item.produto}</TableCell>
+                    <TableCell>
+                      <Input
+                        value={item.fornecedor}
+                        onChange={(e) => handleInputChange(index, 'fornecedor', e.target.value)}
+                        className="bg-card"
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <Input
+                        value={item.quantidade}
+                        onChange={(e) => handleInputChange(index, 'quantidade', e.target.value)}
+                         className="bg-card"
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </CardContent>
+          <CardFooter className="flex-col md:flex-row gap-2 justify-end no-print">
+            <Button variant="outline" onClick={handleSave}><Save className="mr-2 h-4 w-4" /> Salvar Rascunho</Button>
+            <Button variant="outline" onClick={handleShare}><Share2 className="mr-2 h-4 w-4" /> Compartilhar</Button>
+            <Button variant="outline" onClick={handlePrint}><Printer className="mr-2 h-4 w-4" /> Imprimir</Button>
+            <Button onClick={generatePdf}><Download className="mr-2 h-4 w-4" /> Gerar PDF</Button>
+          </CardFooter>
+        </Card>
+      </div>
+    </div>
+  );
+}
