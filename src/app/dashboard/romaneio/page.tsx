@@ -12,7 +12,6 @@ import { Label } from '@/components/ui/label';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Calendar } from '@/components/ui/calendar';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { CalendarIcon, Download, FileText, Loader2, Printer, Save, Share2 } from 'lucide-react';
 import BackButton from '@/components/back-button';
 import { format } from 'date-fns';
@@ -243,6 +242,12 @@ export default function RomaneioPage() {
           .no-print { 
             display: none !important; 
           }
+          .print-only {
+            display: block !important;
+          }
+          .print-header, .print-item {
+            display: block !important;
+          }
           table {
             width: 100%;
             border-collapse: collapse;
@@ -317,40 +322,71 @@ export default function RomaneioPage() {
               </div>
           </CardHeader>
           <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="w-[30px] p-2 text-center font-bold text-lg">#</TableHead>
-                  <TableHead className="w-auto font-bold text-lg">Produto</TableHead>
-                  <TableHead className="w-[250px] font-bold text-lg">Fornecedor Parceiro</TableHead>
-                  <TableHead className="w-[150px] font-bold text-lg">Quantidade</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {romaneioData.map((item, index) => (
-                  <TableRow key={index}>
-                    <TableCell className="font-medium text-center">{index + 1}</TableCell>
-                    <TableCell className="font-medium">{item.produto}</TableCell>
-                    <TableCell>
-                      <Input
-                        value={item.fornecedor}
-                        onChange={(e) => handleInputChange(index, 'fornecedor', e.target.value)}
-                        className="bg-card no-print border-primary/50 focus-visible:ring-primary/50"
-                      />
-                       <span className="print-only">{item.fornecedor}</span>
-                    </TableCell>
-                    <TableCell>
-                      <Input
-                        value={item.quantidade}
-                        onChange={(e) => handleInputChange(index, 'quantidade', e.target.value)}
-                         className="bg-card no-print border-primary/50 focus-visible:ring-primary/50"
-                      />
-                       <span className="print-only">{item.quantidade}</span>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+            {/* Table for Desktop */}
+            <div className="hidden md:block">
+              <div className="w-full">
+                <div className="grid grid-cols-[30px_1fr_250px_150px] gap-4 border-b pb-2">
+                  <div className="p-2 text-center font-bold text-lg">#</div>
+                  <div className="font-bold text-lg">Produto</div>
+                  <div className="font-bold text-lg">Fornecedor Parceiro</div>
+                  <div className="font-bold text-lg">Quantidade</div>
+                </div>
+                <div>
+                  {romaneioData.map((item, index) => (
+                    <div key={index} className="grid grid-cols-[30px_1fr_250px_150px] gap-4 items-center border-b last:border-b-0 py-2">
+                      <div className="font-medium text-center">{index + 1}</div>
+                      <div className="font-medium break-words">{item.produto}</div>
+                      <div>
+                        <Input
+                          value={item.fornecedor}
+                          onChange={(e) => handleInputChange(index, 'fornecedor', e.target.value)}
+                          className="bg-card no-print border-primary/50 focus-visible:ring-primary/50"
+                        />
+                        <span className="print-only hidden">{item.fornecedor}</span>
+                      </div>
+                      <div>
+                        <Input
+                          value={item.quantidade}
+                          onChange={(e) => handleInputChange(index, 'quantidade', e.target.value)}
+                          className="bg-card no-print border-primary/50 focus-visible:ring-primary/50"
+                        />
+                        <span className="print-only hidden">{item.quantidade}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* List for Mobile */}
+            <div className="md:hidden space-y-4">
+              {romaneioData.map((item, index) => (
+                <div key={index} className="border rounded-lg p-4 space-y-3">
+                  <div className="font-bold text-lg text-primary">{index + 1}. {item.produto}</div>
+                  <div className="space-y-2">
+                    <Label htmlFor={`fornecedor-mob-${index}`} className="font-semibold text-foreground/80">Fornecedor Parceiro</Label>
+                    <Input
+                      id={`fornecedor-mob-${index}`}
+                      value={item.fornecedor}
+                      onChange={(e) => handleInputChange(index, 'fornecedor', e.target.value)}
+                      className="bg-card no-print border-primary/50 focus-visible:ring-primary/50"
+                    />
+                     <span className="print-only hidden">{item.fornecedor}</span>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor={`quantidade-mob-${index}`} className="font-semibold text-foreground/80">Quantidade</Label>
+                    <Input
+                      id={`quantidade-mob-${index}`}
+                      value={item.quantidade}
+                      onChange={(e) => handleInputChange(index, 'quantidade', e.target.value)}
+                      className="bg-card no-print border-primary/50 focus-visible:ring-primary/50"
+                    />
+                    <span className="print-only hidden">{item.quantidade}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
           </CardContent>
           <CardFooter className="flex-col md:flex-row gap-2 justify-end no-print p-6">
             <Button variant="outline" onClick={handleSave}><Save className="mr-2 h-4 w-4" /> Salvar Rascunho</Button>
@@ -363,4 +399,3 @@ export default function RomaneioPage() {
     </div>
   );
 }
-
