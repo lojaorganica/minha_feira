@@ -27,17 +27,26 @@ interface RomaneioItem {
   quantidade: string;
 }
 
-const getFairDisplayName = (fair: string): string => {
+const getFairPreposition = (fair: string): string => {
     if (!fair) return '';
     const doExceptions = ['Grajaú', 'Flamengo', 'Leme'];
     if (doExceptions.includes(fair)) {
-        return `da Feira Orgânica do ${fair}`;
+        return 'do';
     }
     const deExceptions = ['Laranjeiras'];
     if (deExceptions.includes(fair)) {
-        return `da Feira Orgânica de ${deExceptions}`;
+        return 'de';
     }
-    return `da Feira Orgânica da ${fair}`;
+    return 'da';
+};
+
+const getFairDisplayName = (fair: string): string => {
+    if (!fair) return '';
+    const preposition = getFairPreposition(fair);
+    if (preposition === 'de') {
+         return `Feira Orgânica de ${fair}`;
+    }
+    return `Feira Orgânica ${preposition} ${fair}`;
 };
 
 export default function RomaneioPage() {
@@ -126,7 +135,7 @@ export default function RomaneioPage() {
 
     doc.setFont("helvetica", "bold");
     doc.setFontSize(14);
-    doc.text(`Romaneio ${getFairDisplayName(selectedFair)}`, doc.internal.pageSize.getWidth() / 2, 40, { align: "center" });
+    doc.text(`Romaneio da ${getFairDisplayName(selectedFair)}`, doc.internal.pageSize.getWidth() / 2, 40, { align: "center" });
 
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
@@ -300,7 +309,7 @@ export default function RomaneioPage() {
                         {farmer.fairs.map(fair => (
                             <div key={fair} className="flex items-center space-x-2">
                                 <RadioGroupItem value={fair} id={`fair-${fair}`} />
-                                <Label htmlFor={`fair-${fair}`} className="font-normal text-base cursor-pointer">{getFairDisplayName(fair).replace('da Feira Orgânica ', 'Feira ')}</Label>
+                                <Label htmlFor={`fair-${fair}`} className="font-normal text-base cursor-pointer">{`Feira ${getFairPreposition(fair)} ${fair}`}</Label>
                             </div>
                         ))}
                     </RadioGroup>
@@ -309,12 +318,12 @@ export default function RomaneioPage() {
               </div>
               <div className="print-header pt-6 px-6">
                 <CardTitle className="font-headline text-2xl text-center text-primary leading-tight">
-                    <span>Romaneio</span>
+                    <span className="sm:inline">Romaneio {getFairPreposition(selectedFair)}</span>
                     <br className="sm:hidden"/>
-                    <span> {getFairDisplayName(selectedFair)}</span>
+                    <span className="sm:inline"> {getFairDisplayName(selectedFair).replace(`Feira Orgânica ${getFairPreposition(selectedFair)} `, '')}</span>
                 </CardTitle>
                 <Separator className="my-4" />
-                <div className="space-y-1 pl-1">
+                 <div className="space-y-1 pl-1">
                     <p className="font-semibold text-foreground/90 text-base"><span className="font-bold text-accent">Agricultor:</span> {farmer.responsibleName || farmer.name}</p>
                     <p className="font-semibold text-foreground/90 text-base"><span className="font-bold text-accent">Sítio/Marca:</span> {farmer.name}</p>
                     <p className="font-semibold text-foreground/90 text-base"><span className="font-bold text-accent">Data:</span> {date ? format(date, "dd/MM/yyyy", { locale: ptBR }) : 'N/A'}</p>
@@ -368,4 +377,3 @@ export default function RomaneioPage() {
     </div>
   );
 }
-
