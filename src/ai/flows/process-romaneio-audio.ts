@@ -41,20 +41,16 @@ export async function processRomaneioAudio(
 
 const extractionPrompt = ai.definePrompt({
     name: 'extractRomaneioItemsPrompt',
-    input: { schema: z.object({ transcript: z.string(), productList: z.array(z.string()) }) },
+    input: { schema: ProcessRomaneioAudioInputSchema },
     output: { schema: ProcessRomaneioAudioOutputSchema },
-    prompt: `Você é Sofia (ou Fia), uma assistente de IA especialista em preencher um romaneio (lista de embalagem) para agricultores. Sua tarefa é extrair os itens e suas quantidades de uma transcrição de áudio.
+    prompt: `Você é Sofia (ou Fia), uma assistente de IA especialista em preencher um romaneio (lista de embalagem) para agricultores. Sua tarefa é analisar um áudio de um agricultor ditando as quantidades de produtos e extrair os itens.
 
-    A seguir, a transcrição de um agricultor ditando as quantidades de produtos para levar para a feira:
-    
-    "{{transcript}}"
-    
     A lista de produtos possíveis que o agricultor vende é:
     {{#each productList}}
     - {{this}}
     {{/each}}
     
-    Analise a transcrição e identifique cada produto e sua respectiva quantidade. Combine os produtos mencionados com os nomes exatos da lista de produtos fornecida. Ignore qualquer outra fala que não seja um item do romaneio.
+    Analise o áudio, transcreva-o e identifique cada produto e sua respectiva quantidade. Combine os produtos mencionados com os nomes exatos da lista de produtos fornecida. Ignore qualquer outra fala que não seja um item do romaneio.
 
     **REGRAS CRÍTICAS DE PROCESSAMENTO:**
 
@@ -80,7 +76,11 @@ const extractionPrompt = ai.definePrompt({
     *   molhos: **mlh**
     *   potes: **pt**
     *   dúzias: **dz**
-    *   Exemplo de output esperado: { product: 'Tomates Italianos Orgânicos', quantity: '10 cx' }.`,
+    *   Exemplo de output esperado: { product: 'Tomates Italianos Orgânicos', quantity: '10 cx' }.
+    
+    Use o áudio a seguir como fonte primária:
+    {{media url=audioDataUri}}
+    `,
 });
 
 
@@ -91,22 +91,7 @@ const processRomaneioAudioFlow = ai.defineFlow(
     outputSchema: ProcessRomaneioAudioOutputSchema,
   },
   async (input) => {
-    // Primeiro, transcrevemos o áudio para texto.
-    const { text } = await ai.generate({
-        model: 'googleai/gemini-pro', // Modelo adequado para tarefas com mídia
-        prompt: [
-            { media: { url: input.audioDataUri } },
-            { text: 'Transcreva este áudio em português.' }
-        ],
-    });
-
-    if (!text) {
-        throw new Error("A transcrição do áudio falhou.");
-    }
-    
-    // Em seguida, passamos o texto transcrito para o prompt de extração.
-    const { output } = await extractionPrompt({ transcript: text, productList: input.productList });
-
+    const { output } = await extractionPrompt(input);
     return output!;
   }
 );
