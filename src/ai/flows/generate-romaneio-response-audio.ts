@@ -10,6 +10,7 @@
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
 import wav from 'wav';
+import { Readable } from 'stream';
 
 async function toWav(
   pcmData: Buffer,
@@ -22,19 +23,24 @@ async function toWav(
       channels,
       sampleRate: rate,
       bitDepth: sampleWidth * 8,
+      format: 1, // PCM
     });
 
-    const bufs: any[] = [];
+    const chunks: Buffer[] = [];
+    writer.on('data', (chunk) => {
+      chunks.push(chunk);
+    });
+    writer.on('end', () => {
+      const wavBuffer = Buffer.concat(chunks);
+      resolve(wavBuffer.toString('base64'));
+    });
     writer.on('error', reject);
-    writer.on('data', function (d) {
-      bufs.push(d);
-    });
-    writer.on('end', function () {
-      resolve(Buffer.concat(bufs).toString('base64'));
-    });
 
-    writer.write(pcmData);
-    writer.end();
+    const pcmStream = new Readable();
+    pcmStream.push(pcmData);
+    pcmStream.push(null); // End of stream
+
+    pcmStream.pipe(writer);
   });
 }
 

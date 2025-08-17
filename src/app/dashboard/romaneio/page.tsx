@@ -279,9 +279,12 @@ export default function RomaneioPage() {
 
             // Generate and play audio response
             const audioResponse = await generateAudio(responseText);
-            if (audioResponse && audioResponse.audioDataUri && audioPlayerRef.current) {
+            if (audioResponse?.audioDataUri && audioPlayerRef.current) {
                 audioPlayerRef.current.src = audioResponse.audioDataUri;
-                audioPlayerRef.current.play();
+                audioPlayerRef.current.load();
+                await audioPlayerRef.current.play();
+            } else {
+                console.error("Audio data URI is missing in the response.");
             }
 
           } catch (e) {
