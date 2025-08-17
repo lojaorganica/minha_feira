@@ -26,7 +26,7 @@ export type ProcessRomaneioAudioInput = z.infer<typeof ProcessRomaneioAudioInput
 const ProcessRomaneioAudioOutputSchema = z.object({
     items: z.array(z.object({
         product: z.string().describe('The name of the product identified in the audio. Must be one of the provided productList.'),
-        quantity: z.string().describe('The quantity of the product mentioned, including the unit (e.g., "5 kg", "10 caixas"). If the command is to remove or zero out an item, this should be an empty string.'),
+        quantity: z.string().describe('The quantity of the product mentioned, including the unit (e.g., "5 kg", "10 cx"). If the command is to remove or zero out an item, this should be an empty string.'),
     })).describe('A list of products and their quantities extracted from the audio.')
 });
 export type ProcessRomaneioAudioOutput = z.infer<typeof ProcessRomaneioAudioOutputSchema>;
@@ -73,10 +73,23 @@ const processRomaneioAudioFlow = ai.defineFlow(
         - {{this}}
         {{/each}}
         
-        Analise a transcrição e identifique cada produto e sua respectiva quantidade. A quantidade deve incluir o número e a unidade (ex: "5 kg", "10 maços", "20 unidades"). Se a unidade não for mencionada, use o bom senso. Combine os produtos mencionados com os nomes exatos da lista de produtos fornecida. Ignore qualquer outra fala que não seja um item do romaneio.
+        Analise a transcrição e identifique cada produto e sua respectiva quantidade. Combine os produtos mencionados com os nomes exatos da lista de produtos fornecida. Ignore qualquer outra fala que não seja um item do romaneio.
 
-        IMPORTANTE: Se o agricultor usar palavras como "remover", "zerar", "tirar" ou "nenhum" para um produto, você deve definir o campo 'quantity' como uma string vazia ("") para esse produto.
-        Exemplo: "remover cenoura" ou "tomate, zerar" deve resultar em { product: 'Cenouras Orgânicas', quantity: '' }.`,
+        IMPORTANTE 1: Se o agricultor usar palavras como "remover", "zerar", "tirar" ou "nenhum" para um produto, você deve definir o campo 'quantity' como uma string vazia ("") para esse produto.
+        Exemplo: "remover cenoura" ou "tomate, zerar" deve resultar em { product: 'Cenouras Orgânicas', quantity: '' }.
+
+        IMPORTANTE 2: Sempre abrevie as unidades de medida da seguinte forma:
+        - quilos ou kilos: kg
+        - gramas: g
+        - unidades: un
+        - litros: L
+        - mililitros: ml
+        - caixas: cx
+        - maços: mç
+        - molhos: mlh
+        - potes: pt
+        - dúzias: dz
+        Exemplo de output esperado: { product: 'Tomates Italianos Orgânicos', quantity: '10 cx' }.`,
     });
 
     const { output } = await extractionPrompt({ transcript: text, productList: input.productList });
