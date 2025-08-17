@@ -21,6 +21,7 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { Separator } from '@/components/ui/separator';
 import { processRomaneioAudio } from '@/ai/flows/process-romaneio-audio';
+import { generateRomaneioResponseAudio } from '@/ai/flows/generate-romaneio-response-audio';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert"
@@ -34,7 +35,15 @@ interface RomaneioItem {
 
 const getFairDisplayName = (fair: string): string => {
     if (!fair) return '';
-    return `Feira Orgânica de ${fair}`;
+    const doExceptions = ['Grajaú', 'Flamengo', 'Leme'];
+    if (doExceptions.includes(fair)) {
+        return `Feira Orgânica do ${fair}`;
+    }
+    const deExceptions = ['Laranjeiras'];
+    if (deExceptions.includes(fair)) {
+        return `Feira Orgânica de ${fair}`;
+    }
+    return `Feira Orgânica da ${fair}`;
 }
 
 export default function RomaneioPage() {
@@ -51,6 +60,7 @@ export default function RomaneioPage() {
   const [showMicAlert, setShowMicAlert] = useState(false);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
+  const audioPlayerRef = useRef<HTMLAudioElement | null>(null);
   
   const printRef = useRef<HTMLDivElement>(null);
 
@@ -130,7 +140,7 @@ export default function RomaneioPage() {
 
     doc.setFont("helvetica", "bold");
     doc.setFontSize(14);
-    doc.text(`Romaneio da Feira Orgânica de ${selectedFair}`, doc.internal.pageSize.getWidth() / 2, 40, { align: "center" });
+    doc.text(getFairDisplayName(selectedFair), doc.internal.pageSize.getWidth() / 2, 40, { align: "center" });
 
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
@@ -188,7 +198,7 @@ export default function RomaneioPage() {
   const handleShare = async () => {
     if (!farmer || !date || !selectedFair) return;
 
-    let shareText = `*Romaneio da Feira Orgânica de ${selectedFair} - ${format(date, 'dd/MM/yyyy')}*\n\n`;
+    let shareText = `*${getFairDisplayName(selectedFair)} - ${format(date, 'dd/MM/yyyy')}*\n\n`;
     shareText += `*Agricultor:* ${farmer.responsibleName || farmer.name}\n`;
     if (farmer.prepostos && farmer.prepostos.length > 0) {
       shareText += `*Prepostos:* ${farmer.prepostos.join(', ')}\n`;
@@ -206,7 +216,7 @@ export default function RomaneioPage() {
 
     if (navigator.share) {
       await navigator.share({
-        title: `Romaneio da Feira Orgânica de ${selectedFair}`,
+        title: getFairDisplayName(selectedFair),
         text: shareText,
       }).catch(console.error);
     } else {
@@ -219,14 +229,13 @@ export default function RomaneioPage() {
   };
 
   const startRecording = async () => {
-    // A verificação de permissão agora acontece aqui, no momento do uso.
     try {
       if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
         throw new Error('API de mídia não suportada neste navegador.');
       }
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       
-      setShowMicAlert(false); // Permissão concedida, esconde o alerta se estiver visível
+      setShowMicAlert(false);
       mediaRecorderRef.current = new MediaRecorder(stream);
       audioChunksRef.current = [];
 
@@ -259,10 +268,22 @@ export default function RomaneioPage() {
               }
             });
             setRomaneioData(updatedData);
+
+            const responseText = itemsUpdated > 0 
+                ? `Romaneio atualizado com ${itemsUpdated} itens.`
+                : "Não consegui identificar itens para atualizar. Tente novamente.";
+            
             toast({
-              title: "Romaneio Atualizado!",
-              description: `${itemsUpdated} ite${itemsUpdated === 1 ? 'm foi' : 'ns foram'} atualizado${itemsUpdated === 1 ? '' : 's'} com sucesso.`,
+              title: "Processamento de Voz Concluído",
+              description: responseText,
             });
+
+            // Generate and play audio response
+            const audioResponse = await generateRomaneioResponseAudio(responseText);
+            if (audioPlayerRef.current) {
+                audioPlayerRef.current.src = audioResponse.audioDataUri;
+                audioPlayerRef.current.play();
+            }
 
           } catch (e) {
             console.error(e);
@@ -282,7 +303,7 @@ export default function RomaneioPage() {
       setIsRecording(true);
     } catch (err) {
       console.error("Erro ao iniciar a gravação:", err);
-      setShowMicAlert(true); // Mostra o alerta se a permissão for negada
+      setShowMicAlert(true);
       toast({
         variant: "destructive",
         title: "Permissão de Microfone Negada",
@@ -383,7 +404,7 @@ export default function RomaneioPage() {
 
       <div ref={printRef} className="print-container">
         <Card>
-          <CardHeader className="sm:px-6">
+          <CardHeader className="px-2 sm:px-6">
              <div className="flex flex-col md:flex-row gap-8 no-print p-4 border rounded-lg">
                 <div className="flex-1 space-y-3">
                   <Label className="text-xl font-bold text-accent">Data da Feira</Label>
@@ -414,12 +435,12 @@ export default function RomaneioPage() {
                 )}
               </div>
               <div className="print-header pt-6 px-1 sm:pl-1">
-                <CardTitle className="font-headline text-2xl text-center text-primary leading-tight">
+                <CardTitle className="font-headline text-2xl text-center text-primary leading-tight px-1 sm:px-0">
                     <span className="sm:hidden">
-                       Romaneio da<br/>{getFairDisplayName(selectedFair).replace('Feira Orgânica de ', '')}
+                       Romaneio da<br/>{getFairDisplayName(selectedFair).replace('Romaneio da Feira Orgânica de ', '')}
                     </span>
                     <span className="hidden sm:inline">
-                      Romaneio da Feira Orgânica de {selectedFair}
+                      {getFairDisplayName(selectedFair)}
                     </span>
                 </CardTitle>
                 <Separator className="my-4" />
@@ -501,7 +522,9 @@ export default function RomaneioPage() {
             )}
         </Button>
       </div>
-
+      
+      {/* Elemento de áudio oculto para tocar a resposta */}
+      <audio ref={audioPlayerRef} className="hidden" />
     </div>
   );
 }
