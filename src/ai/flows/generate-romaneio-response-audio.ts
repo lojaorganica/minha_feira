@@ -53,7 +53,7 @@ export const generateRomaneioResponseAudio = ai.defineFlow(
         responseModalities: ['AUDIO'],
         speechConfig: {
           voiceConfig: {
-            prebuiltVoiceConfig: { voiceName: 'Algenib' }, // A standard female voice
+            prebuiltVoiceConfig: { voiceName: 'Vega' }, // A standard female voice
           },
         },
       },
