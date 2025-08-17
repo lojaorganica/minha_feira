@@ -26,7 +26,7 @@ export type ProcessRomaneioAudioInput = z.infer<typeof ProcessRomaneioAudioInput
 const ProcessRomaneioAudioOutputSchema = z.object({
     items: z.array(z.object({
         product: z.string().describe('The name of the product identified in the audio. Must be one of the provided productList.'),
-        quantity: z.string().describe('The quantity of the product mentioned, including the unit. E.g., "5 kg", "10 caixas", "20 unidades".'),
+        quantity: z.string().describe('The quantity of the product mentioned, including the unit (e.g., "5 kg", "10 caixas"). If the command is to remove or zero out an item, this should be an empty string.'),
     })).describe('A list of products and their quantities extracted from the audio.')
 });
 export type ProcessRomaneioAudioOutput = z.infer<typeof ProcessRomaneioAudioOutputSchema>;
@@ -73,7 +73,10 @@ const processRomaneioAudioFlow = ai.defineFlow(
         - {{this}}
         {{/each}}
         
-        Analise a transcrição e identifique cada produto e sua respectiva quantidade. A quantidade deve incluir o número e a unidade (ex: "5 kg", "10 maços", "20 unidades"). Se a unidade não for mencionada, use o bom senso. Combine os produtos mencionados com os nomes exatos da lista de produtos fornecida. Ignore qualquer outra fala que não seja um item do romaneio.`,
+        Analise a transcrição e identifique cada produto e sua respectiva quantidade. A quantidade deve incluir o número e a unidade (ex: "5 kg", "10 maços", "20 unidades"). Se a unidade não for mencionada, use o bom senso. Combine os produtos mencionados com os nomes exatos da lista de produtos fornecida. Ignore qualquer outra fala que não seja um item do romaneio.
+
+        IMPORTANTE: Se o agricultor usar palavras como "remover", "zerar", "tirar" ou "nenhum" para um produto, você deve definir o campo 'quantity' como uma string vazia ("") para esse produto.
+        Exemplo: "remover cenoura" ou "tomate, zerar" deve resultar em { product: 'Cenouras Orgânicas', quantity: '' }.`,
     });
 
     const { output } = await extractionPrompt({ transcript: text, productList: input.productList });
