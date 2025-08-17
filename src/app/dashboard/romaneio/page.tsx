@@ -251,9 +251,6 @@ export default function RomaneioPage() {
             if (result.clearAll) {
                 currentData = romaneioData.map(item => ({ ...item, quantidade: '', fornecedor: '' }));
                 responseText = "Romaneio limpo com sucesso.";
-            } else if (result.selectiveUpdate) {
-                currentData = romaneioData.map(item => ({ ...item, quantidade: '', fornecedor: '' }));
-                responseText = `Romaneio atualizado. Apenas os itens mencionados foram incluídos.`;
             } else {
                  responseText = `Romaneio atualizado com ${result.items.length} itens.`;
             }
