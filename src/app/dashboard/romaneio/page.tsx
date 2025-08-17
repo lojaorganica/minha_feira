@@ -12,7 +12,7 @@ import { Label } from '@/components/ui/label';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Calendar } from '@/components/ui/calendar';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { CalendarIcon, Download, FileText, Loader2, Mic, MicOff, Printer, Save, Share2, StopCircle, AlertTriangle } from 'lucide-react';
+import { CalendarIcon, Download, FileText, Loader2, Mic, Printer, Save, Share2, StopCircle, AlertTriangle } from 'lucide-react';
 import BackButton from '@/components/back-button';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
@@ -22,7 +22,6 @@ import 'jspdf-autotable';
 import { Separator } from '@/components/ui/separator';
 import { processRomaneioAudio } from '@/ai/flows/process-romaneio-audio';
 import { generateRomaneioResponseAudio } from '@/ai/flows/generate-romaneio-response-audio';
-import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert"
 
@@ -35,15 +34,7 @@ interface RomaneioItem {
 
 const getFairDisplayName = (fair: string): string => {
     if (!fair) return '';
-    const doExceptions = ['Grajaú', 'Flamengo', 'Leme'];
-    if (doExceptions.includes(fair)) {
-        return `Feira Orgânica do ${fair}`;
-    }
-    const deExceptions = ['Laranjeiras'];
-    if (deExceptions.includes(fair)) {
-        return `Feira Orgânica de ${fair}`;
-    }
-    return `Feira Orgânica da ${fair}`;
+    return `Feira Orgânica de ${fair}`;
 }
 
 export default function RomaneioPage() {
@@ -140,7 +131,7 @@ export default function RomaneioPage() {
 
     doc.setFont("helvetica", "bold");
     doc.setFontSize(14);
-    doc.text(getFairDisplayName(selectedFair), doc.internal.pageSize.getWidth() / 2, 40, { align: "center" });
+    doc.text(`Romaneio da ${getFairDisplayName(selectedFair)}`, doc.internal.pageSize.getWidth() / 2, 40, { align: "center" });
 
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
@@ -198,7 +189,7 @@ export default function RomaneioPage() {
   const handleShare = async () => {
     if (!farmer || !date || !selectedFair) return;
 
-    let shareText = `*${getFairDisplayName(selectedFair)} - ${format(date, 'dd/MM/yyyy')}*\n\n`;
+    let shareText = `*Romaneio da ${getFairDisplayName(selectedFair)} - ${format(date, 'dd/MM/yyyy')}*\n\n`;
     shareText += `*Agricultor:* ${farmer.responsibleName || farmer.name}\n`;
     if (farmer.prepostos && farmer.prepostos.length > 0) {
       shareText += `*Prepostos:* ${farmer.prepostos.join(', ')}\n`;
@@ -216,7 +207,7 @@ export default function RomaneioPage() {
 
     if (navigator.share) {
       await navigator.share({
-        title: getFairDisplayName(selectedFair),
+        title: `Romaneio da ${getFairDisplayName(selectedFair)}`,
         text: shareText,
       }).catch(console.error);
     } else {
@@ -256,22 +247,30 @@ export default function RomaneioPage() {
               productList: farmerProducts.map(p => p.name)
             });
             
-            const updatedData = [...romaneioData];
-            let itemsUpdated = 0;
-            result.items.forEach(extractedItem => {
-              const itemIndex = updatedData.findIndex(
-                romaneioItem => romaneioItem.produto.toLowerCase() === extractedItem.product.toLowerCase()
-              );
-              if (itemIndex !== -1) {
-                updatedData[itemIndex].quantidade = extractedItem.quantity;
-                itemsUpdated++;
-              }
-            });
-            setRomaneioData(updatedData);
+            let responseText = "";
 
-            const responseText = itemsUpdated > 0 
-                ? `Romaneio atualizado com ${itemsUpdated} itens.`
-                : "Não consegui identificar itens para atualizar. Tente novamente.";
+            if (result.clearAll) {
+                const clearedData = romaneioData.map(item => ({ ...item, quantidade: '' }));
+                setRomaneioData(clearedData);
+                responseText = "Romaneio limpo com sucesso.";
+            } else {
+                const updatedData = [...romaneioData];
+                let itemsUpdated = 0;
+                result.items.forEach(extractedItem => {
+                  const itemIndex = updatedData.findIndex(
+                    romaneioItem => romaneioItem.produto.toLowerCase() === extractedItem.product.toLowerCase()
+                  );
+                  if (itemIndex !== -1) {
+                    updatedData[itemIndex].quantidade = extractedItem.quantity;
+                    itemsUpdated++;
+                  }
+                });
+                setRomaneioData(updatedData);
+
+                responseText = itemsUpdated > 0 
+                    ? `Romaneio atualizado com ${itemsUpdated} itens.`
+                    : "Não consegui identificar itens para atualizar. Tente novamente.";
+            }
             
             toast({
               title: "Processamento de Voz Concluído",
@@ -434,17 +433,12 @@ export default function RomaneioPage() {
                 </div>
                 )}
               </div>
-              <div className="print-header pt-6 px-1 sm:pl-1">
-                <CardTitle className="font-headline text-2xl text-center text-primary leading-tight px-1 sm:px-0">
-                    <span className="sm:hidden">
-                       Romaneio da<br/>{getFairDisplayName(selectedFair).replace('Romaneio da Feira Orgânica de ', '')}
-                    </span>
-                    <span className="hidden sm:inline">
-                      {getFairDisplayName(selectedFair)}
-                    </span>
+              <div className="print-header pt-6 px-1 sm:px-2 md:px-4">
+                <CardTitle className="font-headline text-2xl text-center text-primary leading-tight">
+                    Romaneio da {getFairDisplayName(selectedFair)}
                 </CardTitle>
                 <Separator className="my-4" />
-                 <div className="space-y-1 pl-1">
+                 <div className="space-y-1 p-2 md:p-0">
                     <p className="font-semibold text-foreground/90 text-base"><span className="font-bold text-accent">Agricultor:</span> {farmer.responsibleName || farmer.name}</p>
                     {farmer.prepostos && farmer.prepostos.length > 0 && (
                        <p className="font-semibold text-foreground/90 text-base"><span className="font-bold text-accent">Prepostos:</span> {farmer.prepostos.join(', ')}</p>
