@@ -4,7 +4,7 @@
 /**
  * @fileOverview Converts a text response into audio using Text-to-Speech.
  *
- * - generateRomaneioResponseAudio - A function that handles the text-to-speech conversion.
+ * - generateAudio - A function that handles the text-to-speech conversion.
  */
 
 import { ai } from '@/ai/genkit';
@@ -38,9 +38,9 @@ async function toWav(
   });
 }
 
-export const generateRomaneioResponseAudio = ai.defineFlow(
+const generateRomaneioResponseAudioFlow = ai.defineFlow(
   {
-    name: 'generateRomaneioResponseAudio',
+    name: 'generateRomaneioResponseAudioFlow',
     inputSchema: z.string(),
     outputSchema: z.object({
         audioDataUri: z.string().describe("The generated audio as a data URI in WAV format.")
@@ -74,3 +74,8 @@ export const generateRomaneioResponseAudio = ai.defineFlow(
     };
   }
 );
+
+
+export async function generateAudio(text: string): Promise<{ audioDataUri: string }> {
+    return generateRomaneioResponseAudioFlow(text);
+}

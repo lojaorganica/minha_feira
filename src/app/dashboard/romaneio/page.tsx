@@ -21,7 +21,7 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { Separator } from '@/components/ui/separator';
 import { processRomaneioAudio } from '@/ai/flows/process-romaneio-audio';
-import { generateRomaneioResponseAudio } from '@/ai/flows/generate-romaneio-response-audio';
+import { generateAudio } from '@/ai/flows/generate-romaneio-response-audio';
 import { cn } from '@/lib/utils';
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert"
 
@@ -278,7 +278,7 @@ export default function RomaneioPage() {
             });
 
             // Generate and play audio response
-            const audioResponse = await generateRomaneioResponseAudio(responseText);
+            const audioResponse = await generateAudio(responseText);
             if (audioResponse?.audioDataUri && audioPlayerRef.current) {
                 audioPlayerRef.current.src = audioResponse.audioDataUri;
                 audioPlayerRef.current.play();
