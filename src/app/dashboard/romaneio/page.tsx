@@ -12,7 +12,7 @@ import { Label } from '@/components/ui/label';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Calendar } from '@/components/ui/calendar';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { CalendarIcon, Download, FileText, Loader2, Mic, MicOff, Printer, Save, Share2, StopCircle } from 'lucide-react';
+import { CalendarIcon, Download, FileText, Loader2, Mic, MicOff, Printer, Save, Share2, StopCircle, AlertTriangle } from 'lucide-react';
 import BackButton from '@/components/back-button';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
@@ -23,6 +23,7 @@ import { Separator } from '@/components/ui/separator';
 import { processRomaneioAudio } from '@/ai/flows/process-romaneio-audio';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert"
 
 
 interface RomaneioItem {
@@ -47,6 +48,7 @@ export default function RomaneioPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [isRecording, setIsRecording] = useState(false);
   const [isProcessingAudio, setIsProcessingAudio] = useState(false);
+  const [hasMicPermission, setHasMicPermission] = useState<boolean | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   
@@ -56,6 +58,29 @@ export default function RomaneioPage() {
     if (!farmer) return [];
     return getProducts({ includePaused: true }).filter(p => p.farmerId === farmer.id);
   }, [farmer]);
+
+
+  useEffect(() => {
+    // Verifica a permissão do microfone ao carregar a página
+    const checkMicPermission = async () => {
+        if (typeof navigator !== 'undefined' && navigator.permissions) {
+            try {
+                const permissionStatus = await navigator.permissions.query({ name: 'microphone' as PermissionName });
+                setHasMicPermission(permissionStatus.state === 'granted');
+                permissionStatus.onchange = () => {
+                    setHasMicPermission(permissionStatus.state === 'granted');
+                };
+            } catch (error) {
+                console.error("Navegador não suporta verificação de permissão.", error);
+                setHasMicPermission(true); // Assume permissão em navegadores mais antigos
+            }
+        } else {
+             setHasMicPermission(true); // Assume permissão se a API não for suportada
+        }
+    };
+    checkMicPermission();
+  }, []);
+
 
   useEffect(() => {
     if (farmer && farmer.fairs.length > 0 && !selectedFair) {
@@ -218,6 +243,7 @@ export default function RomaneioPage() {
   const startRecording = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      setHasMicPermission(true); // Permissão concedida
       mediaRecorderRef.current = new MediaRecorder(stream);
       audioChunksRef.current = [];
 
@@ -274,10 +300,12 @@ export default function RomaneioPage() {
       setIsRecording(true);
     } catch (err) {
       console.error("Erro ao iniciar a gravação:", err);
+      setHasMicPermission(false);
       toast({
         variant: "destructive",
-        title: "Erro de Microfone",
-        description: "Não foi possível acessar o microfone. Verifique as permissões do seu navegador.",
+        title: "Permissão de Microfone Negada",
+        description: "O acesso ao microfone foi negado. Verifique as configurações do seu navegador.",
+        duration: 8000,
       });
     }
   };
@@ -360,6 +388,17 @@ export default function RomaneioPage() {
         </p>
       </div>
 
+       {hasMicPermission === false && (
+            <Alert variant="destructive" className="mb-6 no-print">
+                <AlertTriangle className="h-4 w-4" />
+                <AlertTitle>Acesso ao Microfone Bloqueado</AlertTitle>
+                <AlertDescription>
+                    Para usar a gravação por voz, você precisa permitir o acesso ao microfone nas configurações do seu navegador. 
+                    Procure por 'Configurações do site' e libere o acesso para este aplicativo.
+                </AlertDescription>
+            </Alert>
+        )}
+
       <div ref={printRef} className="print-container">
         <Card>
           <CardHeader className="sm:px-6">
@@ -395,10 +434,10 @@ export default function RomaneioPage() {
               <div className="print-header pt-6 px-1 sm:pl-1">
                 <CardTitle className="font-headline text-2xl text-center text-primary leading-tight">
                     <span className="sm:hidden">
-                       Romaneio da<br/>{getFairDisplayName(selectedFair)}
+                       Romaneio da<br/>{getFairDisplayName(selectedFair).replace('Feira Orgânica de ', '')}
                     </span>
                     <span className="hidden sm:inline">
-                      Romaneio da {getFairDisplayName(selectedFair)}
+                      Romaneio da Feira Orgânica de {selectedFair}
                     </span>
                 </CardTitle>
                 <Separator className="my-4" />
@@ -463,11 +502,12 @@ export default function RomaneioPage() {
       <div className="fixed bottom-6 right-6 no-print z-50">
         <Button 
             onClick={isRecording ? stopRecording : startRecording} 
-            disabled={isProcessingAudio}
+            disabled={isProcessingAudio || hasMicPermission === false}
             size="icon"
             className={cn(
                 "rounded-full h-16 w-16 shadow-lg transition-all duration-300 transform hover:scale-110",
-                isRecording ? "bg-red-600 hover:bg-red-700 animate-pulse" : "bg-accent hover:bg-accent/90"
+                isRecording ? "bg-red-600 hover:bg-red-700 animate-pulse" : "bg-accent hover:bg-accent/90",
+                hasMicPermission === false && "bg-muted-foreground hover:bg-muted-foreground/90"
             )}
             aria-label={isRecording ? "Parar gravação" : "Iniciar gravação por voz"}
         >
@@ -475,6 +515,8 @@ export default function RomaneioPage() {
                 <Loader2 className="h-8 w-8 animate-spin" />
             ) : isRecording ? (
                 <StopCircle className="h-8 w-8" />
+            ) : hasMicPermission === false ? (
+                <MicOff className="h-8 w-8" />
             ) : (
                 <Mic className="h-8 w-8" />
             )}
@@ -484,3 +526,5 @@ export default function RomaneioPage() {
     </div>
   );
 }
+
+    
