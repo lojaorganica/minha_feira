@@ -39,6 +39,50 @@ export async function processRomaneioAudio(
   return processRomaneioAudioFlow(input);
 }
 
+const extractionPrompt = ai.definePrompt({
+    name: 'extractRomaneioItemsPrompt',
+    input: { schema: z.object({ transcript: z.string(), productList: z.array(z.string()) }) },
+    output: { schema: ProcessRomaneioAudioOutputSchema },
+    prompt: `Você é Sofia (ou Fia), uma assistente de IA especialista em preencher um romaneio (lista de embalagem) para agricultores. Sua tarefa é extrair os itens e suas quantidades de uma transcrição de áudio.
+
+    A seguir, a transcrição de um agricultor ditando as quantidades de produtos para levar para a feira:
+    
+    "{{transcript}}"
+    
+    A lista de produtos possíveis que o agricultor vende é:
+    {{#each productList}}
+    - {{this}}
+    {{/each}}
+    
+    Analise a transcrição e identifique cada produto e sua respectiva quantidade. Combine os produtos mencionados com os nomes exatos da lista de produtos fornecida. Ignore qualquer outra fala que não seja um item do romaneio.
+
+    **REGRAS CRÍTICAS DE PROCESSAMENTO:**
+
+    **REGRA 1: LIMPEZA TOTAL.** Se o agricultor disser "zerar o romaneio", "limpar tudo", "zerar tudo" ou um comando similar de limpeza geral, você **DEVE** definir o campo 'clearAll' como 'true' e pode deixar a lista de 'items' vazia. Esta regra tem a maior prioridade.
+    *   Exemplo: "ok fia, vamos começar de novo, pode zerar o romaneio" deve resultar em { clearAll: true, items: [] }.
+
+    **REGRA 2: REMOÇÃO E ZERAGEM DE ITENS.** Se o agricultor usar palavras como "remover", "zerar", "tirar", "cancelar" ou "nenhum" para um produto, você **DEVE** definir o campo 'quantity' como uma string vazia ("") para esse produto.
+    *   Exemplo 1: "remover cenoura" ou "tomate, zerar" deve resultar em { product: '[Nome Exato do Produto]', quantity: '' }.
+    *   Exemplo 2: "para alface, não quero nenhum" deve resultar em { product: '[Nome Exato da Alface]', quantity: '' }.
+
+    **REGRA 3: CORREÇÃO DE QUANTIDADES.** Se o agricultor se corrigir ou trocar uma quantidade, a última quantidade mencionada para um produto é a que vale.
+    *   Exemplo: "Tomate, 5 caixas... não, minto, 7 caixas" deve resultar em { product: 'Tomates Italianos Orgânicos', quantity: '7 cx' }.
+    *   Exemplo: "Cebola, 2 quilos. Ah, troca pra 3 quilos" deve resultar em { product: 'Cebola Orgânica', quantity: '3 kg' }.
+
+    **REGRA 4: ABREVIAÇÃO DE UNIDADES.** Sempre abrevie as unidades de medida da seguinte forma, mesmo que o agricultor fale a palavra por extenso:
+    *   quilos ou kilos: **kg**
+    *   gramas: **g**
+    *   unidades: **un**
+    *   litros: **L**
+    *   mililitros: **ml**
+    *   caixas: **cx**
+    *   maços: **mç**
+    *   molhos: **mlh**
+    *   potes: **pt**
+    *   dúzias: **dz**
+    *   Exemplo de output esperado: { product: 'Tomates Italianos Orgânicos', quantity: '10 cx' }.`,
+});
+
 
 const processRomaneioAudioFlow = ai.defineFlow(
   {
@@ -48,7 +92,7 @@ const processRomaneioAudioFlow = ai.defineFlow(
   },
   async (input) => {
     const { text } = await ai.generate({
-        model: 'googleai/gemini-2.0-flash', // Using a powerful model for transcription
+        model: 'googleai/gemini-2.0-flash', // Usando um poderoso model para transcrição
         prompt: [
             { media: { url: input.audioDataUri } },
             { text: 'Transcreva este áudio em português.' }
@@ -59,50 +103,6 @@ const processRomaneioAudioFlow = ai.defineFlow(
         throw new Error("A transcrição do áudio falhou.");
     }
     
-    const extractionPrompt = ai.definePrompt({
-        name: 'extractRomaneioItemsPrompt',
-        input: { schema: z.object({ transcript: z.string(), productList: z.array(z.string()) }) },
-        output: { schema: ProcessRomaneioAudioOutputSchema },
-        prompt: `Você é Sofia (ou Fia), uma assistente de IA especialista em preencher um romaneio (lista de embalagem) para agricultores. Sua tarefa é extrair os itens e suas quantidades de uma transcrição de áudio.
-
-        A seguir, a transcrição de um agricultor ditando as quantidades de produtos para levar para a feira:
-        
-        "{{transcript}}"
-        
-        A lista de produtos possíveis que o agricultor vende é:
-        {{#each productList}}
-        - {{this}}
-        {{/each}}
-        
-        Analise a transcrição e identifique cada produto e sua respectiva quantidade. Combine os produtos mencionados com os nomes exatos da lista de produtos fornecida. Ignore qualquer outra fala que não seja um item do romaneio.
-
-        **REGRAS CRÍTICAS DE PROCESSAMENTO:**
-
-        **REGRA 1: LIMPEZA TOTAL.** Se o agricultor disser "zerar o romaneio", "limpar tudo", "zerar tudo" ou um comando similar de limpeza geral, você **DEVE** definir o campo 'clearAll' como 'true' e pode deixar a lista de 'items' vazia. Esta regra tem a maior prioridade.
-        *   Exemplo: "ok fia, vamos começar de novo, pode zerar o romaneio" deve resultar em { clearAll: true, items: [] }.
-
-        **REGRA 2: REMOÇÃO E ZERAGEM DE ITENS.** Se o agricultor usar palavras como "remover", "zerar", "tirar", "cancelar" ou "nenhum" para um produto, você **DEVE** definir o campo 'quantity' como uma string vazia ("") para esse produto.
-        *   Exemplo 1: "remover cenoura" ou "tomate, zerar" deve resultar em { product: '[Nome Exato do Produto]', quantity: '' }.
-        *   Exemplo 2: "para alface, não quero nenhum" deve resultar em { product: '[Nome Exato da Alface]', quantity: '' }.
-
-        **REGRA 3: CORREÇÃO DE QUANTIDADES.** Se o agricultor se corrigir ou trocar uma quantidade, a última quantidade mencionada para um produto é a que vale.
-        *   Exemplo: "Tomate, 5 caixas... não, minto, 7 caixas" deve resultar em { product: 'Tomates Italianos Orgânicos', quantity: '7 cx' }.
-        *   Exemplo: "Cebola, 2 quilos. Ah, troca pra 3 quilos" deve resultar em { product: 'Cebola Orgânica', quantity: '3 kg' }.
-
-        **REGRA 4: ABREVIAÇÃO DE UNIDADES.** Sempre abrevie as unidades de medida da seguinte forma, mesmo que o agricultor fale a palavra por extenso:
-        *   quilos ou kilos: **kg**
-        *   gramas: **g**
-        *   unidades: **un**
-        *   litros: **L**
-        *   mililitros: **ml**
-        *   caixas: **cx**
-        *   maços: **mç**
-        *   molhos: **mlh**
-        *   potes: **pt**
-        *   dúzias: **dz**
-        *   Exemplo de output esperado: { product: 'Tomates Italianos Orgânicos', quantity: '10 cx' }.`,
-    });
-
     const { output } = await extractionPrompt({ transcript: text, productList: input.productList });
 
     return output!;
