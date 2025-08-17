@@ -62,7 +62,7 @@ const processRomaneioAudioFlow = ai.defineFlow(
         name: 'extractRomaneioItemsPrompt',
         input: { schema: z.object({ transcript: z.string(), productList: z.array(z.string()) }) },
         output: { schema: ProcessRomaneioAudioOutputSchema },
-        prompt: `Você é um assistente de IA especialista em preencher um romaneio (lista de embalagem) para agricultores. Sua tarefa é extrair os itens e suas quantidades de uma transcrição de áudio.
+        prompt: `Você é Sofia (ou Fia), uma assistente de IA especialista em preencher um romaneio (lista de embalagem) para agricultores. Sua tarefa é extrair os itens e suas quantidades de uma transcrição de áudio.
 
         A seguir, a transcrição de um agricultor ditando as quantidades de produtos para levar para a feira:
         
