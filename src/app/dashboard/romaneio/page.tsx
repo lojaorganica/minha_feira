@@ -12,7 +12,7 @@ import { Label } from '@/components/ui/label';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Calendar } from '@/components/ui/calendar';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { CalendarIcon, Download, FileText, Loader2, Printer, Save, Share2, Mic, MicOff } from 'lucide-react';
+import { CalendarIcon, Download, FileText, Loader2, Mic, MicOff, Printer, Save, Share2, StopCircle } from 'lucide-react';
 import BackButton from '@/components/back-button';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
@@ -448,35 +448,7 @@ export default function RomaneioPage() {
               </div>
             </div>
           </CardContent>
-          <CardFooter className="flex-col md:flex-row gap-2 justify-between no-print p-6">
-             <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
-                <Button 
-                    onClick={isRecording ? stopRecording : startRecording} 
-                    disabled={isProcessingAudio}
-                    className={cn(
-                        "w-full sm:w-auto",
-                        isRecording ? "bg-red-600 hover:bg-red-700" : ""
-                    )}
-                >
-                    {isProcessingAudio ? (
-                        <>
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                            Processando...
-                        </>
-                    ) : isRecording ? (
-                        <>
-                            <MicOff className="mr-2 h-4 w-4" />
-                            Parar Gravação
-                        </>
-                    ) : (
-                        <>
-                            <Mic className="mr-2 h-4 w-4" />
-                            Preencher por Voz
-                        </>
-                    )}
-                </Button>
-                {isRecording && <Badge variant="destructive" className="animate-pulse mx-auto mt-2 sm:mt-0 sm:mx-2">Gravando...</Badge>}
-            </div>
+          <CardFooter className="flex-col md:flex-row gap-2 justify-end no-print p-6">
              <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
                 <Button variant="outline" onClick={handleSave}><Save className="mr-2 h-4 w-4" /> Salvar</Button>
                 <Button variant="outline" onClick={handleShare}><Share2 className="mr-2 h-4 w-4" /> Compartilhar</Button>
@@ -486,6 +458,29 @@ export default function RomaneioPage() {
           </CardFooter>
         </Card>
       </div>
+
+       {/* Botão de Gravação Flutuante */}
+      <div className="fixed bottom-6 right-6 no-print z-50">
+        <Button 
+            onClick={isRecording ? stopRecording : startRecording} 
+            disabled={isProcessingAudio}
+            size="icon"
+            className={cn(
+                "rounded-full h-16 w-16 shadow-lg transition-all duration-300 transform hover:scale-110",
+                isRecording ? "bg-red-600 hover:bg-red-700 animate-pulse" : "bg-accent hover:bg-accent/90"
+            )}
+            aria-label={isRecording ? "Parar gravação" : "Iniciar gravação por voz"}
+        >
+            {isProcessingAudio ? (
+                <Loader2 className="h-8 w-8 animate-spin" />
+            ) : isRecording ? (
+                <StopCircle className="h-8 w-8" />
+            ) : (
+                <Mic className="h-8 w-8" />
+            )}
+        </Button>
+      </div>
+
     </div>
   );
 }
