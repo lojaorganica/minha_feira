@@ -28,7 +28,8 @@ const ProcessRomaneioAudioOutputSchema = z.object({
     items: z.array(z.object({
         product: z.string().describe('The name of the product identified in the audio. Must be one of the provided productList.'),
         quantity: z.string().describe('The quantity of the product mentioned, including the unit (e.g., "5 kg", "10 cx"). If the command is to remove or zero out an item, this should be an empty string.'),
-    })).describe('A list of products and their quantities extracted from the audio.')
+        fornecedor: z.string().optional().describe('The name of the supplier for the product, if mentioned. E.g., "Matias Ponte".')
+    })).describe('A list of products, their quantities, and optional suppliers extracted from the audio.')
 });
 export type ProcessRomaneioAudioOutput = z.infer<typeof ProcessRomaneioAudioOutputSchema>;
 
@@ -43,14 +44,14 @@ const extractionPrompt = ai.definePrompt({
     name: 'extractRomaneioItemsPrompt',
     input: { schema: ProcessRomaneioAudioInputSchema },
     output: { schema: ProcessRomaneioAudioOutputSchema },
-    prompt: `Você é Sofia (ou Fia), uma assistente de IA especialista em preencher um romaneio (lista de embalagem) para agricultores. Sua tarefa é analisar um áudio de um agricultor ditando as quantidades de produtos e extrair os itens.
+    prompt: `Você é Sofia (ou Fia), uma assistente de IA especialista em preencher um romaneio (lista de embalagem) para agricultores. Sua tarefa é analisar um áudio de um agricultor ditando as quantidades de produtos e, opcionalmente, os fornecedores parceiros, e extrair os itens.
 
     A lista de produtos possíveis que o agricultor vende é:
     {{#each productList}}
     - {{this}}
     {{/each}}
     
-    Analise o áudio, transcreva-o e identifique cada produto e sua respectiva quantidade. Combine os produtos mencionados com os nomes exatos da lista de produtos fornecida. Ignore qualquer outra fala que não seja um item do romaneio.
+    Analise o áudio, transcreva-o e identifique cada produto, sua respectiva quantidade e, se mencionado, o fornecedor. Combine os produtos mencionados com os nomes exatos da lista de produtos fornecida. Ignore qualquer outra fala que não seja um item do romaneio.
 
     **REGRAS CRÍTICAS DE PROCESSAMENTO:**
 
@@ -77,7 +78,12 @@ const extractionPrompt = ai.definePrompt({
     *   potes: **pt**
     *   dúzias: **dz**
     *   Exemplo de output esperado: { product: 'Tomates Italianos Orgânicos', quantity: '10 cx' }.
-    
+
+    **REGRA 5: IDENTIFICAÇÃO DE FORNECEDOR.** Se o agricultor mencionar um fornecedor para um produto específico, usando palavras como "fornecedor", "do(a)", "é do(a)", extraia o nome do fornecedor e coloque no campo 'fornecedor'.
+    *   Exemplo 1: "Acelga, 10 maços, fornecedor Matias Ponte" deve resultar em { product: 'Acelga Orgânica', quantity: '10 mç', fornecedor: 'Matias Ponte' }.
+    *   Exemplo 2: "Banana, 5 dúzias. A banana é do Ailton" deve resultar em { product: 'Banana Prata Orgânica', quantity: '5 dz', fornecedor: 'Ailton' }.
+    *   Exemplo 3: "Ovos, 2 dúzias. Fornecedor Onéias" deve resultar em { product: 'Ovos Orgânicos', quantity: '2 dz', fornecedor: 'Onéias' }.
+
     Use o áudio a seguir como fonte primária:
     {{media url=audioDataUri}}
     `,

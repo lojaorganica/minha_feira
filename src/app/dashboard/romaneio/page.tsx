@@ -260,6 +260,9 @@ export default function RomaneioPage() {
                   );
                   if (itemIndex !== -1) {
                     updatedData[itemIndex].quantidade = extractedItem.quantity;
+                    if (extractedItem.fornecedor) {
+                      updatedData[itemIndex].fornecedor = extractedItem.fornecedor;
+                    }
                     itemsUpdated++;
                   }
                 });
