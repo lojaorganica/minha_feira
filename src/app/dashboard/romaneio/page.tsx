@@ -252,7 +252,7 @@ export default function RomaneioPage() {
                 currentData = romaneioData.map(item => ({ ...item, quantidade: '', fornecedor: '' }));
                 responseText = "Romaneio limpo com sucesso.";
             } else {
-                 responseText = `Romaneio atualizado com ${result.items.length} itens.`;
+                responseText = `Romaneio atualizado com ${result.items.length} itens.`;
             }
 
             if (result.items.length > 0) {
@@ -467,7 +467,7 @@ export default function RomaneioPage() {
                       <Input
                         value={item.quantidade}
                         onChange={(e) => handleInputChange(index, 'quantidade', e.target.value)}
-                        className="bg-card no-print border-2 border-primary/50 focus-visible:ring-primary/50 h-8 text-center text-sm"
+                        className="bg-card no-print border-2 border-primary/50 focus-visible:ring-primary/50 h-8 text-center font-bold text-base"
                       />
                       <span className="print-only hidden text-center">{item.quantidade}</span>
                     </div>
