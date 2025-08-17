@@ -23,7 +23,7 @@ async function toWav(
       channels,
       sampleRate: rate,
       bitDepth: sampleWidth * 8,
-      format: 1, // PCM
+      format: 1, // PCM -- This was the missing piece
     });
 
     const chunks: Buffer[] = [];
