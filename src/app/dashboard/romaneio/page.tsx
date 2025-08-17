@@ -21,7 +21,6 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { Separator } from '@/components/ui/separator';
 import { processRomaneioAudio } from '@/ai/flows/process-romaneio-audio';
-import { generateAudio } from '@/ai/flows/generate-romaneio-response-audio';
 import { cn } from '@/lib/utils';
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert"
 
@@ -51,7 +50,6 @@ export default function RomaneioPage() {
   const [showMicAlert, setShowMicAlert] = useState(false);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
-  const audioPlayerRef = useRef<HTMLAudioElement | null>(null);
   
   const printRef = useRef<HTMLDivElement>(null);
 
@@ -276,16 +274,6 @@ export default function RomaneioPage() {
               title: "Processamento de Voz Concluído",
               description: responseText,
             });
-
-            // Generate and play audio response
-            const audioResponse = await generateAudio(responseText);
-            if (audioResponse?.audioDataUri && audioPlayerRef.current) {
-                audioPlayerRef.current.src = audioResponse.audioDataUri;
-                audioPlayerRef.current.load();
-                await audioPlayerRef.current.play();
-            } else {
-                console.error("Audio data URI is missing in the response.");
-            }
 
           } catch (e) {
             console.error(e);
@@ -520,8 +508,6 @@ export default function RomaneioPage() {
         </Button>
       </div>
       
-      {/* Elemento de áudio oculto para tocar a resposta */}
-      <audio ref={audioPlayerRef} className="hidden" />
     </div>
   );
 }
