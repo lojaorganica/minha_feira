@@ -251,22 +251,28 @@ export default function RomaneioPage() {
             if (result.clearAll) {
                 currentData = romaneioData.map(item => ({ ...item, quantidade: '', fornecedor: '' }));
                 responseText = "Romaneio limpo com sucesso.";
-            } else {
-                responseText = `Romaneio atualizado com ${result.items.length} itens.`;
             }
 
             if (result.items.length > 0) {
-              result.items.forEach(extractedItem => {
-                const itemIndex = currentData.findIndex(
-                  romaneioItem => romaneioItem.produto.toLowerCase() === extractedItem.product.toLowerCase()
-                );
-                if (itemIndex !== -1) {
-                  currentData[itemIndex].quantidade = extractedItem.quantity;
-                  if (extractedItem.fornecedor) {
-                    currentData[itemIndex].fornecedor = extractedItem.fornecedor;
-                  }
+              
+                if (!responseText) {
+                  const s = result.items.length > 1 ? 's' : '';
+                  responseText = `Romaneio atualizado com ${result.items.length} item${s}.`;
                 }
-              });
+
+                result.items.forEach(extractedItem => {
+                    const itemIndex = currentData.findIndex(
+                      romaneioItem => romaneioItem.produto.toLowerCase() === extractedItem.product.toLowerCase()
+                    );
+                    if (itemIndex !== -1) {
+                      currentData[itemIndex].quantidade = extractedItem.quantity;
+                      if (extractedItem.fornecedor) {
+                        currentData[itemIndex].fornecedor = extractedItem.fornecedor;
+                      }
+                    }
+                });
+            } else if (!result.clearAll) {
+                responseText = "Nenhum item do romaneio foi identificado no áudio.";
             }
             
             setRomaneioData(currentData);
@@ -467,7 +473,7 @@ export default function RomaneioPage() {
                       <Input
                         value={item.quantidade}
                         onChange={(e) => handleInputChange(index, 'quantidade', e.target.value)}
-                        className="bg-card no-print border-2 border-primary/50 focus-visible:ring-primary/50 h-8 text-center font-bold text-base"
+                        className="bg-card no-print border-2 border-primary/50 focus-visible:ring-primary/50 h-8 text-center font-bold text-base sm:text-lg px-0"
                       />
                       <span className="print-only hidden text-center">{item.quantidade}</span>
                     </div>
