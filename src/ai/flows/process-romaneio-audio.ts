@@ -16,7 +16,7 @@ const ProcessRomaneioAudioInputSchema = z.object({
   audioDataUri: z
     .string()
     .describe(
-      "The recorded audio as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
+      "The recorded audio as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'"
     ),
   productList: z.array(z.string()).describe('A list of all possible products the farmer sells.'),
 });
@@ -91,8 +91,9 @@ const processRomaneioAudioFlow = ai.defineFlow(
     outputSchema: ProcessRomaneioAudioOutputSchema,
   },
   async (input) => {
+    // Primeiro, transcrevemos o áudio para texto.
     const { text } = await ai.generate({
-        model: 'googleai/gemini-2.0-flash', // Usando um poderoso model para transcrição
+        model: 'googleai/gemini-pro', // Modelo adequado para tarefas com mídia
         prompt: [
             { media: { url: input.audioDataUri } },
             { text: 'Transcreva este áudio em português.' }
@@ -103,6 +104,7 @@ const processRomaneioAudioFlow = ai.defineFlow(
         throw new Error("A transcrição do áudio falhou.");
     }
     
+    // Em seguida, passamos o texto transcrito para o prompt de extração.
     const { output } = await extractionPrompt({ transcript: text, productList: input.productList });
 
     return output!;
