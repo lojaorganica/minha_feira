@@ -246,33 +246,34 @@ export default function RomaneioPage() {
             });
             
             let responseText = "";
+            let currentData = [...romaneioData];
 
             if (result.clearAll) {
-                const clearedData = romaneioData.map(item => ({ ...item, quantidade: '' }));
-                setRomaneioData(clearedData);
+                currentData = romaneioData.map(item => ({ ...item, quantidade: '', fornecedor: '' }));
                 responseText = "Romaneio limpo com sucesso.";
+            } else if (result.selectiveUpdate) {
+                currentData = romaneioData.map(item => ({ ...item, quantidade: '', fornecedor: '' }));
+                responseText = `Romaneio atualizado. Apenas os itens mencionados foram incluídos.`;
             } else {
-                const updatedData = [...romaneioData];
-                let itemsUpdated = 0;
-                result.items.forEach(extractedItem => {
-                  const itemIndex = updatedData.findIndex(
-                    romaneioItem => romaneioItem.produto.toLowerCase() === extractedItem.product.toLowerCase()
-                  );
-                  if (itemIndex !== -1) {
-                    updatedData[itemIndex].quantidade = extractedItem.quantity;
-                    if (extractedItem.fornecedor) {
-                      updatedData[itemIndex].fornecedor = extractedItem.fornecedor;
-                    }
-                    itemsUpdated++;
-                  }
-                });
-                setRomaneioData(updatedData);
+                 responseText = `Romaneio atualizado com ${result.items.length} itens.`;
+            }
 
-                responseText = itemsUpdated > 0 
-                    ? `Romaneio atualizado com ${itemsUpdated} itens.`
-                    : "Não consegui identificar itens para atualizar. Tente novamente.";
+            if (result.items.length > 0) {
+              result.items.forEach(extractedItem => {
+                const itemIndex = currentData.findIndex(
+                  romaneioItem => romaneioItem.produto.toLowerCase() === extractedItem.product.toLowerCase()
+                );
+                if (itemIndex !== -1) {
+                  currentData[itemIndex].quantidade = extractedItem.quantity;
+                  if (extractedItem.fornecedor) {
+                    currentData[itemIndex].fornecedor = extractedItem.fornecedor;
+                  }
+                }
+              });
             }
             
+            setRomaneioData(currentData);
+
             toast({
               title: "Processamento de Voz Concluído",
               description: responseText,
