@@ -258,6 +258,9 @@ export default function RomaneioPage() {
   };
 
   const startRecording = async () => {
+    // Evita múltiplas chamadas se já estiver gravando
+    if (isRecording || isProcessingAudio) return;
+
     try {
       if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
         throw new Error('API de mídia não suportada neste navegador.');
@@ -273,12 +276,12 @@ export default function RomaneioPage() {
       };
 
       mediaRecorderRef.current.onstop = async () => {
+        setIsProcessingAudio(true);
         const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
         const reader = new FileReader();
         reader.readAsDataURL(audioBlob);
         reader.onloadend = async () => {
           const base64Audio = reader.result as string;
-          setIsProcessingAudio(true);
           try {
             const result = await processRomaneioAudio({
               audioDataUri: base64Audio,
@@ -335,6 +338,7 @@ export default function RomaneioPage() {
       setIsRecording(true);
     } catch (err) {
       console.error("Erro ao iniciar a gravação:", err);
+      setIsRecording(false); // Garante que o estado seja resetado em caso de erro
       setShowMicAlert(true);
       toast({
         variant: "destructive",
@@ -530,20 +534,23 @@ export default function RomaneioPage() {
 
        {/* Botão de Gravação Flutuante */}
       <div className="fixed bottom-6 right-6 no-print z-50">
-        <Button 
-            onClick={isRecording ? stopRecording : startRecording} 
+        <Button
+            onMouseDown={startRecording}
+            onMouseUp={stopRecording}
+            onTouchStart={(e) => { e.preventDefault(); startRecording(); }}
+            onTouchEnd={stopRecording}
             disabled={isProcessingAudio}
             size="icon"
             className={cn(
-                "rounded-full h-16 w-16 shadow-lg transition-all duration-300 transform hover:scale-110",
-                isRecording ? "bg-red-600 hover:bg-red-700 animate-pulse" : "bg-accent hover:bg-accent/90"
+                "rounded-full h-16 w-16 shadow-lg transition-all duration-300 transform",
+                isRecording 
+                    ? "bg-red-600 hover:bg-red-700 animate-pulse scale-110" 
+                    : "bg-accent hover:bg-accent/90 hover:scale-110"
             )}
-            aria-label={isRecording ? "Parar gravação" : "Iniciar gravação por voz"}
+            aria-label={isRecording ? "Solte para parar" : "Pressione e segure para gravar"}
         >
             {isProcessingAudio ? (
                 <Loader2 className="h-8 w-8 animate-spin" />
-            ) : isRecording ? (
-                <StopCircle className="h-8 w-8" />
             ) : (
                 <Mic className="h-8 w-8" />
             )}
