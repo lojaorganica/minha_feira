@@ -76,12 +76,32 @@ export default function RomaneioPage() {
 
 
   useEffect(() => {
-    if (selectedFair && date) {
+    if (selectedFair && date && farmer?.id) {
       try {
         const key = `romaneio_${farmer?.id}_${selectedFair}_${format(date, 'yyyy-MM-dd')}`;
         const savedData = localStorage.getItem(key);
         if (savedData) {
-          setRomaneioData(JSON.parse(savedData));
+          const parsedData = JSON.parse(savedData);
+           // Garante que todos os produtos atuais do agricultor estejam na lista, mesmo que não estivessem salvos
+           const currentProductNames = new Set(farmerProducts.map(p => p.name));
+           const savedProductNames = new Set(parsedData.map((item: RomaneioItem) => item.produto));
+
+           const fullData = [...parsedData];
+
+           farmerProducts.forEach(product => {
+               if (!savedProductNames.has(product.name)) {
+                   fullData.push({
+                       produto: product.name,
+                       fornecedor: '',
+                       quantidade: '',
+                   });
+               }
+           });
+           
+           // Remove produtos que não existem mais
+           const finalData = fullData.filter(item => currentProductNames.has(item.produto));
+
+          setRomaneioData(finalData);
         } else {
            const initialData = farmerProducts.map(p => ({
             produto: p.name,
@@ -92,11 +112,30 @@ export default function RomaneioPage() {
         }
       } catch (error) {
         console.error("Falha ao carregar dados do localStorage", error);
+        const initialData = farmerProducts.map(p => ({
+          produto: p.name,
+          fornecedor: '',
+          quantidade: '',
+        }));
+        setRomaneioData(initialData);
       } finally {
         setIsLoading(false);
       }
     }
   }, [selectedFair, date, farmer, farmerProducts]);
+  
+  // Efeito para salvar no localStorage sempre que o romaneioData mudar
+  useEffect(() => {
+    if (selectedFair && date && farmer?.id && !isLoading) {
+       try {
+        const key = `romaneio_${farmer?.id}_${selectedFair}_${format(date, 'yyyy-MM-dd')}`;
+        const dataToSave = romaneioData.filter(item => item.quantidade || item.fornecedor);
+        localStorage.setItem(key, JSON.stringify(dataToSave));
+      } catch (error) {
+        console.error("Falha ao salvar dados no localStorage", error);
+      }
+    }
+  }, [romaneioData, selectedFair, date, farmer, isLoading]);
 
   const handleInputChange = (index: number, field: 'fornecedor' | 'quantidade', value: string) => {
     const updatedData = [...romaneioData];
@@ -108,7 +147,8 @@ export default function RomaneioPage() {
     if (selectedFair && date) {
       try {
         const key = `romaneio_${farmer?.id}_${selectedFair}_${format(date, 'yyyy-MM-dd')}`;
-        localStorage.setItem(key, JSON.stringify(romaneioData));
+        const dataToSave = romaneioData.filter(item => item.quantidade || item.fornecedor);
+        localStorage.setItem(key, JSON.stringify(dataToSave));
         toast({
           title: "Romaneio Salvo!",
           description: "As informações do seu romaneio foram salvas localmente.",
@@ -251,27 +291,22 @@ export default function RomaneioPage() {
             if (result.clearAll) {
                 currentData = romaneioData.map(item => ({ ...item, quantidade: '', fornecedor: '' }));
                 responseText = "Romaneio limpo com sucesso.";
-            }
+            } else if (result.items.length > 0) {
+              const s = result.items.length > 1 ? 's' : '';
+              responseText = `Romaneio atualizado com ${result.items.length} item${s}.`;
 
-            if (result.items.length > 0) {
-              
-                if (!responseText) {
-                  const s = result.items.length > 1 ? 's' : '';
-                  responseText = `Romaneio atualizado com ${result.items.length} item${s}.`;
-                }
-
-                result.items.forEach(extractedItem => {
-                    const itemIndex = currentData.findIndex(
-                      romaneioItem => romaneioItem.produto.toLowerCase() === extractedItem.product.toLowerCase()
-                    );
-                    if (itemIndex !== -1) {
-                      currentData[itemIndex].quantidade = extractedItem.quantity;
-                      if (extractedItem.fornecedor) {
-                        currentData[itemIndex].fornecedor = extractedItem.fornecedor;
-                      }
+              result.items.forEach(extractedItem => {
+                  const itemIndex = currentData.findIndex(
+                    romaneioItem => romaneioItem.produto.toLowerCase() === extractedItem.product.toLowerCase()
+                  );
+                  if (itemIndex !== -1) {
+                    currentData[itemIndex].quantidade = extractedItem.quantity;
+                    if (extractedItem.fornecedor) {
+                      currentData[itemIndex].fornecedor = extractedItem.fornecedor;
                     }
-                });
-            } else if (!result.clearAll) {
+                  }
+              });
+            } else {
                 responseText = "Nenhum item do romaneio foi identificado no áudio.";
             }
             
