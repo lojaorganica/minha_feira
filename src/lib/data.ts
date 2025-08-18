@@ -1301,6 +1301,19 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Abóbora Baianinha orgânica, de polpa adocicada, ótima para doces e purês.',
     status: 'active',
+  },
+  {
+    id: '103',
+    name: 'Alface Mimosa Roxa',
+    category: 'Vegetal',
+    price: 3.40,
+    unitAmount: 1,
+    unit: 'unidade',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_mimosa_roxa.webp?alt=media&token=c8b001dc-6f00-486f-af0a-22c99ed83d01',
+    dataAiHint: 'red mimosa lettuce',
+    farmerId: '1',
+    description: 'Alface Mimosa Roxa com folhas tenras e um toque de cor, ideal para saladas sofisticadas.',
+    status: 'active',
   }
 ];
 
@@ -1533,6 +1546,7 @@ const defaultProductImages = new Map<string, string>([
     ['maca', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/maca_fuji.webp?alt=media&token=d9b195e6-0e42-4976-83fe-fdf87dfafd7c'],
     ['alface americana', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_americana.webp?alt=media&token=d745a4e5-1f8c-4333-8a8a-48a4201d308a'],
     ['alface mimosa', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_mimosa.webp?alt=media&token=06f41321-5e11-4bab-af06-ff6415c1df29'],
+    ['alface mimosa roxa', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_mimosa_roxa.webp?alt=media&token=c8b001dc-6f00-486f-af0a-22c99ed83d01'],
     ['brocolis americano', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/brocolis_americano.webp?alt=media&token=fd124564-9af1-438e-8e3b-34c320279c8b'],
     ['brocolis', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/brocolis_americano.webp?alt=media&token=fd124564-9af1-438e-8e3b-34c320279c8b'],
     ['beterraba', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/beterraba.webp?alt=media&token=d33b9ad6-d6c9-4641-b2fc-e4ed9893cbb0'],
