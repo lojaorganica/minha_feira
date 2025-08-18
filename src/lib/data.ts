@@ -815,7 +815,7 @@ let products: Product[] = [
     price: 8.00,
     unitAmount: 1,
     unit: 'kg',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batata_yacon.webp?alt=media&token=1531f6ab-5dde-4141-8715-28005e7d615e',
     dataAiHint: 'yacon',
     farmerId: '1',
     description: 'Batata Yacon, de textura crocante e sabor adocicado, ideal para consumo in natura em saladas.',
@@ -1610,7 +1610,7 @@ const defaultProductImages = new Map<string, string>([
     ['chuchu', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/chuchu.webp?alt=media&token=4ef6fcb9-2d57-47b6-b397-ec466ccfc6cd'],
     ['batata inglesa', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batata_inglesa.webp?alt=media&token=41f17e48-9a43-4980-b61d-1c12a91f3cf2'],
     ['batata baroa', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batata_baroa.webp?alt=media&token=58b079cb-80de-40fb-97f0-a654a34f1c1b'],
-    ['batata yacon', 'https://placehold.co/600x400.png'],
+    ['batata yacon', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batata_yacon.webp?alt=media&token=1531f6ab-5dde-4141-8715-28005e7d615e'],
     ['tomate grape', 'https://placehold.co/600x400.png'],
     ['tomate salada', 'https://placehold.co/600x400.png'],
     ['tomate cereja', 'https://placehold.co/600x400.png'],
@@ -1873,3 +1873,4 @@ export function updateCustomerClassification(customerId: string, classification:
 
     return undefined;
 }
+
