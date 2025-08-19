@@ -555,7 +555,7 @@ let products: Product[] = [
     price: 2.50,
     unitAmount: 1,
     unit: 'maço',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/cebolinha.webp?alt=media&token=48e03912-a30e-4032-94b8-9a84b6209d3e',
     dataAiHint: 'chives',
     farmerId: '1',
     description: 'Cebolinha fresca para finalizar pratos e adicionar um sabor suave de cebola.',
@@ -1590,7 +1590,7 @@ const defaultProductImages = new Map<string, string>([
     ['banana dagua', 'https://placehold.co/600x400.png'],
     ['banana nanica', 'https://placehold.co/600x400.png'],
     ['coentro', 'https://placehold.co/600x400.png'],
-    ['cebolinha', 'https://placehold.co/600x400.png'],
+    ['cebolinha', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/cebolinha.webp?alt=media&token=48e03912-a30e-4032-94b8-9a84b6209d3e'],
     ['cebola roxa', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/cebola_roxa.webp?alt=media&token=e2c5234f-af01-4481-a046-71295fe900fe'],
     ['cebola', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/cebola.webp?alt=media&token=d038a9a2-f0f9-421f-b436-324602f0b5bd'],
     ['repolho verde', 'https://placehold.co/600x400.png'],
@@ -1873,6 +1873,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
     return undefined;
 }
+
 
 
 
