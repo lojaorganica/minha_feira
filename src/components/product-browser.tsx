@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useRef, useEffect } from "react";
 import { getFarmersWithProducts, getFarmers } from "@/lib/data";
 import type { FarmerWithProducts, Farmer } from "@/lib/types";
 import { useSearch } from "@/hooks/use-search";
@@ -17,15 +17,17 @@ function FarmerFilter({
   onSelectFarmer,
   searchTerm,
   onSearchChange,
+  filterRef,
 }: {
   farmers: Farmer[];
   selectedFarmerId: string | null;
   onSelectFarmer: (id: string | null) => void;
   searchTerm: string;
   onSearchChange: (term: string) => void;
+  filterRef: React.RefObject<HTMLDivElement>;
 }) {
   return (
-    <div className="mb-8">
+    <div className="mb-8" ref={filterRef}>
       <div className="flex flex-col sm:flex-row flex-wrap gap-4 items-center">
          <div className="flex flex-wrap gap-2">
             <Button
@@ -73,6 +75,19 @@ function FarmerFilter({
 export default function ProductBrowser() {
   const { searchTerm, setSearchTerm } = useSearch();
   const [selectedFarmerId, setSelectedFarmerId] = useState<string | null>(null);
+  const filterRef = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    // Rola para a área de filtro quando uma busca é realizada
+    if (searchTerm && filterRef.current) {
+        // Usamos um pequeno timeout para garantir que o DOM foi atualizado antes de rolar
+        setTimeout(() => {
+            if(filterRef.current) {
+              filterRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }, 100);
+    }
+  }, [searchTerm]);
 
   const allFarmers = useMemo(() => getFarmers(), []);
 
@@ -125,6 +140,7 @@ export default function ProductBrowser() {
         onSelectFarmer={setSelectedFarmerId}
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}
+        filterRef={filterRef}
       />
       {filteredProductsByFarmer.length > 0 ? (
         filteredProductsByFarmer.map((farmer) => (
