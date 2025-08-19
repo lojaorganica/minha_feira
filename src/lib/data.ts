@@ -1231,7 +1231,7 @@ let products: Product[] = [
     price: 7.50,
     unitAmount: 1,
     unit: 'kg',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/feijao_carioca.webp?alt=media&token=67c3dfb7-4e77-4593-a133-3a7fd51f1ef2',
     dataAiHint: 'carioca beans',
     farmerId: '1',
     description: 'Feijão carioca orgânico, o mais popular do Brasil, com caldo encorpado e sabor suave.',
@@ -1642,7 +1642,7 @@ const defaultProductImages = new Map<string, string>([
     ['milho', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/milho_verde.webp?alt=media&token=06cf8e19-7d36-42eb-8b27-cde60f2c41d6'],
     ['vagem', 'https://placehold.co/600x400.png'],
     ['feijao preto', 'https://placehold.co/600x400.png'],
-    ['feijao carioca', 'https://placehold.co/600x400.png'],
+    ['feijao carioca', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/feijao_carioca.webp?alt=media&token=67c3dfb7-4e77-4593-a133-3a7fd51f1ef2'],
     ['feijao vermelho', 'https://placehold.co/600x400.png'],
     ['oregano', 'https://placehold.co/600x400.png'],
 ]);
@@ -1873,6 +1873,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
     return undefined;
 }
+
 
 
 
