@@ -11,6 +11,23 @@ import { cn } from "@/lib/utils";
 import { Input } from "./ui/input";
 import { Search } from "lucide-react";
 
+function useDebounce(value: string, delay: number) {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+}
+
+
 function FarmerFilter({
   farmers,
   selectedFarmerId,
@@ -73,19 +90,25 @@ function FarmerFilter({
 export default function ProductBrowser() {
   const { searchTerm, setSearchTerm } = useSearch();
   const [selectedFarmerId, setSelectedFarmerId] = useState<string | null>(null);
-  const resultsRef = useRef<HTMLDivElement>(null);
+  const filterRef = useRef<HTMLDivElement>(null);
   
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
+
   useEffect(() => {
     // Rola para a área de resultados quando uma busca é realizada
-    if (searchTerm && resultsRef.current) {
+    if (debouncedSearchTerm && filterRef.current) {
         // Usamos um pequeno timeout para garantir que o DOM foi atualizado antes de rolar
         setTimeout(() => {
-            if(resultsRef.current) {
-              resultsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if(filterRef.current) {
+              const topPos = filterRef.current.getBoundingClientRect().top + window.scrollY - 100; // 100px de offset do topo
+              window.scrollTo({
+                top: topPos,
+                behavior: 'smooth'
+              });
             }
         }, 100);
     }
-  }, [searchTerm, selectedFarmerId]); // Adicionado selectedFarmerId para rolar também ao filtrar
+  }, [debouncedSearchTerm, selectedFarmerId]); // Adicionado selectedFarmerId para rolar também ao filtrar
 
   const allFarmers = useMemo(() => getFarmers(), []);
 
@@ -131,7 +154,7 @@ export default function ProductBrowser() {
   }
 
   return (
-    <div>
+    <div ref={filterRef}>
       <FarmerFilter 
         farmers={allFarmers}
         selectedFarmerId={selectedFarmerId}
@@ -139,7 +162,7 @@ export default function ProductBrowser() {
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}
       />
-      <div ref={resultsRef}>
+      <div>
         {filteredProductsByFarmer.length > 0 ? (
           filteredProductsByFarmer.map((farmer) => (
             <section key={farmer.id} className="mb-12">
