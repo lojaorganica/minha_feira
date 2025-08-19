@@ -8,44 +8,62 @@ import { useSearch } from "@/hooks/use-search";
 import ProductCard from "./product-card";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
+import { Input } from "./ui/input";
+import { Search } from "lucide-react";
 
 function FarmerFilter({
   farmers,
   selectedFarmerId,
   onSelectFarmer,
+  searchTerm,
+  onSearchChange,
 }: {
   farmers: Farmer[];
   selectedFarmerId: string | null;
   onSelectFarmer: (id: string | null) => void;
+  searchTerm: string;
+  onSearchChange: (term: string) => void;
 }) {
   return (
-    <div className="mb-6">
-      <div className="flex flex-wrap gap-2">
-        <Button
-          size="sm"
-          onClick={() => onSelectFarmer(null)}
-          className={cn(
-            selectedFarmerId === null
-              ? "bg-accent text-accent-foreground hover:bg-accent/90"
-              : "bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground"
-          )}
-        >
-          Todos
-        </Button>
-        {farmers.map((farmer) => (
-          <Button
-            key={farmer.id}
-            size="sm"
-            onClick={() => onSelectFarmer(farmer.id)}
-            className={cn(
-              selectedFarmerId === farmer.id
-                ? "bg-accent text-accent-foreground hover:bg-accent/90"
-                : "bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground"
-            )}
-          >
-            {farmer.name}
-          </Button>
-        ))}
+    <div className="mb-8">
+      <div className="flex flex-col sm:flex-row flex-wrap gap-4 items-center">
+         <div className="flex flex-wrap gap-2">
+            <Button
+              size="sm"
+              onClick={() => onSelectFarmer(null)}
+              className={cn(
+                selectedFarmerId === null
+                  ? "bg-accent text-accent-foreground hover:bg-accent/90"
+                  : "bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground"
+              )}
+            >
+              Todos
+            </Button>
+            {farmers.map((farmer) => (
+              <Button
+                key={farmer.id}
+                size="sm"
+                onClick={() => onSelectFarmer(farmer.id)}
+                className={cn(
+                  selectedFarmerId === farmer.id
+                    ? "bg-accent text-accent-foreground hover:bg-accent/90"
+                    : "bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground"
+                )}
+              >
+                {farmer.name}
+              </Button>
+            ))}
+        </div>
+        <div className="relative w-full sm:w-auto sm:flex-1 sm:max-w-xs">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+          <Input
+            type="search"
+            placeholder="Buscar alimentos..."
+            className="pl-10"
+            value={searchTerm}
+            onChange={(e) => onSearchChange(e.target.value)}
+          />
+        </div>
       </div>
     </div>
   );
@@ -53,7 +71,7 @@ function FarmerFilter({
 
 
 export default function ProductBrowser() {
-  const { searchTerm } = useSearch();
+  const { searchTerm, setSearchTerm } = useSearch();
   const [selectedFarmerId, setSelectedFarmerId] = useState<string | null>(null);
 
   const allFarmers = useMemo(() => getFarmers(), []);
@@ -105,6 +123,8 @@ export default function ProductBrowser() {
         farmers={allFarmers}
         selectedFarmerId={selectedFarmerId}
         onSelectFarmer={setSelectedFarmerId}
+        searchTerm={searchTerm}
+        onSearchChange={setSearchTerm}
       />
       {filteredProductsByFarmer.length > 0 ? (
         filteredProductsByFarmer.map((farmer) => (
