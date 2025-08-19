@@ -17,17 +17,15 @@ function FarmerFilter({
   onSelectFarmer,
   searchTerm,
   onSearchChange,
-  filterRef,
 }: {
   farmers: Farmer[];
   selectedFarmerId: string | null;
   onSelectFarmer: (id: string | null) => void;
   searchTerm: string;
   onSearchChange: (term: string) => void;
-  filterRef: React.RefObject<HTMLDivElement>;
 }) {
   return (
-    <div className="mb-8" ref={filterRef}>
+    <div className="mb-8">
       <div className="flex flex-col sm:flex-row flex-wrap gap-4 items-center">
          <div className="flex flex-wrap gap-2">
             <Button
@@ -75,19 +73,19 @@ function FarmerFilter({
 export default function ProductBrowser() {
   const { searchTerm, setSearchTerm } = useSearch();
   const [selectedFarmerId, setSelectedFarmerId] = useState<string | null>(null);
-  const filterRef = useRef<HTMLDivElement>(null);
+  const resultsRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
-    // Rola para a área de filtro quando uma busca é realizada
-    if (searchTerm && filterRef.current) {
+    // Rola para a área de resultados quando uma busca é realizada
+    if (searchTerm && resultsRef.current) {
         // Usamos um pequeno timeout para garantir que o DOM foi atualizado antes de rolar
         setTimeout(() => {
-            if(filterRef.current) {
-              filterRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if(resultsRef.current) {
+              resultsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         }, 100);
     }
-  }, [searchTerm]);
+  }, [searchTerm, selectedFarmerId]); // Adicionado selectedFarmerId para rolar também ao filtrar
 
   const allFarmers = useMemo(() => getFarmers(), []);
 
@@ -140,34 +138,35 @@ export default function ProductBrowser() {
         onSelectFarmer={setSelectedFarmerId}
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}
-        filterRef={filterRef}
       />
-      {filteredProductsByFarmer.length > 0 ? (
-        filteredProductsByFarmer.map((farmer) => (
-          <section key={farmer.id} className="mb-12">
-            <div className="flex flex-col items-start gap-2 mb-6">
-              <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl text-primary">
-                {farmer.name}
-              </h2>
-               <p className="text-lg font-semibold text-foreground/90 text-left max-w-2xl">{farmer.bio}</p>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-              {farmer.products.map((product) => (
-                <ProductCard key={product.id} product={product} farmerName={farmer.name} />
-              ))}
-            </div>
+      <div ref={resultsRef}>
+        {filteredProductsByFarmer.length > 0 ? (
+          filteredProductsByFarmer.map((farmer) => (
+            <section key={farmer.id} className="mb-12">
+              <div className="flex flex-col items-start gap-2 mb-6">
+                <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl text-primary">
+                  {farmer.name}
+                </h2>
+                <p className="text-lg font-semibold text-foreground/90 text-left max-w-2xl">{farmer.bio}</p>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+                {farmer.products.map((product) => (
+                  <ProductCard key={product.id} product={product} farmerName={farmer.name} />
+                ))}
+              </div>
+            </section>
+          ))
+        ) : (
+          <section className="py-12 md:py-16">
+              <div className="container text-center">
+                  <h2 className="font-headline text-2xl font-bold text-primary">Nenhum produto encontrado</h2>
+                  <p className="mt-2 text-lg font-semibold text-foreground/90">
+                      Sua busca por "{searchTerm}" não encontrou resultados {selectedFarmerId ? `em ${allFarmers.find(f => f.id === selectedFarmerId)?.name}` : ''}.
+                  </p>
+              </div>
           </section>
-        ))
-      ) : (
-        <section className="py-12 md:py-16">
-             <div className="container text-center">
-                 <h2 className="font-headline text-2xl font-bold text-primary">Nenhum produto encontrado</h2>
-                 <p className="mt-2 text-lg font-semibold text-foreground/90">
-                    Sua busca por "{searchTerm}" não encontrou resultados {selectedFarmerId ? `em ${allFarmers.find(f => f.id === selectedFarmerId)?.name}` : ''}.
-                 </p>
-             </div>
-         </section>
-      )}
+        )}
+      </div>
     </div>
   );
 }
