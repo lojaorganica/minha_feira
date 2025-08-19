@@ -685,7 +685,7 @@ let products: Product[] = [
     price: 18.00,
     unitAmount: 1,
     unit: 'kg',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/curcuma.webp?alt=media&token=52fffeff-7486-4cab-9021-81331e7c5cc6',
     dataAiHint: 'turmeric',
     farmerId: '1',
     description: 'Cúrcuma (açafrão-da-terra) fresca, conhecida por suas propriedades anti-inflamatórias.',
@@ -1600,7 +1600,7 @@ const defaultProductImages = new Map<string, string>([
     ['mamão formosa', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mamao_formosa.webp?alt=media&token=7887ce63-fb00-42fe-a5d3-8f70e128bdb3'],
     ['ovos', 'https://placehold.co/600x400.png'],
     ['gengibre', 'https://placehold.co/600x400.png'],
-    ['cúrcuma', 'https://placehold.co/600x400.png'],
+    ['cúrcuma', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/curcuma.webp?alt=media&token=52fffeff-7486-4cab-9021-81331e7c5cc6'],
     ['melão amarelo', 'https://placehold.co/600x400.png'],
     ['melão orange', 'https://placehold.co/600x400.png'],
     ['melão pele de sapo', 'https://placehold.co/600x400.png'],
@@ -1873,6 +1873,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
     return undefined;
 }
+
 
 
 
