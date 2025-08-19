@@ -568,7 +568,7 @@ let products: Product[] = [
     price: 4.50,
     unitAmount: 1,
     unit: 'kg',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/cebola_roxa.webp?alt=media&token=e2c5234f-af01-4481-a046-71295fe900fe',
     dataAiHint: 'red onion',
     farmerId: '1',
     description: 'Cebola roxa de sabor mais suave e adocicado, perfeita para saladas e picles.',
@@ -1591,7 +1591,7 @@ const defaultProductImages = new Map<string, string>([
     ['banana nanica', 'https://placehold.co/600x400.png'],
     ['coentro', 'https://placehold.co/600x400.png'],
     ['cebolinha', 'https://placehold.co/600x400.png'],
-    ['cebola roxa', 'https://placehold.co/600x400.png'],
+    ['cebola roxa', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/cebola_roxa.webp?alt=media&token=e2c5234f-af01-4481-a046-71295fe900fe'],
     ['cebola', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/cebola.webp?alt=media&token=d038a9a2-f0f9-421f-b436-324602f0b5bd'],
     ['repolho verde', 'https://placehold.co/600x400.png'],
     ['repolho roxo', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/repolho_roxo.webp?alt=media&token=2ea7df6f-0845-4042-aa71-38812b164b6a'],
@@ -1873,5 +1873,6 @@ export function updateCustomerClassification(customerId: string, classification:
 
     return undefined;
 }
+
 
 
