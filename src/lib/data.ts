@@ -1362,9 +1362,9 @@ let products: Product[] = [
     unitAmount: 1,
     unit: 'maço',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/china.webp?alt=media&token=39bf916d-67aa-4534-81f6-cdade5a4aeca',
-    dataAiHint: 'chinese cabbage',
+    dataAiHint: 'pak choi',
     farmerId: '1',
-    description: 'China (ou couve chinesa) de textura crocante, ideal para o preparo de saladas e refogados.',
+    description: 'Também conhecida como Pak Choi, esta verdura de origem asiática tem talos crocantes e folhas macias com um sabor suave e levemente adocicado. É extremamente versátil, podendo ser usada em refogados, sopas, salteados ou até mesmo consumida crua em saladas.',
     status: 'active',
   }
 ];
@@ -1653,7 +1653,7 @@ const defaultProductImages = new Map<string, string>([
     ['repolho roxo', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/repolho_roxo.webp?alt=media&token=2ea7df6f-0845-4042-aa71-38812b164b6a'],
     ['maçã gala', 'https://placehold.co/600x400.png'],
     ['rúcula', 'https://placehold.co/600x400.png'],
-    ['mamão formosa', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mamao_formosa.webp?alt=media&token=7887ce63-fb00-42fe-a5d3-8f70e128bdb3'],
+    ['mamao formosa', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mamao_formosa.webp?alt=media&token=7887ce63-fb00-42fe-a5d3-8f70e128bdb3'],
     ['ovos', 'https://placehold.co/600x400.png'],
     ['gengibre', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/gengibre.webp?alt=media&token=b70596de-b66f-4c39-a8c9-6951a442ff84'],
     ['cúrcuma', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/curcuma.webp?alt=media&token=52fffeff-7486-4cab-9021-81331e7c5cc6'],
@@ -1930,6 +1930,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
     return undefined;
 }
+
 
 
 
