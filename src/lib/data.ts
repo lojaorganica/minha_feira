@@ -1430,6 +1430,78 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Tomatinhos grape, pequenos e muito doces, perfeitos para lanches e saladas.',
     status: 'active',
+  },
+  {
+    id: '114',
+    name: 'Quiabo Orgânico',
+    category: 'Vegetal',
+    price: 5.00,
+    unit: 'kg',
+    image: 'https://placehold.co/600x400.png',
+    dataAiHint: 'okra',
+    farmerId: '1',
+    description: 'Quiabo orgânico fresco, ideal para refogados, saladas e o prato típico "frango com quiabo".',
+    status: 'active',
+  },
+  {
+    id: '115',
+    name: 'Jiló Orgânico',
+    category: 'Vegetal',
+    price: 4.50,
+    unit: 'kg',
+    image: 'https://placehold.co/600x400.png',
+    dataAiHint: 'scarlet eggplant',
+    farmerId: '1',
+    description: 'Jiló orgânico com seu sabor amargo característico, perfeito para fritadas e conservas.',
+    status: 'active',
+  },
+  {
+    id: '116',
+    name: 'Pepino Caipira Orgânico',
+    category: 'Vegetal',
+    price: 3.80,
+    unit: 'kg',
+    image: 'https://placehold.co/600x400.png',
+    dataAiHint: 'caipira cucumber',
+    farmerId: '1',
+    description: 'Pepino caipira, com casca mais clara e sabor suave, ótimo para saladas do dia a dia.',
+    status: 'active',
+  },
+  {
+    id: '117',
+    name: 'Mini Melancia Orgânica',
+    category: 'Fruta',
+    price: 10.00,
+    unit: 'unidade',
+    image: 'https://placehold.co/600x400.png',
+    dataAiHint: 'mini watermelon',
+    farmerId: '2',
+    description: 'Mini melancia doce e refrescante, no tamanho ideal para sua família.',
+    status: 'active',
+  },
+  {
+    id: '118',
+    name: 'Mexerica Olé Orgânica',
+    category: 'Fruta',
+    price: 6.00,
+    unit: 'kg',
+    image: 'https://placehold.co/600x400.png',
+    dataAiHint: 'ole tangerine',
+    farmerId: '2',
+    description: 'Mexerica Olé, de casca fina e sabor adocicado, fácil de descascar.',
+    status: 'active',
+  },
+  {
+    id: '119',
+    name: 'Ovos Yamaguishi Orgânicos',
+    category: 'Laticínio',
+    price: 15.00,
+    unit: 'dúzia',
+    image: 'https://placehold.co/600x400.png',
+    dataAiHint: 'yamaguishi eggs',
+    farmerId: '3',
+    description: 'Ovos Yamaguishi, conhecidos por sua qualidade superior e gemas de cor intensa.',
+    status: 'active',
   }
 ];
 
@@ -1720,6 +1792,7 @@ const defaultProductImages = new Map<string, string>([
     ['rucula selvagem', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/rucula_selvagem.webp?alt=media&token=96d7f629-4be6-46c7-9e67-3108758865c7'],
     ['rucula', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/rucula_cultivada.webp?alt=media&token=e5386372-e97f-479e-9559-eb3202d5e946'],
     ['mamao formosa', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mamao_formosa.webp?alt=media&token=7887ce63-fb00-42fe-a5d3-8f70e128bdb3'],
+    ['ovos yamaguishi', 'https://placehold.co/600x400.png'],
     ['ovos', 'https://placehold.co/600x400.png'],
     ['gengibre', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/gengibre.webp?alt=media&token=b70596de-b66f-4c39-a8c9-6951a442ff84'],
     ['cúrcuma', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/curcuma.webp?alt=media&token=52fffeff-7486-4cab-9021-81331e7c5cc6'],
@@ -1743,6 +1816,7 @@ const defaultProductImages = new Map<string, string>([
     ['limão siciliano', 'https://placehold.co/600x400.png'],
     ['limão cravo', 'https://placehold.co/600x400.png'],
     ['limão galego', 'https://placehold.co/600x400.png'],
+    ['pepino caipira', 'https://placehold.co/600x400.png'],
     ['pepino', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pepino.webp?alt=media&token=e47fbf50-b714-4f92-846c-5e6e63d284e1'],
     ['kiwi', 'https://placehold.co/600x400.png'],
     ['tangerina murcote', 'https://placehold.co/600x400.png'],
@@ -1769,6 +1843,10 @@ const defaultProductImages = new Map<string, string>([
     ['oregano', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/oregano.webp?alt=media&token=0b64f7ac-1aa4-4e21-a6b0-67eee4c6124e'],
     ['china', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/china.webp?alt=media&token=39bf916d-67aa-4534-81f6-cdade5a4aeca'],
     ['capuchinha', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/capuchinha.webp?alt=media&token=beb2ab63-17f2-4044-8b3a-30561cacf991'],
+    ['quiabo', 'https://placehold.co/600x400.png'],
+    ['jilo', 'https://placehold.co/600x400.png'],
+    ['mini melancia', 'https://placehold.co/600x400.png'],
+    ['mexerica ole', 'https://placehold.co/600x400.png'],
 ]);
 
 
@@ -1997,6 +2075,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
     return undefined;
 }
+
 
 
 
