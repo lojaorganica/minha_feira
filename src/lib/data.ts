@@ -1244,7 +1244,7 @@ let products: Product[] = [
     price: 8.50,
     unitAmount: 1,
     unit: 'kg',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/feijao_vermelho.webp?alt=media&token=0eb5f6e0-33fc-4407-a608-9c44bf770c5f',
     dataAiHint: 'red beans',
     farmerId: '1',
     description: 'Feijão vermelho orgânico, ideal para sopas, saladas e pratos com sabor mais robusto.',
@@ -1643,7 +1643,7 @@ const defaultProductImages = new Map<string, string>([
     ['vagem', 'https://placehold.co/600x400.png'],
     ['feijao preto', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/feijao_preto.webp?alt=media&token=37fb877a-32f5-419f-a2fd-eb01841d991d'],
     ['feijao carioca', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/feijao_carioca.webp?alt=media&token=67c3dfb7-4e77-4593-a133-3a7fd51f1ef2'],
-    ['feijao vermelho', 'https://placehold.co/600x400.png'],
+    ['feijao vermelho', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/feijao_vermelho.webp?alt=media&token=0eb5f6e0-33fc-4407-a608-9c44bf770c5f'],
     ['oregano', 'https://placehold.co/600x400.png'],
 ]);
 
@@ -1873,6 +1873,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
     return undefined;
 }
+
 
 
 
