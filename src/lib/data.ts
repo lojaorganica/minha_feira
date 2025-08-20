@@ -958,7 +958,7 @@ let products: Product[] = [
     price: 3.50,
     unitAmount: 1,
     unit: 'kg',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pepino.webp?alt=media&token=e47fbf50-b714-4f92-846c-5e6e63d284e1',
     dataAiHint: 'cucumber',
     farmerId: '1',
     description: 'Pepino japonês orgânico, com menos sementes e casca fina, perfeito para saladas crocantes.',
@@ -1621,7 +1621,7 @@ const defaultProductImages = new Map<string, string>([
     ['limão siciliano', 'https://placehold.co/600x400.png'],
     ['limão cravo', 'https://placehold.co/600x400.png'],
     ['limão galego', 'https://placehold.co/600x400.png'],
-    ['pepino', 'https://placehold.co/600x400.png'],
+    ['pepino', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pepino.webp?alt=media&token=e47fbf50-b714-4f92-846c-5e6e63d284e1'],
     ['kiwi', 'https://placehold.co/600x400.png'],
     ['tangerina murcote', 'https://placehold.co/600x400.png'],
     ['abóbora paulistinha', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/abobora_paulistinha.webp?alt=media&token=085ac67e-9468-4e75-90f7-0698285bcc35'],
@@ -1873,6 +1873,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
     return undefined;
 }
+
 
 
 
