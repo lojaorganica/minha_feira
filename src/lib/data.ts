@@ -1153,7 +1153,7 @@ let products: Product[] = [
     price: 2.80,
     unitAmount: 1,
     unit: 'maço',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/hortela.webp?alt=media&token=97dacb1f-e59f-4891-9176-73eec1e16188',
     dataAiHint: 'mint',
     farmerId: '1',
     description: 'Hortelã fresca e aromática, perfeita para chás, sucos, quibes e sobremesas.',
@@ -1635,7 +1635,7 @@ const defaultProductImages = new Map<string, string>([
     ['espinafre', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/espinafre.webp?alt=media&token=314e18aa-482f-4cef-badc-db518683d218'],
     ['laranja bahia', 'https://placehold.co/600x400.png'],
     ['laranja seleta', 'https://placehold.co/600x400.png'],
-    ['hortelã', 'https://placehold.co/600x400.png'],
+    ['hortelã', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/hortela.webp?alt=media&token=97dacb1f-e59f-4891-9176-73eec1e16188'],
     ['poejo', 'https://placehold.co/600x400.png'],
     ['radicchio', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/radicchio.webp?alt=media&token=473281ea-32f7-4a12-a93a-23a821b91505'],
     ['milho verde', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/milho_verde.webp?alt=media&token=06cf8e19-7d36-42eb-8b27-cde60f2c41d6'],
@@ -1873,6 +1873,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
     return undefined;
 }
+
 
 
 
