@@ -1353,6 +1353,19 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Alface Frisée com folhas finas e um leve amargor, ótima para saladas com molhos cremosos.',
     status: 'active',
+  },
+  {
+    id: '108',
+    name: 'China Orgânica',
+    category: 'Vegetal',
+    price: 3.80,
+    unitAmount: 1,
+    unit: 'maço',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/china.webp?alt=media&token=39bf916d-67aa-4534-81f6-cdade5a4aeca',
+    dataAiHint: 'chinese cabbage',
+    farmerId: '1',
+    description: 'China (ou couve chinesa) de textura crocante, ideal para o preparo de saladas e refogados.',
+    status: 'active',
   }
 ];
 
@@ -1688,6 +1701,7 @@ const defaultProductImages = new Map<string, string>([
     ['feijao carioca', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/feijao_carioca.webp?alt=media&token=67c3dfb7-4e77-4593-a133-3a7fd51f1ef2'],
     ['feijao vermelho', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/feijao_vermelho.webp?alt=media&token=0eb5f6e0-33fc-4407-a608-9c44bf770c5f'],
     ['oregano', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/oregano.webp?alt=media&token=0b64f7ac-1aa4-4e21-a6b0-67eee4c6124e'],
+    ['china', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/china.webp?alt=media&token=39bf916d-67aa-4534-81f6-cdade5a4aeca'],
 ]);
 
 
@@ -1916,6 +1930,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
     return undefined;
 }
+
 
 
 
