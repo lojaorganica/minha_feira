@@ -1363,7 +1363,6 @@ let products: Product[] = [
     unit: 'maço',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/china.webp?alt=media&token=39bf916d-67aa-4534-81f6-cdade5a4aeca',
     dataAiHint: 'pak choi',
-    farmerId: '1',
     description: 'Também conhecida como Pak Choi, esta verdura asiática tem talos crocantes e sabor suave. É muito versátil para refogados, sopas e saladas.',
     status: 'active',
   },
@@ -1391,6 +1390,45 @@ let products: Product[] = [
     dataAiHint: 'wild arugula',
     farmerId: '1',
     description: 'Com sabor mais intenso e picante que a rúcula cultivada, ótima para saladas marcantes.',
+    status: 'active',
+  },
+  {
+    id: '111',
+    name: 'Tomate Salada',
+    category: 'Fruta',
+    price: 4.80,
+    unitAmount: 1,
+    unit: 'kg',
+    image: 'https://placehold.co/600x400.png',
+    dataAiHint: 'salad tomato',
+    farmerId: '2',
+    description: 'Tomate para salada, firme e com poucas sementes, ideal para fatiar.',
+    status: 'active',
+  },
+  {
+    id: '112',
+    name: 'Tomate Cereja',
+    category: 'Fruta',
+    price: 5.00,
+    unitAmount: 1,
+    unit: 'caixa',
+    image: 'https://placehold.co/600x400.png',
+    dataAiHint: 'cherry tomato',
+    farmerId: '2',
+    description: 'Tomate cereja, pequeno e adocicado, ótimo para saladas, espetinhos e aperitivos.',
+    status: 'active',
+  },
+  {
+    id: '113',
+    name: 'Tomate Grape',
+    category: 'Fruta',
+    price: 5.50,
+    unitAmount: 1,
+    unit: 'caixa',
+    image: 'https://placehold.co/600x400.png',
+    dataAiHint: 'grape tomato',
+    farmerId: '2',
+    description: 'Tomatinhos grape, pequenos e muito doces, perfeitos para lanches e saladas.',
     status: 'active',
   }
 ];
@@ -1959,6 +1997,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
     return undefined;
 }
+
 
 
 
