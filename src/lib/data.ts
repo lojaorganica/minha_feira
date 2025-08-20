@@ -1036,7 +1036,7 @@ let products: Product[] = [
     price: 2.50,
     unitAmount: 1,
     unit: 'maço',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/salsa.webp?alt=media&token=dca13030-a3a2-43ea-b5ef-b33e5fb918e0',
     dataAiHint: 'parsley',
     farmerId: '1',
     description: 'Salsa (ou salsinha) fresca, um dos temperos mais versáteis e usados na culinária.',
@@ -1683,7 +1683,7 @@ const defaultProductImages = new Map<string, string>([
     ['abóbora paulistinha', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/abobora_paulistinha.webp?alt=media&token=085ac67e-9468-4e75-90f7-0698285bcc35'],
     ['abóbora moranga', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/abobora_moranga.webp?alt=media&token=f4ba0711-99f5-4cd5-bd0f-41fafaf1bcd0'],
     ['mostarda', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mostarda.webp?alt=media&token=4e6b4187-dc70-41c2-904d-7ec8572c31b0'],
-    ['salsa', 'https://placehold.co/600x400.png'],
+    ['salsa', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/salsa.webp?alt=media&token=dca13030-a3a2-43ea-b5ef-b33e5fb918e0'],
     ['chicória', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/chicoria.webp?alt=media&token=64cf0f70-4063-4ca5-96a1-4c8026705058'],
     ['rabanete', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/rabanete.webp?alt=media&token=fd084d85-6e5f-4519-ae09-e0606e54b063'],
     ['alface romana', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_romana.webp?alt=media&token=f0a4afb0-0d99-48ad-88a2-0e3a8f048d17'],
@@ -1930,6 +1930,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
     return undefined;
 }
+
 
 
 
