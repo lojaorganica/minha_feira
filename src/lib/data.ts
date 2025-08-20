@@ -1393,45 +1393,6 @@ let products: Product[] = [
     status: 'active',
   },
   {
-    id: '111',
-    name: 'Tomate Salada',
-    category: 'Fruta',
-    price: 4.80,
-    unitAmount: 1,
-    unit: 'kg',
-    image: 'https://placehold.co/600x400.png',
-    dataAiHint: 'salad tomato',
-    farmerId: '2',
-    description: 'Tomate para salada, firme e com poucas sementes, ideal para fatiar.',
-    status: 'active',
-  },
-  {
-    id: '112',
-    name: 'Tomate Cereja',
-    category: 'Fruta',
-    price: 5.00,
-    unitAmount: 1,
-    unit: 'caixa',
-    image: 'https://placehold.co/600x400.png',
-    dataAiHint: 'cherry tomato',
-    farmerId: '2',
-    description: 'Tomate cereja, pequeno e adocicado, ótimo para saladas, espetinhos e aperitivos.',
-    status: 'active',
-  },
-  {
-    id: '113',
-    name: 'Tomate Grape',
-    category: 'Fruta',
-    price: 5.50,
-    unitAmount: 1,
-    unit: 'caixa',
-    image: 'https://placehold.co/600x400.png',
-    dataAiHint: 'grape tomato',
-    farmerId: '2',
-    description: 'Tomatinhos grape, pequenos e muito doces, perfeitos para lanches e saladas.',
-    status: 'active',
-  },
-  {
     id: '114',
     name: 'Quiabo Orgânico',
     category: 'Vegetal',
@@ -2075,6 +2036,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
     return undefined;
 }
+
 
 
 
