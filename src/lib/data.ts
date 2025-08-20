@@ -146,19 +146,6 @@ let products: Product[] = [
     status: 'active',
   },
   {
-    id: '12',
-    name: 'Pimentões Orgânicos',
-    category: 'Vegetal',
-    price: 2.75,
-    unitAmount: 1,
-    unit: 'kg',
-    image: 'https://placehold.co/600x400.png',
-    dataAiHint: 'bell peppers',
-    farmerId: '1',
-    description: 'Uma mistura colorida de pimentões doces.',
-    status: 'active',
-  },
-  {
     id: '13',
     name: 'Maçã Fuji Orgânica',
     category: 'Fruta',
@@ -1314,6 +1301,45 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Alface Mimosa Roxa com folhas tenras e um toque de cor, ideal para saladas sofisticadas.',
     status: 'active',
+  },
+  {
+    id: '104',
+    name: 'Pimentão Verde Orgânico',
+    category: 'Vegetal',
+    price: 2.80,
+    unitAmount: 1,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pimentao_verde.webp?alt=media&token=e93a384f-c567-4d1a-9f4a-7140f7b09335',
+    dataAiHint: 'green bell pepper',
+    farmerId: '1',
+    description: 'Pimentão verde orgânico, ideal para rechear, assar ou usar em refogados.',
+    status: 'active',
+  },
+  {
+    id: '105',
+    name: 'Pimentão Vermelho Orgânico',
+    category: 'Vegetal',
+    price: 3.20,
+    unitAmount: 1,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pimentao_vermelho.webp?alt=media&token=d10b7b1b-9e4a-4b9e-8b1b-7e6d6e7f8e8e',
+    dataAiHint: 'red bell pepper',
+    farmerId: '1',
+    description: 'Pimentão vermelho orgânico, de sabor adocicado, perfeito para saladas, assados e molhos.',
+    status: 'active',
+  },
+  {
+    id: '106',
+    name: 'Pimentão Amarelo Orgânico',
+    category: 'Vegetal',
+    price: 3.20,
+    unitAmount: 1,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pimentao_amarelo.webp?alt=media&token=c4a9a8f2-8e0c-4e8a-8a6a-0c5d5e5f4d4d',
+    dataAiHint: 'yellow bell pepper',
+    farmerId: '1',
+    description: 'Pimentão amarelo orgânico, de sabor suave e adocicado, ótimo para saladas e pratos coloridos.',
+    status: 'active',
   }
 ];
 
@@ -1563,7 +1589,10 @@ const defaultProductImages = new Map<string, string>([
     ['laranja', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/laranja_pera.webp?alt=media&token=b4db9a4e-b349-4805-ac9d-fee1fcb4d5d8'],
     ['iogurte', 'https://placehold.co/600x400.png'],
     ['baguete', 'https://placehold.co/600x400.png'],
-    ['pimentão', 'https://placehold.co/600x400.png'],
+    ['pimentao verde', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pimentao_verde.webp?alt=media&token=e93a384f-c567-4d1a-9f4a-7140f7b09335'],
+    ['pimentao vermelho', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pimentao_vermelho.webp?alt=media&token=d10b7b1b-9e4a-4b9e-8b1b-7e6d6e7f8e8e'],
+    ['pimentao amarelo', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pimentao_amarelo.webp?alt=media&token=c4a9a8f2-8e0c-4e8a-8a6a-0c5d5e5f4d4d'],
+    ['pimentao', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pimentao_verde.webp?alt=media&token=e93a384f-c567-4d1a-9f4a-7140f7b09335'],
     ['manga palmer', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/manga_palmer.webp?alt=media&token=fdf4085f-fbef-41b1-be8a-a613dde3c2e4'],
     ['alho', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alho.webp?alt=media&token=8071bc57-cdd1-4105-98da-6253f6f13050'],
     ['tangerina pokan', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tangerina_pokan.webp?alt=media&token=ca18499e-b35d-43f7-9b73-9c77684ef3b4'],
@@ -1873,6 +1902,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
     return undefined;
 }
+
 
 
 
