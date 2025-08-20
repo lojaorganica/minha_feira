@@ -1364,7 +1364,7 @@ let products: Product[] = [
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/china.webp?alt=media&token=39bf916d-67aa-4534-81f6-cdade5a4aeca',
     dataAiHint: 'pak choi',
     farmerId: '1',
-    description: 'Também conhecida como Pak Choi, esta verdura de origem asiática tem talos crocantes e folhas macias com um sabor suave e levemente adocicado. É extremamente versátil, podendo ser usada em refogados, sopas, salteados ou até mesmo consumida crua em saladas.',
+    description: 'Também conhecida como Pak Choi, esta verdura asiática tem talos crocantes e sabor suave. É muito versátil para refogados, sopas e saladas.',
     status: 'active',
   }
 ];
@@ -1930,6 +1930,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
     return undefined;
 }
+
 
 
 
