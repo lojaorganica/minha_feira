@@ -615,12 +615,12 @@ let products: Product[] = [
   },
   {
     id: '49',
-    name: 'Rúcula Orgânica',
+    name: 'Rúcula Cultivada Orgânica',
     category: 'Vegetal',
     price: 3.50,
     unitAmount: 1,
     unit: 'maço',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/rucula_cultivada.webp?alt=media&token=e5386372-e97f-479e-9559-eb3202d5e946',
     dataAiHint: 'arugula',
     farmerId: '1',
     description: 'Rúcula com sabor picante e folhas tenras, excelente em saladas e pizzas.',
@@ -1356,7 +1356,7 @@ let products: Product[] = [
   },
   {
     id: '108',
-    name: 'China Orgânica',
+    name: 'China',
     category: 'Vegetal',
     price: 3.80,
     unitAmount: 1,
@@ -1365,6 +1365,32 @@ let products: Product[] = [
     dataAiHint: 'pak choi',
     farmerId: '1',
     description: 'Também conhecida como Pak Choi, esta verdura asiática tem talos crocantes e sabor suave. É muito versátil para refogados, sopas e saladas.',
+    status: 'active',
+  },
+  {
+    id: '109',
+    name: 'Capuchinha',
+    category: 'Vegetal',
+    price: 4.00,
+    unitAmount: 1,
+    unit: 'maço',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/capuchinha.webp?alt=media&token=beb2ab63-17f2-4044-8b3a-30561cacf991',
+    dataAiHint: 'nasturtium',
+    farmerId: '1',
+    description: 'Flores e folhas comestíveis com um sabor picante semelhante ao agrião, ideais para saladas.',
+    status: 'active',
+  },
+  {
+    id: '110',
+    name: 'Rúcula Selvagem',
+    category: 'Vegetal',
+    price: 4.00,
+    unitAmount: 1,
+    unit: 'maço',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/rucula_selvagem.webp?alt=media&token=96d7f629-4be6-46c7-9e67-3108758865c7',
+    dataAiHint: 'wild arugula',
+    farmerId: '1',
+    description: 'Com sabor mais intenso e picante que a rúcula cultivada, ótima para saladas marcantes.',
     status: 'active',
   }
 ];
@@ -1652,7 +1678,9 @@ const defaultProductImages = new Map<string, string>([
     ['repolho verde', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/repolho_verde.webp?alt=media&token=8a4ea4ee-bcac-4757-a54d-f0a4b095a9dc'],
     ['repolho roxo', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/repolho_roxo.webp?alt=media&token=2ea7df6f-0845-4042-aa71-38812b164b6a'],
     ['maçã gala', 'https://placehold.co/600x400.png'],
-    ['rúcula', 'https://placehold.co/600x400.png'],
+    ['rucula cultivada', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/rucula_cultivada.webp?alt=media&token=e5386372-e97f-479e-9559-eb3202d5e946'],
+    ['rucula selvagem', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/rucula_selvagem.webp?alt=media&token=96d7f629-4be6-46c7-9e67-3108758865c7'],
+    ['rucula', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/rucula_cultivada.webp?alt=media&token=e5386372-e97f-479e-9559-eb3202d5e946'],
     ['mamao formosa', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mamao_formosa.webp?alt=media&token=7887ce63-fb00-42fe-a5d3-8f70e128bdb3'],
     ['ovos', 'https://placehold.co/600x400.png'],
     ['gengibre', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/gengibre.webp?alt=media&token=b70596de-b66f-4c39-a8c9-6951a442ff84'],
@@ -1702,6 +1730,7 @@ const defaultProductImages = new Map<string, string>([
     ['feijao vermelho', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/feijao_vermelho.webp?alt=media&token=0eb5f6e0-33fc-4407-a608-9c44bf770c5f'],
     ['oregano', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/oregano.webp?alt=media&token=0b64f7ac-1aa4-4e21-a6b0-67eee4c6124e'],
     ['china', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/china.webp?alt=media&token=39bf916d-67aa-4534-81f6-cdade5a4aeca'],
+    ['capuchinha', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/capuchinha.webp?alt=media&token=beb2ab63-17f2-4044-8b3a-30561cacf991'],
 ]);
 
 
@@ -1930,6 +1959,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
     return undefined;
 }
+
 
 
 
