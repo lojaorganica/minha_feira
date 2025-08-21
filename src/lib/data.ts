@@ -1542,7 +1542,7 @@ let products: Product[] = [
     price: 7.50,
     unitAmount: 1,
     unit: 'kg',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/carambola.webp?alt=media&token=57b1c4f3-5d99-4bc3-ae84-b627807beed3',
     dataAiHint: 'star fruit',
     farmerId: '2',
     description: 'Carambola orgânica, com seu formato de estrela e sabor agridoce, ótima para sucos e decoração.',
@@ -1990,7 +1990,7 @@ const defaultProductImages = new Map<string, string>([
     ['mexerica ole', 'https://placehold.co/600x400.png'],
     ['caqui', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/caqui.webp?alt=media&token=6d9835e9-ae1c-4cb0-83e3-e839ccb780c2'],
     ['caju', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/caju.webp?alt=media&token=7a76f64c-ed10-4451-8112-5d09020049b9'],
-    ['carambola', 'https://placehold.co/600x400.png'],
+    ['carambola', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/carambola.webp?alt=media&token=57b1c4f3-5d99-4bc3-ae84-b627807beed3'],
     ['uva vitoria', 'https://placehold.co/600x400.png'],
     ['pera williams', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pera_williams.webp?alt=media&token=5bb791b0-9f75-4cd6-9a50-c4a978b351b7'],
     ['pera', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pera_williams.webp?alt=media&token=5bb791b0-9f75-4cd6-9a50-c4a978b351b7'],
@@ -2263,3 +2263,6 @@ export function updateCustomerClassification(customerId: string, classification:
 
 
 
+
+
+    
