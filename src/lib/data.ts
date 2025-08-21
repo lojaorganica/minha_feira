@@ -451,7 +451,7 @@ let products: Product[] = [
     price: 8.00,
     unitAmount: 1,
     unit: 'kg',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/ameixa.webp?alt=media&token=9216759e-b1b0-44ce-9404-09cd0503a111',
     dataAiHint: 'plum',
     farmerId: '2',
     description: 'Ameixas orgânicas doces e suculentas, perfeitas para comer in natura ou fazer geleias.',
@@ -477,7 +477,7 @@ let products: Product[] = [
     price: 9.50,
     unitAmount: 1,
     unit: 'caixa',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/amora.webp?alt=media&token=75996ac4-1ab9-41b4-9ebd-cff5a876e295',
     dataAiHint: 'blackberry',
     farmerId: '2',
     description: 'Amoras orgânicas, ricas em antioxidantes e sabor agridoce.',
@@ -1362,7 +1362,6 @@ let products: Product[] = [
     unit: 'maço',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/china.webp?alt=media&token=39bf916d-67aa-4534-81f6-cdade5a4aeca',
     dataAiHint: 'pak choi',
-    farmerId: '1',
     description: 'Também conhecida como Pak Choi, esta verdura asiática tem talos crocantes e sabor suave. É muito versátil para refogados, sopas e saladas.',
     status: 'active',
   },
@@ -1878,9 +1877,9 @@ const defaultProductImages = new Map<string, string>([
     ['abacate', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/abacate.webp?alt=media&token=90d0ec6c-ca97-40eb-b694-5f489d925864'],
     ['aipim', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/aipim.webp?alt=media&token=ab467c17-50b2-4319-8aad-0845e323b526'],
     ['almeirão', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/almeirao.webp?alt=media&token=de89169e-8993-46bd-9c82-5a9d289ebdc3'],
-    ['ameixa', 'https://placehold.co/600x400.png'],
+    ['ameixa', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/ameixa.webp?alt=media&token=9216759e-b1b0-44ce-9404-09cd0503a111'],
     ['abobrinha italiana', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/abobrinha_italiana.webp?alt=media&token=1c5c4cae-04b4-497f-99bf-94b09f8cdc7d'],
-    ['amora', 'https://placehold.co/600x400.png'],
+    ['amora', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/amora.webp?alt=media&token=75996ac4-1ab9-41b4-9ebd-cff5a876e295'],
     ['azedinha', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/azedinha.webp?alt=media&token=9e5fa2ef-55b7-4e80-860c-691ae12f24f8'],
     ['banana dagua', 'https://placehold.co/600x400.png'],
     ['banana nanica', 'https://placehold.co/600x400.png'],
@@ -2183,6 +2182,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
     return undefined;
 }
+
 
 
 
