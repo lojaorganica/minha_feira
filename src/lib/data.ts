@@ -1510,7 +1510,7 @@ let products: Product[] = [
     category: 'Fruta',
     price: 8.00,
     unit: 'kg',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/caqui.webp?alt=media&token=6d9835e9-ae1c-4cb0-83e3-e839ccb780c2',
     dataAiHint: 'persimmon',
     farmerId: '2',
     description: 'Caqui orgânico doce e de polpa macia, uma delícia de sobremesa.',
@@ -1949,7 +1949,7 @@ const defaultProductImages = new Map<string, string>([
     ['jilo', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/jilo.webp?alt=media&token=21a949a4-5df3-4b27-ae98-7469466f94be'],
     ['mini melancia', 'https://placehold.co/600x400.png'],
     ['mexerica ole', 'https://placehold.co/600x400.png'],
-    ['caqui', 'https://placehold.co/600x400.png'],
+    ['caqui', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/caqui.webp?alt=media&token=6d9835e9-ae1c-4cb0-83e3-e839ccb780c2'],
     ['caju', 'https://placehold.co/600x400.png'],
     ['carambola', 'https://placehold.co/600x400.png'],
     ['uva vitoria', 'https://placehold.co/600x400.png'],
@@ -2181,6 +2181,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
     return undefined;
 }
+
 
 
 
