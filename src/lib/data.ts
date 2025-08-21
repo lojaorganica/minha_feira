@@ -1413,7 +1413,7 @@ let products: Product[] = [
     price: 4.50,
     unitAmount: 1,
     unit: 'kg',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/jilo.webp?alt=media&token=21a949a4-5df3-4b27-ae98-7469466f94be',
     dataAiHint: 'scarlet eggplant',
     farmerId: '1',
     description: 'Jiló orgânico com seu sabor amargo característico, perfeito para fritadas e conservas.',
@@ -1949,7 +1949,7 @@ const defaultProductImages = new Map<string, string>([
     ['china', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/china.webp?alt=media&token=39bf916d-67aa-4534-81f6-cdade5a4aeca'],
     ['capuchinha', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/capuchinha.webp?alt=media&token=beb2ab63-17f2-4044-8b3a-30561cacf991'],
     ['quiabo', 'https://placehold.co/600x400.png'],
-    ['jilo', 'https://placehold.co/600x400.png'],
+    ['jilo', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/jilo.webp?alt=media&token=21a949a4-5df3-4b27-ae98-7469466f94be'],
     ['mini melancia', 'https://placehold.co/600x400.png'],
     ['mexerica ole', 'https://placehold.co/600x400.png'],
     ['caqui', 'https://placehold.co/600x400.png'],
@@ -2184,6 +2184,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
     return undefined;
 }
+
 
 
 
