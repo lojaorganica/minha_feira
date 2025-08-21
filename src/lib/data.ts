@@ -1363,6 +1363,7 @@ let products: Product[] = [
     unit: 'maço',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/china.webp?alt=media&token=39bf916d-67aa-4534-81f6-cdade5a4aeca',
     dataAiHint: 'pak choi',
+    farmerId: '1',
     description: 'Também conhecida como Pak Choi, esta verdura asiática tem talos crocantes e sabor suave. É muito versátil para refogados, sopas e saladas.',
     status: 'active',
   },
@@ -1500,7 +1501,7 @@ let products: Product[] = [
     category: 'Vegetal',
     price: 4.80,
     unit: 'unidade',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/brocolis_brasileiro.webp?alt=media&token=30d32afc-e5e7-4f0e-a740-e43efeda8862',
     dataAiHint: 'brazilian broccoli',
     farmerId: '1',
     description: 'Brócolis brasileiro (de rama), com talos e folhas comestíveis, ótimo em refogados.',
@@ -1836,7 +1837,7 @@ const defaultProductImages = new Map<string, string>([
     ['alface mimosa roxa', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_mimosa_roxa.webp?alt=media&token=c8b001dc-6f00-486f-af0a-22c99ed83d01'],
     ['alface mimosa', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_mimosa_verde.webp?alt=media&token=4635346b-69f9-4a54-94b6-8cb1b85f4afb'],
     ['alface frisee', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_frisee.webp?alt=media&token=060f2493-fb76-4a37-b40a-5de7bd0981c9'],
-    ['brocolis brasileiro', 'https://placehold.co/600x400.png'],
+    ['brocolis brasileiro', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/brocolis_brasileiro.webp?alt=media&token=30d32afc-e5e7-4f0e-a740-e43efeda8862'],
     ['brocolis americano', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/brocolis_americano.webp?alt=media&token=fd124564-9af1-438e-8e3b-34c320279c8b'],
     ['brocolis', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/brocolis_americano.webp?alt=media&token=fd124564-9af1-438e-8e3b-34c320279c8b'],
     ['beterraba', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/beterraba.webp?alt=media&token=d33b9ad6-d6c9-4641-b2fc-e4ed9893cbb0'],
@@ -2183,6 +2184,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
     return undefined;
 }
+
 
 
 
