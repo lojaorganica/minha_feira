@@ -38,9 +38,9 @@ function getFairDisplayName(fair: string): string {
     if (doExceptions.includes(fair)) {
         return `Feira do ${fair}`;
     }
-    const deExceptions = ['Laranjeiras'];
+    const deExceptions = ['Laranjeiras', 'Botafogo'];
     if (deExceptions.includes(fair)) {
-        return `Feira de ${deExceptions}`;
+        return `Feira de ${fair}`;
     }
     return `Feira da ${fair}`;
 }
@@ -790,3 +790,5 @@ export default function DashboardPage() {
         </Suspense>
     );
 }
+
+    
