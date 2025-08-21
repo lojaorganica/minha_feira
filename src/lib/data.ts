@@ -1426,7 +1426,7 @@ let products: Product[] = [
     price: 3.80,
     unitAmount: 1,
     unit: 'kg',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pepino_caipira.webp?alt=media&token=5e96c1ce-de1b-475d-9d12-4fa0b6d269e4',
     dataAiHint: 'caipira cucumber',
     farmerId: '1',
     description: 'Pepino caipira, com casca mais clara e sabor suave, ótimo para saladas do dia a dia.',
@@ -1921,7 +1921,7 @@ const defaultProductImages = new Map<string, string>([
     ['limão siciliano', 'https://placehold.co/600x400.png'],
     ['limão cravo', 'https://placehold.co/600x400.png'],
     ['limão galego', 'https://placehold.co/600x400.png'],
-    ['pepino caipira', 'https://placehold.co/600x400.png'],
+    ['pepino caipira', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pepino_caipira.webp?alt=media&token=5e96c1ce-de1b-475d-9d12-4fa0b6d269e4'],
     ['pepino', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pepino.webp?alt=media&token=e47fbf50-b714-4f92-846c-5e6e63d284e1'],
     ['kiwi', 'https://placehold.co/600x400.png'],
     ['tangerina murcote', 'https://placehold.co/600x400.png'],
@@ -2184,6 +2184,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
     return undefined;
 }
+
 
 
 
