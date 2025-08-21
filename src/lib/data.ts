@@ -1358,8 +1358,7 @@ let products: Product[] = [
     id: '108',
     name: 'China',
     category: 'Vegetal',
-    price: 3.80,
-    unitAmount: 1,
+    price: 3.8,
     unit: 'maço',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/china.webp?alt=media&token=39bf916d-67aa-4534-81f6-cdade5a4aeca',
     dataAiHint: 'pak choi',
@@ -1397,10 +1396,10 @@ let products: Product[] = [
     id: '114',
     name: 'Quiabo Orgânico',
     category: 'Vegetal',
-    price: 5.00,
+    price: 5,
     unitAmount: 1,
     unit: 'kg',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/quiabo.webp?alt=media&token=de5f050e-8c83-46ab-9671-e370b659ff1f',
     dataAiHint: 'okra',
     farmerId: '1',
     description: 'Quiabo orgânico fresco, ideal para refogados, saladas e o prato típico "frango com quiabo".',
@@ -1948,7 +1947,7 @@ const defaultProductImages = new Map<string, string>([
     ['oregano', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/oregano.webp?alt=media&token=0b64f7ac-1aa4-4e21-a6b0-67eee4c6124e'],
     ['china', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/china.webp?alt=media&token=39bf916d-67aa-4534-81f6-cdade5a4aeca'],
     ['capuchinha', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/capuchinha.webp?alt=media&token=beb2ab63-17f2-4044-8b3a-30561cacf991'],
-    ['quiabo', 'https://placehold.co/600x400.png'],
+    ['quiabo', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/quiabo.webp?alt=media&token=de5f050e-8c83-46ab-9671-e370b659ff1f'],
     ['jilo', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/jilo.webp?alt=media&token=21a949a4-5df3-4b27-ae98-7469466f94be'],
     ['mini melancia', 'https://placehold.co/600x400.png'],
     ['mexerica ole', 'https://placehold.co/600x400.png'],
@@ -2184,6 +2183,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
     return undefined;
 }
+
 
 
 
