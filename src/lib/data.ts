@@ -503,7 +503,7 @@ let products: Product[] = [
     price: 5.00,
     unitAmount: 1,
     unit: 'dúzia',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/banana_dagua.webp?alt=media&token=e09c1df0-0a4c-42eb-b356-d668db6e80c9',
     dataAiHint: 'nanica banana',
     farmerId: '2',
     description: 'Banana d\'água, também conhecida como nanica, doce e macia, ideal para sobremesas.',
@@ -516,7 +516,7 @@ let products: Product[] = [
     price: 5.00,
     unitAmount: 1,
     unit: 'dúzia',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/banana_nanica.webp?alt=media&token=f55bf317-5650-497b-92a7-0d6da754f1b1',
     dataAiHint: 'dwarf banana',
     farmerId: '2',
     description: 'Banana nanica orgânica, doce e macia, ideal para sobremesas e consumo diário.',
@@ -1361,7 +1361,6 @@ let products: Product[] = [
     price: 3.8,
     unit: 'maço',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/china.webp?alt=media&token=39bf916d-67aa-4534-81f6-cdade5a4aeca',
-    dataAiHint: 'pak choi',
     description: 'Também conhecida como Pak Choi, esta verdura asiática tem talos crocantes e sabor suave. É muito versátil para refogados, sopas e saladas.',
     status: 'active',
   },
@@ -1881,8 +1880,8 @@ const defaultProductImages = new Map<string, string>([
     ['abobrinha italiana', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/abobrinha_italiana.webp?alt=media&token=1c5c4cae-04b4-497f-99bf-94b09f8cdc7d'],
     ['amora', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/amora.webp?alt=media&token=75996ac4-1ab9-41b4-9ebd-cff5a876e295'],
     ['azedinha', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/azedinha.webp?alt=media&token=9e5fa2ef-55b7-4e80-860c-691ae12f24f8'],
-    ['banana dagua', 'https://placehold.co/600x400.png'],
-    ['banana nanica', 'https://placehold.co/600x400.png'],
+    ['banana dagua', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/banana_dagua.webp?alt=media&token=e09c1df0-0a4c-42eb-b356-d668db6e80c9'],
+    ['banana nanica', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/banana_nanica.webp?alt=media&token=f55bf317-5650-497b-92a7-0d6da754f1b1'],
     ['coentro', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/coentro.webp?alt=media&token=d4bb207b-4d74-4de4-bc80-8843dd338010'],
     ['cebolinha', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/cebolinha.webp?alt=media&token=48e03912-a30e-4032-94b8-9a84b6209d3e'],
     ['cebola roxa', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/cebola_roxa.webp?alt=media&token=e2c5234f-af01-4481-a046-71295fe900fe'],
@@ -2182,6 +2181,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
     return undefined;
 }
+
 
 
 
