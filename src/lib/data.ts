@@ -1625,6 +1625,19 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Pera Williams com polpa macia, suculenta e muito aromática, ideal para consumo in natura e sobremesas.',
     status: 'active',
+  },
+  {
+    id: '132',
+    name: 'Pêssego Orgânico',
+    category: 'Fruta',
+    price: 8.50,
+    unitAmount: 1,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pessego.webp?alt=media&token=40ca1fb9-a000-4b9e-bbd5-52775e5d0720',
+    dataAiHint: 'peach',
+    farmerId: '2',
+    description: 'Pêssegos orgânicos, macios e suculentos, com um sabor doce e aveludado, perfeitos para comer in natura ou em sobremesas.',
+    status: 'active',
   }
 ];
 
@@ -1981,6 +1994,7 @@ const defaultProductImages = new Map<string, string>([
     ['uva vitoria', 'https://placehold.co/600x400.png'],
     ['pera williams', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pera_williams.webp?alt=media&token=5bb791b0-9f75-4cd6-9a50-c4a978b351b7'],
     ['pera', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pera_williams.webp?alt=media&token=5bb791b0-9f75-4cd6-9a50-c4a978b351b7'],
+    ['pessego', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pessego.webp?alt=media&token=40ca1fb9-a000-4b9e-bbd5-52775e5d0720'],
 ]);
 
 
@@ -2209,6 +2223,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
     return undefined;
 }
+
 
 
 
