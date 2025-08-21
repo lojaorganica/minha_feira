@@ -1359,8 +1359,10 @@ let products: Product[] = [
     name: 'China',
     category: 'Vegetal',
     price: 3.8,
+    unitAmount: 1,
     unit: 'maço',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/china.webp?alt=media&token=39bf916d-67aa-4534-81f6-cdade5a4aeca',
+    farmerId: '1',
     description: 'Também conhecida como Pak Choi, esta verdura asiática tem talos crocantes e sabor suave. É muito versátil para refogados, sopas e saladas.',
     status: 'active',
   },
@@ -1473,6 +1475,7 @@ let products: Product[] = [
     name: 'Manga Tommy Orgânica',
     category: 'Fruta',
     price: 6.80,
+    unitAmount: 1,
     unit: 'kg',
     image: 'https://placehold.co/600x400.png',
     dataAiHint: 'tommy atkins mango',
@@ -1485,6 +1488,7 @@ let products: Product[] = [
     name: 'Manga Carlotinha Orgânica',
     category: 'Fruta',
     price: 7.20,
+    unitAmount: 1,
     unit: 'kg',
     image: 'https://placehold.co/600x400.png',
     dataAiHint: 'carlotinha mango',
@@ -1497,6 +1501,7 @@ let products: Product[] = [
     name: 'Brócolis Brasileiro Orgânico',
     category: 'Vegetal',
     price: 4.80,
+    unitAmount: 1,
     unit: 'unidade',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/brocolis_brasileiro.webp?alt=media&token=30d32afc-e5e7-4f0e-a740-e43efeda8862',
     dataAiHint: 'brazilian broccoli',
@@ -1509,6 +1514,7 @@ let products: Product[] = [
     name: 'Caqui Orgânico',
     category: 'Fruta',
     price: 8.00,
+    unitAmount: 1,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/caqui.webp?alt=media&token=6d9835e9-ae1c-4cb0-83e3-e839ccb780c2',
     dataAiHint: 'persimmon',
@@ -1521,6 +1527,7 @@ let products: Product[] = [
     name: 'Cajú Orgânico',
     category: 'Fruta',
     price: 9.50,
+    unitAmount: 1,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/caju.webp?alt=media&token=7a76f64c-ed10-4451-8112-5d09020049b9',
     dataAiHint: 'cashew fruit',
@@ -1533,6 +1540,7 @@ let products: Product[] = [
     name: 'Carambola Orgânica',
     category: 'Fruta',
     price: 7.50,
+    unitAmount: 1,
     unit: 'kg',
     image: 'https://placehold.co/600x400.png',
     dataAiHint: 'star fruit',
@@ -1545,6 +1553,7 @@ let products: Product[] = [
     name: 'Mel de Aroeira Orgânico',
     category: 'Padaria',
     price: 35.00,
+    unitAmount: 1,
     unit: 'pote',
     image: 'https://placehold.co/600x400.png',
     dataAiHint: 'aroeira honey',
@@ -1557,6 +1566,7 @@ let products: Product[] = [
     name: 'Mel de Eucalipto Orgânico',
     category: 'Padaria',
     price: 30.00,
+    unitAmount: 1,
     unit: 'pote',
     image: 'https://placehold.co/600x400.png',
     dataAiHint: 'eucalyptus honey',
@@ -1569,6 +1579,7 @@ let products: Product[] = [
     name: 'Mel de Acácia Orgânico',
     category: 'Padaria',
     price: 40.00,
+    unitAmount: 1,
     unit: 'pote',
     image: 'https://placehold.co/600x400.png',
     dataAiHint: 'acacia honey',
@@ -1581,6 +1592,7 @@ let products: Product[] = [
     name: 'Mel Silvestre Orgânico',
     category: 'Padaria',
     price: 28.00,
+    unitAmount: 1,
     unit: 'pote',
     image: 'https://placehold.co/600x400.png',
     dataAiHint: 'wildflower honey',
@@ -1593,11 +1605,25 @@ let products: Product[] = [
     name: 'Uva Vitória Orgânica',
     category: 'Fruta',
     price: 12.00,
+    unitAmount: 1,
     unit: 'caixa',
     image: 'https://placehold.co/600x400.png',
     dataAiHint: 'vitoria grapes',
     farmerId: '2',
     description: 'Uva Vitória, sem sementes e muito doce, perfeita para lanches e sobremesas.',
+    status: 'active',
+  },
+  {
+    id: '131',
+    name: 'Pera Williams Orgânica',
+    category: 'Fruta',
+    price: 7.80,
+    unitAmount: 1,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pera_williams.webp?alt=media&token=5bb791b0-9f75-4cd6-9a50-c4a978b351b7',
+    dataAiHint: 'williams pear',
+    farmerId: '2',
+    description: 'Pera Williams com polpa macia, suculenta e muito aromática, ideal para consumo in natura e sobremesas.',
     status: 'active',
   }
 ];
@@ -1953,6 +1979,8 @@ const defaultProductImages = new Map<string, string>([
     ['caju', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/caju.webp?alt=media&token=7a76f64c-ed10-4451-8112-5d09020049b9'],
     ['carambola', 'https://placehold.co/600x400.png'],
     ['uva vitoria', 'https://placehold.co/600x400.png'],
+    ['pera williams', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pera_williams.webp?alt=media&token=5bb791b0-9f75-4cd6-9a50-c4a978b351b7'],
+    ['pera', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pera_williams.webp?alt=media&token=5bb791b0-9f75-4cd6-9a50-c4a978b351b7'],
 ]);
 
 
@@ -2181,6 +2209,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
     return undefined;
 }
+
 
 
 
