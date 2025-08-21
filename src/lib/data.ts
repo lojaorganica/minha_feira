@@ -1522,7 +1522,7 @@ let products: Product[] = [
     category: 'Fruta',
     price: 9.50,
     unit: 'kg',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/caju.webp?alt=media&token=7a76f64c-ed10-4451-8112-5d09020049b9',
     dataAiHint: 'cashew fruit',
     farmerId: '2',
     description: 'Cajú orgânico, fruto de sabor único, perfeito para sucos e doces.',
@@ -1950,7 +1950,7 @@ const defaultProductImages = new Map<string, string>([
     ['mini melancia', 'https://placehold.co/600x400.png'],
     ['mexerica ole', 'https://placehold.co/600x400.png'],
     ['caqui', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/caqui.webp?alt=media&token=6d9835e9-ae1c-4cb0-83e3-e839ccb780c2'],
-    ['caju', 'https://placehold.co/600x400.png'],
+    ['caju', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/caju.webp?alt=media&token=7a76f64c-ed10-4451-8112-5d09020049b9'],
     ['carambola', 'https://placehold.co/600x400.png'],
     ['uva vitoria', 'https://placehold.co/600x400.png'],
 ]);
@@ -2181,6 +2181,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
     return undefined;
 }
+
 
 
 
