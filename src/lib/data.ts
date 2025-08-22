@@ -919,7 +919,7 @@ let products: Product[] = [
     price: 4.50,
     unitAmount: 1,
     unit: 'kg',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/limao_cravo.webp?alt=media&token=d631609c-427a-4e87-be2c-6242f94b37ef',
     dataAiHint: 'rangpur lime',
     farmerId: '2',
     description: 'Limão cravo (ou rosa), com casca avermelhada e sabor único, ótimo para temperos e caipirinhas.',
@@ -1956,7 +1956,7 @@ const defaultProductImages = new Map<string, string>([
     ['cogumelo shimeji', 'https://placehold.co/600x400.png'],
     ['cogumelo portobello', 'https://placehold.co/600x400.png'],
     ['limão siciliano', 'https://placehold.co/600x400.png'],
-    ['limão cravo', 'https://placehold.co/600x400.png'],
+    ['limão cravo', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/limao_cravo.webp?alt=media&token=d631609c-427a-4e87-be2c-6242f94b37ef'],
     ['limão galego', 'https://placehold.co/600x400.png'],
     ['pepino caipira', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pepino_caipira.webp?alt=media&token=5e96c1ce-de1b-475d-9d12-4fa0b6d269e4'],
     ['pepino', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pepino.webp?alt=media&token=e47fbf50-b714-4f92-846c-5e6e63d284e1'],
@@ -2267,3 +2267,4 @@ export function updateCustomerClassification(customerId: string, classification:
 
 
     
+
