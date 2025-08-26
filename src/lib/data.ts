@@ -932,7 +932,7 @@ let products: Product[] = [
     price: 4.80,
     unitAmount: 1,
     unit: 'kg',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/limao_galego.webp?alt=media&token=e8341d8b-9733-478b-9bd0-0104de2365cb',
     dataAiHint: 'key lime',
     farmerId: '2',
     description: 'Limão galego, pequeno e de casca fina, muito suculento e ácido, um clássico nacional.',
@@ -1971,7 +1971,7 @@ const defaultProductImages = new Map<string, string>([
     ['cogumelo portobello', 'https://placehold.co/600x400.png'],
     ['limão siciliano', 'https://placehold.co/600x400.png'],
     ['limão cravo', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/limao_cravo.webp?alt=media&token=d631609c-427a-4e87-be2c-6242f94b37ef'],
-    ['limão galego', 'https://placehold.co/600x400.png'],
+    ['limão galego', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/limao_galego.webp?alt=media&token=e8341d8b-9733-478b-9bd0-0104de2365cb'],
     ['pepino caipira', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pepino_caipira.webp?alt=media&token=5e96c1ce-de1b-475d-9d12-4fa0b6d269e4'],
     ['pepino', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pepino.webp?alt=media&token=e47fbf50-b714-4f92-846c-5e6e63d284e1'],
     ['kiwi', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/kiwi.webp?alt=media&token=4e24b5ed-6b1f-44e8-8655-95eec46e1521'],
@@ -2281,6 +2281,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
 
     
+
 
 
 
