@@ -1638,6 +1638,19 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Pêssegos orgânicos, macios e suculentos, com um sabor doce e aveludado, perfeitos para comer in natura ou em sobremesas.',
     status: 'active',
+  },
+  {
+    id: '133',
+    name: 'Laranja Lima Orgânica',
+    category: 'Fruta',
+    price: 5.20,
+    unitAmount: 1,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/laranja_lima.webp?alt=media&token=df719cd2-1767-436b-9ab5-b2a55c3a2000',
+    dataAiHint: 'lima orange',
+    farmerId: '2',
+    description: 'Laranja Lima orgânica, de sabor suave e sem acidez, excelente para crianças e para o preparo de sucos.',
+    status: 'active',
   }
 ];
 
@@ -1885,6 +1898,7 @@ const defaultProductImages = new Map<string, string>([
     ['pão', 'https://placehold.co/600x400.png'],
     ['leite', 'https://placehold.co/600x400.png'],
     ['queijo', 'https://placehold.co/600x400.png'],
+    ['laranja lima', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/laranja_lima.webp?alt=media&token=df719cd2-1767-436b-9ab5-b2a55c3a2000'],
     ['laranja pera', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/laranja_pera.webp?alt=media&token=b4db9a4e-b349-4805-ac9d-fee1fcb4d5d8'],
     ['laranja', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/laranja_pera.webp?alt=media&token=b4db9a4e-b349-4805-ac9d-fee1fcb4d5d8'],
     ['iogurte', 'https://placehold.co/600x400.png'],
@@ -2267,4 +2281,5 @@ export function updateCustomerClassification(customerId: string, classification:
 
 
     
+
 
