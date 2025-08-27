@@ -906,7 +906,7 @@ let products: Product[] = [
     price: 8.50,
     unitAmount: 1,
     unit: 'kg',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/limao_siciliano.webp?alt=media&token=a2d02d86-f7b4-45f2-85f4-5e0bd2affeaf',
     dataAiHint: 'sicilian lemon',
     farmerId: '2',
     description: 'Limão siciliano, grande, de casca amarela e muito perfumado, ideal para risotos e sobremesas.',
@@ -1969,7 +1969,7 @@ const defaultProductImages = new Map<string, string>([
     ['cogumelo paris', 'https://placehold.co/600x400.png'],
     ['cogumelo shimeji', 'https://placehold.co/600x400.png'],
     ['cogumelo portobello', 'https://placehold.co/600x400.png'],
-    ['limão siciliano', 'https://placehold.co/600x400.png'],
+    ['limão siciliano', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/limao_siciliano.webp?alt=media&token=a2d02d86-f7b4-45f2-85f4-5e0bd2affeaf'],
     ['limão cravo', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/limao_cravo.webp?alt=media&token=d631609c-427a-4e87-be2c-6242f94b37ef'],
     ['limão galego', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/limao_galego.webp?alt=media&token=e8341d8b-9733-478b-9bd0-0104de2365cb'],
     ['pepino caipira', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pepino_caipira.webp?alt=media&token=5e96c1ce-de1b-475d-9d12-4fa0b6d269e4'],
@@ -2281,6 +2281,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
 
     
+
 
 
 
