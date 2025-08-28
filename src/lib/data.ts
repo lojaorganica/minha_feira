@@ -607,7 +607,7 @@ let products: Product[] = [
     price: 6.50,
     unitAmount: 1,
     unit: 'kg',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/maca_gala.webp?alt=media&token=1f30fbe4-e6db-4958-81e1-e953db358643',
     dataAiHint: 'gala apple',
     farmerId: '2',
     description: 'Maçãs Gala orgânicas, com sabor suave e doce, ideais para lanches.',
@@ -1942,7 +1942,7 @@ const defaultProductImages = new Map<string, string>([
     ['cebola', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/cebola.webp?alt=media&token=d038a9a2-f0f9-421f-b436-324602f0b5bd'],
     ['repolho verde', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/repolho_verde.webp?alt=media&token=8a4ea4ee-bcac-4757-a54d-f0a4b095a9dc'],
     ['repolho roxo', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/repolho_roxo.webp?alt=media&token=2ea7df6f-0845-4042-aa71-38812b164b6a'],
-    ['maçã gala', 'https://placehold.co/600x400.png'],
+    ['maçã gala', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/maca_gala.webp?alt=media&token=1f30fbe4-e6db-4958-81e1-e953db358643'],
     ['rucula cultivada', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/rucula_cultivada.webp?alt=media&token=e5386372-e97f-479e-9559-eb3202d5e946'],
     ['rucula selvagem', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/rucula_selvagem.webp?alt=media&token=96d7f629-4be6-46c7-9e67-3108758865c7'],
     ['rucula', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/rucula_cultivada.webp?alt=media&token=e5386372-e97f-479e-9559-eb3202d5e946'],
@@ -2281,6 +2281,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
 
     
+
 
 
 
