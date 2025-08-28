@@ -24,7 +24,8 @@ import { cn } from "@/lib/utils";
 
 const customerMenuLinks = [
     { href: "/catalog", label: "Catálogo", icon: BookOpen },
-    { href: "/select-farmers", label: "Meus Agricultores", icon: Heart },
+    { href: "/select-farmers", label: "Agricultores", icon: Heart },
+    { href: "/favorites", label: "Favoritos", icon: Heart },
     { href: "/promotions",label: "Promoções", icon: Tag },
     { href: "/history", label: "Histórico", icon: History },
 ];

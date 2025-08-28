@@ -9,7 +9,7 @@ export default function SelectFarmersPage() {
             <BackButton />
       </div>
       <div className="mb-6">
-        <h1 className="text-3xl font-bold font-headline text-primary tracking-tight sm:text-4xl">Meus Agricultores</h1>
+        <h1 className="text-3xl font-bold font-headline text-primary tracking-tight sm:text-4xl">Nossos Agricultores</h1>
         <p className="text-lg font-semibold text-foreground/90 mt-2 max-w-3xl">
           Selecione um agricultor para ver os produtos dele. As compras são realizadas de forma direta com um agricultor de cada vez.
         </p>

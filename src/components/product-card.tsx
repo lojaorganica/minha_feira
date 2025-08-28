@@ -5,7 +5,7 @@ import Image from "next/image";
 import type { Product } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardTitle, CardDescription } from "@/components/ui/card";
-import { Plus, Minus, ShoppingCart, Tractor, X } from "lucide-react";
+import { Plus, Minus, ShoppingCart, Tractor, X, Heart } from "lucide-react";
 import { useCart } from "@/hooks/use-cart";
 import { useState } from "react";
 import { Input } from "./ui/input";
@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
 import { AlertDialog, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "./ui/alert-dialog";
 import { getFarmerById } from "@/lib/data";
+import { useFavorites } from "@/hooks/use-favorites.tsx";
 
 
 interface ProductCardProps {
@@ -22,6 +23,7 @@ interface ProductCardProps {
 
 const ProductCard = ({ product, farmerName }: ProductCardProps) => {
   const { addToCart, cartFarmerId, handleConfirmClearAndAddToCart } = useCart();
+  const { favorites, toggleFavorite, isFavorite } = useFavorites();
   const [quantity, setQuantity] = useState(1);
   const [isAlertOpen, setAlertOpen] = useState(false);
 
@@ -54,6 +56,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
     setQuantity(prev => Math.max(1, prev + amount));
   };
 
+  const productIsFavorite = isFavorite(product.id);
 
   return (
     <>
@@ -68,7 +71,12 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
           />
         </div>
         <CardContent className="p-4 flex-grow">
-          <CardTitle className="text-xl font-headline text-primary">{product.name}</CardTitle>
+          <div className="flex justify-between items-start">
+            <CardTitle className="text-xl font-headline text-primary">{product.name}</CardTitle>
+            <Button variant="ghost" size="icon" className="h-8 w-8 -mr-2" onClick={() => toggleFavorite(product)}>
+                <Heart className={cn("h-6 w-6 text-primary transition-all", productIsFavorite && "fill-red-500 text-red-500")} />
+            </Button>
+          </div>
           <CardDescription className="text-base mt-1 font-semibold text-foreground/90 flex-grow">{product.description}</CardDescription>
         </CardContent>
          <CardFooter className="p-4 pt-0 flex flex-col items-start gap-4">
