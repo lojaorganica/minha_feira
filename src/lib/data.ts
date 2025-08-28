@@ -685,7 +685,7 @@ let products: Product[] = [
     price: 7.00,
     unitAmount: 1,
     unit: 'unidade',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/melao_amarelo.webp?alt=media&token=718ddb9c-9381-44aa-be87-31514c4426df',
     dataAiHint: 'yellow melon',
     farmerId: '2',
     description: 'Melão amarelo doce e refrescante, perfeito para dias quentes.',
@@ -724,7 +724,7 @@ let products: Product[] = [
     price: 9.00,
     unitAmount: 1,
     unit: 'unidade',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/melao_cantaloupe.webp?alt=media&token=04174dc3-46c3-49d6-8096-ecb20dd1e978',
     dataAiHint: 'cantaloupe melon',
     farmerId: '2',
     description: 'Melão Cantaloupe, com polpa alaranjada e sabor aromático inconfundível.',
@@ -1951,10 +1951,10 @@ const defaultProductImages = new Map<string, string>([
     ['ovos', 'https://placehold.co/600x400.png'],
     ['gengibre', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/gengibre.webp?alt=media&token=b70596de-b66f-4c39-a8c9-6951a442ff84'],
     ['cúrcuma', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/curcuma.webp?alt=media&token=52fffeff-7486-4cab-9021-81331e7c5cc6'],
-    ['melão amarelo', 'https://placehold.co/600x400.png'],
+    ['melão amarelo', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/melao_amarelo.webp?alt=media&token=718ddb9c-9381-44aa-be87-31514c4426df'],
     ['melão orange', 'https://placehold.co/600x400.png'],
     ['melão pele de sapo', 'https://placehold.co/600x400.png'],
-    ['melão cantaloupe', 'https://placehold.co/600x400.png'],
+    ['melão cantaloupe', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/melao_cantaloupe.webp?alt=media&token=04174dc3-46c3-49d6-8096-ecb20dd1e978'],
     ['mel', 'https://placehold.co/600x400.png'],
     ['acelga', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/acelga.webp?alt=media&token=0721f75b-65a2-40cf-8754-c10afd93acc6'],
     ['alho poró', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alho_poro.webp?alt=media&token=84c5bcc6-06f2-46be-8589-68b3e7be0fa5'],
@@ -2281,6 +2281,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
 
     
+
 
 
 
