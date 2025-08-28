@@ -23,7 +23,7 @@ interface ProductCardProps {
 
 const ProductCard = ({ product, farmerName }: ProductCardProps) => {
   const { addToCart, cartFarmerId, handleConfirmClearAndAddToCart } = useCart();
-  const { favorites, toggleFavorite, isFavorite } = useFavorites();
+  const { toggleFavorite, isFavorite } = useFavorites();
   const [quantity, setQuantity] = useState(1);
   const [isAlertOpen, setAlertOpen] = useState(false);
 
