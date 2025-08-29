@@ -841,7 +841,7 @@ let products: Product[] = [
     price: 5.00,
     unitAmount: 1,
     unit: 'caixa',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tomate_cereja.webp?alt=media&token=14915ab5-f01f-49b0-b72b-a5e844db905b',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tomate_cereja.webp?alt=media&token=675a4a40-8ff8-439b-9366-db40ed3b7b96',
     dataAiHint: 'cherry tomato',
     farmerId: '2',
     description: 'Tomate cereja, pequeno e adocicado, ótimo para saladas, espetinhos e aperitivos.',
@@ -1964,7 +1964,7 @@ const defaultProductImages = new Map<string, string>([
     ['batata yacon', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batata_yacon.webp?alt=media&token=1531f6ab-5dde-4141-8715-28005e7d615e'],
     ['tomate grape', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tomate_grape.webp?alt=media&token=34f6fc49-11e6-49bb-9ef2-28ff3d6690c3'],
     ['tomate salada', 'https://placehold.co/600x400.png'],
-    ['tomate cereja', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tomate_cereja.webp?alt=media&token=14915ab5-f01f-49b0-b72b-a5e844db905b'],
+    ['tomate cereja', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tomate_cereja.webp?alt=media&token=675a4a40-8ff8-439b-9366-db40ed3b7b96'],
     ['cogumelo shiitake', 'https://placehold.co/600x400.png'],
     ['cogumelo paris', 'https://placehold.co/600x400.png'],
     ['cogumelo shimeji', 'https://placehold.co/600x400.png'],
@@ -2281,6 +2281,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
 
     
+
 
 
 
