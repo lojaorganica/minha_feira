@@ -1438,7 +1438,7 @@ let products: Product[] = [
     price: 10.00,
     unitAmount: 1,
     unit: 'unidade',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mini_melancia.webp?alt=media&token=e26cd7c8-9313-4eb6-8c60-050147ea898b',
     dataAiHint: 'mini watermelon',
     farmerId: '2',
     description: 'Mini melancia doce e refrescante, no tamanho ideal para sua família.',
@@ -2001,7 +2001,7 @@ const defaultProductImages = new Map<string, string>([
     ['capuchinha', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/capuchinha.webp?alt=media&token=beb2ab63-17f2-4044-8b3a-30561cacf991'],
     ['quiabo', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/quiabo.webp?alt=media&token=de5f050e-8c83-46ab-9671-e370b659ff1f'],
     ['jilo', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/jilo.webp?alt=media&token=21a949a4-5df3-4b27-ae98-7469466f94be'],
-    ['mini melancia', 'https://placehold.co/600x400.png'],
+    ['mini melancia', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mini_melancia.webp?alt=media&token=e26cd7c8-9313-4eb6-8c60-050147ea898b'],
     ['mexerica ole', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mexerica_ole.webp?alt=media&token=67cc4615-dfe9-47ba-b982-fe173d0c3023'],
     ['caqui', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/caqui.webp?alt=media&token=6d9835e9-ae1c-4cb0-83e3-e839ccb780c2'],
     ['caju', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/caju.webp?alt=media&token=7a76f64c-ed10-4451-8112-5d09020049b9'],
@@ -2281,6 +2281,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
 
     
+
 
 
 
