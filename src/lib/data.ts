@@ -1265,7 +1265,7 @@ let products: Product[] = [
   },
   {
     id: '101',
-    name: 'Alface Mimosa Verde',
+    name: 'Alface Mimosa Verde Orgânica',
     category: 'Vegetal',
     price: 3.30,
     unitAmount: 1,
@@ -1291,7 +1291,7 @@ let products: Product[] = [
   },
   {
     id: '103',
-    name: 'Alface Mimosa Roxa',
+    name: 'Alface Mimosa Roxa Orgânica',
     category: 'Vegetal',
     price: 3.40,
     unitAmount: 1,
@@ -1356,7 +1356,7 @@ let products: Product[] = [
   },
   {
     id: '108',
-    name: 'China',
+    name: 'China Orgânica',
     category: 'Vegetal',
     price: 3.8,
     unitAmount: 1,
@@ -1368,7 +1368,7 @@ let products: Product[] = [
   },
   {
     id: '109',
-    name: 'Capuchinha',
+    name: 'Capuchinha Orgânica',
     category: 'Vegetal',
     price: 4.00,
     unitAmount: 1,
@@ -1381,7 +1381,7 @@ let products: Product[] = [
   },
   {
     id: '110',
-    name: 'Rúcula Selvagem',
+    name: 'Rúcula Selvagem Orgânica',
     category: 'Vegetal',
     price: 4.00,
     unitAmount: 1,
@@ -1550,7 +1550,7 @@ let products: Product[] = [
   },
   {
     id: '126',
-    name: 'Mel de Aroeira',
+    name: 'Mel de Aroeira Orgânico',
     category: 'Padaria',
     price: 35.00,
     unitAmount: 1,
@@ -1563,7 +1563,7 @@ let products: Product[] = [
   },
   {
     id: '127',
-    name: 'Mel de Eucalipto',
+    name: 'Mel de Eucalipto Orgânico',
     category: 'Padaria',
     price: 30.00,
     unitAmount: 1,
@@ -1576,7 +1576,7 @@ let products: Product[] = [
   },
   {
     id: '128',
-    name: 'Mel de Acácia',
+    name: 'Mel de Acácia Orgânico',
     category: 'Padaria',
     price: 40.00,
     unitAmount: 1,
@@ -1589,7 +1589,7 @@ let products: Product[] = [
   },
   {
     id: '129',
-    name: 'Mel Silvestre',
+    name: 'Mel Silvestre Orgânico',
     category: 'Padaria',
     price: 28.00,
     unitAmount: 1,
@@ -1789,7 +1789,7 @@ let orders: Order[] = [
         customerName: 'Alice Johnson',
         items: [
             { productName: 'Cenouras Orgânicas', quantity: 2 },
-            { productName: 'Leite Fresco da Fazenda Orgânico', quantity: 1 },
+            { productName: 'Leite Fresco Orgânico', quantity: 1 },
         ],
         status: 'Pendente',
         total: 8.50,
@@ -2294,6 +2294,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
 
     
+
 
 
 
