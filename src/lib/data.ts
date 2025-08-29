@@ -18,7 +18,7 @@ let products: Product[] = [
   },
   {
     id: '2',
-    name: 'Tomates Italianos Orgânicos',
+    name: 'Tomate Italiano Orgânico',
     category: 'Vegetal',
     price: 3.0,
     unitAmount: 1,
@@ -1813,7 +1813,7 @@ let orders: Order[] = [
         id: 'ORD-004',
         customerName: 'Diana Miller',
         items: [
-            { productName: 'Tomates Italianos Orgânicos', quantity: 2 },
+            { productName: 'Tomate Italiano Orgânico', quantity: 2 },
             { productName: 'Couve Mineira Orgânica', quantity: 1 },
         ],
         status: 'Rejeitado',
@@ -2281,6 +2281,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
 
     
+
 
 
 
