@@ -815,7 +815,7 @@ let products: Product[] = [
     price: 5.50,
     unitAmount: 1,
     unit: 'caixa',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tomate_grape.webp?alt=media&token=34f6fc49-11e6-49bb-9ef2-28ff3d6690c3',
     dataAiHint: 'grape tomato',
     farmerId: '2',
     description: 'Tomatinhos grape, pequenos e muito doces, perfeitos para lanches e saladas.',
@@ -1962,7 +1962,7 @@ const defaultProductImages = new Map<string, string>([
     ['batata inglesa', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batata_inglesa.webp?alt=media&token=41f17e48-9a43-4980-b61d-1c12a91f3cf2'],
     ['batata baroa', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batata_baroa.webp?alt=media&token=58b079cb-80de-40fb-97f0-a654a34f1c1b'],
     ['batata yacon', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batata_yacon.webp?alt=media&token=1531f6ab-5dde-4141-8715-28005e7d615e'],
-    ['tomate grape', 'https://placehold.co/600x400.png'],
+    ['tomate grape', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tomate_grape.webp?alt=media&token=34f6fc49-11e6-49bb-9ef2-28ff3d6690c3'],
     ['tomate salada', 'https://placehold.co/600x400.png'],
     ['tomate cereja', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tomate_cereja.webp?alt=media&token=14915ab5-f01f-49b0-b72b-a5e844db905b'],
     ['cogumelo shiitake', 'https://placehold.co/600x400.png'],
@@ -2281,6 +2281,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
 
     
+
 
 
 
