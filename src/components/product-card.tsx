@@ -31,7 +31,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
   const [isLocallyFavorite, setIsLocallyFavorite] = useState(isFavorite(product.id));
 
   const isFarmerDifferent = cartFarmerId !== null && product.farmerId !== cartFarmerId;
-  const currentFarmerInCartName = cartFarmerId ? getFarmerById(cartFarmerId)?.name : '';
+  const currentFarmerInCartName = cartFarmerId ? getFarmerById(cartFarmerId)?.name ?? null : '';
 
   const handleActionAttempt = () => {
     if (isFarmerDifferent) {
@@ -82,7 +82,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
           <div className="flex justify-between items-start">
             <CardTitle className="text-xl font-headline text-primary">{product.name}</CardTitle>
             <Button variant="ghost" size="icon" className="h-8 w-8 -mr-2 hover:bg-transparent focus-visible:bg-transparent focus:bg-transparent active:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0" onClick={handleToggleFavorite}>
-                <Heart className={cn("h-6 w-6 text-primary transition-all", isLocallyFavorite && "fill-red-500 text-red-500")} />
+                <Heart className={cn("h-6 w-6 text-primary", isLocallyFavorite && "fill-red-500 text-red-500")} />
             </Button>
           </div>
           <CardDescription className="text-base mt-1 font-semibold text-foreground/90 flex-grow">{product.description}</CardDescription>
