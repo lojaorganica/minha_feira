@@ -71,7 +71,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
             src={product.image}
             alt={product.name}
             fill
-            className="object-contain rounded-t-lg"
+            className="object-cover rounded-t-lg"
             data-ai-hint={product.dataAiHint}
           />
         </div>

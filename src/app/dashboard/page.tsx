@@ -222,7 +222,7 @@ function ProductsTabContent({ allProducts, onProductUpdate }: { allProducts: Pro
                                     src={product.image} 
                                     alt={product.name} 
                                     fill 
-                                    className="rounded-t-lg object-contain" 
+                                    className="rounded-t-lg object-cover" 
                                     data-ai-hint={product.dataAiHint} 
                                 />
                                 {product.promotion?.isActive && (

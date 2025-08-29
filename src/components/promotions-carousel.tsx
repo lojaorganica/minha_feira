@@ -52,7 +52,7 @@ export default function PromotionsCarousel() {
                                                 src={product.image}
                                                 alt={product.name}
                                                 fill
-                                                className="object-contain"
+                                                className="object-cover"
                                                 data-ai-hint={product.dataAiHint}
                                             />
                                         </div>
