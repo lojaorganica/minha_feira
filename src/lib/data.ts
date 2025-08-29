@@ -1555,7 +1555,7 @@ let products: Product[] = [
     price: 35.00,
     unitAmount: 1,
     unit: 'pote',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_aroeira.webp?alt=media&token=38df6685-80cf-4c34-a0ba-210a0907787b',
     dataAiHint: 'aroeira honey',
     farmerId: '134',
     description: 'Mel de Aroeira, de sabor intenso e propriedades medicinais, ideal para fortalecer a imunidade.',
@@ -2294,6 +2294,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
 
     
+
 
 
 
