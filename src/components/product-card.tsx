@@ -32,6 +32,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
 
   const isFarmerDifferent = cartFarmerId !== null && product.farmerId !== cartFarmerId;
   const currentFarmerInCartName = cartFarmerId ? getFarmerById(cartFarmerId)?.name ?? null : '';
+  const isHoneyProduct = product.name.toLowerCase().includes('mel');
 
   const handleActionAttempt = () => {
     if (isFarmerDifferent) {
@@ -69,7 +70,10 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
   return (
     <>
       <Card className="flex flex-col h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-        <div className="relative aspect-video rounded-t-lg">
+        <div className={cn(
+            "relative rounded-t-lg",
+            isHoneyProduct ? "aspect-[4/3]" : "aspect-video"
+          )}>
           <Image
             src={product.image}
             alt={product.name}
