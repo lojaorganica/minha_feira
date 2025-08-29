@@ -27,6 +27,9 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
   const [quantity, setQuantity] = useState(1);
   const [isAlertOpen, setAlertOpen] = useState(false);
 
+  // Otimização de UI: Estado local para feedback instantâneo
+  const [isLocallyFavorite, setIsLocallyFavorite] = useState(isFavorite(product.id));
+
   const isFarmerDifferent = cartFarmerId !== null && product.farmerId !== cartFarmerId;
   const currentFarmerInCartName = cartFarmerId ? getFarmerById(cartFarmerId)?.name : '';
 
@@ -37,6 +40,13 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
     }
     return true; // Indica que a ação pode prosseguir
   };
+  
+  const handleToggleFavorite = () => {
+    // Atualiza o estado local imediatamente para um feedback visual rápido
+    setIsLocallyFavorite(prev => !prev);
+    // Chama a função global que gerencia o estado e o localStorage
+    toggleFavorite(product);
+  }
 
   const handleAddToCartClick = () => {
     if (!handleActionAttempt()) return;
@@ -56,8 +66,6 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
     setQuantity(prev => Math.max(1, prev + amount));
   };
 
-  const productIsFavorite = isFavorite(product.id);
-
   return (
     <>
       <Card className="flex flex-col h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
@@ -73,8 +81,8 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
         <CardContent className="p-4 flex-grow">
           <div className="flex justify-between items-start">
             <CardTitle className="text-xl font-headline text-primary">{product.name}</CardTitle>
-            <Button variant="ghost" size="icon" className="h-8 w-8 -mr-2 hover:bg-transparent focus-visible:bg-transparent" onClick={() => toggleFavorite(product)}>
-                <Heart className={cn("h-6 w-6 text-primary transition-all", productIsFavorite && "fill-red-500 text-red-500")} />
+            <Button variant="ghost" size="icon" className="h-8 w-8 -mr-2 hover:bg-transparent focus-visible:bg-transparent focus:bg-transparent active:bg-transparent" onClick={handleToggleFavorite}>
+                <Heart className={cn("h-6 w-6 text-primary transition-all", isLocallyFavorite && "fill-red-500 text-red-500")} />
             </Button>
           </div>
           <CardDescription className="text-base mt-1 font-semibold text-foreground/90 flex-grow">{product.description}</CardDescription>
