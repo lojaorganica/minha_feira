@@ -27,7 +27,6 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
   const [quantity, setQuantity] = useState(1);
   const [isAlertOpen, setAlertOpen] = useState(false);
 
-  // Otimização de UI: Estado local para feedback instantâneo
   const [isLocallyFavorite, setIsLocallyFavorite] = useState(isFavorite(product.id));
 
   const isFarmerDifferent = cartFarmerId !== null && product.farmerId !== cartFarmerId;
@@ -36,15 +35,13 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
   const handleActionAttempt = () => {
     if (isFarmerDifferent) {
       setAlertOpen(true);
-      return false; // Indica que a ação foi bloqueada
+      return false; 
     }
-    return true; // Indica que a ação pode prosseguir
+    return true; 
   };
   
   const handleToggleFavorite = () => {
-    // Atualiza o estado local imediatamente para um feedback visual rápido
     setIsLocallyFavorite(prev => !prev);
-    // Chama a função global que gerencia o estado e o localStorage
     toggleFavorite(product);
   }
 
@@ -69,12 +66,12 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
   return (
     <>
       <Card className="flex flex-col h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-        <div className="relative aspect-video rounded-t-lg">
+        <div className="relative aspect-video rounded-t-lg bg-muted/30">
           <Image
             src={product.image}
             alt={product.name}
             fill
-            className="object-cover rounded-t-lg"
+            className="object-contain rounded-t-lg"
             data-ai-hint={product.dataAiHint}
           />
         </div>

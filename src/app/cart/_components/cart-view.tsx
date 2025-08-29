@@ -74,8 +74,8 @@ function ComplementarySuggestions() {
           {suggestions.map(product => (
             <Card key={product.id} className="overflow-hidden">
                 <CardContent className="p-2">
-                    <div className="relative aspect-square mb-2">
-                        <Image src={product.image} alt={product.name} fill className="object-cover rounded-md" data-ai-hint={product.dataAiHint}/>
+                    <div className="relative aspect-square mb-2 bg-muted/30">
+                        <Image src={product.image} alt={product.name} fill className="object-contain rounded-md" data-ai-hint={product.dataAiHint}/>
                     </div>
                     <h3 className="text-lg font-semibold truncate">{product.name}</h3>
                     <div className="flex justify-between items-center mt-2">
@@ -295,13 +295,13 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
             <ul role="list" className="divide-y divide-border border-y border-border">
             {cartWithFarmerNames.map((product) => (
                 <li key={product.id} className="flex py-6">
-                    <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-border">
+                    <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-border bg-muted/30">
                         <Image
                             src={product.image}
                             alt={product.name}
                             width={96}
                             height={96}
-                            className="h-full w-full object-cover object-center"
+                            className="h-full w-full object-contain object-center"
                             data-ai-hint={product.dataAiHint}
                         />
                     </div>
@@ -526,8 +526,6 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
   );
 }
     
-    
-
     
 
     
