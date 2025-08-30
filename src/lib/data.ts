@@ -350,7 +350,7 @@ let products: Product[] = [
   },
   {
     id: '29',
-    name: 'Abóbora Japonesa Orgânica',
+    name: 'Abóbora Japonesa (Cabotiá) Orgânica',
     category: 'Vegetal',
     price: 3.50,
     unitAmount: 1,
@@ -805,7 +805,7 @@ let products: Product[] = [
   },
   {
     id: '65',
-    name: 'Tomate Grape Orgânico',
+    name: 'Tomatinho Grape Orgânico',
     category: 'Fruta',
     price: 5.50,
     unitAmount: 1,
@@ -831,7 +831,7 @@ let products: Product[] = [
   },
   {
     id: '67',
-    name: 'Tomate Cereja Orgânico',
+    name: 'Tomatinho Cereja Orgânico',
     category: 'Fruta',
     price: 5.00,
     unitAmount: 1,
@@ -1498,7 +1498,7 @@ let products: Product[] = [
     price: 35.00,
     unitAmount: 1,
     unit: 'pote',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_aroeira.webp?alt=media&token=cc691f95-6565-42b1-9abd-95cca2e6b31d',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_aroeira.webp?alt=media&token=ae8fab08-dbc6-4ce2-a182-0ceba0f21f5a',
     dataAiHint: 'aroeira honey',
     farmerId: '134',
     description: 'Mel de Aroeira, de sabor intenso e propriedades medicinais, ideal para fortalecer a imunidade.',
@@ -1580,6 +1580,58 @@ let products: Product[] = [
     dataAiHint: 'lima orange',
     farmerId: '2',
     description: 'Laranja Lima orgânica, de sabor suave e sem acidez, excelente para crianças e para o preparo de sucos.',
+    status: 'active',
+  },
+  {
+    id: '133',
+    name: 'Batata Inglesa Bolinha',
+    category: 'Vegetal',
+    price: 5.00,
+    unit: 'kg',
+    unitAmount: 1,
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batata_inglesa.webp?alt=media&token=41f17e48-9a43-4980-b61d-1c12a91f3cf2',
+    farmerId: '4',
+    description: 'Pequenas e macias, ideais para conservas, saladas e para assar inteiras com ervas.',
+    dataAiHint: 'small potatoes',
+    status: 'active',
+  },
+  {
+    id: '134',
+    name: 'Mexerica Bergamota',
+    category: 'Fruta',
+    price: 6.50,
+    unit: 'kg',
+    unitAmount: 1,
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tangerina_ponkan.webp?alt=media&token=eceafacb-80ae-44f1-8349-8edd8222bf30',
+    farmerId: '2',
+    description: 'Também conhecida como Ponkan, é suculenta e fácil de descascar. Perfeita para um lanche rápido e saudável.',
+    dataAiHint: 'bergamot tangerine',
+    status: 'active',
+  },
+  {
+    id: '135',
+    name: 'Aipo (Salsão)',
+    category: 'Vegetal',
+    price: 4.50,
+    unit: 'unidade',
+    unitAmount: 1,
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/aipo.webp?alt=media&token=5b262d1a-4f51-4c60-84c4-724d17ab8e93',
+    farmerId: '1',
+    description: 'Crocante e aromático, o aipo é ideal para sopas, saladas e como base para caldos.',
+    dataAiHint: 'celery',
+    status: 'active',
+  },
+  {
+    id: '136',
+    name: 'Pimentão Snackpim',
+    category: 'Vegetal',
+    price: 6.00,
+    unit: 'caixa',
+    unitAmount: 1,
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pimentao_amarelo.webp?alt=media&token=c4a9a8f2-8e0c-4e8a-8a6a-0c5d5e5f4d4d',
+    farmerId: '3',
+    description: 'Mini pimentões coloridos, doces e com poucas sementes. Perfeitos para comer como um snack saudável.',
+    dataAiHint: 'snack peppers',
     status: 'active',
   }
 ];
@@ -1898,7 +1950,7 @@ const defaultProductImages = new Map<string, string>([
     ['melão orange', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/melao_orange.webp?alt=media&token=fb9e85b4-2fa0-44f0-92b0-b2e492c58fab'],
     ['melão pele de sapo', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/melao_pele_de_sapo.webp?alt=media&token=47c0283d-6af0-47a9-ace4-340f8331b100'],
     ['melão cantaloupe', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/melao_cantaloupe.webp?alt=media&token=04174dc3-46c3-49d6-8096-ecb20dd1e978'],
-    ['mel', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_aroeira.webp?alt=media&token=cc691f95-6565-42b1-9abd-95cca2e6b31d'],
+    ['mel', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_aroeira.webp?alt=media&token=ae8fab08-dbc6-4ce2-a182-0ceba0f21f5a'],
     ['acelga', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/acelga.webp?alt=media&token=0721f75b-65a2-40cf-8754-c10afd93acc6'],
     ['alho poró', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alho_poro.webp?alt=media&token=84c5bcc6-06f2-46be-8589-68b3e7be0fa5'],
     ['chuchu', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/chuchu.webp?alt=media&token=4ef6fcb9-2d57-47b6-b397-ec466ccfc6cd'],
@@ -1953,6 +2005,10 @@ const defaultProductImages = new Map<string, string>([
     ['pera williams', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pera_williams.webp?alt=media&token=5bb791b0-9f75-4cd6-9a50-c4a978b351b7'],
     ['pera', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pera_williams.webp?alt=media&token=5bb791b0-9f75-4cd6-9a50-c4a978b351b7'],
     ['pessego', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pessego.webp?alt=media&token=40ca1fb9-a000-4b9e-bbd5-52775e5d0720'],
+    ['aipo', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/aipo.webp?alt=media&token=5b262d1a-4f51-4c60-84c4-724d17ab8e93'],
+    ['mexerica bergamota', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tangerina_ponkan.webp?alt=media&token=eceafacb-80ae-44f1-8349-8edd8222bf30'],
+    ['batata bolinha', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batata_inglesa.webp?alt=media&token=41f17e48-9a43-4980-b61d-1c12a91f3cf2'],
+    ['pimentão snackpim', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pimentao_amarelo.webp?alt=media&token=c4a9a8f2-8e0c-4e8a-8a6a-0c5d5e5f4d4d'],
 ]);
 
 
@@ -2258,6 +2314,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
 
     
+
 
 
 
