@@ -1498,7 +1498,7 @@ let products: Product[] = [
     price: 35.00,
     unitAmount: 1,
     unit: 'pote',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_aroeira.webp?alt=media&token=ae8fab08-dbc6-4ce2-a182-0ceba0f21f5a',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_aroeira.webp?alt=media&token=cc691f95-6565-42b1-9abd-95cca2e6b31d',
     dataAiHint: 'aroeira honey',
     farmerId: '134',
     description: 'Mel de Aroeira, de sabor intenso e propriedades medicinais, ideal para fortalecer a imunidade.',
@@ -1602,7 +1602,7 @@ let products: Product[] = [
     price: 6.50,
     unit: 'kg',
     unitAmount: 1,
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tangerina_ponkan.webp?alt=media&token=eceafacb-80ae-44f1-8349-8edd8222bf30',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mexerica_bergamota.webp?alt=media&token=452f0390-d797-4c48-acb1-996b765ea883',
     farmerId: '2',
     description: 'Também conhecida como Ponkan, é suculenta e fácil de descascar. Perfeita para um lanche rápido e saudável.',
     dataAiHint: 'bergamot tangerine',
@@ -2314,6 +2314,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
 
     
+
 
 
 
