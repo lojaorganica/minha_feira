@@ -5,7 +5,7 @@ import Image from "next/image";
 import type { Product } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardTitle, CardDescription } from "@/components/ui/card";
-import { Plus, Minus, ShoppingCart, Tractor, X, Heart } from "lucide-react";
+import { Plus, Minus, ShoppingCart, Tractor, X, Heart, User } from "lucide-react";
 import { useCart } from "@/hooks/use-cart";
 import { useState, useEffect } from "react";
 import { Input } from "./ui/input";
@@ -19,9 +19,10 @@ import { useFavorites } from "@/hooks/use-favorites.tsx";
 interface ProductCardProps {
   product: Product;
   farmerName: string;
+  responsibleName?: string;
 }
 
-const ProductCard = ({ product, farmerName }: ProductCardProps) => {
+const ProductCard = ({ product, farmerName, responsibleName }: ProductCardProps) => {
   const { addToCart, cartFarmerId, handleConfirmClearAndAddToCart } = useCart();
   const { toggleFavorite, isFavorite } = useFavorites();
 
@@ -141,18 +142,24 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
         </div>
         <CardContent className="p-4 flex-grow">
           <div className="flex justify-between items-start">
-            <CardTitle className="text-2xl font-headline text-primary">{product.name}</CardTitle>
+            <CardTitle className="text-xl font-headline text-primary">{product.name}</CardTitle>
             <Button variant="ghost" size="icon" className="h-8 w-8 -mr-2 hover:bg-transparent focus-visible:bg-transparent focus:bg-transparent active:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0" onClick={handleToggleFavorite}>
                 <Heart className={cn("h-6 w-6 text-primary", isLocallyFavorite && "fill-red-500 text-red-500")} />
             </Button>
           </div>
-          <CardDescription className="text-xl mt-1 font-semibold text-foreground/90 flex-grow">{product.description}</CardDescription>
+          <CardDescription className="text-lg mt-1 font-semibold text-foreground/90 flex-grow">{product.description}</CardDescription>
         </CardContent>
          <CardFooter className="p-4 pt-0 flex flex-col items-start gap-4">
             <div className="flex items-center gap-2 text-sm text-muted-foreground font-semibold">
                 <Tractor className="h-4 w-4 text-primary" />
                 <span>Fornecedor: {farmerName}</span>
             </div>
+            {responsibleName && (
+                 <div className="flex items-center gap-2 text-sm text-muted-foreground font-semibold -mt-3">
+                    <User className="h-4 w-4 text-primary" />
+                    <span>Responsável: {responsibleName}</span>
+                </div>
+            )}
             <div className="text-lg font-bold text-primary w-full flex justify-between items-center">
                 <div>
                 <span>R${product.price.toFixed(2).replace('.', ',')}</span>

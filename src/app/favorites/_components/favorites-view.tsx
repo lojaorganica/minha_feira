@@ -6,7 +6,7 @@ import { useFavorites } from "@/hooks/use-favorites.tsx";
 import { getFarmerById } from "@/lib/data";
 import type { Product, Farmer } from "@/lib/types";
 import ProductCard from "@/components/product-card";
-import { Loader2, Heart } from "lucide-react";
+import { Loader2, Heart, User } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
@@ -65,15 +65,20 @@ export default function FavoritesView() {
     <div className="space-y-12">
       {favoritesByFarmer.map(farmer => (
         <section key={farmer.id}>
-          <div className="flex flex-col items-start gap-2 mb-6">
+          <div className="flex flex-col items-start gap-1 mb-6">
             <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl text-primary">
               {farmer.name}
             </h2>
-            <p className="text-lg font-semibold text-foreground/90 text-left max-w-2xl">{farmer.bio}</p>
+             {farmer.responsibleName && (
+                <p className="text-sm font-semibold text-muted-foreground -mt-1">
+                    Responsável: {farmer.responsibleName}
+                </p>
+            )}
+            <p className="text-lg font-semibold text-foreground/90 text-left max-w-2xl mt-2">{farmer.bio}</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
             {farmer.products.map(product => (
-              <ProductCard key={product.id} product={product} farmerName={farmer.name} />
+              <ProductCard key={product.id} product={product} farmerName={farmer.name} responsibleName={farmer.responsibleName} />
             ))}
           </div>
         </section>
