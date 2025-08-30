@@ -47,7 +47,7 @@ export default function PromotionsCarousel() {
                             <CarouselItem key={product.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
                                 <div className="p-1 h-full">
                                     <Card className="overflow-hidden h-full flex flex-col">
-                                        <div className="relative aspect-[4/3] bg-muted/30">
+                                        <div className="relative aspect-[3/2] bg-muted/30">
                                             <Image
                                                 src={product.image}
                                                 alt={product.name}

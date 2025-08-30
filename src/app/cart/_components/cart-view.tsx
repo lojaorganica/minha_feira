@@ -74,7 +74,7 @@ function ComplementarySuggestions() {
           {suggestions.map(product => (
             <Card key={product.id} className="overflow-hidden">
                 <CardContent className="p-2">
-                    <div className="relative aspect-square mb-2 bg-muted/30">
+                    <div className="relative aspect-[3/2] mb-2 bg-muted/30">
                         <Image src={product.image} alt={product.name} fill className="object-cover rounded-md" data-ai-hint={product.dataAiHint}/>
                     </div>
                     <h3 className="text-lg font-semibold truncate">{product.name}</h3>

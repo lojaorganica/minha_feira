@@ -66,7 +66,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
   return (
     <>
       <Card className="flex flex-col h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-        <div className="relative aspect-[4/3] rounded-t-lg bg-muted/30">
+        <div className="relative aspect-[3/2] rounded-t-lg bg-muted/30">
           <Image
             src={product.image}
             alt={product.name}

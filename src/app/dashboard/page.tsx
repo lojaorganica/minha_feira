@@ -217,7 +217,7 @@ function ProductsTabContent({ allProducts, onProductUpdate }: { allProducts: Pro
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     {products.map((product) => (
                         <Card key={product.id} className={cn("flex flex-col border-primary border-2 transition-opacity", product.status === 'paused' && 'opacity-50')}>
-                            <div className="relative aspect-[4/3] bg-muted/30">
+                            <div className="relative aspect-[3/2] bg-muted/30">
                                 <Image 
                                     src={product.image} 
                                     alt={product.name} 
