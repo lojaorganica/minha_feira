@@ -11,6 +11,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { Tractor } from 'lucide-react';
 import { Button } from './ui/button';
 import Link from 'next/link';
+import { cn } from '@/lib/utils';
 
 export default function PromotionsCarousel() {
     const [promotions, setPromotions] = useState<(Product & { farmerName: string })[]>([]);
@@ -43,39 +44,45 @@ export default function PromotionsCarousel() {
                     className="w-full relative"
                 >
                     <CarouselContent className="-ml-4">
-                        {promotions.map((product) => (
-                            <CarouselItem key={product.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                                <div className="p-1 h-full">
-                                    <Card className="overflow-hidden h-full flex flex-col">
-                                        <div className="relative aspect-[3/2] bg-muted/30">
-                                            <Image
-                                                src={product.image}
-                                                alt={product.name}
-                                                fill
-                                                className="object-cover"
-                                                data-ai-hint={product.dataAiHint}
-                                            />
-                                        </div>
-                                        <CardContent className="p-4 flex-grow">
-                                            <CardTitle className="font-headline text-primary">{product.name}</CardTitle>
-                                            <div className="flex items-center gap-2 mt-1 text-sm text-muted-foreground font-semibold">
-                                                <Tractor className="h-4 w-4 text-primary" />
-                                                <span>{product.farmerName}</span>
+                        {promotions.map((product) => {
+                            const isLojaOrganica = product.farmerId === '134';
+                            return (
+                                <CarouselItem key={product.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                                    <div className="p-1 h-full">
+                                        <Card className="overflow-hidden h-full flex flex-col">
+                                            <div className={cn(
+                                              "relative bg-muted/30",
+                                              isLojaOrganica ? "aspect-[3/4]" : "aspect-[3/2]"
+                                            )}>
+                                                <Image
+                                                    src={product.image}
+                                                    alt={product.name}
+                                                    fill
+                                                    className="object-cover"
+                                                    data-ai-hint={product.dataAiHint}
+                                                />
                                             </div>
-                                            <p className="text-lg font-bold text-primary mt-2">
-                                                R${product.price.toFixed(2).replace('.', ',')}
-                                                <span className="text-base font-medium text-foreground/80 ml-1">/ {product.unit}</span>
-                                            </p>
-                                        </CardContent>
-                                        <CardFooter className="p-4">
-                                             <Button asChild className="w-full">
-                                                <Link href={`/products?farmerId=${product.farmerId}`}>Ver produto</Link>
-                                             </Button>
-                                        </CardFooter>
-                                    </Card>
-                                </div>
-                            </CarouselItem>
-                        ))}
+                                            <CardContent className="p-4 flex-grow">
+                                                <CardTitle className="font-headline text-primary">{product.name}</CardTitle>
+                                                <div className="flex items-center gap-2 mt-1 text-sm text-muted-foreground font-semibold">
+                                                    <Tractor className="h-4 w-4 text-primary" />
+                                                    <span>{product.farmerName}</span>
+                                                </div>
+                                                <p className="text-lg font-bold text-primary mt-2">
+                                                    R${product.price.toFixed(2).replace('.', ',')}
+                                                    <span className="text-base font-medium text-foreground/80 ml-1">/ {product.unit}</span>
+                                                </p>
+                                            </CardContent>
+                                            <CardFooter className="p-4">
+                                                 <Button asChild className="w-full">
+                                                    <Link href={`/products?farmerId=${product.farmerId}`}>Ver produto</Link>
+                                                 </Button>
+                                            </CardFooter>
+                                        </Card>
+                                    </div>
+                                </CarouselItem>
+                            )
+                        })}
                     </CarouselContent>
                     <CarouselPrevious className="absolute -left-4 top-1/3 -translate-y-1/2 h-8 w-8 rounded-full bg-accent text-accent-foreground transition-opacity hover:bg-accent/90 disabled:opacity-50 flex items-center justify-center" />
                     <CarouselNext className="absolute -right-4 top-1/3 -translate-y-1/2 h-8 w-8 rounded-full bg-accent text-accent-foreground transition-opacity hover:bg-accent/90 disabled:opacity-50 flex items-center justify-center" />
