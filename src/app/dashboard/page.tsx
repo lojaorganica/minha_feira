@@ -245,11 +245,11 @@ function ProductsTabContent({ allProducts, onProductUpdate }: { allProducts: Pro
                                     )}
                                 </div>
                                 <CardHeader>
-                                    <CardTitle className="font-headline text-primary">{product.name}</CardTitle>
+                                    <CardTitle className="font-headline text-2xl text-primary">{product.name}</CardTitle>
                                 </CardHeader>
                                 <CardContent className="flex-grow">
                                     <p className="font-bold text-lg">R${product.price.toFixed(2).replace('.', ',')} <span className="text-base font-medium text-foreground/80">/ {product.unitAmount ? `${product.unitAmount} ` : ''}{product.unit}</span></p>
-                                    <p className="text-base font-semibold text-foreground/90 mt-2 line-clamp-3">{product.description}</p>
+                                    <p className="text-lg font-semibold text-foreground/90 mt-2 line-clamp-3">{product.description}</p>
                                 </CardContent>
                                 <CardFooter className="flex flex-col gap-4">
                                     <div className="flex items-center space-x-2 w-full justify-start p-2 bg-muted rounded-md">

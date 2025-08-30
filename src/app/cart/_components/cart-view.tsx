@@ -77,7 +77,7 @@ function ComplementarySuggestions() {
                     <div className="relative aspect-[3/2] mb-2 bg-muted/30">
                         <Image src={product.image} alt={product.name} fill className="object-cover rounded-md" data-ai-hint={product.dataAiHint}/>
                     </div>
-                    <h3 className="text-lg font-semibold truncate">{product.name}</h3>
+                    <h3 className="text-xl font-semibold truncate">{product.name}</h3>
                     <div className="flex justify-between items-center mt-2">
                         <p className="font-bold text-primary text-lg">R${product.price.toFixed(2).replace('.', ',')}</p>
                         <Button size="sm" onClick={() => handleAddToCart(product)}>Adicionar</Button>
@@ -308,7 +308,7 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
 
                     <div className="ml-4 flex flex-1 flex-col">
                         <div>
-                            <div className="flex justify-between text-lg font-bold text-foreground">
+                            <div className="flex justify-between text-xl font-bold text-foreground">
                                 <h3>
                                 <a href="#">{product.name}</a>
                                 </h3>
@@ -318,7 +318,7 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
                                 <Tractor className="h-4 w-4 text-primary" />
                                 <span>Fornecedor: {product.farmerName}</span>
                             </div>
-                             <p className="mt-1 text-base font-semibold text-foreground/80">R${product.price.toFixed(2).replace('.', ',')} / {product.unit}</p>
+                             <p className="mt-1 text-lg font-semibold text-foreground/80">R${product.price.toFixed(2).replace('.', ',')} / {product.unit}</p>
                         </div>
                         <div className="flex flex-1 items-end justify-between text-base">
                             <div className="flex items-center gap-2">
