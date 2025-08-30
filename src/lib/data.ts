@@ -1615,7 +1615,7 @@ let products: Product[] = [
     price: 4.50,
     unit: 'unidade',
     unitAmount: 1,
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/aipo.webp?alt=media&token=5b262d1a-4f51-4c60-84c4-724d17ab8e93',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/aipo.webp?alt=media&token=568de33a-7127-4e14-a96e-cce9357ebbf2',
     farmerId: '1',
     description: 'Crocante e aromático, o aipo é ideal para sopas, saladas e como base para caldos.',
     dataAiHint: 'celery',
@@ -2005,7 +2005,7 @@ const defaultProductImages = new Map<string, string>([
     ['pera williams', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pera_williams.webp?alt=media&token=5bb791b0-9f75-4cd6-9a50-c4a978b351b7'],
     ['pera', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pera_williams.webp?alt=media&token=5bb791b0-9f75-4cd6-9a50-c4a978b351b7'],
     ['pessego', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pessego.webp?alt=media&token=40ca1fb9-a000-4b9e-bbd5-52775e5d0720'],
-    ['aipo', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/aipo.webp?alt=media&token=5b262d1a-4f51-4c60-84c4-724d17ab8e93'],
+    ['aipo', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/aipo.webp?alt=media&token=568de33a-7127-4e14-a96e-cce9357ebbf2'],
     ['mexerica bergamota', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tangerina_ponkan.webp?alt=media&token=eceafacb-80ae-44f1-8349-8edd8222bf30'],
     ['batata bolinha', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batata_inglesa.webp?alt=media&token=41f17e48-9a43-4980-b61d-1c12a91f3cf2'],
     ['pimentão snackpim', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pimentao_amarelo.webp?alt=media&token=c4a9a8f2-8e0c-4e8a-8a6a-0c5d5e5f4d4d'],
@@ -2314,6 +2314,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
 
     
+
 
 
 
