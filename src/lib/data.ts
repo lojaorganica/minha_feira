@@ -1,5 +1,4 @@
 
-
 import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerOrder, CustomerClassification } from './types';
 
 let products: Product[] = [
@@ -1555,7 +1554,7 @@ let products: Product[] = [
     price: 35.00,
     unitAmount: 1,
     unit: 'pote',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_aroeira.webp?alt=media&token=cc691f95-6565-42b1-9abd-95cca2e6b31d',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_aroeira.webp?alt=media&token=ae8fab08-dbc6-4ce2-a182-0ceba0f21f5a',
     dataAiHint: 'aroeira honey',
     farmerId: '134',
     description: 'Mel de Aroeira, de sabor intenso e propriedades medicinais, ideal para fortalecer a imunidade.',
@@ -2086,7 +2085,8 @@ export function getProducts(options: { includePaused?: boolean } = {}): Product[
 }
 
 export function getProductById(id: string): Product | undefined {
-  return getProducts({ includePaused: true }).find((p) => p.id === id);
+  // Busca em todos os produtos, incluindo os pausados, para garantir que um pedido antigo possa encontrar seu produto.
+  return getProducts({ includePaused: true }).find((p) => p.name === id || p.id === id);
 }
 
 export function deleteProduct(productId: string): boolean {
@@ -2327,3 +2327,4 @@ export function updateCustomerClassification(customerId: string, classification:
 
 
     
+

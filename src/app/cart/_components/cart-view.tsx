@@ -22,6 +22,7 @@ import { useOrderHistory } from "@/hooks/use-order-history";
 import { useUser } from "@/hooks/use-user";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { AlertDialog, AlertDialogContent, AlertDialogDescription, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import { cn } from "@/lib/utils";
 
 
 function ComplementarySuggestions() {
@@ -102,6 +103,58 @@ function getFairDisplayName(fair: string): string {
     }
     return `Feira da ${fair}`;
 }
+
+const renderQuantityControls = (product: any, updateQuantity: (id: string, q: number) => void) => {
+    if (product.unit === 'kg') {
+        const currentGrams = product.quantity * 1000;
+        return (
+             <div className="flex items-center gap-2">
+                <Button size="icon" variant="outline" className="h-8 w-8" onClick={() => updateQuantity(product.id, product.quantity - 0.1)}>
+                    <Minus className="h-4 w-4" />
+                    <span className="sr-only">Diminuir 100g</span>
+                </Button>
+                <span className="font-bold text-lg w-20 text-center">{currentGrams} g</span>
+                <Button size="icon" variant="outline" className="h-8 w-8" onClick={() => updateQuantity(product.id, product.quantity + 0.1)}>
+                    <Plus className="h-4 w-4" />
+                    <span className="sr-only">Aumentar 100g</span>
+                </Button>
+            </div>
+        )
+    }
+
+    return (
+        <div className="flex items-center gap-2">
+            <Button size="icon" variant="outline" className="h-8 w-8" onClick={() => updateQuantity(product.id, product.quantity - 1)}>
+                <Minus className="h-4 w-4" />
+                <span className="sr-only">Diminuir quantidade</span>
+            </Button>
+            <span className="font-bold text-lg w-10 text-center">{product.quantity}</span>
+            <Button size="icon" variant="outline" className="h-8 w-8" onClick={() => updateQuantity(product.id, product.quantity + 1)}>
+                <Plus className="h-4 w-4" />
+                <span className="sr-only">Aumentar quantidade</span>
+            </Button>
+        </div>
+    );
+};
+
+const formatItemText = (item: any) => {
+    if (item.unit === 'kg') {
+        const grams = item.quantity * 1000;
+        return `- ${grams}g de ${item.name} (R$ ${(item.price * item.quantity).toFixed(2).replace('.', ',')})`;
+    }
+    return `- ${item.quantity}x ${item.name} (R$ ${(item.price * item.quantity).toFixed(2).replace('.', ',')})`;
+};
+
+const getDisplayQuantity = (item: any) => {
+    if (item.unit === 'kg') {
+        if (item.quantity >= 1) {
+            return `${item.quantity.toFixed(1)} kg`.replace('.', ',');
+        }
+        return `${item.quantity * 1000} g`;
+    }
+    return `${item.quantity}x`;
+};
+
 
 export default function CartView() {
   const { cartItems, removeFromCart, updateQuantity, cartTotal, isCartLoaded, clearCart } = useCart();
@@ -209,7 +262,7 @@ export default function CartView() {
         return;
     }
 
-    const orderItemsText = cartItems.map(item => `- ${item.quantity}x ${item.name} (R$ ${(item.price * item.quantity).toFixed(2).replace('.', ',')})`).join('\n');
+    const orderItemsText = cartItems.map(formatItemText).join('\n');
     
     const deliveryText = deliveryOption === 'delivery' 
         ? `*Opção de Entrega:* Delivery (Frete: R$ ${shippingCost.toFixed(2).replace('.', ',')})` 
@@ -321,17 +374,7 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
                              <p className="mt-1 text-lg font-semibold text-foreground/80">R${product.price.toFixed(2).replace('.', ',')} / {product.unit}</p>
                         </div>
                         <div className="flex flex-1 items-end justify-between text-base">
-                            <div className="flex items-center gap-2">
-                                <Button size="icon" variant="outline" className="h-8 w-8" onClick={() => updateQuantity(product.id, product.quantity - 1)}>
-                                    <Minus className="h-4 w-4" />
-                                    <span className="sr-only">Diminuir quantidade</span>
-                                </Button>
-                                <span className="font-bold text-lg w-10 text-center">{product.quantity}</span>
-                                 <Button size="icon" variant="outline" className="h-8 w-8" onClick={() => updateQuantity(product.id, product.quantity + 1)}>
-                                    <Plus className="h-4 w-4" />
-                                     <span className="sr-only">Aumentar quantidade</span>
-                                </Button>
-                            </div>
+                            <div>{renderQuantityControls(product, updateQuantity)}</div>
                             <div className="flex">
                                 <Button
                                     variant="ghost"
@@ -525,17 +568,3 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
     </div>
   );
 }
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    

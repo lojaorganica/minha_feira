@@ -9,6 +9,16 @@ import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { Separator } from "@/components/ui/separator";
 
+const formatItemQuantity = (item: any) => {
+    if (item.productUnit === 'kg') {
+        if (item.quantity >= 1) {
+            return `${item.quantity.toFixed(1)} kg`.replace('.', ',');
+        }
+        return `${item.quantity * 1000} g`;
+    }
+    return `${item.quantity}x`;
+};
+
 export default function OrderHistoryPage() {
     const { orders, isLoaded } = useOrderHistory();
 
@@ -62,7 +72,7 @@ export default function OrderHistoryPage() {
                                     <ul className="space-y-2 pl-2">
                                         {order.items.map((item, index) => (
                                             <li key={index} className="flex justify-between items-center text-lg font-semibold text-foreground/90">
-                                                <span>{item.quantity}x {item.productName}</span>
+                                                <span>{formatItemQuantity(item)} {item.productName}</span>
                                             </li>
                                         ))}
                                     </ul>

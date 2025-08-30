@@ -3,10 +3,11 @@
 
 import type { CustomerOrder } from "@/lib/types";
 import { useState, useEffect, useCallback, createContext, useContext } from "react";
+import { getProductById } from "@/lib/data";
 
 export interface OrderHistoryContextType {
   orders: CustomerOrder[];
-  addOrder: (order: CustomerOrder) => void;
+  addOrder: (order: Omit<CustomerOrder, 'items'> & { items: { productName: string, quantity: number }[] }) => void;
   isLoaded: boolean;
 }
 
@@ -20,7 +21,6 @@ export function useOrderHistoryState() {
     try {
       const storedOrders = localStorage.getItem("minha_feira_order_history");
       if (storedOrders) {
-        // Ordena do mais recente para o mais antigo ao carregar
         const parsedOrders = JSON.parse(storedOrders);
         setOrders(parsedOrders.sort((a: CustomerOrder, b: CustomerOrder) => new Date(b.date).getTime() - new Date(a.date).getTime()));
       }
@@ -41,10 +41,23 @@ export function useOrderHistoryState() {
     }
   }, [orders, isLoaded]);
 
-  const addOrder = useCallback((order: CustomerOrder) => {
+  const addOrder = useCallback((order: Omit<CustomerOrder, 'items'> & { items: { productName: string, quantity: number }[] }) => {
+    // Enrich items with unit before saving
+    const enrichedItems = order.items.map(item => {
+        const productDetails = getProductById(item.productName);
+        return {
+            ...item,
+            productUnit: productDetails?.unit || ''
+        };
+    });
+
+    const newOrder: CustomerOrder = {
+        ...order,
+        items: enrichedItems,
+    };
+
     setOrders((prevOrders) => {
-      const newOrders = [order, ...prevOrders];
-      // Garante que a ordenação está correta após adicionar
+      const newOrders = [newOrder, ...prevOrders];
       return newOrders.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
     });
   }, []);
@@ -63,5 +76,3 @@ export function useOrderHistory() {
   }
   return context;
 }
-
-    

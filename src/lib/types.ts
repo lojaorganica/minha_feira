@@ -57,9 +57,17 @@ export interface Order {
   pickupLocation?: string;
 }
 
-export interface CustomerOrder extends Omit<Order, 'status' | 'customerContact'> {
+
+export interface OrderHistoryItem {
+    productName: string;
+    quantity: number;
+    productUnit: string;
+}
+
+export interface CustomerOrder extends Omit<Order, 'items' | 'status' | 'customerContact'> {
     status: 'Pendente'; // O status do cliente é sempre pendente até o agricultor confirmar
     farmerName: string;
+    items: OrderHistoryItem[];
 }
 
 

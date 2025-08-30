@@ -63,9 +63,17 @@ export function useCartState() {
       }
       return [...prevItems, { ...product, quantity, farmerId: product.farmerId }];
     });
+    
+    let quantityText = `${quantity}`;
+    if (product.unit === 'kg') {
+      quantityText = `${quantity * 1000}g`;
+    } else {
+      quantityText = `${quantity}x`;
+    }
+
      toast({
         title: "Adicionado ao carrinho",
-        description: `${quantity} x ${product.name} foi adicionado ao seu carrinho.`,
+        description: `${quantityText} de ${product.name} foi adicionado ao seu carrinho.`,
       });
   }, [toast]);
 
@@ -76,7 +84,10 @@ export function useCartState() {
   }, []);
 
   const updateQuantity = useCallback((productId: string, newQuantity: number) => {
-    if (newQuantity <= 0) {
+    const item = cartItems.find(item => item.id === productId);
+    const minQuantity = item?.unit === 'kg' ? 0.2 : 1;
+    
+    if (newQuantity < minQuantity) {
       removeFromCart(productId);
     } else {
       setCartItems((prevItems) =>
@@ -85,7 +96,7 @@ export function useCartState() {
         )
       );
     }
-  }, [removeFromCart]);
+  }, [removeFromCart, cartItems]);
 
   const clearCart = useCallback(() => {
     setCartItems([]);
@@ -106,7 +117,15 @@ export function useCartState() {
   };
   
   const currentFarmerInCartName = cartFarmerId ? getFarmerById(cartFarmerId)?.name ?? null : null;
-  const cartCount = cartItems.reduce((count, item) => count + item.quantity, 0);
+  
+  const cartCount = cartItems.reduce((count, item) => {
+      if (item.unit === 'kg') {
+          // Para itens de kg, podemos contar como 1 item único, independente do peso
+          return count + 1;
+      }
+      return count + item.quantity;
+  }, 0);
+  
   const cartTotal = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
     0
