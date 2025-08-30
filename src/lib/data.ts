@@ -1527,7 +1527,7 @@ let products: Product[] = [
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_acacia.webp?alt=media&token=b94ee3e6-52de-4f78-a801-38f5254c840c',
     dataAiHint: 'acacia honey',
     farmerId: '134',
-    description: 'Mel de Acácia, também conhecida como Árvore da Vida, produzido na Serra do Roncador, no Mato Grosso. É riquíssimo em vitaminas como a vitamina C, e uma boa quantidade de antioxidantes, como os flavonoides e betacaroteno, além de minerais como cálcio, magnésio e potássio.',
+    description: 'A Acácia é conhecida como Árvore da Vida, e o mel de suas flores é um néctar precioso. Produzido de forma natural na encantadora Serra do Roncador, em Mato Grosso, este mel é um verdadeiro tesouro da natureza. Rico em vitamina C e repleto de antioxidantes poderosos, como flavonoides e betacaroteno, ele ainda concentra minerais essenciais como cálcio, magnésio e potássio. Um alimento nutritivo, saboroso e cheio de vitalidade para o seu dia a dia.',
     status: 'active',
   },
   {
