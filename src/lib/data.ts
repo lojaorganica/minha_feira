@@ -1604,7 +1604,7 @@ let products: Product[] = [
     unitAmount: 1,
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mexerica_bergamota.webp?alt=media&token=452f0390-d797-4c48-acb1-996b765ea883',
     farmerId: '2',
-    description: 'Também conhecida como Ponkan, é suculenta e fácil de descascar. Perfeita para um lanche rápido e saudável.',
+    description: 'Cultivar de casca fina e aroma marcante, a bergamota é fácil de descascar e tem um sabor doce e intenso.',
     dataAiHint: 'bergamot tangerine',
     status: 'active',
   },
@@ -2314,6 +2314,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
 
     
+
 
 
 
