@@ -1968,7 +1968,7 @@ const defaultProductImages = new Map<string, string>([
     ['melão orange', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/melao_orange.webp?alt=media&token=fb9e85b4-2fa0-44f0-92b0-b2e492c58fab'],
     ['melão pele de sapo', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/melao_pele_de_sapo.webp?alt=media&token=47c0283d-6af0-47a9-ace4-340f8331b100'],
     ['melão cantaloupe', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/melao_cantaloupe.webp?alt=media&token=04174dc3-46c3-49d6-8096-ecb20dd1e978'],
-    ['mel', 'https://placehold.co/600x400.png'],
+    ['mel', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_aroeira.webp?alt=media&token=38df6685-80cf-4c34-a0ba-210a0907787b'],
     ['acelga', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/acelga.webp?alt=media&token=0721f75b-65a2-40cf-8754-c10afd93acc6'],
     ['alho poró', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alho_poro.webp?alt=media&token=84c5bcc6-06f2-46be-8589-68b3e7be0fa5'],
     ['chuchu', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/chuchu.webp?alt=media&token=4ef6fcb9-2d57-47b6-b397-ec466ccfc6cd'],
@@ -2057,8 +2057,10 @@ export function getProducts(options: { includePaused?: boolean } = {}): Product[
       }
 
       // Se uma correspondência foi encontrada, atualiza a imagem do produto
-      if (bestMatchImageUrl) {
+      if (bestMatchImageUrl && product.image !== bestMatchImageUrl) {
+        if (!product.image || product.image.startsWith('https://placehold.co')) {
           return { ...product, image: bestMatchImageUrl };
+        }
       }
       
       // Se nenhuma palavra-chave corresponder, garante que haja uma imagem de placeholder válida
@@ -2315,6 +2317,9 @@ export function updateCustomerClassification(customerId: string, classification:
 
 
 
+
+
+    
 
 
     
