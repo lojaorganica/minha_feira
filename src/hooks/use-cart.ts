@@ -55,9 +55,11 @@ export function useCartState() {
     setCartItems((prevItems) => {
       const existingItem = prevItems.find((item) => item.id === product.id);
       if (existingItem) {
+        const newQuantity = existingItem.quantity + quantity;
+        const finalQuantity = parseFloat(newQuantity.toPrecision(12));
         return prevItems.map((item) =>
           item.id === product.id
-            ? { ...item, quantity: item.quantity + quantity }
+            ? { ...item, quantity: finalQuantity }
             : item
         );
       }
@@ -66,7 +68,7 @@ export function useCartState() {
     
     let quantityText = `${quantity}`;
     if (product.unit === 'kg') {
-      quantityText = `${quantity * 1000}g`;
+      quantityText = `${Math.round(quantity * 1000)}g`;
     } else {
       quantityText = `${quantity}x`;
     }
@@ -119,11 +121,9 @@ export function useCartState() {
   const currentFarmerInCartName = cartFarmerId ? getFarmerById(cartFarmerId)?.name ?? null : null;
   
   const cartCount = cartItems.reduce((count, item) => {
-      if (item.unit === 'kg') {
-          // Para itens de kg, podemos contar como 1 item único, independente do peso
-          return count + 1;
-      }
-      return count + item.quantity;
+      // Para itens de kg, conta como 1 item único, independente do peso
+      // Para itens unitários, soma a quantidade
+      return item.unit === 'kg' ? count + 1 : count + item.quantity;
   }, 0);
   
   const cartTotal = cartItems.reduce(

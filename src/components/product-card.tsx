@@ -70,20 +70,22 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
   const handleQuantityChange = (amount: number) => {
     if (!handleActionAttempt()) return;
     setQuantity(prev => {
-        const newQuantity = prev + amount;
+        // Corrigir imprecisão de ponto flutuante
+        const newQuantity = parseFloat((prev + amount).toPrecision(12));
         return isKgProduct ? Math.max(0.2, newQuantity) : Math.max(1, newQuantity);
     });
   };
 
   const renderQuantityInput = () => {
     if (isKgProduct) {
+        const displayGrams = Math.round(quantity * 1000);
         return (
              <div className="flex w-full items-center gap-2">
                 <Button size="icon" variant="outline" onClick={() => handleQuantityChange(-0.1)} aria-label="Diminuir quantidade em 100g" className="h-10 px-3" disabled={isFarmerDifferent || quantity <= 0.2}>
                     <Minus className="h-4 w-4" />
                 </Button>
-                <div className="w-full h-10 text-center font-bold text-lg flex items-center justify-center border rounded-md">
-                   {quantity * 1000} g
+                <div className="w-full h-10 text-center font-bold text-xl flex items-center justify-center border rounded-md">
+                   {displayGrams} g
                 </div>
                 <Button size="icon" variant="outline" onClick={() => handleQuantityChange(0.1)} aria-label="Aumentar quantidade em 100g" className="h-10 px-3" disabled={isFarmerDifferent}>
                     <Plus className="h-4 w-4" />
@@ -111,7 +113,7 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
                         handleActionAttempt();
                     }
                 }}
-                className="w-full h-10 text-center font-bold text-lg hide-number-spinners"
+                className="w-full h-10 text-center font-bold text-xl hide-number-spinners"
                 aria-label="Quantidade"
                 disabled={isFarmerDifferent}
             />
@@ -139,12 +141,12 @@ const ProductCard = ({ product, farmerName }: ProductCardProps) => {
         </div>
         <CardContent className="p-4 flex-grow">
           <div className="flex justify-between items-start">
-            <CardTitle className="text-xl font-headline text-primary">{product.name}</CardTitle>
+            <CardTitle className="text-2xl font-headline text-primary">{product.name}</CardTitle>
             <Button variant="ghost" size="icon" className="h-8 w-8 -mr-2 hover:bg-transparent focus-visible:bg-transparent focus:bg-transparent active:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0" onClick={handleToggleFavorite}>
                 <Heart className={cn("h-6 w-6 text-primary", isLocallyFavorite && "fill-red-500 text-red-500")} />
             </Button>
           </div>
-          <CardDescription className="text-lg mt-1 font-semibold text-foreground/90 flex-grow">{product.description}</CardDescription>
+          <CardDescription className="text-xl mt-1 font-semibold text-foreground/90 flex-grow">{product.description}</CardDescription>
         </CardContent>
          <CardFooter className="p-4 pt-0 flex flex-col items-start gap-4">
             <div className="flex items-center gap-2 text-sm text-muted-foreground font-semibold">

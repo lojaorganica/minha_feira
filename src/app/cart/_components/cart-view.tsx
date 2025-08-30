@@ -106,15 +106,15 @@ function getFairDisplayName(fair: string): string {
 
 const renderQuantityControls = (product: any, updateQuantity: (id: string, q: number) => void) => {
     if (product.unit === 'kg') {
-        const currentGrams = product.quantity * 1000;
+        const currentGrams = Math.round(product.quantity * 1000);
         return (
              <div className="flex items-center gap-2">
-                <Button size="icon" variant="outline" className="h-8 w-8" onClick={() => updateQuantity(product.id, product.quantity - 0.1)}>
+                <Button size="icon" variant="outline" className="h-8 w-8" onClick={() => updateQuantity(product.id, parseFloat((product.quantity - 0.1).toPrecision(12)))}>
                     <Minus className="h-4 w-4" />
                     <span className="sr-only">Diminuir 100g</span>
                 </Button>
                 <span className="font-bold text-lg w-20 text-center">{currentGrams} g</span>
-                <Button size="icon" variant="outline" className="h-8 w-8" onClick={() => updateQuantity(product.id, product.quantity + 0.1)}>
+                <Button size="icon" variant="outline" className="h-8 w-8" onClick={() => updateQuantity(product.id, parseFloat((product.quantity + 0.1).toPrecision(12)))}>
                     <Plus className="h-4 w-4" />
                     <span className="sr-only">Aumentar 100g</span>
                 </Button>
@@ -139,7 +139,7 @@ const renderQuantityControls = (product: any, updateQuantity: (id: string, q: nu
 
 const formatItemText = (item: any) => {
     if (item.unit === 'kg') {
-        const grams = item.quantity * 1000;
+        const grams = Math.round(item.quantity * 1000);
         return `- ${grams}g de ${item.name} (R$ ${(item.price * item.quantity).toFixed(2).replace('.', ',')})`;
     }
     return `- ${item.quantity}x ${item.name} (R$ ${(item.price * item.quantity).toFixed(2).replace('.', ',')})`;
@@ -150,7 +150,7 @@ const getDisplayQuantity = (item: any) => {
         if (item.quantity >= 1) {
             return `${item.quantity.toFixed(1)} kg`.replace('.', ',');
         }
-        return `${item.quantity * 1000} g`;
+        return `${Math.round(item.quantity * 1000)} g`;
     }
     return `${item.quantity}x`;
 };
