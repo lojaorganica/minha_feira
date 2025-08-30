@@ -8,7 +8,7 @@ let products: Product[] = [
     category: 'Vegetal',
     price: 2.5,
     unitAmount: 1,
-    unit: 'kg',
+    unit: 'maço',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/cenoura.webp?alt=media&token=83e659dc-2bd5-42f5-bc98-a178690858f1',
     dataAiHint: 'organic carrots',
     farmerId: '1',
@@ -146,7 +146,7 @@ let products: Product[] = [
     category: 'Fruta',
     price: 1.8,
     unitAmount: 1,
-    unit: 'unidade',
+    unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/maca_fuji.webp?alt=media&token=d9b195e6-0e42-4976-83fe-fdf87dfafd7c',
     dataAiHint: 'fuji apple',
     farmerId: '2',
@@ -185,7 +185,7 @@ let products: Product[] = [
     category: 'Vegetal',
     price: 3.20,
     unitAmount: 1,
-    unit: 'kg',
+    unit: 'maço',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/beterraba.webp?alt=media&token=d33b9ad6-d6c9-4641-b2fc-e4ed9893cbb0',
     dataAiHint: 'beetroot',
     farmerId: '1',
@@ -211,7 +211,7 @@ let products: Product[] = [
     category: 'Vegetal',
     price: 3.00,
     unitAmount: 1,
-    unit: 'unidade',
+    unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alho.webp?alt=media&token=8071bc57-cdd1-4105-98da-6253f6f13050',
     dataAiHint: 'garlic',
     farmerId: '1',
@@ -731,7 +731,7 @@ let products: Product[] = [
     category: 'Vegetal',
     price: 3.80,
     unitAmount: 1,
-    unit: 'maço',
+    unit: 'unidade',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/acelga.webp?alt=media&token=0721f75b-65a2-40cf-8754-c10afd93acc6',
     dataAiHint: 'swiss chard',
     farmerId: '1',
@@ -1043,7 +1043,7 @@ let products: Product[] = [
     category: 'Vegetal',
     price: 3.20,
     unitAmount: 1,
-    unit: 'maço',
+    unit: 'unidade',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/chicoria.webp?alt=media&token=64cf0f70-4063-4ca5-96a1-4c8026705058',
     dataAiHint: 'endive',
     farmerId: '1',
@@ -1329,7 +1329,7 @@ let products: Product[] = [
     category: 'Vegetal',
     price: 3.8,
     unitAmount: 1,
-    unit: 'maço',
+    unit: 'unidade',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/china.webp?alt=media&token=39bf916d-67aa-4534-81f6-cdade5a4aeca',
     farmerId: '1',
     description: 'Também conhecida como Pak Choi, esta verdura asiática tem talos crocantes e sabor suave. É muito versátil para refogados, sopas e saladas.',
@@ -1498,7 +1498,7 @@ let products: Product[] = [
     price: 35.00,
     unitAmount: 1,
     unit: 'pote',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_aroeira.webp?alt=media&token=cc691f95-6565-42b1-9abd-95cca2e6b31d',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_aroeira.webp?alt=media&token=ae8fab08-dbc6-4ce2-a182-0ceba0f21f5a',
     dataAiHint: 'aroeira honey',
     farmerId: '134',
     description: 'Mel de Aroeira, de sabor intenso e propriedades medicinais, ideal para fortalecer a imunidade.',
@@ -2258,6 +2258,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
 
     
+
 
 
 
