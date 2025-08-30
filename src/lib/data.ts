@@ -1498,7 +1498,7 @@ let products: Product[] = [
     price: 35.00,
     unitAmount: 1,
     unit: 'pote',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_aroeira.webp?alt=media&token=ae8fab08-dbc6-4ce2-a182-0ceba0f21f5a',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_aroeira.webp?alt=media&token=cc691f95-6565-42b1-9abd-95cca2e6b31d',
     dataAiHint: 'aroeira honey',
     farmerId: '134',
     description: 'Mel de Aroeira, de sabor intenso e propriedades medicinais, ideal para fortalecer a imunidade.',
@@ -1511,7 +1511,7 @@ let products: Product[] = [
     price: 30.00,
     unitAmount: 1,
     unit: 'pote',
-    image: 'https://placehold.co/600x800.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_eucalipto.webp?alt=media&token=22fad2b2-c030-4f6e-ac57-6d5b6fa0cc49',
     dataAiHint: 'eucalyptus honey',
     farmerId: '134',
     description: 'Mel de Eucalipto, de sabor forte e refrescante, ótimo para aliviar sintomas de resfriados.',
@@ -1524,7 +1524,7 @@ let products: Product[] = [
     price: 40.00,
     unitAmount: 1,
     unit: 'pote',
-    image: 'https://placehold.co/600x800.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_acacia.webp?alt=media&token=b94ee3e6-52de-4f78-a801-38f5254c840c',
     dataAiHint: 'acacia honey',
     farmerId: '134',
     description: 'Mel de Acácia, claro e suave, perfeito para adoçar chás e iogurtes sem alterar o sabor.',
@@ -1537,7 +1537,7 @@ let products: Product[] = [
     price: 28.00,
     unitAmount: 1,
     unit: 'pote',
-    image: 'https://placehold.co/600x800.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_silvestre.webp?alt=media&token=4856b4c9-7f07-4559-8977-2b5e6f3fdeb9',
     dataAiHint: 'wildflower honey',
     farmerId: '134',
     description: 'Mel Silvestre, um blend de flores do campo com sabor rico e complexo.',
@@ -1898,7 +1898,7 @@ const defaultProductImages = new Map<string, string>([
     ['melão orange', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/melao_orange.webp?alt=media&token=fb9e85b4-2fa0-44f0-92b0-b2e492c58fab'],
     ['melão pele de sapo', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/melao_pele_de_sapo.webp?alt=media&token=47c0283d-6af0-47a9-ace4-340f8331b100'],
     ['melão cantaloupe', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/melao_cantaloupe.webp?alt=media&token=04174dc3-46c3-49d6-8096-ecb20dd1e978'],
-    ['mel', 'https://placehold.co/600x400.png'],
+    ['mel', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_aroeira.webp?alt=media&token=cc691f95-6565-42b1-9abd-95cca2e6b31d'],
     ['acelga', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/acelga.webp?alt=media&token=0721f75b-65a2-40cf-8754-c10afd93acc6'],
     ['alho poró', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alho_poro.webp?alt=media&token=84c5bcc6-06f2-46be-8589-68b3e7be0fa5'],
     ['chuchu', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/chuchu.webp?alt=media&token=4ef6fcb9-2d57-47b6-b397-ec466ccfc6cd'],
@@ -2258,6 +2258,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
 
     
+
 
 
 
