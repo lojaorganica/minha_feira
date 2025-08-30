@@ -1501,7 +1501,7 @@ let products: Product[] = [
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_aroeira.webp?alt=media&token=cc691f95-6565-42b1-9abd-95cca2e6b31d',
     dataAiHint: 'aroeira honey',
     farmerId: '134',
-    description: 'Mel de Aroeira, de sabor intenso e propriedades medicinais, ideal para fortalecer a imunidade.',
+    description: 'O mel de aroeira é riquíssimo em compostos fenólicos e minerais (cálcio, cobre, magnésio, potássio e ferro) e possui propriedades antibacterianas, anti-inflamatórias, antioxidantes e imunofortalecedoras. Excelentes para quem sofre de anemia, doenças gástricas, baixa imunidade, para mulheres em período menstrual e idosos.',
     status: 'active',
   },
   {
@@ -1527,7 +1527,7 @@ let products: Product[] = [
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_acacia.webp?alt=media&token=b94ee3e6-52de-4f78-a801-38f5254c840c',
     dataAiHint: 'acacia honey',
     farmerId: '134',
-    description: 'Mel de Acácia, claro e suave, perfeito para adoçar chás e iogurtes sem alterar o sabor.',
+    description: 'Mel de Acácia, também conhecida como Árvore da Vida, produzido na Serra do Roncador, no Mato Grosso. É riquíssimo em vitaminas como a vitamina C, e uma boa quantidade de antioxidantes, como os flavonoides e betacaroteno, além de minerais como cálcio, magnésio e potássio.',
     status: 'active',
   },
   {
@@ -1756,7 +1756,7 @@ let farmers: Farmer[] = [
     prepostos: [],
     fairs: ['Tijuca', 'Botafogo'],
     location: { lat: -22.93, lng: -43.24 },
-    bio: 'Mel puro e produtos apícolas de alta qualidade, produzidos com respeito às abelhas e à natureza.',
+    bio: 'Méis orgânicos certificados, de alta qualidade, raros e medicinais, produzidos com respeito às abelhas e à natureza.',
     address: 'Estrada do Mel, 500, Petrópolis, RJ',
     pixKey: 'marcos.melo.lojaorganica@email.com',
     shippingCost: 16.00,
@@ -2324,3 +2324,6 @@ export function updateCustomerClassification(customerId: string, classification:
 
 
 
+
+
+    
