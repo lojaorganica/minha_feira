@@ -178,7 +178,7 @@ export default function CartView() {
             image: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/Imagens_Carrinho_Vazio%2Ftomate_carrinho_vazio.webp?alt=media&token=8f5e0cf5-4ca5-44c7-81f0-5f0ed4fade7d",
             hint: "tomato vegetable basket",
             title: "Seu carrinho de orgânicos está vazio... bora colocar umas delícias aqui dentro?",
-            subtitle: "Navegue pelo catálogo para escolher alimentos saudáveis para você e sua família."
+            subtitle: "Acesse o catálogo para escolher alimentos saudáveis para você e sua família."
         },
         {
             image: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/Imagens_Carrinho_Vazio%2Fmenina_com_cesta_de_verduras.webp?alt=media&token=8c459635-de89-4e50-b302-36c507c57657",
@@ -360,7 +360,7 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
     }
 
     return (
-      <div className="text-center py-10 max-w-2xl mx-auto">
+      <div className="text-center py-4 max-w-2xl mx-auto">
         <div className="relative aspect-[3/2] w-full mb-6 rounded-lg overflow-hidden shadow-lg bg-muted/30">
             <Image
                 src={randomItem.image}
