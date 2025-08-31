@@ -396,10 +396,10 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
                 </li>
             ))}
             </ul>
-             <div className="mt-4">
-                <Button variant="outline" asChild>
+            <div className="mt-4">
+                <Button variant="outline" asChild className="group">
                     <Link href="/catalog">
-                        <ArrowLeft className="mr-2 h-4 w-4" />
+                        <ArrowLeft className="mr-2 h-4 w-4 text-accent transition-colors group-hover:text-accent-foreground" />
                         Continuar Comprando
                     </Link>
                 </Button>
@@ -578,8 +578,3 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
     </div>
   );
 }
-
-    
-
-    
-
