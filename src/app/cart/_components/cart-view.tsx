@@ -11,7 +11,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
 import { useEffect, useState, useMemo, useRef } from "react";
-import { Loader2, Sparkles, Trash2, MessageSquare, Copy, Send, MapPin, Tractor, Upload, CheckCircle, Plus, Minus, X } from "lucide-react";
+import { Loader2, Sparkles, Trash2, MessageSquare, Copy, Send, MapPin, Tractor, Upload, CheckCircle, Plus, Minus, X, ArrowLeft } from "lucide-react";
 import { getProducts, getFarmerById } from "@/lib/data";
 import type { Product } from "@/lib/types";
 import { useToast } from "@/hooks/use-toast";
@@ -397,7 +397,12 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
             ))}
             </ul>
              <div className="mt-4">
-                <Button variant="outline" onClick={clearCart}>Limpar Carrinho</Button>
+                <Button variant="outline" asChild>
+                    <Link href="/catalog">
+                        <ArrowLeft className="mr-2 h-4 w-4" />
+                        Continuar Comprando
+                    </Link>
+                </Button>
             </div>
         </section>
 
@@ -577,3 +582,4 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
     
 
     
+
