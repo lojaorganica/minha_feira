@@ -369,7 +369,7 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
                                     <Tractor className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
                                     <div className="flex flex-col">
                                         <span>Fornecedor:</span>
-                                        <span className="font-bold text-foreground/80">{product.farmerName}</span>
+                                        <span className="font-bold text-foreground/80 whitespace-nowrap">{product.farmerName}</span>
                                     </div>
                                 </div>
                                 <p className="mt-1 text-lg font-semibold text-foreground/80">R${product.price.toFixed(2).replace('.', ',')} / {product.unit}</p>
