@@ -11,7 +11,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
 import { useEffect, useState, useMemo, useRef } from "react";
-import { Loader2, Sparkles, Trash2, MessageSquare, Copy, Send, MapPin, Tractor, Upload, CheckCircle, Plus, Minus, X, ArrowLeft } from "lucide-react";
+import { Loader2, Sparkles, Trash2, MessageSquare, Copy, Send, MapPin, Tractor, Upload, CheckCircle, Plus, Minus, X, ArrowLeft, ShoppingCart } from "lucide-react";
 import { getProducts, getFarmerById } from "@/lib/data";
 import type { Product } from "@/lib/types";
 import { useToast } from "@/hooks/use-toast";
@@ -331,10 +331,52 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
   }
 
   if (cartItems.length === 0) {
+    const emptyCartMessages = [
+        {
+            image: "https://picsum.photos/600/400?random=1",
+            hint: "vegetable basket",
+            title: "Sua cesta de orgânicos está esperando por você!",
+            subtitle: "Adicione delícias frescas e saudáveis para começar."
+        },
+        {
+            image: "https://picsum.photos/600/400?random=2",
+            hint: "happy farmer",
+            title: "Que tal encher o carrinho de saúde e sabor?",
+            subtitle: "Nossos agricultores têm produtos incríveis para você."
+        },
+        {
+            image: "https://picsum.photos/600/400?random=3",
+            hint: "fresh fruits",
+            title: "Seu carrinho está vazio... por enquanto!",
+            subtitle: "Explore nosso catálogo e descubra novos sabores orgânicos."
+        },
+    ];
+
+    // Evita o erro de hidratação (server/client mismatch)
+    const [randomItem, setRandomItem] = useState<{ image: string; hint: string; title: string; subtitle: string; } | null>(null);
+
+    useEffect(() => {
+        setRandomItem(emptyCartMessages[Math.floor(Math.random() * emptyCartMessages.length)]);
+    }, []);
+
+    if (!randomItem) {
+        // Renderiza um loader simples enquanto o JS do cliente não é executado para evitar o mismatch
+        return <div className="flex justify-center items-center h-full p-12"><Loader2 className="h-12 w-12 animate-spin text-primary" /></div>;
+    }
+
     return (
-      <div className="text-center py-20">
-        <h2 className="text-2xl font-semibold">Seu carrinho está vazio</h2>
-        <p className="text-lg font-semibold text-foreground/90 mt-2">Parece que você ainda não adicionou nada ao seu carrinho.</p>
+      <div className="text-center py-10 max-w-2xl mx-auto">
+        <div className="relative aspect-[3/2] w-full mb-6 rounded-lg overflow-hidden shadow-lg bg-muted/30">
+            <Image
+                src={randomItem.image}
+                alt="Ilustração de carrinho vazio"
+                fill
+                className="object-cover"
+                data-ai-hint={randomItem.hint}
+            />
+        </div>
+        <h2 className="text-2xl font-bold font-headline text-primary sm:text-3xl">{randomItem.title}</h2>
+        <p className="text-lg font-semibold text-foreground/90 mt-2">{randomItem.subtitle}</p>
         <Button asChild className="mt-6 text-base font-semibold">
           <Link href="/catalog">Comece a Comprar</Link>
         </Button>
