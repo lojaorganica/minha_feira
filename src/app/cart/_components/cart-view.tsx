@@ -361,11 +361,13 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
 
                     <div className="ml-4 flex flex-1 flex-col">
                         <div>
-                            <div className="flex flex-col sm:flex-row sm:justify-between text-xl font-bold text-foreground">
-                                <h3 className="text-lg sm:text-xl">
-                                    <a href="#">{product.name}</a>
+                            <div className="flex w-full items-start justify-between text-base font-bold text-foreground">
+                                <h3 className="flex-1 text-lg sm:text-xl pr-2">
+                                  <a href="#">
+                                    {product.name.replace(/ Orgânico$/, ' Orgânico').replace(/ Orgânica$/, ' Orgânica')}
+                                  </a>
                                 </h3>
-                                <p className="mt-1 sm:mt-0 sm:ml-4 text-base sm:text-xl">R${(product.price * product.quantity).toFixed(2).replace('.', ',')}</p>
+                                <p className="mt-0 ml-4 text-base sm:text-xl whitespace-nowrap">R${(product.price * product.quantity).toFixed(2).replace('.', ',')}</p>
                             </div>
                             <div className="flex items-center gap-2 mt-1 text-sm text-muted-foreground font-semibold">
                                 <Tractor className="h-4 w-4 text-primary" />
