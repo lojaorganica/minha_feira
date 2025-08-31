@@ -113,7 +113,7 @@ const renderQuantityControls = (product: any, updateQuantity: (id: string, q: nu
                     <Minus className="h-4 w-4" />
                     <span className="sr-only">Diminuir 100g</span>
                 </Button>
-                <span className="font-bold text-lg min-w-16 text-center">{currentGrams} g</span>
+                <span className="font-bold text-lg min-w-14 text-center">{currentGrams} g</span>
                 <Button size="icon" variant="outline" className="h-8 w-8" onClick={() => updateQuantity(product.id, parseFloat((product.quantity + 0.1).toPrecision(12)))}>
                     <Plus className="h-4 w-4" />
                     <span className="sr-only">Aumentar 100g</span>
@@ -369,7 +369,7 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
                                     <Tractor className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
                                     <div className="flex flex-col">
                                         <span>Fornecedor:</span>
-                                        <span className="font-bold text-foreground/80 text-base">{product.farmerName}</span>
+                                        <span className="font-bold text-foreground/80 text-sm">{product.farmerName}</span>
                                     </div>
                                 </div>
                                 <p className="mt-1 text-lg font-semibold text-foreground/80">R${product.price.toFixed(2).replace('.', ',')} / {product.unit}</p>
@@ -571,5 +571,7 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
     </div>
   );
 }
+
+    
 
     
