@@ -365,12 +365,9 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
                                 <h3 className="text-lg sm:text-xl font-bold text-foreground">
                                     {product.name}
                                 </h3>
-                                <div className="flex items-start gap-2 mt-1 text-sm text-muted-foreground font-semibold">
+                                <div className="flex items-center gap-2 mt-1 text-sm text-muted-foreground font-semibold">
                                     <Tractor className="h-4 w-4 text-primary shrink-0" />
-                                    <div>
-                                        <p>Fornecedor:</p>
-                                        <p className="font-bold text-foreground/90">{product.farmerName}</p>
-                                    </div>
+                                    <span>Fornecedor: <span className="font-bold text-foreground/90">{product.farmerName}</span></span>
                                 </div>
                                 <p className="mt-1 text-lg font-semibold text-foreground/80">R${product.price.toFixed(2).replace('.', ',')} / {product.unit}</p>
                             </div>
@@ -386,7 +383,7 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
                                     className="font-semibold text-destructive hover:text-destructive-foreground p-1 sm:p-2 h-auto"
                                 >
                                     <Trash2 className="h-4 w-4 sm:mr-1"/>
-                                    <span className="hidden sm:inline">Remover</span>
+                                    <span className="inline">Remover</span>
                                 </Button>
                             </div>
                         </div>
