@@ -418,7 +418,7 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
                                     </div>
                                     <p className="mt-1 text-lg font-semibold text-foreground/80">R${product.price.toFixed(2).replace('.', ',')} / {product.unit}</p>
                                 </div>
-                                <p className="text-base sm:text-xl font-bold text-foreground whitespace-nowrap ml-2">R${(product.price * product.quantity).toFixed(2).replace('.', ',')}</p>
+                                <p className="text-base sm:text-xl font-bold text-foreground ml-2">R${(product.price * product.quantity).toFixed(2).replace('.', ',')}</p>
                             </div>
                         </div>
                         <div className="flex flex-1 items-end justify-between text-base mt-2">
