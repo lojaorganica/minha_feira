@@ -107,10 +107,10 @@
 
   @keyframes toast-progress {
     0% {
-      width: 100%;
+      width: 0%;
     }
     100% {
-      width: 0%;
+      width: 100%;
     }
   }
 
