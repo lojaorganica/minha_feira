@@ -1550,7 +1550,7 @@ let products: Product[] = [
     price: 12.00,
     unitAmount: 1,
     unit: 'caixa',
-    image: 'https://placehold.co/600x400.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/uva_vitoria.webp?alt=media&token=40422204-de6c-48c2-a9b0-a5ef9876e6b0',
     dataAiHint: 'vitoria grapes',
     farmerId: '2',
     description: 'Uva Vitória, sem sementes e muito doce, perfeita para lanches e sobremesas.',
@@ -2001,7 +2001,7 @@ const defaultProductImages = new Map<string, string>([
     ['caqui', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/caqui.webp?alt=media&token=6d9835e9-ae1c-4cb0-83e3-e839ccb780c2'],
     ['caju', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/caju.webp?alt=media&token=7a76f64c-ed10-4451-8112-5d09020049b9'],
     ['carambola', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/carambola.webp?alt=media&token=57b1c4f3-5d99-4bc3-ae84-b627807beed3'],
-    ['uva vitoria', 'https://placehold.co/600x400.png'],
+    ['uva vitoria', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/uva_vitoria.webp?alt=media&token=40422204-de6c-48c2-a9b0-a5ef9876e6b0'],
     ['pera williams', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pera_williams.webp?alt=media&token=5bb791b0-9f75-4cd6-9a50-c4a978b351b7'],
     ['pera', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pera_williams.webp?alt=media&token=5bb791b0-9f75-4cd6-9a50-c4a978b351b7'],
     ['pessego', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pessego.webp?alt=media&token=40ca1fb9-a000-4b9e-bbd5-52775e5d0720'],
@@ -2327,3 +2327,4 @@ export function updateCustomerClassification(customerId: string, classification:
 
 
     
+

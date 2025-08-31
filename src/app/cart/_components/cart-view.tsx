@@ -175,19 +175,19 @@ export default function CartView() {
   useEffect(() => {
     const emptyCartMessages = [
         {
-            image: "https://firebasestorage.googleapis.com/v0/b/SUA_APP_ID.appspot.com/o/imagem1.jpg?alt=media",
-            hint: "vegetable basket",
-            title: "Sua cesta de orgânicos está esperando por você!",
-            subtitle: "Adicione delícias frescas e saudáveis para começar."
+            image: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/Imagens_Carrinho_Vazio%2Ftomate_carrinho_vazio.webp?alt=media&token=8f5e0cf5-4ca5-44c7-81f0-5f0ed4fade7d",
+            hint: "tomato vegetable basket",
+            title: "Seu carrinho de orgânicos está vazio... bora colocar umas delícias aqui dentro?",
+            subtitle: "Navegue pelo catálogo para escolher alimentos saudáveis para você e sua família."
         },
         {
-            image: "https://firebasestorage.googleapis.com/v0/b/SUA_APP_ID.appspot.com/o/imagem2.jpg?alt=media",
+            image: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/Imagens_Carrinho_Vazio%2Fmenina_com_cesta_de_verduras.webp?alt=media&token=8c459635-de89-4e50-b302-36c507c57657",
             hint: "happy farmer",
             title: "Que tal encher o carrinho de saúde e sabor?",
             subtitle: "Nossos agricultores têm produtos incríveis para você."
         },
         {
-            image: "https://firebasestorage.googleapis.com/v0/b/SUA_APP_ID.appspot.com/o/imagem3.jpg?alt=media",
+            image: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/Imagens_Carrinho_Vazio%2Fmulher_colhendo_morangos.webp?alt=media&token=a83dd115-32e6-4298-a28a-c603126fd906",
             hint: "fresh fruits",
             title: "Seu carrinho está vazio... por enquanto!",
             subtitle: "Explore nosso catálogo e descubra novos sabores orgânicos."
