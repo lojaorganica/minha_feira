@@ -161,14 +161,43 @@ export default function CartView() {
   const { addOrder } = useOrderHistory();
   const { user } = useUser();
   const { toast } = useToast();
+  const router = useRouter();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   const [message, setMessage] = useState("");
   const [deliveryOption, setDeliveryOption] = useState<'pickup' | 'delivery'>('pickup');
   const [pickupLocation, setPickupLocation] = useState<string>('');
   const [isProofAttached, setIsProofAttached] = useState(false);
   const [isSendDisabledAlertOpen, setSendDisabledAlertOpen] = useState(false);
-  const router = useRouter();
-  const fileInputRef = useRef<HTMLInputElement>(null);
   
+  // Hooks para o carrinho vazio - movidos para o topo do componente
+  const [randomItem, setRandomItem] = useState<{ image: string; hint: string; title: string; subtitle: string; } | null>(null);
+
+  useEffect(() => {
+    const emptyCartMessages = [
+        {
+            image: "https://picsum.photos/600/400?random=1",
+            hint: "vegetable basket",
+            title: "Sua cesta de orgânicos está esperando por você!",
+            subtitle: "Adicione delícias frescas e saudáveis para começar."
+        },
+        {
+            image: "https://picsum.photos/600/400?random=2",
+            hint: "happy farmer",
+            title: "Que tal encher o carrinho de saúde e sabor?",
+            subtitle: "Nossos agricultores têm produtos incríveis para você."
+        },
+        {
+            image: "https://picsum.photos/600/400?random=3",
+            hint: "fresh fruits",
+            title: "Seu carrinho está vazio... por enquanto!",
+            subtitle: "Explore nosso catálogo e descubra novos sabores orgânicos."
+        },
+    ];
+    setRandomItem(emptyCartMessages[Math.floor(Math.random() * emptyCartMessages.length)]);
+  }, []); // O array vazio garante que isso rode apenas uma vez no cliente
+
+
   const farmer = useMemo(() => {
     if (cartItems.length > 0) {
         const farmerId = cartItems[0].farmerId;
@@ -331,34 +360,6 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
   }
 
   if (cartItems.length === 0) {
-    const emptyCartMessages = [
-        {
-            image: "https://picsum.photos/600/400?random=1",
-            hint: "vegetable basket",
-            title: "Sua cesta de orgânicos está esperando por você!",
-            subtitle: "Adicione delícias frescas e saudáveis para começar."
-        },
-        {
-            image: "https://picsum.photos/600/400?random=2",
-            hint: "happy farmer",
-            title: "Que tal encher o carrinho de saúde e sabor?",
-            subtitle: "Nossos agricultores têm produtos incríveis para você."
-        },
-        {
-            image: "https://picsum.photos/600/400?random=3",
-            hint: "fresh fruits",
-            title: "Seu carrinho está vazio... por enquanto!",
-            subtitle: "Explore nosso catálogo e descubra novos sabores orgânicos."
-        },
-    ];
-
-    // Evita o erro de hidratação (server/client mismatch)
-    const [randomItem, setRandomItem] = useState<{ image: string; hint: string; title: string; subtitle: string; } | null>(null);
-
-    useEffect(() => {
-        setRandomItem(emptyCartMessages[Math.floor(Math.random() * emptyCartMessages.length)]);
-    }, []);
-
     if (!randomItem) {
         // Renderiza um loader simples enquanto o JS do cliente não é executado para evitar o mismatch
         return <div className="flex justify-center items-center h-full p-12"><Loader2 className="h-12 w-12 animate-spin text-primary" /></div>;
