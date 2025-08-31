@@ -158,45 +158,53 @@ const getDisplayQuantity = (item: any) => {
 // Componente para a mensagem de carrinho vazio
 function EmptyCartMessage() {
     const [randomItem, setRandomItem] = useState<{ image: string; hint: string; title: string; subtitle: string; } | null>(null);
-    const [isLoadingImage, setIsLoadingImage] = useState(true);
+    const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
-        const emptyCartMessages = [
-            {
-                image: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/Imagens_Carrinho_Vazio%2Ftomate_carrinho_vazio.webp?alt=media&token=8f5e0cf5-4ca5-44c7-81f0-5f0ed4fade7d",
-                hint: "tomato vegetable basket",
-                title: "Seu carrinho de orgânicos está vazio... bora colocar umas delícias aqui dentro?",
-                subtitle: "Acesse o catálogo para escolher alimentos saudáveis para você e sua família."
-            },
-            {
-                image: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/Imagens_Carrinho_Vazio%2Fbrocolis_carrinho_vaziowebp.webp?alt=media&token=215946ed-6171-469a-8310-c892d6f203e7",
-                hint: "broccoli vegetable",
-                title: "Ei, que tal colocar alguns orgânicos no seu carrinho para ficarmos felizes?",
-                subtitle: "Acesse o catálogo para escolher alimentos saudáveis para você e sua família."
-            },
-            {
-                image: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/Imagens_Carrinho_Vazio%2Fmenina_com_cesta_de_verduras.webp?alt=media&token=8c459635-de89-4e50-b302-36c507c57657",
-                hint: "happy farmer",
-                title: "Que tal encher o carrinho de saúde e sabor?",
-                subtitle: "Nossos agricultores têm produtos incríveis para você."
-            },
-            {
-                image: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/Imagens_Carrinho_Vazio%2Fmulher_colhendo_morangos.webp?alt=media&token=a83dd115-32e6-4298-a28a-c603126fd906",
-                hint: "fresh fruits",
-                title: "Seu carrinho está vazio... por enquanto!",
-                subtitle: "Explore nosso catálogo e descubra novos sabores orgânicos."
-            },
-        ];
-        
-        // Esta lógica só roda no navegador, garantindo a escolha aleatória.
-        setRandomItem(emptyCartMessages[Math.floor(Math.random() * emptyCartMessages.length)]);
-        setIsLoadingImage(false);
+        // Esta flag garante que o código abaixo só rode no navegador,
+        // evitando o erro de hidratação.
+        setIsClient(true);
     }, []);
 
-    if (isLoadingImage || !randomItem) {
+    useEffect(() => {
+        // Se estiver no cliente, escolhemos a imagem aleatória.
+        if (isClient) {
+            const emptyCartMessages = [
+                {
+                    image: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/Imagens_Carrinho_Vazio%2Ftomate_carrinho_vazio.webp?alt=media&token=8f5e0cf5-4ca5-44c7-81f0-5f0ed4fade7d",
+                    hint: "tomato vegetable basket",
+                    title: "Seu carrinho de orgânicos está vazio... bora colocar umas delícias aqui dentro?",
+                    subtitle: "Acesse o catálogo para escolher alimentos saudáveis para você e sua família."
+                },
+                {
+                    image: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/Imagens_Carrinho_Vazio%2Fbrocolis_carrinho_vaziowebp.webp?alt=media&token=215946ed-6171-469a-8310-c892d6f203e7",
+                    hint: "broccoli vegetable",
+                    title: "Ei, que tal colocar alguns orgânicos no seu carrinho para ficarmos felizes?",
+                    subtitle: "Acesse o catálogo para escolher alimentos saudáveis para você e sua família."
+                },
+                {
+                    image: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/Imagens_Carrinho_Vazio%2Fmenina_com_cesta_de_verduras.webp?alt=media&token=8c459635-de89-4e50-b302-36c507c57657",
+                    hint: "happy farmer",
+                    title: "Que tal encher o carrinho de saúde e sabor?",
+                    subtitle: "Nossos agricultores têm produtos incríveis para você."
+                },
+                {
+                    image: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/Imagens_Carrinho_Vazio%2Fmulher_colhendo_morangos.webp?alt=media&token=a83dd115-32e6-4298-a28a-c603126fd906",
+                    hint: "fresh fruits",
+                    title: "Seu carrinho está vazio... por enquanto!",
+                    subtitle: "Explore nosso catálogo e descubra novos sabores orgânicos."
+                },
+            ];
+            setRandomItem(emptyCartMessages[Math.floor(Math.random() * emptyCartMessages.length)]);
+        }
+    }, [isClient]);
+
+    // Renderiza um placeholder ou loader enquanto não estiver no cliente ou o item não for escolhido
+    if (!isClient || !randomItem) {
         return <div className="flex justify-center items-center h-full p-12"><Loader2 className="h-12 w-12 animate-spin text-primary" /></div>;
     }
 
+    // Renderiza o conteúdo completo quando tudo estiver pronto
     return (
       <div className="text-center pt-0 pb-4 max-w-2xl mx-auto">
         <div className="relative aspect-[3/2] w-full mb-6 rounded-lg overflow-hidden shadow-lg bg-muted/30">
@@ -206,7 +214,7 @@ function EmptyCartMessage() {
                 fill
                 className="object-cover"
                 data-ai-hint={randomItem.hint}
-                priority // Ajuda a carregar a imagem mais rápido
+                priority
             />
         </div>
         <h2 className="text-2xl font-bold font-headline text-primary sm:text-3xl">{randomItem.title}</h2>
@@ -629,6 +637,8 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
     </div>
   );
 }
+
+    
 
     
 
