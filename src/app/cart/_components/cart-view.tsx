@@ -170,32 +170,31 @@ export default function CartView() {
   const [isProofAttached, setIsProofAttached] = useState(false);
   const [isSendDisabledAlertOpen, setSendDisabledAlertOpen] = useState(false);
   
-  // Hooks para o carrinho vazio - movidos para o topo do componente
   const [randomItem, setRandomItem] = useState<{ image: string; hint: string; title: string; subtitle: string; } | null>(null);
 
   useEffect(() => {
     const emptyCartMessages = [
         {
-            image: "https://picsum.photos/600/400?random=1",
+            image: "https://firebasestorage.googleapis.com/v0/b/SUA_APP_ID.appspot.com/o/imagem1.jpg?alt=media",
             hint: "vegetable basket",
             title: "Sua cesta de orgânicos está esperando por você!",
             subtitle: "Adicione delícias frescas e saudáveis para começar."
         },
         {
-            image: "https://picsum.photos/600/400?random=2",
+            image: "https://firebasestorage.googleapis.com/v0/b/SUA_APP_ID.appspot.com/o/imagem2.jpg?alt=media",
             hint: "happy farmer",
             title: "Que tal encher o carrinho de saúde e sabor?",
             subtitle: "Nossos agricultores têm produtos incríveis para você."
         },
         {
-            image: "https://picsum.photos/600/400?random=3",
+            image: "https://firebasestorage.googleapis.com/v0/b/SUA_APP_ID.appspot.com/o/imagem3.jpg?alt=media",
             hint: "fresh fruits",
             title: "Seu carrinho está vazio... por enquanto!",
             subtitle: "Explore nosso catálogo e descubra novos sabores orgânicos."
         },
     ];
     setRandomItem(emptyCartMessages[Math.floor(Math.random() * emptyCartMessages.length)]);
-  }, []); // O array vazio garante que isso rode apenas uma vez no cliente
+  }, []); 
 
 
   const farmer = useMemo(() => {
@@ -214,7 +213,6 @@ export default function CartView() {
   }, [cartItems]);
 
   useEffect(() => {
-    // Reset pickup location if farmer changes or has no fairs
     if (farmer && farmer.fairs.length > 0) {
       setPickupLocation(farmer.fairs[0]);
     } else {
@@ -244,15 +242,12 @@ export default function CartView() {
   };
 
   const handleAttachProof = () => {
-     // Simula a abertura do seletor de arquivos.
-     // Em um app real, aqui você usaria <input type="file" />
     if (fileInputRef.current) {
         fileInputRef.current.click();
     }
   };
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // Simula que um arquivo foi selecionado.
     if (event.target.files && event.target.files.length > 0) {
         setIsProofAttached(true);
         toast({
@@ -361,7 +356,6 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
 
   if (cartItems.length === 0) {
     if (!randomItem) {
-        // Renderiza um loader simples enquanto o JS do cliente não é executado para evitar o mismatch
         return <div className="flex justify-center items-center h-full p-12"><Loader2 className="h-12 w-12 animate-spin text-primary" /></div>;
     }
 
@@ -374,6 +368,8 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
                 fill
                 className="object-cover"
                 data-ai-hint={randomItem.hint}
+                width={600}
+                height={400}
             />
         </div>
         <h2 className="text-2xl font-bold font-headline text-primary sm:text-3xl">{randomItem.title}</h2>
