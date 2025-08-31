@@ -68,7 +68,7 @@ export default function PromotionsCarousel() {
                                                 />
                                             </div>
                                             <CardContent className="p-4 flex-grow">
-                                                <CardTitle className="font-headline text-xl text-primary">{product.name}</CardTitle>
+                                                <CardTitle className="font-headline text-2xl sm:text-xl text-primary">{product.name}</CardTitle>
                                                 <div className="flex items-center gap-2 mt-1 text-sm text-muted-foreground font-semibold">
                                                     <Tractor className="h-4 w-4 text-primary" />
                                                     <span>{product.farmerName}</span>
