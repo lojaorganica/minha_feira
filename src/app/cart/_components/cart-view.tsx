@@ -368,8 +368,6 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
                 fill
                 className="object-cover"
                 data-ai-hint={randomItem.hint}
-                width={600}
-                height={400}
             />
         </div>
         <h2 className="text-2xl font-bold font-headline text-primary sm:text-3xl">{randomItem.title}</h2>
@@ -407,9 +405,9 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
                                     </h3>
                                     <div className="mt-1 text-sm text-muted-foreground font-semibold flex items-start gap-2">
                                         <Tractor className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-                                        <div className="flex flex-col">
+                                        <div>
                                             <span>Fornecedor:</span>
-                                            <span className="font-bold text-foreground/80 text-xs">{product.farmerName}</span>
+                                            <span className="block font-bold text-foreground/80 text-xs">{product.farmerName}</span>
                                         </div>
                                     </div>
                                     <p className="mt-1 text-lg font-semibold text-foreground/80">R${product.price.toFixed(2).replace('.', ',')} / {product.unit}</p>
