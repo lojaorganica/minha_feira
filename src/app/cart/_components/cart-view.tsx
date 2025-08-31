@@ -360,7 +360,7 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
     }
 
     return (
-      <div className="text-center py-4 max-w-2xl mx-auto">
+      <div className="text-center pt-0 pb-4 max-w-2xl mx-auto">
         <div className="relative aspect-[3/2] w-full mb-6 rounded-lg overflow-hidden shadow-lg bg-muted/30">
             <Image
                 src={randomItem.image}
