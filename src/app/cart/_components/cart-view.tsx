@@ -365,9 +365,10 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
                                 <h3 className="text-lg sm:text-xl font-bold text-foreground">
                                     {product.name}
                                 </h3>
-                                <div className="flex items-center gap-2 mt-1 text-sm text-muted-foreground font-semibold">
-                                    <Tractor className="h-4 w-4 text-primary shrink-0" />
-                                    <span>Fornecedor: <span className="font-bold text-foreground/90">{product.farmerName}</span></span>
+                                <div className="mt-1 text-sm text-muted-foreground font-semibold">
+                                    <Tractor className="h-4 w-4 text-primary inline-block mr-2" />
+                                    <span>Fornecedor:</span>
+                                    <p className="font-bold text-foreground/90 truncate">{product.farmerName}</p>
                                 </div>
                                 <p className="mt-1 text-lg font-semibold text-foreground/80">R${product.price.toFixed(2).replace('.', ',')} / {product.unit}</p>
                             </div>
@@ -568,5 +569,7 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
     </div>
   );
 }
+
+    
 
     
