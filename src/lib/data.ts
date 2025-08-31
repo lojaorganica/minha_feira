@@ -1501,7 +1501,7 @@ let products: Product[] = [
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_aroeira.webp?alt=media&token=cc691f95-6565-42b1-9abd-95cca2e6b31d',
     dataAiHint: 'aroeira honey',
     farmerId: '134',
-    description: 'O mel de aroeira é riquíssimo em compostos fenólicos e minerais (cálcio, cobre, magnésio, potássio e ferro) e possui propriedades antibacterianas, anti-inflamatórias, antioxidantes e imunofortalecedoras. Excelentes para quem sofre de anemia, doenças gástricas, baixa imunidade, para mulheres em período menstrual e idosos.',
+    description: 'O mel de aroeira é um verdadeiro presente da natureza. Extremamente rico em compostos fenólicos e minerais essenciais — como cálcio, cobre, magnésio, potássio e ferro —, ele se destaca por suas propriedades antibacterianas, anti-inflamatórias, antioxidantes e fortalecedoras do sistema imunológico. Seu sabor marcante lembra o melado de cana, justamente pela presença do ferro em sua composição, o que o torna ainda mais especial e nutritivo. É um aliado poderoso para quem enfrenta anemia, problemas gástricos, baixa imunidade, além de oferecer benefícios especiais para mulheres no período menstrual e para os idosos, contribuindo para mais vitalidade e bem-estar no dia a dia. Delicioso e versátil, pode ser saboreado no café da manhã, em tapiocas, pães, frutas ou para adoçar chás e cafés, trazendo saúde e energia de forma natural.',
     status: 'active',
   },
   {
