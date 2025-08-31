@@ -99,7 +99,7 @@ function getFairDisplayName(fair: string): string {
     }
     const deExceptions = ['Laranjeiras', 'Botafogo'];
     if (deExceptions.includes(fair)) {
-        return `Feira de ${fair}`;
+        return `Feira de ${deExceptions}`;
     }
     return `Feira da ${fair}`;
 }
@@ -113,7 +113,7 @@ const renderQuantityControls = (product: any, updateQuantity: (id: string, q: nu
                     <Minus className="h-4 w-4" />
                     <span className="sr-only">Diminuir 100g</span>
                 </Button>
-                <span className="font-bold text-lg w-20 text-center">{currentGrams} g</span>
+                <span className="font-bold text-lg min-w-16 text-center">{currentGrams} g</span>
                 <Button size="icon" variant="outline" className="h-8 w-8" onClick={() => updateQuantity(product.id, parseFloat((product.quantity + 0.1).toPrecision(12)))}>
                     <Plus className="h-4 w-4" />
                     <span className="sr-only">Aumentar 100g</span>
@@ -361,12 +361,12 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
 
                     <div className="ml-4 flex flex-1 flex-col">
                         <div className="flex justify-between items-start gap-4">
-                            <div className="flex-1">
+                            <div className="flex-1 min-w-0">
                                 <h3 className="text-lg sm:text-xl font-bold text-foreground">
                                     {product.name}
                                 </h3>
-                                <div className="flex items-center gap-2 mt-1 text-sm text-muted-foreground font-semibold">
-                                    <Tractor className="h-4 w-4 text-primary" />
+                                <div className="flex items-start gap-2 mt-1 text-sm text-muted-foreground font-semibold">
+                                    <Tractor className="h-4 w-4 text-primary shrink-0" />
                                     <div>
                                         <p>Fornecedor:</p>
                                         <p className="font-bold text-foreground/90">{product.farmerName}</p>
@@ -374,7 +374,7 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
                                 </div>
                                 <p className="mt-1 text-lg font-semibold text-foreground/80">R${product.price.toFixed(2).replace('.', ',')} / {product.unit}</p>
                             </div>
-                            <p className="text-base sm:text-xl font-bold text-foreground whitespace-nowrap">R${(product.price * product.quantity).toFixed(2).replace('.', ',')}</p>
+                            <p className="text-base sm:text-xl font-bold text-foreground whitespace-nowrap ml-2">R${(product.price * product.quantity).toFixed(2).replace('.', ',')}</p>
                         </div>
                         <div className="flex flex-1 items-end justify-between text-base mt-2">
                             <div>{renderQuantityControls(product, updateQuantity)}</div>
@@ -383,10 +383,10 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
                                     variant="ghost"
                                     type="button"
                                     onClick={() => removeFromCart(product.id)}
-                                    className="font-semibold text-destructive hover:text-destructive-foreground"
+                                    className="font-semibold text-destructive hover:text-destructive-foreground p-1 sm:p-2 h-auto"
                                 >
-                                    <Trash2 className="h-4 w-4 mr-1"/>
-                                    Remover
+                                    <Trash2 className="h-4 w-4 sm:mr-1"/>
+                                    <span className="hidden sm:inline">Remover</span>
                                 </Button>
                             </div>
                         </div>
