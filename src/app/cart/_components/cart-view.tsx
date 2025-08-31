@@ -183,7 +183,7 @@ export default function CartView() {
         {
             image: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/Imagens_Carrinho_Vazio%2Fbrocolis_carrinho_vaziowebp.webp?alt=media&token=215946ed-6171-469a-8310-c892d6f203e7",
             hint: "broccoli vegetable",
-            title: "Ei, não me deixe sozinho! Que tal colocar alguns orgânicos no seu carrinho para ficarmos felizes?",
+            title: "Ei, que tal colocar alguns orgânicos no seu carrinho para ficarmos felizes?",
             subtitle: "Navegue pelo catálogo para escolher alimentos saudáveis para você e sua família."
         },
         {
