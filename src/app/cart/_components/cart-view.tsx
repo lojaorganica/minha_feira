@@ -360,22 +360,23 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
                     </div>
 
                     <div className="ml-4 flex flex-1 flex-col">
-                        <div>
-                            <div className="flex w-full items-start justify-between text-base font-bold text-foreground">
-                                <h3 className="flex-1 text-lg sm:text-xl pr-2">
-                                  <a href="#">
-                                    {product.name.replace(/ Orgânico$/, ' Orgânico').replace(/ Orgânica$/, ' Orgânica')}
-                                  </a>
+                        <div className="flex justify-between items-start gap-4">
+                            <div className="flex-1">
+                                <h3 className="text-lg sm:text-xl font-bold text-foreground">
+                                    {product.name}
                                 </h3>
-                                <p className="mt-0 ml-4 text-base sm:text-xl whitespace-nowrap">R${(product.price * product.quantity).toFixed(2).replace('.', ',')}</p>
+                                <div className="flex items-center gap-2 mt-1 text-sm text-muted-foreground font-semibold">
+                                    <Tractor className="h-4 w-4 text-primary" />
+                                    <div>
+                                        <p>Fornecedor:</p>
+                                        <p className="font-bold text-foreground/90">{product.farmerName}</p>
+                                    </div>
+                                </div>
+                                <p className="mt-1 text-lg font-semibold text-foreground/80">R${product.price.toFixed(2).replace('.', ',')} / {product.unit}</p>
                             </div>
-                            <div className="flex items-center gap-2 mt-1 text-sm text-muted-foreground font-semibold">
-                                <Tractor className="h-4 w-4 text-primary" />
-                                <span>Fornecedor: {product.farmerName}</span>
-                            </div>
-                             <p className="mt-1 text-lg font-semibold text-foreground/80">R${product.price.toFixed(2).replace('.', ',')} / {product.unit}</p>
+                            <p className="text-base sm:text-xl font-bold text-foreground whitespace-nowrap">R${(product.price * product.quantity).toFixed(2).replace('.', ',')}</p>
                         </div>
-                        <div className="flex flex-1 items-end justify-between text-base">
+                        <div className="flex flex-1 items-end justify-between text-base mt-2">
                             <div>{renderQuantityControls(product, updateQuantity)}</div>
                             <div className="flex">
                                 <Button
