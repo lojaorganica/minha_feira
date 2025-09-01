@@ -89,7 +89,11 @@ function EditProductForm({ product: initialProduct, onSaveChanges }: { product: 
 
     const handleNumberInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { id, value } = e.target;
-        setProduct(prev => ({ ...prev, [id]: parseFloat(value) || undefined }));
+        // Permite zerar o campo, mas não salvar negativo
+        const numValue = parseFloat(value);
+        if (value === '' || numValue >= 0) {
+            setProduct(prev => ({ ...prev, [id]: value === '' ? undefined : numValue }));
+        }
     };
 
     const handleSubmit = () => {
@@ -98,7 +102,6 @@ function EditProductForm({ product: initialProduct, onSaveChanges }: { product: 
         updateProduct(product.id, {
             name: product.name,
             price: product.price,
-            unitAmount: product.unitAmount,
             unit: product.unit,
             description: product.description,
         });
@@ -134,14 +137,10 @@ function EditProductForm({ product: initialProduct, onSaveChanges }: { product: 
                         <Input id="name" value={product.name} onChange={handleInputChange} className="bg-card" />
                     </div>
                     
-                    <div className="grid grid-cols-3 gap-4">
+                    <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2">
                             <Label htmlFor="price">Preço (R$)</Label>
-                            <Input id="price" type="number" value={product.price} onChange={handleNumberInputChange} className="bg-card" />
-                        </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="unitAmount">Quantidade</Label>
-                            <Input id="unitAmount" type="number" value={product.unitAmount || ''} onChange={handleNumberInputChange} className="bg-card" />
+                            <Input id="price" type="number" min="0" value={product.price} onChange={handleNumberInputChange} className="bg-card" />
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="unit">Unidade</Label>
@@ -195,7 +194,6 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
     const [name, setName] = useState('');
     const [price, setPrice] = useState<number | undefined>(undefined);
     const [unit, setUnit] = useState('unidade');
-    const [unitAmount, setUnitAmount] = useState<number | undefined>(1);
     const [description, setDescription] = useState('');
     const [stock, setStock] = useState<number | undefined>(0);
     const [category, setCategory] = useState<'Vegetal' | 'Fruta' | 'Laticínio' | 'Padaria'>('Vegetal');
@@ -205,7 +203,6 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
         setName('');
         setPrice(undefined);
         setUnit('unidade');
-        setUnitAmount(1);
         setDescription('');
         setStock(0);
         setCategory('Vegetal');
@@ -226,7 +223,6 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
             name,
             price,
             unit,
-            unitAmount,
             description,
             stock,
             category,
@@ -286,14 +282,10 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
                         </Select>
                     </div>
 
-                    <div className="grid grid-cols-3 gap-4">
+                    <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2">
                             <Label htmlFor="new-price">Preço (R$)</Label>
-                            <Input id="new-price" type="number" value={price ?? ''} onChange={(e) => setPrice(parseFloat(e.target.value) || undefined)} className="bg-card" />
-                        </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="new-unitAmount">Quantidade</Label>
-                            <Input id="new-unitAmount" type="number" value={unitAmount ?? ''} onChange={(e) => setUnitAmount(parseFloat(e.target.value) || undefined)} className="bg-card" />
+                            <Input id="new-price" type="number" min="0" value={price ?? ''} onChange={(e) => setPrice(parseFloat(e.target.value) || undefined)} className="bg-card" />
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="new-unit">Unidade</Label>
@@ -319,7 +311,7 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
 
                      <div className="space-y-2">
                         <Label htmlFor="new-stock">Estoque Inicial</Label>
-                        <Input id="new-stock" type="number" value={stock ?? ''} onChange={(e) => setStock(parseInt(e.target.value, 10) || 0)} className="bg-card" />
+                        <Input id="new-stock" type="number" min="0" value={stock ?? ''} onChange={(e) => setStock(parseInt(e.target.value, 10) || 0)} className="bg-card" />
                     </div>
 
                     <div className="space-y-2">
@@ -496,7 +488,7 @@ function ProductsTabContent({ products, farmerId, onProductUpdate }: { products:
                                     </CardHeader>
                                     <CardContent className="flex-grow space-y-3">
                                         <div>
-                                            <p className="font-bold text-lg">R${product.price.toFixed(2).replace('.', ',')} <span className="text-base font-medium text-foreground/80">/ {product.unitAmount ? `${product.unitAmount} ` : ''}{product.unit}</span></p>
+                                            <p className="font-bold text-lg">R${product.price.toFixed(2).replace('.', ',')} <span className="text-base font-medium text-foreground/80">/ {product.unit}</span></p>
                                             <p className="text-lg font-semibold text-foreground/90 mt-2 line-clamp-3">{product.description}</p>
                                         </div>
                                         <div className="flex items-center justify-between text-base font-semibold bg-muted p-2 rounded-md">
