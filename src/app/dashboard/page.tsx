@@ -217,6 +217,14 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
             });
             return;
         }
+         if (price < 0) {
+            toast({
+                variant: "destructive",
+                title: "Preço Inválido",
+                description: "O preço do produto não pode ser negativo.",
+            });
+            return;
+        }
 
         setIsSaving(true);
         const newProductData: Omit<Product, 'id' | 'image' | 'dataAiHint' | 'status'> = {
@@ -369,8 +377,9 @@ function EditStockDialog({ product, onStockUpdate }: { product: Product, onStock
                     <Input 
                         id="stock" 
                         type="number" 
+                        min="0"
                         value={stock} 
-                        onChange={(e) => setStock(Number(e.target.value))}
+                        onChange={(e) => setStock(Math.max(0, Number(e.target.value)))}
                         className="bg-card"
                         onKeyDown={(e) => {
                             if (e.key === 'Enter') {
