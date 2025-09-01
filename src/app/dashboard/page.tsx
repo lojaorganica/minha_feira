@@ -210,7 +210,7 @@ function EditStockDialog({ product, onStockUpdate }: { product: Product, onStock
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
-                <Button size="sm" variant="ghost" className="h-auto px-2 py-1 text-xs">Editar</Button>
+                <Button size="sm" className="h-auto px-2 py-1 text-xs bg-accent text-accent-foreground hover:bg-accent/80">Editar Estoque</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-xs">
                 <DialogHeader>
