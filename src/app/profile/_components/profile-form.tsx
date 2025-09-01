@@ -188,7 +188,7 @@ export default function ProfileForm() {
                                 <div className="grid grid-cols-3 gap-4">
                                     <div className="space-y-1 col-span-2">
                                         <Label htmlFor="street">Logradouro</Label>
-                                        <Input id="street" value={address.street || ''} onChange={handleAddressChange} placeholder="Rua, Avenida..." />
+                                        <Input id="street" value={address.street || ''} onChange={handleAddressChange} />
                                     </div>
                                     <div className="space-y-1">
                                         <Label htmlFor="number">Número</Label>
@@ -196,7 +196,7 @@ export default function ProfileForm() {
                                     </div>
                                 </div>
                                 <div className="space-y-1">
-                                    <Label htmlFor="complement">Complemento (opcional)</Label>
+                                    <Label htmlFor="complement">Complemento</Label>
                                     <Input id="complement" value={address.complement || ''} onChange={handleAddressChange} placeholder="Apto, Bloco, Casa..." />
                                 </div>
                                 <div className="grid grid-cols-3 gap-4">
@@ -206,7 +206,7 @@ export default function ProfileForm() {
                                     </div>
                                     <div className="space-y-1">
                                          <Label htmlFor="zipCode">CEP</Label>
-                                         <Input id="zipCode" value={address.zipCode || ''} onChange={handleAddressChange} placeholder="Ex: 22221-010" />
+                                         <Input id="zipCode" value={address.zipCode || ''} onChange={handleAddressChange} />
                                     </div>
                                 </div>
                                  <div className="grid grid-cols-3 gap-4">
