@@ -87,8 +87,19 @@ export default function ProfileForm() {
     
      const handleStateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { id, value } = e.target;
-        if (value.length <= 2) {
-            handleAddressChange(e);
+        // Permite apenas letras maiúsculas e limita o comprimento para 2
+        const stateValue = value.toUpperCase().replace(/[^A-Z]/g, '');
+        if (stateValue.length <= 2) {
+            setFormData(prev => {
+                const customerData = prev as Partial<Customer>;
+                return {
+                    ...prev,
+                    address: {
+                        ...(customerData.address || emptyAddress),
+                        [id]: stateValue
+                    }
+                } as Partial<Customer>;
+            });
         }
     };
 
@@ -253,7 +264,7 @@ export default function ProfileForm() {
                                     </div>
                                     <div className="space-y-1">
                                          <Label htmlFor="zipCode">CEP</Label>
-                                         <Input id="zipCode" value={address.zipCode} onChange={handleZipCodeChange} placeholder="XXXXXXXX" />
+                                         <Input id="zipCode" value={address.zipCode} onChange={handleZipCodeChange} placeholder="Somente números" />
                                     </div>
                                 </div>
                                  <div className="grid grid-cols-3 gap-4">
@@ -279,3 +290,5 @@ export default function ProfileForm() {
 
     return null;
 }
+
+    
