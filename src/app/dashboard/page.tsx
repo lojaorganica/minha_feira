@@ -2,7 +2,7 @@
 
 'use client';
 
-import { Suspense, useState, useMemo, useTransition, useRef } from 'react';
+import { Suspense, useState, useMemo, useTransition, useRef, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { getOrders, getProducts, toggleProductPromotion, updateProduct, deleteProduct, toggleProductStatus, getFarmerById } from "@/lib/data";
 import type { Order, Product, CustomerAddress } from "@/lib/types";
@@ -32,6 +32,21 @@ import { useUser } from '@/hooks/use-user';
 import jsPDF from 'jspdf';
 import * as htmlToImage from 'html-to-image';
 
+function useDebounce(value: string, delay: number) {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+}
 
 function getFairDisplayName(fair: string): string {
     const doExceptions = ['Grajaú', 'Flamengo', 'Leme'];
@@ -173,10 +188,7 @@ function EditProductForm({ product: initialProduct, onSaveChanges }: { product: 
 
 
 // Componente Isolado para a Aba de Produtos
-function ProductsTabContent({ allProducts, onProductUpdate }: { allProducts: Product[], onProductUpdate: () => void }) {
-    const { user } = useUser();
-    const farmerId = user?.id;
-    const products = allProducts.filter(p => p.farmerId === farmerId);
+function ProductsTabContent({ products, onProductUpdate }: { products: Product[], onProductUpdate: () => void }) {
     const [isPending, startTransition] = useTransition();
     const { toast } = useToast();
 
@@ -230,102 +242,108 @@ function ProductsTabContent({ allProducts, onProductUpdate }: { allProducts: Pro
                 </div>
             </CardHeader>
             <CardContent>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                    {products.map((product) => {
-                        const isLojaOrganica = product.farmerId === '134';
-                        return (
-                            <Card key={product.id} className={cn("flex flex-col border-primary border-2 transition-opacity", product.status === 'paused' && 'opacity-50')}>
-                                <div className={cn(
-                                    "relative bg-muted/30",
-                                    isLojaOrganica ? "aspect-[3/4]" : "aspect-[3/2]"
-                                )}>
-                                    <Image 
-                                        src={product.image} 
-                                        alt={product.name} 
-                                        fill 
-                                        className="rounded-t-lg object-cover" 
-                                        data-ai-hint={product.dataAiHint} 
-                                    />
-                                    {product.promotion?.isActive && (
-                                        <Badge className="absolute top-2 right-2 bg-accent text-accent-foreground hover:bg-accent">
-                                            <Tag className="h-3 w-3 mr-1"/>
-                                            Promoção
-                                        </Badge>
-                                    )}
-                                     {product.status === 'paused' && (
-                                        <Badge variant="destructive" className="absolute top-2 left-2">
-                                            <Power className="h-3 w-3 mr-1"/>
-                                            Pausado
-                                        </Badge>
-                                    )}
-                                </div>
-                                <CardHeader>
-                                    <CardTitle className="font-headline text-2xl text-primary">{product.name}</CardTitle>
-                                </CardHeader>
-                                <CardContent className="flex-grow">
-                                    <p className="font-bold text-lg">R${product.price.toFixed(2).replace('.', ',')} <span className="text-base font-medium text-foreground/80">/ {product.unitAmount ? `${product.unitAmount} ` : ''}{product.unit}</span></p>
-                                    <p className="text-lg font-semibold text-foreground/90 mt-2 line-clamp-3">{product.description}</p>
-                                </CardContent>
-                                <CardFooter className="flex flex-col gap-4">
-                                    <div className="flex items-center space-x-2 w-full justify-start p-2 bg-muted rounded-md">
-                                        <Switch
-                                            id={`status-${product.id}`}
-                                            checked={product.status === 'active'}
-                                            onCheckedChange={(checked) => handleStatusToggle(product.id, checked)}
-                                            disabled={isPending}
+                {products.length === 0 ? (
+                    <div className="text-center py-12">
+                        <p className="text-lg font-semibold text-muted-foreground">Nenhum produto encontrado com o termo pesquisado.</p>
+                    </div>
+                ) : (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        {products.map((product) => {
+                            const isLojaOrganica = product.farmerId === '134';
+                            return (
+                                <Card key={product.id} className={cn("flex flex-col border-primary border-2 transition-opacity", product.status === 'paused' && 'opacity-50')}>
+                                    <div className={cn(
+                                        "relative bg-muted/30",
+                                        isLojaOrganica ? "aspect-[3/4]" : "aspect-[3/2]"
+                                    )}>
+                                        <Image 
+                                            src={product.image} 
+                                            alt={product.name} 
+                                            fill 
+                                            className="rounded-t-lg object-cover" 
+                                            data-ai-hint={product.dataAiHint} 
                                         />
-                                        <Label htmlFor={`status-${product.id}`} className="text-sm font-semibold cursor-pointer">
-                                           Ativo no catálogo
-                                        </Label>
+                                        {product.promotion?.isActive && (
+                                            <Badge className="absolute top-2 right-2 bg-accent text-accent-foreground hover:bg-accent">
+                                                <Tag className="h-3 w-3 mr-1"/>
+                                                Promoção
+                                            </Badge>
+                                        )}
+                                        {product.status === 'paused' && (
+                                            <Badge variant="destructive" className="absolute top-2 left-2">
+                                                <Power className="h-3 w-3 mr-1"/>
+                                                Pausado
+                                            </Badge>
+                                        )}
                                     </div>
-                                    <div className="flex items-center space-x-2 w-full justify-start p-2 bg-muted rounded-md">
-                                        <Switch
-                                            id={`promo-${product.id}`}
-                                            checked={product.promotion?.isActive || false}
-                                            onCheckedChange={(checked) => handlePromotionToggle(product.id, checked)}
-                                            disabled={isPending}
-                                        />
-                                        <Label htmlFor={`promo-${product.id}`} className="text-sm font-semibold cursor-pointer">
-                                            Promover por 7 dias
-                                        </Label>
-                                    </div>
-                                    <div className="flex w-full gap-2">
-                                        <AlertDialog>
-                                            <AlertDialogTrigger asChild>
-                                                <Button variant="ghost" className="w-full text-destructive hover:bg-destructive hover:text-destructive-foreground">
-                                                    <Trash2 className="h-4 w-4 mr-2" />
-                                                    Excluir
-                                                </Button>
-                                            </AlertDialogTrigger>
-                                            <AlertDialogContent>
-                                                <AlertDialogHeader>
-                                                    <AlertDialogTitle className="flex items-center gap-2 text-xl">
-                                                       <AlertTriangle className="text-destructive"/>
-                                                        Tem certeza que deseja excluir este produto?
-                                                    </AlertDialogTitle>
-                                                    <AlertDialogDescription className="text-base">
-                                                        Esta ação não pode ser desfeita. Isso irá remover permanentemente o produto <span className="font-bold">"{product.name}"</span> do seu inventário.
-                                                    </AlertDialogDescription>
-                                                </AlertDialogHeader>
-                                                <AlertDialogFooter>
-                                                    <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                                                    <AlertDialogAction 
-                                                        onClick={() => handleDeleteProduct(product.id)}
-                                                        className="bg-destructive hover:bg-destructive/90 text-destructive-foreground"
-                                                    >
-                                                        Sim, Excluir
-                                                    </AlertDialogAction>
-                                                </AlertDialogFooter>
-                                            </AlertDialogContent>
-                                        </AlertDialog>
-                                        
-                                        <EditProductForm product={product} onSaveChanges={onProductUpdate} />
-                                    </div>
-                                </CardFooter>
-                            </Card>
-                        )
-                    })}
-                </div>
+                                    <CardHeader>
+                                        <CardTitle className="font-headline text-2xl text-primary">{product.name}</CardTitle>
+                                    </CardHeader>
+                                    <CardContent className="flex-grow">
+                                        <p className="font-bold text-lg">R${product.price.toFixed(2).replace('.', ',')} <span className="text-base font-medium text-foreground/80">/ {product.unitAmount ? `${product.unitAmount} ` : ''}{product.unit}</span></p>
+                                        <p className="text-lg font-semibold text-foreground/90 mt-2 line-clamp-3">{product.description}</p>
+                                    </CardContent>
+                                    <CardFooter className="flex flex-col gap-4">
+                                        <div className="flex items-center space-x-2 w-full justify-start p-2 bg-muted rounded-md">
+                                            <Switch
+                                                id={`status-${product.id}`}
+                                                checked={product.status === 'active'}
+                                                onCheckedChange={(checked) => handleStatusToggle(product.id, checked)}
+                                                disabled={isPending}
+                                            />
+                                            <Label htmlFor={`status-${product.id}`} className="text-sm font-semibold cursor-pointer">
+                                            Ativo no catálogo
+                                            </Label>
+                                        </div>
+                                        <div className="flex items-center space-x-2 w-full justify-start p-2 bg-muted rounded-md">
+                                            <Switch
+                                                id={`promo-${product.id}`}
+                                                checked={product.promotion?.isActive || false}
+                                                onCheckedChange={(checked) => handlePromotionToggle(product.id, checked)}
+                                                disabled={isPending}
+                                            />
+                                            <Label htmlFor={`promo-${product.id}`} className="text-sm font-semibold cursor-pointer">
+                                                Promover por 7 dias
+                                            </Label>
+                                        </div>
+                                        <div className="flex w-full gap-2">
+                                            <AlertDialog>
+                                                <AlertDialogTrigger asChild>
+                                                    <Button variant="ghost" className="w-full text-destructive hover:bg-destructive hover:text-destructive-foreground">
+                                                        <Trash2 className="h-4 w-4 mr-2" />
+                                                        Excluir
+                                                    </Button>
+                                                </AlertDialogTrigger>
+                                                <AlertDialogContent>
+                                                    <AlertDialogHeader>
+                                                        <AlertDialogTitle className="flex items-center gap-2 text-xl">
+                                                        <AlertTriangle className="text-destructive"/>
+                                                            Tem certeza que deseja excluir este produto?
+                                                        </AlertDialogTitle>
+                                                        <AlertDialogDescription className="text-base">
+                                                            Esta ação não pode ser desfeita. Isso irá remover permanentemente o produto <span className="font-bold">"{product.name}"</span> do seu inventário.
+                                                        </AlertDialogDescription>
+                                                    </AlertDialogHeader>
+                                                    <AlertDialogFooter>
+                                                        <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                                                        <AlertDialogAction 
+                                                            onClick={() => handleDeleteProduct(product.id)}
+                                                            className="bg-destructive hover:bg-destructive/90 text-destructive-foreground"
+                                                        >
+                                                            Sim, Excluir
+                                                        </AlertDialogAction>
+                                                    </AlertDialogFooter>
+                                                </AlertDialogContent>
+                                            </AlertDialog>
+                                            
+                                            <EditProductForm product={product} onSaveChanges={onProductUpdate} />
+                                        </div>
+                                    </CardFooter>
+                                </Card>
+                            )
+                        })}
+                    </div>
+                )}
             </CardContent>
         </Card>
     );
@@ -734,26 +752,41 @@ function DashboardContent() {
     const [allProducts, setAllProducts] = useState(() => getProducts({ includePaused: true }));
     const [allOrders, setAllOrders] = useState(() => getOrders());
     const [isHistoryDialogOpen, setHistoryDialogOpen] = useState(false);
+    const [searchTerm, setSearchTerm] = useState('');
+    const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
-    const { pendingOrders, historyOrders } = useMemo(() => {
+    const { pendingOrders, historyOrders, farmerProducts } = useMemo(() => {
         const farmerId = user?.id;
-        if (!farmerId) return { pendingOrders: [], historyOrders: [] };
+        if (!farmerId) return { pendingOrders: [], historyOrders: [], farmerProducts: [] };
 
-        const farmerProductNames = new Set(
-            getProducts({ includePaused: true })
-                .filter(p => p.farmerId === farmerId)
-                .map(p => p.name)
-        );
-
+        const currentFarmerProducts = getProducts({ includePaused: true }).filter(p => p.farmerId === farmerId);
+        const farmerProductNames = new Set(currentFarmerProducts.map(p => p.name));
+        
         const relevantOrders = allOrders.filter(order =>
             order.items.some(item => farmerProductNames.has(item.productName))
         );
         
         return {
             pendingOrders: relevantOrders.filter(o => o.status === 'Pendente'),
-            historyOrders: relevantOrders.filter(o => o.status !== 'Pendente')
+            historyOrders: relevantOrders.filter(o => o.status !== 'Pendente'),
+            farmerProducts: currentFarmerProducts
         };
     }, [allOrders, user]);
+
+    const filteredOrders = useMemo(() => {
+        if (!debouncedSearchTerm) return pendingOrders;
+        return pendingOrders.filter(order => 
+            order.customerName.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
+            order.id.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
+        );
+    }, [pendingOrders, debouncedSearchTerm]);
+
+    const filteredProducts = useMemo(() => {
+        if (!debouncedSearchTerm) return farmerProducts;
+        return farmerProducts.filter(product =>
+            product.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
+        );
+    }, [farmerProducts, debouncedSearchTerm]);
 
 
     const handleProductUpdate = () => {
@@ -763,6 +796,8 @@ function DashboardContent() {
     const handleTabChange = (newTab: string) => {
         router.push(`/dashboard?tab=${newTab}`, { scroll: false });
     };
+
+    const searchPlaceholder = tab === 'orders' ? "Buscar por cliente ou ID..." : "Buscar por produto...";
     
     return (
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -774,6 +809,18 @@ function DashboardContent() {
                         <TabsTrigger value="orders" className="text-base font-semibold data-[state=active]:bg-accent data-[state=active]:text-accent-foreground">Pedidos</TabsTrigger>
                         <TabsTrigger value="products" className="text-base font-semibold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Meus Produtos</TabsTrigger>
                     </TabsList>
+
+                    <div className="relative my-4">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                        <Input
+                            type="search"
+                            placeholder={searchPlaceholder}
+                            className="pl-10 w-full"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                    </div>
+
                     <TabsContent value="orders" className="mt-6">
                         <div className="mb-6 flex justify-end">
                             <DialogTrigger asChild>
@@ -783,10 +830,10 @@ function DashboardContent() {
                                 </Button>
                             </DialogTrigger>
                         </div>
-                        <OrdersTabContent orders={pendingOrders} />
+                        <OrdersTabContent orders={filteredOrders} />
                     </TabsContent>
                     <TabsContent value="products" className="mt-6">
-                        <ProductsTabContent allProducts={allProducts} onProductUpdate={handleProductUpdate} />
+                        <ProductsTabContent products={filteredProducts} onProductUpdate={handleProductUpdate} />
                     </TabsContent>
                 </Tabs>
                 
@@ -812,5 +859,3 @@ export default function DashboardPage() {
         </Suspense>
     );
 }
-
-    
