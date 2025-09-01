@@ -4,7 +4,7 @@
 
 import { Suspense, useState, useMemo, useTransition, useRef, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { getOrders, getProducts, toggleProductPromotion, updateProduct, deleteProduct, toggleProductStatus, getFarmerById, updateProductStock } from "@/lib/data";
+import { getOrders, getProducts, toggleProductPromotion, updateProduct, deleteProduct, toggleProductStatus, getFarmerById, updateProductStock, addProduct } from "@/lib/data";
 import type { Order, Product, CustomerAddress } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -186,6 +186,159 @@ function EditProductForm({ product: initialProduct, onSaveChanges }: { product: 
     );
 }
 
+
+function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => void, farmerId: string }) {
+    const [isOpen, setIsOpen] = useState(false);
+    const [isSaving, setIsSaving] = useState(false);
+    const { toast } = useToast();
+    
+    const [name, setName] = useState('');
+    const [price, setPrice] = useState<number | undefined>(undefined);
+    const [unit, setUnit] = useState('unidade');
+    const [unitAmount, setUnitAmount] = useState<number | undefined>(1);
+    const [description, setDescription] = useState('');
+    const [stock, setStock] = useState<number | undefined>(0);
+    const [category, setCategory] = useState<'Vegetal' | 'Fruta' | 'Laticínio' | 'Padaria'>('Vegetal');
+
+
+    const resetForm = () => {
+        setName('');
+        setPrice(undefined);
+        setUnit('unidade');
+        setUnitAmount(1);
+        setDescription('');
+        setStock(0);
+        setCategory('Vegetal');
+    }
+
+    const handleSubmit = () => {
+        if (!name || price === undefined || !unit) {
+            toast({
+                variant: 'destructive',
+                title: "Campos obrigatórios",
+                description: "Por favor, preencha Nome, Preço e Unidade.",
+            });
+            return;
+        }
+
+        setIsSaving(true);
+        const newProductData: Omit<Product, 'id' | 'image' | 'dataAiHint' | 'status'> = {
+            name,
+            price,
+            unit,
+            unitAmount,
+            description,
+            stock,
+            category,
+            farmerId
+        };
+
+        addProduct(newProductData);
+        
+        setTimeout(() => {
+            onProductAdded();
+            setIsSaving(false);
+            setIsOpen(false);
+            resetForm();
+            toast({
+                title: "Produto adicionado!",
+                description: `${name} foi adicionado com sucesso ao seu inventário.`,
+            });
+        }, 500);
+    };
+
+    return (
+        <Dialog open={isOpen} onOpenChange={(open) => {
+            setIsOpen(open);
+            if (!open) resetForm();
+        }}>
+            <DialogTrigger asChild>
+                <Button>
+                    <PlusCircle className="h-4 w-4 mr-2"/>
+                    Adicionar Produto
+                </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-xl">
+                <DialogHeader>
+                    <DialogTitle>Adicionar Novo Produto</DialogTitle>
+                    <DialogDescription>
+                        Preencha os detalhes do novo produto. Clique em salvar para adicioná-lo ao seu catálogo.
+                    </DialogDescription>
+                </DialogHeader>
+                <div className="grid gap-4 py-4 text-base">
+                    <div className="space-y-2">
+                        <Label htmlFor="new-name">Nome do Produto</Label>
+                        <Input id="new-name" value={name} onChange={(e) => setName(e.target.value)} className="bg-card" />
+                    </div>
+                    
+                     <div className="space-y-2">
+                        <Label htmlFor="new-category">Categoria</Label>
+                        <Select value={category} onValueChange={(value: any) => setCategory(value)}>
+                            <SelectTrigger className="bg-card">
+                                <SelectValue placeholder="Categoria" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="Vegetal">Vegetal</SelectItem>
+                                <SelectItem value="Fruta">Fruta</SelectItem>
+                                <SelectItem value="Laticínio">Laticínio</SelectItem>
+                                <SelectItem value="Padaria">Padaria</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
+
+                    <div className="grid grid-cols-3 gap-4">
+                        <div className="space-y-2">
+                            <Label htmlFor="new-price">Preço (R$)</Label>
+                            <Input id="new-price" type="number" value={price ?? ''} onChange={(e) => setPrice(parseFloat(e.target.value) || undefined)} className="bg-card" />
+                        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="new-unitAmount">Quantidade</Label>
+                            <Input id="new-unitAmount" type="number" value={unitAmount ?? ''} onChange={(e) => setUnitAmount(parseFloat(e.target.value) || undefined)} className="bg-card" />
+                        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="new-unit">Unidade</Label>
+                            <Select value={unit} onValueChange={(value) => setUnit(value)}>
+                                <SelectTrigger className="bg-card">
+                                    <SelectValue placeholder="Unidade" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="kg">por kg</SelectItem>
+                                    <SelectItem value="g">por g</SelectItem>
+                                    <SelectItem value="unidade">unidade</SelectItem>
+                                    <SelectItem value="maço">maço</SelectItem>
+                                    <SelectItem value="dúzia">dúzia</SelectItem>
+                                    <SelectItem value="litro">litro</SelectItem>
+                                    <SelectItem value="ml">ml</SelectItem>
+                                    <SelectItem value="molho">molho</SelectItem>
+                                    <SelectItem value="caixa">caixa</SelectItem>
+                                    <SelectItem value="pote">pote</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                    </div>
+
+                     <div className="space-y-2">
+                        <Label htmlFor="new-stock">Estoque Inicial</Label>
+                        <Input id="new-stock" type="number" value={stock ?? ''} onChange={(e) => setStock(parseInt(e.target.value, 10) || 0)} className="bg-card" />
+                    </div>
+
+                    <div className="space-y-2">
+                        <Label htmlFor="new-description">Descrição</Label>
+                        <Textarea id="new-description" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Descreva seu produto..." className="bg-card" />
+                    </div>
+                </div>
+                <DialogFooter>
+                      <Button type="button" onClick={handleSubmit} disabled={isSaving}>
+                        {isSaving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                        Salvar Produto
+                      </Button>
+                </DialogFooter>
+            </DialogContent>
+        </Dialog>
+    );
+}
+
+
 // Componente para Edição Rápida de Estoque
 function EditStockDialog({ product, onStockUpdate }: { product: Product, onStockUpdate: () => void }) {
     const [isOpen, setIsOpen] = useState(false);
@@ -246,7 +399,7 @@ function EditStockDialog({ product, onStockUpdate }: { product: Product, onStock
 }
 
 // Componente Isolado para a Aba de Produtos
-function ProductsTabContent({ products, onProductUpdate }: { products: Product[], onProductUpdate: () => void }) {
+function ProductsTabContent({ products, farmerId, onProductUpdate }: { products: Product[], farmerId: string, onProductUpdate: () => void }) {
     const [isPending, startTransition] = useTransition();
     const { toast } = useToast();
 
@@ -293,10 +446,7 @@ function ProductsTabContent({ products, onProductUpdate }: { products: Product[]
                         <CardTitle>Meus Produtos</CardTitle>
                         <CardDescription>Adicione, edite, promova ou gerencie o estoque dos seus produtos.</CardDescription>
                     </div>
-                    <Button>
-                        <PlusCircle className="h-4 w-4 mr-2"/>
-                        Adicionar Produto
-                    </Button>
+                     <AddProductForm onProductAdded={onProductUpdate} farmerId={farmerId} />
                 </div>
             </CardHeader>
             <CardContent>
@@ -859,7 +1009,7 @@ function DashboardContent() {
             historyOrders: relevantOrders.filter(o => o.status !== 'Pendente'),
             farmerProducts: currentFarmerProducts
         };
-    }, [allOrders, user]);
+    }, [allOrders, allProducts, user]);
 
     const filteredOrders = useMemo(() => {
         if (!debouncedSearchTerm) return pendingOrders;
@@ -887,6 +1037,14 @@ function DashboardContent() {
 
     const searchPlaceholder = tab === 'orders' ? "Buscar por cliente ou ID..." : "Buscar por produto...";
     
+    if (!user) {
+         return (
+            <div className="flex justify-center items-center h-screen">
+                <Loader2 className="h-12 w-12 animate-spin text-primary" />
+            </div>
+        );
+    }
+
     return (
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <h1 className="text-3xl font-bold font-headline text-primary mb-6">Painel do Agricultor</h1>
@@ -919,7 +1077,7 @@ function DashboardContent() {
                         <OrdersTabContent orders={filteredOrders} />
                     </TabsContent>
                     <TabsContent value="products" className="mt-6">
-                        <ProductsTabContent products={filteredProducts} onProductUpdate={handleProductUpdate} />
+                        <ProductsTabContent products={filteredProducts} farmerId={user.id} onProductUpdate={handleProductUpdate} />
                     </TabsContent>
                 </Tabs>
                 

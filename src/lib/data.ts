@@ -1,4 +1,5 @@
 
+
 import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerOrder, CustomerClassification, CustomerAddress } from './types';
 
 let products: Product[] = [
@@ -2245,6 +2246,21 @@ export function getProductById(id: string): Product | undefined {
   return getProducts({ includePaused: true }).find((p) => p.name === id || p.id === id);
 }
 
+export function addProduct(newProductData: Omit<Product, 'id' | 'image' | 'dataAiHint' | 'status'>): Product {
+    const newId = `prod-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+    
+    const newProduct: Product = {
+        ...newProductData,
+        id: newId,
+        image: 'https://placehold.co/600x400.png', // Imagem padrão inicial
+        dataAiHint: newProductData.name.toLowerCase().split(' ').slice(0, 2).join(' '),
+        status: 'active',
+    };
+
+    products.unshift(newProduct); // Adiciona no início da lista para fácil visualização
+    return newProduct;
+}
+
 export function deleteProduct(productId: string): boolean {
     const initialLength = products.length;
     products = products.filter(p => p.id !== productId);
@@ -2512,6 +2528,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
 
     
+
 
 
 
