@@ -5,7 +5,7 @@
 import { Suspense, useState, useMemo, useTransition, useRef } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { getOrders, getProducts, toggleProductPromotion, updateProduct, deleteProduct, toggleProductStatus, getFarmerById } from "@/lib/data";
-import type { Order, Product } from "@/lib/types";
+import type { Order, Product, CustomerAddress } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
@@ -40,10 +40,25 @@ function getFairDisplayName(fair: string): string {
     }
     const deExceptions = ['Laranjeiras', 'Botafogo'];
     if (deExceptions.includes(fair)) {
-        return `Feira de ${fair}`;
+        return `Feira de ${deExceptions}`;
     }
     return `Feira da ${fair}`;
 }
+
+// Helper to format address object into a string
+const formatAddress = (address?: CustomerAddress | string): string => {
+    if (!address) return 'Endereço não informado';
+    if (typeof address === 'string') return address;
+    const { street, number, complement, neighborhood, city, state, zipCode } = address;
+    let fullAddress = `${street}, ${number}`;
+    if (complement) fullAddress += `, ${complement}`;
+    if (neighborhood) fullAddress += ` - ${neighborhood}`;
+    if (city) fullAddress += `, ${city}`;
+    if (state) fullAddress += ` - ${state}`;
+    if (zipCode) fullAddress += ` - CEP: ${zipCode}`;
+    return fullAddress;
+};
+
 
 // Componente Isolado para Edição de Produto
 function EditProductForm({ product: initialProduct, onSaveChanges }: { product: Product, onSaveChanges: () => void }) {
@@ -336,7 +351,7 @@ function OrderReceipt({ order, farmerName, ref }: { order: Order, farmerName: st
              <p><strong>Entrega:</strong> {order.deliveryOption === 'pickup' && order.pickupLocation ? `Retirar em ${order.pickupLocation}` : 'Delivery'}</p>
              {order.deliveryOption === 'delivery' && (
                 <>
-                  <p><strong>Endereço:</strong> {order.customerContact?.address}</p>
+                  <p><strong>Endereço:</strong> {formatAddress(order.customerContact?.address)}</p>
                   <p><strong>Telefone:</strong> {order.customerContact?.phone}</p>
                 </>
              )}
@@ -359,7 +374,7 @@ function OrdersTabContent({ orders }: { orders: Order[] }) {
         
         const deliveryText = order.deliveryOption === 'pickup' && order.pickupLocation
             ? `Retirar na ${order.pickupLocation}`
-            : `Delivery para: ${order.customerContact?.address || 'Endereço não informado'}`;
+            : `Delivery para: ${formatAddress(order.customerContact?.address) || 'Endereço não informado'}`;
         
         return `
 Resumo do Pedido - Minha Feira
@@ -526,7 +541,7 @@ Entrega: ${deliveryText}
                                             <p className="font-bold">Delivery</p>
                                             {order.customerContact && (
                                                 <>
-                                                    <p className="flex items-center gap-2"><Home className="h-4 w-4" />{order.customerContact.address}</p>
+                                                    <p className="flex items-start gap-2"><Home className="h-4 w-4 mt-1 flex-shrink-0" />{formatAddress(order.customerContact.address)}</p>
                                                     <p className="flex items-center gap-2"><Phone className="h-4 w-4" />{order.customerContact.phone}</p>
                                                 </>
                                             )}
