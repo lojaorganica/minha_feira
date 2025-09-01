@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart, Menu, User, Search, History, Package, ShoppingBasket, LogOut, Users, Heart, Tag, BookOpen, BarChart3, FileText } from "lucide-react";
+import { ShoppingCart, Menu, User, Search, History, Package, ShoppingBasket, LogOut, Users, Heart, Tag, BookOpen, BarChart3, FileText, Activity } from "lucide-react";
 import { usePathname, useRouter } from 'next/navigation';
 
 import Logo from "@/components/logo";
@@ -33,6 +33,7 @@ const customerMenuLinks = [
 const farmerMenuLinks = [
     { href: "/dashboard?tab=orders", label: "Pedidos", icon: ShoppingBasket },
     { href: "/dashboard?tab=products", label: "Meus Produtos", icon: Package },
+    { href: "/dashboard/inventory", label: "Controle de Estoque", icon: Activity },
     { href: "/dashboard/customers", label: "Meus Clientes", icon: Users },
     { href: "/dashboard/statistics", label: "Estatísticas", icon: BarChart3 },
     { href: "/dashboard/romaneio", label: "Romaneio", icon: FileText },

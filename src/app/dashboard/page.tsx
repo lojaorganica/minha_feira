@@ -4,12 +4,12 @@
 
 import { Suspense, useState, useMemo, useTransition, useRef, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { getOrders, getProducts, toggleProductPromotion, updateProduct, deleteProduct, toggleProductStatus, getFarmerById } from "@/lib/data";
+import { getOrders, getProducts, toggleProductPromotion, updateProduct, deleteProduct, toggleProductStatus, getFarmerById, updateProductStock } from "@/lib/data";
 import type { Order, Product, CustomerAddress } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
-import { Edit, PlusCircle, Trash2, ShoppingBag, User, DollarSign, Download, Share2, History, Search, Tag, Calendar as CalendarIcon, Truck, Phone, Home, MapPin, AlertTriangle, Power, X, FileText, FileImage, FileJson } from "lucide-react";
+import { Edit, PlusCircle, Trash2, ShoppingBag, User, DollarSign, Download, Share2, History, Search, Tag, Calendar as CalendarIcon, Truck, Phone, Home, MapPin, AlertTriangle, Power, X, FileText, FileImage, FileJson, PackageCheck } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
@@ -186,6 +186,63 @@ function EditProductForm({ product: initialProduct, onSaveChanges }: { product: 
     );
 }
 
+// Componente para Edição Rápida de Estoque
+function EditStockDialog({ product, onStockUpdate }: { product: Product, onStockUpdate: () => void }) {
+    const [isOpen, setIsOpen] = useState(false);
+    const [isSaving, setIsSaving] = useState(false);
+    const [stock, setStock] = useState<number>(product.stock ?? 0);
+    const { toast } = useToast();
+
+    const handleSubmit = () => {
+        setIsSaving(true);
+        updateProductStock(product.id, stock);
+        setTimeout(() => {
+            onStockUpdate();
+            setIsSaving(false);
+            setIsOpen(false);
+            toast({
+                title: "Estoque Atualizado!",
+                description: `O estoque de ${product.name} foi atualizado para ${stock}.`,
+            });
+        }, 300);
+    };
+    
+    return (
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
+            <DialogTrigger asChild>
+                <Button size="sm" variant="ghost" className="h-auto px-2 py-1 text-xs">Editar</Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-xs">
+                <DialogHeader>
+                    <DialogTitle>Atualizar Estoque</DialogTitle>
+                    <DialogDescription>
+                        {product.name}
+                    </DialogDescription>
+                </DialogHeader>
+                <div className="py-4">
+                    <Label htmlFor="stock">Quantidade Disponível</Label>
+                    <Input 
+                        id="stock" 
+                        type="number" 
+                        value={stock} 
+                        onChange={(e) => setStock(Number(e.target.value))}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                                handleSubmit();
+                            }
+                        }}
+                    />
+                </div>
+                <DialogFooter>
+                    <Button type="button" onClick={handleSubmit} disabled={isSaving}>
+                        {isSaving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                        Salvar
+                    </Button>
+                </DialogFooter>
+            </DialogContent>
+        </Dialog>
+    );
+}
 
 // Componente Isolado para a Aba de Produtos
 function ProductsTabContent({ products, onProductUpdate }: { products: Product[], onProductUpdate: () => void }) {
@@ -233,7 +290,7 @@ function ProductsTabContent({ products, onProductUpdate }: { products: Product[]
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                     <div>
                         <CardTitle>Meus Produtos</CardTitle>
-                        <CardDescription>Adicione, edite ou promova produtos do seu inventário.</CardDescription>
+                        <CardDescription>Adicione, edite, promova ou gerencie o estoque dos seus produtos.</CardDescription>
                     </div>
                     <Button>
                         <PlusCircle className="h-4 w-4 mr-2"/>
@@ -250,8 +307,10 @@ function ProductsTabContent({ products, onProductUpdate }: { products: Product[]
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         {products.map((product) => {
                             const isLojaOrganica = product.farmerId === '134';
+                            const isOutOfStock = product.stock !== undefined && product.stock <= 0;
+
                             return (
-                                <Card key={product.id} className={cn("flex flex-col border-primary border-2 transition-opacity", product.status === 'paused' && 'opacity-50')}>
+                                <Card key={product.id} className={cn("flex flex-col border-primary border-2 transition-opacity", (product.status === 'paused' || isOutOfStock) && 'opacity-60')}>
                                     <div className={cn(
                                         "relative bg-muted/30",
                                         isLojaOrganica ? "aspect-[3/4]" : "aspect-[3/2]"
@@ -275,13 +334,30 @@ function ProductsTabContent({ products, onProductUpdate }: { products: Product[]
                                                 Pausado
                                             </Badge>
                                         )}
+                                        {isOutOfStock && (
+                                            <Badge variant="destructive" className="absolute bottom-2 right-2">
+                                                Esgotado
+                                            </Badge>
+                                        )}
                                     </div>
                                     <CardHeader>
                                         <CardTitle className="font-headline text-2xl text-primary">{product.name}</CardTitle>
                                     </CardHeader>
-                                    <CardContent className="flex-grow">
-                                        <p className="font-bold text-lg">R${product.price.toFixed(2).replace('.', ',')} <span className="text-base font-medium text-foreground/80">/ {product.unitAmount ? `${product.unitAmount} ` : ''}{product.unit}</span></p>
-                                        <p className="text-lg font-semibold text-foreground/90 mt-2 line-clamp-3">{product.description}</p>
+                                    <CardContent className="flex-grow space-y-3">
+                                        <div>
+                                            <p className="font-bold text-lg">R${product.price.toFixed(2).replace('.', ',')} <span className="text-base font-medium text-foreground/80">/ {product.unitAmount ? `${product.unitAmount} ` : ''}{product.unit}</span></p>
+                                            <p className="text-lg font-semibold text-foreground/90 mt-2 line-clamp-3">{product.description}</p>
+                                        </div>
+                                        <div className="flex items-center justify-between text-base font-semibold bg-muted p-2 rounded-md">
+                                            <span className="flex items-center gap-2 text-primary">
+                                                <PackageCheck className="h-4 w-4" />
+                                                Estoque:
+                                            </span>
+                                            <div className="flex items-center gap-2">
+                                                <span className={cn("font-bold", isOutOfStock && "text-destructive")}>{product.stock ?? 'N/D'}</span>
+                                                <EditStockDialog product={product} onStockUpdate={onProductUpdate} />
+                                            </div>
+                                        </div>
                                     </CardContent>
                                     <CardFooter className="flex flex-col gap-4">
                                         <div className="flex items-center space-x-2 w-full justify-start p-2 bg-muted rounded-md">
@@ -812,8 +888,8 @@ function DashboardContent() {
             <Dialog open={isHistoryDialogOpen} onOpenChange={setHistoryDialogOpen}>
                 <Tabs value={tab} onValueChange={handleTabChange} className="w-full">
                     <TabsList className="grid w-full grid-cols-2">
-                        <TabsTrigger value="orders" className="text-base font-semibold data-[state=active]:bg-accent data-[state=active]:text-accent-foreground">Pedidos</TabsTrigger>
-                        <TabsTrigger value="products" className="text-base font-semibold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Meus Produtos</TabsTrigger>
+                        <TabsTrigger value="orders" className="text-base font-semibold">Pedidos</TabsTrigger>
+                        <TabsTrigger value="products" className="text-base font-semibold">Meus Produtos</TabsTrigger>
                     </TabsList>
 
                     <div className="relative my-4">

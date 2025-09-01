@@ -13,6 +13,7 @@ export interface Product {
   description: string;
   dataAiHint: string;
   status: 'active' | 'paused';
+  stock?: number;
   promotion?: {
     isActive: boolean;
     expiresAt: Date;

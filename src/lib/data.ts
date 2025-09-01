@@ -14,6 +14,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Cenouras orgânicas frescas e crocantes, perfeitas para lanches ou para cozinhar.',
     status: 'active',
+    stock: 50,
   },
   {
     id: '2',
@@ -27,6 +28,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Tomates italianos orgânicos, perfeitos para molhos encorpados e saladas.',
     status: 'active',
+    stock: 30,
     promotion: {
         isActive: true,
         expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
@@ -44,6 +46,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Morangos orgânicos maduros e doces, colhidos no pico do frescor.',
     status: 'active',
+    stock: 25,
     promotion: {
         isActive: true,
         expiresAt: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000)
@@ -61,6 +64,7 @@ let products: Product[] = [
     farmerId: '3',
     description: 'Alho poró com sabor suave de cebola, perfeito para sopas, quiches e tortas.',
     status: 'active',
+    stock: 40,
   },
   {
     id: '6',
@@ -74,6 +78,7 @@ let products: Product[] = [
     farmerId: '3',
     description: 'Chuchu orgânico, de sabor suave e rico em água, ideal para suflês e saladas cozidas.',
     status: 'active',
+    stock: 0,
   },
   {
     id: '7',
@@ -87,6 +92,7 @@ let products: Product[] = [
     farmerId: '4',
     description: 'Abóbora moranga, famosa pelo prato "camarão na moranga", muito saborosa e decorativa.',
     status: 'active',
+    stock: 15,
   },
   {
     id: '8',
@@ -100,6 +106,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Couve mineira orgânica, ideal para refogados e para acompanhar a tradicional feijoada.',
     status: 'active',
+    stock: 60,
   },
    {
     id: '9',
@@ -113,6 +120,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Laranja Pera orgânica, ideal para sucos, com sabor adocicado e pouca acidez.',
     status: 'active',
+    stock: 100,
   },
   {
     id: '10',
@@ -126,6 +134,7 @@ let products: Product[] = [
     farmerId: '3',
     description: 'Salsa (ou salsinha) fresca, um dos temperos mais versáteis e usados na culinária.',
     status: 'active',
+    stock: 80,
   },
   {
     id: '11',
@@ -139,6 +148,7 @@ let products: Product[] = [
     farmerId: '4',
     description: 'Hortelã fresca e aromática, perfeita para chás, sucos, quibes e sobremesas.',
     status: 'active',
+    stock: 70,
   },
   {
     id: '13',
@@ -152,6 +162,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Maçãs Fuji orgânicas, conhecidas por sua doçura e textura crocante.',
     status: 'active',
+    stock: 120,
   },
   {
     id: '14',
@@ -165,6 +176,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Alface americana crocante e refrescante, ideal para sanduíches e saladas.',
     status: 'active',
+    stock: 40,
   },
   {
     id: '15',
@@ -178,6 +190,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Brócolis americano fresco, perfeito para cozinhar no vapor ou assar.',
     status: 'active',
+    stock: 35,
   },
   {
     id: '16',
@@ -191,6 +204,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Beterraba orgânica, ótima para sucos, saladas e assados.',
     status: 'active',
+    stock: 20,
   },
   {
     id: '17',
@@ -204,6 +218,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Manga Palmer doce e sem fibras, perfeita para consumo in natura ou sucos.',
     status: 'active',
+    stock: 40,
   },
   {
     id: '18',
@@ -217,6 +232,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Alho orgânico de sabor intenso, essencial para temperar seus pratos.',
     status: 'active',
+    stock: 50,
   },
   {
     id: '19',
@@ -230,6 +246,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Tangerina Ponkan suculenta e fácil de descascar, colhida no ponto certo de doçura.',
     status: 'active',
+    stock: 60,
   },
   {
     id: '20',
@@ -243,6 +260,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Batata doce orgânica, rica em nutrientes e sabor adocicado. Perfeita para assar ou cozinhar.',
     status: 'active',
+    stock: 80,
   },
   {
     id: '21',
@@ -256,6 +274,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Couve-flor orgânica fresca, versátil para diversas receitas.',
     status: 'active',
+    stock: 20,
   },
   {
     id: '22',
@@ -269,6 +288,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Mamão Papaya orgânico, doce e macio. Perfeito para o café da manhã ou sobremesas.',
     status: 'active',
+    stock: 25,
   },
   {
     id: '23',
@@ -282,6 +302,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Inhame orgânico, nutritivo e versátil, ideal para sopas, purês e assados.',
     status: 'active',
+    stock: 45,
   },
   {
     id: '24',
@@ -295,6 +316,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Limão Taiti orgânico, suculento e com poucas sementes. Ideal para sucos, temperos e sobremesas.',
     status: 'active',
+    stock: 90,
   },
    {
     id: '25',
@@ -308,6 +330,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Banana prata orgânica, ideal para o consumo diário, rica em potássio e de sabor suave.',
     status: 'active',
+    stock: 50,
   },
   {
     id: '26',
@@ -321,6 +344,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Goiabas vermelhas orgânicas, doces e perfumadas, perfeitas para sucos e sobremesas.',
     status: 'active',
+    stock: 30,
   },
   {
     id: '27',
@@ -334,6 +358,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Abacaxi pérola orgânico, doce e suculento, perfeito para o verão.',
     status: 'active',
+    stock: 20,
   },
   {
     id: '28',
@@ -347,6 +372,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Berinjela orgânica, ideal para antepastos, lasanhas e parmegiana.',
     status: 'active',
+    stock: 15,
   },
   {
     id: '29',
@@ -360,6 +386,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Abóbora japonesa, também conhecida como cabotiá, com polpa adocicada e textura macia.',
     status: 'active',
+    stock: 10,
   },
   {
     id: '30',
@@ -373,6 +400,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Alface lisa de folhas macias e sabor suave, perfeita para saladas delicadas.',
     status: 'active',
+    stock: 30,
   },
   {
     id: '31',
@@ -386,6 +414,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Alface crespa com folhas crocantes e textura ondulada, ideal para sanduíches.',
     status: 'active',
+    stock: 30,
   },
   {
     id: '32',
@@ -399,6 +428,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Alface roxa, adiciona cor e um sabor levemente amargo às suas saladas.',
     status: 'active',
+    stock: 25,
   },
   {
     id: '33',
@@ -412,6 +442,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Abacate cremoso e rico em gorduras saudáveis, perfeito para guacamole ou vitaminas.',
     status: 'active',
+    stock: 15,
   },
   {
     id: '34',
@@ -425,6 +456,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Aipim (mandioca/macaxeira) orgânico, ideal para cozinhar, fritar ou fazer purês.',
     status: 'active',
+    stock: 40,
   },
   {
     id: '35',
@@ -438,6 +470,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Almeirão com seu característico sabor amargo, ótimo para saladas e refogados.',
     status: 'active',
+    stock: 20,
   },
   {
     id: '36',
@@ -451,6 +484,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Ameixas orgânicas doces e suculentas, perfeitas para comer in natura ou fazer geleias.',
     status: 'active',
+    stock: 10,
   },
   {
     id: '37',
@@ -464,6 +498,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Abobrinha italiana orgânica, versátil para refogados, assados e pratos leves.',
     status: 'active',
+    stock: 30,
   },
   {
     id: '38',
@@ -477,6 +512,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Amoras orgânicas, ricas em antioxidantes e sabor agridoce.',
     status: 'active',
+    stock: 10,
   },
   {
     id: '39',
@@ -485,11 +521,12 @@ let products: Product[] = [
     price: 3.50,
     unitAmount: 1,
     unit: 'maço',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/azedinha.webp?alt=media&token=9e5fa2ef-55b7-4e80-860c-691ae12f24f8',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/azedinha.webp?alt=media&token.value=9e5fa2ef-55b7-4e80-860c-691ae12f24f8',
     dataAiHint: 'sorrel',
     farmerId: '1',
     description: 'Azedinha com seu sabor cítrico único, ótima para sucos, saladas e sopas.',
     status: 'active',
+    stock: 15,
   },
   {
     id: '40',
@@ -503,6 +540,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Banana d\'água, também conhecida como nanica, doce e macia, ideal para sobremesas.',
     status: 'active',
+    stock: 40,
   },
   {
     id: '41',
@@ -516,6 +554,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Banana nanica orgânica, doce e macia, ideal para sobremesas e consumo diário.',
     status: 'active',
+    stock: 40,
   },
   {
     id: '42',
@@ -529,6 +568,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Coentro fresco com aroma marcante, indispensável na culinária nordestina e asiática.',
     status: 'active',
+    stock: 50,
   },
   {
     id: '43',
@@ -542,6 +582,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Cebolinha fresca para finalizar pratos e adicionar um sabor suave de cebola.',
     status: 'active',
+    stock: 60,
   },
   {
     id: '44',
@@ -555,6 +596,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Cebola roxa de sabor mais suave e adocicado, perfeita para saladas e picles.',
     status: 'active',
+    stock: 25,
   },
   {
     id: '45',
@@ -568,6 +610,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Cebola orgânica, a base para a maioria dos refogados e pratos salgados.',
     status: 'active',
+    stock: 40,
   },
   {
     id: '46',
@@ -581,6 +624,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Repolho verde crocante, ótimo para saladas, refogados e charutos.',
     status: 'active',
+    stock: 15,
   },
   {
     id: '47',
@@ -594,6 +638,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Repolho roxo, adiciona cor vibrante e nutrientes a saladas e conservas.',
     status: 'active',
+    stock: 15,
   },
   {
     id: '48',
@@ -607,6 +652,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Maçãs Gala orgânicas, com sabor suave e doce, ideais para lanches.',
     status: 'active',
+    stock: 80,
   },
   {
     id: '49',
@@ -620,6 +666,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Rúcula com sabor picante e folhas tenras, excelente em saladas e pizzas.',
     status: 'active',
+    stock: 25,
   },
   {
     id: '50',
@@ -633,6 +680,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Mamão Formosa de polpa macia e doce, rico em vitaminas.',
     status: 'active',
+    stock: 10,
   },
   {
     id: '51',
@@ -646,6 +694,7 @@ let products: Product[] = [
     farmerId: '3',
     description: 'Batata baroa (mandioquinha) com seu sabor e aroma únicos, perfeita para purês e sopas.',
     status: 'active',
+    stock: 20,
   },
   {
     id: '52',
@@ -659,6 +708,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Gengibre fresco com sabor picante, ótimo para chás, sucos e pratos asiáticos.',
     status: 'active',
+    stock: 10,
   },
   {
     id: '53',
@@ -672,6 +722,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Cúrcuma (açafrão-da-terra) fresca, conhecida por suas propriedades anti-inflamatórias.',
     status: 'active',
+    stock: 10,
   },
   {
     id: '54',
@@ -685,6 +736,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Melão amarelo doce e refrescante, perfeito para dias quentes.',
     status: 'active',
+    stock: 12,
   },
   {
     id: '55',
@@ -698,6 +750,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Melão Orange com polpa alaranjada e sabor adocicado e perfumado.',
     status: 'active',
+    stock: 10,
   },
   {
     id: '56',
@@ -711,6 +764,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Melão Pele de Sapo, de polpa branca, muito doce e suculenta.',
     status: 'active',
+    stock: 8,
   },
   {
     id: '57',
@@ -724,6 +778,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Melão Cantaloupe, com polpa alaranjada e sabor aromático inconfundível.',
     status: 'active',
+    stock: 8,
   },
   {
     id: '59',
@@ -737,6 +792,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Acelga (couve chinesa) de textura crocante, ideal para o preparo de saladas e refogados.',
     status: 'active',
+    stock: 18,
   },
   {
     id: '60',
@@ -750,6 +806,7 @@ let products: Product[] = [
     farmerId: '4',
     description: 'Batata inglesa orgânica, a mais versátil das batatas, ótima para cozinhar, assar e fritar.',
     status: 'active',
+    stock: 50,
   },
   {
     id: '61',
@@ -763,6 +820,7 @@ let products: Product[] = [
     farmerId: '5',
     description: 'Cebolinha fresca para finalizar pratos e adicionar um sabor suave de cebola.',
     status: 'active',
+    stock: 40,
   },
   {
     id: '62',
@@ -776,6 +834,7 @@ let products: Product[] = [
     farmerId: '5',
     description: 'Coentro fresco com aroma marcante, indispensável na culinária nordestina e asiática.',
     status: 'active',
+    stock: 40,
   },
   {
     id: '63',
@@ -789,6 +848,7 @@ let products: Product[] = [
     farmerId: '5',
     description: 'Jiló orgânico com seu sabor amargo característico, perfeito para fritadas e conservas.',
     status: 'active',
+    stock: 15,
   },
   {
     id: '64',
@@ -802,6 +862,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Batata Yacon, de textura crocante e sabor adocicado, ideal para consumo in natura em saladas.',
     status: 'active',
+    stock: 8,
   },
   {
     id: '65',
@@ -815,6 +876,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Tomatinhos grape, pequenos e muito doces, perfeitos para lanches e saladas.',
     status: 'active',
+    stock: 20,
   },
   {
     id: '66',
@@ -828,6 +890,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Tomate para salada, firme e com poucas sementes, ideal para fatiar.',
     status: 'active',
+    stock: 35,
   },
   {
     id: '67',
@@ -841,6 +904,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Tomate cereja, pequeno e adocicado, ótimo para saladas, espetinhos e aperitivos.',
     status: 'active',
+    stock: 20,
   },
   {
     id: '68',
@@ -854,6 +918,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Kiwi orgânico, com sua polpa verde vibrante e sabor agridoce, rico em vitamina C.',
     status: 'active',
+    stock: 12,
   },
   {
     id: '69',
@@ -867,6 +932,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Pera Williams com polpa macia, suculenta e muito aromática, ideal para consumo in natura e sobremesas.',
     status: 'active',
+    stock: 18,
   },
   {
     id: '70',
@@ -880,6 +946,7 @@ let products: Product[] = [
     farmerId: '5',
     description: 'Agrião com seu sabor picante característico, ótimo para saladas e sopas.',
     status: 'active',
+    stock: 30,
   },
   {
     id: '71',
@@ -893,6 +960,7 @@ let products: Product[] = [
     farmerId: '5',
     description: 'Alface romana, com folhas longas e crocantes, ideal para a salada Caesar.',
     status: 'active',
+    stock: 25,
   },
   {
     id: '72',
@@ -906,6 +974,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Limão siciliano, grande, de casca amarela e muito perfumado, ideal para risotos e sobremesas.',
     status: 'active',
+    stock: 10,
   },
   {
     id: '73',
@@ -919,6 +988,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Limão cravo (ou rosa), com casca avermelhada e sabor único, ótimo para temperos e caipirinhas.',
     status: 'active',
+    stock: 20,
   },
   {
     id: '74',
@@ -932,6 +1002,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Limão galego, pequeno e de casca fina, muito suculento e ácido, um clássico nacional.',
     status: 'active',
+    stock: 25,
   },
   {
     id: '75',
@@ -945,6 +1016,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Pepino japonês orgânico, com menos sementes e casca fina, perfeito para saladas crocantes.',
     status: 'active',
+    stock: 35,
   },
   {
     id: '76',
@@ -958,6 +1030,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Couve toscana (ou cavolo nero), de folhas escuras e sabor intenso, ótima para caldos e refogados.',
     status: 'active',
+    stock: 20,
   },
   {
     id: '77',
@@ -971,6 +1044,7 @@ let products: Product[] = [
     farmerId: '4',
     description: 'Folhas de mostarda com sabor picante, ideais para refogados e saladas ousadas.',
     status: 'active',
+    stock: 25,
   },
   {
     id: '78',
@@ -984,6 +1058,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Tangerina Murcote, de sabor muito doce e cor intensa, perfeita para sucos.',
     status: 'active',
+    stock: 30,
   },
   {
     id: '79',
@@ -997,6 +1072,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Abóbora paulista, de casca listrada, ideal para fazer refogada ou em sopas.',
     status: 'active',
+    stock: 12,
   },
   {
     id: '81',
@@ -1010,6 +1086,7 @@ let products: Product[] = [
     farmerId: '4',
     description: 'Rabanetes crocantes e picantes, adicionam um toque especial a qualquer salada.',
     status: 'active',
+    stock: 20,
   },
   {
     id: '82',
@@ -1023,6 +1100,7 @@ let products: Product[] = [
     farmerId: '4',
     description: 'Espinafre fresco, rico em ferro e nutrientes, perfeito para refogados e recheios.',
     status: 'active',
+    stock: 25,
   },
   {
     id: '83',
@@ -1036,6 +1114,7 @@ let products: Product[] = [
     farmerId: '3',
     description: 'Pimentão verde orgânico, ideal para rechear, assar ou usar em refogados.',
     status: 'active',
+    stock: 15,
   },
   {
     id: '84',
@@ -1049,6 +1128,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Chicória de folhas recortadas e sabor amargo, muito apreciada na culinária do norte do Brasil.',
     status: 'active',
+    stock: 10,
   },
   {
     id: '85',
@@ -1062,6 +1142,7 @@ let products: Product[] = [
     farmerId: '3',
     description: 'Pimentão amarelo orgânico, de sabor suave e adocicado, ótimo para saladas e pratos coloridos.',
     status: 'active',
+    stock: 15,
   },
   {
     id: '86',
@@ -1075,6 +1156,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Alface romana, com folhas longas e crocantes, ideal para a salada Caesar.',
     status: 'active',
+    stock: 20,
   },
   {
     id: '87',
@@ -1088,6 +1170,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Agrião com seu sabor picante característico, ótimo para saladas e sopas.',
     status: 'active',
+    stock: 25,
   },
   {
     id: '88',
@@ -1101,6 +1184,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Espinafre fresco, rico em ferro e nutrientes, perfeito para refogados e recheios.',
     status: 'active',
+    stock: 25,
   },
   {
     id: '89',
@@ -1114,6 +1198,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Laranja Bahia, sem sementes e com umbigo característico, ideal para consumo in natura.',
     status: 'active',
+    stock: 40,
   },
   {
     id: '90',
@@ -1127,6 +1212,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Laranja Seleta, muito suculenta e de sabor adocicado, excelente para sucos.',
     status: 'active',
+    stock: 50,
   },
   {
     id: '91',
@@ -1140,6 +1226,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Hortelã fresca e aromática, perfeita para chás, sucos, quibes e sobremesas.',
     status: 'active',
+    stock: 30,
   },
   {
     id: '92',
@@ -1153,6 +1240,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Poejo, uma erva de aroma intenso semelhante à menta, usada em chás e licores.',
     status: 'active',
+    stock: 15,
   },
   {
     id: '93',
@@ -1166,6 +1254,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Radicchio orgânico com folhas crocantes e sabor amargo, ideal para dar um toque especial em saladas.',
     status: 'active',
+    stock: 10,
   },
   {
     id: '94',
@@ -1179,6 +1268,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Milho verde doce e macio, perfeito para cozinhar, assar ou fazer pamonha.',
     status: 'active',
+    stock: 40,
   },
   {
     id: '95',
@@ -1192,6 +1282,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Vagem fresca e crocante, ótima para refogados, saladas e cozidos.',
     status: 'active',
+    stock: 25,
   },
   {
     id: '96',
@@ -1205,6 +1296,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Feijão preto orgânico, a base para a tradicional feijoada e pratos do dia a dia.',
     status: 'active',
+    stock: 50,
   },
   {
     id: '97',
@@ -1218,6 +1310,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Feijão carioca orgânico, o mais popular do Brasil, com caldo encorpado e sabor suave.',
     status: 'active',
+    stock: 50,
   },
   {
     id: '98',
@@ -1231,6 +1324,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Feijão vermelho orgânico, ideal para sopas, saladas e pratos com sabor mais robusto.',
     status: 'active',
+    stock: 30,
   },
   {
     id: '99',
@@ -1244,6 +1338,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Couve Kale, a super-hortaliça, rica em nutrientes e perfeita para sucos verdes, saladas e chips.',
     status: 'active',
+    stock: 20,
   },
   {
     id: '100',
@@ -1257,6 +1352,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Orégano fresco, com aroma e sabor que transformam molhos, pizzas e saladas.',
     status: 'active',
+    stock: 30,
   },
   {
     id: '101',
@@ -1270,6 +1366,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Alface Mimosa com folhas tenras e sabor suave, ótima para saladas.',
     status: 'active',
+    stock: 20,
   },
   {
     id: '102',
@@ -1283,6 +1380,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Abóbora Baianinha orgânica, de polpa adocicada, ótima para doces e purês.',
     status: 'active',
+    stock: 10,
   },
   {
     id: '103',
@@ -1296,6 +1394,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Alface Mimosa Roxa com folhas tenras e um toque de cor, ideal para saladas sofisticadas.',
     status: 'active',
+    stock: 20,
   },
   {
     id: '104',
@@ -1309,6 +1408,7 @@ let products: Product[] = [
     farmerId: '3',
     description: 'Pimentão vermelho orgânico, de sabor adocicado, perfeito para saladas, assados e molhos.',
     status: 'active',
+    stock: 15,
   },
   {
     id: '107',
@@ -1322,6 +1422,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Alface Frisée com folhas finas e um leve amargor, ótima para saladas com molhos cremosos.',
     status: 'active',
+    stock: 10,
   },
   {
     id: '108',
@@ -1334,6 +1435,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Também conhecida como Pak Choi, esta verdura asiática tem talos crocantes e sabor suave. É muito versátil para refogados, sopas e saladas.',
     status: 'active',
+    stock: 15,
   },
   {
     id: '109',
@@ -1347,6 +1449,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Flores e folhas comestíveis com um sabor picante semelhante ao agrião, ideais para saladas.',
     status: 'active',
+    stock: 10,
   },
   {
     id: '110',
@@ -1360,6 +1463,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Com sabor mais intenso e picante que a rúcula cultivada, ótima para saladas marcantes.',
     status: 'active',
+    stock: 15,
   },
   {
     id: '114',
@@ -1373,6 +1477,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Quiabo orgânico fresco, ideal para refogados, saladas e o prato típico "frango com quiabo".',
     status: 'active',
+    stock: 20,
   },
   {
     id: '116',
@@ -1386,6 +1491,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Pepino caipira, com casca mais clara e sabor suave, ótimo para saladas do dia a dia.',
     status: 'active',
+    stock: 25,
   },
   {
     id: '117',
@@ -1399,6 +1505,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Mini melancia doce e refrescante, no tamanho ideal para sua família.',
     status: 'active',
+    stock: 8,
   },
   {
     id: '118',
@@ -1412,6 +1519,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Mexerica Olé, de casca fina e sabor adocicado, fácil de descascar.',
     status: 'active',
+    stock: 15,
   },
   {
     id: '120',
@@ -1425,6 +1533,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Manga Tommy, a mais popular do Brasil, com polpa firme e sabor adocicado.',
     status: 'active',
+    stock: 20,
   },
   {
     id: '121',
@@ -1438,6 +1547,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Manga Carlotinha, pequena e muito doce, ideal para consumo in natura.',
     status: 'active',
+    stock: 15,
   },
   {
     id: '122',
@@ -1451,6 +1561,7 @@ let products: Product[] = [
     farmerId: '1',
     description: 'Brócolis brasileiro (de rama), com talos e folhas comestíveis, ótimo em refogados.',
     status: 'active',
+    stock: 25,
   },
   {
     id: '123',
@@ -1464,6 +1575,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Caqui orgânico doce e de polpa macia, uma delícia de sobremesa.',
     status: 'active',
+    stock: 12,
   },
   {
     id: '124',
@@ -1477,6 +1589,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Cajú orgânico, fruto de sabor único, perfeito para sucos e doces.',
     status: 'active',
+    stock: 10,
   },
   {
     id: '125',
@@ -1490,6 +1603,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Carambola orgânica, com seu formato de estrela e sabor agridoce, ótima para sucos e decoração.',
     status: 'active',
+    stock: 15,
   },
   {
     id: '126',
@@ -1503,6 +1617,7 @@ let products: Product[] = [
     farmerId: '134',
     description: 'O mel de aroeira é um verdadeiro presente da natureza. Extremamente rico em compostos fenólicos e minerais essenciais — como cálcio, cobre, magnésio, potássio e ferro —, ele se destaca por suas propriedades antibacterianas, anti-inflamatórias, antioxidantes e fortalecedoras do sistema imunológico. Seu sabor marcante lembra o melado de cana, justamente pela presença do ferro em sua composição, o que o torna ainda mais especial e nutritivo. É um aliado poderoso para quem enfrenta anemia, problemas gástricos, baixa imunidade, além de oferecer benefícios especiais para mulheres no período menstrual e para os idosos, contribuindo para mais vitalidade e bem-estar no dia a dia. Delicioso e versátil, pode ser saboreado no café da manhã, em tapiocas, pães, frutas ou para adoçar chás e cafés, trazendo saúde e energia de forma natural.',
     status: 'active',
+    stock: 20,
   },
   {
     id: '127',
@@ -1516,6 +1631,7 @@ let products: Product[] = [
     farmerId: '134',
     description: 'Mel de Eucalipto, de sabor forte e refrescante, ótimo para aliviar sintomas de resfriados.',
     status: 'active',
+    stock: 25,
   },
   {
     id: '128',
@@ -1529,6 +1645,7 @@ let products: Product[] = [
     farmerId: '134',
     description: 'A Acácia é conhecida como Árvore da Vida, e o mel de suas flores é um néctar precioso. Produzido de forma natural na encantadora Serra do Roncador, em Mato Grosso, este mel é um verdadeiro tesouro da natureza. Rico em vitamina C e repleto de antioxidantes poderosos, como flavonoides e betacaroteno, ele ainda concentra minerais essenciais como cálcio, magnésio e potássio. Um alimento nutritivo, saboroso e cheio de vitalidade para o seu dia a dia.',
     status: 'active',
+    stock: 15,
   },
   {
     id: '129',
@@ -1542,6 +1659,7 @@ let products: Product[] = [
     farmerId: '134',
     description: 'Mel Silvestre, um blend de flores do campo com sabor rico e complexo.',
     status: 'active',
+    stock: 30,
   },
   {
     id: '130',
@@ -1555,6 +1673,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Uva Vitória, sem sementes e muito doce, perfeita para lanches e sobremesas.',
     status: 'active',
+    stock: 18,
   },
   {
     id: '131',
@@ -1568,6 +1687,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Pêssegos orgânicos, macios e suculentos, com um sabor doce e aveludado, perfeitos para comer in natura ou em sobremesas.',
     status: 'active',
+    stock: 14,
   },
   {
     id: '132',
@@ -1581,6 +1701,7 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Laranja Lima orgânica, de sabor suave e sem acidez, excelente para crianças e para o preparo de sucos.',
     status: 'active',
+    stock: 60,
   },
   {
     id: '133',
@@ -1594,6 +1715,7 @@ let products: Product[] = [
     description: 'Pequenas e macias, ideais para conservas, saladas e para assar inteiras com ervas.',
     dataAiHint: 'small potatoes',
     status: 'active',
+    stock: 30,
   },
   {
     id: '134',
@@ -1607,6 +1729,7 @@ let products: Product[] = [
     description: 'Cultivar de casca fina e aroma marcante, a bergamota é fácil de descascar e tem um sabor doce e intenso.',
     dataAiHint: 'bergamot tangerine',
     status: 'active',
+    stock: 25,
   },
   {
     id: '135',
@@ -1620,6 +1743,7 @@ let products: Product[] = [
     description: 'Crocante e aromático, o aipo é ideal para sopas, saladas e como base para caldos.',
     dataAiHint: 'celery',
     status: 'active',
+    stock: 20,
   },
   {
     id: '136',
@@ -1633,6 +1757,7 @@ let products: Product[] = [
     description: 'Mini pimentões coloridos, doces e com poucas sementes. Perfeitos para comer como um snack saudável.',
     dataAiHint: 'snack peppers',
     status: 'active',
+    stock: 15,
   }
 ];
 
@@ -2135,6 +2260,15 @@ export function updateProduct(productId: string, updatedData: Partial<Product>):
     return undefined;
 }
 
+export function updateProductStock(productId: string, newStock: number): Product | undefined {
+    const productIndex = products.findIndex(p => p.id === productId);
+    if (productIndex !== -1) {
+        products[productIndex].stock = newStock;
+        return products[productIndex];
+    }
+    return undefined;
+}
+
 export function toggleProductStatus(productId: string, status: 'active' | 'paused'): Product | undefined {
     const productIndex = products.findIndex(p => p.id === productId);
     if (productIndex !== -1) {
@@ -2378,6 +2512,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
 
     
+
 
 
 
