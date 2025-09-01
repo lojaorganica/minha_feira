@@ -15,6 +15,23 @@ import { Checkbox } from "@/components/ui/checkbox";
 
 const allFairs = ["Tijuca", "Grajaú", "Flamengo", "Laranjeiras", "Botafogo", "Leme"];
 
+const emptyAddress: CustomerAddress = {
+    street: '',
+    number: '',
+    complement: '',
+    neighborhood: '',
+    city: '',
+    state: '',
+    zipCode: ''
+};
+
+const emptyCustomer: Partial<Customer> = {
+    name: '',
+    phone: '',
+    email: '',
+    address: emptyAddress
+};
+
 export default function ProfileForm() {
     const { user, isUserLoaded, userType, updateUser } = useUser();
     const { toast } = useToast();
@@ -22,17 +39,14 @@ export default function ProfileForm() {
     const [prepostos, setPrepostos] = useState('');
 
     useEffect(() => {
-        if (user) {
-            // Garante que o endereço é um objeto para evitar erros
-            const initialData = {
-                ...user,
-                address: user.address && typeof user.address === 'object' ? user.address : {},
-            };
-            setFormData(initialData as Partial<Customer & Farmer>);
-
-            if (userType === 'farmer' && (user as Farmer).prepostos) {
+        if (userType === 'farmer' && user) {
+            setFormData(user as Partial<Farmer>);
+            if ((user as Farmer).prepostos) {
                 setPrepostos((user as Farmer).prepostos!.join(', '));
             }
+        } else {
+             // Garante que o formulário do cliente sempre comece vazio
+            setFormData(emptyCustomer);
         }
     }, [user, userType]);
 
@@ -55,12 +69,28 @@ export default function ProfileForm() {
             } as Partial<Customer>;
         });
     };
+    
+    const handleZipCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { id, value } = e.target;
+        // Permite apenas números e limita o comprimento
+        const numericValue = value.replace(/[^0-9]/g, '');
+        if (numericValue.length <= 8) {
+            handleAddressChange(e);
+        }
+    };
+    
+     const handleStateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { id, value } = e.target;
+        if (value.length <= 2) {
+            handleAddressChange(e);
+        }
+    };
 
     const handlePrepostosChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setPrepostos(e.target.value);
     };
 
-    const handleNumberInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+_Hchange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { id, value } = e.target;
         setFormData(prev => ({ ...prev, [id]: value === '' ? undefined : parseFloat(value) }));
     };
@@ -171,7 +201,7 @@ export default function ProfileForm() {
 
     if (userType === 'customer') {
         const customerData = formData as Partial<Customer>;
-        const address = customerData.address || {};
+        const address = customerData.address || emptyAddress;
         return (
             <Card className="max-w-2xl mx-auto">
                 <CardHeader>
@@ -199,35 +229,35 @@ export default function ProfileForm() {
                                 <div className="grid grid-cols-3 gap-4">
                                     <div className="space-y-1 col-span-2">
                                         <Label htmlFor="street">Logradouro</Label>
-                                        <Input id="street" value={address.street || ''} onChange={handleAddressChange} />
+                                        <Input id="street" value={address.street} onChange={handleAddressChange} />
                                     </div>
                                     <div className="space-y-1">
                                         <Label htmlFor="number">Número</Label>
-                                        <Input id="number" value={address.number || ''} onChange={handleAddressChange} />
+                                        <Input id="number" value={address.number} onChange={handleAddressChange} />
                                     </div>
                                 </div>
                                 <div className="space-y-1">
                                     <Label htmlFor="complement">Complemento</Label>
-                                    <Input id="complement" value={address.complement || ''} onChange={handleAddressChange} placeholder="Apto, Bloco, Casa..." />
+                                    <Input id="complement" value={address.complement} onChange={handleAddressChange} placeholder="Apto, Bloco, Casa..." />
                                 </div>
                                 <div className="grid grid-cols-3 gap-4">
                                     <div className="space-y-1 col-span-2">
                                         <Label htmlFor="neighborhood">Bairro</Label>
-                                        <Input id="neighborhood" value={address.neighborhood || ''} onChange={handleAddressChange} />
+                                        <Input id="neighborhood" value={address.neighborhood} onChange={handleAddressChange} />
                                     </div>
                                     <div className="space-y-1">
                                          <Label htmlFor="zipCode">CEP</Label>
-                                         <Input id="zipCode" value={address.zipCode || ''} onChange={handleAddressChange} />
+                                         <Input id="zipCode" value={address.zipCode} onChange={handleZipCodeChange} pattern="[0-9]*" />
                                     </div>
                                 </div>
                                  <div className="grid grid-cols-3 gap-4">
                                     <div className="space-y-1 col-span-2">
                                         <Label htmlFor="city">Cidade</Label>
-                                        <Input id="city" value={address.city || ''} onChange={handleAddressChange} />
+                                        <Input id="city" value={address.city} onChange={handleAddressChange} />
                                     </div>
                                     <div className="space-y-1">
                                          <Label htmlFor="state">Estado</Label>
-                                         <Input id="state" value={address.state || ''} onChange={handleAddressChange} />
+                                         <Input id="state" value={address.state} onChange={handleStateChange} />
                                     </div>
                                 </div>
                             </div>
@@ -243,3 +273,5 @@ export default function ProfileForm() {
 
     return null;
 }
+
+    
