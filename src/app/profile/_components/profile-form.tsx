@@ -25,13 +25,6 @@ const emptyAddress: CustomerAddress = {
     zipCode: ''
 };
 
-const emptyCustomer: Partial<Customer> = {
-    name: '',
-    phone: '',
-    email: '',
-    address: emptyAddress
-};
-
 export default function ProfileForm() {
     const { user, isUserLoaded, userType, updateUser } = useUser();
     const { toast } = useToast();
@@ -39,14 +32,18 @@ export default function ProfileForm() {
     const [prepostos, setPrepostos] = useState('');
 
     useEffect(() => {
-        if (userType === 'farmer' && user) {
-            setFormData(user as Partial<Farmer>);
-            if ((user as Farmer).prepostos) {
-                setPrepostos((user as Farmer).prepostos!.join(', '));
+        if (user) {
+            if (userType === 'farmer') {
+                const farmerData = user as Farmer;
+                setFormData(farmerData);
+                if (farmerData.prepostos) {
+                    setPrepostos(farmerData.prepostos.join(', '));
+                }
+            } else if (userType === 'customer') {
+                const customerData = user as Customer;
+                // Garante que o endereço nunca seja nulo
+                setFormData({ ...customerData, address: customerData.address || emptyAddress });
             }
-        } else {
-             // Garante que o formulário do cliente sempre comece vazio
-            setFormData(emptyCustomer);
         }
     }, [user, userType]);
 
@@ -63,7 +60,7 @@ export default function ProfileForm() {
             return {
                 ...prev,
                 address: {
-                    ...customerData.address,
+                    ...(customerData.address || emptyAddress),
                     [id]: value
                 }
             } as Partial<Customer>;
@@ -75,7 +72,16 @@ export default function ProfileForm() {
         // Permite apenas números e limita o comprimento
         const numericValue = value.replace(/[^0-9]/g, '');
         if (numericValue.length <= 8) {
-            handleAddressChange(e);
+           setFormData(prev => {
+                const customerData = prev as Partial<Customer>;
+                return {
+                    ...prev,
+                    address: {
+                        ...(customerData.address || emptyAddress),
+                        [id]: numericValue
+                    }
+                } as Partial<Customer>;
+            });
         }
     };
     
@@ -90,7 +96,7 @@ export default function ProfileForm() {
         setPrepostos(e.target.value);
     };
 
-_Hchange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleNumberInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { id, value } = e.target;
         setFormData(prev => ({ ...prev, [id]: value === '' ? undefined : parseFloat(value) }));
     };
@@ -212,15 +218,15 @@ _Hchange = (e: React.ChangeEvent<HTMLInputElement>) => {
                     <CardContent className="space-y-4">
                         <div className="space-y-2">
                             <Label htmlFor="name" className="text-base font-semibold">Nome Completo</Label>
-                            <Input id="name" value={customerData.name || ''} onChange={handleInputChange} />
+                            <Input id="name" value={customerData.name || ''} onChange={handleInputChange} placeholder="Seu nome completo"/>
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="phone" className="text-base font-semibold">Telefone / WhatsApp</Label>
-                            <Input id="phone" value={customerData.phone || ''} onChange={handleInputChange} />
+                            <Input id="phone" value={customerData.phone || ''} onChange={handleInputChange} placeholder="(XX) XXXXX-XXXX" />
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="email" className="text-base font-semibold">E-mail</Label>
-                            <Input id="email" type="email" value={customerData.email || ''} onChange={handleInputChange} />
+                            <Input id="email" type="email" value={customerData.email || ''} onChange={handleInputChange} placeholder="seu.email@exemplo.com" />
                         </div>
                         
                         <div className="space-y-2">
@@ -229,35 +235,35 @@ _Hchange = (e: React.ChangeEvent<HTMLInputElement>) => {
                                 <div className="grid grid-cols-3 gap-4">
                                     <div className="space-y-1 col-span-2">
                                         <Label htmlFor="street">Logradouro</Label>
-                                        <Input id="street" value={address.street} onChange={handleAddressChange} />
+                                        <Input id="street" value={address.street} onChange={handleAddressChange} placeholder="Ex: Rua das Flores" />
                                     </div>
                                     <div className="space-y-1">
                                         <Label htmlFor="number">Número</Label>
-                                        <Input id="number" value={address.number} onChange={handleAddressChange} />
+                                        <Input id="number" value={address.number} onChange={handleAddressChange} placeholder="123" />
                                     </div>
                                 </div>
                                 <div className="space-y-1">
                                     <Label htmlFor="complement">Complemento</Label>
-                                    <Input id="complement" value={address.complement} onChange={handleAddressChange} placeholder="Apto, Bloco, Casa..." />
+                                    <Input id="complement" value={address.complement || ''} onChange={handleAddressChange} placeholder="Apto, Bloco, Casa..." />
                                 </div>
                                 <div className="grid grid-cols-3 gap-4">
                                     <div className="space-y-1 col-span-2">
                                         <Label htmlFor="neighborhood">Bairro</Label>
-                                        <Input id="neighborhood" value={address.neighborhood} onChange={handleAddressChange} />
+                                        <Input id="neighborhood" value={address.neighborhood} onChange={handleAddressChange} placeholder="Ex: Centro" />
                                     </div>
                                     <div className="space-y-1">
                                          <Label htmlFor="zipCode">CEP</Label>
-                                         <Input id="zipCode" value={address.zipCode} onChange={handleZipCodeChange} pattern="[0-9]*" />
+                                         <Input id="zipCode" value={address.zipCode} onChange={handleZipCodeChange} placeholder="XXXXXXXX" />
                                     </div>
                                 </div>
                                  <div className="grid grid-cols-3 gap-4">
                                     <div className="space-y-1 col-span-2">
                                         <Label htmlFor="city">Cidade</Label>
-                                        <Input id="city" value={address.city} onChange={handleAddressChange} />
+                                        <Input id="city" value={address.city} onChange={handleAddressChange} placeholder="Ex: Rio de Janeiro"/>
                                     </div>
                                     <div className="space-y-1">
                                          <Label htmlFor="state">Estado</Label>
-                                         <Input id="state" value={address.state} onChange={handleStateChange} />
+                                         <Input id="state" value={address.state} onChange={handleStateChange} placeholder="RJ" />
                                     </div>
                                 </div>
                             </div>
@@ -273,5 +279,3 @@ _Hchange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
     return null;
 }
-
-    
