@@ -23,12 +23,19 @@ export default function ProfileForm() {
 
     useEffect(() => {
         if (user) {
-            setFormData(user);
+            // Garante que o endereço é um objeto para evitar erros
+            const initialData = {
+                ...user,
+                address: user.address && typeof user.address === 'object' ? user.address : {},
+            };
+            setFormData(initialData as Partial<Customer & Farmer>);
+
             if (userType === 'farmer' && (user as Farmer).prepostos) {
                 setPrepostos((user as Farmer).prepostos!.join(', '));
             }
         }
     }, [user, userType]);
+
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { id, value } = e.target;
@@ -177,9 +184,13 @@ export default function ProfileForm() {
                             <Label htmlFor="name" className="text-base font-semibold">Nome Completo</Label>
                             <Input id="name" value={customerData.name || ''} onChange={handleInputChange} />
                         </div>
-                         <div className="space-y-2">
+                        <div className="space-y-2">
                             <Label htmlFor="phone" className="text-base font-semibold">Telefone / WhatsApp</Label>
                             <Input id="phone" value={customerData.phone || ''} onChange={handleInputChange} />
+                        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="email" className="text-base font-semibold">E-mail</Label>
+                            <Input id="email" type="email" value={customerData.email || ''} onChange={handleInputChange} />
                         </div>
                         
                         <div className="space-y-2">

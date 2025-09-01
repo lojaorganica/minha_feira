@@ -88,6 +88,7 @@ export interface CustomerAddress {
 export interface Customer {
   id: string;
   name: string;
+  email?: string;
   favoriteFarmerIds: string[];
   address: CustomerAddress;
   phone: string;

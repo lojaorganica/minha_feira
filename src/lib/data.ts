@@ -1830,6 +1830,7 @@ let customers: Customer[] = [
     {
         id: 'cust-001',
         name: 'Cliente Exemplo',
+        email: 'cliente@exemplo.com',
         favoriteFarmerIds: ['1', '2'],
         address: {
             street: 'Rua de Exemplo',
@@ -1846,6 +1847,7 @@ let customers: Customer[] = [
     {
         id: 'cust-alice',
         name: 'Alice Johnson',
+        email: 'alice.j@email.com',
         address: {
             street: 'Rua das Flores',
             number: '123',
@@ -1862,6 +1864,7 @@ let customers: Customer[] = [
      {
         id: 'cust-bob',
         name: 'Bob Williams',
+        email: 'bob.w@email.com',
         address: {
             street: 'Praça da Bandeira',
             number: '789',
@@ -1878,6 +1881,7 @@ let customers: Customer[] = [
      {
         id: 'cust-charlie',
         name: 'Charlie Brown',
+        email: 'charlie.b@email.com',
         address: {
             street: 'Avenida Atlântica',
             number: '123',
@@ -1894,6 +1898,7 @@ let customers: Customer[] = [
     {
         id: 'cust-diana',
         name: 'Diana Miller',
+        email: 'diana.m@email.com',
         address: {
             street: 'Av. Copacabana',
             number: '456',
@@ -2041,7 +2046,7 @@ const defaultProductImages = new Map<string, string>([
     ['caqui', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/caqui.webp?alt=media&token=6d9835e9-ae1c-4cb0-83e3-e839ccb780c2'],
     ['caju', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/caju.webp?alt=media&token=7a76f64c-ed10-4451-8112-5d09020049b9'],
     ['carambola', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/carambola.webp?alt=media&token=57b1c4f3-5d99-4bc3-ae84-b627807beed3'],
-    ['uva vitoria', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/uva_vitoria.webp?alt=media&token=40422204-de6c-48c2-a9b0-a5ef9876e6b0'],
+    ['uva vitoria', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/uva_vitoria.webp?alt=media&token=a3ba40e3-ac32-44f0-b9b4-e75c875f2d4f'],
     ['pera williams', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pera_williams.webp?alt=media&token=5bb791b0-9f75-4cd6-9a50-c4a978b351b7'],
     ['pera', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pera_williams.webp?alt=media&token=5bb791b0-9f75-4cd6-9a50-c4a978b351b7'],
     ['pessego', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pessego.webp?alt=media&token=40ca1fb9-a000-4b9e-bbd5-52775e5d0720'],
@@ -2251,6 +2256,7 @@ export function getCustomers(): Customer[] {
           return {
               id: `cust-${name.toLowerCase().replace(' ', '-')}`,
               name: order.customerName,
+              email: `${name.toLowerCase().replace(' ', '.')}@email.com`,
               address: { street: addressString, number: '', neighborhood: '', city: '', state: '', zipCode: '' },
               phone: order.customerContact?.phone || 'Telefone não informado',
               favoriteFarmerIds: [],
@@ -2372,6 +2378,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
 
     
+
 
 
 
