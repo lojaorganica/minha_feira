@@ -80,25 +80,45 @@ function EditProductForm({ product: initialProduct, onSaveChanges }: { product: 
     const [product, setProduct] = useState<Product>(initialProduct);
     const [isOpen, setIsOpen] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
+    const [formattedPrice, setFormattedPrice] = useState(initialProduct.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 }));
+
     const { toast } = useToast();
+
+    useEffect(() => {
+        // Atualiza o estado interno e o preço formatado se o produto inicial mudar
+        setProduct(initialProduct);
+        setFormattedPrice(initialProduct.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 }));
+    }, [initialProduct]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { id, value } = e.target;
         setProduct(prev => ({ ...prev, [id]: value }));
     };
 
-    const handleNumberInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { id, value } = e.target;
-        // Permite zerar o campo, mas não salvar negativo
-        const numValue = parseFloat(value);
-        if (value === '' || numValue >= 0) {
-            setProduct(prev => ({ ...prev, [id]: value === '' ? undefined : numValue }));
+    const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const rawValue = e.target.value.replace(/\D/g, ''); // Remove tudo que não é dígito
+        if (!rawValue) {
+            setFormattedPrice('');
+            setProduct(prev => ({ ...prev, price: 0 }));
+            return;
         }
+
+        const numericValue = parseInt(rawValue, 10) / 100;
+        setProduct(prev => ({ ...prev, price: numericValue }));
+        setFormattedPrice(numericValue.toLocaleString('pt-BR', { minimumFractionDigits: 2 }));
     };
 
     const handleSubmit = () => {
+        if (product.price < 0) {
+             toast({
+                variant: "destructive",
+                title: "Preço Inválido",
+                description: "O preço do produto não pode ser negativo.",
+            });
+            return;
+        }
+
         setIsSaving(true);
-        // Salva todos os campos, incluindo o novo unitAmount
         updateProduct(product.id, {
             name: product.name,
             price: product.price,
@@ -113,7 +133,7 @@ function EditProductForm({ product: initialProduct, onSaveChanges }: { product: 
                 title: "Produto atualizado!",
                 description: `${product.name} foi modificado com sucesso.`,
             });
-        }, 500); // Simula o tempo de salvamento
+        }, 500); 
     };
 
     return (
@@ -140,7 +160,7 @@ function EditProductForm({ product: initialProduct, onSaveChanges }: { product: 
                     <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2">
                             <Label htmlFor="price">Preço (R$)</Label>
-                            <Input id="price" type="number" min="0" value={product.price} onChange={handleNumberInputChange} className="bg-card" />
+                            <Input id="price" type="text" value={formattedPrice} onChange={handlePriceChange} className="bg-card" placeholder="0,00"/>
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="unit">Unidade</Label>
