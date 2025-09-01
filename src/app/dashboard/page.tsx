@@ -343,21 +343,36 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
 function EditStockDialog({ product, onStockUpdate }: { product: Product, onStockUpdate: () => void }) {
     const [isOpen, setIsOpen] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
-    const [stock, setStock] = useState<number>(product.stock ?? 0);
+    const [stock, setStock] = useState<number | ''>(product.stock ?? '');
     const { toast } = useToast();
 
     const handleSubmit = () => {
         setIsSaving(true);
-        updateProductStock(product.id, stock);
+        updateProductStock(product.id, Number(stock));
         setTimeout(() => {
             onStockUpdate();
             setIsSaving(false);
             setIsOpen(false);
             toast({
                 title: "Estoque Atualizado!",
-                description: `O estoque de ${product.name} foi atualizado para ${stock}.`,
+                description: `O estoque de ${product.name} foi atualizado para ${stock || 0}.`,
             });
         }, 300);
+    };
+    
+    const handleStockChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        // Permite campo vazio para facilitar a digitação
+        if (value === '') {
+            setStock('');
+            return;
+        }
+        // Converte para número e remove zeros à esquerda, se houver
+        const numValue = parseInt(value, 10);
+        // Impede NaN e valores negativos
+        if (!isNaN(numValue) && numValue >= 0) {
+            setStock(numValue);
+        }
     };
     
     return (
@@ -379,7 +394,7 @@ function EditStockDialog({ product, onStockUpdate }: { product: Product, onStock
                         type="number" 
                         min="0"
                         value={stock} 
-                        onChange={(e) => setStock(Math.max(0, Number(e.target.value)))}
+                        onChange={handleStockChange}
                         className="bg-card"
                         onKeyDown={(e) => {
                             if (e.key === 'Enter') {
