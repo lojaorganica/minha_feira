@@ -9,7 +9,7 @@ import type { Order, Product, CustomerAddress } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
-import { Edit, PlusCircle, Trash2, ShoppingBag, User, DollarSign, Download, Share2, History, Search, Tag, CalendarIcon, Truck, Phone, Home, MapPin, AlertTriangle, Power, X, FileText, FileImage, FileJson } from "lucide-react";
+import { Edit, PlusCircle, Trash2, ShoppingBag, User, DollarSign, Download, Share2, History, Search, Tag, Calendar as CalendarIcon, Truck, Phone, Home, MapPin, AlertTriangle, Power, X, FileText, FileImage, FileJson } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
@@ -502,7 +502,7 @@ Entrega: ${deliveryText}
             <CardHeader>
                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                     <div>
-                        <CardTitle>Pedidos Recebidos</CardTitle>
+                        <CardTitle>Pedidos Pendentes</CardTitle>
                         <CardDescription>Revise e gerencie os pedidos de seus clientes.</CardDescription>
                     </div>
                 </div>
@@ -517,6 +517,10 @@ Entrega: ${deliveryText}
                                     <CardDescription className="text-base font-semibold text-foreground/90 flex items-center gap-2 mt-1">
                                         <User className="h-4 w-4"/>
                                         {order.customerName}
+                                    </CardDescription>
+                                     <CardDescription className="text-sm font-semibold text-foreground/80 flex items-center gap-2 mt-2">
+                                        <CalendarIcon className="h-4 w-4" />
+                                        {format(new Date(order.date), "dd/MM/yyyy 'às' HH:mm", { locale: ptBR })}
                                     </CardDescription>
                                 </div>
                                 <Badge className={`text-sm ${
@@ -617,7 +621,7 @@ Entrega: ${deliveryText}
                     </Card>
                 )) : (
                     <div className="col-span-full text-center py-12">
-                        <p className="text-lg font-semibold text-muted-foreground">Nenhum pedido recebido no momento.</p>
+                        <p className="text-lg font-semibold text-muted-foreground">Nenhum pedido pendente encontrado.</p>
                     </div>
                 )}
             </CardContent>
@@ -665,7 +669,7 @@ function OrderHistoryDialog({ allOrders, open, onOpenChange }: { allOrders: Orde
     return (
         <DialogContent className="sm:max-w-4xl max-h-[90vh] flex flex-col">
             <DialogHeader>
-                <DialogTitle>Histórico de Pedidos</DialogTitle>
+                <DialogTitle className="text-2xl font-headline text-primary">Histórico de Pedidos</DialogTitle>
                 <DialogDescription>
                     Pesquise e visualize todos os pedidos anteriores.
                 </DialogDescription>
@@ -714,6 +718,10 @@ function OrderHistoryDialog({ allOrders, open, onOpenChange }: { allOrders: Orde
                                             <User className="h-4 w-4"/>
                                             {order.customerName}
                                         </CardDescription>
+                                        <CardDescription className="text-sm font-semibold text-foreground/80 flex items-center gap-2 mt-2">
+                                            <CalendarIcon className="h-4 w-4" />
+                                            {format(new Date(order.date), "dd/MM/yyyy 'às' HH:mm", { locale: ptBR })}
+                                        </CardDescription>
                                     </div>
                                     <Badge className="text-sm">{order.status}</Badge>
                                 </div>
@@ -730,13 +738,11 @@ function OrderHistoryDialog({ allOrders, open, onOpenChange }: { allOrders: Orde
                         </Card>
                     ))
                ) : (
-                <p className="text-center text-muted-foreground py-8">Nenhum pedido encontrado.</p>
+                <p className="text-center text-muted-foreground py-8">Nenhum pedido encontrado com os filtros aplicados.</p>
                )}
             </div>
             <DialogFooter>
-                <DialogTrigger asChild>
-                    <Button variant="outline">Fechar</Button>
-                </DialogTrigger>
+                 <Button variant="outline" onClick={() => onOpenChange(false)}>Fechar</Button>
             </DialogFooter>
         </DialogContent>
     );
@@ -823,12 +829,10 @@ function DashboardContent() {
 
                     <TabsContent value="orders" className="mt-6">
                         <div className="mb-6 flex justify-end">
-                            <DialogTrigger asChild>
-                                <Button variant="outline">
-                                    <History className="h-4 w-4 mr-2" />
-                                    Histórico de Pedidos
-                                </Button>
-                            </DialogTrigger>
+                            <Button variant="outline" onClick={() => setHistoryDialogOpen(true)}>
+                                <History className="h-4 w-4 mr-2" />
+                                Histórico de Pedidos
+                            </Button>
                         </div>
                         <OrdersTabContent orders={filteredOrders} />
                     </TabsContent>
