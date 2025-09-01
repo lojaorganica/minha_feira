@@ -131,22 +131,22 @@ function EditProductForm({ product: initialProduct, onSaveChanges }: { product: 
                 <div className="grid gap-4 py-4 text-base">
                     <div className="space-y-2">
                         <Label htmlFor="name">Nome do Produto</Label>
-                        <Input id="name" value={product.name} onChange={handleInputChange} />
+                        <Input id="name" value={product.name} onChange={handleInputChange} className="bg-card" />
                     </div>
                     
                     <div className="grid grid-cols-3 gap-4">
                         <div className="space-y-2">
                             <Label htmlFor="price">Preço (R$)</Label>
-                            <Input id="price" type="number" value={product.price} onChange={handleNumberInputChange} />
+                            <Input id="price" type="number" value={product.price} onChange={handleNumberInputChange} className="bg-card" />
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="unitAmount">Quantidade</Label>
-                            <Input id="unitAmount" type="number" value={product.unitAmount || ''} onChange={handleNumberInputChange} />
+                            <Input id="unitAmount" type="number" value={product.unitAmount || ''} onChange={handleNumberInputChange} className="bg-card" />
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="unit">Unidade</Label>
                             <Select value={product.unit} onValueChange={(value) => setProduct(p => ({...p, unit: value}))}>
-                                <SelectTrigger>
+                                <SelectTrigger className="bg-card">
                                     <SelectValue placeholder="Unidade" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -167,11 +167,11 @@ function EditProductForm({ product: initialProduct, onSaveChanges }: { product: 
 
                     <div className="space-y-2">
                         <Label htmlFor="description">Descrição</Label>
-                        <Textarea id="description" value={product.description} onChange={handleInputChange} placeholder="Descreva seu produto..." />
+                        <Textarea id="description" value={product.description} onChange={handleInputChange} placeholder="Descreva seu produto..." className="bg-card" />
                     </div>
                      <div className="space-y-2">
                         <Label htmlFor="image">Foto</Label>
-                        <Input id="image" type="file" disabled />
+                        <Input id="image" type="file" disabled className="bg-card" />
                         <p className="text-sm text-muted-foreground">A troca de imagem do produto não está disponível no protótipo.</p>
                     </div>
                 </div>
