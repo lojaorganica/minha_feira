@@ -226,6 +226,7 @@ function EditStockDialog({ product, onStockUpdate }: { product: Product, onStock
                         type="number" 
                         value={stock} 
                         onChange={(e) => setStock(Number(e.target.value))}
+                        className="bg-card"
                         onKeyDown={(e) => {
                             if (e.key === 'Enter') {
                                 handleSubmit();
