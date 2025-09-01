@@ -1,7 +1,8 @@
 
 "use client";
 
-import { useMemo, useState, useRef, useEffect } from "react";
+import { useMemo, useState, useRef, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { getFarmersWithProducts, getFarmers } from "@/lib/data";
 import type { FarmerWithProducts, Farmer } from "@/lib/types";
 import { useSearch } from "@/hooks/use-search";
@@ -9,7 +10,7 @@ import ProductCard from "./product-card";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
 import { Input } from "./ui/input";
-import { Search } from "lucide-react";
+import { Search, Loader2 } from "lucide-react";
 
 function useDebounce(value: string, delay: number) {
   const [debouncedValue, setDebouncedValue] = useState(value);
@@ -86,13 +87,23 @@ function FarmerFilter({
   );
 }
 
-
-export default function ProductBrowser() {
+function ProductBrowserContent() {
+  const searchParams = useSearchParams();
   const { searchTerm, setSearchTerm } = useSearch();
-  const [selectedFarmerId, setSelectedFarmerId] = useState<string | null>(null);
+  
+  const initialFarmerId = searchParams.get('farmerId');
+  const [selectedFarmerId, setSelectedFarmerId] = useState<string | null>(initialFarmerId);
   const filterRef = useRef<HTMLDivElement>(null);
   
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
+
+  useEffect(() => {
+    // Sincroniza o estado com a URL quando ela muda
+    const farmerIdFromUrl = searchParams.get('farmerId');
+    if (farmerIdFromUrl !== selectedFarmerId) {
+      setSelectedFarmerId(farmerIdFromUrl);
+    }
+  }, [searchParams, selectedFarmerId]);
 
   useEffect(() => {
     // Rola para a área de resultados quando uma busca é realizada
@@ -197,4 +208,12 @@ export default function ProductBrowser() {
       </div>
     </div>
   );
+}
+
+export default function ProductBrowser() {
+  return (
+    <Suspense fallback={<div className="flex justify-center items-center h-64"><Loader2 className="h-12 w-12 animate-spin text-primary" /></div>}>
+      <ProductBrowserContent />
+    </Suspense>
+  )
 }

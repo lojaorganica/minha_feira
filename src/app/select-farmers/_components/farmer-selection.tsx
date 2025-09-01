@@ -45,7 +45,7 @@ export default function FarmerSelection() {
   };
   
   const handleViewProducts = (farmerId: string) => {
-    router.push(`/catalog`);
+    router.push(`/catalog?farmerId=${farmerId}`);
   }
 
   const handleClearCartAndContinue = () => {
