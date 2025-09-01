@@ -2,7 +2,7 @@
 "use client";
 
 import { useMemo, useState, useRef, useEffect, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { getFarmersWithProducts, getFarmers } from "@/lib/data";
 import type { FarmerWithProducts, Farmer } from "@/lib/types";
 import { useSearch } from "@/hooks/use-search";
@@ -89,29 +89,37 @@ function FarmerFilter({
 
 function ProductBrowserContent() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const { searchTerm, setSearchTerm } = useSearch();
   
   const initialFarmerId = searchParams.get('farmerId');
   const [selectedFarmerId, setSelectedFarmerId] = useState<string | null>(initialFarmerId);
   const filterRef = useRef<HTMLDivElement>(null);
   
-  const debouncedSearchTerm = useDebounce(searchTerm, 500);
+  const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
   useEffect(() => {
-    // Sincroniza o estado com a URL quando ela muda
+    // Sincroniza o estado com a URL quando ela muda externamente
     const farmerIdFromUrl = searchParams.get('farmerId');
     if (farmerIdFromUrl !== selectedFarmerId) {
       setSelectedFarmerId(farmerIdFromUrl);
     }
   }, [searchParams, selectedFarmerId]);
-
+  
+  const handleSelectFarmer = (farmerId: string | null) => {
+    setSelectedFarmerId(farmerId);
+    // Atualiza a URL para refletir o filtro, sem o ID do agricultor se 'Todos' for selecionado
+    const newPath = farmerId ? `/catalog?farmerId=${farmerId}` : '/catalog';
+    router.push(newPath, { scroll: false });
+  };
+  
   useEffect(() => {
-    // Rola para a área de resultados quando uma busca é realizada
-    if (debouncedSearchTerm && filterRef.current) {
+    // Rola para a área de resultados quando uma busca ou filtro é ativado
+    if ((debouncedSearchTerm || selectedFarmerId !== initialFarmerId) && filterRef.current) {
         // Usamos um pequeno timeout para garantir que o DOM foi atualizado antes de rolar
         setTimeout(() => {
             if(filterRef.current) {
-              const topPos = filterRef.current.getBoundingClientRect().top + window.scrollY - 100; // 100px de offset do topo
+              const topPos = filterRef.current.getBoundingClientRect().top + window.scrollY - 100; // 100px de offset (altura do header)
               window.scrollTo({
                 top: topPos,
                 behavior: 'smooth'
@@ -119,7 +127,7 @@ function ProductBrowserContent() {
             }
         }, 100);
     }
-  }, [debouncedSearchTerm, selectedFarmerId]); // Adicionado selectedFarmerId para rolar também ao filtrar
+  }, [debouncedSearchTerm, selectedFarmerId]);
 
   const allFarmers = useMemo(() => getFarmers(), []);
 
@@ -136,20 +144,20 @@ function ProductBrowserContent() {
     }
 
     // 2. Filtrar por termo de busca
-    if (!searchTerm) {
-      return farmers; // Retorna todos os produtos do(s) agricultor(es) selecionado(s)
+    if (!debouncedSearchTerm) {
+      return farmers;
     }
 
     return farmers
       .map(farmer => {
         const filteredProducts = farmer.products.filter(product =>
-          product.name.toLowerCase().includes(searchTerm.toLowerCase()) && product.status === 'active'
+          product.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) && product.status === 'active'
         );
         return { ...farmer, products: filteredProducts };
       })
       .filter(farmer => farmer.products.length > 0);
       
-  }, [searchTerm, allFarmersWithProducts, selectedFarmerId]);
+  }, [debouncedSearchTerm, allFarmersWithProducts, selectedFarmerId]);
 
   if (allFarmersWithProducts.length === 0) {
      return (
@@ -169,7 +177,7 @@ function ProductBrowserContent() {
       <FarmerFilter 
         farmers={allFarmers}
         selectedFarmerId={selectedFarmerId}
-        onSelectFarmer={setSelectedFarmerId}
+        onSelectFarmer={handleSelectFarmer}
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}
       />

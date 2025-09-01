@@ -125,7 +125,7 @@ export default function FarmerSelection() {
                             e.stopPropagation(); // Evita que o clique no botão deselecione o card
                             handleViewProducts(farmer.id);
                           }}>
-                              Ver Alimentos
+                              Ver Produtos
                           </Button>
                       </div>
                     </>
