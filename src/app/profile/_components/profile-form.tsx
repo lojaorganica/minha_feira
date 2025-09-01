@@ -246,11 +246,11 @@ export default function ProfileForm() {
                                 <div className="grid grid-cols-3 gap-4">
                                     <div className="space-y-1 col-span-2">
                                         <Label htmlFor="street">Logradouro</Label>
-                                        <Input id="street" value={address.street} onChange={handleAddressChange} placeholder="Ex: Rua das Flores" />
+                                        <Input id="street" value={address.street || ''} onChange={handleAddressChange} placeholder="Ex: Rua das Flores" />
                                     </div>
                                     <div className="space-y-1">
                                         <Label htmlFor="number">Número</Label>
-                                        <Input id="number" value={address.number} onChange={handleAddressChange} placeholder="123" />
+                                        <Input id="number" value={address.number || ''} onChange={handleAddressChange} placeholder="123" />
                                     </div>
                                 </div>
                                 <div className="space-y-1">
@@ -260,21 +260,21 @@ export default function ProfileForm() {
                                 <div className="grid grid-cols-3 gap-4">
                                     <div className="space-y-1 col-span-2">
                                         <Label htmlFor="neighborhood">Bairro</Label>
-                                        <Input id="neighborhood" value={address.neighborhood} onChange={handleAddressChange} placeholder="Ex: Centro" />
+                                        <Input id="neighborhood" value={address.neighborhood || ''} onChange={handleAddressChange} placeholder="Ex: Centro" />
                                     </div>
                                     <div className="space-y-1">
                                          <Label htmlFor="zipCode">CEP</Label>
-                                         <Input id="zipCode" value={address.zipCode} onChange={handleZipCodeChange} placeholder="Somente números" />
+                                         <Input id="zipCode" value={address.zipCode || ''} onChange={handleZipCodeChange} placeholder="Somente números" />
                                     </div>
                                 </div>
                                  <div className="grid grid-cols-3 gap-4">
                                     <div className="space-y-1 col-span-2">
                                         <Label htmlFor="city">Cidade</Label>
-                                        <Input id="city" value={address.city} onChange={handleAddressChange} placeholder="Ex: Rio de Janeiro"/>
+                                        <Input id="city" value={address.city || ''} onChange={handleAddressChange} placeholder="Ex: Rio de Janeiro"/>
                                     </div>
                                     <div className="space-y-1">
                                          <Label htmlFor="state">Estado</Label>
-                                         <Input id="state" value={address.state} onChange={handleStateChange} placeholder="RJ" />
+                                         <Input id="state" value={address.state || ''} onChange={handleStateChange} placeholder="RJ" />
                                     </div>
                                 </div>
                             </div>
@@ -290,5 +290,3 @@ export default function ProfileForm() {
 
     return null;
 }
-
-    
