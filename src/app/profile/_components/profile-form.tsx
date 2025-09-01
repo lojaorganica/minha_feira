@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { useState, useEffect } from "react";
-import type { Customer, Farmer } from "@/lib/types";
+import type { Customer, Farmer, CustomerAddress } from "@/lib/types";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 
@@ -33,6 +33,20 @@ export default function ProfileForm() {
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { id, value } = e.target;
         setFormData(prev => ({ ...prev, [id]: value }));
+    };
+
+    const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { id, value } = e.target;
+        setFormData(prev => {
+            const customerData = prev as Partial<Customer>;
+            return {
+                ...prev,
+                address: {
+                    ...customerData.address,
+                    [id]: value
+                }
+            } as Partial<Customer>;
+        });
     };
 
     const handlePrepostosChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -150,6 +164,7 @@ export default function ProfileForm() {
 
     if (userType === 'customer') {
         const customerData = formData as Partial<Customer>;
+        const address = customerData.address || {};
         return (
             <Card className="max-w-2xl mx-auto">
                 <CardHeader>
@@ -166,13 +181,45 @@ export default function ProfileForm() {
                             <Label htmlFor="phone" className="text-base font-semibold">Telefone / WhatsApp</Label>
                             <Input id="phone" value={customerData.phone || ''} onChange={handleInputChange} />
                         </div>
+                        
                         <div className="space-y-2">
-                            <Label htmlFor="address" className="text-base font-semibold">Endereço de Entrega</Label>
-                            <Input id="address" value={customerData.address || ''} onChange={handleInputChange} />
-                        </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="cep" className="text-base font-semibold">CEP</Label>
-                            <Input id="cep" value={customerData.cep || ''} onChange={handleInputChange} placeholder="Ex: 22221-010" />
+                            <Label className="text-base font-semibold">Endereço de Entrega</Label>
+                            <div className="grid grid-cols-1 gap-4 rounded-md border p-4">
+                                <div className="grid grid-cols-3 gap-4">
+                                    <div className="space-y-1 col-span-2">
+                                        <Label htmlFor="street">Logradouro</Label>
+                                        <Input id="street" value={address.street || ''} onChange={handleAddressChange} placeholder="Rua, Avenida..." />
+                                    </div>
+                                    <div className="space-y-1">
+                                        <Label htmlFor="number">Número</Label>
+                                        <Input id="number" value={address.number || ''} onChange={handleAddressChange} />
+                                    </div>
+                                </div>
+                                <div className="space-y-1">
+                                    <Label htmlFor="complement">Complemento (opcional)</Label>
+                                    <Input id="complement" value={address.complement || ''} onChange={handleAddressChange} placeholder="Apto, Bloco, Casa..." />
+                                </div>
+                                <div className="grid grid-cols-3 gap-4">
+                                    <div className="space-y-1 col-span-2">
+                                        <Label htmlFor="neighborhood">Bairro</Label>
+                                        <Input id="neighborhood" value={address.neighborhood || ''} onChange={handleAddressChange} />
+                                    </div>
+                                    <div className="space-y-1">
+                                         <Label htmlFor="zipCode">CEP</Label>
+                                         <Input id="zipCode" value={address.zipCode || ''} onChange={handleAddressChange} placeholder="Ex: 22221-010" />
+                                    </div>
+                                </div>
+                                 <div className="grid grid-cols-3 gap-4">
+                                    <div className="space-y-1 col-span-2">
+                                        <Label htmlFor="city">Cidade</Label>
+                                        <Input id="city" value={address.city || ''} onChange={handleAddressChange} />
+                                    </div>
+                                    <div className="space-y-1">
+                                         <Label htmlFor="state">Estado</Label>
+                                         <Input id="state" value={address.state || ''} onChange={handleAddressChange} />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </CardContent>
                     <CardFooter>

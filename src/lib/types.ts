@@ -53,7 +53,7 @@ export interface Order {
   total: number;
   date: Date;
   deliveryOption: 'pickup' | 'delivery';
-  customerContact?: { address: string; phone: string };
+  customerContact?: { address: CustomerAddress; phone: string };
   pickupLocation?: string;
 }
 
@@ -68,6 +68,20 @@ export interface CustomerOrder extends Omit<Order, 'items' | 'status' | 'custome
     status: 'Pendente'; // O status do cliente é sempre pendente até o agricultor confirmar
     farmerName: string;
     items: OrderHistoryItem[];
+    customerContact?: {
+        address: CustomerAddress | string; // Permitir string para retrocompatibilidade
+        phone: string;
+    }
+}
+
+export interface CustomerAddress {
+    street: string;
+    number: string;
+    complement?: string;
+    neighborhood: string;
+    city: string;
+    state: string;
+    zipCode: string;
 }
 
 
@@ -75,9 +89,8 @@ export interface Customer {
   id: string;
   name: string;
   favoriteFarmerIds: string[];
-  address: string;
+  address: CustomerAddress;
   phone: string;
   image: string;
   classification?: CustomerClassification;
-  cep?: string;
 }

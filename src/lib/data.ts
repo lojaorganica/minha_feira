@@ -1,5 +1,5 @@
 
-import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerOrder, CustomerClassification } from './types';
+import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerOrder, CustomerClassification, CustomerAddress } from './types';
 
 let products: Product[] = [
   {
@@ -1777,7 +1777,10 @@ let orders: Order[] = [
         total: 8.50,
         date: new Date(2024, 6, 20),
         deliveryOption: 'delivery',
-        customerContact: { address: 'Rua das Flores, 123, Rio de Janeiro, RJ', phone: '21999991111' },
+        customerContact: { 
+            address: { street: 'Rua das Flores', number: '123', neighborhood: 'Centro', city: 'Rio de Janeiro', state: 'RJ', zipCode: '20000-000' },
+            phone: '21999991111' 
+        },
     },
     {
         id: 'ORD-002',
@@ -1816,7 +1819,10 @@ let orders: Order[] = [
         total: 8.00,
         date: new Date(2024, 6, 18),
         deliveryOption: 'delivery',
-        customerContact: { address: 'Av. Copacabana, 456, Rio de Janeiro, RJ', phone: '21988882222' },
+        customerContact: { 
+             address: { street: 'Av. Copacabana', number: '456', neighborhood: 'Copacabana', city: 'Rio de Janeiro', state: 'RJ', zipCode: '22000-000' },
+             phone: '21988882222' 
+        },
     }
 ];
 
@@ -1825,16 +1831,29 @@ let customers: Customer[] = [
         id: 'cust-001',
         name: 'Cliente Exemplo',
         favoriteFarmerIds: ['1', '2'],
-        address: 'Rua de Exemplo, 123, Bairro, Rio de Janeiro, RJ',
+        address: {
+            street: 'Rua de Exemplo',
+            number: '123',
+            neighborhood: 'Bairro Exemplo',
+            city: 'Rio de Janeiro',
+            state: 'RJ',
+            zipCode: '22221-010',
+        },
         phone: '21912345678',
         image: 'https://placehold.co/100x100.png',
         classification: 'ouro',
-        cep: '22221-010'
     },
     {
         id: 'cust-alice',
         name: 'Alice Johnson',
-        address: 'Rua das Flores, 123, Rio de Janeiro, RJ',
+        address: {
+            street: 'Rua das Flores',
+            number: '123',
+            neighborhood: 'Jardim Botânico',
+            city: 'Rio de Janeiro',
+            state: 'RJ',
+            zipCode: '22461-000',
+        },
         phone: '21999991111',
         favoriteFarmerIds: ['1', '3'],
         image: 'https://placehold.co/100x100.png',
@@ -1843,7 +1862,14 @@ let customers: Customer[] = [
      {
         id: 'cust-bob',
         name: 'Bob Williams',
-        address: 'Praça da Bandeira, 789, Rio de Janeiro, RJ',
+        address: {
+            street: 'Praça da Bandeira',
+            number: '789',
+            neighborhood: 'Tijuca',
+            city: 'Rio de Janeiro',
+            state: 'RJ',
+            zipCode: '20270-130',
+        },
         phone: '21977773333',
         favoriteFarmerIds: ['4', '3'],
         image: 'https://placehold.co/100x100.png',
@@ -1852,7 +1878,14 @@ let customers: Customer[] = [
      {
         id: 'cust-charlie',
         name: 'Charlie Brown',
-        address: 'Avenida Atlântica, 123, Rio de Janeiro, RJ',
+        address: {
+            street: 'Avenida Atlântica',
+            number: '123',
+            neighborhood: 'Copacabana',
+            city: 'Rio de Janeiro',
+            state: 'RJ',
+            zipCode: '22070-000',
+        },
         phone: '21966664444',
         favoriteFarmerIds: ['2'],
         image: 'https://placehold.co/100x100.png',
@@ -1861,7 +1894,14 @@ let customers: Customer[] = [
     {
         id: 'cust-diana',
         name: 'Diana Miller',
-        address: 'Av. Copacabana, 456, Rio de Janeiro, RJ',
+        address: {
+            street: 'Av. Copacabana',
+            number: '456',
+            neighborhood: 'Copacabana',
+            city: 'Rio de Janeiro',
+            state: 'RJ',
+            zipCode: '22020-001',
+        },
         phone: '21988882222',
         favoriteFarmerIds: ['1'],
         image: 'https://placehold.co/100x100.png'
@@ -2149,7 +2189,8 @@ export function updateFarmer(farmerId: string, updatedData: Partial<Farmer>): Fa
 export function updateCustomer(customerId: string, updatedData: Partial<Customer>): Customer | undefined {
     const customerIndex = customers.findIndex(c => c.id === customerId);
     if (customerIndex !== -1) {
-        customers[customerIndex] = { ...customers[customerIndex], ...updatedData };
+        const newAddress = { ...customers[customerIndex].address, ...updatedData.address };
+        customers[customerIndex] = { ...customers[customerIndex], ...updatedData, address: newAddress };
         return customers[customerIndex];
     }
     return undefined;
@@ -2201,12 +2242,16 @@ export function getCustomers(): Customer[] {
           if (existingCustomer) return null; // Já existe na lista principal
 
           const order = orders.find(o => o.customerName === name);
-          if (!order) return null;
+          if (!order || !order.customerContact) return null;
+          
+          const addressString = typeof order.customerContact.address === 'string' 
+              ? order.customerContact.address 
+              : `${order.customerContact.address.street}, ${order.customerContact.address.number}`;
 
           return {
               id: `cust-${name.toLowerCase().replace(' ', '-')}`,
               name: order.customerName,
-              address: order.customerContact?.address || 'Endereço não informado',
+              address: { street: addressString, number: '', neighborhood: '', city: '', state: '', zipCode: '' },
               phone: order.customerContact?.phone || 'Telefone não informado',
               favoriteFarmerIds: [],
               image: 'https://placehold.co/100x100.png'
@@ -2327,5 +2372,6 @@ export function updateCustomerClassification(customerId: string, classification:
 
 
     
+
 
 

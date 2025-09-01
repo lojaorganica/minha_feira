@@ -53,13 +53,22 @@ export function useUser() {
     setUser(currentUser => {
         if (!currentUser) return null;
         
-        const newUser = { ...currentUser, ...updatedUserData };
-
+        let newUser;
         if (userType === 'farmer') {
+            newUser = { ...currentUser, ...updatedUserData };
             persistFarmer(currentUser.id, updatedUserData as Partial<Farmer>);
         } else if (userType === 'customer') {
+             // Lógica para mesclar o endereço aninhado
+            const newAddress = { 
+                ...(currentUser as Customer).address, 
+                ...(updatedUserData as Partial<Customer>).address 
+            };
+            newUser = { ...currentUser, ...updatedUserData, address: newAddress };
             persistCustomer(currentUser.id, updatedUserData as Partial<Customer>);
+        } else {
+             newUser = { ...currentUser, ...updatedUserData };
         }
+
 
         try {
             localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(newUser));

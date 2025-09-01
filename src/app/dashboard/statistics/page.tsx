@@ -11,7 +11,7 @@ import { DollarSign, ShoppingCart, Users, BarChart3, TrendingUp, Package, Calend
 import { useUser } from '@/hooks/use-user';
 import { Separator } from '@/components/ui/separator';
 
-const COLORS = {
+const COLORS: { [key: string]: string } = {
   Vegetal: 'hsl(var(--chart-1))',
   Fruta: 'hsl(var(--chart-2))',
   Laticínio: 'hsl(var(--chart-3))',
@@ -190,7 +190,7 @@ export default function StatisticsPage() {
                                 strokeWidth={5}
                                 >
                                 {stats.salesByCategory.map((entry) => (
-                                    <Cell key={`cell-${entry.name}`} fill={COLORS[entry.name as keyof typeof COLORS]} />
+                                    <Cell key={`cell-${entry.name}`} fill={COLORS[entry.name]} />
                                 ))}
                                 </Pie>
                             </PieChart>

@@ -13,7 +13,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState, useMemo, useRef } from "react";
 import { Loader2, Sparkles, Trash2, MessageSquare, Copy, Send, MapPin, Tractor, Upload, CheckCircle, Plus, Minus, X, ArrowLeft, ShoppingCart } from "lucide-react";
 import { getProducts, getFarmerById } from "@/lib/data";
-import type { Product } from "@/lib/types";
+import type { Product, CustomerAddress } from "@/lib/types";
 import { useToast } from "@/hooks/use-toast";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -165,7 +165,7 @@ function EmptyCartMessage() {
             subtitle: "Acesse o catálogo para escolher alimentos saudáveis para você e sua família."
         },
         {
-            image: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/Imagens_Carrinho_Vazio%2Fbrocolis_carrinho_vaziowebp.webp?alt=media&token=215946ed-6171-469a-8310-c892d6f20d3e7",
+            image: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/Imagens_Carrinho_Vazio%2Fbrocolis_carrinho_vaziowebp.webp?alt=media&token=215946ed-6171-469a-8310-c892d6f203e7",
             hint: "broccoli vegetable",
             title: "Ei, que tal colocar alguns orgânicos no seu carrinho para ficarmos felizes?",
             subtitle: "Acesse o catálogo para escolher alimentos saudáveis para você e sua família."
@@ -173,14 +173,21 @@ function EmptyCartMessage() {
     ], []);
 
     const [randomItem, setRandomItem] = useState(emptyCartMessages[0]);
+     const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
-        // A lógica de aleatoriedade agora roda apenas no cliente, após a primeira renderização.
+        setIsClient(true);
         setRandomItem(emptyCartMessages[Math.floor(Math.random() * emptyCartMessages.length)]);
     }, [emptyCartMessages]);
     
-    // Renderiza a imagem e o texto selecionados.
-    // O 'randomItem' inicializado com o primeiro item garante que nunca haverá imagem quebrada.
+    if (!isClient) {
+        return (
+            <div className="flex justify-center items-center h-full p-12">
+                <Loader2 className="h-12 w-12 animate-spin text-primary" />
+            </div>
+        );
+    }
+    
     return (
       <div className="text-center pt-0 pb-4 max-w-2xl mx-auto">
         <div className="relative aspect-[3/2] w-full mb-6 rounded-lg overflow-hidden shadow-lg bg-muted/30">
@@ -341,9 +348,9 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
       date: new Date(),
       farmerName: farmer.name,
       deliveryOption: deliveryOption,
-      ...(deliveryOption === 'delivery' && {
+      ...(deliveryOption === 'delivery' && user.address && {
         customerContact: {
-            address: user.address,
+            address: user.address as CustomerAddress,
             phone: user.phone,
         }
       }),
@@ -613,9 +620,3 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
     </div>
   );
 }
-
-    
-
-    
-
-    
