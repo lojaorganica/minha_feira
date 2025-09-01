@@ -1550,7 +1550,7 @@ let products: Product[] = [
     price: 12.00,
     unitAmount: 1,
     unit: 'caixa',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/uva_vitoria.webp?alt=media&token=40422204-de6c-48c2-a9b0-a5ef9876e6b0',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/uva_vitoria.webp?alt=media&token=a3ba40e3-ac32-44f0-b9b4-e75c875f2d4f',
     dataAiHint: 'vitoria grapes',
     farmerId: '2',
     description: 'Uva Vitória, sem sementes e muito doce, perfeita para lanches e sobremesas.',
@@ -2327,4 +2327,5 @@ export function updateCustomerClassification(customerId: string, classification:
 
 
     
+
 
