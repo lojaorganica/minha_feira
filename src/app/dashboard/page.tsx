@@ -584,118 +584,123 @@ Entrega: ${deliveryText}
                 </div>
             </CardHeader>
             <CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {orders.length > 0 ? orders.map((order) => (
-                    <Card key={order.id} className="flex flex-col border-accent border-2">
-                        <CardHeader>
-                            <div className="flex justify-between items-start">
+                {orders.length > 0 ? orders.map((order) => {
+                    const date = new Date(order.date);
+                    const formattedDate = format(date, "EEEE | dd/MM/yyyy", { locale: ptBR });
+                    const capitalizedDate = formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
+                    return (
+                        <Card key={order.id} className="flex flex-col border-accent border-2">
+                            <CardHeader>
+                                <div className="flex justify-between items-start">
+                                    <div>
+                                        <CardTitle className="font-headline text-2xl text-primary">{order.id.split('-')[1]}</CardTitle>
+                                        <CardDescription className="text-base font-semibold text-foreground/90 flex items-center gap-2 mt-1">
+                                            <User className="h-4 w-4"/>
+                                            {order.customerName}
+                                        </CardDescription>
+                                        <CardDescription className="text-sm font-bold text-accent flex items-center gap-2 mt-2">
+                                            <CalendarIcon className="h-4 w-4" />
+                                            {capitalizedDate}
+                                        </CardDescription>
+                                    </div>
+                                    <Badge className={`text-sm ${
+                                        order.status === 'Pendente' 
+                                            ? 'bg-amber-500 text-white hover:bg-amber-500' 
+                                            : order.status === 'Confirmado' 
+                                            ? 'bg-blue-600 text-white hover:bg-blue-600'
+                                            : 'bg-destructive text-destructive-foreground'
+                                    }`}>
+                                        {order.status}
+                                    </Badge>
+                                </div>
+                            </CardHeader>
+                            <CardContent className="flex-grow space-y-4">
                                 <div>
-                                    <CardTitle className="font-headline text-2xl text-primary">{order.id.split('-')[1]}</CardTitle>
-                                    <CardDescription className="text-base font-semibold text-foreground/90 flex items-center gap-2 mt-1">
-                                        <User className="h-4 w-4"/>
-                                        {order.customerName}
-                                    </CardDescription>
-                                     <CardDescription className="text-sm font-semibold text-foreground/80 flex items-center gap-2 mt-2">
-                                        <CalendarIcon className="h-4 w-4" />
-                                        {format(new Date(order.date), "dd/MM/yyyy 'às' HH:mm", { locale: ptBR })}
-                                    </CardDescription>
+                                    <h4 className="font-semibold mb-2 flex items-center gap-2 text-base">
+                                        <ShoppingBag className="h-5 w-5 text-accent" />
+                                        Itens
+                                    </h4>
+                                    <ul className="space-y-1 list-disc pl-5 font-semibold text-foreground/90">
+                                        {order.items.map((item, index) => (
+                                            <li key={index} className="text-base">
+                                                {item.quantity}x {item.productName}
+                                            </li>
+                                        ))}
+                                    </ul>
                                 </div>
-                                <Badge className={`text-sm ${
-                                    order.status === 'Pendente' 
-                                        ? 'bg-amber-500 text-white hover:bg-amber-500' 
-                                        : order.status === 'Confirmado' 
-                                        ? 'bg-blue-600 text-white hover:bg-blue-600'
-                                        : 'bg-destructive text-destructive-foreground'
-                                }`}>
-                                    {order.status}
-                                </Badge>
-                            </div>
-                        </CardHeader>
-                        <CardContent className="flex-grow space-y-4">
-                             <div>
-                                <h4 className="font-semibold mb-2 flex items-center gap-2 text-base">
-                                    <ShoppingBag className="h-5 w-5 text-accent" />
-                                    Itens
-                                </h4>
-                                <ul className="space-y-1 list-disc pl-5 font-semibold text-foreground/90">
-                                    {order.items.map((item, index) => (
-                                        <li key={index} className="text-base">
-                                            {item.quantity}x {item.productName}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                            <Separator />
+                                <Separator />
 
-                            <div>
-                                <h4 className="font-semibold mb-2 flex items-center gap-2 text-base">
-                                    <Truck className="h-5 w-5 text-accent" />
-                                    Entrega
-                                </h4>
-                                <div className="text-base font-semibold text-foreground/90 pl-1">
-                                    {order.deliveryOption === 'pickup' && order.pickupLocation ? (
-                                        <p className="flex items-center gap-2"><MapPin className="h-4 w-4" />Retirar na {order.pickupLocation}</p>
-                                    ) : (
-                                        <div className="space-y-1">
-                                            <p className="font-bold">Delivery</p>
-                                            {order.customerContact && (
-                                                <>
-                                                    <p className="flex items-start gap-2"><Home className="h-4 w-4 mt-1 flex-shrink-0" />{formatAddress(order.customerContact.address)}</p>
-                                                    <p className="flex items-center gap-2"><Phone className="h-4 w-4" />{order.customerContact.phone}</p>
-                                                </>
-                                            )}
-                                        </div>
-                                    )}
+                                <div>
+                                    <h4 className="font-semibold mb-2 flex items-center gap-2 text-base">
+                                        <Truck className="h-5 w-5 text-accent" />
+                                        Entrega
+                                    </h4>
+                                    <div className="text-base font-semibold text-foreground/90 pl-1">
+                                        {order.deliveryOption === 'pickup' && order.pickupLocation ? (
+                                            <p className="flex items-center gap-2"><MapPin className="h-4 w-4" />Retirar na {order.pickupLocation}</p>
+                                        ) : (
+                                            <div className="space-y-1">
+                                                <p className="font-bold">Delivery</p>
+                                                {order.customerContact && (
+                                                    <>
+                                                        <p className="flex items-start gap-2"><Home className="h-4 w-4 mt-1 flex-shrink-0" />{formatAddress(order.customerContact.address)}</p>
+                                                        <p className="flex items-center gap-2"><Phone className="h-4 w-4" />{order.customerContact.phone}</p>
+                                                    </>
+                                                )}
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
-                            </div>
-                            
-                            <Separator />
-                             <div className="flex justify-between items-center text-lg font-bold">
-                               <span className="flex items-center gap-2">
-                                 <DollarSign className="h-5 w-5 text-primary"/>
-                                 Total do Pedido
-                               </span>
-                                <span>R${order.total.toFixed(2).replace('.', ',')}</span>
-                            </div>
-                        </CardContent>
-                        <CardFooter>
-                             <div className="flex w-full gap-2">
-                                <Button variant="outline" className="w-full" onClick={() => setSelectedOrder(order)}>
-                                    <Share2 className="h-4 w-4 mr-1 sm:mr-2" />
-                                    WhatsApp
-                                </Button>
-                                <AlertDialog>
-                                    <AlertDialogTrigger asChild>
-                                        <Button variant="outline" className="w-full">
-                                            <Download className="h-4 w-4 mr-1 sm:mr-2" />
-                                            Salvar
-                                        </Button>
-                                    </AlertDialogTrigger>
-                                    <AlertDialogContent>
-                                        <AlertDialogHeader>
-                                            <AlertDialogTitle>Salvar Pedido</AlertDialogTitle>
-                                            <AlertDialogDescription>
-                                                Escolha o formato no qual você deseja salvar os detalhes deste pedido.
-                                            </AlertDialogDescription>
-                                        </AlertDialogHeader>
-                                        <AlertDialogFooter className="sm:justify-center gap-2 pt-4">
-                                            <AlertDialogAction asChild>
-                                                <Button className="w-full" onClick={() => handleSaveOrderAsTxt(order)}>
-                                                    Salvar como .txt
-                                                </Button>
-                                            </AlertDialogAction>
-                                            <AlertDialogAction asChild>
-                                                <Button className="w-full" onClick={() => handleSaveOrderAsPdf(order)}>
-                                                    Salvar como .pdf
-                                                </Button>
-                                            </AlertDialogAction>
-                                            <AlertDialogCancel className="w-full mt-2 sm:mt-0">Cancelar</AlertDialogCancel>
-                                        </AlertDialogFooter>
-                                    </AlertDialogContent>
-                                </AlertDialog>
-                            </div>
-                        </CardFooter>
-                    </Card>
-                )) : (
+                                
+                                <Separator />
+                                <div className="flex justify-between items-center text-lg font-bold">
+                                <span className="flex items-center gap-2">
+                                    <DollarSign className="h-5 w-5 text-primary"/>
+                                    Total do Pedido
+                                </span>
+                                    <span>R${order.total.toFixed(2).replace('.', ',')}</span>
+                                </div>
+                            </CardContent>
+                            <CardFooter>
+                                <div className="flex w-full gap-2">
+                                    <Button variant="outline" className="w-full" onClick={() => setSelectedOrder(order)}>
+                                        <Share2 className="h-4 w-4 mr-1 sm:mr-2" />
+                                        WhatsApp
+                                    </Button>
+                                    <AlertDialog>
+                                        <AlertDialogTrigger asChild>
+                                            <Button variant="outline" className="w-full">
+                                                <Download className="h-4 w-4 mr-1 sm:mr-2" />
+                                                Salvar
+                                            </Button>
+                                        </AlertDialogTrigger>
+                                        <AlertDialogContent>
+                                            <AlertDialogHeader>
+                                                <AlertDialogTitle>Salvar Pedido</AlertDialogTitle>
+                                                <AlertDialogDescription>
+                                                    Escolha o formato no qual você deseja salvar os detalhes deste pedido.
+                                                </AlertDialogDescription>
+                                            </AlertDialogHeader>
+                                            <AlertDialogFooter className="sm:justify-center gap-2 pt-4">
+                                                <AlertDialogAction asChild>
+                                                    <Button className="w-full" onClick={() => handleSaveOrderAsTxt(order)}>
+                                                        Salvar como .txt
+                                                    </Button>
+                                                </AlertDialogAction>
+                                                <AlertDialogAction asChild>
+                                                    <Button className="w-full" onClick={() => handleSaveOrderAsPdf(order)}>
+                                                        Salvar como .pdf
+                                                    </Button>
+                                                </AlertDialogAction>
+                                                <AlertDialogCancel className="w-full mt-2 sm:mt-0">Cancelar</AlertDialogCancel>
+                                            </AlertDialogFooter>
+                                        </AlertDialogContent>
+                                    </AlertDialog>
+                                </div>
+                            </CardFooter>
+                        </Card>
+                    )
+                }) : (
                     <div className="col-span-full text-center py-12">
                         <p className="text-lg font-semibold text-muted-foreground">Nenhum pedido pendente encontrado.</p>
                     </div>
