@@ -902,7 +902,7 @@ function DashboardContent() {
                         <Input
                             type="search"
                             placeholder={searchPlaceholder}
-                            className="pl-10 w-full"
+                            className="pl-10 w-full bg-card"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
