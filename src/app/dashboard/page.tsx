@@ -213,6 +213,7 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
     
     const [name, setName] = useState('');
     const [price, setPrice] = useState<number | undefined>(undefined);
+    const [formattedPrice, setFormattedPrice] = useState('');
     const [unit, setUnit] = useState('unidade');
     const [description, setDescription] = useState('');
     const [stock, setStock] = useState<number | undefined>(0);
@@ -222,11 +223,25 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
     const resetForm = () => {
         setName('');
         setPrice(undefined);
+        setFormattedPrice('');
         setUnit('unidade');
         setDescription('');
         setStock(0);
         setCategory('Vegetal');
     }
+
+    const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const rawValue = e.target.value.replace(/\D/g, ''); 
+        if (!rawValue) {
+            setFormattedPrice('');
+            setPrice(undefined);
+            return;
+        }
+
+        const numericValue = parseInt(rawValue, 10) / 100;
+        setPrice(numericValue);
+        setFormattedPrice(numericValue.toLocaleString('pt-BR', { minimumFractionDigits: 2 }));
+    };
 
     const handleSubmit = () => {
         if (!name || price === undefined || !unit) {
@@ -313,7 +328,7 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
                     <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2">
                             <Label htmlFor="new-price">Preço (R$)</Label>
-                            <Input id="new-price" type="number" min="0" value={price ?? ''} onChange={(e) => setPrice(parseFloat(e.target.value) || undefined)} className="bg-card" />
+                            <Input id="new-price" type="text" value={formattedPrice} onChange={handlePriceChange} className="bg-card" placeholder="0,00" />
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="new-unit">Unidade</Label>
