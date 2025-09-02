@@ -216,7 +216,7 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
     const [formattedPrice, setFormattedPrice] = useState('');
     const [unit, setUnit] = useState('unidade');
     const [description, setDescription] = useState('');
-    const [stock, setStock] = useState<number | ''>(0);
+    const [stock, setStock] = useState<number | ''>('');
     const [category, setCategory] = useState<'Vegetal' | 'Fruta' | 'Laticínio' | 'Padaria'>('Vegetal');
 
 
@@ -226,7 +226,7 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
         setFormattedPrice('');
         setUnit('unidade');
         setDescription('');
-        setStock(0);
+        setStock('');
         setCategory('Vegetal');
     }
 
