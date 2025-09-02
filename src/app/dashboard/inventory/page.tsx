@@ -143,10 +143,15 @@ export default function InventoryPage() {
                                 Atualize a quantidade em estoque dos seus produtos. Clique em salvar para aplicar todas as alterações.
                             </CardDescription>
                         </div>
-                         <Button onClick={handleSaveAll} disabled={!hasChanges || isSaving}>
-                            {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
-                            Salvar Alterações
-                        </Button>
+                        <div className="flex items-center gap-4">
+                             <div className="text-right">
+                                <p className="text-xl font-bold text-accent">Total: {farmerProducts.length}</p>
+                            </div>
+                            <Button onClick={handleSaveAll} disabled={!hasChanges || isSaving}>
+                                {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
+                                Salvar Alterações
+                            </Button>
+                        </div>
                     </div>
                     <div className="relative mt-4">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
@@ -164,7 +169,7 @@ export default function InventoryPage() {
                         <Table>
                             <TableHeader>
                                 <TableRow>
-                                    <TableHead>Produto</TableHead>
+                                    <TableHead>Produto ({farmerProducts.length})</TableHead>
                                     <TableHead className="w-40 text-center">Estoque Atual</TableHead>
                                     <TableHead className="w-32 text-center">Unidade</TableHead>
                                 </TableRow>
