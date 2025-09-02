@@ -254,13 +254,13 @@ export default function InventoryPage() {
                 <Card>
                     <CardHeader className="no-print">
                         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                             <div className="flex-1">
+                            <div className="flex-1">
                                 <CardTitle>Listagem de Produtos</CardTitle>
                                 <CardDescription>
                                     Atualize a quantidade em estoque dos seus produtos. Clique em salvar para aplicar todas as alterações.
                                 </CardDescription>
                             </div>
-                            <div className="flex items-center gap-4">
+                            <div className="flex items-center justify-end gap-x-6 gap-y-2 flex-wrap">
                                 <Button onClick={handleSaveAll} disabled={!hasChanges || isSaving}>
                                     {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
                                     Salvar Alterações
@@ -328,7 +328,7 @@ export default function InventoryPage() {
                         </div>
                     </CardContent>
                      <CardFooter className="flex-col items-stretch md:flex-row gap-4 justify-between no-print p-6">
-                         <Button variant="outline" onClick={handleSaveAll} disabled={!hasChanges || isSaving} className="w-full md:w-auto">
+                        <Button variant="outline" onClick={handleSaveAll} disabled={!hasChanges || isSaving} className="w-full md:w-auto">
                             {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
                             Salvar Alterações
                         </Button>
