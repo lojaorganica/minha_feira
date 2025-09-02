@@ -59,8 +59,18 @@ export default function InventoryPage() {
 
 
     const handleStockChange = (productId: string, newStock: string) => {
-        const stockValue = newStock === '' ? undefined : parseInt(newStock, 10);
-        if (isNaN(stockValue as number) && newStock !== '') return;
+        const stockValue = parseInt(newStock, 10);
+        
+        if (newStock === '') {
+            setFarmerProducts(prev => 
+                prev.map(p => p.id === productId ? { ...p, stock: undefined } : p)
+            );
+            return;
+        }
+
+        if (isNaN(stockValue) || stockValue < 0) {
+            return;
+        }
 
         setFarmerProducts(prev => 
             prev.map(p => p.id === productId ? { ...p, stock: stockValue } : p)
@@ -170,7 +180,8 @@ export default function InventoryPage() {
                                         </TableCell>
                                         <TableCell>
                                             <Input 
-                                                type="number" 
+                                                type="number"
+                                                min="0" 
                                                 value={product.stock ?? ''}
                                                 onChange={(e) => handleStockChange(product.id, e.target.value)}
                                                 className="text-center font-bold"
