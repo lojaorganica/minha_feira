@@ -216,7 +216,7 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
     const [formattedPrice, setFormattedPrice] = useState('');
     const [unit, setUnit] = useState('unidade');
     const [description, setDescription] = useState('');
-    const [stock, setStock] = useState<number | undefined>(0);
+    const [stock, setStock] = useState<number | ''>(0);
     const [category, setCategory] = useState<'Vegetal' | 'Fruta' | 'Laticínio' | 'Padaria'>('Vegetal');
 
 
@@ -243,6 +243,18 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
         setFormattedPrice(numericValue.toLocaleString('pt-BR', { minimumFractionDigits: 2 }));
     };
 
+    const handleStockChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        if (value === '') {
+            setStock('');
+            return;
+        }
+        const numValue = parseInt(value, 10);
+        if (!isNaN(numValue) && numValue >= 0) {
+            setStock(numValue);
+        }
+    };
+
     const handleSubmit = () => {
         if (!name || price === undefined || !unit) {
             toast({
@@ -267,7 +279,7 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
             price,
             unit,
             description,
-            stock,
+            stock: Number(stock),
             category,
             farmerId
         };
@@ -354,7 +366,7 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
 
                      <div className="space-y-2">
                         <Label htmlFor="new-stock">Estoque Inicial</Label>
-                        <Input id="new-stock" type="number" min="0" value={stock ?? ''} onChange={(e) => setStock(parseInt(e.target.value, 10) || 0)} className="bg-card" />
+                        <Input id="new-stock" type="number" min="0" value={stock} onChange={handleStockChange} className="bg-card" />
                     </div>
 
                     <div className="space-y-2">
