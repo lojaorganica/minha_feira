@@ -81,6 +81,11 @@ export default function InventoryPage() {
         }
 
         if (isNaN(stockValue) || stockValue < 0) {
+            toast({
+                variant: "destructive",
+                title: "Valor Inválido",
+                description: "O estoque não pode ser negativo.",
+            });
             return;
         }
 
@@ -134,7 +139,11 @@ export default function InventoryPage() {
 
     const generatePdf = () => {
         if (!user || filteredProducts.length === 0) return;
-        const doc = new jsPDF('p', 'pt', 'a4');
+        const doc = new jsPDF({
+            orientation: 'p',
+            unit: 'pt',
+            format: 'a4'
+        });
         const formattedDate = lastUpdated ? format(lastUpdated, "EEEE, dd/MM/yyyy", { locale: ptBR }) : 'Não salvo';
         const capitalizedDate = formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
     
@@ -156,11 +165,15 @@ export default function InventoryPage() {
             p.status === 'active' ? 'Ativo' : 'Pausado'
           ]),
            headStyles: { fillColor: [39, 78, 54] },
+           theme: 'striped',
+           tableWidth: 'auto',
            columnStyles: {
-            1: { halign: 'center' },
-            2: { halign: 'center' },
-            3: { halign: 'center' },
-           }
+            0: { cellWidth: 'auto' },
+            1: { halign: 'center', cellWidth: 60 },
+            2: { halign: 'center', cellWidth: 60 },
+            3: { halign: 'center', cellWidth: 60 },
+           },
+            margin: { left: 40, right: 40 }
         });
     
         doc.save(`estoque_${user.name}_${format(new Date(), 'yyyy-MM-dd')}.pdf`);
@@ -247,11 +260,11 @@ export default function InventoryPage() {
                                 </CardDescription>
                             </div>
                             <div className="flex items-center gap-4">
-                                <p className="text-xl font-bold text-accent">Total: {farmerProducts.length}</p>
                                 <Button onClick={handleSaveAll} disabled={!hasChanges || isSaving}>
                                     {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
                                     Salvar Alterações
                                 </Button>
+                                <p className="text-xl font-bold text-accent">Total: {farmerProducts.length}</p>
                             </div>
                         </div>
                         <div className="relative mt-4">
@@ -313,11 +326,15 @@ export default function InventoryPage() {
                             </Table>
                         </div>
                     </CardContent>
-                     <CardFooter className="flex-col md:flex-row gap-2 justify-end no-print p-6">
+                     <CardFooter className="flex-col items-stretch md:flex-row gap-4 justify-end no-print p-6">
+                        <Button variant="outline" onClick={handleSaveAll} disabled={!hasChanges || isSaving} className="w-full md:w-auto">
+                            {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
+                            Salvar Alterações
+                        </Button>
                         <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
-                            <Button variant="outline" onClick={handleShare}><Share2 className="mr-2 h-4 w-4" /> Compartilhar</Button>
-                            <Button variant="outline" onClick={handlePrint}><Printer className="mr-2 h-4 w-4" /> Imprimir</Button>
-                            <Button onClick={generatePdf}><Download className="mr-2 h-4 w-4" /> PDF</Button>
+                            <Button variant="outline" onClick={handleShare} className="w-full"><Share2 className="mr-2 h-4 w-4" /> Compartilhar</Button>
+                            <Button variant="outline" onClick={handlePrint} className="w-full"><Printer className="mr-2 h-4 w-4" /> Imprimir</Button>
+                            <Button onClick={generatePdf} className="w-full"><Download className="mr-2 h-4 w-4" /> PDF</Button>
                         </div>
                     </CardFooter>
                 </Card>
