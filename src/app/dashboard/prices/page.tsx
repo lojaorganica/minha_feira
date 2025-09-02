@@ -191,18 +191,18 @@ export default function PricesPage() {
                     </CardHeader>
                     <CardContent>
                         <div className="border rounded-md">
-                            <Table>
+                            <Table className="text-base">
                                 <TableHeader>
                                     <TableRow>
                                         <TableHead>Produto <span className="text-accent">({farmerProducts.length})</span></TableHead>
-                                        <TableHead className="w-32 text-center">Unidade</TableHead>
-                                        <TableHead className="w-40 text-right">Preço (R$)</TableHead>
+                                        <TableHead className="w-[80px] text-center">Unidade</TableHead>
+                                        <TableHead className="w-[100px] text-right">Preço (R$)</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
                                     {filteredProducts.length > 0 ? filteredProducts.map(product => (
                                         <TableRow key={product.id}>
-                                            <TableCell className="font-medium">{product.name}</TableCell>
+                                            <TableCell className="font-bold">{product.name}</TableCell>
                                             <TableCell className="text-center text-muted-foreground">{product.unit}</TableCell>
                                             <TableCell className="text-right font-bold text-primary">{product.price.toFixed(2).replace('.', ',')}</TableCell>
                                         </TableRow>
