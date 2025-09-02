@@ -154,9 +154,10 @@ export default function InventoryPage() {
         doc.setFont("helvetica", "normal");
         doc.setFontSize(10);
         doc.text(`Data da Última Atualização: ${capitalizedDate}`, 40, 60);
+        doc.text(`Total de Produtos Cadastrados: ${farmerProducts.length}`, 40, 75);
     
         (doc as any).autoTable({
-          startY: 80,
+          startY: 90,
           head: [['Produto', 'Estoque', 'Unidade', 'Status']],
           body: filteredProducts.map(p => [
             p.name,
@@ -253,7 +254,7 @@ export default function InventoryPage() {
                 <Card>
                     <CardHeader className="no-print">
                         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                            <div>
+                             <div className="flex-1">
                                 <CardTitle>Listagem de Produtos</CardTitle>
                                 <CardDescription>
                                     Atualize a quantidade em estoque dos seus produtos. Clique em salvar para aplicar todas as alterações.
@@ -326,8 +327,8 @@ export default function InventoryPage() {
                             </Table>
                         </div>
                     </CardContent>
-                     <CardFooter className="flex-col items-stretch md:flex-row gap-4 justify-end no-print p-6">
-                        <Button variant="outline" onClick={handleSaveAll} disabled={!hasChanges || isSaving} className="w-full md:w-auto">
+                     <CardFooter className="flex-col items-stretch md:flex-row gap-4 justify-between no-print p-6">
+                         <Button variant="outline" onClick={handleSaveAll} disabled={!hasChanges || isSaving} className="w-full md:w-auto">
                             {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
                             Salvar Alterações
                         </Button>
