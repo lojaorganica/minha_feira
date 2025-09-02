@@ -319,7 +319,7 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
                 <div className="grid gap-4 py-4 text-base">
                     <div className="space-y-2">
                         <Label htmlFor="new-name">Nome do Produto</Label>
-                        <Input id="new-name" value={name} onChange={(e) => setName(e.target.value)} className="bg-card" spellCheck="false" />
+                        <Input id="new-name" value={name} onChange={(e) => setName(e.target.value)} className="bg-card" spellCheck="false" autoCorrect="off" />
                     </div>
                     
                      <div className="space-y-2">
