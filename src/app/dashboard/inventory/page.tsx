@@ -260,12 +260,12 @@ export default function InventoryPage() {
                                     Atualize a quantidade em estoque dos seus produtos. Clique em salvar para aplicar todas as alterações.
                                 </CardDescription>
                             </div>
-                             <div className="flex sm:w-auto w-full items-center justify-between sm:justify-end gap-x-6 gap-y-2 flex-wrap">
+                            <div className="flex sm:w-auto w-full items-center justify-between sm:justify-end gap-x-6 gap-y-2 flex-wrap">
                                 <Button onClick={handleSaveAll} disabled={!hasChanges || isSaving}>
                                     {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
                                     Salvar Alterações
                                 </Button>
-                                <p className="text-xl font-bold text-accent">Total: {farmerProducts.length}</p>
+                                <p className="text-3xl font-bold text-accent">Total: {farmerProducts.length}</p>
                             </div>
                         </div>
                         <div className="relative mt-4">
