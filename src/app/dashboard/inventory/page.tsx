@@ -253,19 +253,15 @@ export default function InventoryPage() {
             <div ref={printRef} className="print-container">
                 <Card>
                     <CardHeader className="no-print">
-                         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                            <div className="flex-1">
-                                <CardTitle>Listagem de Produtos</CardTitle>
-                                <CardDescription>
-                                    Atualize a quantidade em estoque dos seus produtos. Clique em salvar para aplicar todas as alterações.
-                                </CardDescription>
-                            </div>
-                            <div className="flex sm:w-auto w-full items-center justify-between sm:justify-end gap-x-6 gap-y-2 flex-wrap">
+                         <div className="flex justify-between items-center gap-4">
+                             <div>
                                 <Button onClick={handleSaveAll} disabled={!hasChanges || isSaving}>
                                     {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
                                     Salvar Alterações
                                 </Button>
-                                <p className="text-3xl font-bold text-accent">Total: {farmerProducts.length}</p>
+                            </div>
+                            <div className="flex items-baseline gap-2">
+                                <p className="text-3xl font-bold text-accent text-right">Total: {farmerProducts.length}</p>
                             </div>
                         </div>
                         <div className="relative mt-4">
@@ -288,7 +284,9 @@ export default function InventoryPage() {
                                 <TableHeader>
                                     <TableRow>
                                         <TableHead>
-                                            <span className="whitespace-nowrap">Produto ({farmerProducts.length})</span>
+                                            <span className="whitespace-nowrap">
+                                                Produto <span className="text-accent">({farmerProducts.length})</span>
+                                            </span>
                                         </TableHead>
                                         <TableHead className="w-40 text-center">Estoque Atual</TableHead>
                                         <TableHead className="w-32 text-center">Unidade</TableHead>
