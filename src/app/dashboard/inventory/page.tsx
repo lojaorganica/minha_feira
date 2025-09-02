@@ -247,7 +247,7 @@ export default function InventoryPage() {
                                 </CardDescription>
                             </div>
                             <div className="flex items-center gap-4">
-                               <p className="text-xl font-bold text-accent">Total: {farmerProducts.length}</p>
+                                <p className="text-xl font-bold text-accent">Total: {farmerProducts.length}</p>
                                 <Button onClick={handleSaveAll} disabled={!hasChanges || isSaving}>
                                     {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
                                     Salvar Alterações
@@ -265,7 +265,7 @@ export default function InventoryPage() {
                             />
                         </div>
                          <div className="mt-4">
-                            <p className="text-sm font-semibold text-muted-foreground">Última atualização: <span className="font-bold text-foreground/80">{capitalizedDate}</span></p>
+                            <p className="text-sm font-semibold text-muted-foreground">Última atualização: <span className="font-bold text-accent">{capitalizedDate}</span></p>
                         </div>
                     </CardHeader>
                     <CardContent>
