@@ -279,7 +279,7 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
             price,
             unit,
             description,
-            stock: Number(stock),
+            stock: stock === '' ? undefined : Number(stock),
             category,
             farmerId
         };
@@ -319,7 +319,7 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
                 <div className="grid gap-4 py-4 text-base">
                     <div className="space-y-2">
                         <Label htmlFor="new-name">Nome do Produto</Label>
-                        <Input id="new-name" value={name} onChange={(e) => setName(e.target.value)} className="bg-card" />
+                        <Input id="new-name" value={name} onChange={(e) => setName(e.target.value)} className="bg-card" spellCheck="false" />
                     </div>
                     
                      <div className="space-y-2">
@@ -366,7 +366,7 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
 
                      <div className="space-y-2">
                         <Label htmlFor="new-stock">Estoque Inicial</Label>
-                        <Input id="new-stock" type="number" min="0" value={stock} onChange={handleStockChange} className="bg-card" />
+                        <Input id="new-stock" type="number" min="0" value={stock} onChange={handleStockChange} className="bg-card" placeholder="Deixe em branco para ilimitado"/>
                     </div>
 
                     <div className="space-y-2">
@@ -402,21 +402,18 @@ function EditStockDialog({ product, onStockUpdate }: { product: Product, onStock
             setIsOpen(false);
             toast({
                 title: "Estoque Atualizado!",
-                description: `O estoque de ${product.name} foi atualizado para ${stock || 0}.`,
+                description: `O estoque de ${product.name} foi atualizado para ${stock === '' ? 'N/D' : stock}.`,
             });
         }, 300);
     };
     
     const handleStockChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
-        // Permite campo vazio para facilitar a digitação
         if (value === '') {
             setStock('');
             return;
         }
-        // Converte para número e remove zeros à esquerda, se houver
         const numValue = parseInt(value, 10);
-        // Impede NaN e valores negativos
         if (!isNaN(numValue) && numValue >= 0) {
             setStock(numValue);
         }
