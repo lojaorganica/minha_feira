@@ -35,7 +35,8 @@ export default function ProfileForm() {
         if (user) {
             if (userType === 'farmer') {
                 const farmerData = user as Farmer;
-                setFormData(farmerData);
+                // Garante que o endereço nunca seja nulo
+                setFormData({ ...farmerData, address: farmerData.address || emptyAddress });
                 if (farmerData.prepostos) {
                     setPrepostos(farmerData.prepostos.join(', '));
                 }
@@ -56,49 +57,47 @@ export default function ProfileForm() {
     const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { id, value } = e.target;
         setFormData(prev => {
-            const customerData = prev as Partial<Customer>;
+            const currentAddress = (prev.address as CustomerAddress) || emptyAddress;
             return {
                 ...prev,
                 address: {
-                    ...(customerData.address || emptyAddress),
+                    ...currentAddress,
                     [id]: value
                 }
-            } as Partial<Customer>;
+            };
         });
     };
     
     const handleZipCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { id, value } = e.target;
-        // Permite apenas números e limita o comprimento
         const numericValue = value.replace(/[^0-9]/g, '');
         if (numericValue.length <= 8) {
            setFormData(prev => {
-                const customerData = prev as Partial<Customer>;
+                const currentAddress = (prev.address as CustomerAddress) || emptyAddress;
                 return {
                     ...prev,
                     address: {
-                        ...(customerData.address || emptyAddress),
+                        ...currentAddress,
                         [id]: numericValue
                     }
-                } as Partial<Customer>;
+                };
             });
         }
     };
     
      const handleStateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { id, value } = e.target;
-        // Permite apenas letras maiúsculas e limita o comprimento para 2
         const stateValue = value.toUpperCase().replace(/[^A-Z]/g, '');
         if (stateValue.length <= 2) {
             setFormData(prev => {
-                const customerData = prev as Partial<Customer>;
+                const currentAddress = (prev.address as CustomerAddress) || emptyAddress;
                 return {
                     ...prev,
                     address: {
-                        ...(customerData.address || emptyAddress),
+                        ...currentAddress,
                         [id]: stateValue
                     }
-                } as Partial<Customer>;
+                };
             });
         }
     };
@@ -152,6 +151,7 @@ export default function ProfileForm() {
     
     if (userType === 'farmer') {
         const farmerData = formData as Partial<Farmer>;
+        const address = farmerData.address || emptyAddress;
         return (
             <Card className="max-w-2xl mx-auto">
                 <CardHeader>
@@ -176,9 +176,44 @@ export default function ProfileForm() {
                             <Label htmlFor="bio" className="text-base font-semibold">Bio (Escreva um pouquinho sobre seu sítio ou negócio nas feiras.)</Label>
                             <Textarea id="bio" value={farmerData.bio || ''} onChange={handleInputChange} placeholder="Escreva aqui, em poucas palavras, sobre seu trabalho ou produção." maxLength={200} />
                         </div>
-                         <div className="space-y-2">
-                            <Label htmlFor="address" className="text-base font-semibold">Endereço</Label>
-                            <Input id="address" value={farmerData.address || ''} onChange={handleInputChange} />
+                        <div className="space-y-2">
+                            <Label className="text-base font-semibold">Endereço da Propriedade</Label>
+                             <div className="grid grid-cols-1 gap-4 rounded-md border p-4">
+                                <div className="grid grid-cols-3 gap-4">
+                                    <div className="space-y-1 col-span-2">
+                                        <Label htmlFor="street">Logradouro</Label>
+                                        <Input id="street" value={address.street || ''} onChange={handleAddressChange} placeholder="Ex: Estrada Principal" />
+                                    </div>
+                                    <div className="space-y-1">
+                                        <Label htmlFor="number">Número</Label>
+                                        <Input id="number" value={address.number || ''} onChange={handleAddressChange} placeholder="S/N" />
+                                    </div>
+                                </div>
+                                <div className="space-y-1">
+                                    <Label htmlFor="complement">Complemento</Label>
+                                    <Input id="complement" value={address.complement || ''} onChange={handleAddressChange} placeholder="Ex: Sítio, Lote, Km" />
+                                </div>
+                                <div className="grid grid-cols-3 gap-4">
+                                    <div className="space-y-1 col-span-2">
+                                        <Label htmlFor="neighborhood">Bairro/Localidade</Label>
+                                        <Input id="neighborhood" value={address.neighborhood || ''} onChange={handleAddressChange} placeholder="Ex: Zona Rural" />
+                                    </div>
+                                    <div className="space-y-1">
+                                         <Label htmlFor="zipCode">CEP</Label>
+                                         <Input id="zipCode" value={address.zipCode || ''} onChange={handleZipCodeChange} placeholder="Somente números" />
+                                    </div>
+                                </div>
+                                 <div className="grid grid-cols-3 gap-4">
+                                    <div className="space-y-1 col-span-2">
+                                        <Label htmlFor="city">Cidade</Label>
+                                        <Input id="city" value={address.city || ''} onChange={handleAddressChange} placeholder="Ex: Teresópolis"/>
+                                    </div>
+                                    <div className="space-y-1">
+                                         <Label htmlFor="state">Estado</Label>
+                                         <Input id="state" value={address.state || ''} onChange={handleStateChange} placeholder="RJ" />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div className="space-y-2">
                             <Label className="text-base font-semibold">Feiras onde trabalho</Label>
@@ -290,4 +325,3 @@ export default function ProfileForm() {
 
     return null;
 }
-

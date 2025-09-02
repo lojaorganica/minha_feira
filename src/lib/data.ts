@@ -1,5 +1,6 @@
 
 
+
 import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerOrder, CustomerClassification, CustomerAddress } from './types';
 
 let products: Product[] = [
@@ -1646,7 +1647,7 @@ let farmers: Farmer[] = [
     fairs: ['Flamengo', 'Grajaú', 'Tijuca'],
     location: { lat: -22.9068, lng: -43.1729 },
     bio: 'Uma fazenda familiar dedicada à agricultura orgânica e sustentável há mais de 30 anos.',
-    address: 'Estrada da Paciência, 123, Santa Cruz, Rio de Janeiro, RJ',
+    address: { street: 'Estrada da Paciência', number: '123', neighborhood: 'Santa Cruz', city: 'Rio de Janeiro', state: 'RJ', zipCode: '23520-000' },
     pixKey: 'fazenda.mata.verde@email.com',
     shippingCost: 15.00,
     phone: '5521987654321',
@@ -1660,7 +1661,7 @@ let farmers: Farmer[] = [
     fairs: ['Laranjeiras', 'Botafogo'],
     location: { lat: -22.91, lng: -43.2 },
     bio: 'Somos especializados no cultivo das frutas orgânicas mais doces e suculentas com amor e carinho.',
-    address: 'Rua das Maçãs, 45, Nova Iguaçu, RJ',
+    address: { street: 'Rua das Maçãs', number: '45', neighborhood: 'Centro', city: 'Nova Iguaçu', state: 'RJ', zipCode: '26210-000' },
     pixKey: '123.456.789-01',
     shippingCost: 12.50,
     phone: '5521987654322',
@@ -1674,7 +1675,7 @@ let farmers: Farmer[] = [
     fairs: [],
     location: { lat: -22.88, lng: -43.15 },
     bio: 'Produção familiar de Nova Friburgo com foco em legumes e verduras frescas da estação.',
-    address: 'Avenida do Leite, 789, Duque de Caxias, RJ',
+    address: { street: 'Avenida do Leite', number: '789', neighborhood: 'Centro', city: 'Duque de Caxias', state: 'RJ', zipCode: '25010-000' },
     pixKey: '(21) 99999-8888',
     shippingCost: 10.00,
     phone: '5521987654323',
@@ -1688,7 +1689,7 @@ let farmers: Farmer[] = [
     fairs: ['Laranjeiras', 'Leme'],
     location: { lat: -22.95, lng: -43.22 },
     bio: 'Cultivamos com paixão as melhores hortaliças, ervas e temperos para a sua mesa.',
-    address: 'Travessa do Pão, 10, Niterói, RJ',
+    address: { street: 'Travessa do Pão', number: '10', neighborhood: 'Icaraí', city: 'Niterói', state: 'RJ', zipCode: '24220-000' },
     pixKey: 'sitio.cachoeirinha2@email.com',
     shippingCost: 0,
     phone: '5521987654324',
@@ -1702,7 +1703,7 @@ let farmers: Farmer[] = [
     fairs: ['Flamengo'],
     location: { lat: -22.93, lng: -43.19 },
     bio: 'Cultivando o futuro, um vegetal de cada vez. Frescor e qualidade direto da terra para sua mesa.',
-    address: 'Estrada da Cachoeira, 55, Magé, RJ',
+    address: { street: 'Estrada da Cachoeira', number: '55', neighborhood: 'Centro', city: 'Magé', state: 'RJ', zipCode: '25900-000' },
     pixKey: 'wendel.oliveira@email.com',
     shippingCost: 18.00,
     phone: '5521987654325',
@@ -1716,7 +1717,7 @@ let farmers: Farmer[] = [
     fairs: ['Flamengo', 'Laranjeiras', 'Botafogo'],
     location: { lat: -22.96, lng: -43.18 },
     bio: 'Levando o melhor do campo para a sua casa. Produtos orgânicos com entrega rápida e segura.',
-    address: 'Rua do Domicílio, 20, Rio de Janeiro, RJ',
+    address: { street: 'Rua do Domicílio', number: '20', neighborhood: 'Laranjeiras', city: 'Rio de Janeiro', state: 'RJ', zipCode: '22240-000' },
     pixKey: '12.345.678/0001-99',
     shippingCost: 14.00,
     phone: '5521987654326',
@@ -1730,7 +1731,7 @@ let farmers: Farmer[] = [
     fairs: ['Tijuca'],
     location: { lat: -22.92, lng: -43.23 },
     bio: 'Saúde e sabor em cada folha. Nossos produtos são cultivados sem agrotóxicos, com respeito à natureza.',
-    address: 'Rua Natural, 30, Rio de Janeiro, RJ',
+    address: { street: 'Rua Natural', number: '30', neighborhood: 'Tijuca', city: 'Rio de Janeiro', state: 'RJ', zipCode: '20510-000' },
     pixKey: 'naturalmente.organicos@email.com',
     shippingCost: 0,
     phone: '5521987654327',
@@ -1744,7 +1745,7 @@ let farmers: Farmer[] = [
     fairs: ['Tijuca'],
     location: { lat: -22.89, lng: -43.25 },
     bio: 'O paraíso dos orgânicos. Produção familiar com foco na qualidade e no sabor autêntico dos alimentos.',
-    address: 'Caminho do Paraíso, 77, Teresópolis, RJ',
+    address: { street: 'Caminho do Paraíso', number: '77', neighborhood: 'Alto', city: 'Teresópolis', state: 'RJ', zipCode: '25963-000' },
     pixKey: 'ronin.paraiso@email.com',
     shippingCost: 20.00,
     phone: '5521987654328',
@@ -1758,7 +1759,7 @@ let farmers: Farmer[] = [
     fairs: ['Tijuca', 'Botafogo'],
     location: { lat: -22.93, lng: -43.24 },
     bio: 'Méis orgânicos certificados, de alta qualidade, raros e medicinais, produzidos com respeito às abelhas e à natureza.',
-    address: 'Estrada do Mel, 500, Petrópolis, RJ',
+    address: { street: 'Estrada do Mel', number: '500', neighborhood: 'Quitandinha', city: 'Petrópolis', state: 'RJ', zipCode: '25651-000' },
     pixKey: 'marcos.melo.lojaorganica@email.com',
     shippingCost: 16.00,
     phone: '5521987654329',
@@ -2210,7 +2211,8 @@ export function getFarmerById(id: string): Farmer | undefined {
 export function updateFarmer(farmerId: string, updatedData: Partial<Farmer>): Farmer | undefined {
     const farmerIndex = farmers.findIndex(f => f.id === farmerId);
     if (farmerIndex !== -1) {
-        farmers[farmerIndex] = { ...farmers[farmerIndex], ...updatedData };
+        const newAddress = { ...farmers[farmerIndex].address, ...updatedData.address };
+        farmers[farmerIndex] = { ...farmers[farmerIndex], ...updatedData, address: newAddress };
         return farmers[farmerIndex];
     }
     return undefined;
@@ -2403,6 +2405,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
 
     
+
 
 
 

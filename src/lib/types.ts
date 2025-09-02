@@ -19,6 +19,16 @@ export interface Product {
   };
 }
 
+export interface CustomerAddress {
+    street: string;
+    number: string;
+    complement?: string;
+    neighborhood: string;
+    city: string;
+    state: string;
+    zipCode: string;
+}
+
 export interface Farmer {
   id: string;
   responsibleName?: string;
@@ -29,7 +39,7 @@ export interface Farmer {
     lng: number;
   };
   bio: string;
-  address: string;
+  address: CustomerAddress;
   pixKey: string;
   shippingCost?: number;
   phone?: string;
@@ -73,17 +83,6 @@ export interface CustomerOrder extends Omit<Order, 'items' | 'status' | 'custome
         phone: string;
     }
 }
-
-export interface CustomerAddress {
-    street: string;
-    number: string;
-    complement?: string;
-    neighborhood: string;
-    city: string;
-    state: string;
-    zipCode: string;
-}
-
 
 export interface Customer {
   id: string;

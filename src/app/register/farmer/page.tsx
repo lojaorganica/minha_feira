@@ -20,7 +20,17 @@ import { Textarea } from "@/components/ui/textarea"
 import { Checkbox } from "@/components/ui/checkbox"
 import { useUser } from "@/hooks/use-user";
 import { useToast } from "@/hooks/use-toast";
-import type { Farmer } from "@/lib/types";
+import type { Farmer, CustomerAddress } from "@/lib/types";
+
+const emptyAddress: CustomerAddress = {
+    street: '',
+    number: '',
+    complement: '',
+    neighborhood: '',
+    city: '',
+    state: '',
+    zipCode: ''
+};
 
 export default function FarmerRegisterPage() {
   const router = useRouter();
@@ -30,7 +40,7 @@ export default function FarmerRegisterPage() {
 
   const [fullName, setFullName] = useState('');
   const [farmName, setFarmName] = useState('');
-  const [address, setAddress] = useState('');
+  const [address, setAddress] = useState<CustomerAddress>(emptyAddress);
   const [selectedFairs, setSelectedFairs] = useState<string[]>([]);
   const [phone, setPhone] = useState('');
   const [pixKey, setPixKey] = useState('');
@@ -48,6 +58,30 @@ export default function FarmerRegisterPage() {
     );
   };
 
+   const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { id, value } = e.target;
+        setAddress(prev => ({
+            ...prev,
+            [id]: value
+        }));
+    };
+    
+    const handleZipCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { id, value } = e.target;
+        const numericValue = value.replace(/[^0-9]/g, '');
+        if (numericValue.length <= 8) {
+           setAddress(prev => ({ ...prev, [id]: numericValue }));
+        }
+    };
+    
+     const handleStateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { id, value } = e.target;
+        const stateValue = value.toUpperCase().replace(/[^A-Z]/g, '');
+        if (stateValue.length <= 2) {
+             setAddress(prev => ({ ...prev, [id]: stateValue }));
+        }
+    };
+
   const handleSubmit = () => {
     if (password !== confirmPassword) {
       toast({
@@ -58,11 +92,11 @@ export default function FarmerRegisterPage() {
       return;
     }
 
-    if (!fullName || !farmName || !email || !password || !pixKey || !address) {
+    if (!fullName || !farmName || !email || !password || !pixKey || !address.street || !address.city) {
        toast({
         variant: "destructive",
         title: "Campos obrigatórios",
-        description: "Por favor, preencha todos os campos obrigatórios.",
+        description: "Por favor, preencha todos os campos obrigatórios, incluindo o endereço.",
       });
       return;
     }
@@ -94,7 +128,7 @@ export default function FarmerRegisterPage() {
         <div className="absolute top-6 left-6">
             <BackButton />
         </div>
-        <Card className="w-full max-w-md">
+        <Card className="w-full max-w-lg">
             <CardHeader>
                 <CardTitle className="text-2xl font-headline">Cadastro de Agricultor</CardTitle>
                 <CardDescription>
@@ -114,9 +148,45 @@ export default function FarmerRegisterPage() {
                     <Label htmlFor="prepostos">Prepostos (separe os nomes por vírgula)</Label>
                     <Textarea id="prepostos" placeholder="Ex: Maria, João, etc." className="bg-background" value={prepostos} onChange={e => setPrepostos(e.target.value)} />
                 </div>
-                 <div className="grid gap-2">
-                    <Label htmlFor="address">Endereço</Label>
-                    <Input id="address" placeholder="Seu endereço completo" required className="bg-background" value={address} onChange={e => setAddress(e.target.value)} />
+                
+                 <div className="space-y-2">
+                    <Label className="text-base font-semibold">Endereço da Propriedade</Label>
+                     <div className="grid grid-cols-1 gap-4 rounded-md border p-4 bg-background">
+                        <div className="grid grid-cols-3 gap-4">
+                            <div className="space-y-1 col-span-2">
+                                <Label htmlFor="street">Logradouro</Label>
+                                <Input id="street" value={address.street} onChange={handleAddressChange} placeholder="Ex: Estrada Principal" />
+                            </div>
+                            <div className="space-y-1">
+                                <Label htmlFor="number">Número</Label>
+                                <Input id="number" value={address.number} onChange={handleAddressChange} placeholder="S/N" />
+                            </div>
+                        </div>
+                        <div className="space-y-1">
+                            <Label htmlFor="complement">Complemento</Label>
+                            <Input id="complement" value={address.complement} onChange={handleAddressChange} placeholder="Ex: Sítio, Lote, Km" />
+                        </div>
+                        <div className="grid grid-cols-3 gap-4">
+                            <div className="space-y-1 col-span-2">
+                                <Label htmlFor="neighborhood">Bairro/Localidade</Label>
+                                <Input id="neighborhood" value={address.neighborhood} onChange={handleAddressChange} placeholder="Ex: Zona Rural" />
+                            </div>
+                            <div className="space-y-1">
+                                 <Label htmlFor="zipCode">CEP</Label>
+                                 <Input id="zipCode" value={address.zipCode} onChange={handleZipCodeChange} placeholder="Somente números" />
+                            </div>
+                        </div>
+                         <div className="grid grid-cols-3 gap-4">
+                            <div className="space-y-1 col-span-2">
+                                <Label htmlFor="city">Cidade</Label>
+                                <Input id="city" value={address.city} onChange={handleAddressChange} placeholder="Ex: Teresópolis"/>
+                            </div>
+                            <div className="space-y-1">
+                                 <Label htmlFor="state">Estado</Label>
+                                 <Input id="state" value={address.state} onChange={handleStateChange} placeholder="RJ" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div className="grid gap-2">
