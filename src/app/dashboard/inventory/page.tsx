@@ -144,7 +144,7 @@ export default function InventoryPage() {
                             </CardDescription>
                         </div>
                         <div className="flex items-center gap-4 w-full sm:w-auto">
-                             <div className="text-right flex-grow sm:flex-grow-0">
+                            <div className="text-right">
                                 <p className="text-xl font-bold text-accent">Total: {farmerProducts.length}</p>
                             </div>
                             <Button onClick={handleSaveAll} disabled={!hasChanges || isSaving}>
