@@ -143,8 +143,8 @@ export default function InventoryPage() {
                                 Atualize a quantidade em estoque dos seus produtos. Clique em salvar para aplicar todas as alterações.
                             </CardDescription>
                         </div>
-                        <div className="flex items-center gap-4">
-                             <div className="text-right">
+                        <div className="flex items-center gap-4 w-full sm:w-auto">
+                             <div className="text-right flex-grow sm:flex-grow-0">
                                 <p className="text-xl font-bold text-accent">Total: {farmerProducts.length}</p>
                             </div>
                             <Button onClick={handleSaveAll} disabled={!hasChanges || isSaving}>
@@ -169,7 +169,9 @@ export default function InventoryPage() {
                         <Table>
                             <TableHeader>
                                 <TableRow>
-                                    <TableHead>Produto ({farmerProducts.length})</TableHead>
+                                    <TableHead>
+                                        <span className="whitespace-nowrap">Produto ({farmerProducts.length})</span>
+                                    </TableHead>
                                     <TableHead className="w-40 text-center">Estoque Atual</TableHead>
                                     <TableHead className="w-32 text-center">Unidade</TableHead>
                                 </TableRow>
