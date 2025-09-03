@@ -1,10 +1,13 @@
 
+
 export type CustomerClassification = 'bronze' | 'prata' | 'ouro' | 'diamante';
+
+export type ProductCategory = 'Fruta' | 'Verdura' | 'Legume' | 'Raiz' | 'Tempero' | 'Ovos' | 'Mel' | 'Laticínio' | 'Padaria';
 
 export interface Product {
   id: string;
   name: string;
-  category: 'Vegetal' | 'Fruta' | 'Laticínio' | 'Padaria';
+  category: ProductCategory;
   price: number;
   unit: string;
   image: string;

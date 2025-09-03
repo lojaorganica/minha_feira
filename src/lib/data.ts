@@ -1,13 +1,14 @@
 
 
 
-import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerOrder, CustomerClassification, CustomerAddress } from './types';
+
+import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerOrder, CustomerClassification, CustomerAddress, ProductCategory } from './types';
 
 let products: Product[] = [
   {
     id: '1',
     name: 'Cenouras Orgânicas',
-    category: 'Vegetal',
+    category: 'Raiz',
     price: 2.5,
     unit: 'maço',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/cenoura.webp?alt=media&token=83e659dc-2bd5-42f5-bc98-a178690858f1',
@@ -20,7 +21,7 @@ let products: Product[] = [
   {
     id: '2',
     name: 'Tomate Italiano Orgânico',
-    category: 'Vegetal',
+    category: 'Fruta',
     price: 3.0,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tomate_italiano.webp?alt=media&token=f4195895-85ed-42f7-92b7-55085c4c1a72',
@@ -54,7 +55,7 @@ let products: Product[] = [
   {
     id: '5',
     name: 'Alho Poró Orgânico',
-    category: 'Vegetal',
+    category: 'Tempero',
     price: 4.50,
     unit: 'unidade',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alho_poro.webp?alt=media&token=84c5bcc6-06f2-46be-8589-68b3e7be0fa5',
@@ -67,7 +68,7 @@ let products: Product[] = [
   {
     id: '6',
     name: 'Chuchu Orgânico',
-    category: 'Vegetal',
+    category: 'Legume',
     price: 3.00,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/chuchu.webp?alt=media&token=4ef6fcb9-2d57-47b6-b397-ec466ccfc6cd',
@@ -80,7 +81,7 @@ let products: Product[] = [
   {
     id: '7',
     name: 'Abóbora Moranga Orgânica',
-    category: 'Vegetal',
+    category: 'Legume',
     price: 4.00,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/abobora_moranga.webp?alt=media&token=f4ba0711-99f5-4cd5-bd0f-41fafaf1bcd0',
@@ -93,7 +94,7 @@ let products: Product[] = [
   {
     id: '8',
     name: 'Couve Mineira Orgânica',
-    category: 'Vegetal',
+    category: 'Verdura',
     price: 2.20,
     unit: 'maço',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_mineira.webp?alt=media&token=fb0702ac-1c9a-4414-9857-bd0908d68348',
@@ -119,7 +120,7 @@ let products: Product[] = [
   {
     id: '10',
     name: 'Salsa Orgânica',
-    category: 'Vegetal',
+    category: 'Tempero',
     price: 2.50,
     unit: 'maço',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/salsa.webp?alt=media&token=dca13030-a3a2-43ea-b5ef-b33e5fb918e0',
@@ -132,7 +133,7 @@ let products: Product[] = [
   {
     id: '11',
     name: 'Hortelã Orgânica',
-    category: 'Vegetal',
+    category: 'Tempero',
     price: 2.80,
     unit: 'maço',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/hortela.webp?alt=media&token=97dacb1f-e59f-4891-9176-73eec1e16188',
@@ -158,7 +159,7 @@ let products: Product[] = [
   {
     id: '14',
     name: 'Alface Americana Orgânica',
-    category: 'Vegetal',
+    category: 'Verdura',
     price: 3.50,
     unit: 'unidade',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_americana.webp?alt=media&token=d745a4e5-1f8c-4333-8a8a-48a4201d308a',
@@ -171,7 +172,7 @@ let products: Product[] = [
   {
     id: '15',
     name: 'Brócolis Americano Orgânico',
-    category: 'Vegetal',
+    category: 'Verdura',
     price: 4.50,
     unit: 'unidade',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/brocolis_americano.webp?alt=media&token=fd124564-9af1-438e-8e3b-34c320279c8b',
@@ -184,7 +185,7 @@ let products: Product[] = [
   {
     id: '16',
     name: 'Beterraba Orgânica',
-    category: 'Vegetal',
+    category: 'Raiz',
     price: 3.20,
     unit: 'maço',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/beterraba.webp?alt=media&token=d33b9ad6-d6c9-4641-b2fc-e4ed9893cbb0',
@@ -210,7 +211,7 @@ let products: Product[] = [
   {
     id: '18',
     name: 'Alho Orgânico',
-    category: 'Vegetal',
+    category: 'Tempero',
     price: 3.00,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alho.webp?alt=media&token=8071bc57-cdd1-4105-98da-6253f6f13050',
@@ -236,7 +237,7 @@ let products: Product[] = [
   {
     id: '20',
     name: 'Batata Doce Orgânica',
-    category: 'Vegetal',
+    category: 'Raiz',
     price: 3.80,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batata_doce.webp?alt=media&token=9777102d-626a-4f4e-b2d7-1045f0cc4148',
@@ -249,7 +250,7 @@ let products: Product[] = [
   {
     id: '21',
     name: 'Couve Flor Orgânica',
-    category: 'Vegetal',
+    category: 'Verdura',
     price: 4.0,
     unit: 'unidade',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_flor.webp?alt=media&token=5e32779d-a643-4845-9b4b-6f3b6474b444',
@@ -275,7 +276,7 @@ let products: Product[] = [
   {
     id: '23',
     name: 'Inhame Orgânico',
-    category: 'Vegetal',
+    category: 'Raiz',
     price: 4.20,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/inhame.webp?alt=media&token=230229d4-3136-45a0-a5df-605c7de2592b',
@@ -340,7 +341,7 @@ let products: Product[] = [
   {
     id: '28',
     name: 'Berinjela Orgânica',
-    category: 'Vegetal',
+    category: 'Fruta',
     price: 3.70,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/berinjela.webp?alt=media&token=ad1f7bd9-75db-4fc4-ac6d-3608733d71e9',
@@ -353,7 +354,7 @@ let products: Product[] = [
   {
     id: '29',
     name: 'Abóbora Japonesa (Cabotiá) Orgânica',
-    category: 'Vegetal',
+    category: 'Legume',
     price: 3.50,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/abobora_japonesa.webp?alt=media&token=9cc8d464-1f1a-404e-8d32-aeddadc861ba',
@@ -366,7 +367,7 @@ let products: Product[] = [
   {
     id: '30',
     name: 'Alface Lisa Orgânica',
-    category: 'Vegetal',
+    category: 'Verdura',
     price: 2.80,
     unit: 'unidade',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_lisa.webp?alt=media&token=ced73d99-300e-4904-9072-9c8e4fcecd79',
@@ -379,7 +380,7 @@ let products: Product[] = [
   {
     id: '31',
     name: 'Alface Crespa Orgânica',
-    category: 'Vegetal',
+    category: 'Verdura',
     price: 2.80,
     unit: 'unidade',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_crespa.webp?alt=media&token=a057c9ac-0fe9-40b0-a016-49d16b016941',
@@ -392,7 +393,7 @@ let products: Product[] = [
   {
     id: '32',
     name: 'Alface Roxa Orgânica',
-    category: 'Vegetal',
+    category: 'Verdura',
     price: 3.00,
     unit: 'unidade',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_roxa.webp?alt=media&token=c566920b-b13c-4d87-916a-813e320aedec',
@@ -418,7 +419,7 @@ let products: Product[] = [
   {
     id: '34',
     name: 'Aipim Orgânico',
-    category: 'Vegetal',
+    category: 'Raiz',
     price: 4.00,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/aipim.webp?alt=media&token=ab467c17-50b2-4319-8aad-0845e323b526',
@@ -431,7 +432,7 @@ let products: Product[] = [
   {
     id: '35',
     name: 'Almeirão Orgânico',
-    category: 'Vegetal',
+    category: 'Verdura',
     price: 3.20,
     unit: 'maço',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/almeirao.webp?alt=media&token=de89169e-8993-46bd-9c82-5a9d289ebdc3',
@@ -457,7 +458,7 @@ let products: Product[] = [
   {
     id: '37',
     name: 'Abobrinha Italiana Orgânica',
-    category: 'Vegetal',
+    category: 'Legume',
     price: 3.80,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/abobrinha_italiana.webp?alt=media&token=1c5c4cae-04b4-497f-99bf-94b09f8cdc7d',
@@ -483,7 +484,7 @@ let products: Product[] = [
   {
     id: '39',
     name: 'Azedinha Orgânica',
-    category: 'Vegetal',
+    category: 'Verdura',
     price: 3.50,
     unit: 'maço',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/azedinha.webp?alt=media&token.value=9e5fa2ef-55b7-4e80-860c-691ae12f24f8',
@@ -522,7 +523,7 @@ let products: Product[] = [
   {
     id: '42',
     name: 'Coentro Orgânico',
-    category: 'Vegetal',
+    category: 'Tempero',
     price: 2.50,
     unit: 'maço',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/coentro.webp?alt=media&token=d4bb207b-4d74-4de4-bc80-8843dd338010',
@@ -535,7 +536,7 @@ let products: Product[] = [
   {
     id: '43',
     name: 'Cebolinha Orgânica',
-    category: 'Vegetal',
+    category: 'Tempero',
     price: 2.50,
     unit: 'maço',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/cebolinha.webp?alt=media&token=48e03912-a30e-4032-94b8-9a84b6209d3e',
@@ -548,7 +549,7 @@ let products: Product[] = [
   {
     id: '44',
     name: 'Cebola Roxa Orgânica',
-    category: 'Vegetal',
+    category: 'Tempero',
     price: 4.50,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/cebola_roxa.webp?alt=media&token=e2c5234f-af01-4481-a046-71295fe900fe',
@@ -561,7 +562,7 @@ let products: Product[] = [
   {
     id: '45',
     name: 'Cebola Orgânica',
-    category: 'Vegetal',
+    category: 'Tempero',
     price: 4.00,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/cebola.webp?alt=media&token=d038a9a2-f0f9-421f-b436-324602f0b5bd',
@@ -574,7 +575,7 @@ let products: Product[] = [
   {
     id: '46',
     name: 'Repolho Verde Orgânico',
-    category: 'Vegetal',
+    category: 'Verdura',
     price: 3.80,
     unit: 'unidade',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/repolho_verde.webp?alt=media&token=8a4ea4ee-bcac-4757-a54d-f0a4b095a9dc',
@@ -587,7 +588,7 @@ let products: Product[] = [
   {
     id: '47',
     name: 'Repolho Roxo Orgânico',
-    category: 'Vegetal',
+    category: 'Verdura',
     price: 4.20,
     unit: 'unidade',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/repolho_roxo.webp?alt=media&token=2ea7df6f-0845-4042-aa71-38812b164b6a',
@@ -613,7 +614,7 @@ let products: Product[] = [
   {
     id: '49',
     name: 'Rúcula Cultivada Orgânica',
-    category: 'Vegetal',
+    category: 'Verdura',
     price: 3.50,
     unit: 'maço',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/rucula_cultivada.webp?alt=media&token=e5386372-e97f-479e-9559-eb3202d5e946',
@@ -639,7 +640,7 @@ let products: Product[] = [
   {
     id: '51',
     name: 'Batata Baroa Orgânica',
-    category: 'Vegetal',
+    category: 'Raiz',
     price: 7.50,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batata_baroa.webp?alt=media&token=58b079cb-80de-40fb-97f0-a654a34f1c1b',
@@ -652,7 +653,7 @@ let products: Product[] = [
   {
     id: '52',
     name: 'Gengibre Orgânico',
-    category: 'Vegetal',
+    category: 'Raiz',
     price: 15.00,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/gengibre.webp?alt=media&token=b70596de-b66f-4c39-a8c9-6951a442ff84',
@@ -665,7 +666,7 @@ let products: Product[] = [
   {
     id: '53',
     name: 'Cúrcuma Orgânica',
-    category: 'Vegetal',
+    category: 'Raiz',
     price: 18.00,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/curcuma.webp?alt=media&token=52fffeff-7486-4cab-9021-81331e7c5cc6',
@@ -730,7 +731,7 @@ let products: Product[] = [
   {
     id: '59',
     name: 'Acelga Orgânica',
-    category: 'Vegetal',
+    category: 'Verdura',
     price: 3.80,
     unit: 'unidade',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/acelga.webp?alt=media&token=0721f75b-65a2-40cf-8754-c10afd93acc6',
@@ -743,7 +744,7 @@ let products: Product[] = [
   {
     id: '60',
     name: 'Batata Inglesa Orgânica',
-    category: 'Vegetal',
+    category: 'Raiz',
     price: 4.50,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batata_inglesa.webp?alt=media&token=41f17e48-9a43-4980-b61d-1c12a91f3cf2',
@@ -756,7 +757,7 @@ let products: Product[] = [
   {
     id: '61',
     name: 'Cebolinha Orgânica',
-    category: 'Vegetal',
+    category: 'Tempero',
     price: 2.50,
     unit: 'maço',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/cebolinha.webp?alt=media&token=48e03912-a30e-4032-94b8-9a84b6209d3e',
@@ -769,7 +770,7 @@ let products: Product[] = [
   {
     id: '62',
     name: 'Coentro Orgânico',
-    category: 'Vegetal',
+    category: 'Tempero',
     price: 2.50,
     unit: 'maço',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/coentro.webp?alt=media&token=d4bb207b-4d74-4de4-bc80-8843dd338010',
@@ -782,7 +783,7 @@ let products: Product[] = [
   {
     id: '63',
     name: 'Jiló Orgânico',
-    category: 'Vegetal',
+    category: 'Fruta',
     price: 4.50,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/jilo.webp?alt=media&token=21a949a4-5df3-4b27-ae98-7469466f94be',
@@ -795,7 +796,7 @@ let products: Product[] = [
   {
     id: '64',
     name: 'Batata Yacon Orgânica',
-    category: 'Vegetal',
+    category: 'Raiz',
     price: 8.00,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batata_yacon.webp?alt=media&token=1531f6ab-5dde-4141-8715-28005e7d615e',
@@ -873,7 +874,7 @@ let products: Product[] = [
   {
     id: '70',
     name: 'Agrião Orgânico',
-    category: 'Vegetal',
+    category: 'Verdura',
     price: 3.00,
     unit: 'maço',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/agriao.webp?alt=media&token=c27c2017-aa81-4c03-a41c-c6323c14e213',
@@ -886,7 +887,7 @@ let products: Product[] = [
   {
     id: '71',
     name: 'Alface Romana Orgânica',
-    category: 'Vegetal',
+    category: 'Verdura',
     price: 3.20,
     unit: 'unidade',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_romana.webp?alt=media&token=f0a4afb0-0d99-48ad-88a2-0e3a8f048d17',
@@ -938,7 +939,7 @@ let products: Product[] = [
   {
     id: '75',
     name: 'Pepino Orgânico',
-    category: 'Vegetal',
+    category: 'Legume',
     price: 3.50,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pepino.webp?alt=media&token=e47fbf50-b714-4f92-846c-5e6e63d284e1',
@@ -951,7 +952,7 @@ let products: Product[] = [
   {
     id: '76',
     name: 'Couve Toscana Orgânica',
-    category: 'Vegetal',
+    category: 'Verdura',
     price: 3.80,
     unit: 'maço',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_toscana.webp?alt=media&token=d4d592f2-8fbe-4489-a044-6d46d2fc3753',
@@ -964,7 +965,7 @@ let products: Product[] = [
   {
     id: '77',
     name: 'Mostarda Orgânica',
-    category: 'Vegetal',
+    category: 'Verdura',
     price: 3.00,
     unit: 'maço',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mostarda.webp?alt=media&token=4e6b4187-dc70-41c2-904d-7ec8572c31b0',
@@ -990,7 +991,7 @@ let products: Product[] = [
   {
     id: '79',
     name: 'Abóbora Paulistinha Orgânica',
-    category: 'Vegetal',
+    category: 'Legume',
     price: 3.60,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/abobora_paulistinha.webp?alt=media&token=085ac67e-9468-4e75-90f7-0698285bcc35',
@@ -1003,7 +1004,7 @@ let products: Product[] = [
   {
     id: '81',
     name: 'Rabanete Orgânico',
-    category: 'Vegetal',
+    category: 'Raiz',
     price: 3.50,
     unit: 'maço',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/rabanete.webp?alt=media&token=fd084d85-6e5f-4519-ae09-e0606e54b063',
@@ -1016,7 +1017,7 @@ let products: Product[] = [
   {
     id: '82',
     name: 'Espinafre Orgânico',
-    category: 'Vegetal',
+    category: 'Verdura',
     price: 3.50,
     unit: 'maço',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/espinafre.webp?alt=media&token=314e18aa-482f-4cef-badc-db518683d218',
@@ -1029,7 +1030,7 @@ let products: Product[] = [
   {
     id: '83',
     name: 'Pimentão Verde Orgânico',
-    category: 'Vegetal',
+    category: 'Fruta',
     price: 2.80,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pimentao_verde.webp?alt=media&token=e93a384f-c567-4d1a-9f4a-7140f7b09335',
@@ -1042,7 +1043,7 @@ let products: Product[] = [
   {
     id: '84',
     name: 'Chicória Orgânica',
-    category: 'Vegetal',
+    category: 'Verdura',
     price: 3.20,
     unit: 'unidade',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/chicoria.webp?alt=media&token=64cf0f70-4063-4ca5-96a1-4c8026705058',
@@ -1055,7 +1056,7 @@ let products: Product[] = [
   {
     id: '85',
     name: 'Pimentão Amarelo Orgânico',
-    category: 'Vegetal',
+    category: 'Fruta',
     price: 3.20,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pimentao_amarelo.webp?alt=media&token=c4a9a8f2-8e0c-4e8a-8a6a-0c5d5e5f4d4d',
@@ -1068,7 +1069,7 @@ let products: Product[] = [
   {
     id: '86',
     name: 'Alface Romana Orgânica',
-    category: 'Vegetal',
+    category: 'Verdura',
     price: 3.20,
     unit: 'unidade',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_romana.webp?alt=media&token=f0a4afb0-0d99-48ad-88a2-0e3a8f048d17',
@@ -1081,7 +1082,7 @@ let products: Product[] = [
   {
     id: '87',
     name: 'Agrião Orgânico',
-    category: 'Vegetal',
+    category: 'Verdura',
     price: 3.00,
     unit: 'maço',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/agriao.webp?alt=media&token=c27c2017-aa81-4c03-a41c-c6323c14e213',
@@ -1094,7 +1095,7 @@ let products: Product[] = [
   {
     id: '88',
     name: 'Espinafre Orgânico',
-    category: 'Vegetal',
+    category: 'Verdura',
     price: 3.50,
     unit: 'maço',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/espinafre.webp?alt=media&token=314e18aa-482f-4cef-badc-db518683d218',
@@ -1133,7 +1134,7 @@ let products: Product[] = [
   {
     id: '91',
     name: 'Hortelã Orgânica',
-    category: 'Vegetal',
+    category: 'Tempero',
     price: 2.80,
     unit: 'maço',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/hortela.webp?alt=media&token=97dacb1f-e59f-4891-9176-73eec1e16188',
@@ -1146,7 +1147,7 @@ let products: Product[] = [
   {
     id: '92',
     name: 'Poejo Orgânico',
-    category: 'Vegetal',
+    category: 'Tempero',
     price: 3.00,
     unit: 'maço',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/poejo.webp?alt=media&token=47edb116-120c-4c97-910a-a6c49e85a8e9',
@@ -1159,7 +1160,7 @@ let products: Product[] = [
   {
     id: '93',
     name: 'Radicchio Orgânico',
-    category: 'Vegetal',
+    category: 'Verdura',
     price: 4.00,
     unit: 'unidade',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/radicchio.webp?alt=media&token=473281ea-32f7-4a12-a93a-23a821b91505',
@@ -1172,7 +1173,7 @@ let products: Product[] = [
   {
     id: '94',
     name: 'Milho Verde Orgânico',
-    category: 'Vegetal',
+    category: 'Legume',
     price: 4.00,
     unit: 'unidade',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/milho_verde.webp?alt=media&token=06cf8e19-7d36-42eb-8b27-cde60f2c41d6',
@@ -1185,7 +1186,7 @@ let products: Product[] = [
   {
     id: '95',
     name: 'Vagem Orgânica',
-    category: 'Vegetal',
+    category: 'Legume',
     price: 5.00,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/vagem.webp?alt=media&token=d034c795-629f-40c8-a033-a6dec200a0b3',
@@ -1198,7 +1199,7 @@ let products: Product[] = [
   {
     id: '96',
     name: 'Feijão Preto Orgânico',
-    category: 'Vegetal',
+    category: 'Legume',
     price: 8.00,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/feijao_preto.webp?alt=media&token=37fb877a-32f5-419f-a2fd-eb01841d991d',
@@ -1211,7 +1212,7 @@ let products: Product[] = [
   {
     id: '97',
     name: 'Feijão Carioca Orgânico',
-    category: 'Vegetal',
+    category: 'Legume',
     price: 7.50,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/feijao_carioca.webp?alt=media&token=67c3dfb7-4e77-4593-a133-3a7fd51f1ef2',
@@ -1224,7 +1225,7 @@ let products: Product[] = [
   {
     id: '98',
     name: 'Feijão Vermelho Orgânico',
-    category: 'Vegetal',
+    category: 'Legume',
     price: 8.50,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/feijao_vermelho.webp?alt=media&token=0eb5f6e0-33fc-4407-a608-9c44bf770c5f',
@@ -1237,7 +1238,7 @@ let products: Product[] = [
   {
     id: '99',
     name: 'Couve Kale Orgânica',
-    category: 'Vegetal',
+    category: 'Verdura',
     price: 4.50,
     unit: 'maço',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_kale.webp?alt=media&token=0f9318de-5203-44c4-9c85-420452ed7627',
@@ -1250,7 +1251,7 @@ let products: Product[] = [
   {
     id: '100',
     name: 'Orégano Orgânico',
-    category: 'Vegetal',
+    category: 'Tempero',
     price: 3.50,
     unit: 'maço',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/oregano.webp?alt=media&token=0b64f7ac-1aa4-4e21-a6b0-67eee4c6124e',
@@ -1263,7 +1264,7 @@ let products: Product[] = [
   {
     id: '101',
     name: 'Alface Mimosa Verde Orgânica',
-    category: 'Vegetal',
+    category: 'Verdura',
     price: 3.30,
     unit: 'unidade',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_mimosa_verde.webp?alt=media&token=4635346b-69f9-4a54-94b6-8cb1b85f4afb',
@@ -1276,7 +1277,7 @@ let products: Product[] = [
   {
     id: '102',
     name: 'Abóbora Baianinha Orgânica',
-    category: 'Vegetal',
+    category: 'Legume',
     price: 3.60,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/abobora_baianinha.webp?alt=media&token=9860ba6a-82f2-439b-92c2-0c57d6d338a3',
@@ -1289,7 +1290,7 @@ let products: Product[] = [
   {
     id: '103',
     name: 'Alface Mimosa Roxa Orgânica',
-    category: 'Vegetal',
+    category: 'Verdura',
     price: 3.40,
     unit: 'unidade',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_mimosa_roxa.webp?alt=media&token=c8b001dc-6f00-486f-af0a-22c99ed83d01',
@@ -1302,7 +1303,7 @@ let products: Product[] = [
   {
     id: '104',
     name: 'Pimentão Vermelho Orgânico',
-    category: 'Vegetal',
+    category: 'Fruta',
     price: 3.20,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pimentao_vermelho.webp?alt=media&token=d10b7b1b-9e4a-4b9e-8b1b-7e6d6e7f8e8e',
@@ -1315,7 +1316,7 @@ let products: Product[] = [
   {
     id: '107',
     name: 'Alface Frisée Orgânica',
-    category: 'Vegetal',
+    category: 'Verdura',
     price: 3.50,
     unit: 'unidade',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_frisee.webp?alt=media&token=060f2493-fb76-4a37-b40a-5de7bd0981c9',
@@ -1328,7 +1329,7 @@ let products: Product[] = [
   {
     id: '108',
     name: 'China Orgânica',
-    category: 'Vegetal',
+    category: 'Verdura',
     price: 3.8,
     unit: 'unidade',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/china.webp?alt=media&token=39bf916d-67aa-4534-81f6-cdade5a4aeca',
@@ -1340,7 +1341,7 @@ let products: Product[] = [
   {
     id: '109',
     name: 'Capuchinha Orgânica',
-    category: 'Vegetal',
+    category: 'Verdura',
     price: 4.00,
     unit: 'maço',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/capuchinha.webp?alt=media&token=beb2ab63-17f2-4044-8b3a-30561cacf991',
@@ -1353,7 +1354,7 @@ let products: Product[] = [
   {
     id: '110',
     name: 'Rúcula Selvagem Orgânica',
-    category: 'Vegetal',
+    category: 'Verdura',
     price: 4.00,
     unit: 'maço',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/rucula_selvagem.webp?alt=media&token=96d7f629-4be6-46c7-9e67-3108758865c7',
@@ -1366,7 +1367,7 @@ let products: Product[] = [
   {
     id: '114',
     name: 'Quiabo Orgânico',
-    category: 'Vegetal',
+    category: 'Legume',
     price: 5,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/quiabo.webp?alt=media&token=de5f050e-8c83-46ab-9671-e370b659ff1f',
@@ -1379,7 +1380,7 @@ let products: Product[] = [
   {
     id: '116',
     name: 'Pepino Caipira Orgânico',
-    category: 'Vegetal',
+    category: 'Legume',
     price: 3.80,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pepino_caipira.webp?alt=media&token=5e96c1ce-de1b-475d-9d12-4fa0b6d269e4',
@@ -1444,7 +1445,7 @@ let products: Product[] = [
   {
     id: '122',
     name: 'Brócolis Brasileiro Orgânico',
-    category: 'Vegetal',
+    category: 'Verdura',
     price: 4.80,
     unit: 'unidade',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/brocolis_brasileiro.webp?alt=media&token=30d32afc-e5e7-4f0e-a740-e43efeda8862',
@@ -1496,7 +1497,7 @@ let products: Product[] = [
   {
     id: '126',
     name: 'Mel de Aroeira Orgânico',
-    category: 'Padaria',
+    category: 'Mel',
     price: 35.00,
     unit: 'pote',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_aroeira.webp?alt=media&token=cc691f95-6565-42b1-9abd-95cca2e6b31d',
@@ -1509,7 +1510,7 @@ let products: Product[] = [
   {
     id: '127',
     name: 'Mel de Eucalipto Orgânico',
-    category: 'Padaria',
+    category: 'Mel',
     price: 30.00,
     unit: 'pote',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_eucalipto.webp?alt=media&token=22fad2b2-c030-4f6e-ac57-6d5b6fa0cc49',
@@ -1522,7 +1523,7 @@ let products: Product[] = [
   {
     id: '128',
     name: 'Mel de Acácia Orgânico',
-    category: 'Padaria',
+    category: 'Mel',
     price: 40.00,
     unit: 'pote',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_acacia.webp?alt=media&token=b94ee3e6-52de-4f78-a801-38f5254c840c',
@@ -1535,7 +1536,7 @@ let products: Product[] = [
   {
     id: '129',
     name: 'Mel Silvestre Orgânico',
-    category: 'Padaria',
+    category: 'Mel',
     price: 28.00,
     unit: 'pote',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_silvestre.webp?alt=media&token=4856b4c9-7f07-4559-8977-2b5e6f3fdeb9',
@@ -1587,7 +1588,7 @@ let products: Product[] = [
   {
     id: '133',
     name: 'Batata Bolinha',
-    category: 'Vegetal',
+    category: 'Raiz',
     price: 5.00,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batata_bolinha.webp?alt=media&token=19bff4eb-5e8d-47a7-9aeb-ce51db6b8c87',
@@ -1613,7 +1614,7 @@ let products: Product[] = [
   {
     id: '135',
     name: 'Aipo (Salsão)',
-    category: 'Vegetal',
+    category: 'Verdura',
     price: 4.50,
     unit: 'unidade',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/aipo.webp?alt=media&token=568de33a-7127-4e14-a96e-cce9357ebbf2',
@@ -1626,7 +1627,7 @@ let products: Product[] = [
   {
     id: '136',
     name: 'Pimentão Snackpim',
-    category: 'Vegetal',
+    category: 'Fruta',
     price: 6.00,
     unit: 'caixa',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pimentao_amarelo.webp?alt=media&token=c4a9a8f2-8e0c-4e8a-8a6a-0c5d5e5f4d4d',
@@ -2405,6 +2406,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
 
     
+
 
 
 

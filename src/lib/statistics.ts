@@ -1,6 +1,7 @@
 
+
 import { getOrders, getProducts, getFarmerById } from './data';
-import type { Order, Product } from './types';
+import type { Order, Product, ProductCategory } from './types';
 
 // Função para formatar o mês a partir de uma data
 const getMonthName = (date: Date) => {
@@ -13,7 +14,7 @@ export function getFarmerStatistics(farmerId: string) {
     const farmer = getFarmerById(farmerId);
 
     // Mapeia o ID do produto para sua categoria
-    const productCategoryMap = new Map<string, string>();
+    const productCategoryMap = new Map<string, ProductCategory>();
     allProducts.forEach(p => productCategoryMap.set(p.name, p.category));
 
     // Filtra os produtos e pedidos apenas para o agricultor logado
@@ -72,22 +73,25 @@ export function getFarmerStatistics(farmerId: string) {
     }));
 
     // 7. Vendas por Categoria
-    const salesByCategoryData: { [key: string]: number } = { 'Vegetal': 0, 'Fruta': 0, 'Laticínio': 0, 'Padaria': 0 };
+    const salesByCategoryData: { [key in ProductCategory]?: number } = {};
     farmerOrders.forEach(order => {
         order.items.forEach(item => {
             if (farmerProductNames.has(item.productName)) {
                 const category = productCategoryMap.get(item.productName);
                 const product = allProducts.find(p => p.name === item.productName);
                 if (category && product) {
+                    if (!salesByCategoryData[category]) {
+                        salesByCategoryData[category] = 0;
+                    }
                     const itemValue = product.price * item.quantity;
-                    salesByCategoryData[category] += itemValue;
+                    salesByCategoryData[category]! += itemValue;
                 }
             }
         });
     });
 
     const salesByCategory = Object.entries(salesByCategoryData)
-        .map(([name, value]) => ({ name, value }))
+        .map(([name, value]) => ({ name: name as ProductCategory, value: value || 0 }))
         .filter(cat => cat.value > 0);
 
     // 8. Produtos mais vendidos

@@ -5,7 +5,7 @@
 import { Suspense, useState, useMemo, useTransition, useRef, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { getOrders, getProducts, toggleProductPromotion, updateProduct, deleteProduct, toggleProductStatus, getFarmerById, updateProductStock, addProduct } from "@/lib/data";
-import type { Order, Product, CustomerAddress } from "@/lib/types";
+import type { Order, Product, CustomerAddress, ProductCategory } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
@@ -124,6 +124,7 @@ function EditProductForm({ product: initialProduct, onSaveChanges }: { product: 
             price: product.price,
             unit: product.unit,
             description: product.description,
+            category: product.category,
         });
         setTimeout(() => {
             onSaveChanges();
@@ -155,6 +156,26 @@ function EditProductForm({ product: initialProduct, onSaveChanges }: { product: 
                     <div className="space-y-2">
                         <Label htmlFor="name">Nome do Produto</Label>
                         <Input id="name" value={product.name} onChange={handleInputChange} className="bg-card" />
+                    </div>
+
+                    <div className="space-y-2">
+                        <Label htmlFor="category">Categoria</Label>
+                        <Select value={product.category} onValueChange={(value: ProductCategory) => setProduct(p => ({...p, category: value}))}>
+                            <SelectTrigger className="bg-card">
+                                <SelectValue placeholder="Categoria" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="Fruta">Fruta</SelectItem>
+                                <SelectItem value="Verdura">Verdura</SelectItem>
+                                <SelectItem value="Legume">Legume</SelectItem>
+                                <SelectItem value="Raiz">Raiz</SelectItem>
+                                <SelectItem value="Tempero">Tempero</SelectItem>
+                                <SelectItem value="Ovos">Ovos</SelectItem>
+                                <SelectItem value="Mel">Mel</SelectItem>
+                                <SelectItem value="Padaria">Padaria</SelectItem>
+                                <SelectItem value="Laticínio">Laticínio</SelectItem>
+                            </SelectContent>
+                        </Select>
                     </div>
                     
                     <div className="grid grid-cols-2 gap-4">
@@ -217,7 +238,7 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
     const [unit, setUnit] = useState('unidade');
     const [description, setDescription] = useState('');
     const [stock, setStock] = useState<number | ''>('');
-    const [category, setCategory] = useState<'Vegetal' | 'Fruta' | 'Laticínio' | 'Padaria'>('Vegetal');
+    const [category, setCategory] = useState<ProductCategory>('Verdura');
 
 
     const resetForm = () => {
@@ -227,7 +248,7 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
         setUnit('unidade');
         setDescription('');
         setStock('');
-        setCategory('Vegetal');
+        setCategory('Verdura');
     }
 
     const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -324,15 +345,20 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
                     
                      <div className="space-y-2">
                         <Label htmlFor="new-category">Categoria</Label>
-                        <Select value={category} onValueChange={(value: any) => setCategory(value)}>
+                        <Select value={category} onValueChange={(value: ProductCategory) => setCategory(value)}>
                             <SelectTrigger className="bg-card">
                                 <SelectValue placeholder="Categoria" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="Vegetal">Vegetal</SelectItem>
                                 <SelectItem value="Fruta">Fruta</SelectItem>
-                                <SelectItem value="Laticínio">Laticínio</SelectItem>
+                                <SelectItem value="Verdura">Verdura</SelectItem>
+                                <SelectItem value="Legume">Legume</SelectItem>
+                                <SelectItem value="Raiz">Raiz</SelectItem>
+                                <SelectItem value="Tempero">Tempero</SelectItem>
+                                <SelectItem value="Ovos">Ovos</SelectItem>
+                                <SelectItem value="Mel">Mel</SelectItem>
                                 <SelectItem value="Padaria">Padaria</SelectItem>
+                                <SelectItem value="Laticínio">Laticínio</SelectItem>
                             </SelectContent>
                         </Select>
                     </div>

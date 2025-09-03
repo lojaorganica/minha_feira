@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { useMemo } from 'react';
@@ -10,12 +11,19 @@ import BackButton from '@/components/back-button';
 import { DollarSign, ShoppingCart, Users, BarChart3, TrendingUp, Package, CalendarDays } from 'lucide-react';
 import { useUser } from '@/hooks/use-user';
 import { Separator } from '@/components/ui/separator';
+import type { ProductCategory } from '@/lib/types';
 
-const COLORS: { [key: string]: string } = {
-  Vegetal: 'hsl(147, 50%, 47%)', // Verde
-  Fruta: 'hsl(38, 92%, 50%)', // Laranja/Amarelo
-  Laticínio: 'hsl(210, 40%, 90%)', // Azul Claro / Branco
-  Padaria: 'hsl(25, 54%, 44%)', // Marrom
+
+const COLORS: Record<ProductCategory, string> = {
+  Fruta: 'hsl(38, 92%, 60%)',      // Amarelo/Laranja
+  Verdura: 'hsl(147, 50%, 47%)',    // Verde Escuro
+  Legume: 'hsl(80, 60%, 45%)',     // Verde Claro
+  Raiz: 'hsl(25, 54%, 44%)',       // Marrom
+  Tempero: 'hsl(120, 80%, 30%)',   // Verde Intenso
+  Ovos: 'hsl(48, 100%, 80%)',     // Amarelo Claro
+  Mel: 'hsl(45, 100%, 51%)',      // Dourado
+  Padaria: 'hsl(30, 40%, 60%)',    // Bege
+  Laticínio: 'hsl(210, 40%, 96%)', // Branco/Azul Claro
 };
 
 const chartConfigSales = {
@@ -29,22 +37,15 @@ const chartConfigCategory = {
   value: {
     label: "Vendas",
   },
-  Vegetal: {
-    label: "Vegetais",
-    color: COLORS.Vegetal,
-  },
-  Fruta: {
-    label: "Frutas",
-    color: COLORS.Fruta,
-  },
-  Laticínio: {
-    label: "Laticínios",
-    color: COLORS.Laticínio,
-  },
-  Padaria: {
-    label: "Padaria",
-    color: COLORS.Padaria,
-  },
+  Fruta: { label: "Frutas", color: COLORS.Fruta },
+  Verdura: { label: "Verduras", color: COLORS.Verdura },
+  Legume: { label: "Legumes", color: COLORS.Legume },
+  Raiz: { label: "Raízes", color: COLORS.Raiz },
+  Tempero: { label: "Temperos", color: COLORS.Tempero },
+  Ovos: { label: "Ovos", color: COLORS.Ovos },
+  Mel: { label: "Mel", color: COLORS.Mel },
+  Padaria: { label: "Padaria", color: COLORS.Padaria },
+  Laticínio: { label: "Laticínios", color: COLORS.Laticínio },
 };
 
 
