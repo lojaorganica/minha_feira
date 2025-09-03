@@ -168,6 +168,7 @@ function EditProductForm({ product: initialProduct, onSaveChanges }: { product: 
                                 <SelectItem value="Fruta">Fruta</SelectItem>
                                 <SelectItem value="Verdura">Verdura</SelectItem>
                                 <SelectItem value="Legume">Legume</SelectItem>
+                                <SelectItem value="Grão e Cereal">Grão e Cereal</SelectItem>
                                 <SelectItem value="Raiz e Tubérculo">Raiz e Tubérculo</SelectItem>
                                 <SelectItem value="Tempero">Tempero</SelectItem>
                                 <SelectItem value="Ovos">Ovos</SelectItem>
@@ -353,6 +354,7 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
                                 <SelectItem value="Fruta">Fruta</SelectItem>
                                 <SelectItem value="Verdura">Verdura</SelectItem>
                                 <SelectItem value="Legume">Legume</SelectItem>
+                                <SelectItem value="Grão e Cereal">Grão e Cereal</SelectItem>
                                 <SelectItem value="Raiz e Tubérculo">Raiz e Tubérculo</SelectItem>
                                 <SelectItem value="Tempero">Tempero</SelectItem>
                                 <SelectItem value="Ovos">Ovos</SelectItem>

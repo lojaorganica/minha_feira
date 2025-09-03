@@ -2,7 +2,7 @@
 
 export type CustomerClassification = 'bronze' | 'prata' | 'ouro' | 'diamante';
 
-export type ProductCategory = 'Fruta' | 'Verdura' | 'Legume' | 'Raiz e Tubérculo' | 'Tempero' | 'Ovos' | 'Apícola' | 'Laticínio' | 'Padaria';
+export type ProductCategory = 'Fruta' | 'Verdura' | 'Legume' | 'Raiz e Tubérculo' | 'Tempero' | 'Ovos' | 'Apícola' | 'Laticínio' | 'Padaria' | 'Grão e Cereal';
 
 export interface Product {
   id: string;

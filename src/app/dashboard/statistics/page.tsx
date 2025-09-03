@@ -18,6 +18,7 @@ const COLORS: Record<ProductCategory, string> = {
   Fruta: 'hsl(38, 92%, 60%)',      // Amarelo/Laranja
   Verdura: 'hsl(147, 50%, 47%)',    // Verde Escuro
   Legume: 'hsl(80, 60%, 45%)',     // Verde Claro
+  'Grão e Cereal': 'hsl(40, 50%, 60%)', // Marrom-amarelado
   'Raiz e Tubérculo': 'hsl(25, 54%, 44%)',       // Marrom
   Tempero: 'hsl(120, 80%, 30%)',   // Verde Intenso
   Ovos: 'hsl(48, 100%, 80%)',     // Amarelo Claro
@@ -40,6 +41,7 @@ const chartConfigCategory = {
   Fruta: { label: "Frutas", color: COLORS.Fruta },
   Verdura: { label: "Verduras", color: COLORS.Verdura },
   Legume: { label: "Legumes", color: COLORS.Legume },
+  'Grão e Cereal': { label: "Grãos e Cereais", color: COLORS['Grão e Cereal'] },
   'Raiz e Tubérculo': { label: "Raízes e Tubérculos", color: COLORS['Raiz e Tubérculo'] },
   Tempero: { label: "Temperos", color: COLORS.Tempero },
   Ovos: { label: "Ovos", color: COLORS.Ovos },

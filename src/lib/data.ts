@@ -3,6 +3,7 @@
 
 
 
+
 import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerOrder, CustomerClassification, CustomerAddress, ProductCategory } from './types';
 
 let products: Product[] = [
@@ -1174,7 +1175,7 @@ let products: Product[] = [
   {
     id: '94',
     name: 'Milho Verde Orgânico',
-    category: 'Legume',
+    category: 'Grão e Cereal',
     price: 4.00,
     unit: 'unidade',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/milho_verde.webp?alt=media&token=06cf8e19-7d36-42eb-8b27-cde60f2c41d6',
@@ -1200,7 +1201,7 @@ let products: Product[] = [
   {
     id: '96',
     name: 'Feijão Preto Orgânico',
-    category: 'Legume',
+    category: 'Grão e Cereal',
     price: 8.00,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/feijao_preto.webp?alt=media&token=37fb877a-32f5-419f-a2fd-eb01841d991d',
@@ -1213,7 +1214,7 @@ let products: Product[] = [
   {
     id: '97',
     name: 'Feijão Carioca Orgânico',
-    category: 'Legume',
+    category: 'Grão e Cereal',
     price: 7.50,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/feijao_carioca.webp?alt=media&token=67c3dfb7-4e77-4593-a133-3a7fd51f1ef2',
@@ -1226,7 +1227,7 @@ let products: Product[] = [
   {
     id: '98',
     name: 'Feijão Vermelho Orgânico',
-    category: 'Legume',
+    category: 'Grão e Cereal',
     price: 8.50,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/feijao_vermelho.webp?alt=media&token=0eb5f6e0-33fc-4407-a608-9c44bf770c5f',
@@ -2407,6 +2408,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
 
     
+
 
 
 
