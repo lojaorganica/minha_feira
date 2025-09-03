@@ -13,9 +13,9 @@ import { Separator } from '@/components/ui/separator';
 
 const COLORS: { [key: string]: string } = {
   Vegetal: 'hsl(147, 50%, 47%)', // Verde
-  Fruta: 'hsl(24, 95%, 53%)', // Laranja
-  Laticínio: 'hsl(210, 40%, 56%)', // Azul
-  Padaria: 'hsl(25, 47%, 39%)', // Marrom
+  Fruta: 'hsl(38, 92%, 50%)', // Laranja/Amarelo
+  Laticínio: 'hsl(210, 40%, 90%)', // Azul Claro / Branco
+  Padaria: 'hsl(25, 54%, 44%)', // Marrom
 };
 
 const chartConfigSales = {
@@ -190,7 +190,7 @@ export default function StatisticsPage() {
                                 strokeWidth={5}
                                 >
                                 {stats.salesByCategory.map((entry) => (
-                                    <Cell key={`cell-${entry.name}`} fill={COLORS[entry.name as keyof typeof COLORS]} />
+                                    <Cell key={`cell-${entry.name}`} fill={COLORS[entry.name as keyof typeof COLORS] || '#cccccc'} />
                                 ))}
                                 </Pie>
                                 <Legend content={<ChartTooltipContent nameKey="name" hideValue />} />
