@@ -135,9 +135,11 @@ export default function PricesPage() {
       };
 
 
-    if (!isUserLoaded) {
+    if (!isUserLoaded || !user) {
         return <div className="flex justify-center items-center p-12"><Loader2 className="h-12 w-12 animate-spin text-primary" /></div>;
     }
+    
+    const formattedDate = format(new Date(), "dd 'de' MMMM 'de' yyyy", { locale: ptBR });
 
     return (
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -174,20 +176,10 @@ export default function PricesPage() {
                     <p className="print-date">Data: {format(new Date(), "dd/MM/yyyy", { locale: ptBR })}</p>
                 </div>
                 <Card>
-                    <CardHeader className="no-print">
-                         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                            <div className="relative w-full sm:w-80">
-                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                                <Input
-                                    type="search"
-                                    placeholder="Buscar por produto..."
-                                    className="pl-10"
-                                    value={searchTerm}
-                                    onChange={(e) => setSearchTerm(e.target.value)}
-                                />
-                            </div>
-                            <p className="text-3xl font-bold text-accent text-right">Total: {farmerProducts.length}</p>
-                        </div>
+                    <CardHeader className="text-center">
+                        <CardTitle className="font-headline text-3xl text-primary">Tabela de Preços</CardTitle>
+                        <CardDescription className="text-lg font-semibold text-foreground/80">{user.name}</CardDescription>
+                        <CardDescription className="text-base font-medium text-foreground/70">{formattedDate}</CardDescription>
                     </CardHeader>
                     <CardContent>
                         <Table className="text-base">
