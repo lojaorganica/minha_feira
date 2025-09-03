@@ -12,10 +12,10 @@ import { useUser } from '@/hooks/use-user';
 import { Separator } from '@/components/ui/separator';
 
 const COLORS: { [key: string]: string } = {
-  Vegetal: 'hsl(var(--chart-1))',
-  Fruta: 'hsl(var(--chart-2))',
-  Laticínio: 'hsl(var(--chart-3))',
-  Padaria: 'hsl(var(--chart-4))',
+  Vegetal: 'hsl(147, 50%, 47%)', // Verde
+  Fruta: 'hsl(24, 95%, 53%)', // Laranja
+  Laticínio: 'hsl(210, 40%, 56%)', // Azul
+  Padaria: 'hsl(25, 47%, 39%)', // Marrom
 };
 
 const chartConfigSales = {
@@ -31,19 +31,19 @@ const chartConfigCategory = {
   },
   Vegetal: {
     label: "Vegetais",
-    color: "hsl(var(--chart-1))",
+    color: COLORS.Vegetal,
   },
   Fruta: {
     label: "Frutas",
-    color: "hsl(var(--chart-2))",
+    color: COLORS.Fruta,
   },
   Laticínio: {
     label: "Laticínios",
-    color: "hsl(var(--chart-3))",
+    color: COLORS.Laticínio,
   },
   Padaria: {
     label: "Padaria",
-    color: "hsl(var(--chart-4))",
+    color: COLORS.Padaria,
   },
 };
 
@@ -190,9 +190,10 @@ export default function StatisticsPage() {
                                 strokeWidth={5}
                                 >
                                 {stats.salesByCategory.map((entry) => (
-                                    <Cell key={`cell-${entry.name}`} fill={COLORS[entry.name]} />
+                                    <Cell key={`cell-${entry.name}`} fill={COLORS[entry.name as keyof typeof COLORS]} />
                                 ))}
                                 </Pie>
+                                <Legend content={<ChartTooltipContent nameKey="name" hideValue />} />
                             </PieChart>
                         </ChartContainer>
                     </CardContent>
