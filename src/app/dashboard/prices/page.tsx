@@ -182,20 +182,20 @@ export default function PricesPage() {
                         <CardDescription className="text-base font-medium text-foreground/70">{formattedDate}</CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <Table className="text-base">
+                        <Table>
                             <TableHeader>
                                 <TableRow>
-                                    <TableHead className="whitespace-nowrap">Produto <span className="text-accent">({farmerProducts.length})</span></TableHead>
-                                    <TableHead className="w-auto text-center whitespace-nowrap">Unidade</TableHead>
-                                    <TableHead className="w-auto text-right whitespace-nowrap">Preço (R$)</TableHead>
+                                    <TableHead className="whitespace-nowrap p-2 sm:p-4 text-base">Produto <span className="text-accent">({farmerProducts.length})</span></TableHead>
+                                    <TableHead className="w-auto text-center whitespace-nowrap p-2 sm:p-4 text-base">Unidade</TableHead>
+                                    <TableHead className="w-auto text-right whitespace-nowrap p-2 sm:p-4 text-base">Preço (R$)</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
                                 {filteredProducts.length > 0 ? filteredProducts.map(product => (
                                     <TableRow key={product.id}>
-                                        <TableCell className="font-bold">{product.name}</TableCell>
-                                        <TableCell className="text-center text-muted-foreground">{product.unit}</TableCell>
-                                        <TableCell className="text-right font-bold text-primary">{product.price.toFixed(2).replace('.', ',')}</TableCell>
+                                        <TableCell className="font-bold p-2 sm:p-4 text-base">{product.name}</TableCell>
+                                        <TableCell className="text-center text-muted-foreground p-2 sm:p-4 text-base">{product.unit}</TableCell>
+                                        <TableCell className="text-right font-bold text-primary p-2 sm:p-4 text-base">{product.price.toFixed(2).replace('.', ',')}</TableCell>
                                     </TableRow>
                                 )) : (
                                     <TableRow>

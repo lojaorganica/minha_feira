@@ -279,51 +279,49 @@ export default function InventoryPage() {
                         </div>
                     </CardHeader>
                     <CardContent>
-                        <div className="border rounded-md">
-                            <Table>
-                                <TableHeader>
-                                    <TableRow>
-                                        <TableHead>
-                                            <span className="whitespace-nowrap">
-                                                Produto <span className="text-accent">({farmerProducts.length})</span>
-                                            </span>
-                                        </TableHead>
-                                        <TableHead className="w-40 text-center">Estoque Atual</TableHead>
-                                        <TableHead className="w-32 text-center">Unidade</TableHead>
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead className="p-2 sm:p-4">
+                                        <span className="whitespace-nowrap">
+                                            Produto <span className="text-accent">({farmerProducts.length})</span>
+                                        </span>
+                                    </TableHead>
+                                    <TableHead className="w-[120px] text-center p-2 sm:p-4">Estoque Atual</TableHead>
+                                    <TableHead className="w-[80px] text-center p-2 sm:p-4">Unidade</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {filteredProducts.length > 0 ? filteredProducts.map(product => (
+                                    <TableRow key={product.id} className={cn(product.status === 'paused' && 'opacity-50')}>
+                                        <TableCell className="p-2 sm:p-4">
+                                            <div className="font-medium text-sm sm:text-base">{product.name}</div>
+                                            {product.status === 'paused' && (
+                                                <span className="text-xs text-destructive font-semibold">Pausado</span>
+                                            )}
+                                        </TableCell>
+                                        <TableCell className="p-2 sm:p-4">
+                                            <Input 
+                                                type="number"
+                                                min="0" 
+                                                value={product.stock ?? ''}
+                                                onChange={(e) => handleStockChange(product.id, e.target.value)}
+                                                className="text-center font-bold no-print h-9"
+                                                placeholder="N/D"
+                                            />
+                                            <span className="hidden print:inline">{product.stock ?? 'N/D'}</span>
+                                        </TableCell>
+                                        <TableCell className="text-center text-muted-foreground p-2 sm:p-4">{product.unit}</TableCell>
                                     </TableRow>
-                                </TableHeader>
-                                <TableBody>
-                                    {filteredProducts.length > 0 ? filteredProducts.map(product => (
-                                        <TableRow key={product.id} className={cn(product.status === 'paused' && 'opacity-50')}>
-                                            <TableCell>
-                                                <div className="font-medium">{product.name}</div>
-                                                {product.status === 'paused' && (
-                                                    <span className="text-xs text-destructive font-semibold">Pausado</span>
-                                                )}
-                                            </TableCell>
-                                            <TableCell>
-                                                <Input 
-                                                    type="number"
-                                                    min="0" 
-                                                    value={product.stock ?? ''}
-                                                    onChange={(e) => handleStockChange(product.id, e.target.value)}
-                                                    className="text-center font-bold no-print"
-                                                    placeholder="N/D"
-                                                />
-                                                <span className="hidden print:inline">{product.stock ?? 'N/D'}</span>
-                                            </TableCell>
-                                            <TableCell className="text-center text-muted-foreground">{product.unit}</TableCell>
-                                        </TableRow>
-                                    )) : (
-                                        <TableRow>
-                                            <TableCell colSpan={3} className="text-center h-24">
-                                                Nenhum produto encontrado.
-                                            </TableCell>
-                                        </TableRow>
-                                    )}
-                                </TableBody>
-                            </Table>
-                        </div>
+                                )) : (
+                                    <TableRow>
+                                        <TableCell colSpan={3} className="text-center h-24">
+                                            Nenhum produto encontrado.
+                                        </TableCell>
+                                    </TableRow>
+                                )}
+                            </TableBody>
+                        </Table>
                     </CardContent>
                      <CardFooter className="flex-col items-stretch md:flex-row gap-4 justify-between no-print p-6">
                         <Button variant="outline" onClick={handleSaveAll} disabled={!hasChanges || isSaving} className="w-full md:w-auto">
