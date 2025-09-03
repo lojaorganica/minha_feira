@@ -190,32 +190,30 @@ export default function PricesPage() {
                         </div>
                     </CardHeader>
                     <CardContent>
-                        <div className="border rounded-md">
-                            <Table className="text-base">
-                                <TableHeader>
-                                    <TableRow>
-                                        <TableHead className="whitespace-nowrap">Produto <span className="text-accent">({farmerProducts.length})</span></TableHead>
-                                        <TableHead className="w-auto text-center whitespace-nowrap">Unidade</TableHead>
-                                        <TableHead className="w-auto text-right whitespace-nowrap">Preço (R$)</TableHead>
+                        <Table className="text-base">
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead className="whitespace-nowrap">Produto <span className="text-accent">({farmerProducts.length})</span></TableHead>
+                                    <TableHead className="w-auto text-center whitespace-nowrap">Unidade</TableHead>
+                                    <TableHead className="w-auto text-right whitespace-nowrap">Preço (R$)</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {filteredProducts.length > 0 ? filteredProducts.map(product => (
+                                    <TableRow key={product.id}>
+                                        <TableCell className="font-bold">{product.name}</TableCell>
+                                        <TableCell className="text-center text-muted-foreground">{product.unit}</TableCell>
+                                        <TableCell className="text-right font-bold text-primary">{product.price.toFixed(2).replace('.', ',')}</TableCell>
                                     </TableRow>
-                                </TableHeader>
-                                <TableBody>
-                                    {filteredProducts.length > 0 ? filteredProducts.map(product => (
-                                        <TableRow key={product.id}>
-                                            <TableCell className="font-bold">{product.name}</TableCell>
-                                            <TableCell className="text-center text-muted-foreground">{product.unit}</TableCell>
-                                            <TableCell className="text-right font-bold text-primary">{product.price.toFixed(2).replace('.', ',')}</TableCell>
-                                        </TableRow>
-                                    )) : (
-                                        <TableRow>
-                                            <TableCell colSpan={3} className="text-center h-24">
-                                                Nenhum produto encontrado.
-                                            </TableCell>
-                                        </TableRow>
-                                    )}
-                                </TableBody>
-                            </Table>
-                        </div>
+                                )) : (
+                                    <TableRow>
+                                        <TableCell colSpan={3} className="text-center h-24">
+                                            Nenhum produto encontrado.
+                                        </TableCell>
+                                    </TableRow>
+                                )}
+                            </TableBody>
+                        </Table>
                     </CardContent>
                      <CardFooter className="flex-col items-stretch md:flex-row gap-2 justify-end no-print p-6">
                         <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
