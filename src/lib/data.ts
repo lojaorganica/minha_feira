@@ -2,13 +2,14 @@
 
 
 
+
 import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerOrder, CustomerClassification, CustomerAddress, ProductCategory } from './types';
 
 let products: Product[] = [
   {
     id: '1',
     name: 'Cenouras Orgânicas',
-    category: 'Raiz',
+    category: 'Raiz e Tubérculo',
     price: 2.5,
     unit: 'maço',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/cenoura.webp?alt=media&token=83e659dc-2bd5-42f5-bc98-a178690858f1',
@@ -185,7 +186,7 @@ let products: Product[] = [
   {
     id: '16',
     name: 'Beterraba Orgânica',
-    category: 'Raiz',
+    category: 'Raiz e Tubérculo',
     price: 3.20,
     unit: 'maço',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/beterraba.webp?alt=media&token=d33b9ad6-d6c9-4641-b2fc-e4ed9893cbb0',
@@ -237,7 +238,7 @@ let products: Product[] = [
   {
     id: '20',
     name: 'Batata Doce Orgânica',
-    category: 'Raiz',
+    category: 'Raiz e Tubérculo',
     price: 3.80,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batata_doce.webp?alt=media&token=9777102d-626a-4f4e-b2d7-1045f0cc4148',
@@ -276,7 +277,7 @@ let products: Product[] = [
   {
     id: '23',
     name: 'Inhame Orgânico',
-    category: 'Raiz',
+    category: 'Raiz e Tubérculo',
     price: 4.20,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/inhame.webp?alt=media&token=230229d4-3136-45a0-a5df-605c7de2592b',
@@ -419,7 +420,7 @@ let products: Product[] = [
   {
     id: '34',
     name: 'Aipim Orgânico',
-    category: 'Raiz',
+    category: 'Raiz e Tubérculo',
     price: 4.00,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/aipim.webp?alt=media&token=ab467c17-50b2-4319-8aad-0845e323b526',
@@ -640,7 +641,7 @@ let products: Product[] = [
   {
     id: '51',
     name: 'Batata Baroa Orgânica',
-    category: 'Raiz',
+    category: 'Raiz e Tubérculo',
     price: 7.50,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batata_baroa.webp?alt=media&token=58b079cb-80de-40fb-97f0-a654a34f1c1b',
@@ -653,7 +654,7 @@ let products: Product[] = [
   {
     id: '52',
     name: 'Gengibre Orgânico',
-    category: 'Raiz',
+    category: 'Raiz e Tubérculo',
     price: 15.00,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/gengibre.webp?alt=media&token=b70596de-b66f-4c39-a8c9-6951a442ff84',
@@ -666,7 +667,7 @@ let products: Product[] = [
   {
     id: '53',
     name: 'Cúrcuma Orgânica',
-    category: 'Raiz',
+    category: 'Raiz e Tubérculo',
     price: 18.00,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/curcuma.webp?alt=media&token=52fffeff-7486-4cab-9021-81331e7c5cc6',
@@ -744,7 +745,7 @@ let products: Product[] = [
   {
     id: '60',
     name: 'Batata Inglesa Orgânica',
-    category: 'Raiz',
+    category: 'Raiz e Tubérculo',
     price: 4.50,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batata_inglesa.webp?alt=media&token=41f17e48-9a43-4980-b61d-1c12a91f3cf2',
@@ -796,7 +797,7 @@ let products: Product[] = [
   {
     id: '64',
     name: 'Batata Yacon Orgânica',
-    category: 'Raiz',
+    category: 'Raiz e Tubérculo',
     price: 8.00,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batata_yacon.webp?alt=media&token=1531f6ab-5dde-4141-8715-28005e7d615e',
@@ -1004,7 +1005,7 @@ let products: Product[] = [
   {
     id: '81',
     name: 'Rabanete Orgânico',
-    category: 'Raiz',
+    category: 'Raiz e Tubérculo',
     price: 3.50,
     unit: 'maço',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/rabanete.webp?alt=media&token=fd084d85-6e5f-4519-ae09-e0606e54b063',
@@ -1497,7 +1498,7 @@ let products: Product[] = [
   {
     id: '126',
     name: 'Mel de Aroeira Orgânico',
-    category: 'Mel',
+    category: 'Apícola',
     price: 35.00,
     unit: 'pote',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_aroeira.webp?alt=media&token=cc691f95-6565-42b1-9abd-95cca2e6b31d',
@@ -1510,7 +1511,7 @@ let products: Product[] = [
   {
     id: '127',
     name: 'Mel de Eucalipto Orgânico',
-    category: 'Mel',
+    category: 'Apícola',
     price: 30.00,
     unit: 'pote',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_eucalipto.webp?alt=media&token=22fad2b2-c030-4f6e-ac57-6d5b6fa0cc49',
@@ -1523,7 +1524,7 @@ let products: Product[] = [
   {
     id: '128',
     name: 'Mel de Acácia Orgânico',
-    category: 'Mel',
+    category: 'Apícola',
     price: 40.00,
     unit: 'pote',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_acacia.webp?alt=media&token=b94ee3e6-52de-4f78-a801-38f5254c840c',
@@ -1536,7 +1537,7 @@ let products: Product[] = [
   {
     id: '129',
     name: 'Mel Silvestre Orgânico',
-    category: 'Mel',
+    category: 'Apícola',
     price: 28.00,
     unit: 'pote',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_silvestre.webp?alt=media&token=4856b4c9-7f07-4559-8977-2b5e6f3fdeb9',
@@ -1588,7 +1589,7 @@ let products: Product[] = [
   {
     id: '133',
     name: 'Batata Bolinha',
-    category: 'Raiz',
+    category: 'Raiz e Tubérculo',
     price: 5.00,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batata_bolinha.webp?alt=media&token=19bff4eb-5e8d-47a7-9aeb-ce51db6b8c87',
@@ -2406,6 +2407,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
 
     
+
 
 
 

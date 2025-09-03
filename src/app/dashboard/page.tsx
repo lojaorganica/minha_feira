@@ -168,10 +168,10 @@ function EditProductForm({ product: initialProduct, onSaveChanges }: { product: 
                                 <SelectItem value="Fruta">Fruta</SelectItem>
                                 <SelectItem value="Verdura">Verdura</SelectItem>
                                 <SelectItem value="Legume">Legume</SelectItem>
-                                <SelectItem value="Raiz">Raiz</SelectItem>
+                                <SelectItem value="Raiz e Tubérculo">Raiz e Tubérculo</SelectItem>
                                 <SelectItem value="Tempero">Tempero</SelectItem>
                                 <SelectItem value="Ovos">Ovos</SelectItem>
-                                <SelectItem value="Mel">Mel</SelectItem>
+                                <SelectItem value="Apícola">Apícola</SelectItem>
                                 <SelectItem value="Padaria">Padaria</SelectItem>
                                 <SelectItem value="Laticínio">Laticínio</SelectItem>
                             </SelectContent>
@@ -353,10 +353,10 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
                                 <SelectItem value="Fruta">Fruta</SelectItem>
                                 <SelectItem value="Verdura">Verdura</SelectItem>
                                 <SelectItem value="Legume">Legume</SelectItem>
-                                <SelectItem value="Raiz">Raiz</SelectItem>
+                                <SelectItem value="Raiz e Tubérculo">Raiz e Tubérculo</SelectItem>
                                 <SelectItem value="Tempero">Tempero</SelectItem>
                                 <SelectItem value="Ovos">Ovos</SelectItem>
-                                <SelectItem value="Mel">Mel</SelectItem>
+                                <SelectItem value="Apícola">Apícola</SelectItem>
                                 <SelectItem value="Padaria">Padaria</SelectItem>
                                 <SelectItem value="Laticínio">Laticínio</SelectItem>
                             </SelectContent>
