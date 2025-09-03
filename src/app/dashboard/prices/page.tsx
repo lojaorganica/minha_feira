@@ -194,9 +194,9 @@ export default function PricesPage() {
                             <Table className="text-base">
                                 <TableHeader>
                                     <TableRow>
-                                        <TableHead>Produto <span className="text-accent">({farmerProducts.length})</span></TableHead>
-                                        <TableHead className="w-[80px] text-center">Unidade</TableHead>
-                                        <TableHead className="w-[100px] text-right">Preço (R$)</TableHead>
+                                        <TableHead className="whitespace-nowrap">Produto <span className="text-accent">({farmerProducts.length})</span></TableHead>
+                                        <TableHead className="w-auto text-center whitespace-nowrap">Unidade</TableHead>
+                                        <TableHead className="w-auto text-right whitespace-nowrap">Preço (R$)</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
