@@ -3,7 +3,7 @@
 
 import { useState, useMemo } from 'react';
 import { getOrders, getCustomers, updateCustomerClassification } from '@/lib/data';
-import type { Order, Customer, CustomerClassification } from '@/lib/types';
+import type { Order, Customer, CustomerClassification, CustomerAddress } from '@/lib/types';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import BackButton from '@/components/back-button';
@@ -28,6 +28,19 @@ const classificationConfig: Record<CustomerClassification, {
     diamante: { label: 'Diamante', icon: Gem, color: 'text-white', bgColor: 'bg-blue-600', iconColor: 'text-blue-600', hoverClass: 'select-item-diamante' },
 };
 
+const formatAddress = (address?: CustomerAddress | string): string => {
+    if (!address) return 'Não informado';
+    if (typeof address === 'string') return address;
+    const parts = [
+        address.street,
+        address.number,
+        address.complement,
+        address.neighborhood,
+        address.city,
+        address.state,
+    ].filter(Boolean);
+    return parts.join(', ');
+};
 
 function CustomerClassificationBadge({ classification }: { classification?: CustomerClassification }) {
     if (!classification) {
@@ -104,7 +117,7 @@ export default function MyCustomersPage() {
                                </div>
                                <div className="flex items-start gap-3">
                                     <Home className="h-5 w-5 text-accent mt-1"/>
-                                    <span>{customer.address || 'Não informado'}</span>
+                                    <span>{formatAddress(customer.address)}</span>
                                </div>
                             </CardContent>
                             <CardFooter className="bg-muted/50 p-4">
