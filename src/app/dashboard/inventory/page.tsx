@@ -261,7 +261,7 @@ export default function InventoryPage() {
                                 </Button>
                             </div>
                             <div className="flex items-baseline gap-2">
-                                <p className="text-3xl font-bold text-accent text-right">Total: {farmerProducts.length}</p>
+                                <p className="text-2xl font-bold text-accent text-right">Total: {farmerProducts.length}</p>
                             </div>
                         </div>
                         <div className="relative mt-4">
@@ -275,7 +275,7 @@ export default function InventoryPage() {
                             />
                         </div>
                          <div className="mt-4">
-                            <p className="text-sm font-semibold text-muted-foreground">Última atualização: <span className="font-bold text-accent">{capitalizedDate}</span></p>
+                            <p className="text-sm font-semibold text-muted-foreground">Última atualização: <span className="font-bold text-orange-500">{capitalizedDate}</span></p>
                         </div>
                     </CardHeader>
                     <CardContent>
