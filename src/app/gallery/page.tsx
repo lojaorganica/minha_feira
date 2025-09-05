@@ -15,7 +15,7 @@ export default function GalleryPage() {
                     Galeria de Propagandas
                 </h1>
                 <p className="mt-2 text-base font-medium text-foreground/90 max-w-3xl">
-                    Utilize estas artes para divulgar as feiras em suas redes sociais. Use os filtros para encontrar a propaganda ideal.
+                    Utilize estas artes para divulgar as feiras em suas redes sociais. Baixe e compartilhe as imagens e vídeos à vontade! Use os filtros para encontrar a propaganda ideal. 
                 </p>
             </div>
             <Suspense fallback={
