@@ -13,10 +13,13 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
+import { useToast } from '@/hooks/use-toast';
+import Link from 'next/link';
 
 function GalleryViewContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
+    const { toast } = useToast();
 
     const initialFair = searchParams.get('feira') || 'Todas';
     const initialTheme = searchParams.get('tema') || 'Todos';
@@ -25,10 +28,13 @@ function GalleryViewContent() {
     const [selectedTheme, setSelectedTheme] = useState(initialTheme);
     const [videoToPlay, setVideoToPlay] = useState<GalleryItem | null>(null);
     const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
+    const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
-        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-        if (!isTouchDevice) {
+        const checkIsMobile = () => 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        setIsMobile(checkIsMobile());
+    
+        if (!checkIsMobile()) {
             document.body.classList.add('desktop-device');
         }
         return () => {
@@ -83,6 +89,31 @@ function GalleryViewContent() {
         const rest = parts.slice(1).join(' - ');
         return { firstWord, rest };
     };
+    
+    const handleShare = async (item: GalleryItem) => {
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    title: item.title,
+                    text: `Confira esta propaganda do Circuito Carioca de Feiras Orgânicas: "${item.title}"`,
+                    url: window.location.href, // Compartilha a URL da página da galeria
+                });
+            } catch (error) {
+                console.error('Erro ao compartilhar', error);
+                toast({
+                    variant: 'destructive',
+                    title: 'Compartilhamento cancelado',
+                    description: 'A ação de compartilhar foi cancelada ou falhou.',
+                })
+            }
+        } else {
+            toast({
+                title: 'Compartilhamento não suportado',
+                description: 'Seu navegador não suporta esta função. Tente copiar o link da página.',
+            })
+        }
+    };
+
 
     return (
         <>
@@ -144,7 +175,7 @@ function GalleryViewContent() {
                                         ) : (
                                             <>
                                                 <video src={item.url} className="w-full h-full object-contain" preload="metadata" />
-                                                <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 desktop-device:group-hover:opacity-100 transition-opacity duration-300">
+                                                 <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 desktop-device:group-hover:opacity-100 transition-opacity duration-300">
                                                     <PlayCircle className="h-16 w-16 text-white/80" />
                                                 </div>
                                             </>
@@ -162,11 +193,13 @@ function GalleryViewContent() {
                                 </div>
                                 <CardFooter className="p-2 bg-muted/50 mt-auto">
                                     <div className="flex w-full gap-2">
-                                        <Button variant="outline" size="sm" className="h-8 text-xs flex-1">
-                                            <Download className="mr-2 h-4 w-4" />
-                                            Baixar
+                                        <Button asChild variant="outline" size="sm" className="h-8 text-xs flex-1">
+                                             <a href={item.url} download={`${item.title.replace(/\s+/g, '_')}.${item.type === 'video' ? 'mp4' : 'jpg'}`}>
+                                                <Download className="mr-2 h-4 w-4" />
+                                                Baixar
+                                            </a>
                                         </Button>
-                                        <Button size="sm" className="h-8 text-xs flex-1">
+                                        <Button size="sm" className="h-8 text-xs flex-1" onClick={() => handleShare(item)}>
                                             <Share2 className="mr-2 h-4 w-4" />
                                             Compartilhar
                                         </Button>
