@@ -110,6 +110,32 @@ function GalleryViewContent() {
             })
         }
     };
+    
+    const handleDownload = async (url: string, title: string) => {
+        try {
+            const response = await fetch(url);
+            const blob = await response.blob();
+            const blobUrl = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = blobUrl;
+            link.download = title;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(blobUrl);
+            toast({
+              title: "Download Iniciado",
+              description: `O arquivo "${title}" está sendo baixado.`,
+            });
+        } catch (error) {
+            console.error('Erro ao baixar o arquivo:', error);
+            toast({
+              variant: 'destructive',
+              title: 'Erro no Download',
+              description: 'Não foi possível baixar o arquivo. Tente novamente mais tarde.',
+            });
+        }
+    };
 
 
     return (
@@ -150,6 +176,7 @@ function GalleryViewContent() {
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                         {filteredItems.map(item => {
                             const { firstWord, rest } = formatThemeName(item.theme[0]);
+                            const downloadTitle = `${item.title.replace(/\s+/g, '_')}.${item.type === 'video' ? 'mp4' : 'jpg'}`;
                             return (
                             <Card key={item.id} className="overflow-hidden flex flex-col group">
                                 <CardContent className="p-0">
@@ -190,12 +217,10 @@ function GalleryViewContent() {
                                 </div>
                                 <CardFooter className="p-2 bg-muted/50 mt-auto">
                                     <div className="flex w-full gap-2">
-                                        <a href={item.url} download={`${item.title.replace(/\s+/g, '_')}.${item.type === 'video' ? 'mp4' : 'jpg'}`} className="flex-1">
-                                            <Button variant="outline" size="sm" className="h-8 text-xs w-full">
-                                                <Download className="mr-2 h-4 w-4" />
-                                                Baixar
-                                            </Button>
-                                        </a>
+                                        <Button variant="outline" size="sm" className="h-8 text-xs w-full flex-1" onClick={() => handleDownload(item.url, downloadTitle)}>
+                                            <Download className="mr-2 h-4 w-4" />
+                                            Baixar
+                                        </Button>
                                         <Button size="sm" className="h-8 text-xs flex-1" onClick={() => handleShare(item)}>
                                             <Share2 className="mr-2 h-4 w-4" />
                                             Compartilhar
@@ -216,7 +241,13 @@ function GalleryViewContent() {
             <Dialog open={!!videoToPlay} onOpenChange={(isOpen) => !isOpen && setVideoToPlay(null)}>
                 <DialogContent className="max-w-3xl p-0 border-0 bg-transparent">
                     {videoToPlay && (
-                        <video src={videoToPlay.url} className="w-full h-auto rounded-lg" controls autoPlay suppressHydrationWarning>
+                        <video 
+                          src={videoToPlay.url} 
+                          className="w-full h-auto rounded-lg" 
+                          controls 
+                          autoPlay 
+                          suppressHydrationWarning
+                        >
                             Seu navegador não suporta a tag de vídeo.
                         </video>
                     )}
