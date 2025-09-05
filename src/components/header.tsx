@@ -27,6 +27,7 @@ const customerMenuLinks = [
     { href: "/select-farmers", label: "Agricultores", icon: Heart },
     { href: "/favorites", label: "Favoritos", icon: Heart },
     { href: "/promotions",label: "Promoções", icon: Tag },
+    { href: "/gallery", label: "Propagandas", icon: GalleryHorizontal },
     { href: "/history", label: "Histórico", icon: History },
 ];
 

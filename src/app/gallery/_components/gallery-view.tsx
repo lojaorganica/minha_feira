@@ -92,37 +92,6 @@ function GalleryViewContent() {
         return { firstWord, rest };
     };
     
-    const handleShare = async (item: GalleryItem) => {
-        const title = item.title;
-        const text = `Confira esta propaganda do Circuito Carioca de Feiras Orgânicas: "${item.title}"`;
-        const fileExtension = item.type === 'video' ? 'mp4' : 'jpg';
-        const fileName = `${item.title.replace(/\s+/g, '_')}.${fileExtension}`;
-        const mimeType = item.type === 'video' ? 'video/mp4' : 'image/jpeg';
-        
-        try {
-            const response = await fetch(item.url);
-            const blob = await response.blob();
-            const file = new File([blob], fileName, { type: mimeType });
-
-            if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                await navigator.share({
-                    title: title,
-                    text: text,
-                    files: [file],
-                });
-            } else {
-                throw new Error("Web Share API não suporta o compartilhamento de arquivos.");
-            }
-        } catch (error) {
-            console.error('Erro ao compartilhar', error);
-            toast({
-                variant: 'destructive',
-                title: 'Compartilhamento Indisponível',
-                description: 'Seu navegador não suporta esta função ou a ação foi cancelada.',
-            });
-        }
-    };
-    
     const handleDownload = async (url: string, title: string) => {
         try {
             const response = await fetch(url);
@@ -148,11 +117,38 @@ function GalleryViewContent() {
             });
         }
     };
+    
+    const handleShare = async (item: GalleryItem) => {
+        const title = item.title;
+        const fileExtension = item.type === 'video' ? 'mp4' : 'jpg';
+        const fileName = `${item.title.replace(/\s+/g, '_')}.${fileExtension}`;
+        const mimeType = item.type === 'video' ? 'video/mp4' : 'image/jpeg';
+        
+        try {
+            const response = await fetch(item.url);
+            const blob = await response.blob();
+            const file = new File([blob], fileName, { type: mimeType });
+
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                await navigator.share({
+                    title: title,
+                    files: [file],
+                });
+            } else {
+                 // Fallback for browsers that don't support sharing files (like many desktop browsers)
+                handleDownload(item.url, fileName);
+            }
+        } catch (error) {
+            console.error('Erro ao compartilhar', error);
+            // Fallback to download if sharing fails for any other reason
+            handleDownload(item.url, fileName);
+        }
+    };
 
 
     return (
         <>
-            <div className="sticky top-16 z-40 bg-background/95 py-2 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+            <div className="sticky top-16 z-40 bg-background/95 py-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                      <Select value={selectedFair} onValueChange={(value) => handleFilterChange('fair', value)}>
                         <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0">
