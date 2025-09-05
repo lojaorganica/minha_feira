@@ -135,13 +135,16 @@ function GalleryViewContent() {
                     files: [file],
                 });
             } else {
-                 // Fallback for browsers that don't support sharing files (like many desktop browsers)
+                // Fallback for browsers that don't support sharing files (like many desktop browsers)
                 handleDownload(item.url, fileName);
             }
         } catch (error) {
-            console.error('Erro ao compartilhar', error);
-            // Fallback to download if sharing fails for any other reason
-            handleDownload(item.url, fileName);
+            console.error('Erro ao compartilhar ou baixar:', error);
+             toast({
+                variant: 'destructive',
+                title: 'Ação não suportada',
+                description: 'Seu navegador não suporta esta ação ou ocorreu um erro.',
+            });
         }
     };
 
