@@ -24,6 +24,7 @@ function GalleryViewContent() {
     const [selectedFair, setSelectedFair] = useState(initialFair);
     const [selectedTheme, setSelectedTheme] = useState(initialTheme);
     const [videoToPlay, setVideoToPlay] = useState<GalleryItem | null>(null);
+    const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
 
     useEffect(() => {
         const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
@@ -118,7 +119,10 @@ function GalleryViewContent() {
                                 <CardContent className="p-0">
                                     <div 
                                         className="relative w-full cursor-pointer bg-muted"
-                                        onClick={() => item.type === 'video' && setVideoToPlay(item)}
+                                        onClick={() => {
+                                            if (item.type === 'video') setVideoToPlay(item);
+                                            if (item.type === 'image') setSelectedImage(item);
+                                        }}
                                     >
                                         {item.type === 'image' ? (
                                             <Image
@@ -178,6 +182,23 @@ function GalleryViewContent() {
                                 Seu navegador não suporta a tag de vídeo.
                             </video>
                          </div>
+                    )}
+                </DialogContent>
+            </Dialog>
+
+            <Dialog open={!!selectedImage} onOpenChange={(isOpen) => !isOpen && setSelectedImage(null)}>
+                <DialogContent className="p-0 border-0 max-w-4xl w-full">
+                    {selectedImage && (
+                        <div className="relative w-full h-auto">
+                            <Image
+                                src={selectedImage.url}
+                                alt={selectedImage.title}
+                                width={1024}
+                                height={1024}
+                                className="object-contain w-full h-auto max-h-[90vh] rounded-lg"
+                                data-ai-hint={selectedImage.dataAiHint}
+                            />
+                        </div>
                     )}
                 </DialogContent>
             </Dialog>
