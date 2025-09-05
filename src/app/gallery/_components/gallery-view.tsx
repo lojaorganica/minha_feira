@@ -72,7 +72,7 @@ function GalleryViewContent() {
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex flex-col sm:flex-row gap-4">
                         <Select value={selectedFair} onValueChange={(value) => handleFilterChange('fair', value)}>
-                            <SelectTrigger className="w-full sm:w-[250px] text-base">
+                            <SelectTrigger className="w-full sm:w-[250px] text-lg">
                                 <SelectValue placeholder="Filtrar por Feira" />
                             </SelectTrigger>
                             <SelectContent>
@@ -89,7 +89,7 @@ function GalleryViewContent() {
                         </Select>
                         
                         <Select value={selectedTheme} onValueChange={(value) => handleFilterChange('theme', value)}>
-                            <SelectTrigger className="w-full sm:w-[250px] text-base">
+                            <SelectTrigger className="w-full sm:w-[250px] text-lg">
                                 <SelectValue placeholder="Filtrar por Tema" />
                             </SelectTrigger>
                             <SelectContent>
@@ -114,15 +114,16 @@ function GalleryViewContent() {
                             <Card key={item.id} className="overflow-hidden flex flex-col group">
                                 <CardContent className="p-0">
                                     <div 
-                                        className="relative w-full cursor-pointer bg-muted aspect-square"
+                                        className="relative w-full cursor-pointer bg-muted"
                                         onClick={() => item.type === 'video' && setVideoToPlay(item)}
                                     >
                                         {item.type === 'image' ? (
                                             <Image
                                                 src={item.url}
                                                 alt={item.title}
-                                                fill
-                                                className="object-contain transition-transform duration-300 group-hover:scale-105"
+                                                width={300}
+                                                height={300}
+                                                className="object-contain w-full h-auto"
                                                 data-ai-hint={item.dataAiHint}
                                             />
                                         ) : (
