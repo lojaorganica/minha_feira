@@ -18,15 +18,13 @@ export default function GalleryPage() {
                     Utilize estas artes para divulgar as feiras em suas redes sociais. Use os filtros para encontrar a propaganda ideal.
                 </p>
             </div>
-            <div className="flex-grow overflow-hidden">
-                 <Suspense fallback={
-                    <div className="flex justify-center items-center p-12 h-full">
-                        <Loader2 className="h-12 w-12 animate-spin text-primary" />
-                    </div>
-                }>
-                    <GalleryView />
-                </Suspense>
-            </div>
+            <Suspense fallback={
+                <div className="flex justify-center items-center p-12 h-full">
+                    <Loader2 className="h-12 w-12 animate-spin text-primary" />
+                </div>
+            }>
+                <GalleryView />
+            </Suspense>
         </div>
     );
 }

@@ -53,8 +53,8 @@ function GalleryViewContent() {
 
     return (
         <div className="flex flex-col h-full">
-            <div className="sticky top-0 z-10 p-4 mb-6 bg-background/90 backdrop-blur-sm border-b -mx-4 -mt-4">
-                <div className="container mx-auto px-0">
+            <div className="sticky top-0 z-10 py-4 mb-6 bg-background/80 backdrop-blur-sm -mx-4 -mt-2">
+                <div className="container mx-auto px-4">
                     <div className="flex flex-col sm:flex-row gap-4">
                         <Select value={selectedFair} onValueChange={(value) => handleFilterChange('fair', value)}>
                             <SelectTrigger className="w-full sm:w-[250px]">
@@ -92,7 +92,7 @@ function GalleryViewContent() {
                 </div>
             </div>
             
-            <div className="flex-grow overflow-y-auto -mx-4 px-4">
+            <div className="flex-grow overflow-y-auto -mx-4 px-4 pb-4">
                 {filteredItems.length > 0 ? (
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                         {filteredItems.map(item => (
