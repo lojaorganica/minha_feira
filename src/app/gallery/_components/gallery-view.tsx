@@ -92,30 +92,12 @@ function GalleryViewContent() {
         return { firstWord, rest };
     };
     
-    const handleDownload = async (url: string, title: string) => {
-        try {
-            const response = await fetch(url);
-            const blob = await response.blob();
-            const blobUrl = window.URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = blobUrl;
-            link.download = title;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            window.URL.revokeObjectURL(blobUrl);
-            toast({
-              title: "Download Iniciado",
-              description: `O arquivo "${title}" está sendo baixado.`,
-            });
-        } catch (error) {
-            console.error('Erro ao baixar o arquivo:', error);
-            toast({
-              variant: 'destructive',
-              title: 'Erro no Download',
-              description: 'Não foi possível baixar o arquivo. Tente novamente mais tarde.',
-            });
-        }
+    const handleDownload = (url: string) => {
+        window.open(url, '_blank');
+        toast({
+          title: "Abrindo mídia...",
+          description: `Sua imagem ou vídeo está abrindo em uma nova aba.`,
+        });
     };
     
     const handleShare = async (item: GalleryItem) => {
@@ -135,16 +117,21 @@ function GalleryViewContent() {
                     files: [file],
                 });
             } else {
-                // Fallback for browsers that don't support sharing files (like many desktop browsers)
-                handleDownload(item.url, fileName);
+                toast({
+                  variant: 'destructive',
+                  title: 'Compartilhamento não suportado',
+                  description: 'Seu navegador não suporta compartilhamento de arquivos. Tentando baixar...',
+                });
+                handleDownload(item.url);
             }
         } catch (error) {
             console.error('Erro ao compartilhar ou baixar:', error);
              toast({
                 variant: 'destructive',
-                title: 'Ação não suportada',
-                description: 'Seu navegador não suporta esta ação ou ocorreu um erro.',
+                title: 'Ação Falhou',
+                description: 'Não foi possível completar a ação. Tentando baixar como alternativa.',
             });
+            handleDownload(item.url);
         }
     };
 
@@ -187,7 +174,6 @@ function GalleryViewContent() {
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                         {filteredItems.map(item => {
                             const { firstWord, rest } = formatThemeName(item.theme[0]);
-                            const downloadTitle = `${item.title.replace(/\s+/g, '_')}.${item.type === 'video' ? 'mp4' : 'jpg'}`;
                             return (
                             <Card key={item.id} className="overflow-hidden flex flex-col group">
                                 <CardContent className="p-0">
@@ -229,7 +215,7 @@ function GalleryViewContent() {
                                 <CardFooter className="p-2 bg-muted/50 mt-auto">
                                     <div className="flex w-full gap-2">
                                         {!isMobile && (
-                                            <Button variant="outline" size="sm" className="h-8 text-xs w-full flex-1" onClick={() => handleDownload(item.url, downloadTitle)}>
+                                            <Button variant="outline" size="sm" className="h-8 text-xs w-full flex-1" onClick={() => handleDownload(item.url)}>
                                                 <Download className="mr-2 h-4 w-4" />
                                                 Baixar
                                             </Button>
