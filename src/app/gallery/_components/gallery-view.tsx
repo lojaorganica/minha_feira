@@ -53,46 +53,44 @@ function GalleryViewContent() {
 
     return (
         <div className="flex flex-col h-full">
-            <div className="sticky top-0 z-10 py-4 mb-6 bg-background/90 backdrop-blur-sm -mx-4 px-4 -mt-2">
-                <div className="container mx-auto px-4">
-                    <div className="flex flex-col sm:flex-row gap-4">
-                        <Select value={selectedFair} onValueChange={(value) => handleFilterChange('fair', value)}>
-                            <SelectTrigger className="w-full sm:w-[250px]">
-                                <SelectValue placeholder="Filtrar por Feira" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectGroup>
-                                    <SelectLabel>Feiras</SelectLabel>
-                                    <SelectItem value="Todas">Todas as Feiras</SelectItem>
-                                    <SelectItem value="Flamengo e Laranjeiras">Flamengo e Laranjeiras</SelectItem>
-                                    <SelectItem value="Grajaú">Grajaú</SelectItem>
-                                    <SelectItem value="Tijuca">Tijuca</SelectItem>
-                                    <SelectItem value="Botafogo">Botafogo</SelectItem>
-                                    <SelectItem value="Leme">Leme</SelectItem>
-                                </SelectGroup>
-                            </SelectContent>
-                        </Select>
-                        
-                        <Select value={selectedTheme} onValueChange={(value) => handleFilterChange('theme', value)}>
-                            <SelectTrigger className="w-full sm:w-[250px]">
-                                <SelectValue placeholder="Filtrar por Tema" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectGroup>
-                                    <SelectLabel>Temas</SelectLabel>
-                                    <SelectItem value="Todos">Todos os Temas</SelectItem>
-                                    <SelectItem value="Fotografias">Fotografias</SelectItem>
-                                    <SelectItem value="Agricultores - Animações e Cartoon">Agricultores - Animações e Cartoon</SelectItem>
-                                    <SelectItem value="Alimentos - Animações e Cartoon">Alimentos - Animações e Cartoon</SelectItem>
-                                    <SelectItem value="Personagens - Animações e Cartoon">Personagens - Animações e Cartoon</SelectItem>
-                                </SelectGroup>
-                            </SelectContent>
-                        </Select>
-                    </div>
+            <div className="sticky top-0 z-10 py-4 mb-6 bg-background/90 backdrop-blur-sm">
+                <div className="flex flex-col sm:flex-row gap-4">
+                    <Select value={selectedFair} onValueChange={(value) => handleFilterChange('fair', value)}>
+                        <SelectTrigger className="w-full sm:w-[250px]">
+                            <SelectValue placeholder="Filtrar por Feira" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <SelectLabel>Feiras</SelectLabel>
+                                <SelectItem value="Todas">Todas as Feiras</SelectItem>
+                                <SelectItem value="Flamengo e Laranjeiras">Flamengo e Laranjeiras</SelectItem>
+                                <SelectItem value="Grajaú">Grajaú</SelectItem>
+                                <SelectItem value="Tijuca">Tijuca</SelectItem>
+                                <SelectItem value="Botafogo">Botafogo</SelectItem>
+                                <SelectItem value="Leme">Leme</SelectItem>
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                    
+                    <Select value={selectedTheme} onValueChange={(value) => handleFilterChange('theme', value)}>
+                        <SelectTrigger className="w-full sm:w-[250px]">
+                            <SelectValue placeholder="Filtrar por Tema" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <SelectLabel>Temas</SelectLabel>
+                                <SelectItem value="Todos">Todos os Temas</SelectItem>
+                                <SelectItem value="Fotografias">Fotografias</SelectItem>
+                                <SelectItem value="Agricultores - Animações e Cartoon">Agricultores - Animações e Cartoon</SelectItem>
+                                <SelectItem value="Alimentos - Animações e Cartoon">Alimentos - Animações e Cartoon</SelectItem>
+                                <SelectItem value="Personagens - Animações e Cartoon">Personagens - Animações e Cartoon</SelectItem>
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
                 </div>
             </div>
             
-            <div className="flex-grow overflow-y-auto -mx-4 px-4 pb-4">
+            <div className="flex-grow">
                 {filteredItems.length > 0 ? (
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                         {filteredItems.map(item => (
