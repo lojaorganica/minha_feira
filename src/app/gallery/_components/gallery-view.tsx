@@ -14,7 +14,6 @@ import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
-import Link from 'next/link';
 
 function GalleryViewContent() {
     const router = useRouter();
@@ -32,6 +31,8 @@ function GalleryViewContent() {
 
     useEffect(() => {
         const checkMobile = () => window.matchMedia("(max-width: 768px)").matches;
+        
+        // Define o estado inicial assim que o componente é montado no cliente
         setIsMobile(checkMobile());
         
         const handleResize = () => setIsMobile(checkMobile());
@@ -121,15 +122,6 @@ function GalleryViewContent() {
 
     return (
         <>
-            <style>
-                {`
-                @media (hover: hover) {
-                    .desktop-hover-show {
-                        opacity: 1;
-                    }
-                }
-                `}
-            </style>
             <div className="sticky top-16 z-40 bg-background/95 py-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                      <Select value={selectedFair} onValueChange={(value) => handleFilterChange('fair', value)}>
@@ -188,7 +180,7 @@ function GalleryViewContent() {
                                         ) : (
                                             <>
                                                 <video src={item.url} className="w-full h-full object-contain" preload="metadata" />
-                                                 <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:desktop-hover-show transition-opacity duration-300">
+                                                 <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
                                                     <PlayCircle className="h-16 w-16 text-white/80" />
                                                 </div>
                                             </>
@@ -205,16 +197,20 @@ function GalleryViewContent() {
                                     </div>
                                 </div>
                                 <CardFooter className="p-2 bg-muted/50 mt-auto">
-                                    <div className="flex w-full gap-2">
-                                        <Button variant="outline" size="sm" className="h-8 text-xs flex-1 hidden sm:flex" onClick={() => handleDownload(item.url, item.title)}>
-                                            <Download className="mr-2 h-4 w-4" />
-                                            Baixar
-                                        </Button>
-                                        <Button size="sm" className="h-8 text-xs flex-1" onClick={() => handleShare(item)}>
-                                            <Share2 className="mr-2 h-4 w-4" />
-                                            Compartilhar
-                                        </Button>
-                                    </div>
+                                    {isMobile === undefined ? (
+                                        <div className="flex w-full gap-2 h-8" />
+                                     ) : (
+                                        <div className="flex w-full gap-2">
+                                            <Button variant="outline" size="sm" className="h-8 text-xs flex-1 hidden sm:flex" onClick={() => handleDownload(item.url, item.title)}>
+                                                <Download className="mr-2 h-4 w-4" />
+                                                Baixar
+                                            </Button>
+                                            <Button size="sm" className="h-8 text-xs flex-1" onClick={() => handleShare(item)}>
+                                                <Share2 className="mr-2 h-4 w-4" />
+                                                Compartilhar
+                                            </Button>
+                                        </div>
+                                    )}
                                 </CardFooter>
                             </Card>
                         )})}
