@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import Image from 'next/image';
 import { Download, Share2, Loader2, PlayCircle, X } from 'lucide-react';
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
@@ -71,37 +71,39 @@ function GalleryViewContent() {
 
     return (
         <>
-            <div className="mb-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <Select value={selectedFair} onValueChange={(value) => handleFilterChange('fair', value)}>
-                    <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-accent-foreground">
-                        <SelectValue placeholder="Filtrar por Feira" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectGroup>
-                            <SelectItem value="Todas" className="text-base">Todas as Feiras</SelectItem>
-                            <SelectItem value="Flamengo e Laranjeiras" className="text-base">Flamengo e Laranjeiras</SelectItem>
-                            <SelectItem value="Grajaú" className="text-base">Grajaú</SelectItem>
-                            <SelectItem value="Tijuca" className="text-base">Tijuca</SelectItem>
-                            <SelectItem value="Botafogo" className="text-base">Botafogo</SelectItem>
-                            <SelectItem value="Leme" className="text-base">Leme</SelectItem>
-                        </SelectGroup>
-                    </SelectContent>
-                </Select>
-                
-                <Select value={selectedTheme} onValueChange={(value) => handleFilterChange('theme', value)}>
-                    <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-accent-foreground">
-                        <SelectValue placeholder="Filtrar por Tema" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectGroup>
-                            <SelectItem value="Todos" className="text-base">Todos os Temas</SelectItem>
-                            <SelectItem value="Fotografias" className="text-base">Fotografias</SelectItem>
-                            <SelectItem value="Agricultores - Animações e Cartoon" className="text-base">Agricultores - Animações e Cartoon</SelectItem>
-                            <SelectItem value="Alimentos - Animações e Cartoon" className="text-base">Alimentos - Animações e Cartoon</SelectItem>
-                            <SelectItem value="Personagens - Animações e Cartoon" className="text-base">Personagens - Animações e Cartoon</SelectItem>
-                        </SelectGroup>
-                    </SelectContent>
-                </Select>
+             <div className="sticky top-0 z-10 bg-background/95 py-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+                <div className="mb-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <Select value={selectedFair} onValueChange={(value) => handleFilterChange('fair', value)}>
+                        <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-accent-foreground">
+                            <SelectValue placeholder="Filtrar por Feira" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <SelectItem value="Todas" className="text-base">Todas as Feiras</SelectItem>
+                                <SelectItem value="Flamengo e Laranjeiras" className="text-base">Flamengo e Laranjeiras</SelectItem>
+                                <SelectItem value="Grajaú" className="text-base">Grajaú</SelectItem>
+                                <SelectItem value="Tijuca" className="text-base">Tijuca</SelectItem>
+                                <SelectItem value="Botafogo" className="text-base">Botafogo</SelectItem>
+                                <SelectItem value="Leme" className="text-base">Leme</SelectItem>
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                    
+                    <Select value={selectedTheme} onValueChange={(value) => handleFilterChange('theme', value)}>
+                        <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-accent-foreground">
+                            <SelectValue placeholder="Filtrar por Tema" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <SelectItem value="Todos" className="text-base">Todos os Temas</SelectItem>
+                                <SelectItem value="Fotografias" className="text-base">Fotografias</SelectItem>
+                                <SelectItem value="Agricultores - Animações e Cartoon" className="text-base">Agricultores - Animações e Cartoon</SelectItem>
+                                <SelectItem value="Alimentos - Animações e Cartoon" className="text-base">Alimentos - Animações e Cartoon</SelectItem>
+                                <SelectItem value="Personagens - Animações e Cartoon" className="text-base">Personagens - Animações e Cartoon</SelectItem>
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                </div>
             </div>
             
             <div className="flex-grow">
