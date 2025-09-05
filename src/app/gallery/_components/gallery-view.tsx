@@ -51,8 +51,8 @@ function GalleryViewContent() {
     };
 
     return (
-        <div>
-            <div className="flex flex-col sm:flex-row gap-4 mb-8 p-4 border rounded-lg bg-muted/50">
+        <div className="flex flex-col h-full">
+            <div className="flex flex-col sm:flex-row gap-4 mb-6 p-4 border rounded-lg bg-muted/50 flex-shrink-0">
                 <Select value={selectedFair} onValueChange={(value) => handleFilterChange('fair', value)}>
                     <SelectTrigger className="w-full sm:w-[250px]">
                         <SelectValue placeholder="Filtrar por Feira" />
@@ -87,56 +87,57 @@ function GalleryViewContent() {
                 </Select>
             </div>
             
-            {filteredItems.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                    {filteredItems.map(item => (
-                        <Card key={item.id} className="overflow-hidden flex flex-col group">
-                            <CardContent className="p-0 relative aspect-[3/2] w-full">
-                                {item.type === 'image' ? (
-                                    <Image
-                                        src={item.url}
-                                        alt={item.title}
-                                        fill
-                                        className="object-cover transition-transform duration-300 group-hover:scale-105"
-                                        data-ai-hint={item.dataAiHint}
-                                    />
-                                ) : (
-                                    <>
-                                        <video src={item.url} className="w-full h-full object-cover" preload="metadata" />
-                                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                                            <PlayCircle className="h-16 w-16 text-white/80" />
-                                        </div>
-                                    </>
-                                )}
-                            </CardContent>
-                            <div className="p-4 flex-grow flex flex-col">
-                                <h3 className="font-bold text-lg leading-tight flex-grow">{item.title}</h3>
-                                <div className="flex flex-wrap gap-2 mt-2">
-                                    {item.fair.map(f => <Badge key={f} variant="secondary">{f}</Badge>)}
-                                    {item.theme.map(t => <Badge key={t} variant="outline" className="border-accent text-accent">{t}</Badge>)}
+            <div className="flex-grow overflow-y-auto">
+                {filteredItems.length > 0 ? (
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        {filteredItems.map(item => (
+                            <Card key={item.id} className="overflow-hidden flex flex-col group">
+                                <CardContent className="p-0 relative aspect-[3/2] w-full">
+                                    {item.type === 'image' ? (
+                                        <Image
+                                            src={item.url}
+                                            alt={item.title}
+                                            fill
+                                            className="object-cover transition-transform duration-300 group-hover:scale-105"
+                                            data-ai-hint={item.dataAiHint}
+                                        />
+                                    ) : (
+                                        <>
+                                            <video src={item.url} className="w-full h-full object-cover" preload="metadata" />
+                                            <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                                                <PlayCircle className="h-16 w-16 text-white/80" />
+                                            </div>
+                                        </>
+                                    )}
+                                </CardContent>
+                                <div className="p-4 flex-grow flex flex-col">
+                                    <div className="flex flex-wrap gap-2 mt-2">
+                                        {item.fair.map(f => <Badge key={f} variant="secondary">{f}</Badge>)}
+                                        {item.theme.map(t => <Badge key={t} variant="outline" className="border-accent text-accent">{t}</Badge>)}
+                                    </div>
                                 </div>
-                            </div>
-                            <CardFooter className="p-2 bg-muted/50">
-                                <div className="flex w-full gap-2">
-                                    <Button variant="outline" className="w-full">
-                                        <Download className="mr-2 h-4 w-4" />
-                                        Baixar
-                                    </Button>
-                                    <Button className="w-full">
-                                        <Share2 className="mr-2 h-4 w-4" />
-                                        Compartilhar
-                                    </Button>
-                                </div>
-                            </CardFooter>
-                        </Card>
-                    ))}
-                </div>
-            ) : (
-                <div className="text-center py-20">
-                    <h2 className="mt-4 text-2xl font-semibold">Nenhuma propaganda encontrada</h2>
-                    <p className="text-lg font-semibold text-foreground/90 mt-2">Tente ajustar seus filtros para encontrar outros resultados.</p>
-                </div>
-            )}
+                                <CardFooter className="p-2 bg-muted/50 mt-auto">
+                                    <div className="flex w-full gap-2">
+                                        <Button variant="outline" className="w-full">
+                                            <Download className="mr-2 h-4 w-4" />
+                                            Baixar
+                                        </Button>
+                                        <Button className="w-full">
+                                            <Share2 className="mr-2 h-4 w-4" />
+                                            Compartilhar
+                                        </Button>
+                                    </div>
+                                </CardFooter>
+                            </Card>
+                        ))}
+                    </div>
+                ) : (
+                    <div className="text-center py-20">
+                        <h2 className="mt-4 text-2xl font-semibold">Nenhuma propaganda encontrada</h2>
+                        <p className="text-lg font-semibold text-foreground/90 mt-2">Tente ajustar seus filtros para encontrar outros resultados.</p>
+                    </div>
+                )}
+            </div>
         </div>
     );
 }
@@ -149,4 +150,3 @@ export default function GalleryView() {
         </Suspense>
     );
 }
-

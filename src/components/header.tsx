@@ -38,7 +38,7 @@ const farmerMenuLinks = [
     { href: "/dashboard/customers", label: "Meus Clientes", icon: Users },
     { href: "/dashboard/statistics", label: "Estatísticas", icon: BarChart3 },
     { href: "/dashboard/romaneio", label: "Romaneio", icon: FileText },
-    { href: "/gallery", label: "Propagandas", icon: GalleryHorizontal },
+    { href: "/gallery", label: "Propaganda", icon: GalleryHorizontal },
 ];
 
 const Header = () => {
