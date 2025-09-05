@@ -28,13 +28,10 @@ function GalleryViewContent() {
     const [selectedTheme, setSelectedTheme] = useState(initialTheme);
     const [videoToPlay, setVideoToPlay] = useState<GalleryItem | null>(null);
     const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
-    const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
-        const checkIsMobile = () => 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-        setIsMobile(checkIsMobile());
-    
-        if (!checkIsMobile()) {
+        const isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        if (!isMobile) {
             document.body.classList.add('desktop-device');
         }
         return () => {
@@ -193,12 +190,12 @@ function GalleryViewContent() {
                                 </div>
                                 <CardFooter className="p-2 bg-muted/50 mt-auto">
                                     <div className="flex w-full gap-2">
-                                        <Button asChild variant="outline" size="sm" className="h-8 text-xs flex-1">
-                                             <a href={item.url} download={`${item.title.replace(/\s+/g, '_')}.${item.type === 'video' ? 'mp4' : 'jpg'}`}>
+                                        <a href={item.url} download={`${item.title.replace(/\s+/g, '_')}.${item.type === 'video' ? 'mp4' : 'jpg'}`} className="flex-1">
+                                            <Button variant="outline" size="sm" className="h-8 text-xs w-full">
                                                 <Download className="mr-2 h-4 w-4" />
                                                 Baixar
-                                            </a>
-                                        </Button>
+                                            </Button>
+                                        </a>
                                         <Button size="sm" className="h-8 text-xs flex-1" onClick={() => handleShare(item)}>
                                             <Share2 className="mr-2 h-4 w-4" />
                                             Compartilhar
