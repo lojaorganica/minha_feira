@@ -135,19 +135,21 @@ function GalleryViewContent() {
                                         )}
                                     </div>
                                 </CardContent>
-                                <div className="p-4 flex-grow flex flex-col">
-                                    <div className="flex flex-wrap gap-2 mt-auto">
-                                        {item.fair.map(f => <Badge key={f} variant="secondary" className="text-[10px] px-1.5">{formatFairName(f)}</Badge>)}
-                                        {item.theme.map(t => <Badge key={t} variant="outline" className="border-transparent text-accent text-[9px] px-1">{t}</Badge>)}
+                                <div className="p-2 space-y-1">
+                                    <div className="flex flex-wrap gap-1">
+                                        {item.fair.map(f => <Badge key={f} variant="secondary" className="text-[10px] px-1.5 py-0">{formatFairName(f)}</Badge>)}
+                                    </div>
+                                     <div className="flex flex-wrap gap-1">
+                                        {item.theme.map(t => <Badge key={t} variant="outline" className="border-transparent text-accent text-[9px] px-1 py-0">{t}</Badge>)}
                                     </div>
                                 </div>
                                 <CardFooter className="p-2 bg-muted/50 mt-auto">
-                                    <div className="flex w-full gap-2">
-                                        <Button variant="outline" className="w-full">
+                                    <div className="grid grid-cols-2 w-full gap-2">
+                                        <Button variant="outline" size="sm" className="h-8">
                                             <Download className="mr-2 h-4 w-4" />
                                             Baixar
                                         </Button>
-                                        <Button className="w-full">
+                                        <Button size="sm" className="h-8">
                                             <Share2 className="mr-2 h-4 w-4" />
                                             Compartilhar
                                         </Button>
