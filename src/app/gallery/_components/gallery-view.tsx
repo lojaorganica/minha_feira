@@ -32,7 +32,6 @@ function GalleryViewContent() {
     useEffect(() => {
         const checkMobile = () => window.matchMedia("(max-width: 768px)").matches;
         
-        // Define o estado inicial assim que o componente é montado no cliente
         setIsMobile(checkMobile());
         
         const handleResize = () => setIsMobile(checkMobile());
