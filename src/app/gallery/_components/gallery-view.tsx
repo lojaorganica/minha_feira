@@ -78,7 +78,6 @@ function GalleryViewContent() {
                     </SelectTrigger>
                     <SelectContent>
                         <SelectGroup>
-                            <SelectLabel className="text-base">Feiras</SelectLabel>
                             <SelectItem value="Todas" className="text-base">Todas as Feiras</SelectItem>
                             <SelectItem value="Flamengo e Laranjeiras" className="text-base">Flamengo e Laranjeiras</SelectItem>
                             <SelectItem value="Grajaú" className="text-base">Grajaú</SelectItem>
@@ -95,7 +94,6 @@ function GalleryViewContent() {
                     </SelectTrigger>
                     <SelectContent>
                         <SelectGroup>
-                            <SelectLabel className="text-base">Temas</SelectLabel>
                             <SelectItem value="Todos" className="text-base">Todos os Temas</SelectItem>
                             <SelectItem value="Fotografias" className="text-base">Fotografias</SelectItem>
                             <SelectItem value="Agricultores - Animações e Cartoon" className="text-base">Agricultores - Animações e Cartoon</SelectItem>
