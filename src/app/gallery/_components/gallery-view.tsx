@@ -11,7 +11,7 @@ import Image from 'next/image';
 import { Download, Share2, Loader2, PlayCircle, X } from 'lucide-react';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogClose } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
 
@@ -148,6 +148,8 @@ function GalleryViewContent() {
                            <SelectItem value="Agricultores - Animações e Cartoon">Agricultores - Animações e Cartoon</SelectItem>
                            <SelectItem value="Alimentos - Animações e Cartoon">Alimentos - Animações e Cartoon</SelectItem>
                            <SelectItem value="Personagens - Animações e Cartoon">Personagens - Animações e Cartoon</SelectItem>
+                           <SelectItem value="Story">Story</SelectItem>
+                           <SelectItem value="Dias Especiais">Dias Especiais</SelectItem>
                         </SelectContent>
                     </Select>
                 </div>
@@ -236,6 +238,14 @@ function GalleryViewContent() {
                             Seu navegador não suporta a tag de vídeo.
                         </video>
                     )}
+                     <DialogClose asChild>
+                        <button
+                          className="absolute right-2 top-2 rounded-full bg-accent p-1 text-accent-foreground transition-opacity hover:bg-accent/90 focus:outline-none focus:ring-2 focus:ring-white disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground"
+                          aria-label="Fechar"
+                        >
+                            <X className="h-4 w-4" />
+                        </button>
+                    </DialogClose>
                 </DialogContent>
             </Dialog>
 
@@ -253,6 +263,14 @@ function GalleryViewContent() {
                             />
                         </div>
                     )}
+                     <DialogClose asChild>
+                       <button
+                          className="absolute right-2 top-2 rounded-full bg-accent p-1 text-accent-foreground transition-opacity hover:bg-accent/90 focus:outline-none focus:ring-2 focus:ring-white disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground"
+                          aria-label="Fechar"
+                        >
+                            <X className="h-4 w-4" />
+                        </button>
+                    </DialogClose>
                 </DialogContent>
             </Dialog>
 

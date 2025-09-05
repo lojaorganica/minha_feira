@@ -1,11 +1,12 @@
 
 
 
+
 export type CustomerClassification = 'bronze' | 'prata' | 'ouro' | 'diamante';
 
 export type ProductCategory = 'Fruta' | 'Verdura' | 'Legume' | 'Raiz e Tubérculo' | 'Tempero' | 'Ovos' | 'Apícola' | 'Laticínio' | 'Padaria' | 'Grão e Cereal';
 
-export type GalleryTheme = 'Fotografias' | 'Agricultores - Animações e Cartoon' | 'Alimentos - Animações e Cartoon' | 'Personagens - Animações e Cartoon';
+export type GalleryTheme = 'Fotografias' | 'Agricultores - Animações e Cartoon' | 'Alimentos - Animações e Cartoon' | 'Personagens - Animações e Cartoon' | 'Story' | 'Dias Especiais';
 export type GalleryFair = 'Todas' | 'Flamengo e Laranjeiras' | 'Grajaú' | 'Tijuca' | 'Botafogo' | 'Leme';
 
 export interface GalleryItem {
