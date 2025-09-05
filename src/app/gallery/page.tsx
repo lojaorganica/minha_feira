@@ -6,7 +6,7 @@ import GalleryView from "./_components/gallery-view";
 
 export default function GalleryPage() {
     return (
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div className="mb-4 flex-shrink-0">
                 <BackButton />
             </div>
