@@ -129,7 +129,7 @@ function GalleryViewContent() {
                                         ) : (
                                             <>
                                                 <video src={item.url} className="w-full h-full object-contain" preload="metadata" />
-                                                <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                                <div className="absolute inset-0 bg-black/40 items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden md:flex">
                                                     <PlayCircle className="h-16 w-16 text-white/80" />
                                                 </div>
                                             </>
@@ -145,12 +145,12 @@ function GalleryViewContent() {
                                     </div>
                                 </div>
                                 <CardFooter className="p-2 bg-muted/50 mt-auto">
-                                    <div className="grid grid-cols-2 w-full gap-2">
-                                        <Button variant="outline" size="sm" className="h-8 text-xs">
+                                    <div className="flex w-full gap-2">
+                                        <Button variant="outline" size="sm" className="h-8 text-xs flex-1">
                                             <Download className="mr-2 h-4 w-4" />
                                             Baixar
                                         </Button>
-                                        <Button size="sm" className="h-8 text-xs">
+                                        <Button size="sm" className="h-8 text-xs flex-1">
                                             <Share2 className="mr-2 h-4 w-4" />
                                             Compartilhar
                                         </Button>
