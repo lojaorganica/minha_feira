@@ -76,9 +76,9 @@ function GalleryViewContent() {
         <>
             <div className="sticky top-16 z-10 py-4 mb-6 bg-background/90 backdrop-blur-sm -mx-4 px-4 border-b">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex flex-col sm:flex-row gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <Select value={selectedFair} onValueChange={(value) => handleFilterChange('fair', value)}>
-                            <SelectTrigger className="w-full sm:w-[250px] text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-accent">
+                            <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-accent-foreground">
                                 <SelectValue placeholder="Filtrar por Feira" />
                             </SelectTrigger>
                             <SelectContent>
@@ -95,7 +95,7 @@ function GalleryViewContent() {
                         </Select>
                         
                         <Select value={selectedTheme} onValueChange={(value) => handleFilterChange('theme', value)}>
-                            <SelectTrigger className="w-full sm:w-[250px] text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-accent">
+                            <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-accent-foreground">
                                 <SelectValue placeholder="Filtrar por Tema" />
                             </SelectTrigger>
                             <SelectContent>
@@ -178,7 +178,7 @@ function GalleryViewContent() {
             <Dialog open={!!videoToPlay} onOpenChange={(isOpen) => !isOpen && setVideoToPlay(null)}>
                 <DialogContent className="max-w-3xl p-0 border-0">
                     {videoToPlay && (
-                         <div className="relative aspect-video">
+                         <div className="relative aspect-video bg-muted">
                             <video src={videoToPlay.url} className="w-full h-full" controls autoPlay preload="auto">
                                 Seu navegador não suporta a tag de vídeo.
                             </video>
