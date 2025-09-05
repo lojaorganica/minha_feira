@@ -28,15 +28,19 @@ function GalleryViewContent() {
     const [selectedTheme, setSelectedTheme] = useState(initialTheme);
     const [videoToPlay, setVideoToPlay] = useState<GalleryItem | null>(null);
     const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
-    const [isMobile, setIsMobile] = useState(false);
+    const [isMobile, setIsMobile] = useState<boolean | undefined>(undefined);
 
     useEffect(() => {
-        const checkMobile = window.matchMedia("(max-width: 768px)").matches;
-        setIsMobile(checkMobile);
+        const checkMobile = () => window.matchMedia("(max-width: 768px)").matches;
+        setIsMobile(checkMobile());
+        
+        const handleResize = () => setIsMobile(checkMobile());
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
     }, []);
 
     useEffect(() => {
-        if (!isMobile) {
+        if (typeof isMobile !== 'undefined' && !isMobile) {
             document.body.classList.add('desktop-device');
         }
         return () => {
@@ -94,10 +98,6 @@ function GalleryViewContent() {
     
     const handleDownload = (url: string) => {
         window.open(url, '_blank');
-        toast({
-          title: "Abrindo mídia...",
-          description: `Sua imagem ou vídeo está abrindo em uma nova aba.`,
-        });
     };
     
     const handleShare = async (item: GalleryItem) => {
@@ -108,7 +108,7 @@ function GalleryViewContent() {
         
         try {
             const response = await fetch(item.url);
-            if (!response.ok) throw new Error('Network response was not ok.');
+            if (!response.ok) throw new Error('A resposta da rede não foi boa.');
             const blob = await response.blob();
             const file = new File([blob], fileName, { type: mimeType });
 
@@ -119,10 +119,10 @@ function GalleryViewContent() {
                     files: [file],
                 });
             } else {
-                handleDownload(item.url);
+                 handleDownload(item.url);
             }
         } catch (error) {
-            console.error('Share/download failed, falling back to direct download:', error);
+            console.error('Falha ao compartilhar, retornando para download direto:', error);
             handleDownload(item.url);
         }
     };
@@ -188,7 +188,7 @@ function GalleryViewContent() {
                                         ) : (
                                             <>
                                                 <video src={item.url} className="w-full h-full object-contain" preload="metadata" />
-                                                 <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:desktop-device:opacity-100 transition-opacity duration-300">
+                                                 <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 desktop-device:group-hover:opacity-100 transition-opacity duration-300">
                                                     <PlayCircle className="h-16 w-16 text-white/80" />
                                                 </div>
                                             </>
@@ -206,12 +206,14 @@ function GalleryViewContent() {
                                 </div>
                                 <CardFooter className="p-2 bg-muted/50 mt-auto">
                                     <div className="flex w-full gap-2">
-                                        {!isMobile && (
+                                        {isMobile === undefined ? (
+                                            <div className="h-8 w-full"></div> 
+                                        ) : !isMobile ? (
                                             <Button variant="outline" size="sm" className="h-8 text-xs w-full flex-1" onClick={() => handleDownload(item.url)}>
                                                 <Download className="mr-2 h-4 w-4" />
                                                 Baixar
                                             </Button>
-                                        )}
+                                        ) : null}
                                         <Button size="sm" className="h-8 text-xs flex-1" onClick={() => handleShare(item)}>
                                             <Share2 className="mr-2 h-4 w-4" />
                                             Compartilhar
