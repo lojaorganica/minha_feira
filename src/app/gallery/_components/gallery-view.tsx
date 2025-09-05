@@ -175,13 +175,11 @@ function GalleryViewContent() {
             </div>
 
             <Dialog open={!!videoToPlay} onOpenChange={(isOpen) => !isOpen && setVideoToPlay(null)}>
-                <DialogContent className="max-w-3xl p-0 border-0">
+                <DialogContent className="max-w-3xl p-0 border-0 bg-transparent">
                     {videoToPlay && (
-                         <div className="relative aspect-video bg-black/80">
-                            <video src={videoToPlay.url} className="w-full h-full" controls autoPlay preload="auto">
-                                Seu navegador não suporta a tag de vídeo.
-                            </video>
-                         </div>
+                        <video src={videoToPlay.url} className="w-full h-auto" controls autoPlay>
+                            Seu navegador não suporta a tag de vídeo.
+                        </video>
                     )}
                 </DialogContent>
             </Dialog>
