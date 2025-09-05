@@ -78,7 +78,7 @@ function GalleryViewContent() {
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex flex-col sm:flex-row gap-4">
                         <Select value={selectedFair} onValueChange={(value) => handleFilterChange('fair', value)}>
-                            <SelectTrigger className="w-full sm:w-[250px] text-lg">
+                            <SelectTrigger className="w-full sm:w-[250px] text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-accent">
                                 <SelectValue placeholder="Filtrar por Feira" />
                             </SelectTrigger>
                             <SelectContent>
@@ -95,7 +95,7 @@ function GalleryViewContent() {
                         </Select>
                         
                         <Select value={selectedTheme} onValueChange={(value) => handleFilterChange('theme', value)}>
-                            <SelectTrigger className="w-full sm:w-[250px] text-lg">
+                            <SelectTrigger className="w-full sm:w-[250px] text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-accent">
                                 <SelectValue placeholder="Filtrar por Tema" />
                             </SelectTrigger>
                             <SelectContent>
