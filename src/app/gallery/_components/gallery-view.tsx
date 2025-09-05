@@ -52,7 +52,7 @@ function GalleryViewContent() {
         router.push(`/gallery?${currentParams.toString()}`, { scroll: false });
     };
 
-    const formatFairName = (fairName: string) => {
+    const formatFairName = (fairName: string): string => {
         if (fairName === 'Todas') {
             return 'Todas as Feiras Orgânicas';
         }
