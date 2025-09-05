@@ -107,29 +107,34 @@ function GalleryViewContent() {
         const mimeType = item.type === 'video' ? 'video/mp4' : 'image/jpeg';
         
         try {
+            // Fetch a blob para compartilhamento
             const response = await fetch(item.url);
+            if (!response.ok) {
+                throw new Error('Falha na resposta da rede.');
+            }
             const blob = await response.blob();
             const file = new File([blob], fileName, { type: mimeType });
 
             if (navigator.canShare && navigator.canShare({ files: [file] })) {
                 await navigator.share({
                     title: title,
+                    text: `Confira esta propaganda da Minha Feira: ${title}`,
                     files: [file],
                 });
             } else {
-                toast({
-                  variant: 'destructive',
-                  title: 'Compartilhamento não suportado',
-                  description: 'Seu navegador não suporta compartilhamento de arquivos. Tentando baixar...',
+                 toast({
+                    variant: 'destructive',
+                    title: 'Compartilhamento não suportado',
+                    description: 'Seu navegador não suporta compartilhamento de arquivos. Tentando baixar como alternativa.',
                 });
                 handleDownload(item.url);
             }
         } catch (error) {
             console.error('Erro ao compartilhar ou baixar:', error);
-             toast({
+            toast({
                 variant: 'destructive',
                 title: 'Ação Falhou',
-                description: 'Não foi possível completar a ação. Tentando baixar como alternativa.',
+                description: 'Não foi possível compartilhar. Tentando baixar como alternativa.',
             });
             handleDownload(item.url);
         }
