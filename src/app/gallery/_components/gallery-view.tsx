@@ -77,13 +77,13 @@ function GalleryViewContent() {
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectGroup>
-                                    <SelectLabel>Feiras</SelectLabel>
-                                    <SelectItem value="Todas">Todas as Feiras</SelectItem>
-                                    <SelectItem value="Flamengo e Laranjeiras">Flamengo e Laranjeiras</SelectItem>
-                                    <SelectItem value="Grajaú">Grajaú</SelectItem>
-                                    <SelectItem value="Tijuca">Tijuca</SelectItem>
-                                    <SelectItem value="Botafogo">Botafogo</SelectItem>
-                                    <SelectItem value="Leme">Leme</SelectItem>
+                                    <SelectLabel className="text-base">Feiras</SelectLabel>
+                                    <SelectItem value="Todas" className="text-base">Todas as Feiras</SelectItem>
+                                    <SelectItem value="Flamengo e Laranjeiras" className="text-base">Flamengo e Laranjeiras</SelectItem>
+                                    <SelectItem value="Grajaú" className="text-base">Grajaú</SelectItem>
+                                    <SelectItem value="Tijuca" className="text-base">Tijuca</SelectItem>
+                                    <SelectItem value="Botafogo" className="text-base">Botafogo</SelectItem>
+                                    <SelectItem value="Leme" className="text-base">Leme</SelectItem>
                                 </SelectGroup>
                             </SelectContent>
                         </Select>
@@ -94,12 +94,12 @@ function GalleryViewContent() {
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectGroup>
-                                    <SelectLabel>Temas</SelectLabel>
-                                    <SelectItem value="Todos">Todos os Temas</SelectItem>
-                                    <SelectItem value="Fotografias">Fotografias</SelectItem>
-                                    <SelectItem value="Agricultores - Animações e Cartoon">Agricultores - Animações e Cartoon</SelectItem>
-                                    <SelectItem value="Alimentos - Animações e Cartoon">Alimentos - Animações e Cartoon</SelectItem>
-                                    <SelectItem value="Personagens - Animações e Cartoon">Personagens - Animações e Cartoon</SelectItem>
+                                    <SelectLabel className="text-base">Temas</SelectLabel>
+                                    <SelectItem value="Todos" className="text-base">Todos os Temas</SelectItem>
+                                    <SelectItem value="Fotografias" className="text-base">Fotografias</SelectItem>
+                                    <SelectItem value="Agricultores - Animações e Cartoon" className="text-base">Agricultores - Animações e Cartoon</SelectItem>
+                                    <SelectItem value="Alimentos - Animações e Cartoon" className="text-base">Alimentos - Animações e Cartoon</SelectItem>
+                                    <SelectItem value="Personagens - Animações e Cartoon" className="text-base">Personagens - Animações e Cartoon</SelectItem>
                                 </SelectGroup>
                             </SelectContent>
                         </Select>
