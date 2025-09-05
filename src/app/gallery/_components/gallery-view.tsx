@@ -72,7 +72,7 @@ function GalleryViewContent() {
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex flex-col sm:flex-row gap-4">
                         <Select value={selectedFair} onValueChange={(value) => handleFilterChange('fair', value)}>
-                            <SelectTrigger className="w-full sm:w-[250px]">
+                            <SelectTrigger className="w-full sm:w-[250px] text-base">
                                 <SelectValue placeholder="Filtrar por Feira" />
                             </SelectTrigger>
                             <SelectContent>
@@ -89,7 +89,7 @@ function GalleryViewContent() {
                         </Select>
                         
                         <Select value={selectedTheme} onValueChange={(value) => handleFilterChange('theme', value)}>
-                            <SelectTrigger className="w-full sm:w-[250px]">
+                            <SelectTrigger className="w-full sm:w-[250px] text-base">
                                 <SelectValue placeholder="Filtrar por Tema" />
                             </SelectTrigger>
                             <SelectContent>
@@ -137,7 +137,7 @@ function GalleryViewContent() {
                                 </CardContent>
                                 <div className="p-2 space-y-1">
                                     <div className="flex flex-wrap gap-1">
-                                        {item.fair.map(f => <Badge key={f} variant="secondary" className="text-[10px] px-1.5 py-0.5">{formatFairName(f)}</Badge>)}
+                                        {item.fair.map(f => <Badge key={f} variant="secondary" className="text-xs px-1.5 py-0.5">{formatFairName(f)}</Badge>)}
                                     </div>
                                      <div className="flex flex-wrap gap-1">
                                         {item.theme.map(t => <Badge key={t} variant="outline" className="border-transparent text-accent text-[9px] px-1 py-0">{t}</Badge>)}
