@@ -67,6 +67,9 @@ function GalleryViewContent() {
         if (fairName === 'Todas') {
             return 'Todas as Feiras Orgânicas';
         }
+        if (fairName === 'Flamengo e Laranjeiras') {
+            return 'Feiras Orgânicas do Flamengo e Laranjeiras';
+        }
         const doExceptions = ['Leme', 'Grajaú', 'Flamengo'];
         if (doExceptions.includes(fairName)) {
             return `Feira Orgânica do ${fairName}`;
@@ -76,7 +79,7 @@ function GalleryViewContent() {
 
     return (
         <>
-             <div className="sticky top-16 z-40 bg-background/95 py-2 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+            <div className="sticky top-16 z-40 bg-background/95 py-2 backdrop-blur supports-[backdrop-filter]:bg-background/60">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                      <Select value={selectedFair} onValueChange={(value) => handleFilterChange('fair', value)}>
                         <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0">
@@ -84,11 +87,11 @@ function GalleryViewContent() {
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem value="Todas">Todas as Feiras</SelectItem>
-                            <SelectItem value="Flamengo e Laranjeiras">Flamengo e Laranjeiras</SelectItem>
-                            <SelectItem value="Grajaú">Grajaú</SelectItem>
-                            <SelectItem value="Tijuca">Tijuca</SelectItem>
-                            <SelectItem value="Botafogo">Botafogo</SelectItem>
-                            <SelectItem value="Leme">Leme</SelectItem>
+                            <SelectItem value="Flamengo e Laranjeiras">Feiras Orgânicas do Flamengo e Laranjeiras</SelectItem>
+                            <SelectItem value="Grajaú">Feira Orgânica do Grajaú</SelectItem>
+                            <SelectItem value="Tijuca">Feira Orgânica da Tijuca</SelectItem>
+                            <SelectItem value="Botafogo">Feira Orgânica de Botafogo</SelectItem>
+                            <SelectItem value="Leme">Feira Orgânica do Leme</SelectItem>
                         </SelectContent>
                     </Select>
                     
