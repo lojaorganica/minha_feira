@@ -69,6 +69,9 @@
   body {
     @apply bg-background text-foreground;
   }
+  .desktop-device .group:hover .desktop-device\\:group-hover\\:opacity-100 {
+    opacity: 1;
+  }
 }
 
 @layer utilities {

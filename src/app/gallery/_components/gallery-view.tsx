@@ -24,11 +24,15 @@ function GalleryViewContent() {
     const [selectedFair, setSelectedFair] = useState(initialFair);
     const [selectedTheme, setSelectedTheme] = useState(initialTheme);
     const [videoToPlay, setVideoToPlay] = useState<GalleryItem | null>(null);
-    const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
-        const checkIsMobile = () => /Mobi|Android/i.test(navigator.userAgent);
-        setIsMobile(checkIsMobile());
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        if (!isTouchDevice) {
+            document.body.classList.add('desktop-device');
+        }
+        return () => {
+            document.body.classList.remove('desktop-device');
+        };
     }, []);
 
     const allItems = useMemo(() => getGalleryItems(), []);
@@ -78,12 +82,14 @@ function GalleryViewContent() {
                             <SelectValue placeholder="Filtrar por Feira" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="Todas">Todas as Feiras</SelectItem>
-                            <SelectItem value="Flamengo e Laranjeiras">Flamengo e Laranjeiras</SelectItem>
-                            <SelectItem value="Grajaú">Grajaú</SelectItem>
-                            <SelectItem value="Tijuca">Tijuca</SelectItem>
-                            <SelectItem value="Botafogo">Botafogo</SelectItem>
-                            <SelectItem value="Leme">Leme</SelectItem>
+                            <SelectGroup>
+                                <SelectItem value="Todas">Todas as Feiras</SelectItem>
+                                <SelectItem value="Flamengo e Laranjeiras">Flamengo e Laranjeiras</SelectItem>
+                                <SelectItem value="Grajaú">Grajaú</SelectItem>
+                                <SelectItem value="Tijuca">Tijuca</SelectItem>
+                                <SelectItem value="Botafogo">Botafogo</SelectItem>
+                                <SelectItem value="Leme">Leme</SelectItem>
+                            </SelectGroup>
                         </SelectContent>
                     </Select>
                     
@@ -92,11 +98,13 @@ function GalleryViewContent() {
                             <SelectValue placeholder="Filtrar por Tema" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="Todos">Todos os Temas</SelectItem>
-                            <SelectItem value="Fotografias">Fotografias</SelectItem>
-                            <SelectItem value="Agricultores - Animações e Cartoon">Agricultores - Animações e Cartoon</SelectItem>
-                            <SelectItem value="Alimentos - Animações e Cartoon">Alimentos - Animações e Cartoon</SelectItem>
-                            <SelectItem value="Personagens - Animações e Cartoon">Personagens - Animações e Cartoon</SelectItem>
+                           <SelectGroup>
+                                <SelectItem value="Todos">Todos os Temas</SelectItem>
+                                <SelectItem value="Fotografias">Fotografias</SelectItem>
+                                <SelectItem value="Agricultores - Animações e Cartoon">Agricultores - Animações e Cartoon</SelectItem>
+                                <SelectItem value="Alimentos - Animações e Cartoon">Alimentos - Animações e Cartoon</SelectItem>
+                                <SelectItem value="Personagens - Animações e Cartoon">Personagens - Animações e Cartoon</SelectItem>
+                            </SelectGroup>
                         </SelectContent>
                     </Select>
                 </div>
@@ -124,11 +132,9 @@ function GalleryViewContent() {
                                         ) : (
                                             <>
                                                 <video src={item.url} className="w-full h-full object-contain" preload="metadata" />
-                                                {!isMobile && (
-                                                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                                        <PlayCircle className="h-16 w-16 text-white/80" />
-                                                    </div>
-                                                )}
+                                                <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 desktop-device:group-hover:opacity-100 transition-opacity duration-300">
+                                                    <PlayCircle className="h-16 w-16 text-white/80" />
+                                                </div>
                                             </>
                                         )}
                                     </div>
@@ -188,5 +194,3 @@ export default function GalleryView() {
         </Suspense>
     );
 }
-
-    
