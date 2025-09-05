@@ -74,8 +74,8 @@ function GalleryViewContent() {
 
     return (
         <>
-            <div className="sticky top-16 z-10 py-4 mb-6 bg-background/90 backdrop-blur-sm -mx-4 px-4 border-b">
-                <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="sticky top-16 z-10 py-4 mb-6 bg-background/90 backdrop-blur-sm -mx-4 border-b">
+                <div className="container mx-auto">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <Select value={selectedFair} onValueChange={(value) => handleFilterChange('fair', value)}>
                             <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-accent-foreground">
