@@ -52,6 +52,16 @@ function GalleryViewContent() {
         router.push(`/gallery?${currentParams.toString()}`, { scroll: false });
     };
 
+    const formatFairName = (fairName: string) => {
+        if (fairName === 'Todas') {
+            return 'Todas as Feiras Orgânicas';
+        }
+        if (fairName.includes(' e ')) {
+            return `Feiras Orgânicas de ${fairName}`;
+        }
+        return `Feira Orgânica de ${fairName}`;
+    };
+
     return (
         <>
             <div className="sticky top-16 z-10 py-4 mb-6 bg-background/90 backdrop-blur-sm -mx-4 px-4 border-b">
@@ -123,7 +133,7 @@ function GalleryViewContent() {
                                 </CardContent>
                                 <div className="p-4 flex-grow flex flex-col">
                                     <div className="flex flex-wrap gap-2 mt-auto">
-                                        {item.fair.map(f => <Badge key={f} variant="secondary">{f}</Badge>)}
+                                        {item.fair.map(f => <Badge key={f} variant="secondary">{formatFairName(f)}</Badge>)}
                                         {item.theme.map(t => <Badge key={t} variant="outline" className="border-transparent text-accent text-[11px]">{t}</Badge>)}
                                     </div>
                                 </div>
