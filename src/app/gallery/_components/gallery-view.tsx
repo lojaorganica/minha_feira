@@ -76,21 +76,19 @@ function GalleryViewContent() {
 
     return (
         <>
-            <div className="sticky top-16 z-40 bg-background/95 py-2 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+             <div className="sticky top-16 z-40 bg-background/95 py-2 backdrop-blur supports-[backdrop-filter]:bg-background/60">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                      <Select value={selectedFair} onValueChange={(value) => handleFilterChange('fair', value)}>
                         <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0">
                             <SelectValue placeholder="Filtrar por Feira" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectGroup>
-                                <SelectItem value="Todas">Todas as Feiras</SelectItem>
-                                <SelectItem value="Flamengo e Laranjeiras">Flamengo e Laranjeiras</SelectItem>
-                                <SelectItem value="Grajaú">Grajaú</SelectItem>
-                                <SelectItem value="Tijuca">Tijuca</SelectItem>
-                                <SelectItem value="Botafogo">Botafogo</SelectItem>
-                                <SelectItem value="Leme">Leme</SelectItem>
-                            </SelectGroup>
+                            <SelectItem value="Todas">Todas as Feiras</SelectItem>
+                            <SelectItem value="Flamengo e Laranjeiras">Flamengo e Laranjeiras</SelectItem>
+                            <SelectItem value="Grajaú">Grajaú</SelectItem>
+                            <SelectItem value="Tijuca">Tijuca</SelectItem>
+                            <SelectItem value="Botafogo">Botafogo</SelectItem>
+                            <SelectItem value="Leme">Leme</SelectItem>
                         </SelectContent>
                     </Select>
                     
@@ -99,13 +97,11 @@ function GalleryViewContent() {
                             <SelectValue placeholder="Filtrar por Tema" />
                         </SelectTrigger>
                         <SelectContent>
-                           <SelectGroup>
-                                <SelectItem value="Todos">Todos os Temas</SelectItem>
-                                <SelectItem value="Fotografias">Fotografias</SelectItem>
-                                <SelectItem value="Agricultores - Animações e Cartoon">Agricultores - Animações e Cartoon</SelectItem>
-                                <SelectItem value="Alimentos - Animações e Cartoon">Alimentos - Animações e Cartoon</SelectItem>
-                                <SelectItem value="Personagens - Animações e Cartoon">Personagens - Animações e Cartoon</SelectItem>
-                            </SelectGroup>
+                           <SelectItem value="Todos">Todos os Temas</SelectItem>
+                           <SelectItem value="Fotografias">Fotografias</SelectItem>
+                           <SelectItem value="Agricultores - Animações e Cartoon">Agricultores - Animações e Cartoon</SelectItem>
+                           <SelectItem value="Alimentos - Animações e Cartoon">Alimentos - Animações e Cartoon</SelectItem>
+                           <SelectItem value="Personagens - Animações e Cartoon">Personagens - Animações e Cartoon</SelectItem>
                         </SelectContent>
                     </Select>
                 </div>
@@ -177,7 +173,7 @@ function GalleryViewContent() {
             <Dialog open={!!videoToPlay} onOpenChange={(isOpen) => !isOpen && setVideoToPlay(null)}>
                 <DialogContent className="max-w-3xl p-0 border-0 bg-transparent">
                     {videoToPlay && (
-                        <video src={videoToPlay.url} className="w-full h-auto" controls autoPlay>
+                        <video src={videoToPlay.url} className="w-full h-auto rounded-lg" controls autoPlay suppressHydrationWarning>
                             Seu navegador não suporta a tag de vídeo.
                         </video>
                     )}
