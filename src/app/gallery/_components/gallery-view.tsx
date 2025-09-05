@@ -62,9 +62,6 @@ function GalleryViewContent() {
         if (fairName === 'Todas') {
             return 'Todas as Feiras Orgânicas';
         }
-        if (fairName.includes(' e ')) {
-            return `Feiras Orgânicas de ${fairName}`;
-        }
         const doExceptions = ['Leme', 'Grajaú', 'Flamengo'];
         if (doExceptions.includes(fairName)) {
             return `Feira Orgânica do ${fairName}`;
@@ -74,43 +71,39 @@ function GalleryViewContent() {
 
     return (
         <>
-            <div className="sticky top-16 z-10 py-4 mb-6 bg-background/90 backdrop-blur-sm -mx-4 border-b">
-                <div className="container mx-auto">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <Select value={selectedFair} onValueChange={(value) => handleFilterChange('fair', value)}>
-                            <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-accent-foreground">
-                                <SelectValue placeholder="Filtrar por Feira" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectGroup>
-                                    <SelectLabel className="text-base">Feiras</SelectLabel>
-                                    <SelectItem value="Todas" className="text-base">Todas as Feiras</SelectItem>
-                                    <SelectItem value="Flamengo e Laranjeiras" className="text-base">Flamengo e Laranjeiras</SelectItem>
-                                    <SelectItem value="Grajaú" className="text-base">Grajaú</SelectItem>
-                                    <SelectItem value="Tijuca" className="text-base">Tijuca</SelectItem>
-                                    <SelectItem value="Botafogo" className="text-base">Botafogo</SelectItem>
-                                    <SelectItem value="Leme" className="text-base">Leme</SelectItem>
-                                </SelectGroup>
-                            </SelectContent>
-                        </Select>
-                        
-                        <Select value={selectedTheme} onValueChange={(value) => handleFilterChange('theme', value)}>
-                            <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-accent-foreground">
-                                <SelectValue placeholder="Filtrar por Tema" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectGroup>
-                                    <SelectLabel className="text-base">Temas</SelectLabel>
-                                    <SelectItem value="Todos" className="text-base">Todos os Temas</SelectItem>
-                                    <SelectItem value="Fotografias" className="text-base">Fotografias</SelectItem>
-                                    <SelectItem value="Agricultores - Animações e Cartoon" className="text-base">Agricultores - Animações e Cartoon</SelectItem>
-                                    <SelectItem value="Alimentos - Animações e Cartoon" className="text-base">Alimentos - Animações e Cartoon</SelectItem>
-                                    <SelectItem value="Personagens - Animações e Cartoon" className="text-base">Personagens - Animações e Cartoon</SelectItem>
-                                </SelectGroup>
-                            </SelectContent>
-                        </Select>
-                    </div>
-                </div>
+            <div className="mb-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <Select value={selectedFair} onValueChange={(value) => handleFilterChange('fair', value)}>
+                    <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-accent-foreground">
+                        <SelectValue placeholder="Filtrar por Feira" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectGroup>
+                            <SelectLabel className="text-base">Feiras</SelectLabel>
+                            <SelectItem value="Todas" className="text-base">Todas as Feiras</SelectItem>
+                            <SelectItem value="Flamengo e Laranjeiras" className="text-base">Flamengo e Laranjeiras</SelectItem>
+                            <SelectItem value="Grajaú" className="text-base">Grajaú</SelectItem>
+                            <SelectItem value="Tijuca" className="text-base">Tijuca</SelectItem>
+                            <SelectItem value="Botafogo" className="text-base">Botafogo</SelectItem>
+                            <SelectItem value="Leme" className="text-base">Leme</SelectItem>
+                        </SelectGroup>
+                    </SelectContent>
+                </Select>
+                
+                <Select value={selectedTheme} onValueChange={(value) => handleFilterChange('theme', value)}>
+                    <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-accent-foreground">
+                        <SelectValue placeholder="Filtrar por Tema" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectGroup>
+                            <SelectLabel className="text-base">Temas</SelectLabel>
+                            <SelectItem value="Todos" className="text-base">Todos os Temas</SelectItem>
+                            <SelectItem value="Fotografias" className="text-base">Fotografias</SelectItem>
+                            <SelectItem value="Agricultores - Animações e Cartoon" className="text-base">Agricultores - Animações e Cartoon</SelectItem>
+                            <SelectItem value="Alimentos - Animações e Cartoon" className="text-base">Alimentos - Animações e Cartoon</SelectItem>
+                            <SelectItem value="Personagens - Animações e Cartoon" className="text-base">Personagens - Animações e Cartoon</SelectItem>
+                        </SelectGroup>
+                    </SelectContent>
+                </Select>
             </div>
             
             <div className="flex-grow">
