@@ -93,23 +93,28 @@ function GalleryViewContent() {
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                         {filteredItems.map(item => (
                             <Card key={item.id} className="overflow-hidden flex flex-col group">
-                                <CardContent className="p-0 relative aspect-[3/2] w-full cursor-pointer" onClick={() => item.type === 'video' && setVideoToPlay(item)}>
-                                    {item.type === 'image' ? (
-                                        <Image
-                                            src={item.url}
-                                            alt={item.title}
-                                            fill
-                                            className="object-cover transition-transform duration-300 group-hover:scale-105"
-                                            data-ai-hint={item.dataAiHint}
-                                        />
-                                    ) : (
-                                        <>
-                                            <video src={item.url} className="w-full h-full object-cover" preload="metadata" />
-                                            <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                                <PlayCircle className="h-16 w-16 text-white/80" />
-                                            </div>
-                                        </>
-                                    )}
+                                <CardContent className="p-0">
+                                    <div 
+                                        className="relative aspect-[3/2] w-full cursor-pointer"
+                                        onClick={() => item.type === 'video' && setVideoToPlay(item)}
+                                    >
+                                        {item.type === 'image' ? (
+                                            <Image
+                                                src={item.url}
+                                                alt={item.title}
+                                                fill
+                                                className="object-cover transition-transform duration-300 group-hover:scale-105"
+                                                data-ai-hint={item.dataAiHint}
+                                            />
+                                        ) : (
+                                            <>
+                                                <video src={item.url} className="w-full h-full object-cover" preload="metadata" />
+                                                <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                                    <PlayCircle className="h-16 w-16 text-white/80" />
+                                                </div>
+                                            </>
+                                        )}
+                                    </div>
                                 </CardContent>
                                 <div className="p-4 flex-grow flex flex-col">
                                     <div className="flex flex-wrap gap-2 mt-auto">
