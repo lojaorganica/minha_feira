@@ -59,6 +59,10 @@ function GalleryViewContent() {
         if (fairName.includes(' e ')) {
             return `Feiras Orgânicas de ${fairName}`;
         }
+        const doExceptions = ['Leme', 'Grajaú'];
+        if (doExceptions.includes(fairName)) {
+            return `Feira Orgânica do ${fairName}`;
+        }
         return `Feira Orgânica de ${fairName}`;
     };
 
@@ -133,8 +137,8 @@ function GalleryViewContent() {
                                 </CardContent>
                                 <div className="p-4 flex-grow flex flex-col">
                                     <div className="flex flex-wrap gap-2 mt-auto">
-                                        {item.fair.map(f => <Badge key={f} variant="secondary">{formatFairName(f)}</Badge>)}
-                                        {item.theme.map(t => <Badge key={t} variant="outline" className="border-transparent text-accent text-[11px]">{t}</Badge>)}
+                                        {item.fair.map(f => <Badge key={f} variant="secondary" className="text-[10px]">{formatFairName(f)}</Badge>)}
+                                        {item.theme.map(t => <Badge key={t} variant="outline" className="border-transparent text-accent text-[10px]">{t}</Badge>)}
                                     </div>
                                 </div>
                                 <CardFooter className="p-2 bg-muted/50 mt-auto">
