@@ -107,11 +107,8 @@ function GalleryViewContent() {
         const mimeType = item.type === 'video' ? 'video/mp4' : 'image/jpeg';
         
         try {
-            // Fetch a blob para compartilhamento
             const response = await fetch(item.url);
-            if (!response.ok) {
-                throw new Error('Falha na resposta da rede.');
-            }
+            if (!response.ok) throw new Error('Network response was not ok.');
             const blob = await response.blob();
             const file = new File([blob], fileName, { type: mimeType });
 
@@ -122,20 +119,10 @@ function GalleryViewContent() {
                     files: [file],
                 });
             } else {
-                 toast({
-                    variant: 'destructive',
-                    title: 'Compartilhamento não suportado',
-                    description: 'Seu navegador não suporta compartilhamento de arquivos. Tentando baixar como alternativa.',
-                });
                 handleDownload(item.url);
             }
         } catch (error) {
-            console.error('Erro ao compartilhar ou baixar:', error);
-            toast({
-                variant: 'destructive',
-                title: 'Ação Falhou',
-                description: 'Não foi possível compartilhar. Tentando baixar como alternativa.',
-            });
+            console.error('Share/download failed, falling back to direct download:', error);
             handleDownload(item.url);
         }
     };
@@ -201,7 +188,7 @@ function GalleryViewContent() {
                                         ) : (
                                             <>
                                                 <video src={item.url} className="w-full h-full object-contain" preload="metadata" />
-                                                 <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 desktop-device:group-hover:opacity-100 transition-opacity duration-300">
+                                                 <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:desktop-device:opacity-100 transition-opacity duration-300">
                                                     <PlayCircle className="h-16 w-16 text-white/80" />
                                                 </div>
                                             </>
