@@ -28,10 +28,12 @@ function GalleryViewContent() {
     const [selectedTheme, setSelectedTheme] = useState(initialTheme);
     const [videoToPlay, setVideoToPlay] = useState<GalleryItem | null>(null);
     const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
+    const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
-        const isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-        if (!isMobile) {
+        const mobileCheck = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        setIsMobile(mobileCheck);
+        if (!mobileCheck) {
             document.body.classList.add('desktop-device');
         }
         return () => {
@@ -88,26 +90,41 @@ function GalleryViewContent() {
     };
     
     const handleShare = async (item: GalleryItem) => {
-        if (navigator.share) {
-            try {
+        const title = item.title;
+        const text = `Confira esta propaganda do Circuito Carioca de Feiras Orgânicas: "${item.title}"`;
+        const fileExtension = item.type === 'video' ? 'mp4' : 'jpg';
+        const fileName = `${item.title.replace(/\s+/g, '_')}.${fileExtension}`;
+        const mimeType = item.type === 'video' ? 'video/mp4' : 'image/jpeg';
+        
+        try {
+            const response = await fetch(item.url);
+            const blob = await response.blob();
+            const file = new File([blob], fileName, { type: mimeType });
+
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
                 await navigator.share({
-                    title: item.title,
-                    text: `Confira esta propaganda do Circuito Carioca de Feiras Orgânicas: "${item.title}"`,
-                    url: window.location.href, // Compartilha a URL da página da galeria
+                    title: title,
+                    text: text,
+                    files: [file],
                 });
-            } catch (error) {
-                console.error('Erro ao compartilhar', error);
-                toast({
-                    variant: 'destructive',
-                    title: 'Compartilhamento cancelado',
-                    description: 'A ação de compartilhar foi cancelada ou falhou.',
-                })
+            } else if (navigator.share) {
+                // Fallback for browsers that support share but not files
+                 await navigator.share({
+                    title: title,
+                    text: text,
+                    url: item.url,
+                });
             }
-        } else {
+            else {
+                throw new Error("Web Share API não suportada.");
+            }
+        } catch (error) {
+            console.error('Erro ao compartilhar', error);
             toast({
-                title: 'Compartilhamento não suportado',
-                description: 'Seu navegador não suporta esta função. Tente copiar o link da página.',
-            })
+                variant: 'destructive',
+                title: 'Compartilhamento Indisponível',
+                description: 'Seu navegador não suporta esta função ou a ação foi cancelada.',
+            });
         }
     };
     
@@ -217,10 +234,12 @@ function GalleryViewContent() {
                                 </div>
                                 <CardFooter className="p-2 bg-muted/50 mt-auto">
                                     <div className="flex w-full gap-2">
-                                        <Button variant="outline" size="sm" className="h-8 text-xs w-full flex-1" onClick={() => handleDownload(item.url, downloadTitle)}>
-                                            <Download className="mr-2 h-4 w-4" />
-                                            Baixar
-                                        </Button>
+                                        {!isMobile && (
+                                            <Button variant="outline" size="sm" className="h-8 text-xs w-full flex-1" onClick={() => handleDownload(item.url, downloadTitle)}>
+                                                <Download className="mr-2 h-4 w-4" />
+                                                Baixar
+                                            </Button>
+                                        )}
                                         <Button size="sm" className="h-8 text-xs flex-1" onClick={() => handleShare(item)}>
                                             <Share2 className="mr-2 h-4 w-4" />
                                             Compartilhar
