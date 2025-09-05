@@ -8,10 +8,10 @@ import type { GalleryItem } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import Image from 'next/image';
-import { Download, Share2, Loader2, PlayCircle } from 'lucide-react';
+import { Download, Share2, Loader2, PlayCircle, X } from 'lucide-react';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
-import { cn } from '@/lib/utils';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
 
 function GalleryViewContent() {
     const router = useRouter();
@@ -22,6 +22,7 @@ function GalleryViewContent() {
 
     const [selectedFair, setSelectedFair] = useState(initialFair);
     const [selectedTheme, setSelectedTheme] = useState(initialTheme);
+    const [videoToPlay, setVideoToPlay] = useState<GalleryItem | null>(null);
 
     const allItems = useMemo(() => getGalleryItems(), []);
 
@@ -92,7 +93,7 @@ function GalleryViewContent() {
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                         {filteredItems.map(item => (
                             <Card key={item.id} className="overflow-hidden flex flex-col group">
-                                <CardContent className="p-0 relative aspect-[3/2] w-full">
+                                <CardContent className="p-0 relative aspect-[3/2] w-full cursor-pointer" onClick={() => item.type === 'video' && setVideoToPlay(item)}>
                                     {item.type === 'image' ? (
                                         <Image
                                             src={item.url}
@@ -104,14 +105,14 @@ function GalleryViewContent() {
                                     ) : (
                                         <>
                                             <video src={item.url} className="w-full h-full object-cover" preload="metadata" />
-                                            <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                                            <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                                 <PlayCircle className="h-16 w-16 text-white/80" />
                                             </div>
                                         </>
                                     )}
                                 </CardContent>
                                 <div className="p-4 flex-grow flex flex-col">
-                                    <div className="flex flex-wrap gap-2 mt-2">
+                                    <div className="flex flex-wrap gap-2 mt-auto">
                                         {item.fair.map(f => <Badge key={f} variant="secondary">{f}</Badge>)}
                                         {item.theme.map(t => <Badge key={t} variant="outline" className="border-accent text-accent">{t}</Badge>)}
                                     </div>
@@ -138,6 +139,19 @@ function GalleryViewContent() {
                     </div>
                 )}
             </div>
+
+            <Dialog open={!!videoToPlay} onOpenChange={(isOpen) => !isOpen && setVideoToPlay(null)}>
+                <DialogContent className="max-w-3xl p-0 border-0">
+                    {videoToPlay && (
+                         <div className="relative aspect-video">
+                            <video src={videoToPlay.url} className="w-full h-full" controls autoPlay preload="auto">
+                                Seu navegador não suporta a tag de vídeo.
+                            </video>
+                         </div>
+                    )}
+                </DialogContent>
+            </Dialog>
+
         </div>
     );
 }
