@@ -31,15 +31,18 @@ function GalleryViewContent() {
     const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
-        const mobileCheck = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-        setIsMobile(mobileCheck);
-        if (!mobileCheck) {
+        const checkMobile = window.matchMedia("(max-width: 768px)").matches;
+        setIsMobile(checkMobile);
+    }, []);
+
+    useEffect(() => {
+        if (!isMobile) {
             document.body.classList.add('desktop-device');
         }
         return () => {
             document.body.classList.remove('desktop-device');
         };
-    }, []);
+    }, [isMobile]);
 
     const allItems = useMemo(() => getGalleryItems(), []);
 
@@ -107,16 +110,8 @@ function GalleryViewContent() {
                     text: text,
                     files: [file],
                 });
-            } else if (navigator.share) {
-                // Fallback for browsers that support share but not files
-                 await navigator.share({
-                    title: title,
-                    text: text,
-                    url: item.url,
-                });
-            }
-            else {
-                throw new Error("Web Share API não suportada.");
+            } else {
+                throw new Error("Web Share API não suporta o compartilhamento de arquivos.");
             }
         } catch (error) {
             console.error('Erro ao compartilhar', error);
