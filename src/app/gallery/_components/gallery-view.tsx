@@ -39,15 +39,6 @@ function GalleryViewContent() {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    useEffect(() => {
-        if (typeof isMobile !== 'undefined' && !isMobile) {
-            document.body.classList.add('desktop-device');
-        }
-        return () => {
-            document.body.classList.remove('desktop-device');
-        };
-    }, [isMobile]);
-
     const allItems = useMemo(() => getGalleryItems(), []);
 
     const filteredItems = useMemo(() => {
@@ -96,7 +87,7 @@ function GalleryViewContent() {
         return { firstWord, rest };
     };
     
-    const handleDownload = (url: string) => {
+    const handleDownload = (url: string, title: string) => {
         window.open(url, '_blank');
     };
     
@@ -119,17 +110,26 @@ function GalleryViewContent() {
                     files: [file],
                 });
             } else {
-                 handleDownload(item.url);
+                 handleDownload(item.url, item.title);
             }
         } catch (error) {
             console.error('Falha ao compartilhar, retornando para download direto:', error);
-            handleDownload(item.url);
+            handleDownload(item.url, item.title);
         }
     };
 
 
     return (
         <>
+            <style>
+                {`
+                @media (hover: hover) {
+                    .desktop-hover-show {
+                        opacity: 1;
+                    }
+                }
+                `}
+            </style>
             <div className="sticky top-16 z-40 bg-background/95 py-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                      <Select value={selectedFair} onValueChange={(value) => handleFilterChange('fair', value)}>
@@ -188,7 +188,7 @@ function GalleryViewContent() {
                                         ) : (
                                             <>
                                                 <video src={item.url} className="w-full h-full object-contain" preload="metadata" />
-                                                 <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 desktop-device:group-hover:opacity-100 transition-opacity duration-300">
+                                                 <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:desktop-hover-show transition-opacity duration-300">
                                                     <PlayCircle className="h-16 w-16 text-white/80" />
                                                 </div>
                                             </>
@@ -206,14 +206,10 @@ function GalleryViewContent() {
                                 </div>
                                 <CardFooter className="p-2 bg-muted/50 mt-auto">
                                     <div className="flex w-full gap-2">
-                                        {isMobile === undefined ? (
-                                            <div className="h-8 w-full"></div> 
-                                        ) : !isMobile ? (
-                                            <Button variant="outline" size="sm" className="h-8 text-xs w-full flex-1" onClick={() => handleDownload(item.url)}>
-                                                <Download className="mr-2 h-4 w-4" />
-                                                Baixar
-                                            </Button>
-                                        ) : null}
+                                        <Button variant="outline" size="sm" className="h-8 text-xs flex-1 hidden sm:flex" onClick={() => handleDownload(item.url, item.title)}>
+                                            <Download className="mr-2 h-4 w-4" />
+                                            Baixar
+                                        </Button>
                                         <Button size="sm" className="h-8 text-xs flex-1" onClick={() => handleShare(item)}>
                                             <Share2 className="mr-2 h-4 w-4" />
                                             Compartilhar
