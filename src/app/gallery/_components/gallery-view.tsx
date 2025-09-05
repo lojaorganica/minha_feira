@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useMemo, Suspense } from 'react';
+import { useState, useMemo, Suspense, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { getGalleryItems } from '@/lib/gallery-data';
 import type { GalleryItem } from '@/lib/types';
@@ -24,6 +24,12 @@ function GalleryViewContent() {
     const [selectedFair, setSelectedFair] = useState(initialFair);
     const [selectedTheme, setSelectedTheme] = useState(initialTheme);
     const [videoToPlay, setVideoToPlay] = useState<GalleryItem | null>(null);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkIsMobile = () => /Mobi|Android/i.test(navigator.userAgent);
+        setIsMobile(checkIsMobile());
+    }, []);
 
     const allItems = useMemo(() => getGalleryItems(), []);
 
@@ -129,9 +135,11 @@ function GalleryViewContent() {
                                         ) : (
                                             <>
                                                 <video src={item.url} className="w-full h-full object-contain" preload="metadata" />
-                                                <div className="absolute inset-0 bg-black/40 items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden md:flex">
-                                                    <PlayCircle className="h-16 w-16 text-white/80" />
-                                                </div>
+                                                {!isMobile && (
+                                                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                                        <PlayCircle className="h-16 w-16 text-white/80" />
+                                                    </div>
+                                                )}
                                             </>
                                         )}
                                     </div>
