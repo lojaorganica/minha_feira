@@ -53,7 +53,7 @@ function GalleryViewContent() {
 
     return (
         <div className="flex flex-col h-full">
-            <div className="sticky top-0 z-10 py-4 mb-6 bg-background/80 backdrop-blur-sm -mx-4 -mt-2">
+            <div className="sticky top-0 z-10 py-4 mb-6 bg-background/90 backdrop-blur-sm -mx-4 px-4 -mt-2">
                 <div className="container mx-auto px-4">
                     <div className="flex flex-col sm:flex-row gap-4">
                         <Select value={selectedFair} onValueChange={(value) => handleFilterChange('fair', value)}>
@@ -99,7 +99,7 @@ function GalleryViewContent() {
                             <Card key={item.id} className="overflow-hidden flex flex-col group">
                                 <CardContent className="p-0">
                                     <div 
-                                        className="relative aspect-square w-full cursor-pointer bg-muted"
+                                        className="relative w-full cursor-pointer bg-muted"
                                         onClick={() => item.type === 'video' && setVideoToPlay(item)}
                                     >
                                         {item.type === 'image' ? (
@@ -123,7 +123,7 @@ function GalleryViewContent() {
                                 <div className="p-4 flex-grow flex flex-col">
                                     <div className="flex flex-wrap gap-2 mt-auto">
                                         {item.fair.map(f => <Badge key={f} variant="secondary">{f}</Badge>)}
-                                        {item.theme.map(t => <Badge key={t} variant="outline" className="border-accent text-accent">{t}</Badge>)}
+                                        {item.theme.map(t => <Badge key={t} variant="outline" className="border-transparent text-accent text-[11px]">{t}</Badge>)}
                                     </div>
                                 </div>
                                 <CardFooter className="p-2 bg-muted/50 mt-auto">
