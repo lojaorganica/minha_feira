@@ -77,6 +77,13 @@ function GalleryViewContent() {
         return `Feira Orgânica de ${fairName}`;
     };
 
+    const formatThemeName = (themeName: string) => {
+        const parts = themeName.split(' - ');
+        const firstWord = parts[0];
+        const rest = parts.slice(1).join(' - ');
+        return { firstWord, rest };
+    };
+
     return (
         <>
             <div className="sticky top-16 z-40 bg-background/95 py-2 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -113,7 +120,9 @@ function GalleryViewContent() {
             <div className="flex-grow pt-6">
                 {filteredItems.length > 0 ? (
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                        {filteredItems.map(item => (
+                        {filteredItems.map(item => {
+                            const { firstWord, rest } = formatThemeName(item.theme[0]);
+                            return (
                             <Card key={item.id} className="overflow-hidden flex flex-col group">
                                 <CardContent className="p-0">
                                     <div 
@@ -146,8 +155,9 @@ function GalleryViewContent() {
                                     <div className="flex flex-wrap gap-1">
                                         {item.fair.map(f => <Badge key={f} variant="secondary" className="text-xs px-1.5 py-0.5">{formatFairName(f)}</Badge>)}
                                     </div>
-                                     <div className="flex flex-wrap gap-1">
-                                        {item.theme.map(t => <Badge key={t} variant="outline" className="border-transparent text-accent text-[9px] px-1 py-0">{t}</Badge>)}
+                                    <div className="flex flex-col items-start">
+                                        <Badge variant="outline" className="border-transparent text-accent text-xs font-semibold px-1 py-0">{firstWord}</Badge>
+                                        {rest && <Badge variant="outline" className="border-transparent text-accent/80 text-[10px] -mt-1 px-1 py-0">{rest}</Badge>}
                                     </div>
                                 </div>
                                 <CardFooter className="p-2 bg-muted/50 mt-auto">
@@ -163,7 +173,7 @@ function GalleryViewContent() {
                                     </div>
                                 </CardFooter>
                             </Card>
-                        ))}
+                        )})}
                     </div>
                 ) : (
                     <div className="text-center py-20">
