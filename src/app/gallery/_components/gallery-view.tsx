@@ -73,7 +73,7 @@ function GalleryViewContent() {
         <>
             <div className="sticky top-0 z-10 bg-background/95 py-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                     <Select value={selectedFair} onValueChange={(value) => handleFilterChange('fair', value)}>
+                    <Select value={selectedFair} onValueChange={(value) => handleFilterChange('fair', value)}>
                         <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0">
                             <SelectValue placeholder="Filtrar por Feira" />
                         </SelectTrigger>
