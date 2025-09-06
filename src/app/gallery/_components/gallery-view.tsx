@@ -145,7 +145,7 @@ function GalleryViewContent() {
         <>
             <div className="flex justify-between items-center mb-4">
                 <BackButton />
-                 <Button
+                <Button
                     variant="ghost"
                     size="icon"
                     onClick={toggleShowFavorites}
@@ -161,7 +161,7 @@ function GalleryViewContent() {
                 </Button>
             </div>
             
-            <div className="mb-4">
+             <div className="mb-2">
                  <h1 className="text-3xl font-bold font-headline text-primary tracking-tight sm:text-4xl">
                     Galeria de Propagandas
                 </h1>
@@ -174,7 +174,7 @@ function GalleryViewContent() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                      <Select value={selectedFair} onValueChange={(value) => handleFilterChange('fair', value)} disabled={showFavorites}>
                         <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0 disabled:opacity-50">
-                            <SelectValue placeholder="Filtrar por Feira" />
+                            <SelectValue placeholder="Selecionar Feiras" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem value="Todas">Todas as Feiras</SelectItem>
@@ -188,7 +188,7 @@ function GalleryViewContent() {
                     
                     <Select value={selectedTheme} onValueChange={(value) => handleFilterChange('theme', value)} disabled={showFavorites}>
                         <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0 disabled:opacity-50">
-                            <SelectValue placeholder="Filtrar por Tema" />
+                            <SelectValue placeholder="Selecionar Temas" />
                         </SelectTrigger>
                         <SelectContent>
                            <SelectItem value="Todos">Todos os Temas</SelectItem>
@@ -353,5 +353,7 @@ export default function GalleryView() {
         </Suspense>
     );
 }
+
+    
 
     
