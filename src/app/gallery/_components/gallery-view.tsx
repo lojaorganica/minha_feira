@@ -205,7 +205,7 @@ function GalleryViewContent() {
                             <Card key={item.id} className="overflow-hidden flex flex-col group">
                                 <CardContent className="p-0">
                                     <div 
-                                        className="relative w-full cursor-pointer"
+                                        className="relative w-full"
                                         onClick={() => {
                                             if (item.type === 'video') setVideoToPlay(item);
                                             if (item.type === 'image') setSelectedImage(item);
@@ -217,16 +217,16 @@ function GalleryViewContent() {
                                                 alt={item.title}
                                                 width={300}
                                                 height={300}
-                                                className="object-contain w-full h-auto"
+                                                className="object-contain w-full h-auto cursor-pointer"
                                                 data-ai-hint={item.dataAiHint}
                                             />
                                         ) : (
-                                            <>
+                                            <div className="relative cursor-pointer">
                                                 <video src={item.url} className="w-full h-full object-contain" preload="metadata" />
-                                                 <div className="absolute inset-0 flex items-center justify-center">
+                                                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                                                     <PlayCircle className="h-16 w-16 text-white/80 drop-shadow-lg" />
                                                 </div>
-                                            </>
+                                            </div>
                                         )}
                                         <Button variant="ghost" size="icon" className="absolute top-1 right-1 h-8 w-8 bg-black/20 hover:bg-black/40 text-white rounded-full" onClick={(e) => { e.stopPropagation(); toggleFavorite(item);}}>
                                             <Heart className={cn("h-5 w-5 text-white", isCurrentlyFavorite && "fill-red-500 text-red-500")}/>
