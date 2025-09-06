@@ -50,7 +50,7 @@ function GalleryViewContent() {
         const sourceItems = showFavorites ? favorites : allItems;
         
         return sourceItems.filter(item => {
-            const fairMatch = !selectedFair || item.fair.includes(selectedFair as any);
+            const fairMatch = !selectedFair || (selectedFair === 'Todas' ? item.fair.includes('Todas') : item.fair.includes(selectedFair as any));
             const themeMatch = selectedTheme === 'Todos' || item.theme.includes(selectedTheme as any);
             return fairMatch && themeMatch;
         });
@@ -186,9 +186,11 @@ function GalleryViewContent() {
              <div className="sticky top-16 z-40 bg-background/95 py-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                      <Select value={selectedFair ?? 'null'} onValueChange={(value) => handleFilterChange('fair', value)} disabled={showFavorites}>
-                        <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0 disabled:opacity-50 justify-start">
+                        <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0 disabled:opacity-50">
                              <SelectValue>
+                                 <div className="flex-1 text-left">
                                 {selectedFair ? formatFairName(selectedFair) : "Selecionar Feiras"}
+                                </div>
                             </SelectValue>
                         </SelectTrigger>
                         <SelectContent>
