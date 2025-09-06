@@ -146,8 +146,8 @@ function GalleryViewContent() {
             <div className="flex justify-between items-center mb-4 flex-shrink-0">
                 <BackButton />
                 <div className="w-10 h-10 flex items-center justify-center">
-                    <Button variant="ghost" size="icon" onClick={toggleShowFavorites}>
-                        <Heart className={cn("h-7 w-7 transition-colors hover:fill-destructive/80", showFavorites ? "fill-current text-destructive" : "text-destructive/50")} />
+                    <Button variant="ghost" size="icon" onClick={toggleShowFavorites} className="hover:bg-transparent">
+                        <Heart className={cn("h-7 w-7 transition-colors hover:fill-destructive", showFavorites ? "fill-current text-destructive" : "text-destructive/50")} />
                         <span className="sr-only">Mostrar Favoritos</span>
                     </Button>
                 </div>
@@ -232,7 +232,7 @@ function GalleryViewContent() {
                                         <Button
                                           variant="ghost"
                                           size="icon"
-                                          className="absolute top-1 right-1 h-8 w-8 rounded-full group focus-visible:ring-0 focus-visible:ring-offset-0 hover:bg-transparent"
+                                          className="absolute top-1 right-1 h-8 w-8 rounded-full focus-visible:ring-0 focus-visible:ring-offset-0 hover:bg-transparent"
                                           onClick={(e) => {
                                             e.stopPropagation();
                                             toggleFavorite(item);
