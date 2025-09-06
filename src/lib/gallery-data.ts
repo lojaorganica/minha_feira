@@ -1110,6 +1110,7 @@ export function getGalleryItems(): GalleryItem[] {
       "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_tijuca_65_limao_america.png?alt=media&token=02d43d7a-b3b5-4f20-b473-a4d895ff2bc3",
       "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_tijuca_67_uverine.png?alt=media&token=ef1cf006-f941-44b6-bf1e-c7d007854b33",
       "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_tijuca_70_berinjela_negra.png?alt=media&token=eedd470f-fad7-46b3-a078-33aeea795cf8",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_tijuca_72_brulk.png?alt=media&token=70efbb2e-f058-4ebd-98a5-4a69d75f41ba",
       "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_tijuca_73_mandiorpheus.png?alt=media&token=aaea14d0-93b9-4e02-93ae-0e6e60d4da6d",
       "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_tijuca_81_pepino_verde.png?alt=media&token=b33cf144-855e-4731-aaf6-3de935f12bf8",
       "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_tijuca_92_beterraba_de_ferro.png?alt=media&token=8082d54a-1cde-4893-9b5d-ec123e3f84f3",
@@ -1130,7 +1131,6 @@ export function getGalleryItems(): GalleryItem[] {
       "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feiras_flamengo_laranjeiras_94b_coisa.png?alt=media&token=d934d89d-9359-447c-8f52-c142a603ea0f",
       "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feiras_flamengo_laranjeiras_97_berin.png?alt=media&token=29eb0d33-0244-426e-8cf4-6199f9146f35",
       "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feiras_flamengo_laranjeiras_99_brulk.png?alt=media&token=593a813f-b898-4f13-ba07-8286acd7acf1",
-      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feiras_tijuca_72_brulk.png?alt=media&token=70efbb2e-f058-4ebd-98a5-4a69d75f41ba",
       "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_story_feiras_flamengo_laranjeiras_103_bete.png?alt=media&token=b6c3e862-4a7a-4bf6-b78a-bc8579495b86",
       "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_story_feiras_flamengo_laranjeiras_36_bata.png?alt=media&token=20e18dcb-b7f0-410a-922b-a98a9ab2d985",
       "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_story_feiras_flamengo_laranjeiras_38_robin.png?alt=media&token=526e91d5-bf81-46e6-9d66-e9efa84d4807",
@@ -1187,7 +1187,7 @@ export function getGalleryItems(): GalleryItem[] {
       "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fespecial_dia_das_maes_07.jpg?alt=media&token=32184c51-723b-41e2-8bd7-36307eec316d",
       "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fespecial_dia_das_maes_07a.jpg?alt=media&token=6cde3804-c774-4ba7-bb3c-659e75ea8b5e",
       "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fespecial_dia_das_maes_08.jpg?alt=media&token=f144d7bc-72e5-4066-b0e7-d254acc8ceda",
-       "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fespecial_dia_das_maes_08a.jpg?alt=media&token=724a63b2-9ea1-4497-bf8b-6b413669c957",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fespecial_dia_das_maes_08a.jpg?alt=media&token=724a63b2-9ea1-4497-bf8b-6b413669c957",
       "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fespecial_dia_das_maes_09.jpg?alt=media&token=1f785f0e-0995-4f4e-b922-c176ccf0844f",
       "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fespecial_dia_das_maes_09a.jpg?alt=media&token=a5a42437-792d-43ba-8dac-735f51d851c7",
       "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fespecial_dia_das_maes_10.jpg?alt=media&token=ba4f5d34-e2c2-4dea-ba86-efdd9fe4e845",
@@ -1228,6 +1228,37 @@ export function getGalleryItems(): GalleryItem[] {
       "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_34_feira_leme.png?alt=media&token=39186704-821e-4fb3-87b7-f85198a1b926",
       "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_35_feira_botafogo.png?alt=media&token=2f43b48e-c15a-45bf-84ba-ddeb51b6dc82",
       "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_36_feira_botafogo.png?alt=media&token=2ed40f88-cdb7-4c82-917b-79971cfadeb2",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_38_feira_grajau.png?alt=media&token=fdb54153-614c-45ff-911e-2ef4a54c00e6",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_39_feira_grajau.png?alt=media&token=62d8a24c-2cc2-4298-ab02-23febf906d65",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_43_feira_grajau.png?alt=media&token=2618e58e-f390-429b-a9fe-c7cf606e5f15",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_44_feira_botafogo.png?alt=media&token=67a8c528-9944-44b1-9d1a-b5c34572c8e0",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_44_todas_feiras.png?alt=media&token=4bfa1f1c-3479-46e5-88b6-ed790c86606a",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_55_feira_tijuca.png?alt=media&token=30c8642d-e2a0-4430-a7a6-c66a0f12616f",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_55_todas_feiras.png?alt=media&token=4b6ef0ae-b017-467a-b72f-ea40a277fb43",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_56_feira_tijuca.png?alt=media&token=9f6e3d53-a3cc-4a77-926d-10788562a49b",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_56_todas_feiras.png?alt=media&token=9e875aaa-d576-4a70-acb8-5fcdccd25898",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_57_todas_feiras.png?alt=media&token=f86b0654-4dda-4dd5-88fc-1bc030bb8bc4",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_60_feira_tijuca.png?alt=media&token=8dd9da8a-fbd5-4da9-838a-566628fbfab9",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_61_todas_feiras.png?alt=media&token=a883548a-dbad-40a2-9cc9-da194b5e2ecb",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_62_feira_leme.png?alt=media&token=5a1487b2-f1ac-4665-8901-f38b8720e91a",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_65_feira_leme.png?alt=media&token=e20da07f-bf42-4f71-9a40-da26da41b3f5",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_66_feira_grajau.png?alt=media&token=2c7c0ac5-519b-41de-beeb-178f89500e3c",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_66_feira_leme.png?alt=media&token=619446c3-a087-4e41-b5b3-9fb08841350c",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_67_feira_grajau.png?alt=media&token=8daafee3-3349-4f48-8687-a59ba603216d",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_67_feira_leme.png?alt=media&token=738d5659-6b00-48da-bb0b-043a68549810",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_67_todas_feiras.png?alt=media&token=3c3a9011-7475-4b4f-a85a-59cb8b95d904",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_68_feira_grajau.png?alt=media&token=22bfcdaf-cce8-421e-9f6e-de831066d094",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_68_feira_leme.png?alt=media&token=e854aabb-599b-4779-8404-cc97db382795",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_69_feira_botafogo.png?alt=media&token=3571b9b9-73eb-45ce-b4f7-fb19b5e59035",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_69_feira_grajau.png?alt=media&token=9c3567ca-37fd-488e-b443-34eedcd43c4c",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_69_feira_leme.png?alt=media&token=dbfbc3fb-f80a-416e-b56d-7ef2a30b3892",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_70_feira_botafogo.png?alt=media&token=e4d7462d-5785-4e10-be6a-040a43a11d3a",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_70_feira_grajau.png?alt=media&token=8c767e49-e87e-49ec-9002-da72b2677fd1",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_70_feira_leme.png?alt=media&token=aab42b41-491b-4f39-b4ca-93ab306ab49c",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_71_feira_botafogo.png?alt=media&token=e8618e7b-e9a0-46fc-975f-8959ce2aa670",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_71_feira_grajau.png?alt=media&token=7414e23d-cab1-49a4-9845-981358520a98",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_71_feira_leme.png?alt=media&token=19aab830-4428-4f90-985c-7ddc47fddfe4",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_72_feira_botafogo.png?alt=media&token=917b4fe6-3586-4cec-87fb-4cec22106f72",
   ];
 
   // Primeiro, processa os itens que já estão na lista de nomes de arquivos
@@ -1279,5 +1310,3 @@ export function getGalleryItems(): GalleryItem[] {
   galleryItemsCache = allItems;
   return galleryItemsCache;
 }
-
-    
