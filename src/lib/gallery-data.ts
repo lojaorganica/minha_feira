@@ -1274,3 +1274,5 @@ export function getGalleryItems(): GalleryItem[] {
 
   return allItems;
 }
+
+    
