@@ -202,7 +202,7 @@ function GalleryViewContent() {
                             const { firstWord, rest } = formatThemeName(item.theme[0]);
                             const isCurrentlyFavorite = isFavorite(item.id);
                             return (
-                            <Card key={item.id} className="overflow-hidden flex flex-col group no-tap-highlight">
+                            <Card key={item.id} className="overflow-hidden flex flex-col no-tap-highlight">
                                 <CardContent className="p-0">
                                     <div className="relative w-full">
                                         {item.type === 'image' ? (
@@ -221,13 +221,10 @@ function GalleryViewContent() {
                                                 />
                                             </>
                                         ) : (
-                                            <div className="relative">
+                                            <div className="relative" onClick={() => setVideoToPlay(item)}>
                                                 <video src={item.url} className="w-full h-full object-contain" preload="metadata" />
-                                                <div 
-                                                    className="absolute inset-0 flex items-center justify-center cursor-pointer"
-                                                    onClick={() => setVideoToPlay(item)}
-                                                >
-                                                    <PlayCircle className="h-16 w-16 text-white/80 drop-shadow-lg pointer-events-none" />
+                                                <div className="absolute inset-0 flex items-center justify-center bg-transparent pointer-events-none">
+                                                    <PlayCircle className="h-16 w-16 text-white/80 drop-shadow-lg" />
                                                 </div>
                                             </div>
                                         )}
