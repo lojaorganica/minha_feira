@@ -205,7 +205,7 @@ function GalleryViewContent() {
                             <Card key={item.id} className="overflow-hidden flex flex-col group">
                                 <CardContent className="p-0">
                                     <div 
-                                        className="relative w-full cursor-pointer bg-muted"
+                                        className="relative w-full cursor-pointer"
                                         onClick={() => {
                                             if (item.type === 'video') setVideoToPlay(item);
                                             if (item.type === 'image') setSelectedImage(item);
