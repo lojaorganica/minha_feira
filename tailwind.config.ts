@@ -92,10 +92,6 @@ export default {
             height: '0',
           },
         },
-        'pulse-heart': {
-          '0%, 100%': { transform: 'scale(1)' },
-          '50%': { transform: 'scale(1.25)' },
-        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
