@@ -160,7 +160,7 @@ function GalleryViewContent() {
                 <p className="mt-2 text-base font-medium text-foreground/90 max-w-3xl">
                     Utilize estas artes para divulgar as feiras em suas redes sociais. Baixe e compartilhe as imagens e vídeos à vontade! Use os filtros para encontrar a propaganda ideal. 
                 </p>
-                <div className="mb-2 flex justify-end">
+                <div className="flex justify-end">
                     <p className="text-2xl font-bold text-accent">Total: {allItems.length}</p>
                 </div>
             </div>
@@ -242,8 +242,8 @@ function GalleryViewContent() {
                                           }}
                                         >
                                             <Heart className={cn(
-                                                "h-6 w-6 text-destructive fill-white transition-all hover:fill-destructive md:h-7 md:w-7", 
-                                                isCurrentlyFavorite && "fill-destructive animate-pulse-heart"
+                                                "h-6 w-6 fill-white text-destructive/50 transition-all hover:fill-destructive hover:text-destructive md:h-7 md:w-7", 
+                                                isCurrentlyFavorite && "fill-destructive text-destructive animate-pulse-heart"
                                             )}/>
                                         </Button>
                                     </div>
