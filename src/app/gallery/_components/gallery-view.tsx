@@ -147,7 +147,7 @@ function GalleryViewContent() {
                 <BackButton />
                 <div className="w-10 h-10 flex items-center justify-center">
                     <Button variant="ghost" size="icon" onClick={toggleShowFavorites} className="hover:bg-transparent">
-                        <Heart className={cn("h-7 w-7 transition-colors hover:fill-destructive", showFavorites ? "fill-current text-destructive" : "text-destructive/50")} />
+                        <Heart className={cn("h-7 w-7 transition-colors", showFavorites ? "fill-current text-destructive" : "text-destructive/50")} />
                         <span className="sr-only">Mostrar Favoritos</span>
                     </Button>
                 </div>
@@ -163,6 +163,9 @@ function GalleryViewContent() {
             </div>
 
             <div className="sticky top-16 z-40 bg-background/95 py-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+                 <div className="mb-2 flex justify-end">
+                    <p className="text-2xl font-bold text-accent">Total: {allItems.length}</p>
+                </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                      <Select value={selectedFair} onValueChange={(value) => handleFilterChange('fair', value)} disabled={showFavorites}>
                         <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0 disabled:opacity-50">
@@ -239,7 +242,7 @@ function GalleryViewContent() {
                                           }}
                                         >
                                             <Heart className={cn(
-                                                "h-5 w-5 md:h-6 md:w-6 text-white fill-white transition-all hover:fill-destructive", 
+                                                "h-5 w-5 text-white fill-white transition-all hover:fill-destructive hover:text-destructive", 
                                                 isCurrentlyFavorite && "fill-destructive text-destructive animate-pulse-heart"
                                             )}/>
                                         </Button>
