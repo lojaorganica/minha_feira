@@ -72,8 +72,9 @@
   .desktop-device .group:hover .desktop-device\\:group-hover\\:opacity-100 {
     opacity: 1;
   }
-  * {
-    -webkit-tap-highlight-color: transparent !important;
+  a, button {
+      outline: none !important;
+      -webkit-tap-highlight-color: rgba(0,0,0,0) !important;
   }
 }
 

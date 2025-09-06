@@ -221,7 +221,7 @@ function GalleryViewContent() {
                                                 />
                                             </>
                                         ) : (
-                                            <div className="relative" onClick={() => setVideoToPlay(item)}>
+                                            <div className="relative cursor-pointer" onClick={() => setVideoToPlay(item)}>
                                                 <video src={item.url} className="w-full h-full object-contain" preload="metadata" />
                                                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                                                     <PlayCircle className="h-16 w-16 text-white/80 drop-shadow-lg" />
