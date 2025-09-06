@@ -147,13 +147,13 @@ function GalleryViewContent() {
                 <BackButton />
                 <div className="w-10 h-10 flex items-center justify-center">
                     <Button variant="ghost" size="icon" onClick={toggleShowFavorites} className="hover:bg-transparent">
-                        <Heart className={cn("h-7 w-7 transition-colors", showFavorites ? "fill-current text-destructive" : "text-destructive/50")} />
+                        <Heart className={cn("h-7 w-7 transition-colors", showFavorites ? "fill-current text-destructive" : "fill-white text-destructive/50")} />
                         <span className="sr-only">Mostrar Favoritos</span>
                     </Button>
                 </div>
             </div>
 
-            <div className="mb-6 flex-shrink-0">
+            <div className="mb-4 flex-shrink-0">
                 <h1 className="text-3xl font-bold font-headline text-primary tracking-tight sm:text-4xl">
                     Galeria de Propagandas
                 </h1>
@@ -162,7 +162,7 @@ function GalleryViewContent() {
                 </p>
             </div>
 
-            <div className="sticky top-16 z-40 bg-background/95 py-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+            <div className="sticky top-16 z-40 bg-background/95 pt-2 pb-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
                  <div className="mb-2 flex justify-end">
                     <p className="text-2xl font-bold text-accent">Total: {allItems.length}</p>
                 </div>
@@ -242,7 +242,7 @@ function GalleryViewContent() {
                                           }}
                                         >
                                             <Heart className={cn(
-                                                "h-5 w-5 text-white fill-white transition-all hover:fill-destructive hover:text-destructive", 
+                                                "h-5 md:h-6 w-5 md:w-6 text-white fill-white transition-all hover:fill-destructive hover:text-destructive", 
                                                 isCurrentlyFavorite && "fill-destructive text-destructive animate-pulse-heart"
                                             )}/>
                                         </Button>
