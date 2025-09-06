@@ -49,8 +49,12 @@ const Header = () => {
   const { searchTerm, setSearchTerm } = useSearch();
   const { user, userType, isUserLoaded, logout } = useUser();
   const [isSheetOpen, setSheetOpen] = useState(false);
+  
+  // Extrai os parâmetros da URL para a lógica da página da galeria
   const searchParams = usePathname();
-  const isFavoritesPage = searchParams.includes('/gallery') && new URLSearchParams(searchParams).get('favoritos') === 'true';
+  const urlParams = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
+  const isGalleryPage = searchParams.includes('/gallery');
+  const showFavorites = urlParams.get('favoritos') === 'true';
 
 
   const handleLogout = () => {
@@ -65,6 +69,16 @@ const Header = () => {
         router.push(href);
     }, 150);
   };
+  
+  const handleToggleFavorites = () => {
+     const currentParams = new URLSearchParams(urlParams.toString());
+     if (showFavorites) {
+        currentParams.delete('favoritos');
+     } else {
+        currentParams.set('favoritos', 'true');
+     }
+     router.push(`/gallery?${currentParams.toString()}`, { scroll: false });
+  }
 
   const isCatalogPage = pathname === '/catalog';
   
@@ -174,6 +188,19 @@ const Header = () => {
         
         {/* Right Section */}
         <div className="flex items-center justify-end gap-2 lg:w-1/4">
+          
+           {isGalleryPage && (
+             <Button variant="ghost" size="icon" onClick={handleToggleFavorites} className="group focus-visible:ring-0 focus-visible:ring-offset-0">
+                <Heart className={cn(
+                    "h-7 w-7 transition-colors",
+                    showFavorites 
+                        ? "fill-destructive text-destructive"
+                        : "text-destructive/50 group-hover:fill-destructive"
+                )} />
+                <span className="sr-only">Mostrar Favoritos</span>
+            </Button>
+           )}
+
            <Link href="/profile" className="hidden lg:flex">
                 <Button variant="ghost" size="icon" aria-label="Meu Perfil">
                    <User className="h-6 w-6" />
