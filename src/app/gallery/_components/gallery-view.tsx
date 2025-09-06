@@ -156,7 +156,7 @@ function GalleryViewContent() {
                 </Button>
             </div>
 
-            <div className="mb-4">
+            <div className="mb-6">
                 <h1 className="text-3xl font-bold font-headline text-primary tracking-tight sm:text-4xl">
                     Galeria de Propagandas
                 </h1>
@@ -165,7 +165,7 @@ function GalleryViewContent() {
                 </p>
             </div>
             
-            <div className="flex justify-end mb-4">
+            <div className="flex justify-end mb-2">
                 <p className="text-2xl font-bold text-accent">Total: {allItems.length}</p>
             </div>
             
