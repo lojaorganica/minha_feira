@@ -204,27 +204,30 @@ function GalleryViewContent() {
                             return (
                             <Card key={item.id} className="overflow-hidden flex flex-col group">
                                 <CardContent className="p-0">
-                                    <div 
-                                        className="relative w-full"
-                                        onClick={() => {
-                                            if (item.type === 'video') setVideoToPlay(item);
-                                            if (item.type === 'image') setSelectedImage(item);
-                                        }}
-                                    >
+                                    <div className="relative w-full">
                                         {item.type === 'image' ? (
-                                            <Image
-                                                src={item.url}
-                                                alt={item.title}
-                                                width={300}
-                                                height={300}
-                                                className="object-contain w-full h-auto cursor-pointer"
-                                                data-ai-hint={item.dataAiHint}
-                                            />
+                                            <>
+                                                <Image
+                                                    src={item.url}
+                                                    alt={item.title}
+                                                    width={300}
+                                                    height={300}
+                                                    className="object-contain w-full h-auto"
+                                                    data-ai-hint={item.dataAiHint}
+                                                />
+                                                <div 
+                                                    className="absolute inset-0 cursor-pointer"
+                                                    onClick={() => setSelectedImage(item)}
+                                                />
+                                            </>
                                         ) : (
                                             <div className="relative">
                                                 <video src={item.url} className="w-full h-full object-contain" preload="metadata" />
-                                                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                                                    <PlayCircle className="h-16 w-16 text-white/80 drop-shadow-lg" />
+                                                <div 
+                                                    className="absolute inset-0 flex items-center justify-center cursor-pointer"
+                                                    onClick={() => setVideoToPlay(item)}
+                                                >
+                                                    <PlayCircle className="h-16 w-16 text-white/80 drop-shadow-lg pointer-events-none" />
                                                 </div>
                                             </div>
                                         )}
@@ -235,7 +238,7 @@ function GalleryViewContent() {
                                 </CardContent>
                                 <div className="p-2 space-y-1">
                                     <div className="flex flex-wrap gap-1">
-                                        {item.fair.map(f => <Badge key={f} variant="outline" className="text-xs px-1.5 py-0.5 border-transparent">{formatFairName(f)}</Badge>)}
+                                        {item.fair.map(f => <Badge key={f} variant="outline" className="text-xs px-1.5 py-0.5 border-transparent bg-transparent">{formatFairName(f)}</Badge>)}
                                     </div>
                                     <div className="flex flex-col items-start">
                                         <Badge variant="outline" className="border-transparent text-accent text-xs font-semibold px-1 py-0">{firstWord}</Badge>
