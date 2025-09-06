@@ -239,7 +239,7 @@ function GalleryViewContent() {
                                           }}
                                         >
                                             <Heart className={cn(
-                                                "h-5 w-5 text-white transition-all hover:fill-red-500", 
+                                                "h-5 w-5 text-white fill-white transition-all hover:fill-red-500 hover:text-red-500", 
                                                 isCurrentlyFavorite && "fill-red-500 text-red-500 animate-pulse-heart"
                                             )}/>
                                         </Button>
