@@ -170,8 +170,8 @@ function GalleryViewContent() {
                 </p>
             </div>
 
-             <div className="flex justify-end mb-1 mt-2">
-                <p className="text-2xl font-bold text-accent">Total: {allItems.length}</p>
+            <div className="flex justify-end mb-1 mt-2">
+                <p className="text-2xl font-bold text-accent">Total: {filteredItems.length}</p>
             </div>
             
              <div className="sticky top-16 z-40 bg-background/95 py-2 backdrop-blur supports-[backdrop-filter]:bg-background/60">

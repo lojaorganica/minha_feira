@@ -1072,28 +1072,35 @@ function extractFileNameFromUrl(url: string): string {
         // Tenta uma abordagem mais simples como fallback
         const lastSlashIndex = url.lastIndexOf('%2F');
         const questionMarkIndex = url.indexOf('?');
-        if (lastSlashIndex !== -1 && questionMarkIndex !== -1) {
-            return decodeURIComponent(url.substring(lastSlashIndex + 3, questionMarkIndex));
+        if (lastSlashIndex !== -1) {
+            const end = questionMarkIndex > -1 ? questionMarkIndex : url.length;
+            return decodeURIComponent(url.substring(lastSlashIndex + 3, end));
         }
         return `arquivo-${Math.random()}`; // Retorna um nome genérico em caso de falha total
     }
 }
 
+// Singleton para armazenar os itens da galeria e evitar reprocessamento
+let galleryItemsCache: GalleryItem[] | null = null;
 
 export function getGalleryItems(): GalleryItem[] {
+  if (galleryItemsCache) {
+    return galleryItemsCache;
+  }
+  
   const allItems: GalleryItem[] = [];
+  const processedFileNames = new Set<string>();
 
   // Primeiro, processa os itens que já estão na lista de nomes de arquivos
   const processedFromNames = allGalleryFileNames.map(item => {
-    const isPropagandaFolder = item.fileName.startsWith('anuncio_') || item.fileName.startsWith('foto_');
-    const folder = isPropagandaFolder ? 'propagandas%2F' : STORAGE_SUB_FOLDER;
+    const folder = 'media_minha_feira%2F';
     
-    const decodedFileName = decodeURIComponent(item.fileName);
-
     const fullUrl = `${STORAGE_BASE_URL}${folder}${item.fileName}${STORAGE_TOKEN}`;
 
-    const fairs = getFairCategories(decodedFileName);
-    const themes = getThemeCategories(decodedFileName);
+    const fairs = getFairCategories(item.fileName);
+    const themes = getThemeCategories(item.fileName);
+
+    processedFileNames.add(item.fileName);
 
     return {
       ...item,
@@ -1107,6 +1114,10 @@ export function getGalleryItems(): GalleryItem[] {
 
   // Adiciona as URLs completas fornecidas, evitando duplicatas
   const providedUrls = [
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_33_feira_leme.png?alt=media&token=d3a206f5-7bbf-481b-945c-e46d7c26a63c",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_34_feira_leme.png?alt=media&token=39186704-821e-4fb3-87b7-f85198a1b926",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_35_feira_botafogo.png?alt=media&token=2f43b48e-c15a-45bf-84ba-ddeb51b6dc82",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_36_feira_botafogo.png?alt=media&token=2ed40f88-cdb7-4c82-917b-79971cfadeb2",
       "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_leme_45_limao_america.png?alt=media&token=4d03805c-8095-4d3a-acb9-4a65bac4cdc5",
       "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_leme_47_uverine.png?alt=media&token=18f961db-2fb0-480d-8336-fd06d1f20158",
       "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_leme_50_berinjela_negra.png?alt=media&token=595f9ec8-38a6-4710-89a4-c393043a02b2",
@@ -1241,16 +1252,12 @@ export function getGalleryItems(): GalleryItem[] {
       "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_29_feiras_flamengo_laranjeiras.png?alt=media&token=0d51bbb2-3781-4828-a305-83b990b948f4",
       "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_30_feiras_flamengo_laranjeiras.png?alt=media&token=fd137203-7560-41f7-ae15-214a993bbe75",
       "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_30_todas_feiras.png?alt=media&token=5a072510-7284-417c-aedd-42a3ca69f515",
-      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_33_feira_leme.png?alt=media&token=d3a206f5-7bbf-481b-945c-e46d7c26a63c",
-      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_34_feira_leme.png?alt=media&token=39186704-821e-4fb3-87b7-f85198a1b926",
-      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_35_feira_botafogo.png?alt=media&token=2f43b48e-c15a-45bf-84ba-ddeb51b6dc82",
-      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_36_feira_botafogo.png?alt=media&token=2ed40f88-cdb7-4c82-917b-79971cfadeb2",
   ];
 
   providedUrls.forEach(url => {
       const fileName = extractFileNameFromUrl(url);
-      if (!allItems.some(item => item.fileName === fileName)) {
-          const id = `propaganda-url-${allItems.length + 1}`;
+      if (!processedFileNames.has(fileName)) {
+          const id = `prop-url-${allItems.length + 1}`;
           let title = fileName.split('.')[0].replace(/_/g, ' '); // Título genérico
           const type = fileName.endsWith('.mp4') ? 'video' : 'image';
           
@@ -1258,23 +1265,23 @@ export function getGalleryItems(): GalleryItem[] {
           const parts = title.split(' ');
           if(parts.length > 2) {
               const namePart = parts.slice(2).join(' '); // Pega tudo depois dos códigos iniciais
-              const formattedName = namePart.split(' feira')[0];
-              title = formattedName.charAt(0).toUpperCase() + formattedName.slice(1);
+              const formattedName = namePart.split(' feira')[0].replace(/\b\w/g, l => l.toUpperCase());
+              title = formattedName;
           }
 
           allItems.push({
               id,
               url,
-              fileName,
               title,
               type,
               dataAiHint: title.toLowerCase(),
               fair: getFairCategories(fileName),
               theme: getThemeCategories(fileName),
           });
+          processedFileNames.add(fileName);
       }
   });
 
-
-  return allItems;
+  galleryItemsCache = allItems;
+  return galleryItemsCache;
 }
