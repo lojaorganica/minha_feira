@@ -239,8 +239,8 @@ function GalleryViewContent() {
                                           }}
                                         >
                                             <Heart className={cn(
-                                                "h-5 w-5 text-white fill-white transition-all hover:fill-red-500 hover:text-red-500", 
-                                                isCurrentlyFavorite && "fill-red-500 text-red-500 animate-pulse-heart"
+                                                "h-5 w-5 text-white fill-white transition-all hover:fill-destructive", 
+                                                isCurrentlyFavorite && "fill-destructive text-destructive animate-pulse-heart"
                                             )}/>
                                         </Button>
                                     </div>
