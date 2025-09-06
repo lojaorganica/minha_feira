@@ -221,7 +221,7 @@ function GalleryViewContent() {
                                                 data-ai-hint={item.dataAiHint}
                                             />
                                         ) : (
-                                            <div className="relative cursor-pointer">
+                                            <div className="relative">
                                                 <video src={item.url} className="w-full h-full object-contain" preload="metadata" />
                                                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                                                     <PlayCircle className="h-16 w-16 text-white/80 drop-shadow-lg" />
@@ -235,7 +235,7 @@ function GalleryViewContent() {
                                 </CardContent>
                                 <div className="p-2 space-y-1">
                                     <div className="flex flex-wrap gap-1">
-                                        {item.fair.map(f => <Badge key={f} variant="secondary" className="text-xs px-1.5 py-0.5">{formatFairName(f)}</Badge>)}
+                                        {item.fair.map(f => <Badge key={f} variant="outline" className="text-xs px-1.5 py-0.5 border-transparent">{formatFairName(f)}</Badge>)}
                                     </div>
                                     <div className="flex flex-col items-start">
                                         <Badge variant="outline" className="border-transparent text-accent text-xs font-semibold px-1 py-0">{firstWord}</Badge>
