@@ -145,7 +145,7 @@ function GalleryViewContent() {
         <>
             <div className="flex justify-between items-center mb-4 flex-shrink-0">
                 <BackButton />
-                 <div className="w-10 h-10 flex items-center justify-center">
+                <div className="w-10 h-10 flex items-center justify-center">
                     <Button variant="ghost" size="icon" onClick={toggleShowFavorites} className="bg-transparent hover:bg-transparent focus-visible:bg-transparent focus:bg-transparent active:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0">
                         <Heart className={cn("h-7 w-7 transition-colors hover:fill-destructive/80", showFavorites ? "fill-current text-destructive" : "text-destructive/50")} />
                         <span className="sr-only">Mostrar Favoritos</span>
@@ -221,15 +221,16 @@ function GalleryViewContent() {
                                                 />
                                             </>
                                         ) : (
-                                            <div className="relative cursor-pointer" onClick={() => setVideoToPlay(item)}>
-                                                <video src={item.url} className="w-full h-full object-contain" preload="metadata" />
+                                            <div className="relative" onClick={() => setVideoToPlay(item)}>
+                                                <div className="absolute inset-0 bg-transparent cursor-pointer" />
+                                                <video src={item.url} className="w-full h-full object-contain pointer-events-none" preload="metadata" />
                                                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                                                     <PlayCircle className="h-16 w-16 text-white/80 drop-shadow-lg" />
                                                 </div>
                                             </div>
                                         )}
                                         <Button variant="ghost" size="icon" className="absolute top-1 right-1 h-8 w-8 bg-black/20 hover:bg-black/40 text-white rounded-full" onClick={(e) => { e.stopPropagation(); toggleFavorite(item);}}>
-                                            <Heart className={cn("h-5 w-5 text-white", isCurrentlyFavorite && "fill-red-500 text-red-500")}/>
+                                            <Heart className={cn("h-5 w-5 text-white transition-all", isCurrentlyFavorite && "fill-red-500 text-red-500 animate-pulse-heart")}/>
                                         </Button>
                                     </div>
                                 </CardContent>
