@@ -145,7 +145,7 @@ function GalleryViewContent() {
         <>
             <div className="flex justify-between items-center mb-4">
                 <BackButton />
-                <Button
+                 <Button
                     variant="ghost"
                     size="icon"
                     onClick={toggleShowFavorites}
@@ -155,13 +155,13 @@ function GalleryViewContent() {
                         "h-7 w-7 transition-colors",
                         showFavorites
                             ? "fill-destructive text-destructive"
-                            : "stroke-destructive hover:fill-destructive"
+                            : "stroke-primary hover:fill-destructive hover:stroke-destructive"
                     )} />
                     <span className="sr-only">Mostrar Favoritos</span>
                 </Button>
             </div>
             
-            <div className="mb-4">
+            <div className="mb-2">
                  <h1 className="text-3xl font-bold font-headline text-primary tracking-tight sm:text-4xl">
                     Galeria de Propagandas
                 </h1>
@@ -170,7 +170,7 @@ function GalleryViewContent() {
                 </p>
             </div>
 
-             <div className="flex justify-end mb-1 mt-4">
+             <div className="flex justify-end mb-1 mt-2">
                 <p className="text-2xl font-bold text-accent">Total: {allItems.length}</p>
             </div>
             
