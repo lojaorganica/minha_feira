@@ -49,7 +49,10 @@ const Header = () => {
   const { searchTerm, setSearchTerm } = useSearch();
   const { user, userType, isUserLoaded, logout } = useUser();
   const [isSheetOpen, setSheetOpen] = useState(false);
-  
+  const searchParams = usePathname();
+  const isFavoritesPage = searchParams.includes('/gallery') && new URLSearchParams(searchParams).get('favoritos') === 'true';
+
+
   const handleLogout = () => {
     logout();
     setSheetOpen(false);
