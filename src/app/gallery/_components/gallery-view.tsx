@@ -204,7 +204,7 @@ function GalleryViewContent() {
                             return (
                             <Card key={item.id} className="overflow-hidden flex flex-col">
                                 <CardContent className="p-0">
-                                    <div className="relative w-full group">
+                                    <div className="relative w-full">
                                         {item.type === 'image' ? (
                                             <>
                                                 <Image
@@ -239,7 +239,7 @@ function GalleryViewContent() {
                                           }}
                                         >
                                             <Heart className={cn(
-                                                "h-5 w-5 text-white transition-all group-hover:fill-red-500", 
+                                                "h-5 w-5 text-white transition-all hover:fill-red-500", 
                                                 isCurrentlyFavorite && "fill-red-500 text-red-500 animate-pulse-heart"
                                             )}/>
                                         </Button>
