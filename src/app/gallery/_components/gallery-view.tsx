@@ -161,7 +161,7 @@ function GalleryViewContent() {
                 </Button>
             </div>
             
-            <div className="mb-6">
+            <div className="mb-4">
                  <h1 className="text-3xl font-bold font-headline text-primary tracking-tight sm:text-4xl">
                     Galeria de Propagandas
                 </h1>
@@ -170,10 +170,6 @@ function GalleryViewContent() {
                 </p>
             </div>
 
-            <div className="flex justify-end mb-2 mt-4">
-                <p className="text-2xl font-bold text-accent">Total: {filteredItems.length}</p>
-            </div>
-            
              <div className="sticky top-16 z-40 bg-background/95 py-2 backdrop-blur supports-[backdrop-filter]:bg-background/60">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                      <Select value={selectedFair} onValueChange={(value) => handleFilterChange('fair', value)} disabled={showFavorites}>
