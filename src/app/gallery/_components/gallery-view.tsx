@@ -157,13 +157,17 @@ function GalleryViewContent() {
             </div>
 
             <div className="mb-4">
-                <h1 className="text-3xl font-bold font-headline text-primary tracking-tight sm:text-4xl">
-                    Galeria de Propagandas
-                </h1>
-                 <p className="mt-2 text-base font-medium text-foreground/90 max-w-3xl">
-                    Utilize estas artes para divulgar as feiras em suas redes sociais. Baixe e compartilhe as imagens e vídeos à vontade! Use os filtros para encontrar a propaganda ideal. 
-                </p>
-                <p className="text-2xl font-bold text-accent mt-4">Total: {allItems.length}</p>
+                 <div className="flex justify-between items-center">
+                    <div>
+                        <h1 className="text-3xl font-bold font-headline text-primary tracking-tight sm:text-4xl">
+                            Galeria de Propagandas
+                        </h1>
+                        <p className="mt-2 text-base font-medium text-foreground/90 max-w-3xl">
+                            Utilize estas artes para divulgar as feiras em suas redes sociais. Baixe e compartilhe as imagens e vídeos à vontade! Use os filtros para encontrar a propaganda ideal. 
+                        </p>
+                    </div>
+                    <p className="text-2xl font-bold text-accent mt-4">Total: {allItems.length}</p>
+                </div>
             </div>
             
              <div className="sticky top-16 z-40 bg-background/95 py-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
