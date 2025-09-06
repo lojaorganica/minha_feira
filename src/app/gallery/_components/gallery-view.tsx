@@ -202,7 +202,7 @@ function GalleryViewContent() {
                             const { firstWord, rest } = formatThemeName(item.theme[0]);
                             const isCurrentlyFavorite = isFavorite(item.id);
                             return (
-                            <Card key={item.id} className="overflow-hidden flex flex-col">
+                            <Card key={item.id} className="overflow-hidden flex flex-col no-tap-highlight">
                                 <CardContent className="p-0">
                                     <div className="relative w-full">
                                         {item.type === 'image' ? (
@@ -216,20 +216,28 @@ function GalleryViewContent() {
                                                     data-ai-hint={item.dataAiHint}
                                                 />
                                                 <div 
-                                                    className="absolute inset-0 cursor-pointer"
+                                                    className="absolute inset-0"
                                                     onClick={() => setSelectedImage(item)}
                                                 />
                                             </>
                                         ) : (
                                             <div className="relative" onClick={() => setVideoToPlay(item)}>
-                                                <div className="absolute inset-0 bg-transparent cursor-pointer" />
-                                                <video src={item.url} className="w-full h-full object-contain pointer-events-none" preload="metadata" />
+                                                <div className="absolute inset-0" />
+                                                <video src={item.url} className="w-full h-full object-contain" preload="metadata" />
                                                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                                                     <PlayCircle className="h-16 w-16 text-white/80 drop-shadow-lg" />
                                                 </div>
                                             </div>
                                         )}
-                                        <Button variant="ghost" size="icon" className="absolute top-1 right-1 h-8 w-8 bg-black/20 hover:bg-black/40 text-white rounded-full" onClick={(e) => { e.stopPropagation(); toggleFavorite(item);}}>
+                                        <Button
+                                          variant="ghost"
+                                          size="icon"
+                                          className="absolute top-1 right-1 h-8 w-8 bg-black/20 hover:bg-black/40 text-white rounded-full focus-visible:ring-0 focus-visible:ring-offset-0"
+                                          onClick={(e) => {
+                                            e.stopPropagation();
+                                            toggleFavorite(item);
+                                          }}
+                                        >
                                             <Heart className={cn("h-5 w-5 text-white transition-all", isCurrentlyFavorite && "fill-red-500 text-red-500 animate-pulse-heart")}/>
                                         </Button>
                                     </div>
