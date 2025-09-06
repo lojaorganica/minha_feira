@@ -202,7 +202,7 @@ function GalleryViewContent() {
                             const { firstWord, rest } = formatThemeName(item.theme[0]);
                             const isCurrentlyFavorite = isFavorite(item.id);
                             return (
-                            <Card key={item.id} className="overflow-hidden flex flex-col group">
+                            <Card key={item.id} className="overflow-hidden flex flex-col group no-tap-highlight">
                                 <CardContent className="p-0">
                                     <div className="relative w-full">
                                         {item.type === 'image' ? (

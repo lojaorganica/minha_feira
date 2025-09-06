@@ -120,4 +120,8 @@
   .animate-toast-progress {
     animation: toast-progress 4s linear forwards;
   }
+
+  .no-tap-highlight {
+    -webkit-tap-highlight-color: transparent;
+  }
 }
