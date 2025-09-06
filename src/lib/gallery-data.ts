@@ -307,6 +307,83 @@ const allGalleryFileNames: { id: string; fileName: string; title: string; type: 
     type: 'image',
     dataAiHint: 'farmer lucia story',
   },
+  {
+    id: 'propaganda-44',
+    fileName: 'aagr_story_cartoon_todas_feiras_85_ivison.png',
+    title: 'Story Ivison para Todas as Feiras',
+    type: 'image',
+    dataAiHint: 'farmer ivison story',
+  },
+  {
+    id: 'propaganda-45',
+    fileName: 'aagr_todas_feiras_46_walace.mp4',
+    title: 'Walace para Todas as Feiras',
+    type: 'video',
+    dataAiHint: 'farmer walace',
+  },
+  {
+    id: 'propaganda-46',
+    fileName: 'aagr_todas_feiras_49_matias_david.mp4',
+    title: 'Matias e David para Todas as Feiras',
+    type: 'video',
+    dataAiHint: 'farmer matias david',
+  },
+  {
+    id: 'propaganda-47',
+    fileName: 'aali_025_abacate_feira_grajau.mp4',
+    title: 'Abacate na Feira do Grajaú',
+    type: 'video',
+    dataAiHint: 'avocado video',
+  },
+  {
+    id: 'propaganda-48',
+    fileName: 'aali_026_abacate_feira_botafogo.mp4',
+    title: 'Abacate na Feira de Botafogo',
+    type: 'video',
+    dataAiHint: 'avocado video',
+  },
+  {
+    id: 'propaganda-49',
+    fileName: 'aali_026_abacate_feira_leme.mp4',
+    title: 'Abacate na Feira do Leme',
+    type: 'video',
+    dataAiHint: 'avocado video',
+  },
+  {
+    id: 'propaganda-50',
+    fileName: 'aali_026_maracugina_feira_grajau.mp4',
+    title: 'Maracugina na Feira do Grajaú',
+    type: 'video',
+    dataAiHint: 'passion fruit character',
+  },
+  {
+    id: 'propaganda-51',
+    fileName: 'aali_027_maracugina_feira_botafogo.mp4',
+    title: 'Maracugina na Feira de Botafogo',
+    type: 'video',
+    dataAiHint: 'passion fruit character',
+  },
+  {
+    id: 'propaganda-52',
+    fileName: 'aali_031_abacate_feira_tijuca.mp4',
+    title: 'Abacate na Feira da Tijuca',
+    type: 'video',
+    dataAiHint: 'avocado video',
+  },
+  {
+    id: 'propaganda-53',
+    fileName: 'aali_032_maracugina_feira_tijuca.mp4',
+    title: 'Maracugina na Feira da Tijuca',
+    type: 'video',
+    dataAiHint: 'passion fruit character',
+  },
+  {
+    id: 'propaganda-54',
+    fileName: 'aali_038_maca_todas_feiras.mp4',
+    title: 'Maçã para Todas as Feiras',
+    type: 'video',
+    dataAiHint: 'apple video',
+  },
 ];
 
 const STORAGE_BASE_URL = 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/';
@@ -358,3 +435,5 @@ export function getGalleryItems(): GalleryItem[] {
     };
   });
 }
+
+    
