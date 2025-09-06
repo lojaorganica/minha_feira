@@ -150,7 +150,7 @@ function GalleryViewContent() {
                         <Heart className={cn(
                             "h-7 w-7 transition-colors",
                             showFavorites 
-                                ? "fill-destructive text-destructive"
+                                ? "fill-destructive text-destructive animate-pulse-heart"
                                 : "stroke-destructive fill-white group-hover:fill-destructive/80"
                         )} />
                         <span className="sr-only">Mostrar Favoritos</span>
@@ -162,16 +162,15 @@ function GalleryViewContent() {
                 <h1 className="text-3xl font-bold font-headline text-primary tracking-tight sm:text-4xl">
                     Galeria de Propagandas
                 </h1>
-                <p className="mt-2 text-base font-medium text-foreground/90 max-w-3xl">
+                 <p className="mt-2 text-base font-medium text-foreground/90 max-w-3xl">
                     Utilize estas artes para divulgar as feiras em suas redes sociais. Baixe e compartilhe as imagens e vídeos à vontade! Use os filtros para encontrar a propaganda ideal. 
                 </p>
-                <div className="flex justify-end mt-2">
+            </div>
+            
+             <div className="sticky top-16 z-40 bg-background/95 py-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+                <div className="flex justify-end mb-2">
                     <p className="text-2xl font-bold text-accent">Total: {allItems.length}</p>
                 </div>
-            </div>
-
-
-            <div className="sticky top-16 z-40 bg-background/95 py-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                      <Select value={selectedFair} onValueChange={(value) => handleFilterChange('fair', value)} disabled={showFavorites}>
                         <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0 disabled:opacity-50">
@@ -203,6 +202,7 @@ function GalleryViewContent() {
                     </Select>
                 </div>
             </div>
+
             
             <div className="flex-grow pt-6">
                 {filteredItems.length > 0 ? (
@@ -249,7 +249,7 @@ function GalleryViewContent() {
                                         >
                                             <Heart className={cn(
                                                 "h-6 w-6 stroke-white fill-white transition-all hover:fill-destructive hover:stroke-destructive md:h-7 md:w-7", 
-                                                isCurrentlyFavorite && "fill-destructive stroke-destructive"
+                                                isCurrentlyFavorite && "fill-destructive stroke-destructive animate-pulse-heart"
                                             )}/>
                                         </Button>
                                     </div>

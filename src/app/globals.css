@@ -126,14 +126,14 @@
   }
 
   @keyframes pulse-heart {
-    0%, 100% { 
+    0%, 100% {
       transform: scale(1);
     }
-    50% { 
+    50% {
       transform: scale(1.25);
     }
   }
-  
+
   .animate-pulse-heart {
     animation: pulse-heart 1.5s ease-in-out infinite;
     transform-origin: center;
