@@ -204,7 +204,7 @@ function GalleryViewContent() {
                             return (
                             <Card key={item.id} className="overflow-hidden flex flex-col">
                                 <CardContent className="p-0">
-                                    <div className="relative w-full">
+                                    <div className="relative w-full group">
                                         {item.type === 'image' ? (
                                             <>
                                                 <Image
@@ -232,13 +232,16 @@ function GalleryViewContent() {
                                         <Button
                                           variant="ghost"
                                           size="icon"
-                                          className="absolute top-1 right-1 h-8 w-8 bg-black/20 hover:bg-black/40 text-white rounded-full focus-visible:ring-0 focus-visible:ring-offset-0"
+                                          className="absolute top-1 right-1 h-8 w-8 bg-black/20 text-white rounded-full focus-visible:ring-0 focus-visible:ring-offset-0"
                                           onClick={(e) => {
                                             e.stopPropagation();
                                             toggleFavorite(item);
                                           }}
                                         >
-                                            <Heart className={cn("h-5 w-5 text-white transition-all", isCurrentlyFavorite && "fill-red-500 text-red-500 animate-pulse-heart")}/>
+                                            <Heart className={cn(
+                                                "h-5 w-5 text-white transition-all group-hover:text-red-500", 
+                                                isCurrentlyFavorite && "fill-red-500 text-red-500 animate-pulse-heart"
+                                            )}/>
                                         </Button>
                                     </div>
                                 </CardContent>
