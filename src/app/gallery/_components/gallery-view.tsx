@@ -145,7 +145,7 @@ function GalleryViewContent() {
         <>
             <div className="flex justify-between items-center mb-4">
                 <BackButton />
-                <Button variant="ghost" size="icon" onClick={toggleShowFavorites} className="group focus-visible:ring-0 focus-visible:ring-offset-0">
+                <Button variant="ghost" size="icon" onClick={toggleShowFavorites} className="group focus-visible:ring-0 focus-visible:ring-offset-0 hover:bg-transparent">
                     <Heart className={cn(
                         "h-7 w-7 transition-colors",
                         showFavorites 
@@ -155,17 +155,19 @@ function GalleryViewContent() {
                     <span className="sr-only">Mostrar Favoritos</span>
                 </Button>
             </div>
-
-            <div className="mb-4">
-                <h1 className="text-3xl font-bold font-headline text-primary tracking-tight sm:text-4xl">
-                    Galeria de Propagandas
-                </h1>
-                <p className="mt-2 text-base font-medium text-foreground/90 max-w-3xl">
-                    Utilize estas artes para divulgar as feiras em suas redes sociais. Baixe e compartilhe as imagens e vídeos à vontade! Use os filtros para encontrar a propaganda ideal. 
-                </p>
-            </div>
             
-            <div className="flex justify-end mb-1">
+            <div className="flex justify-between items-center mb-4">
+                <div>
+                    <h1 className="text-3xl font-bold font-headline text-primary tracking-tight sm:text-4xl">
+                        Galeria de Propagandas
+                    </h1>
+                    <p className="mt-2 text-base font-medium text-foreground/90 max-w-3xl">
+                        Utilize estas artes para divulgar as feiras em suas redes sociais. Baixe e compartilhe as imagens e vídeos à vontade! Use os filtros para encontrar a propaganda ideal. 
+                    </p>
+                </div>
+            </div>
+
+            <div className="flex justify-end mb-1 mt-4">
                 <p className="text-2xl font-bold text-accent">Total: {allItems.length}</p>
             </div>
             
@@ -248,7 +250,7 @@ function GalleryViewContent() {
                                         >
                                             <Heart className={cn(
                                                 "h-6 w-6 stroke-white fill-white transition-all hover:fill-destructive hover:stroke-destructive md:h-7 md:w-7", 
-                                                isCurrentlyFavorite && "fill-destructive stroke-destructive animate-pulse-heart"
+                                                isCurrentlyFavorite && "fill-destructive stroke-destructive"
                                             )}/>
                                         </Button>
                                     </div>
