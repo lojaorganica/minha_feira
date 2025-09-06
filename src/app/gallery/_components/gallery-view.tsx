@@ -145,8 +145,8 @@ function GalleryViewContent() {
         <>
             <div className="flex justify-between items-center mb-4 flex-shrink-0">
                 <BackButton />
-                <Button variant="ghost" size="icon" onClick={toggleShowFavorites} className="text-destructive hover:text-destructive hover:bg-destructive/10">
-                    <Heart className={cn("h-7 w-7", showFavorites && "fill-current")} />
+                <Button variant="ghost" size="icon" onClick={toggleShowFavorites} className="text-destructive hover:bg-transparent hover:text-destructive">
+                    <Heart className={cn("h-7 w-7 transition-colors", showFavorites ? "fill-current" : "group-hover:fill-current")} />
                     <span className="sr-only">Mostrar Favoritos</span>
                 </Button>
             </div>
@@ -332,3 +332,5 @@ export default function GalleryView() {
 }
 
   
+
+    
