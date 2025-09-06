@@ -146,8 +146,8 @@ function GalleryViewContent() {
             <div className="flex justify-between items-center mb-4 flex-shrink-0">
                 <BackButton />
                 <div className="w-10 h-10 flex items-center justify-center">
-                    <Button variant="ghost" size="icon" onClick={toggleShowFavorites} className="text-destructive hover:bg-transparent hover:text-destructive focus-visible:bg-transparent focus:bg-transparent active:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 group">
-                        <Heart className={cn("h-7 w-7 transition-colors", showFavorites ? "fill-current text-destructive" : "group-hover:fill-destructive")} />
+                    <Button variant="ghost" size="icon" onClick={toggleShowFavorites} className="bg-transparent hover:bg-transparent focus-visible:bg-transparent focus:bg-transparent active:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 group">
+                        <Heart className={cn("h-7 w-7 transition-colors", showFavorites ? "fill-current text-destructive" : "text-destructive/50 group-hover:fill-destructive/80")} />
                         <span className="sr-only">Mostrar Favoritos</span>
                     </Button>
                 </div>
@@ -223,8 +223,8 @@ function GalleryViewContent() {
                                         ) : (
                                             <>
                                                 <video src={item.url} className="w-full h-full object-contain" preload="metadata" />
-                                                 <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
-                                                    <PlayCircle className="h-16 w-16 text-white/80" />
+                                                 <div className="absolute inset-0 flex items-center justify-center transition-opacity duration-300">
+                                                    <PlayCircle className="h-16 w-16 text-white/80 drop-shadow-lg" />
                                                 </div>
                                             </>
                                         )}
