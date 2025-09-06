@@ -7,6 +7,7 @@ import { CartProvider } from '@/components/cart-provider';
 import { OrderHistoryProvider } from '@/components/order-history-provider';
 import AppShell from '@/components/app-shell';
 import { FavoritesProvider } from '@/hooks/use-favorites.tsx';
+import { GalleryFavoritesProvider } from '@/hooks/use-gallery-favorites';
 
 export const metadata: Metadata = {
   title: 'Minha Feira',
@@ -23,18 +24,20 @@ export default function RootLayout({
       <head>
       </head>
       <body className="antialiased min-h-screen flex flex-col">
-        <FavoritesProvider>
-          <OrderHistoryProvider>
-            <CartProvider>
-                <SearchProvider>
-                    <AppShell>
-                      {children}
-                    </AppShell>
-                    <Toaster />
-                </SearchProvider>
-            </CartProvider>
-          </OrderHistoryProvider>
-        </FavoritesProvider>
+        <GalleryFavoritesProvider>
+          <FavoritesProvider>
+            <OrderHistoryProvider>
+              <CartProvider>
+                  <SearchProvider>
+                      <AppShell>
+                        {children}
+                      </AppShell>
+                      <Toaster />
+                  </SearchProvider>
+              </CartProvider>
+            </OrderHistoryProvider>
+          </FavoritesProvider>
+        </GalleryFavoritesProvider>
       </body>
     </html>
   );

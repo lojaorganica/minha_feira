@@ -8,23 +8,27 @@ import type { GalleryItem } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import Image from 'next/image';
-import { Download, Share2, Loader2, PlayCircle, X } from 'lucide-react';
+import { Download, Share2, Loader2, PlayCircle, X, Heart } from 'lucide-react';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogClose } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
+import { useGalleryFavorites } from '@/hooks/use-gallery-favorites';
 
 function GalleryViewContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const { toast } = useToast();
+    const { favorites, toggleFavorite, isFavorite } = useGalleryFavorites();
 
     const initialFair = searchParams.get('feira') || 'Todas';
     const initialTheme = searchParams.get('tema') || 'Todos';
+    const showFavoritesParam = searchParams.get('favoritos') === 'true';
 
     const [selectedFair, setSelectedFair] = useState(initialFair);
     const [selectedTheme, setSelectedTheme] = useState(initialTheme);
+    const [showFavorites, setShowFavorites] = useState(showFavoritesParam);
     const [videoToPlay, setVideoToPlay] = useState<GalleryItem | null>(null);
     const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
     const [isMobile, setIsMobile] = useState<boolean | undefined>(undefined);
@@ -42,12 +46,18 @@ function GalleryViewContent() {
     const allItems = useMemo(() => getGalleryItems(), []);
 
     const filteredItems = useMemo(() => {
-        return allItems.filter(item => {
+        const sourceItems = showFavorites ? favorites : allItems;
+        
+        return sourceItems.filter(item => {
             const fairMatch = selectedFair === 'Todas' || item.fair.includes(selectedFair as any);
             const themeMatch = selectedTheme === 'Todos' || item.theme.includes(selectedTheme as any);
             return fairMatch && themeMatch;
         });
-    }, [allItems, selectedFair, selectedTheme]);
+    }, [allItems, favorites, showFavorites, selectedFair, selectedTheme]);
+
+    const updateUrlParams = (params: URLSearchParams) => {
+        router.push(`/gallery?${params.toString()}`, { scroll: false });
+    };
 
     const handleFilterChange = (type: 'fair' | 'theme', value: string) => {
         const currentParams = new URLSearchParams(searchParams.toString());
@@ -62,8 +72,19 @@ function GalleryViewContent() {
             if (value === 'Todos') currentParams.delete('tema');
             else currentParams.set('tema', value);
         }
+        updateUrlParams(currentParams);
+    };
 
-        router.push(`/gallery?${currentParams.toString()}`, { scroll: false });
+    const toggleShowFavorites = () => {
+        const newShowFavorites = !showFavorites;
+        setShowFavorites(newShowFavorites);
+        const currentParams = new URLSearchParams(searchParams.toString());
+        if (newShowFavorites) {
+            currentParams.set('favoritos', 'true');
+        } else {
+            currentParams.delete('favoritos');
+        }
+        updateUrlParams(currentParams);
     };
 
     const formatFairName = (fairName: string): string => {
@@ -121,10 +142,27 @@ function GalleryViewContent() {
 
     return (
         <>
+            <div className="flex justify-between items-center mb-4 flex-shrink-0">
+                <BackButton />
+                <Button variant="ghost" size="icon" onClick={toggleShowFavorites} className="text-destructive hover:text-destructive hover:bg-destructive/10">
+                    <Heart className={cn("h-7 w-7", showFavorites && "fill-current")} />
+                    <span className="sr-only">Mostrar Favoritos</span>
+                </Button>
+            </div>
+
+            <div className="mb-6 flex-shrink-0">
+                <h1 className="text-3xl font-bold font-headline text-primary tracking-tight sm:text-4xl">
+                    Galeria de Propagandas
+                </h1>
+                <p className="mt-2 text-base font-medium text-foreground/90 max-w-3xl">
+                    Utilize estas artes para divulgar as feiras em suas redes sociais. Baixe e compartilhe as imagens e vídeos à vontade! Use os filtros para encontrar a propaganda ideal. 
+                </p>
+            </div>
+
             <div className="sticky top-16 z-40 bg-background/95 py-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                     <Select value={selectedFair} onValueChange={(value) => handleFilterChange('fair', value)}>
-                        <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0">
+                     <Select value={selectedFair} onValueChange={(value) => handleFilterChange('fair', value)} disabled={showFavorites}>
+                        <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0 disabled:opacity-50">
                             <SelectValue placeholder="Filtrar por Feira" />
                         </SelectTrigger>
                         <SelectContent>
@@ -137,8 +175,8 @@ function GalleryViewContent() {
                         </SelectContent>
                     </Select>
                     
-                    <Select value={selectedTheme} onValueChange={(value) => handleFilterChange('theme', value)}>
-                        <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0">
+                    <Select value={selectedTheme} onValueChange={(value) => handleFilterChange('theme', value)} disabled={showFavorites}>
+                        <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0 disabled:opacity-50">
                             <SelectValue placeholder="Filtrar por Tema" />
                         </SelectTrigger>
                         <SelectContent>
@@ -159,6 +197,7 @@ function GalleryViewContent() {
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                         {filteredItems.map(item => {
                             const { firstWord, rest } = formatThemeName(item.theme[0]);
+                            const isCurrentlyFavorite = isFavorite(item.id);
                             return (
                             <Card key={item.id} className="overflow-hidden flex flex-col group">
                                 <CardContent className="p-0">
@@ -186,6 +225,9 @@ function GalleryViewContent() {
                                                 </div>
                                             </>
                                         )}
+                                        <Button variant="ghost" size="icon" className="absolute top-1 right-1 h-8 w-8 bg-black/20 hover:bg-black/40 text-white rounded-full" onClick={(e) => { e.stopPropagation(); toggleFavorite(item);}}>
+                                            <Heart className={cn("h-5 w-5 text-white", isCurrentlyFavorite && "fill-red-500 text-red-500")}/>
+                                        </Button>
                                     </div>
                                 </CardContent>
                                 <div className="p-2 space-y-1">
@@ -219,7 +261,9 @@ function GalleryViewContent() {
                 ) : (
                     <div className="text-center py-20">
                         <h2 className="mt-4 text-2xl font-semibold">Nenhuma propaganda encontrada</h2>
-                        <p className="text-lg font-semibold text-foreground/90 mt-2">Tente ajustar seus filtros para encontrar outros resultados.</p>
+                        <p className="text-lg font-semibold text-foreground/90 mt-2">
+                            {showFavorites ? "Você ainda não favoritou nenhuma mídia." : "Tente ajustar seus filtros para encontrar outros resultados."}
+                        </p>
                     </div>
                 )}
             </div>
