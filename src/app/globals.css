@@ -72,6 +72,9 @@
   .desktop-device .group:hover .desktop-device\\:group-hover\\:opacity-100 {
     opacity: 1;
   }
+  * {
+    -webkit-tap-highlight-color: transparent !important;
+  }
 }
 
 @layer utilities {
@@ -119,9 +122,5 @@
 
   .animate-toast-progress {
     animation: toast-progress 4s linear forwards;
-  }
-
-  .no-tap-highlight {
-    -webkit-tap-highlight-color: transparent;
   }
 }
