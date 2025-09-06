@@ -307,7 +307,7 @@ const allGalleryFileNames: { id: string; fileName: string; title: string; type: 
     type: 'image',
     dataAiHint: 'farmer lucia story',
   },
-  {
+   {
     id: 'propaganda-44',
     fileName: 'aagr_story_cartoon_todas_feiras_85_ivison.png',
     title: 'Story Ivison para Todas as Feiras',
@@ -482,6 +482,153 @@ const allGalleryFileNames: { id: string; fileName: string; title: string; type: 
     type: 'video',
     dataAiHint: 'apple video',
   },
+  {
+    id: 'propaganda-69',
+    fileName: 'aali_101_abacate_feiras_flamengo_laranjeiras.mp4',
+    title: 'Abacate em Flamengo e Laranjeiras',
+    type: 'video',
+    dataAiHint: 'avocado video',
+  },
+  {
+    id: 'propaganda-70',
+    fileName: 'aali_148_maracugina_feiras_flamengo_laranjeiras.mp4',
+    title: 'Maracugina em Flamengo e Laranjeiras',
+    type: 'video',
+    dataAiHint: 'passion fruit character video',
+  },
+  {
+    id: 'propaganda-71',
+    fileName: 'aali_cartoon_020_tomate_feira_grajau.png',
+    title: 'Tomate na Feira do Grajaú',
+    type: 'image',
+    dataAiHint: 'tomato cartoon',
+  },
+  {
+    id: 'propaganda-72',
+    fileName: 'aali_cartoon_021_tomate_feira_botafogo.png',
+    title: 'Tomate na Feira de Botafogo',
+    type: 'image',
+    dataAiHint: 'tomato cartoon',
+  },
+  {
+    id: 'propaganda-73',
+    fileName: 'aali_cartoon_021_tomate_feira_leme.png',
+    title: 'Tomate na Feira do Leme',
+    type: 'image',
+    dataAiHint: 'tomato cartoon',
+  },
+  {
+    id: 'propaganda-74',
+    fileName: 'aali_cartoon_022_maca_feira_grajau.png',
+    title: 'Maçã na Feira do Grajaú',
+    type: 'image',
+    dataAiHint: 'apple cartoon',
+  },
+  {
+    id: 'propaganda-75',
+    fileName: 'aali_cartoon_023_maca_feira_botafogo.png',
+    title: 'Maçã na Feira de Botafogo',
+    type: 'image',
+    dataAiHint: 'apple cartoon',
+  },
+  {
+    id: 'propaganda-76',
+    fileName: 'aali_cartoon_023_maca_feira_leme.png',
+    title: 'Maçã na Feira do Leme',
+    type: 'image',
+    dataAiHint: 'apple cartoon',
+  },
+  {
+    id: 'propaganda-77',
+    fileName: 'aali_cartoon_024_abacate_feira_grajau.png',
+    title: 'Abacate na Feira do Grajaú',
+    type: 'image',
+    dataAiHint: 'avocado cartoon',
+  },
+  {
+    id: 'propaganda-78',
+    fileName: 'aali_cartoon_025_abacate_feira_botafogo.png',
+    title: 'Abacate na Feira de Botafogo',
+    type: 'image',
+    dataAiHint: 'avocado cartoon',
+  },
+  {
+    id: 'propaganda-79',
+    fileName: 'aali_cartoon_025_abacate_feira_leme.png',
+    title: 'Abacate na Feira do Leme',
+    type: 'image',
+    dataAiHint: 'avocado cartoon',
+  },
+  {
+    id: 'propaganda-80',
+    fileName: 'aali_cartoon_025_tomate_feira_tijuca.png',
+    title: 'Tomate na Feira da Tijuca',
+    type: 'image',
+    dataAiHint: 'tomato cartoon',
+  },
+  {
+    id: 'propaganda-81',
+    fileName: 'aali_cartoon_032_tomate_feiras_flamengo_laranjeiras.png',
+    title: 'Tomate em Flamengo e Laranjeiras',
+    type: 'image',
+    dataAiHint: 'tomato cartoon',
+  },
+  {
+    id: 'propaganda-82',
+    fileName: 'aali_cartoon_036_maca_feiras_flamengo_laranjeiras.png',
+    title: 'Maçã em Flamengo e Laranjeiras',
+    type: 'image',
+    dataAiHint: 'apple cartoon',
+  },
+  {
+    id: 'propaganda-83',
+    fileName: 'aali_cartoon_036_tomate_todas_feiras.png',
+    title: 'Tomate para Todas as Feiras',
+    type: 'image',
+    dataAiHint: 'tomato cartoon',
+  },
+  {
+    id: 'propaganda-84',
+    fileName: 'aali_cartoon_037_cenoura_feiras_flamengo_laranjeiras.png',
+    title: 'Cenoura em Flamengo e Laranjeiras',
+    type: 'image',
+    dataAiHint: 'carrot cartoon',
+  },
+  {
+    id: 'propaganda-85',
+    fileName: 'aali_cartoon_038_maca_todas_feiras.png',
+    title: 'Maçã para Todas as Feiras',
+    type: 'image',
+    dataAiHint: 'apple cartoon',
+  },
+  {
+    id: 'propaganda-86',
+    fileName: 'aali_cartoon_039_abacate_feira_tijuca.png',
+    title: 'Abacate na Feira da Tijuca',
+    type: 'image',
+    dataAiHint: 'avocado cartoon',
+  },
+  {
+    id: 'propaganda-87',
+    fileName: 'aali_cartoon_042_abacate_todas_feiras.png',
+    title: 'Abacate para Todas as Feiras',
+    type: 'image',
+    dataAiHint: 'avocado cartoon',
+  },
+  {
+    id: 'propaganda-88',
+    fileName: 'aali_cartoon_043_abacate_feiras_flamengo_laranjeiras.png',
+    title: 'Abacate em Flamengo e Laranjeiras',
+    type: 'image',
+    dataAiHint: 'avocado cartoon',
+  },
+  {
+    id: 'propaganda-89',
+    fileName: 'aali_cartoon_044_maracugina_feiras_flamengo_laranjeiras.png',
+    title: 'Maracugina em Flamengo e Laranjeiras',
+    type: 'image',
+    dataAiHint: 'passion fruit character',
+  },
 ];
 
 const STORAGE_BASE_URL = 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/';
@@ -519,11 +666,12 @@ export function getGalleryItems(): GalleryItem[] {
     const isPropagandaFolder = item.fileName.startsWith('anuncio_') || item.fileName.startsWith('foto_');
     const folder = isPropagandaFolder ? 'propagandas%2F' : STORAGE_SUB_FOLDER;
     
-    // Constrói a URL completa dinamicamente
+    const decodedFileName = decodeURIComponent(item.fileName);
+
     const fullUrl = `${STORAGE_BASE_URL}${folder}${item.fileName}${STORAGE_TOKEN}`;
 
-    const fairs = getFairCategories(item.fileName);
-    const themes = getThemeCategories(item.fileName);
+    const fairs = getFairCategories(decodedFileName);
+    const themes = getThemeCategories(decodedFileName);
 
     return {
       ...item,
@@ -533,5 +681,3 @@ export function getGalleryItems(): GalleryItem[] {
     };
   });
 }
-
-    
