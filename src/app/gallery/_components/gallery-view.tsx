@@ -153,7 +153,7 @@ function GalleryViewContent() {
                 </div>
             </div>
 
-            <div className="mb-4 flex-shrink-0">
+            <div className="flex-shrink-0">
                 <h1 className="text-3xl font-bold font-headline text-primary tracking-tight sm:text-4xl">
                     Galeria de Propagandas
                 </h1>
@@ -242,7 +242,7 @@ function GalleryViewContent() {
                                           }}
                                         >
                                             <Heart className={cn(
-                                                "h-5 md:h-6 w-5 md:w-6 text-white fill-white transition-all hover:fill-destructive hover:text-destructive", 
+                                                "h-5 w-5 text-white fill-white transition-all hover:fill-destructive hover:text-destructive md:h-6 md:w-6", 
                                                 isCurrentlyFavorite && "fill-destructive text-destructive animate-pulse-heart"
                                             )}/>
                                         </Button>
