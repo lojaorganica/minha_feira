@@ -232,7 +232,7 @@ function GalleryViewContent() {
                                         <Button
                                           variant="ghost"
                                           size="icon"
-                                          className="absolute top-1 right-1 h-8 w-8 bg-black/20 text-white rounded-full focus-visible:ring-0 focus-visible:ring-offset-0"
+                                          className="absolute top-1 right-1 h-8 w-8 rounded-full group focus-visible:ring-0 focus-visible:ring-offset-0"
                                           onClick={(e) => {
                                             e.stopPropagation();
                                             toggleFavorite(item);
