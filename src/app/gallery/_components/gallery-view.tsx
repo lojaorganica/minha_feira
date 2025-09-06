@@ -147,13 +147,13 @@ function GalleryViewContent() {
                 <BackButton />
                 <div className="w-10 h-10 flex items-center justify-center">
                     <Button variant="ghost" size="icon" onClick={toggleShowFavorites} className="hover:bg-transparent">
-                        <Heart className={cn("h-7 w-7 transition-colors hover:text-destructive hover:fill-destructive", showFavorites ? "fill-destructive text-destructive" : "fill-none text-destructive/50")} />
+                        <Heart className={cn("h-7 w-7 transition-colors hover:text-destructive hover:fill-destructive", showFavorites ? "fill-destructive text-destructive" : "stroke-white text-destructive/50 fill-none")} />
                         <span className="sr-only">Mostrar Favoritos</span>
                     </Button>
                 </div>
             </div>
 
-            <div className="mb-6">
+             <div className="mb-4">
                 <h1 className="text-3xl font-bold font-headline text-primary tracking-tight sm:text-4xl">
                     Galeria de Propagandas
                 </h1>
@@ -165,7 +165,7 @@ function GalleryViewContent() {
                 </div>
             </div>
 
-            <div className="sticky top-0 z-40 bg-background/95 pt-2 pb-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+            <div className="sticky top-16 z-40 bg-background/95 pt-2 pb-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                      <Select value={selectedFair} onValueChange={(value) => handleFilterChange('fair', value)} disabled={showFavorites}>
                         <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0 disabled:opacity-50">
