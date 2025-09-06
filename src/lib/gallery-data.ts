@@ -858,189 +858,189 @@ const allGalleryFileNames: { id: string; fileName: string; title: string; type: 
     fileName: 'ap_cartoon_feira_botafogo_55_brulk.png',
     title: 'Brulk na Feira de Botafogo',
     type: 'image',
-    dataAiHint: 'brulk character',
+    dataAiHint: 'brulk character'
   },
   {
     id: 'propaganda-123',
     fileName: 'ap_cartoon_feira_botafogo_57_mandiorpheus.png',
     title: 'Mandiorpheus na Feira de Botafogo',
     type: 'image',
-    dataAiHint: 'mandiorpheus character',
+    dataAiHint: 'mandiorpheus character'
   },
   {
     id: 'propaganda-124',
     fileName: 'ap_cartoon_feira_botafogo_60_abobrinha_maravilha.png',
     title: 'Abobrinha Maravilha na Feira de Botafogo',
     type: 'image',
-    dataAiHint: 'zucchini character',
+    dataAiHint: 'zucchini character'
   },
   {
     id: 'propaganda-125',
     fileName: 'ap_cartoon_feira_botafogo_64_pepino_verde.png',
     title: 'Pepino Verde na Feira de Botafogo',
     type: 'image',
-    dataAiHint: 'cucumber character',
+    dataAiHint: 'cucumber character'
   },
   {
     id: 'propaganda-126',
     fileName: 'ap_cartoon_feira_grajau_18_joaninha.png',
     title: 'Joaninha na Feira do Grajaú',
     type: 'image',
-    dataAiHint: 'ladybug character',
+    dataAiHint: 'ladybug character'
   },
   {
     id: 'propaganda-127',
     fileName: 'ap_cartoon_feira_grajau_33_batatman.png',
     title: 'Batatman na Feira do Grajaú',
     type: 'image',
-    dataAiHint: 'potato character',
+    dataAiHint: 'potato character'
   },
   {
     id: 'propaganda-128',
     fileName: 'ap_cartoon_feira_grajau_34_inhame_aranha.png',
     title: 'Inhame Aranha na Feira do Grajaú',
     type: 'image',
-    dataAiHint: 'yam character',
+    dataAiHint: 'yam character'
   },
   {
     id: 'propaganda-129',
     fileName: 'ap_cartoon_feira_grajau_36_robinete.png',
     title: 'Robinete na Feira do Grajaú',
     type: 'image',
-    dataAiHint: 'radish character',
+    dataAiHint: 'radish character'
   },
   {
     id: 'propaganda-130',
     fileName: 'ap_cartoon_feira_grajau_42_aqualface.png',
     title: 'Aqualface na Feira do Grajaú',
     type: 'image',
-    dataAiHint: 'lettuce character',
+    dataAiHint: 'lettuce character'
   },
   {
     id: 'propaganda-131',
     fileName: 'ap_cartoon_feira_grajau_42_sporock.png',
     title: 'Sporock na Feira do Grajaú',
     type: 'image',
-    dataAiHint: 'broccoli character',
+    dataAiHint: 'broccoli character'
   },
   {
     id: 'propaganda-132',
     fileName: 'ap_cartoon_feira_grajau_44_uva_negra.png',
     title: 'Uva Negra na Feira do Grajaú',
     type: 'image',
-    dataAiHint: 'grape character',
+    dataAiHint: 'grape character'
   },
   {
     id: 'propaganda-133',
     fileName: 'ap_cartoon_feira_grajau_46_coisa_de_milho.png',
     title: 'Coisa de Milho na Feira do Grajaú',
     type: 'image',
-    dataAiHint: 'corn character',
+    dataAiHint: 'corn character'
   },
   {
     id: 'propaganda-134',
     fileName: 'ap_cartoon_feira_grajau_49_limao_america.png',
     title: 'Limão América na Feira do Grajaú',
     type: 'image',
-    dataAiHint: 'lemon character',
+    dataAiHint: 'lemon character'
   },
   {
     id: 'propaganda-135',
     fileName: 'ap_cartoon_feira_grajau_52_berinjela_negra.png',
     title: 'Berinjela Negra na Feira do Grajaú',
     type: 'image',
-    dataAiHint: 'eggplant character',
+    dataAiHint: 'eggplant character'
   },
   {
     id: 'propaganda-136',
     fileName: 'ap_cartoon_feira_grajau_55_brulk.png',
     title: 'Brulk na Feira do Grajaú',
     type: 'image',
-    dataAiHint: 'brulk character',
+    dataAiHint: 'brulk character'
   },
   {
     id: 'propaganda-137',
     fileName: 'ap_cartoon_feira_grajau_56_mandiorpheus.png',
     title: 'Mandiorpheus na Feira do Grajaú',
     type: 'image',
-    dataAiHint: 'mandiorpheus character',
+    dataAiHint: 'mandiorpheus character'
   },
   {
     id: 'propaganda-138',
     fileName: 'ap_cartoon_feira_grajau_59_abobrinha_maravilha.png',
     title: 'Abobrinha Maravilha na Feira do Grajaú',
     type: 'image',
-    dataAiHint: 'zucchini character',
+    dataAiHint: 'zucchini character'
   },
   {
     id: 'propaganda-139',
     fileName: 'ap_cartoon_feira_grajau_64_pepino_verde.png',
     title: 'Pepino Verde na Feira do Grajaú',
     type: 'image',
-    dataAiHint: 'cucumber character',
+    dataAiHint: 'cucumber character'
   },
   {
     id: 'propaganda-140',
     fileName: 'ap_cartoon_feira_grajau_74_beterraba_de_ferro.png',
     title: 'Beterraba de Ferro na Feira do Grajaú',
     type: 'image',
-    dataAiHint: 'beetroot character',
+    dataAiHint: 'beetroot character'
   },
   {
     id: 'propaganda-141',
     fileName: 'ap_cartoon_feira_leme_19_joaninha.png',
     title: 'Joaninha na Feira do Leme',
     type: 'image',
-    dataAiHint: 'ladybug character',
+    dataAiHint: 'ladybug character'
   },
   {
     id: 'propaganda-142',
     fileName: 'ap_cartoon_feira_leme_35_aqualface.png',
     title: 'Aqualface na Feira do Leme',
     type: 'image',
-    dataAiHint: 'lettuce character',
+    dataAiHint: 'lettuce character'
   },
   {
     id: 'propaganda-143',
     fileName: 'ap_cartoon_feira_leme_36_batatman.png',
     title: 'Batatman na Feira do Leme',
     type: 'image',
-    dataAiHint: 'potato character',
+    dataAiHint: 'potato character'
   },
   {
     id: 'propaganda-144',
     fileName: 'ap_cartoon_feira_leme_38_robinete.png',
     title: 'Robinete na Feira do Leme',
     type: 'image',
-    dataAiHint: 'radish character',
+    dataAiHint: 'radish character'
   },
   {
     id: 'propaganda-145',
     fileName: 'ap_cartoon_feira_leme_39_inhame_aranha.png',
     title: 'Inhame Aranha na Feira do Leme',
     type: 'image',
-    dataAiHint: 'yam character',
+    dataAiHint: 'yam character'
   },
   {
     id: 'propaganda-146',
     fileName: 'ap_cartoon_feira_leme_40_sporock.png',
     title: 'Sporock na Feira do Leme',
     type: 'image',
-    dataAiHint: 'broccoli character',
+    dataAiHint: 'broccoli character'
   },
   {
     id: 'propaganda-147',
     fileName: 'ap_cartoon_feira_leme_42_uva_negra.png',
     title: 'Uva Negra na Feira do Leme',
     type: 'image',
-    dataAiHint: 'grape character',
+    dataAiHint: 'grape character'
   },
   {
     id: 'propaganda-148',
     fileName: 'ap_cartoon_feira_leme_44_coisa_de_milho.png',
     title: 'Coisa de Milho na Feira do Leme',
     type: 'image',
-    dataAiHint: 'corn character',
+    dataAiHint: 'corn character'
   },
 ];
 
@@ -1263,6 +1263,45 @@ export function getGalleryItems(): GalleryItem[] {
       "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_leme_40_sporock.png?alt=media&token=dd3ec322-dd73-4639-b8ec-c58259101faf",
       "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_leme_42_uva_negra.png?alt=media&token=a51b409a-bafc-4303-a65b-f123b45052b1",
       "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_leme_44_coisa_de_milho.png?alt=media&token=4242b413-66e3-4607-b1cf-3214b5c3efd5",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_leme_45_limao_america.png?alt=media&token=4d03805c-8095-4d3a-acb9-4a65bac4cdc5",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_leme_47_uverine.png?alt=media&token=18f961db-2fb0-480d-8336-fd06d1f20158",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_leme_50_berinjela_negra.png?alt=media&token=595f9ec8-38a6-4710-89a4-c393043a02b2",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_leme_51_brulk.png?alt=media&token=0ebddb7c-3812-4dd5-927a-b154e7db738e",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_leme_53_mandiorpheus.png?alt=media&token=e47ac5f5-4dd5-4146-be8b-f868a0b12104",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_leme_56_abobrinha_maravilha.png?alt=media&token=e05beaa4-7ffc-43f9-9027-78d401170859",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_leme_61_pepino_verde.png?alt=media&token=e3dd85b2-8c8e-4b50-bc4d-cd7736496113",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_leme_73_beterraba_de_ferro.png?alt=media&token=5ad2d81b-e23b-4b2c-ac5c-655575b71503",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_tijuca_21_joaninha.png?alt=media&token=752d11e3-ae78-446d-ad76-2c94823fc2a2",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_tijuca_50_inhame_aranha.png?alt=media&token=2c0bd11a-08f3-4b29-98ca-1e3ce00e1127",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_tijuca_51_batatman.png?alt=media&token=d7e06552-4821-4ea1-8469-e2b0979405c8",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_tijuca_53_robinete.png?alt=media&token=b2bba7a7-b4ac-49ef-94d8-386161459896",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_tijuca_58_aqualface.png?alt=media&token=57330ade-030e-4e9e-b949-1bcbb91a5c88",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_tijuca_59_sporock.png?alt=media&token=2ebffec2-5b53-4d64-9ae1-17065e8f8b34",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_tijuca_62_uva_negra.png?alt=media&token=e71f5f17-9b97-4faf-9086-b6b10e71f184",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_tijuca_64_coisa_de_milho.png?alt=media&token=ce945b98-3794-4794-9d46-3dcb677d3da8",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_tijuca_65_limao_america.png?alt=media&token=02d43d7a-b3b5-4f20-b473-a4d895ff2bc3",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_tijuca_67_uverine.png?alt=media&token=ef1cf006-f941-44b6-bf1e-c7d007854b33",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_tijuca_70_berinjela_negra.png?alt=media&token=eedd470f-fad7-46b3-a078-33aeea795cf8",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_tijuca_73_mandiorpheus.png?alt=media&token=aaea14d0-93b9-4e02-93ae-0e6e60d4da6d",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_tijuca_81_pepino_verde.png?alt=media&token=b33cf144-855e-4731-aaf6-3de935f12bf8",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_tijuca_92_beterraba_de_ferro.png?alt=media&token=8082d54a-1cde-4893-9b5d-ec123e3f84f3",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feiras_flamengo_laranjeiras_103_bete.png?alt=media&token=3c112f6f-4ad9-4a54-8564-9d0ed6e9582d",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feiras_flamengo_laranjeiras_23_joaninha.png?alt=media&token=a069c205-4637-4b90-8e63-c085fc868f1b",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feiras_flamengo_laranjeiras_61_batatman.png?alt=media&token=6ea75b42-6d6c-454c-b13f-8d0cb5928e40",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feiras_flamengo_laranjeiras_63_mandio.png?alt=media&token=099d9f7d-9464-4984-a582-0cfc61fb4f1e",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feiras_flamengo_laranjeiras_65_inhame.png?alt=media&token=325038c4-6b3d-4596-895c-8313f18d284a",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feiras_flamengo_laranjeiras_66_uverine.png?alt=media&token=e6fb071b-b225-4283-8ae2-78434e00d8fc",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feiras_flamengo_laranjeiras_67_robinete.png?alt=media&token=d5136c13-3189-4129-9579-acb47f39f48e",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feiras_flamengo_laranjeiras_70_aqua.png?alt=media&token=4a9952c9-1db4-4707-9e5b-c17b588bf68e",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feiras_flamengo_laranjeiras_77_sporock.png?alt=media&token=07d8f7a7-b4d8-4fbb-a66c-2946e6c5af79",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feiras_flamengo_laranjeiras_80_uva_negra.png?alt=media&token=bb990aa6-f533-4275-a241-0b8344cac861",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feiras_flamengo_laranjeiras_82_limao.png?alt=media&token=1a7c917d-c619-4b4d-aceb-403ad22e8d58",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feiras_flamengo_laranjeiras_93_abobrinha.png?alt=media&token=6d3b6395-a7ad-4538-98a7-732494b7b0b4",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feiras_flamengo_laranjeiras_93_pepino.png?alt=media&token=0dc5c5d8-ed9c-471d-8067-4ffe4b7ee6e7",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feiras_flamengo_laranjeiras_94a_coisa.png?alt=media&token=b690ab5e-a050-420c-8ff5-3881b8b1fed9",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feiras_flamengo_laranjeiras_94b_coisa.png?alt=media&token=d934d89d-9359-447c-8f52-c142a603ea0f",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feiras_flamengo_laranjeiras_97_berin.png?alt=media&token=29eb0d33-0244-426e-8cf4-6199f9146f35",
+      "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feiras_flamengo_laranjeiras_99_brulk.png?alt=media&token=593a813f-b898-4f13-ba07-8286acd7acf1",
   ];
 
   providedUrls.forEach(url => {
