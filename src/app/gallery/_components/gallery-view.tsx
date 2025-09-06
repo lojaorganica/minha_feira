@@ -146,7 +146,7 @@ function GalleryViewContent() {
             <div className="flex justify-between items-center mb-4 flex-shrink-0">
                 <BackButton />
                 <div className="w-10 h-10 flex items-center justify-center">
-                    <Button variant="ghost" size="icon" onClick={toggleShowFavorites} className="bg-transparent hover:bg-transparent focus-visible:bg-transparent focus:bg-transparent active:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0">
+                    <Button variant="ghost" size="icon" onClick={toggleShowFavorites}>
                         <Heart className={cn("h-7 w-7 transition-colors hover:fill-destructive/80", showFavorites ? "fill-current text-destructive" : "text-destructive/50")} />
                         <span className="sr-only">Mostrar Favoritos</span>
                     </Button>
@@ -202,7 +202,7 @@ function GalleryViewContent() {
                             const { firstWord, rest } = formatThemeName(item.theme[0]);
                             const isCurrentlyFavorite = isFavorite(item.id);
                             return (
-                            <Card key={item.id} className="overflow-hidden flex flex-col no-tap-highlight">
+                            <Card key={item.id} className="overflow-hidden flex flex-col">
                                 <CardContent className="p-0">
                                     <div className="relative w-full">
                                         {item.type === 'image' ? (
@@ -216,13 +216,13 @@ function GalleryViewContent() {
                                                     data-ai-hint={item.dataAiHint}
                                                 />
                                                 <div 
-                                                    className="absolute inset-0"
+                                                    className="absolute inset-0 cursor-pointer"
                                                     onClick={() => setSelectedImage(item)}
                                                 />
                                             </>
                                         ) : (
-                                            <div className="relative" onClick={() => setVideoToPlay(item)}>
-                                                <div className="absolute inset-0" />
+                                            <div className="relative">
+                                                <div className="absolute inset-0 cursor-pointer" onClick={() => setVideoToPlay(item)}/>
                                                 <video src={item.url} className="w-full h-full object-contain" preload="metadata" />
                                                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                                                     <PlayCircle className="h-16 w-16 text-white/80 drop-shadow-lg" />
