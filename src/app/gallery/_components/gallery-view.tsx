@@ -147,13 +147,13 @@ function GalleryViewContent() {
                 <BackButton />
                 <div className="w-10 h-10 flex items-center justify-center">
                     <Button variant="ghost" size="icon" onClick={toggleShowFavorites} className="hover:bg-transparent">
-                        <Heart className={cn("h-7 w-7 transition-colors", showFavorites ? "fill-destructive text-destructive" : "fill-white text-destructive/50")} />
+                        <Heart className={cn("h-7 w-7 transition-colors hover:text-destructive hover:fill-destructive", showFavorites ? "fill-destructive text-destructive" : "fill-none text-destructive/50")} />
                         <span className="sr-only">Mostrar Favoritos</span>
                     </Button>
                 </div>
             </div>
 
-            <div className="mb-4">
+            <div className="mb-6">
                 <h1 className="text-3xl font-bold font-headline text-primary tracking-tight sm:text-4xl">
                     Galeria de Propagandas
                 </h1>
