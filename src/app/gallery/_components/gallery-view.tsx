@@ -23,7 +23,7 @@ function GalleryViewContent() {
     const { toast } = useToast();
     const { favorites, toggleFavorite, isFavorite } = useGalleryFavorites();
 
-    const initialFair = searchParams.get('feira') || 'Todas';
+    const initialFair = searchParams.get('feira') || null;
     const initialTheme = searchParams.get('tema') || 'Todos';
     const showFavoritesParam = searchParams.get('favoritos') === 'true';
 
@@ -50,7 +50,7 @@ function GalleryViewContent() {
         const sourceItems = showFavorites ? favorites : allItems;
         
         return sourceItems.filter(item => {
-            const fairMatch = selectedFair === 'Todas' || item.fair.includes(selectedFair as any);
+            const fairMatch = !selectedFair || item.fair.includes(selectedFair as any);
             const themeMatch = selectedTheme === 'Todos' || item.theme.includes(selectedTheme as any);
             return fairMatch && themeMatch;
         });
@@ -64,8 +64,8 @@ function GalleryViewContent() {
         const currentParams = new URLSearchParams(searchParams.toString());
         
         if (type === 'fair') {
-            setSelectedFair(value);
-            if (value === 'Todas') currentParams.delete('feira');
+            setSelectedFair(value === 'null' ? null : value);
+            if (value === 'null') currentParams.delete('feira');
             else currentParams.set('feira', value);
         }
         if (type === 'theme') {
@@ -185,13 +185,14 @@ function GalleryViewContent() {
             
              <div className="sticky top-16 z-40 bg-background/95 py-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                     <Select value={selectedFair} onValueChange={(value) => handleFilterChange('fair', value)} disabled={showFavorites}>
+                     <Select value={selectedFair ?? 'null'} onValueChange={(value) => handleFilterChange('fair', value)} disabled={showFavorites}>
                         <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0 disabled:opacity-50">
                              <SelectValue>
-                                {selectedFair === 'Todas' ? 'Selecionar Feiras' : formatFairName(selectedFair)}
+                                {selectedFair ? formatFairName(selectedFair) : "Selecionar Feiras"}
                             </SelectValue>
                         </SelectTrigger>
                         <SelectContent>
+                            <SelectItem value="null">Mostrar Todas</SelectItem>
                             <SelectItem value="Todas">Todas as Feiras</SelectItem>
                             <SelectItem value="Flamengo e Laranjeiras">Feiras Orgânicas do Flamengo e Laranjeiras</SelectItem>
                             <SelectItem value="Grajaú">Feira Orgânica do Grajaú</SelectItem>
