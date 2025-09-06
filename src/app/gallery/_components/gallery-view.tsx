@@ -186,7 +186,7 @@ function GalleryViewContent() {
              <div className="sticky top-16 z-40 bg-background/95 py-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                      <Select value={selectedFair ?? 'null'} onValueChange={(value) => handleFilterChange('fair', value)} disabled={showFavorites}>
-                        <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0 disabled:opacity-50">
+                        <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0 disabled:opacity-50 justify-start">
                              <SelectValue>
                                 {selectedFair ? formatFairName(selectedFair) : "Selecionar Feiras"}
                             </SelectValue>
