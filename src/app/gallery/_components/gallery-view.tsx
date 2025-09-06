@@ -101,6 +101,19 @@ function GalleryViewContent() {
         }
         return `Feira Orgânica de ${fairName}`;
     };
+    
+    const allUniqueFairs = useMemo(() => {
+        const fairs = new Set<string>();
+        allItems.forEach(item => item.fair.forEach(f => fairs.add(f)));
+        return Array.from(fairs).sort();
+    }, [allItems]);
+
+    const allUniqueThemes = useMemo(() => {
+        const themes = new Set<string>();
+        allItems.forEach(item => item.theme.forEach(t => themes.add(t)));
+        return Array.from(themes).sort();
+    }, [allItems]);
+
 
     const formatThemeName = (themeName: string) => {
         const parts = themeName.split(' - ');
@@ -161,7 +174,7 @@ function GalleryViewContent() {
                 </Button>
             </div>
             
-             <div className="mb-4">
+             <div className="mb-2">
                  <h1 className="text-3xl font-bold font-headline text-primary tracking-tight sm:text-4xl">
                     Galeria de Propagandas
                 </h1>
@@ -169,12 +182,14 @@ function GalleryViewContent() {
                     Utilize estas artes para divulgar as feiras em suas redes sociais. Baixe e compartilhe as imagens e vídeos à vontade! Use os filtros para encontrar a propaganda ideal. 
                 </p>
             </div>
-
+            
              <div className="sticky top-16 z-40 bg-background/95 py-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                      <Select value={selectedFair} onValueChange={(value) => handleFilterChange('fair', value)} disabled={showFavorites}>
                         <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0 disabled:opacity-50">
-                            <SelectValue placeholder="Selecionar Feiras" />
+                             <SelectValue>
+                                {selectedFair === 'Todas' ? 'Selecionar Feiras' : formatFairName(selectedFair)}
+                            </SelectValue>
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem value="Todas">Todas as Feiras</SelectItem>
@@ -188,7 +203,9 @@ function GalleryViewContent() {
                     
                     <Select value={selectedTheme} onValueChange={(value) => handleFilterChange('theme', value)} disabled={showFavorites}>
                         <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0 disabled:opacity-50">
-                            <SelectValue placeholder="Selecionar Temas" />
+                            <SelectValue>
+                                {selectedTheme === 'Todos' ? 'Selecionar Temas' : selectedTheme}
+                            </SelectValue>
                         </SelectTrigger>
                         <SelectContent>
                            <SelectItem value="Todos">Todos os Temas</SelectItem>
@@ -353,7 +370,3 @@ export default function GalleryView() {
         </Suspense>
     );
 }
-
-    
-
-    
