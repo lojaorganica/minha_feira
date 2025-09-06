@@ -15,6 +15,7 @@ import { Dialog, DialogContent, DialogClose } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
 import { useGalleryFavorites } from '@/hooks/use-gallery-favorites';
+import BackButton from '@/components/back-button';
 
 function GalleryViewContent() {
     const router = useRouter();
@@ -329,3 +330,5 @@ export default function GalleryView() {
         </Suspense>
     );
 }
+
+  
