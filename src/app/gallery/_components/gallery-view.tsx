@@ -19,15 +19,10 @@ import BackButton from '@/components/back-button';
 
 const ITEMS_PER_PAGE = 24;
 
-// Componente de Card individual para otimizar o estado de favorito
 function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: GalleryItem; onShare: (item: GalleryItem) => void; onPlayVideo: (item: GalleryItem) => void; onSelectImage: (item: GalleryItem) => void; }) {
     const { toggleFavorite, isFavorite } = useGalleryFavorites();
-    const [isLocallyFavorite, setIsLocallyFavorite] = useState(isFavorite(item.id));
     const [isMobile, setIsMobile] = useState<boolean | undefined>(undefined);
-
-    useEffect(() => {
-        setIsLocallyFavorite(isFavorite(item.id));
-    }, [isFavorite, item.id]);
+    const isCurrentlyFavorite = isFavorite(item.id);
 
     useEffect(() => {
       const checkMobile = () => window.matchMedia("(max-width: 768px)").matches;
@@ -39,9 +34,6 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: 
 
     const handleToggleFavorite = (e: React.MouseEvent) => {
         e.stopPropagation();
-        // Atualiza o estado local imediatamente para uma resposta visual rápida
-        setIsLocallyFavorite(prev => !prev); 
-        // Chama a função do contexto para atualizar o estado global e o localStorage
         toggleFavorite(item);
     };
 
@@ -110,7 +102,7 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: 
                     >
                         <Heart className={cn(
                             "h-6 w-6 stroke-white fill-white hover:fill-destructive hover:stroke-destructive md:h-7 md:w-7", 
-                            isLocallyFavorite && "fill-destructive stroke-destructive animate-pulse-heart"
+                            isCurrentlyFavorite && "fill-destructive stroke-destructive animate-pulse-heart"
                         )}/>
                     </Button>
                 </div>
@@ -464,9 +456,3 @@ export default function GalleryView() {
         </Suspense>
     );
 }
-
-    
-
-    
-
-
