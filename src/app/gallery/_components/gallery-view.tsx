@@ -123,7 +123,7 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
                         </div>
                     )}
                      <button
-                        className="absolute top-1 right-1 h-8 w-8 rounded-full p-0 flex items-center justify-center border-none focus-visible:bg-transparent [-webkit-tap-highlight-color:transparent]"
+                        className="absolute top-1 right-1 h-8 w-8 rounded-full p-0 flex items-center justify-center border-none [-webkit-tap-highlight-color:transparent]"
                         onClick={handleToggleFavorite}
                         >
                         <Heart className={cn(
@@ -317,10 +317,9 @@ function GalleryViewContent() {
             <div className="flex justify-between items-center mb-4">
                 <BackButton />
                 <Button
-                    variant="ghost"
                     size="icon"
                     onClick={toggleShowFavorites}
-                    className="group"
+                    className="bg-transparent hover:bg-transparent focus:bg-transparent focus-visible:bg-transparent [-webkit-tap-highlight-color:transparent]"
                 >
                     <Heart className={cn(
                         "h-7 w-7",
