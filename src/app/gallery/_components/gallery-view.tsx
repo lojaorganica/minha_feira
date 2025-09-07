@@ -23,7 +23,6 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: 
     const { toggleFavorite, isFavorite } = useGalleryFavorites();
     const isCurrentlyFavorite = isFavorite(item.id);
     
-    // Estados para controlar o toque e evitar disparos acidentais ao rolar
     const touchStartPos = useRef({ x: 0, y: 0 });
     const isDragging = useRef(false);
 
@@ -33,17 +32,17 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: 
     };
 
     const handleTouchMove = (e: React.TouchEvent) => {
+        if (isDragging.current) return;
         const touchCurrentPos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
         const deltaX = Math.abs(touchCurrentPos.x - touchStartPos.current.x);
         const deltaY = Math.abs(touchCurrentPos.y - touchStartPos.current.y);
         
-        // Se o movimento for maior que uma pequena tolerância, considera-se que o usuário está rolando
         if (deltaX > 10 || deltaY > 10) {
             isDragging.current = true;
         }
     };
 
-    const handleToggleFavorite = (e: React.MouseEvent) => {
+    const handleToggleFavorite = (e: React.MouseEvent | React.TouchEvent) => {
         e.stopPropagation();
         toggleFavorite(item);
     };
@@ -60,7 +59,8 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: 
         }
     };
 
-    const handleDownload = (url: string, title: string) => {
+    const handleDownload = (e: React.MouseEvent, url: string, title: string) => {
+        e.stopPropagation();
         window.open(url, '_blank');
     };
 
@@ -115,7 +115,7 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: 
                             onTouchEnd={handleVideoClick}
                          >
                             <video src={item.url} className="w-full h-full object-contain" preload="metadata" />
-                            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                            <div className="absolute inset-0 flex items-center justify-center bg-black/10 pointer-events-none">
                                 <PlayCircle className="h-16 w-16 text-white/80 drop-shadow-lg" />
                             </div>
                         </div>
@@ -125,10 +125,11 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: 
                         size="icon"
                         className="absolute top-1 right-1 h-8 w-8 rounded-full focus-visible:ring-0 focus-visible:ring-offset-0 bg-black/20 hover:bg-black/40"
                         onClick={handleToggleFavorite}
+                        onTouchEnd={handleToggleFavorite}
                         >
                         <Heart className={cn(
-                            "h-6 w-6 stroke-white fill-transparent hover:fill-destructive hover:stroke-destructive", 
-                            isCurrentlyFavorite ? "fill-destructive stroke-destructive animate-pulse-heart" : "fill-white"
+                            "h-6 w-6 stroke-white fill-transparent transition-colors", 
+                            isCurrentlyFavorite ? "fill-destructive stroke-destructive animate-pulse-heart" : "fill-white/80"
                         )}/>
                     </Button>
                 </div>
@@ -144,11 +145,11 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: 
             </div>
             <CardFooter className="p-2 bg-muted/50 mt-auto">
                  <div className="flex w-full gap-2">
-                    <Button variant="outline" size="sm" className="h-8 text-xs flex-1 hidden sm:flex" onClick={() => handleDownload(item.url, item.title)}>
+                    <Button variant="outline" size="sm" className="h-8 text-xs flex-1 hidden sm:flex" onClick={(e) => handleDownload(e, item.url, item.title)}>
                         <Download className="mr-2 h-4 w-4" />
                         Baixar
                     </Button>
-                    <Button size="sm" className="h-8 text-xs flex-1" onClick={() => onShare(item)}>
+                    <Button size="sm" className="h-8 text-xs flex-1" onClick={(e) => { e.stopPropagation(); onShare(item); }}>
                         <Share2 className="mr-2 h-4 w-4" />
                         Compartilhar
                     </Button>
@@ -164,8 +165,8 @@ function GalleryViewContent() {
     const searchParams = useSearchParams();
     const { toast } = useToast();
     
-    const [isShowingFavorites, setIsShowingFavorites] = useState(() => searchParams.get('favoritos') === 'true');
     const { favorites } = useGalleryFavorites();
+    const [isShowingFavorites, setIsShowingFavorites] = useState(searchParams.get('favoritos') === 'true');
 
     const [selectedFair, setSelectedFair] = useState(searchParams.get('feira') || null);
     const [selectedTheme, setSelectedTheme] = useState(searchParams.get('tema') || 'Todos');
@@ -176,7 +177,8 @@ function GalleryViewContent() {
     const loaderRef = useRef(null);
 
     useEffect(() => {
-        setIsShowingFavorites(searchParams.get('favoritos') === 'true');
+        const currentParams = new URLSearchParams(searchParams.toString());
+        setIsShowingFavorites(currentParams.get('favoritos') === 'true');
     }, [searchParams]);
 
     const allItems = useMemo(() => getGalleryItems(), []);
@@ -196,13 +198,11 @@ function GalleryViewContent() {
         });
     }, [allItems, favorites, isShowingFavorites, selectedFair, selectedTheme]);
 
-    // Resetar a contagem de visibilidade ao mudar os filtros
     useEffect(() => {
         setVisibleCount(ITEMS_PER_PAGE);
     }, [filteredItems]);
 
 
-    // Lógica para o scroll infinito
     useEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => {
@@ -247,9 +247,10 @@ function GalleryViewContent() {
 
     const toggleShowFavorites = () => {
         const newShowFavorites = !isShowingFavorites;
-        setIsShowingFavorites(newShowFavorites);
-
         const currentParams = new URLSearchParams(searchParams.toString());
+        
+        setIsShowingFavorites(newShowFavorites);
+        
         if (newShowFavorites) {
             currentParams.set('favoritos', 'true');
         } else {
