@@ -119,20 +119,17 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
                             </div>
                         </div>
                     )}
-                     <Button
-                        variant="ghost"
-                        size="icon"
-                        className="absolute top-1 right-1 h-8 w-8 rounded-full [-webkit-tap-highlight-color:transparent] focus-visible:bg-transparent"
+                     <button
+                        className="absolute top-1 right-1 h-8 w-8 rounded-full p-0 flex items-center justify-center bg-transparent border-none [-webkit-tap-highlight-color:transparent] focus:outline-none"
                         onClick={handleToggleFavorite}
-                        onTouchEnd={handleToggleFavorite}
                         >
                         <Heart className={cn(
-                            "h-6 w-6 stroke-white drop-shadow-md hover:fill-destructive hover:stroke-destructive",
+                            "h-6 w-6 stroke-white drop-shadow-md transition-colors",
                             isCurrentlyFavorite 
                                 ? "fill-destructive stroke-destructive animate-pulse-heart"
-                                : "fill-white"
+                                : "fill-white hover:fill-destructive hover:stroke-destructive"
                         )}/>
-                    </Button>
+                    </button>
                 </div>
             </CardContent>
             <div className="p-2 space-y-1">
