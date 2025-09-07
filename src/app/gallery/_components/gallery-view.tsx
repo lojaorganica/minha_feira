@@ -19,8 +19,7 @@ import BackButton from '@/components/back-button';
 
 const ITEMS_PER_PAGE = 24;
 
-function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentlyFavorite }: { item: GalleryItem; onShare: (item: GalleryItem) => void; onPlayVideo: (item: GalleryItem) => void; onSelectImage: (item: GalleryItem) => void; isCurrentlyFavorite: boolean;}) {
-    const { toggleFavorite } = useGalleryFavorites();
+function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentlyFavorite, onToggleFavorite }: { item: GalleryItem; onShare: (item: GalleryItem) => void; onPlayVideo: (item: GalleryItem) => void; onSelectImage: (item: GalleryItem) => void; isCurrentlyFavorite: boolean; onToggleFavorite: (item: GalleryItem) => void; }) {
     const [isPending, startTransition] = useTransition();
 
     const touchStartPos = useRef({ x: 0, y: 0 });
@@ -45,7 +44,7 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
     const handleToggleFavorite = (e: React.MouseEvent) => {
         e.stopPropagation();
         startTransition(() => {
-            toggleFavorite(item);
+            onToggleFavorite(item);
         });
     };
     
@@ -162,7 +161,7 @@ function GalleryViewContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     
-    const { favorites, isFavorite } = useGalleryFavorites();
+    const { favorites, isFavorite, toggleFavorite } = useGalleryFavorites();
     const allItems = useMemo(() => getGalleryItems(), []);
     
     const [selectedFair, setSelectedFair] = useState(searchParams.get('feira') || null);
@@ -171,10 +170,10 @@ function GalleryViewContent() {
     const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
     const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
     const [isPending, startTransition] = useTransition();
-
-    const isShowingFavorites = searchParams.get('favoritos') === 'true';
     
     const loaderRef = useRef(null);
+
+    const isShowingFavorites = searchParams.get('favoritos') === 'true';
 
      const filteredItems = useMemo(() => {
         const sourceItems = isShowingFavorites ? favorites : allItems;
@@ -381,6 +380,7 @@ function GalleryViewContent() {
                                     onPlayVideo={setVideoToPlay}
                                     onSelectImage={setSelectedImage}
                                     isCurrentlyFavorite={isFavorite(item.id)}
+                                    onToggleFavorite={toggleFavorite}
                                 />
                             ))}
                         </div>
