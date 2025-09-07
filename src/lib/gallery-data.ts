@@ -414,7 +414,23 @@ const allItemUrls = [
     "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2F012_aali_cartoon_todas_feiras.png?alt=media&token=73e5f223-9562-4217-a02e-c50f8373b53c",
     "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2F013_aali_cartoon_todas_feiras.png?alt=media&token=404284b3-d5d3-4f9e-b9b9-d5c22501a52f",
     "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2F014_aali_cartoon_todas_feiras.png?alt=media&token=b367d3e4-4d83-4a0e-b7d6-e9104033b006",
-    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2F015_aali_cartoon_feiras_flamengo_laranjeiras.png?alt=media&token=38c03565-d0c3-4d43-b9b5-f4851240c57c"
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2F015_aali_cartoon_feiras_flamengo_laranjeiras.png?alt=media&token=38c03565-d0c3-4d43-b9b5-f4851240c57c",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_chuva_20_feira_grajau.png?alt=media&token=c19a9e33-722a-43cf-b593-0182404e76d9",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_chuva_21_feira_tijuca.png?alt=media&token=a6c11d4e-b56e-44b4-82a1-638686d13d7a",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_chuva_22_feira_leme.png?alt=media&token=b367d3e4-4d83-4a0e-b7d6-e9104033b006",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_chuva_23_feira_botafogo.png?alt=media&token=38c03565-d0c3-4d43-b9b5-f4851240c57c",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2F014_aagr_cartoon_todas_feiras.jpg?alt=media&token=180155b9-4786-4f48-a006-896898b58a1f",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2F015_aagr_cartoon_todas_feiras.jpg?alt=media&token=d1d29388-757b-402a-a9a7-95e20d2d3e91",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2F016_aagr_cartoon_todas_feiras.jpg?alt=media&token=689b1d92-23c2-482a-9e5c-74f0c4383a8b",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2F017_aagr_cartoon_todas_feiras.jpg?alt=media&token=14300e84-18c7-4346-b258-2976f4e1564f",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2F018_aagr_cartoon_todas_feiras.jpg?alt=media&token=7c1b5a59-b1d5-456d-b2b9-2c700305a415",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2F019_aagr_cartoon_todas_feiras.jpg?alt=media&token=7a905a5a-8b82-4011-8280-e7f0932822a1",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2F020_aagr_cartoon_todas_feiras.jpg?alt=media&token=09c8d5c3-16f3-4d64-8848-f68205f9c5d0",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2F021_aagr_cartoon_todas_feiras.jpg?alt=media&token=73e5f223-9562-4217-a02e-c50f8373b53c",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2F022_aagr_cartoon_todas_feiras.jpg?alt=media&token=404284b3-d5d3-4f9e-b9b9-d5c22501a52f",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_story_todas_feiras_82_mandiorpheus.png?alt=media&token=b367d3e4-4d83-4a0e-b7d6-e9104033b006",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_todas_feiras_79_mandiorpheus.png?alt=media&token=38c03565-d0c3-4d43-b9b5-f4851240c57c",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_todas_feiras_82_abobrinha_maravilha.png?alt=media&token=180155b9-4786-4f48-a006-896898b58a1f"
 ];
 
 function getFairCategories(fileName: string): GalleryFair[] {
@@ -515,3 +531,5 @@ export function getGalleryItems(): GalleryItem[] {
   galleryItemsCache = allItems;
   return galleryItemsCache;
 }
+
+    
