@@ -56,7 +56,7 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
     };
     
     const handleDivClick = () => {
-         handleActionClick(() => onSelectImage(item));
+        handleActionClick(() => onSelectImage(item));
     }
 
 
@@ -120,7 +120,7 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
                         </div>
                     )}
                      <button
-                        className="absolute top-1 right-1 h-8 w-8 rounded-full p-0 flex items-center justify-center border-none bg-transparent focus-visible:bg-transparent active:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 [-webkit-tap-highlight-color:transparent]"
+                        className="absolute top-1 right-1 h-8 w-8 rounded-full p-0 flex items-center justify-center border-none bg-transparent hover:bg-transparent focus-visible:bg-transparent active:bg-transparent focus:outline-none focus:ring-0 focus:ring-offset-0 [-webkit-tap-highlight-color:transparent]"
                         onClick={handleToggleFavorite}
                         >
                         <Heart className={cn(
@@ -177,11 +177,7 @@ function GalleryViewContent() {
     const loaderRef = useRef(null);
 
      const filteredItems = useMemo(() => {
-        let sourceItems = allItems;
-        if (isShowingFavorites) {
-          const favoriteIds = new Set(favorites.map(f => f.id));
-          sourceItems = allItems.filter(item => favoriteIds.has(item.id));
-        }
+        const sourceItems = isShowingFavorites ? favorites : allItems;
         
         return sourceItems.filter(item => {
             const fairMatch = !selectedFair || (selectedFair === 'Todas' ? item.fair.includes('Todas') : item.fair.includes(selectedFair as any));
@@ -309,7 +305,7 @@ function GalleryViewContent() {
                 <BackButton />
                 <button
                     onClick={toggleShowFavorites}
-                    className="p-2 rounded-full bg-transparent border-none focus:outline-none focus:ring-0 focus:ring-offset-0 focus-visible:bg-transparent active:bg-transparent [-webkit-tap-highlight-color:transparent]"
+                    className="p-2 rounded-full bg-transparent border-none focus:outline-none focus:ring-0 focus:ring-offset-0 focus-visible:bg-transparent active:bg-transparent hover:bg-transparent [-webkit-tap-highlight-color:transparent]"
                 >
                     <Heart className={cn(
                         "h-7 w-7 transition-colors",

@@ -16,15 +16,17 @@ interface GalleryFavoritesContextType {
 const GalleryFavoritesContext = createContext<GalleryFavoritesContextType | undefined>(undefined);
 
 export const GalleryFavoritesProvider = ({ children }: { children: ReactNode }) => {
-    const [favoriteIds, setFavoriteIds] = useState<Set<string>>(new Set());
+    const [favorites, setFavorites] = useState<GalleryItem[]>([]);
     const [isLoaded, setIsLoaded] = useState(false);
     const { toast } = useToast();
 
     useEffect(() => {
         try {
-            const storedFavorites = localStorage.getItem("minha_feira_gallery_favorites");
-            if (storedFavorites) {
-                setFavoriteIds(new Set(JSON.parse(storedFavorites)));
+            const storedFavoriteIds = localStorage.getItem("minha_feira_gallery_favorites");
+            if (storedFavoriteIds) {
+                const ids = new Set<string>(JSON.parse(storedFavoriteIds));
+                const allItems = getGalleryItems();
+                setFavorites(allItems.filter(item => ids.has(item.id)));
             }
         } catch (error) {
             console.error("Falha ao carregar favoritos da galeria do localStorage", error);
@@ -33,41 +35,43 @@ export const GalleryFavoritesProvider = ({ children }: { children: ReactNode }) 
         }
     }, []);
 
-    useEffect(() => {
-        if (isLoaded) {
-            try {
-                localStorage.setItem("minha_feira_gallery_favorites", JSON.stringify(Array.from(favoriteIds)));
-            } catch (error) {
-                console.error("Falha ao salvar favoritos da galeria no localStorage", error);
-            }
+    const saveFavoritesToLocalStorage = (items: GalleryItem[]) => {
+        try {
+            const favoriteIds = items.map(item => item.id);
+            localStorage.setItem("minha_feira_gallery_favorites", JSON.stringify(favoriteIds));
+        } catch (error) {
+            console.error("Falha ao salvar favoritos da galeria no localStorage", error);
         }
-    }, [favoriteIds, isLoaded]);
-
+    };
+    
     const toggleFavorite = useCallback((item: GalleryItem) => {
-        setFavoriteIds(prev => {
-            const newFavorites = new Set(prev);
-            if (newFavorites.has(item.id)) {
-                newFavorites.delete(item.id);
+        setFavorites(prevFavorites => {
+            const isCurrentlyFavorite = prevFavorites.some(fav => fav.id === item.id);
+            let newFavorites;
+
+            if (isCurrentlyFavorite) {
+                newFavorites = prevFavorites.filter(fav => fav.id !== item.id);
                 toast({
                     title: "Removido dos Favoritos",
                     description: `"${item.title}" não está mais na sua galeria de favoritos.`,
                 });
             } else {
-                newFavorites.add(item.id);
-                 toast({
+                newFavorites = [...prevFavorites, item];
+                toast({
                     title: "Adicionado aos Favoritos!",
                     description: `"${item.title}" foi adicionado à sua galeria de favoritos.`,
                 });
             }
+
+            saveFavoritesToLocalStorage(newFavorites);
             return newFavorites;
         });
     }, [toast]);
-
+    
     const isFavorite = useCallback((itemId: string) => {
-        return favoriteIds.has(itemId);
-    }, [favoriteIds]);
+        return favorites.some(fav => fav.id === itemId);
+    }, [favorites]);
 
-    const favorites = getGalleryItems().filter(item => favoriteIds.has(item.id));
 
     return (
         <GalleryFavoritesContext.Provider value={{ favorites, toggleFavorite, isFavorite, isLoaded }}>
