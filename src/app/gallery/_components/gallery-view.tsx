@@ -22,7 +22,7 @@ const ITEMS_PER_PAGE = 24;
 // Componente de Card individual para otimizar o estado de favorito
 function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: GalleryItem; onShare: (item: GalleryItem) => void; onPlayVideo: (item: GalleryItem) => void; onSelectImage: (item: GalleryItem) => void; }) {
     const { toggleFavorite, isFavorite } = useGalleryFavorites();
-    const [isLocallyFavorite, setIsLocallyFavorite] = useState(() => isFavorite(item.id));
+    const [isLocallyFavorite, setIsLocallyFavorite] = useState(isFavorite(item.id));
     const [isMobile, setIsMobile] = useState<boolean | undefined>(undefined);
 
     useEffect(() => {
@@ -106,8 +106,8 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: 
                     onClick={handleToggleFavorite}
                     >
                         <Heart className={cn(
-                            "h-6 w-6 stroke-white fill-white transition-all hover:fill-destructive hover:stroke-destructive md:h-7 md:w-7", 
-                            isLocallyFavorite && "fill-destructive stroke-destructive animate-pulse-heart"
+                            "h-6 w-6 stroke-white fill-white hover:fill-destructive hover:stroke-destructive md:h-7 md:w-7", 
+                            isLocallyFavorite && "fill-destructive stroke-destructive"
                         )}/>
                     </Button>
                 </div>
@@ -309,7 +309,7 @@ function GalleryViewContent() {
                     className="group hover:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
                 >
                     <Heart className={cn(
-                        "h-7 w-7 transition-colors",
+                        "h-7 w-7",
                         showFavorites
                             ? "fill-destructive text-destructive"
                             : "stroke-primary hover:fill-destructive hover:stroke-destructive"
@@ -465,3 +465,4 @@ export default function GalleryView() {
     
 
     
+

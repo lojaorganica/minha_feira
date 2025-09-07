@@ -133,9 +133,4 @@
       transform: scale(1.25);
     }
   }
-
-  .animate-pulse-heart {
-    animation: pulse-heart 1.5s ease-in-out infinite;
-    transform-origin: center;
-  }
 }
