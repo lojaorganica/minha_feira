@@ -107,14 +107,12 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
                             <div 
                                 className="absolute inset-0 cursor-pointer"
                                 onClick={handleImageClick}
-                                onTouchEnd={handleImageClick}
                             />
                         </>
                     ) : (
                          <div 
                             className="relative cursor-pointer" 
                             onClick={handleVideoClick} 
-                            onTouchEnd={handleVideoClick}
                          >
                             <video src={item.url} className="w-full h-full object-contain" preload="metadata" />
                             <div className="absolute inset-0 flex items-center justify-center bg-black/10 pointer-events-none">
@@ -477,3 +475,6 @@ export default function GalleryView() {
     
 
 
+
+
+    
