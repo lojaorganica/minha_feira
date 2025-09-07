@@ -78,7 +78,7 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: 
                             />
                         </>
                     ) : (
-                        <div className="relative cursor-pointer" onClick={handleVideoClick} onTouchEnd={handleVideoClick}>
+                         <div className="relative cursor-pointer" onClick={handleVideoClick} onTouchEnd={handleVideoClick}>
                             <video src={item.url} className="w-full h-full object-contain" preload="metadata" />
                             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                                 <PlayCircle className="h-16 w-16 text-white/80 drop-shadow-lg" />
@@ -137,6 +137,7 @@ function GalleryViewContent() {
     const [selectedTheme, setSelectedTheme] = useState(initialTheme);
     const [videoToPlay, setVideoToPlay] = useState<GalleryItem | null>(null);
     const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
+    const [version, setVersion] = useState(0);
     
     const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
 
@@ -222,6 +223,7 @@ function GalleryViewContent() {
             currentParams.set('favoritos', 'true');
         }
         updateUrlParams(currentParams);
+        setVersion(v => v + 1); // Força re-renderização
     };
 
     const formatFairName = (fairName: string): string => {
@@ -441,3 +443,5 @@ export default function GalleryView() {
         </Suspense>
     );
 }
+
+    
