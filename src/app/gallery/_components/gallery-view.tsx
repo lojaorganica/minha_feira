@@ -124,17 +124,13 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
                         size="icon"
                         className="absolute top-1 right-1 h-8 w-8 rounded-full [-webkit-tap-highlight-color:transparent] focus-visible:bg-transparent"
                         onClick={handleToggleFavorite}
-                        onTouchEnd={(e) => {
-                             if (!isDragging.current) {
-                                handleToggleFavorite(e)
-                             }
-                        }}
+                        onTouchEnd={handleToggleFavorite}
                         >
                         <Heart className={cn(
                             "h-6 w-6 stroke-white drop-shadow-md hover:fill-destructive hover:stroke-destructive",
                             isCurrentlyFavorite 
                                 ? "fill-destructive stroke-destructive animate-pulse-heart"
-                                : "fill-white stroke-white"
+                                : "fill-white"
                         )}/>
                     </Button>
                 </div>
@@ -168,7 +164,6 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
 function GalleryViewContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const { toast } = useToast();
     
     const { favorites, isFavorite } = useGalleryFavorites();
     const [isShowingFavorites, setIsShowingFavorites] = useState(searchParams.get('favoritos') === 'true');
