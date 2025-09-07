@@ -123,7 +123,7 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: 
                     <Button
                         variant="ghost"
                         size="icon"
-                        className="absolute top-1 right-1 h-8 w-8 rounded-full bg-black/20 hover:bg-black/40 [-webkit-tap-highlight-color:transparent]"
+                        className="absolute top-1 right-1 h-8 w-8 rounded-full hover:bg-transparent"
                         onClick={handleToggleFavorite}
                         onTouchEnd={(e) => {
                              if (!isDragging.current) {
@@ -132,7 +132,7 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: 
                         }}
                         >
                         <Heart className={cn(
-                            "h-6 w-6 stroke-white fill-transparent transition-colors hover:fill-destructive hover:stroke-destructive",
+                            "h-6 w-6 stroke-white fill-transparent drop-shadow-md hover:fill-destructive hover:stroke-destructive",
                             isCurrentlyFavorite ? "fill-destructive stroke-destructive animate-pulse-heart" : "fill-white/80"
                         )}/>
                     </Button>
