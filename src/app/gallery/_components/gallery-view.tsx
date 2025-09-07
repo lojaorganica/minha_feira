@@ -22,19 +22,46 @@ const ITEMS_PER_PAGE = 24;
 function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: GalleryItem; onShare: (item: GalleryItem) => void; onPlayVideo: (item: GalleryItem) => void; onSelectImage: (item: GalleryItem) => void; }) {
     const { toggleFavorite, isFavorite } = useGalleryFavorites();
     const isCurrentlyFavorite = isFavorite(item.id);
+    
+    // Estados para controlar o toque e evitar disparos acidentais ao rolar
+    const touchStartPos = useRef({ x: 0, y: 0 });
+    const isDragging = useRef(false);
+
+    const handleTouchStart = (e: React.TouchEvent) => {
+        touchStartPos.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        isDragging.current = false;
+    };
+
+    const handleTouchMove = (e: React.TouchEvent) => {
+        const touchCurrentPos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        const deltaX = Math.abs(touchCurrentPos.x - touchStartPos.current.x);
+        const deltaY = Math.abs(touchCurrentPos.y - touchStartPos.current.y);
+        
+        // Se o movimento for maior que uma pequena tolerância, considera-se que o usuário está rolando
+        if (deltaX > 10 || deltaY > 10) {
+            isDragging.current = true;
+        }
+    };
 
     const handleToggleFavorite = (e: React.MouseEvent) => {
         e.stopPropagation();
         toggleFavorite(item);
     };
+    
+    const handleImageClick = () => {
+        if (!isDragging.current) {
+            onSelectImage(item);
+        }
+    };
+    
+    const handleVideoClick = () => {
+        if (!isDragging.current) {
+            onPlayVideo(item);
+        }
+    };
 
     const handleDownload = (url: string, title: string) => {
         window.open(url, '_blank');
-    };
-
-    const handleVideoClick = (e: React.MouseEvent | React.TouchEvent) => {
-        e.stopPropagation();
-        onPlayVideo(item);
     };
 
     const formatFairName = (fairName: string): string => {
@@ -59,7 +86,11 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: 
     return (
         <Card className="overflow-hidden flex flex-col">
             <CardContent className="p-0">
-                <div className="relative w-full">
+                <div 
+                    className="relative w-full"
+                    onTouchStart={handleTouchStart}
+                    onTouchMove={handleTouchMove}
+                >
                     {item.type === 'image' ? (
                         <>
                             <Image
@@ -73,11 +104,16 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: 
                             />
                             <div 
                                 className="absolute inset-0 cursor-pointer"
-                                onClick={() => onSelectImage(item)}
+                                onClick={handleImageClick}
+                                onTouchEnd={handleImageClick}
                             />
                         </>
                     ) : (
-                         <div className="relative cursor-pointer" onClick={handleVideoClick} onTouchEnd={handleVideoClick}>
+                         <div 
+                            className="relative cursor-pointer" 
+                            onClick={handleVideoClick} 
+                            onTouchEnd={handleVideoClick}
+                         >
                             <video src={item.url} className="w-full h-full object-contain" preload="metadata" />
                             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                                 <PlayCircle className="h-16 w-16 text-white/80 drop-shadow-lg" />
@@ -87,12 +123,12 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: 
                     <Button
                         variant="ghost"
                         size="icon"
-                        className="absolute top-1 right-1 h-8 w-8 rounded-full focus-visible:ring-0 focus-visible:ring-offset-0 hover:bg-transparent"
+                        className="absolute top-1 right-1 h-8 w-8 rounded-full focus-visible:ring-0 focus-visible:ring-offset-0 bg-black/20 hover:bg-black/40"
                         onClick={handleToggleFavorite}
                         >
                         <Heart className={cn(
-                            "h-6 w-6 stroke-white fill-white hover:fill-destructive hover:stroke-destructive md:h-7 md:w-7", 
-                            isCurrentlyFavorite && "fill-destructive stroke-destructive animate-pulse-heart"
+                            "h-6 w-6 stroke-white fill-transparent hover:fill-destructive hover:stroke-destructive", 
+                            isCurrentlyFavorite ? "fill-destructive stroke-destructive animate-pulse-heart" : "fill-white"
                         )}/>
                     </Button>
                 </div>
@@ -127,6 +163,8 @@ function GalleryViewContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const { toast } = useToast();
+    
+    const [isShowingFavorites, setIsShowingFavorites] = useState(() => searchParams.get('favoritos') === 'true');
     const { favorites } = useGalleryFavorites();
 
     const [selectedFair, setSelectedFair] = useState(searchParams.get('feira') || null);
@@ -135,16 +173,13 @@ function GalleryViewContent() {
     const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
     const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
     
-    // Estado local para o botão de favoritos principal
-    const [isShowingFavorites, setIsShowingFavorites] = useState(searchParams.get('favoritos') === 'true');
     const loaderRef = useRef(null);
 
-    const allItems = useMemo(() => getGalleryItems(), []);
-    
-    // Sincroniza o estado local com a URL
     useEffect(() => {
         setIsShowingFavorites(searchParams.get('favoritos') === 'true');
     }, [searchParams]);
+
+    const allItems = useMemo(() => getGalleryItems(), []);
     
     const filteredItems = useMemo(() => {
         let sourceItems = allItems;
@@ -212,10 +247,8 @@ function GalleryViewContent() {
 
     const toggleShowFavorites = () => {
         const newShowFavorites = !isShowingFavorites;
-        // Atualiza o estado local IMEDIATAMENTE para a resposta visual
         setIsShowingFavorites(newShowFavorites);
 
-        // Atualiza a URL em segundo plano
         const currentParams = new URLSearchParams(searchParams.toString());
         if (newShowFavorites) {
             currentParams.set('favoritos', 'true');
@@ -292,7 +325,7 @@ function GalleryViewContent() {
                     <Heart className={cn(
                         "h-7 w-7",
                         isShowingFavorites
-                            ? "fill-destructive text-destructive"
+                            ? "fill-destructive stroke-destructive"
                             : "stroke-primary hover:fill-destructive hover:stroke-destructive"
                     )} />
                     <span className="sr-only">Mostrar Favoritos</span>
