@@ -127,10 +127,10 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
                         onClick={handleToggleFavorite}
                         >
                         <Heart className={cn(
-                            "h-6 w-6 stroke-white drop-shadow-md transition-colors",
+                            "h-6 w-6 stroke-white drop-shadow-md transition-colors hover:fill-destructive hover:stroke-destructive",
                             isCurrentlyFavorite
                                 ? "fill-destructive stroke-destructive animate-pulse-heart"
-                                : "fill-white hover:fill-destructive hover:stroke-destructive"
+                                : "fill-white"
                         )}/>
                     </button>
                 </div>
