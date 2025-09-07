@@ -19,14 +19,12 @@ import BackButton from '@/components/back-button';
 
 const ITEMS_PER_PAGE = 24;
 
-function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: GalleryItem; onShare: (item: GalleryItem) => void; onPlayVideo: (item: GalleryItem) => void; onSelectImage: (item: GalleryItem) => void;}) {
-    const { toggleFavorite, isFavorite } = useGalleryFavorites();
-    const isCurrentlyFavorite = isFavorite(item.id);
+function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentlyFavorite }: { item: GalleryItem; onShare: (item: GalleryItem) => void; onPlayVideo: (item: GalleryItem) => void; onSelectImage: (item: GalleryItem) => void; isCurrentlyFavorite: boolean;}) {
+    const { toggleFavorite } = useGalleryFavorites();
     const [isPending, startTransition] = useTransition();
 
     const touchStartPos = useRef({ x: 0, y: 0 });
     const isDragging = useRef(false);
-
 
     const handleTouchStart = (e: React.TouchEvent) => {
         touchStartPos.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
@@ -125,7 +123,7 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: 
                         </div>
                     )}
                      <button
-                        className="absolute top-1 right-1 h-8 w-8 rounded-full p-0 flex items-center justify-center border-none focus:outline-none focus-visible:bg-transparent [-webkit-tap-highlight-color:transparent]"
+                        className="absolute top-1 right-1 h-8 w-8 rounded-full p-0 flex items-center justify-center border-none focus-visible:bg-transparent [-webkit-tap-highlight-color:transparent]"
                         onClick={handleToggleFavorite}
                         >
                         <Heart className={cn(
@@ -397,6 +395,7 @@ function GalleryViewContent() {
                                     onShare={handleShare}
                                     onPlayVideo={setVideoToPlay}
                                     onSelectImage={setSelectedImage}
+                                    isCurrentlyFavorite={isFavorite(item.id)}
                                 />
                             ))}
                         </div>
@@ -477,7 +476,3 @@ export default function GalleryView() {
         </Suspense>
     );
 }
-
-    
-
-    
