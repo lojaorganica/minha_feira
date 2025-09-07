@@ -19,11 +19,136 @@ import BackButton from '@/components/back-button';
 
 const ITEMS_PER_PAGE = 24;
 
+// Componente de Card individual para otimizar o estado de favorito
+function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: GalleryItem; onShare: (item: GalleryItem) => void; onPlayVideo: (item: GalleryItem) => void; onSelectImage: (item: GalleryItem) => void; }) {
+    const { toggleFavorite, isFavorite } = useGalleryFavorites();
+    const [isLocallyFavorite, setIsLocallyFavorite] = useState(() => isFavorite(item.id));
+    const [isMobile, setIsMobile] = useState<boolean | undefined>(undefined);
+
+    useEffect(() => {
+      const checkMobile = () => window.matchMedia("(max-width: 768px)").matches;
+      setIsMobile(checkMobile());
+      const handleResize = () => setIsMobile(checkMobile());
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    useEffect(() => {
+        setIsLocallyFavorite(isFavorite(item.id));
+    }, [isFavorite, item.id]);
+
+    const handleToggleFavorite = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        const newState = !isLocallyFavorite;
+        setIsLocallyFavorite(newState); // Resposta visual imediata
+        toggleFavorite(item); // Atualização em segundo plano
+    };
+
+    const handleDownload = (url: string, title: string) => {
+        window.open(url, '_blank');
+    };
+
+    const handleVideoClick = (e: React.MouseEvent | React.TouchEvent) => {
+        e.stopPropagation();
+        onPlayVideo(item);
+    };
+
+    const formatFairName = (fairName: string): string => {
+        if (fairName === 'Todas') {
+            return 'Todas as Feiras';
+        }
+        if (fairName === 'Flamengo e Laranjeiras') {
+            return 'Feiras Orgânicas do Flamengo e Laranjeiras';
+        }
+        const doExceptions = ['Leme', 'Grajaú', 'Flamengo'];
+        if (doExceptions.includes(fairName)) {
+            return `Feira Orgânica do ${fairName}`;
+        }
+        return `Feira Orgânica de ${fairName}`;
+    };
+
+    const { firstWord, rest } = useMemo(() => {
+        const parts = item.theme[0].split(' - ');
+        return { firstWord: parts[0], rest: parts.slice(1).join(' - ') };
+    }, [item.theme]);
+    
+
+    return (
+        <Card className="overflow-hidden flex flex-col">
+            <CardContent className="p-0">
+                <div className="relative w-full">
+                    {item.type === 'image' ? (
+                        <>
+                            <Image
+                                src={item.url}
+                                alt={item.title}
+                                width={300}
+                                height={300}
+                                className="object-contain w-full h-auto"
+                                data-ai-hint={item.dataAiHint}
+                                loading="lazy"
+                            />
+                            <div 
+                                className="absolute inset-0 cursor-pointer"
+                                onClick={() => onSelectImage(item)}
+                            />
+                        </>
+                    ) : (
+                        <div className="relative cursor-pointer" onClick={handleVideoClick} onTouchEnd={handleVideoClick}>
+                            <video src={item.url} className="w-full h-full object-contain" preload="metadata" />
+                            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                <PlayCircle className="h-16 w-16 text-white/80 drop-shadow-lg" />
+                            </div>
+                        </div>
+                    )}
+                    <Button
+                    variant="ghost"
+                    size="icon"
+                    className="absolute top-1 right-1 h-8 w-8 rounded-full focus-visible:ring-0 focus-visible:ring-offset-0 hover:bg-transparent"
+                    onClick={handleToggleFavorite}
+                    >
+                        <Heart className={cn(
+                            "h-6 w-6 stroke-white fill-white transition-all hover:fill-destructive hover:stroke-destructive md:h-7 md:w-7", 
+                            isLocallyFavorite && "fill-destructive stroke-destructive animate-pulse-heart"
+                        )}/>
+                    </Button>
+                </div>
+            </CardContent>
+            <div className="p-2 space-y-1">
+                <div className="flex flex-wrap gap-1">
+                    {item.fair.map(f => <Badge key={f} variant="outline" className="text-xs px-1.5 py-0.5 border-transparent bg-transparent">{formatFairName(f)}</Badge>)}
+                </div>
+                <div className="flex flex-col items-start">
+                    <Badge variant="outline" className="border-transparent text-accent text-xs font-semibold px-1 py-0">{firstWord}</Badge>
+                    {rest && <Badge variant="outline" className="border-transparent text-accent/80 text-[10px] -mt-1 px-1 py-0">{rest}</Badge>}
+                </div>
+            </div>
+            <CardFooter className="p-2 bg-muted/50 mt-auto">
+                {isMobile === undefined ? (
+                    <div className="flex w-full gap-2 h-8" />
+                ) : (
+                    <div className="flex w-full gap-2">
+                        <Button variant="outline" size="sm" className="h-8 text-xs flex-1 hidden sm:flex" onClick={() => handleDownload(item.url, item.title)}>
+                            <Download className="mr-2 h-4 w-4" />
+                            Baixar
+                        </Button>
+                        <Button size="sm" className="h-8 text-xs flex-1" onClick={() => onShare(item)}>
+                            <Share2 className="mr-2 h-4 w-4" />
+                            Compartilhar
+                        </Button>
+                    </div>
+                )}
+            </CardFooter>
+        </Card>
+    );
+}
+
+
 function GalleryViewContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const { toast } = useToast();
-    const { favorites, toggleFavorite, isFavorite } = useGalleryFavorites();
+    const { favorites } = useGalleryFavorites();
 
     const initialFair = searchParams.get('feira') || null;
     const initialTheme = searchParams.get('tema') || 'Todos';
@@ -34,20 +159,10 @@ function GalleryViewContent() {
     const [showFavorites, setShowFavorites] = useState(showFavoritesParam);
     const [videoToPlay, setVideoToPlay] = useState<GalleryItem | null>(null);
     const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
-    const [isMobile, setIsMobile] = useState<boolean | undefined>(undefined);
+    
     const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
 
     const loaderRef = useRef(null);
-
-    useEffect(() => {
-        const checkMobile = () => window.matchMedia("(max-width: 768px)").matches;
-        
-        setIsMobile(checkMobile());
-        
-        const handleResize = () => setIsMobile(checkMobile());
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
 
     const allItems = useMemo(() => getGalleryItems(), []);
 
@@ -80,13 +195,14 @@ function GalleryViewContent() {
             { rootMargin: '200px' }
         );
 
-        if (loaderRef.current) {
-            observer.observe(loaderRef.current);
+        const currentLoaderRef = loaderRef.current;
+        if (currentLoaderRef) {
+            observer.observe(currentLoaderRef);
         }
 
         return () => {
-            if (loaderRef.current) {
-                observer.unobserve(loaderRef.current);
+            if (currentLoaderRef) {
+                observer.unobserve(currentLoaderRef);
             }
         };
     }, [filteredItems.length]);
@@ -102,7 +218,7 @@ function GalleryViewContent() {
         
         if (type === 'fair') {
             setSelectedFair(value === 'null' ? null : value);
-            if (value === 'null') currentParams.delete('feira');
+            if (value === 'null' || value === 'Todos') currentParams.delete('feira');
             else currentParams.set('feira', value);
         }
         if (type === 'theme') {
@@ -150,18 +266,6 @@ function GalleryViewContent() {
         allItems.forEach(item => item.theme.forEach(t => themes.add(t)));
         return Array.from(themes).sort();
     }, [allItems]);
-
-
-    const formatThemeName = (themeName: string) => {
-        const parts = themeName.split(' - ');
-        const firstWord = parts[0];
-        const rest = parts.slice(1).join(' - ');
-        return { firstWord, rest };
-    };
-    
-    const handleDownload = (url: string, title: string) => {
-        window.open(url, '_blank');
-    };
     
     const handleShare = async (item: GalleryItem) => {
         const title = item.title;
@@ -182,11 +286,11 @@ function GalleryViewContent() {
                     files: [file],
                 });
             } else {
-                 handleDownload(item.url, item.title);
+                 window.open(item.url, '_blank');
             }
         } catch (error) {
             console.error('Falha ao compartilhar, retornando para download direto:', error);
-            handleDownload(item.url, item.title);
+            window.open(item.url, '_blank');
         }
     };
 
@@ -265,81 +369,15 @@ function GalleryViewContent() {
                 {itemsToShow.length > 0 ? (
                     <>
                         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                            {itemsToShow.map(item => {
-                                const { firstWord, rest } = formatThemeName(item.theme[0]);
-                                const isCurrentlyFavorite = isFavorite(item.id);
-                                return (
-                                <Card key={item.id} className="overflow-hidden flex flex-col">
-                                    <CardContent className="p-0">
-                                        <div className="relative w-full">
-                                            {item.type === 'image' ? (
-                                                <>
-                                                    <Image
-                                                        src={item.url}
-                                                        alt={item.title}
-                                                        width={300}
-                                                        height={300}
-                                                        className="object-contain w-full h-auto"
-                                                        data-ai-hint={item.dataAiHint}
-                                                        loading="lazy"
-                                                    />
-                                                    <div 
-                                                        className="absolute inset-0 cursor-pointer"
-                                                        onClick={() => setSelectedImage(item)}
-                                                    />
-                                                </>
-                                            ) : (
-                                                <div className="relative">
-                                                    <div className="absolute inset-0 cursor-pointer" onClick={() => setVideoToPlay(item)}/>
-                                                    <video src={item.url} className="w-full h-full object-contain" preload="metadata" />
-                                                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                                                        <PlayCircle className="h-16 w-16 text-white/80 drop-shadow-lg" />
-                                                    </div>
-                                                </div>
-                                            )}
-                                            <Button
-                                            variant="ghost"
-                                            size="icon"
-                                            className="absolute top-1 right-1 h-8 w-8 rounded-full focus-visible:ring-0 focus-visible:ring-offset-0 hover:bg-transparent"
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                toggleFavorite(item);
-                                            }}
-                                            >
-                                                <Heart className={cn(
-                                                    "h-6 w-6 stroke-white fill-white transition-all hover:fill-destructive hover:stroke-destructive md:h-7 md:w-7", 
-                                                    isCurrentlyFavorite && "fill-destructive stroke-destructive animate-pulse-heart"
-                                                )}/>
-                                            </Button>
-                                        </div>
-                                    </CardContent>
-                                    <div className="p-2 space-y-1">
-                                        <div className="flex flex-wrap gap-1">
-                                            {item.fair.map(f => <Badge key={f} variant="outline" className="text-xs px-1.5 py-0.5 border-transparent bg-transparent">{formatFairName(f)}</Badge>)}
-                                        </div>
-                                        <div className="flex flex-col items-start">
-                                            <Badge variant="outline" className="border-transparent text-accent text-xs font-semibold px-1 py-0">{firstWord}</Badge>
-                                            {rest && <Badge variant="outline" className="border-transparent text-accent/80 text-[10px] -mt-1 px-1 py-0">{rest}</Badge>}
-                                        </div>
-                                    </div>
-                                    <CardFooter className="p-2 bg-muted/50 mt-auto">
-                                        {isMobile === undefined ? (
-                                            <div className="flex w-full gap-2 h-8" />
-                                        ) : (
-                                            <div className="flex w-full gap-2">
-                                                <Button variant="outline" size="sm" className="h-8 text-xs flex-1 hidden sm:flex" onClick={() => handleDownload(item.url, item.title)}>
-                                                    <Download className="mr-2 h-4 w-4" />
-                                                    Baixar
-                                                </Button>
-                                                <Button size="sm" className="h-8 text-xs flex-1" onClick={() => handleShare(item)}>
-                                                    <Share2 className="mr-2 h-4 w-4" />
-                                                    Compartilhar
-                                                </Button>
-                                            </div>
-                                        )}
-                                    </CardFooter>
-                                </Card>
-                            )})}
+                            {itemsToShow.map(item => (
+                                <GalleryItemCard 
+                                    key={item.id} 
+                                    item={item} 
+                                    onShare={handleShare}
+                                    onPlayVideo={setVideoToPlay}
+                                    onSelectImage={setSelectedImage}
+                                />
+                            ))}
                         </div>
                         {visibleCount < filteredItems.length && (
                             <div ref={loaderRef} className="flex justify-center items-center py-8">
@@ -418,4 +456,3 @@ export default function GalleryView() {
         </Suspense>
     );
 }
-
