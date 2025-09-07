@@ -21,16 +21,7 @@ const ITEMS_PER_PAGE = 24;
 
 function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: GalleryItem; onShare: (item: GalleryItem) => void; onPlayVideo: (item: GalleryItem) => void; onSelectImage: (item: GalleryItem) => void; }) {
     const { toggleFavorite, isFavorite } = useGalleryFavorites();
-    const [isMobile, setIsMobile] = useState<boolean | undefined>(undefined);
     const isCurrentlyFavorite = isFavorite(item.id);
-
-    useEffect(() => {
-      const checkMobile = () => window.matchMedia("(max-width: 768px)").matches;
-      setIsMobile(checkMobile());
-      const handleResize = () => setIsMobile(checkMobile());
-      window.addEventListener('resize', handleResize);
-      return () => window.removeEventListener('resize', handleResize);
-    }, []);
 
     const handleToggleFavorite = (e: React.MouseEvent) => {
         e.stopPropagation();
@@ -117,20 +108,16 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: 
                 </div>
             </div>
             <CardFooter className="p-2 bg-muted/50 mt-auto">
-                {isMobile === undefined ? (
-                    <div className="flex w-full gap-2 h-8" />
-                ) : (
-                    <div className="flex w-full gap-2">
-                        <Button variant="outline" size="sm" className="h-8 text-xs flex-1 hidden sm:flex" onClick={() => handleDownload(item.url, item.title)}>
-                            <Download className="mr-2 h-4 w-4" />
-                            Baixar
-                        </Button>
-                        <Button size="sm" className="h-8 text-xs flex-1" onClick={() => onShare(item)}>
-                            <Share2 className="mr-2 h-4 w-4" />
-                            Compartilhar
-                        </Button>
-                    </div>
-                )}
+                 <div className="flex w-full gap-2">
+                    <Button variant="outline" size="sm" className="h-8 text-xs flex-1 hidden sm:flex" onClick={() => handleDownload(item.url, item.title)}>
+                        <Download className="mr-2 h-4 w-4" />
+                        Baixar
+                    </Button>
+                    <Button size="sm" className="h-8 text-xs flex-1" onClick={() => onShare(item)}>
+                        <Share2 className="mr-2 h-4 w-4" />
+                        Compartilhar
+                    </Button>
+                </div>
             </CardFooter>
         </Card>
     );
@@ -141,15 +128,13 @@ function GalleryViewContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const { toast } = useToast();
-    const { favorites, isFavorite } = useGalleryFavorites();
+    const { favorites } = useGalleryFavorites();
 
     const initialFair = searchParams.get('feira') || null;
     const initialTheme = searchParams.get('tema') || 'Todos';
-    const showFavoritesParam = searchParams.get('favoritos') === 'true';
-
+    
     const [selectedFair, setSelectedFair] = useState(initialFair);
     const [selectedTheme, setSelectedTheme] = useState(initialTheme);
-    const [showFavorites, setShowFavorites] = useState(showFavoritesParam);
     const [videoToPlay, setVideoToPlay] = useState<GalleryItem | null>(null);
     const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
     
@@ -158,6 +143,8 @@ function GalleryViewContent() {
     const loaderRef = useRef(null);
 
     const allItems = useMemo(() => getGalleryItems(), []);
+    
+    const showFavorites = searchParams.get('favoritos') === 'true';
 
     const filteredItems = useMemo(() => {
         let sourceItems = allItems;
@@ -228,13 +215,11 @@ function GalleryViewContent() {
     };
 
     const toggleShowFavorites = () => {
-        const newShowFavorites = !showFavorites;
-        setShowFavorites(newShowFavorites);
         const currentParams = new URLSearchParams(searchParams.toString());
-        if (newShowFavorites) {
-            currentParams.set('favoritos', 'true');
-        } else {
+        if (showFavorites) {
             currentParams.delete('favoritos');
+        } else {
+            currentParams.set('favoritos', 'true');
         }
         updateUrlParams(currentParams);
     };
