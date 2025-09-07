@@ -8,7 +8,7 @@ import type { GalleryItem } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import Image from 'next/image';
-import { Download, Share2, Loader2, PlayCircle, X, Heart } from 'lucide-react';
+import { Download, Share2, Loader2, PlayCircle, X, Heart, Archive } from 'lucide-react';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogClose } from '@/components/ui/dialog';
@@ -38,12 +38,12 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
             isDragging.current = true;
         }
     };
-
+    
     const handleToggleFavorite = (e: React.MouseEvent) => {
         e.stopPropagation();
         onToggleFavorite(item);
     };
-    
+
     const handleActionClick = (action: () => void) => {
         if (!isDragging.current) {
             action();
@@ -157,7 +157,7 @@ function GalleryViewContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     
-    const { favorites, isFavorite, toggleFavorite } = useGalleryFavorites();
+    const { favorites, toggleFavorite, isFavorite } = useGalleryFavorites();
     const allItems = useMemo(() => getGalleryItems(), []);
     
     const [selectedFair, setSelectedFair] = useState(searchParams.get('feira') || null);
@@ -171,15 +171,17 @@ function GalleryViewContent() {
 
     const isShowingFavorites = searchParams.get('favoritos') === 'true';
 
-     const filteredItems = useMemo(() => {
-        const sourceItems = isShowingFavorites ? favorites : allItems;
-        
+     const sourceItems = useMemo(() => {
+        return isShowingFavorites ? favorites : allItems;
+    }, [isShowingFavorites, favorites, allItems]);
+    
+    const filteredItems = useMemo(() => {
         return sourceItems.filter(item => {
             const fairMatch = !selectedFair || (selectedFair === 'Todas' ? item.fair.includes('Todas') : item.fair.includes(selectedFair as any));
             const themeMatch = selectedTheme === 'Todos' || item.theme.includes(selectedTheme as any);
             return fairMatch && themeMatch;
         });
-    }, [allItems, favorites, isShowingFavorites, selectedFair, selectedTheme]);
+    }, [sourceItems, selectedFair, selectedTheme]);
 
     useEffect(() => {
         setVisibleCount(ITEMS_PER_PAGE);
@@ -227,8 +229,8 @@ function GalleryViewContent() {
         }
         router.push(`/gallery?${currentParams.toString()}`, { scroll: false });
     };
-
-    const toggleShowFavorites = () => {
+    
+    const handleToggleShowFavorites = () => {
         startTransition(() => {
             const currentParams = new URLSearchParams(searchParams.toString());
             if (isShowingFavorites) {
@@ -238,6 +240,10 @@ function GalleryViewContent() {
             }
             router.push(`/gallery?${currentParams.toString()}`, { scroll: false });
         });
+    };
+
+    const handleToggleFavorite = (item: GalleryItem) => {
+        toggleFavorite(item);
     };
 
     const formatFairName = (fairName: string): string => {
@@ -299,7 +305,7 @@ function GalleryViewContent() {
             <div className="flex justify-between items-center mb-4">
                 <BackButton />
                 <button
-                    onClick={toggleShowFavorites}
+                    onClick={handleToggleShowFavorites}
                     className="p-2 rounded-full bg-transparent border-none focus:outline-none focus:ring-0 focus:ring-offset-0 focus-visible:bg-transparent active:bg-transparent hover:bg-transparent [-webkit-tap-highlight-color:transparent]"
                 >
                     <Heart className={cn(
@@ -319,6 +325,14 @@ function GalleryViewContent() {
                 <p className="mt-2 text-base font-medium text-foreground/90 max-w-3xl">
                     Utilize estas artes para divulgar as feiras em suas redes sociais. Baixe e compartilhe as imagens e vídeos à vontade! Use os filtros para encontrar a propaganda ideal. 
                 </p>
+            </div>
+
+            <div className="flex justify-end text-right mt-2 mb-2">
+                <div className="flex items-center gap-2 font-bold text-lg text-accent">
+                    <Archive className="h-5 w-5" />
+                    <span>Total de Itens:</span>
+                    <span>{allItems.length}</span>
+                </div>
             </div>
             
              <div className="sticky top-16 z-40 bg-background/95 py-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -376,7 +390,7 @@ function GalleryViewContent() {
                                     onPlayVideo={setVideoToPlay}
                                     onSelectImage={setSelectedImage}
                                     isCurrentlyFavorite={isFavorite(item.id)}
-                                    onToggleFavorite={toggleFavorite}
+                                    onToggleFavorite={handleToggleFavorite}
                                 />
                             ))}
                         </div>
@@ -457,3 +471,5 @@ export default function GalleryView() {
         </Suspense>
     );
 }
+
+    
