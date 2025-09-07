@@ -166,8 +166,7 @@ function GalleryViewContent() {
     const searchParams = useSearchParams();
 
     const { favorites, isFavorite } = useGalleryFavorites();
-    const isShowingFavorites = searchParams.get('favoritos') === 'true';
-
+    
     const [selectedFair, setSelectedFair] = useState(searchParams.get('feira') || null);
     const [selectedTheme, setSelectedTheme] = useState(searchParams.get('tema') || 'Todos');
     const [videoToPlay, setVideoToPlay] = useState<GalleryItem | null>(null);
@@ -175,6 +174,8 @@ function GalleryViewContent() {
     const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
     
     const loaderRef = useRef(null);
+
+    const isShowingFavorites = searchParams.get('favoritos') === 'true';
 
     const allItems = useMemo(() => getGalleryItems(), []);
     
@@ -308,10 +309,9 @@ function GalleryViewContent() {
         <>
             <div className="flex justify-between items-center mb-4">
                 <BackButton />
-                <Button
-                    size="icon"
+                <button
                     onClick={toggleShowFavorites}
-                    className="bg-transparent focus-visible:bg-transparent active:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 [-webkit-tap-highlight-color:transparent]"
+                    className="p-2 rounded-full [-webkit-tap-highlight-color:transparent]"
                 >
                     <Heart className={cn(
                         "h-7 w-7",
@@ -320,7 +320,7 @@ function GalleryViewContent() {
                             : "stroke-primary fill-white hover:fill-destructive hover:stroke-destructive"
                     )} />
                     <span className="sr-only">Mostrar Favoritos</span>
-                </Button>
+                </button>
             </div>
             
              <div className="mb-2">
