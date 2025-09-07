@@ -123,9 +123,13 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: 
                     <Button
                         variant="ghost"
                         size="icon"
-                        className="absolute top-1 right-1 h-8 w-8 rounded-full bg-black/20 hover:bg-black/40"
+                        className="absolute top-1 right-1 h-8 w-8 rounded-full bg-black/20 hover:bg-black/40 [-webkit-tap-highlight-color:transparent]"
                         onClick={handleToggleFavorite}
-                        onTouchEnd={handleToggleFavorite}
+                        onTouchEnd={(e) => {
+                             if (!isDragging.current) {
+                                handleToggleFavorite(e)
+                             }
+                        }}
                         >
                         <Heart className={cn(
                             "h-6 w-6 stroke-white fill-transparent transition-colors hover:fill-destructive hover:stroke-destructive",
@@ -165,8 +169,8 @@ function GalleryViewContent() {
     const searchParams = useSearchParams();
     const { toast } = useToast();
     
-    const { favorites } = useGalleryFavorites();
     const [isShowingFavorites, setIsShowingFavorites] = useState(searchParams.get('favoritos') === 'true');
+    const { favorites } = useGalleryFavorites();
 
     const [selectedFair, setSelectedFair] = useState(searchParams.get('feira') || null);
     const [selectedTheme, setSelectedTheme] = useState(searchParams.get('tema') || 'Todos');
@@ -177,7 +181,7 @@ function GalleryViewContent() {
     const loaderRef = useRef(null);
 
     useEffect(() => {
-        const currentParams = new URLSearchParams(searchParams.toString());
+        const currentParams = new URLSearchParams(window.location.search);
         setIsShowingFavorites(currentParams.get('favoritos') === 'true');
     }, [searchParams]);
 
