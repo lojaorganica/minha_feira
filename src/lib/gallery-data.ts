@@ -399,7 +399,22 @@ const allItemUrls = [
     "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_chuva_17_todas_feiras.png?alt=media&token=e93a384f-c567-4d1a-9f4a-7140f7b09335",
     "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_chuva_19_feiras_flamengo_laranjeiras.png?alt=media&token=64cf0f70-4063-4ca5-96a1-4c8026705058",
     "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_chuva_23_feiras_flamengo_laranjeiras.png?alt=media&token=c4a9a8f2-8e0c-4e8a-8a6a-0c5d5e5f4d4d",
-    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_chuva_92_todas_feiras.png?alt=media&token=f0a4afb0-0d99-48ad-88a2-0e3a8f048d17"
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_chuva_92_todas_feiras.png?alt=media&token=f0a4afb0-0d99-48ad-88a2-0e3a8f048d17",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2F001_aagr_cartoon_todas_feiras.jpg?alt=media&token=c19a9e33-722a-43cf-b593-0182404e76d9",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2F002_aagr_cartoon_feiras_flamengo_laranjeiras.png?alt=media&token=a6c11d4e-b56e-44b4-82a1-638686d13d7a",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2F003_aagr_cartoon_todas_feiras.jpg?alt=media&token=b367d3e4-4d83-4a0e-b7d6-e9104033b006",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2F004_aagr_cartoon_todas_feiras.png?alt=media&token=38c03565-d0c3-4d43-b9b5-f4851240c57c",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2F005_aagr_cartoon_todas_feiras.png?alt=media&token=180155b9-4786-4f48-a006-896898b58a1f",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2F006_aali_cartoon_todas_feiras.png?alt=media&token=d1d29388-757b-402a-a9a7-95e20d2d3e91",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2F007_aali_cartoon_todas_feiras.png?alt=media&token=689b1d92-23c2-482a-9e5c-74f0c4383a8b",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2F008_aali_cartoon_todas_feiras.png?alt=media&token=14300e84-18c7-4346-b258-2976f4e1564f",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2F009_aali_cartoon_todas_feiras.png?alt=media&token=7c1b5a59-b1d5-456d-b2b9-2c700305a415",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2F010_aali_cartoon_todas_feiras.png?alt=media&token=7a905a5a-8b82-4011-8280-e7f0932822a1",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2F011_aali_cartoon_todas_feiras.png?alt=media&token=09c8d5c3-16f3-4d64-8848-f68205f9c5d0",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2F012_aali_cartoon_todas_feiras.png?alt=media&token=73e5f223-9562-4217-a02e-c50f8373b53c",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2F013_aali_cartoon_todas_feiras.png?alt=media&token=404284b3-d5d3-4f9e-b9b9-d5c22501a52f",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2F014_aali_cartoon_todas_feiras.png?alt=media&token=b367d3e4-4d83-4a0e-b7d6-e9104033b006",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2F015_aali_cartoon_feiras_flamengo_laranjeiras.png?alt=media&token=38c03565-d0c3-4d43-b9b5-f4851240c57c"
 ];
 
 function getFairCategories(fileName: string): GalleryFair[] {
@@ -424,7 +439,14 @@ function getThemeCategories(fileName: string): GalleryTheme[] {
     if (fileName.includes('story')) themes.push('Story');
     if (fileName.includes('especial')) themes.push('Dias Especiais');
 
-    if (themes.length === 0) themes.push('Fotografias');
+    // Default category if no prefix matches
+    if (themes.length === 0) {
+        if (fileName.endsWith('.mp4')) {
+            themes.push('Agricultores - Animações e Cartoon');
+        } else {
+             themes.push('Fotografias');
+        }
+    }
     return themes;
 }
 
@@ -456,16 +478,25 @@ export function getGalleryItems(): GalleryItem[] {
   const allItems: GalleryItem[] = allItemUrls.map((url, index) => {
     const fileName = extractFileNameFromUrl(url);
     const id = `item-${index}-${fileName.split('.')[0]}`;
-    let title = fileName.replace(/_/g, ' ').split('.')[0];
     
+    let title = fileName
+      .replace(/_/g, ' ')
+      .replace(/\.(jpg|png|mp4|jpeg)$/i, '');
+
     // Melhora o título, removendo códigos iniciais e capitalizando
     const parts = title.split(' ');
-    if (parts.length > 2 && !isNaN(parseInt(parts[1]))) {
-        const namePart = parts.slice(2).join(' ');
-        title = namePart.split(' feira')[0].replace(/\b\w/g, l => l.toUpperCase());
-    } else {
-        title = title.replace(/\b\w/g, l => l.toUpperCase());
+    if (parts.length > 2 && /^\d+$/.test(parts[1])) {
+        title = parts.slice(2).join(' ');
     }
+     if (/^\d+$/.test(parts[0])) {
+        title = parts.slice(1).join(' ');
+    }
+
+    title = title
+        .replace(/ feira(s)? (de|do|da)? (grajau|tijuca|botafogo|leme|flamengo|laranjeiras|todas)/gi, '')
+        .replace(/feiras flamengo laranjeiras/gi, '')
+        .replace(/\b\w/g, l => l.toUpperCase());
+
 
     const type = fileName.endsWith('.mp4') ? 'video' : 'image';
     const dataAiHint = title.toLowerCase().split(' ').slice(0, 2).join(' ');
