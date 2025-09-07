@@ -122,7 +122,7 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
                      <Button
                         variant="ghost"
                         size="icon"
-                        className="absolute top-1 right-1 h-8 w-8 rounded-full hover:bg-transparent [-webkit-tap-highlight-color:transparent]"
+                        className="absolute top-1 right-1 h-8 w-8 rounded-full [-webkit-tap-highlight-color:transparent]"
                         onClick={handleToggleFavorite}
                         onTouchEnd={(e) => {
                              if (!isDragging.current) {
@@ -131,8 +131,10 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
                         }}
                         >
                         <Heart className={cn(
-                            "h-6 w-6 stroke-white fill-transparent drop-shadow-md hover:fill-destructive hover:stroke-destructive",
-                            isCurrentlyFavorite && "fill-destructive stroke-destructive animate-pulse-heart"
+                            "h-6 w-6 stroke-white drop-shadow-md hover:fill-destructive hover:stroke-destructive",
+                            isCurrentlyFavorite 
+                                ? "fill-destructive stroke-destructive animate-pulse-heart"
+                                : "fill-white stroke-white"
                         )}/>
                     </Button>
                 </div>
@@ -168,7 +170,7 @@ function GalleryViewContent() {
     const searchParams = useSearchParams();
     const { toast } = useToast();
     
-    const [isShowingFavorites, setIsShowingFavorites] = useState(searchParams.get('favoritos') === 'true');
+    const [isShowingFavorites, setIsShowingFavorites] = useState(false);
     const { favorites, isFavorite } = useGalleryFavorites();
 
     const [selectedFair, setSelectedFair] = useState(searchParams.get('feira') || null);
@@ -480,3 +482,5 @@ export default function GalleryView() {
         </Suspense>
     );
 }
+
+    
