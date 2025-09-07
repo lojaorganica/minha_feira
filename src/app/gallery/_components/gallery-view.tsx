@@ -103,7 +103,7 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
                                 data-ai-hint={item.dataAiHint}
                                 loading="lazy"
                             />
-                            <div 
+                             <div 
                                 className="absolute inset-0 cursor-pointer"
                                 onClick={handleDivClick}
                             />
@@ -176,7 +176,7 @@ function GalleryViewContent() {
     
     const loaderRef = useRef(null);
 
-    const filteredItems = useMemo(() => {
+     const filteredItems = useMemo(() => {
         let sourceItems = allItems;
         if (isShowingFavorites) {
           const favoriteIds = new Set(favorites.map(f => f.id));
@@ -238,13 +238,13 @@ function GalleryViewContent() {
     };
 
     const toggleShowFavorites = () => {
-        const currentParams = new URLSearchParams(searchParams.toString());
-        if (isShowingFavorites) {
-            currentParams.delete('favoritos');
-        } else {
-            currentParams.set('favoritos', 'true');
-        }
         startTransition(() => {
+            const currentParams = new URLSearchParams(searchParams.toString());
+            if (isShowingFavorites) {
+                currentParams.delete('favoritos');
+            } else {
+                currentParams.set('favoritos', 'true');
+            }
             router.push(`/gallery?${currentParams.toString()}`, { scroll: false });
         });
     };
