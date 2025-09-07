@@ -172,10 +172,14 @@ function GalleryViewContent() {
     const [videoToPlay, setVideoToPlay] = useState<GalleryItem | null>(null);
     const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
     const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
+    const [isShowingFavorites, setIsShowingFavorites] = useState(searchParams.get('favoritos') === 'true');
     
     const loaderRef = useRef(null);
 
-    const isShowingFavorites = searchParams.get('favoritos') === 'true';
+    // Sincroniza o estado local com a URL
+    useEffect(() => {
+        setIsShowingFavorites(searchParams.get('favoritos') === 'true');
+    }, [searchParams]);
 
     const allItems = useMemo(() => getGalleryItems(), []);
     
@@ -242,11 +246,14 @@ function GalleryViewContent() {
     };
 
     const toggleShowFavorites = () => {
+        const newIsShowingFavorites = !isShowingFavorites;
+        setIsShowingFavorites(newIsShowingFavorites); // Atualização visual instantânea
+
         const currentParams = new URLSearchParams(searchParams.toString());
-        if (isShowingFavorites) {
-            currentParams.delete('favoritos');
-        } else {
+        if (newIsShowingFavorites) {
             currentParams.set('favoritos', 'true');
+        } else {
+            currentParams.delete('favoritos');
         }
         router.push(`/gallery?${currentParams.toString()}`, { scroll: false });
     };
@@ -311,13 +318,13 @@ function GalleryViewContent() {
                 <BackButton />
                 <button
                     onClick={toggleShowFavorites}
-                    className="p-2 rounded-full bg-transparent border-none focus-visible:bg-transparent active:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 [-webkit-tap-highlight-color:transparent]"
+                    className="p-2 rounded-full bg-transparent border-none focus:outline-none focus:ring-0 focus:ring-offset-0 focus-visible:bg-transparent active:bg-transparent [-webkit-tap-highlight-color:transparent]"
                 >
                     <Heart className={cn(
                         "h-7 w-7",
                         isShowingFavorites
                             ? "fill-destructive stroke-destructive"
-                            : "stroke-primary fill-white hover:fill-destructive hover:stroke-destructive"
+                            : "stroke-primary fill-white"
                     )} />
                     <span className="sr-only">Mostrar Favoritos</span>
                 </button>
@@ -471,3 +478,4 @@ export default function GalleryView() {
     
 
     
+
