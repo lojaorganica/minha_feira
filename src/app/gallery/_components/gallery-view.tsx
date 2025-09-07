@@ -164,8 +164,7 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
 function GalleryViewContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const [isPending, startTransition] = useTransition();
-
+    
     const { favorites, isFavorite } = useGalleryFavorites();
     
     const [selectedFair, setSelectedFair] = useState(searchParams.get('feira') || null);
@@ -249,9 +248,7 @@ function GalleryViewContent() {
         } else {
             currentParams.set('favoritos', 'true');
         }
-        startTransition(() => {
-            router.push(`/gallery?${currentParams.toString()}`, { scroll: false });
-        });
+        router.push(`/gallery?${currentParams.toString()}`, { scroll: false });
     };
 
     const formatFairName = (fairName: string): string => {
@@ -314,7 +311,7 @@ function GalleryViewContent() {
                 <BackButton />
                 <button
                     onClick={toggleShowFavorites}
-                    className="p-2 rounded-full [-webkit-tap-highlight-color:transparent]"
+                    className="p-2 rounded-full bg-transparent border-none focus-visible:bg-transparent active:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 [-webkit-tap-highlight-color:transparent]"
                 >
                     <Heart className={cn(
                         "h-7 w-7",
