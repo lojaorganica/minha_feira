@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useMemo, Suspense, useEffect, useRef } from 'react';
+import { useState, useMemo, Suspense, useEffect, useRef, useLayoutEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { getGalleryItems } from '@/lib/gallery-data';
 import type { GalleryItem } from '@/lib/types';
@@ -19,9 +19,8 @@ import BackButton from '@/components/back-button';
 
 const ITEMS_PER_PAGE = 24;
 
-function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: GalleryItem; onShare: (item: GalleryItem) => void; onPlayVideo: (item: GalleryItem) => void; onSelectImage: (item: GalleryItem) => void; }) {
-    const { toggleFavorite, isFavorite } = useGalleryFavorites();
-    const isCurrentlyFavorite = isFavorite(item.id);
+function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentlyFavorite }: { item: GalleryItem; onShare: (item: GalleryItem) => void; onPlayVideo: (item: GalleryItem) => void; onSelectImage: (item: GalleryItem) => void; isCurrentlyFavorite: boolean; }) {
+    const { toggleFavorite } = useGalleryFavorites();
     
     const touchStartPos = useRef({ x: 0, y: 0 });
     const isDragging = useRef(false);
@@ -120,10 +119,10 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: 
                             </div>
                         </div>
                     )}
-                    <Button
+                     <Button
                         variant="ghost"
                         size="icon"
-                        className="absolute top-1 right-1 h-8 w-8 rounded-full hover:bg-transparent"
+                        className="absolute top-1 right-1 h-8 w-8 rounded-full hover:bg-transparent [-webkit-tap-highlight-color:transparent]"
                         onClick={handleToggleFavorite}
                         onTouchEnd={(e) => {
                              if (!isDragging.current) {
@@ -133,7 +132,7 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: 
                         >
                         <Heart className={cn(
                             "h-6 w-6 stroke-white fill-transparent drop-shadow-md hover:fill-destructive hover:stroke-destructive",
-                            isCurrentlyFavorite ? "fill-destructive stroke-destructive animate-pulse-heart" : "fill-white/80"
+                            isCurrentlyFavorite && "fill-destructive stroke-destructive animate-pulse-heart"
                         )}/>
                     </Button>
                 </div>
@@ -170,7 +169,7 @@ function GalleryViewContent() {
     const { toast } = useToast();
     
     const [isShowingFavorites, setIsShowingFavorites] = useState(searchParams.get('favoritos') === 'true');
-    const { favorites } = useGalleryFavorites();
+    const { favorites, isFavorite } = useGalleryFavorites();
 
     const [selectedFair, setSelectedFair] = useState(searchParams.get('feira') || null);
     const [selectedTheme, setSelectedTheme] = useState(searchParams.get('tema') || 'Todos');
@@ -180,7 +179,7 @@ function GalleryViewContent() {
     
     const loaderRef = useRef(null);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const currentParams = new URLSearchParams(window.location.search);
         setIsShowingFavorites(currentParams.get('favoritos') === 'true');
     }, [searchParams]);
@@ -400,6 +399,7 @@ function GalleryViewContent() {
                                     onShare={handleShare}
                                     onPlayVideo={setVideoToPlay}
                                     onSelectImage={setSelectedImage}
+                                    isCurrentlyFavorite={isFavorite(item.id)}
                                 />
                             ))}
                         </div>
