@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useMemo, Suspense, useEffect, useRef, useLayoutEffect } from 'react';
+import { useState, useMemo, Suspense, useEffect, useRef } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { getGalleryItems } from '@/lib/gallery-data';
 import type { GalleryItem } from '@/lib/types';
@@ -122,7 +122,7 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
                      <Button
                         variant="ghost"
                         size="icon"
-                        className="absolute top-1 right-1 h-8 w-8 rounded-full [-webkit-tap-highlight-color:transparent]"
+                        className="absolute top-1 right-1 h-8 w-8 rounded-full [-webkit-tap-highlight-color:transparent] focus-visible:bg-transparent"
                         onClick={handleToggleFavorite}
                         onTouchEnd={(e) => {
                              if (!isDragging.current) {
@@ -170,8 +170,8 @@ function GalleryViewContent() {
     const searchParams = useSearchParams();
     const { toast } = useToast();
     
-    const [isShowingFavorites, setIsShowingFavorites] = useState(false);
     const { favorites, isFavorite } = useGalleryFavorites();
+    const [isShowingFavorites, setIsShowingFavorites] = useState(searchParams.get('favoritos') === 'true');
 
     const [selectedFair, setSelectedFair] = useState(searchParams.get('feira') || null);
     const [selectedTheme, setSelectedTheme] = useState(searchParams.get('tema') || 'Todos');
@@ -181,9 +181,8 @@ function GalleryViewContent() {
     
     const loaderRef = useRef(null);
 
-    useLayoutEffect(() => {
-        const currentParams = new URLSearchParams(window.location.search);
-        setIsShowingFavorites(currentParams.get('favoritos') === 'true');
+    useEffect(() => {
+        setIsShowingFavorites(searchParams.get('favoritos') === 'true');
     }, [searchParams]);
 
     const allItems = useMemo(() => getGalleryItems(), []);
