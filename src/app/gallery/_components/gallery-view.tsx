@@ -21,6 +21,7 @@ const ITEMS_PER_PAGE = 24;
 
 function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: GalleryItem; onShare: (item: GalleryItem) => void; onPlayVideo: (item: GalleryItem) => void; onSelectImage: (item: GalleryItem) => void; }) {
     const { toggleFavorite, isFavorite } = useGalleryFavorites();
+    const isCurrentlyFavorite = isFavorite(item.id);
 
     const handleToggleFavorite = (e: React.MouseEvent) => {
         e.stopPropagation();
@@ -55,8 +56,6 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: 
         return { firstWord: parts[0], rest: parts.slice(1).join(' - ') };
     }, [item.theme]);
     
-    const isCurrentlyFavorite = isFavorite(item.id);
-
     return (
         <Card className="overflow-hidden flex flex-col">
             <CardContent className="p-0">
@@ -86,11 +85,11 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: 
                         </div>
                     )}
                     <Button
-                    variant="ghost"
-                    size="icon"
-                    className="absolute top-1 right-1 h-8 w-8 rounded-full focus-visible:ring-0 focus-visible:ring-offset-0 hover:bg-transparent"
-                    onClick={handleToggleFavorite}
-                    >
+                        variant="ghost"
+                        size="icon"
+                        className="absolute top-1 right-1 h-8 w-8 rounded-full focus-visible:ring-0 focus-visible:ring-offset-0 hover:bg-transparent"
+                        onClick={handleToggleFavorite}
+                        >
                         <Heart className={cn(
                             "h-6 w-6 stroke-white fill-white hover:fill-destructive hover:stroke-destructive md:h-7 md:w-7", 
                             isCurrentlyFavorite && "fill-destructive stroke-destructive animate-pulse-heart"
@@ -136,16 +135,21 @@ function GalleryViewContent() {
     const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
     const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
     
-    const showFavorites = searchParams.get('favoritos') === 'true';
-
+    // Estado local para o botão de favoritos principal
+    const [isShowingFavorites, setIsShowingFavorites] = useState(searchParams.get('favoritos') === 'true');
     const loaderRef = useRef(null);
 
     const allItems = useMemo(() => getGalleryItems(), []);
     
+    // Sincroniza o estado local com a URL
+    useEffect(() => {
+        setIsShowingFavorites(searchParams.get('favoritos') === 'true');
+    }, [searchParams]);
+    
     const filteredItems = useMemo(() => {
         let sourceItems = allItems;
 
-        if (showFavorites) {
+        if (isShowingFavorites) {
           const favoriteIds = new Set(favorites.map(f => f.id));
           sourceItems = allItems.filter(item => favoriteIds.has(item.id));
         }
@@ -155,7 +159,7 @@ function GalleryViewContent() {
             const themeMatch = selectedTheme === 'Todos' || item.theme.includes(selectedTheme as any);
             return fairMatch && themeMatch;
         });
-    }, [allItems, favorites, showFavorites, selectedFair, selectedTheme]);
+    }, [allItems, favorites, isShowingFavorites, selectedFair, selectedTheme]);
 
     // Resetar a contagem de visibilidade ao mudar os filtros
     useEffect(() => {
@@ -207,16 +211,18 @@ function GalleryViewContent() {
     };
 
     const toggleShowFavorites = () => {
-        const newShowFavorites = !showFavorites;
+        const newShowFavorites = !isShowingFavorites;
+        // Atualiza o estado local IMEDIATAMENTE para a resposta visual
+        setIsShowingFavorites(newShowFavorites);
+
+        // Atualiza a URL em segundo plano
         const currentParams = new URLSearchParams(searchParams.toString());
-        
         if (newShowFavorites) {
             currentParams.set('favoritos', 'true');
         } else {
             currentParams.delete('favoritos');
         }
         router.push(`/gallery?${currentParams.toString()}`, { scroll: false });
-        router.refresh(); 
     };
 
     const formatFairName = (fairName: string): string => {
@@ -285,7 +291,7 @@ function GalleryViewContent() {
                 >
                     <Heart className={cn(
                         "h-7 w-7",
-                        showFavorites
+                        isShowingFavorites
                             ? "fill-destructive text-destructive"
                             : "stroke-primary hover:fill-destructive hover:stroke-destructive"
                     )} />
@@ -304,7 +310,7 @@ function GalleryViewContent() {
             
              <div className="sticky top-16 z-40 bg-background/95 py-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                     <Select value={selectedFair ?? 'null'} onValueChange={(value) => handleFilterChange('fair', value)} disabled={showFavorites}>
+                     <Select value={selectedFair ?? 'null'} onValueChange={(value) => handleFilterChange('fair', value)} disabled={isShowingFavorites}>
                         <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0 disabled:opacity-50">
                              <div className="flex-1 text-left">
                                 <SelectValue>
@@ -323,7 +329,7 @@ function GalleryViewContent() {
                         </SelectContent>
                     </Select>
                     
-                    <Select value={selectedTheme} onValueChange={(value) => handleFilterChange('theme', value)} disabled={showFavorites}>
+                    <Select value={selectedTheme} onValueChange={(value) => handleFilterChange('theme', value)} disabled={isShowingFavorites}>
                         <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0 disabled:opacity-50">
                              <div className="flex-1 text-left">
                                 <SelectValue>
@@ -369,7 +375,7 @@ function GalleryViewContent() {
                     <div className="text-center py-20">
                         <h2 className="mt-4 text-2xl font-semibold">Nenhuma propaganda encontrada</h2>
                         <p className="text-lg font-semibold text-foreground/90 mt-2">
-                            {showFavorites ? "Você ainda não favoritou nenhuma mídia." : "Tente ajustar seus filtros para encontrar outros resultados."}
+                            {isShowingFavorites ? "Você ainda não favoritou nenhuma mídia." : "Tente ajustar seus filtros para encontrar outros resultados."}
                         </p>
                     </div>
                 )}
