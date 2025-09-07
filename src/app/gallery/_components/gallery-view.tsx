@@ -123,12 +123,12 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: 
                     <Button
                         variant="ghost"
                         size="icon"
-                        className="absolute top-1 right-1 h-8 w-8 rounded-full focus-visible:ring-0 focus-visible:ring-offset-0 bg-black/20 hover:bg-black/40"
+                        className="absolute top-1 right-1 h-8 w-8 rounded-full bg-black/20 hover:bg-black/40"
                         onClick={handleToggleFavorite}
                         onTouchEnd={handleToggleFavorite}
                         >
                         <Heart className={cn(
-                            "h-6 w-6 stroke-white fill-transparent transition-colors", 
+                            "h-6 w-6 stroke-white fill-transparent transition-colors hover:fill-destructive hover:stroke-destructive",
                             isCurrentlyFavorite ? "fill-destructive stroke-destructive animate-pulse-heart" : "fill-white/80"
                         )}/>
                     </Button>
@@ -321,7 +321,7 @@ function GalleryViewContent() {
                     variant="ghost"
                     size="icon"
                     onClick={toggleShowFavorites}
-                    className="group hover:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
+                    className="group"
                 >
                     <Heart className={cn(
                         "h-7 w-7",
