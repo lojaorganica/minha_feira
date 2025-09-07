@@ -49,15 +49,9 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
         });
     };
     
-    const handleImageClick = () => {
+    const handleActionClick = (action: () => void) => {
         if (!isDragging.current) {
-            onSelectImage(item);
-        }
-    };
-    
-    const handleVideoClick = () => {
-        if (!isDragging.current) {
-            onPlayVideo(item);
+            action();
         }
     };
 
@@ -106,13 +100,13 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
                             />
                             <div 
                                 className="absolute inset-0 cursor-pointer"
-                                onClick={handleImageClick}
+                                onClick={() => handleActionClick(() => onSelectImage(item))}
                             />
                         </>
                     ) : (
                          <div 
                             className="relative cursor-pointer" 
-                            onClick={handleVideoClick} 
+                            onClick={() => handleActionClick(() => onPlayVideo(item))}
                          >
                             <video src={item.url} className="w-full h-full object-contain" preload="metadata" />
                             <div className="absolute inset-0 flex items-center justify-center bg-black/10 pointer-events-none">
@@ -241,12 +235,11 @@ function GalleryViewContent() {
     };
 
     const toggleShowFavorites = () => {
-        const newIsShowingFavorites = !isShowingFavorites;
         const currentParams = new URLSearchParams(searchParams.toString());
-        if (newIsShowingFavorites) {
-            currentParams.set('favoritos', 'true');
-        } else {
+        if (isShowingFavorites) {
             currentParams.delete('favoritos');
+        } else {
+            currentParams.set('favoritos', 'true');
         }
         startTransition(() => {
             router.push(`/gallery?${currentParams.toString()}`, { scroll: false });
@@ -469,12 +462,3 @@ export default function GalleryView() {
         </Suspense>
     );
 }
-
-    
-
-    
-
-
-
-
-    
