@@ -22,8 +22,15 @@ const ITEMS_PER_PAGE = 24;
 // Componente de Card individual para otimizar o estado de favorito
 function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: GalleryItem; onShare: (item: GalleryItem) => void; onPlayVideo: (item: GalleryItem) => void; onSelectImage: (item: GalleryItem) => void; }) {
     const { toggleFavorite, isFavorite } = useGalleryFavorites();
-    const [isLocallyFavorite, setIsLocallyFavorite] = useState(() => isFavorite(item.id));
+    // Estado local para resposta visual imediata. Inicializado com o estado global.
+    const [isLocallyFavorite, setIsLocallyFavorite] = useState(isFavorite(item.id));
     const [isMobile, setIsMobile] = useState<boolean | undefined>(undefined);
+
+    // Sincroniza o estado local se o estado global mudar (ex: ao filtrar para favoritos)
+    useEffect(() => {
+        setIsLocallyFavorite(isFavorite(item.id));
+    }, [isFavorite, item.id]);
+
 
     useEffect(() => {
       const checkMobile = () => window.matchMedia("(max-width: 768px)").matches;
@@ -35,9 +42,9 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: 
 
     const handleToggleFavorite = (e: React.MouseEvent) => {
         e.stopPropagation();
-        // Atualiza o estado visual local imediatamente
+        // Atualiza o estado visual local imediatamente para resposta instantânea.
         setIsLocallyFavorite(current => !current);
-        // Chama a função para atualizar o estado global e o localStorage em segundo plano
+        // Chama a função para atualizar o estado global e o localStorage em segundo plano.
         toggleFavorite(item);
     };
 
@@ -215,7 +222,7 @@ function GalleryViewContent() {
         
         if (type === 'fair') {
             setSelectedFair(value === 'null' ? null : value);
-            if (value === 'null' || value === 'Todas') currentParams.delete('feira');
+            if (value === 'null') currentParams.delete('feira');
             else currentParams.set('feira', value);
         }
         if (type === 'theme') {
@@ -344,9 +351,11 @@ function GalleryViewContent() {
                     
                     <Select value={selectedTheme} onValueChange={(value) => handleFilterChange('theme', value)} disabled={showFavorites}>
                         <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0 disabled:opacity-50">
-                             <SelectValue>
-                                {selectedTheme === 'Todos' ? 'Selecionar Temas' : selectedTheme}
-                            </SelectValue>
+                             <div className="flex-1 text-left">
+                                <SelectValue>
+                                    {selectedTheme === 'Todos' ? 'Selecionar Temas' : selectedTheme}
+                                </SelectValue>
+                            </div>
                         </SelectTrigger>
                         <SelectContent>
                            <SelectItem value="Todos">Todos os Temas</SelectItem>
