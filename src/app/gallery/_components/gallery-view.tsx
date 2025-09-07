@@ -21,9 +21,14 @@ const ITEMS_PER_PAGE = 24;
 
 function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentlyFavorite }: { item: GalleryItem; onShare: (item: GalleryItem) => void; onPlayVideo: (item: GalleryItem) => void; onSelectImage: (item: GalleryItem) => void; isCurrentlyFavorite: boolean; }) {
     const { toggleFavorite } = useGalleryFavorites();
+    const [isLocallyFavorite, setIsLocallyFavorite] = useState(isCurrentlyFavorite);
     
     const touchStartPos = useRef({ x: 0, y: 0 });
     const isDragging = useRef(false);
+
+    useEffect(() => {
+        setIsLocallyFavorite(isCurrentlyFavorite);
+    }, [isCurrentlyFavorite]);
 
     const handleTouchStart = (e: React.TouchEvent) => {
         touchStartPos.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
@@ -43,6 +48,9 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
 
     const handleToggleFavorite = (e: React.MouseEvent | React.TouchEvent) => {
         e.stopPropagation();
+        // Atualiza o estado local imediatamente para feedback visual instantâneo
+        setIsLocallyFavorite(prev => !prev);
+        // Atualiza o estado global em segundo plano
         toggleFavorite(item);
     };
     
@@ -120,12 +128,12 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
                         </div>
                     )}
                      <button
-                        className="absolute top-1 right-1 h-8 w-8 rounded-full p-0 flex items-center justify-center bg-transparent border-none [-webkit-tap-highlight-color:transparent] focus:outline-none"
+                        className="absolute top-1 right-1 h-8 w-8 rounded-full p-0 flex items-center justify-center border-none focus:outline-none [-webkit-tap-highlight-color:transparent]"
                         onClick={handleToggleFavorite}
                         >
                         <Heart className={cn(
                             "h-6 w-6 stroke-white drop-shadow-md transition-colors",
-                            isCurrentlyFavorite 
+                            isLocallyFavorite
                                 ? "fill-destructive stroke-destructive animate-pulse-heart"
                                 : "fill-white hover:fill-destructive hover:stroke-destructive"
                         )}/>
