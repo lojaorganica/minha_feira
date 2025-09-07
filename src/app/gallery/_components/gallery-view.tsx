@@ -25,11 +25,9 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: 
     const [isLocallyFavorite, setIsLocallyFavorite] = useState(() => isFavorite(item.id));
     const [isMobile, setIsMobile] = useState<boolean | undefined>(undefined);
 
-    // Efeito para sincronizar o estado local se o estado global mudar (ex: ao filtrar para favoritos)
     useEffect(() => {
         setIsLocallyFavorite(isFavorite(item.id));
     }, [isFavorite, item.id]);
-
 
     useEffect(() => {
       const checkMobile = () => window.matchMedia("(max-width: 768px)").matches;
@@ -41,9 +39,6 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: 
 
     const handleToggleFavorite = (e: React.MouseEvent) => {
         e.stopPropagation();
-        // Atualiza o estado visual local imediatamente para resposta instantânea.
-        setIsLocallyFavorite(current => !current);
-        // Chama a função para atualizar o estado global e o localStorage em segundo plano.
         toggleFavorite(item);
     };
 
