@@ -22,11 +22,10 @@ const ITEMS_PER_PAGE = 24;
 // Componente de Card individual para otimizar o estado de favorito
 function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: GalleryItem; onShare: (item: GalleryItem) => void; onPlayVideo: (item: GalleryItem) => void; onSelectImage: (item: GalleryItem) => void; }) {
     const { toggleFavorite, isFavorite } = useGalleryFavorites();
-    // Estado local para resposta visual imediata. Inicializado com o estado global.
-    const [isLocallyFavorite, setIsLocallyFavorite] = useState(isFavorite(item.id));
+    const [isLocallyFavorite, setIsLocallyFavorite] = useState(() => isFavorite(item.id));
     const [isMobile, setIsMobile] = useState<boolean | undefined>(undefined);
 
-    // Sincroniza o estado local se o estado global mudar (ex: ao filtrar para favoritos)
+    // Efeito para sincronizar o estado local se o estado global mudar (ex: ao filtrar para favoritos)
     useEffect(() => {
         setIsLocallyFavorite(isFavorite(item.id));
     }, [isFavorite, item.id]);
@@ -152,7 +151,7 @@ function GalleryViewContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const { toast } = useToast();
-    const { favorites } = useGalleryFavorites();
+    const { favorites, isFavorite } = useGalleryFavorites();
 
     const initialFair = searchParams.get('feira') || null;
     const initialTheme = searchParams.get('tema') || 'Todos';
@@ -171,7 +170,12 @@ function GalleryViewContent() {
     const allItems = useMemo(() => getGalleryItems(), []);
 
     const filteredItems = useMemo(() => {
-        const sourceItems = showFavorites ? favorites : allItems;
+        let sourceItems = allItems;
+
+        if (showFavorites) {
+          const favoriteIds = new Set(favorites.map(f => f.id));
+          sourceItems = allItems.filter(item => favoriteIds.has(item.id));
+        }
         
         return sourceItems.filter(item => {
             const fairMatch = !selectedFair || (selectedFair === 'Todas' ? item.fair.includes('Todas') : item.fair.includes(selectedFair as any));
@@ -462,5 +466,7 @@ export default function GalleryView() {
         </Suspense>
     );
 }
+
+    
 
     
