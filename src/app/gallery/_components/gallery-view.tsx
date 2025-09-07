@@ -35,8 +35,10 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: 
 
     const handleToggleFavorite = (e: React.MouseEvent) => {
         e.stopPropagation();
-        setIsLocallyFavorite(current => !current); // Resposta visual imediata
-        toggleFavorite(item); // Atualização em segundo plano
+        // Atualiza o estado visual local imediatamente
+        setIsLocallyFavorite(current => !current);
+        // Chama a função para atualizar o estado global e o localStorage em segundo plano
+        toggleFavorite(item);
     };
 
     const handleDownload = (url: string, title: string) => {
@@ -331,7 +333,7 @@ function GalleryViewContent() {
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem value="null">Mostrar Todas as Mídias</SelectItem>
-                            <SelectItem value="Todas">Apenas para Todas as Feiras</SelectItem>
+                            <SelectItem value="Todas">Todas as Feiras</SelectItem>
                             <SelectItem value="Flamengo e Laranjeiras">Feiras Orgânicas do Flamengo e Laranjeiras</SelectItem>
                             <SelectItem value="Grajaú">Feira Orgânica do Grajaú</SelectItem>
                             <SelectItem value="Tijuca">Feira Orgânica da Tijuca</SelectItem>
@@ -451,3 +453,5 @@ export default function GalleryView() {
         </Suspense>
     );
 }
+
+    
