@@ -123,14 +123,14 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
                         </div>
                     )}
                      <button
-                        className="absolute top-1 right-1 h-8 w-8 rounded-full p-0 flex items-center justify-center border-none [-webkit-tap-highlight-color:transparent]"
+                        className="absolute top-1 right-1 h-8 w-8 rounded-full p-0 flex items-center justify-center border-none bg-transparent focus:bg-transparent active:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 [-webkit-tap-highlight-color:transparent]"
                         onClick={handleToggleFavorite}
                         >
                         <Heart className={cn(
-                            "h-6 w-6 stroke-white drop-shadow-md transition-colors hover:fill-destructive hover:stroke-destructive",
+                            "h-6 w-6 stroke-white drop-shadow-md transition-colors",
                             isCurrentlyFavorite
                                 ? "fill-destructive stroke-destructive animate-pulse-heart"
-                                : "fill-white"
+                                : "fill-white hover:fill-destructive hover:stroke-destructive"
                         )}/>
                     </button>
                 </div>
@@ -177,8 +177,11 @@ function GalleryViewContent() {
     const loaderRef = useRef(null);
 
     useEffect(() => {
-        setIsShowingFavorites(searchParams.get('favoritos') === 'true');
-    }, [searchParams]);
+        const newIsShowingFavorites = searchParams.get('favoritos') === 'true';
+        if (newIsShowingFavorites !== isShowingFavorites) {
+            setIsShowingFavorites(newIsShowingFavorites);
+        }
+    }, [searchParams, isShowingFavorites]);
 
     const allItems = useMemo(() => getGalleryItems(), []);
     
@@ -246,10 +249,9 @@ function GalleryViewContent() {
 
     const toggleShowFavorites = () => {
         const newShowFavorites = !isShowingFavorites;
+        setIsShowingFavorites(newShowFavorites); // Atualiza o estado local imediatamente
+        
         const currentParams = new URLSearchParams(searchParams.toString());
-        
-        setIsShowingFavorites(newShowFavorites);
-        
         if (newShowFavorites) {
             currentParams.set('favoritos', 'true');
         } else {
@@ -319,7 +321,7 @@ function GalleryViewContent() {
                 <Button
                     size="icon"
                     onClick={toggleShowFavorites}
-                    className="bg-transparent hover:bg-transparent focus:bg-transparent focus-visible:bg-transparent [-webkit-tap-highlight-color:transparent]"
+                    className="bg-transparent hover:bg-transparent focus:bg-transparent active:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 [-webkit-tap-highlight-color:transparent]"
                 >
                     <Heart className={cn(
                         "h-7 w-7",
@@ -475,3 +477,5 @@ export default function GalleryView() {
         </Suspense>
     );
 }
+
+    
