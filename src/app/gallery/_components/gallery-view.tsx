@@ -164,6 +164,7 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
 function GalleryViewContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
+    const [isPending, startTransition] = useTransition();
 
     const { favorites, isFavorite } = useGalleryFavorites();
     
@@ -248,7 +249,9 @@ function GalleryViewContent() {
         } else {
             currentParams.set('favoritos', 'true');
         }
-        router.push(`/gallery?${currentParams.toString()}`, { scroll: false });
+        startTransition(() => {
+            router.push(`/gallery?${currentParams.toString()}`, { scroll: false });
+        });
     };
 
     const formatFairName = (fairName: string): string => {
@@ -467,5 +470,7 @@ export default function GalleryView() {
         </Suspense>
     );
 }
+
+    
 
     
