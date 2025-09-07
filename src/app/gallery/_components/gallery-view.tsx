@@ -54,6 +54,11 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
             action();
         }
     };
+    
+    const handleDivClick = () => {
+         handleActionClick(() => onSelectImage(item));
+    }
+
 
     const handleDownload = (e: React.MouseEvent, url: string, title: string) => {
         e.stopPropagation();
@@ -100,7 +105,7 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
                             />
                             <div 
                                 className="absolute inset-0 cursor-pointer"
-                                onClick={() => handleActionClick(() => onSelectImage(item))}
+                                onClick={handleDivClick}
                             />
                         </>
                     ) : (
@@ -158,6 +163,7 @@ function GalleryViewContent() {
     const searchParams = useSearchParams();
     
     const { favorites, isFavorite } = useGalleryFavorites();
+    const allItems = useMemo(() => getGalleryItems(), []);
     
     const [selectedFair, setSelectedFair] = useState(searchParams.get('feira') || null);
     const [selectedTheme, setSelectedTheme] = useState(searchParams.get('tema') || 'Todos');
@@ -170,11 +176,8 @@ function GalleryViewContent() {
     
     const loaderRef = useRef(null);
 
-    const allItems = useMemo(() => getGalleryItems(), []);
-    
     const filteredItems = useMemo(() => {
         let sourceItems = allItems;
-
         if (isShowingFavorites) {
           const favoriteIds = new Set(favorites.map(f => f.id));
           sourceItems = allItems.filter(item => favoriteIds.has(item.id));
