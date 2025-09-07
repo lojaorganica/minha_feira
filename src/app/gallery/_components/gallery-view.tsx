@@ -39,6 +39,9 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: 
 
     const handleToggleFavorite = (e: React.MouseEvent) => {
         e.stopPropagation();
+        // Atualiza o estado local imediatamente para uma resposta visual rápida
+        setIsLocallyFavorite(prev => !prev); 
+        // Chama a função do contexto para atualizar o estado global e o localStorage
         toggleFavorite(item);
     };
 
@@ -107,7 +110,7 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: 
                     >
                         <Heart className={cn(
                             "h-6 w-6 stroke-white fill-white hover:fill-destructive hover:stroke-destructive md:h-7 md:w-7", 
-                            isLocallyFavorite && "fill-destructive stroke-destructive"
+                            isLocallyFavorite && "fill-destructive stroke-destructive animate-pulse-heart"
                         )}/>
                     </Button>
                 </div>
@@ -465,4 +468,5 @@ export default function GalleryView() {
     
 
     
+
 
