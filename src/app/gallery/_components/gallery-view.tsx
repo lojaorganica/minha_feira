@@ -21,7 +21,6 @@ const ITEMS_PER_PAGE = 24;
 
 function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: GalleryItem; onShare: (item: GalleryItem) => void; onPlayVideo: (item: GalleryItem) => void; onSelectImage: (item: GalleryItem) => void; }) {
     const { toggleFavorite, isFavorite } = useGalleryFavorites();
-    const isCurrentlyFavorite = isFavorite(item.id);
 
     const handleToggleFavorite = (e: React.MouseEvent) => {
         e.stopPropagation();
@@ -93,7 +92,7 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: 
                     >
                         <Heart className={cn(
                             "h-6 w-6 stroke-white fill-white hover:fill-destructive hover:stroke-destructive md:h-7 md:w-7", 
-                            isCurrentlyFavorite && "fill-destructive stroke-destructive animate-pulse-heart"
+                            isFavorite(item.id) && "fill-destructive stroke-destructive animate-pulse-heart"
                         )}/>
                     </Button>
                 </div>
@@ -130,23 +129,25 @@ function GalleryViewContent() {
     const { toast } = useToast();
     const { favorites } = useGalleryFavorites();
 
-    const initialFair = searchParams.get('feira') || null;
-    const initialTheme = searchParams.get('tema') || 'Todos';
-    
-    const [selectedFair, setSelectedFair] = useState(initialFair);
-    const [selectedTheme, setSelectedTheme] = useState(initialTheme);
+    const [selectedFair, setSelectedFair] = useState(searchParams.get('feira') || null);
+    const [selectedTheme, setSelectedTheme] = useState(searchParams.get('tema') || 'Todos');
     const [videoToPlay, setVideoToPlay] = useState<GalleryItem | null>(null);
     const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
-    const [version, setVersion] = useState(0);
-    
     const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
+    
+    // Estado local para o botão de favoritos principal para garantir resposta imediata
+    const [showFavorites, setShowFavorites] = useState(searchParams.get('favoritos') === 'true');
+
+    // Sincroniza o estado local com a URL se a URL mudar (ex: navegação do navegador)
+    useEffect(() => {
+        setShowFavorites(searchParams.get('favoritos') === 'true');
+    }, [searchParams]);
+
 
     const loaderRef = useRef(null);
 
     const allItems = useMemo(() => getGalleryItems(), []);
     
-    const showFavorites = searchParams.get('favoritos') === 'true';
-
     const filteredItems = useMemo(() => {
         let sourceItems = allItems;
 
@@ -195,10 +196,6 @@ function GalleryViewContent() {
 
     const itemsToShow = useMemo(() => filteredItems.slice(0, visibleCount), [filteredItems, visibleCount]);
 
-    const updateUrlParams = (params: URLSearchParams) => {
-        router.push(`/gallery?${params.toString()}`, { scroll: false });
-    };
-
     const handleFilterChange = (type: 'fair' | 'theme', value: string) => {
         const currentParams = new URLSearchParams(searchParams.toString());
         
@@ -212,18 +209,22 @@ function GalleryViewContent() {
             if (value === 'Todos') currentParams.delete('tema');
             else currentParams.set('tema', value);
         }
-        updateUrlParams(currentParams);
+        router.push(`/gallery?${currentParams.toString()}`, { scroll: false });
     };
 
     const toggleShowFavorites = () => {
+        // Atualiza o estado local imediatamente para resposta visual
+        const newShowFavorites = !showFavorites;
+        setShowFavorites(newShowFavorites);
+
+        // Atualiza a URL em segundo plano
         const currentParams = new URLSearchParams(searchParams.toString());
-        if (showFavorites) {
-            currentParams.delete('favoritos');
-        } else {
+        if (newShowFavorites) {
             currentParams.set('favoritos', 'true');
+        } else {
+            currentParams.delete('favoritos');
         }
-        updateUrlParams(currentParams);
-        setVersion(v => v + 1); // Força re-renderização
+        router.push(`/gallery?${currentParams.toString()}`, { scroll: false });
     };
 
     const formatFairName = (fairName: string): string => {
@@ -443,5 +444,3 @@ export default function GalleryView() {
         </Suspense>
     );
 }
-
-    
