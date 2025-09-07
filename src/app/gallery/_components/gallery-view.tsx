@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useMemo, Suspense, useEffect } from 'react';
+import { useState, useMemo, Suspense, useEffect, useRef } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { getGalleryItems } from '@/lib/gallery-data';
 import type { GalleryItem } from '@/lib/types';
@@ -16,6 +16,8 @@ import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
 import { useGalleryFavorites } from '@/hooks/use-gallery-favorites';
 import BackButton from '@/components/back-button';
+
+const ITEMS_PER_PAGE = 24;
 
 function GalleryViewContent() {
     const router = useRouter();
@@ -33,6 +35,9 @@ function GalleryViewContent() {
     const [videoToPlay, setVideoToPlay] = useState<GalleryItem | null>(null);
     const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
     const [isMobile, setIsMobile] = useState<boolean | undefined>(undefined);
+    const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
+
+    const loaderRef = useRef(null);
 
     useEffect(() => {
         const checkMobile = () => window.matchMedia("(max-width: 768px)").matches;
@@ -55,6 +60,38 @@ function GalleryViewContent() {
             return fairMatch && themeMatch;
         });
     }, [allItems, favorites, showFavorites, selectedFair, selectedTheme]);
+
+    // Resetar a contagem de visibilidade ao mudar os filtros
+    useEffect(() => {
+        setVisibleCount(ITEMS_PER_PAGE);
+    }, [filteredItems]);
+
+
+    // Lógica para o scroll infinito
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                if (entries[0].isIntersecting) {
+                    setVisibleCount((prevCount) =>
+                        Math.min(prevCount + ITEMS_PER_PAGE, filteredItems.length)
+                    );
+                }
+            },
+            { rootMargin: '200px' }
+        );
+
+        if (loaderRef.current) {
+            observer.observe(loaderRef.current);
+        }
+
+        return () => {
+            if (loaderRef.current) {
+                observer.unobserve(loaderRef.current);
+            }
+        };
+    }, [filteredItems.length]);
+
+    const itemsToShow = useMemo(() => filteredItems.slice(0, visibleCount), [filteredItems, visibleCount]);
 
     const updateUrlParams = (params: URLSearchParams) => {
         router.push(`/gallery?${params.toString()}`, { scroll: false });
@@ -187,11 +224,11 @@ function GalleryViewContent() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                      <Select value={selectedFair ?? 'null'} onValueChange={(value) => handleFilterChange('fair', value)} disabled={showFavorites}>
                         <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0 disabled:opacity-50">
-                             <SelectValue>
-                                 <div className="flex-1 text-left">
-                                {selectedFair ? formatFairName(selectedFair) : "Selecionar Feiras"}
-                                </div>
-                            </SelectValue>
+                            <div className="flex-1 text-left">
+                                <SelectValue>
+                                    {selectedFair ? formatFairName(selectedFair) : "Selecionar Feiras"}
+                                </SelectValue>
+                            </div>
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem value="null">Mostrar Todas</SelectItem>
@@ -206,7 +243,7 @@ function GalleryViewContent() {
                     
                     <Select value={selectedTheme} onValueChange={(value) => handleFilterChange('theme', value)} disabled={showFavorites}>
                         <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0 disabled:opacity-50">
-                            <SelectValue>
+                             <SelectValue>
                                 {selectedTheme === 'Todos' ? 'Selecionar Temas' : selectedTheme}
                             </SelectValue>
                         </SelectTrigger>
@@ -225,83 +262,91 @@ function GalleryViewContent() {
 
             
             <div className="flex-grow pt-6">
-                {filteredItems.length > 0 ? (
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                        {filteredItems.map(item => {
-                            const { firstWord, rest } = formatThemeName(item.theme[0]);
-                            const isCurrentlyFavorite = isFavorite(item.id);
-                            return (
-                            <Card key={item.id} className="overflow-hidden flex flex-col">
-                                <CardContent className="p-0">
-                                    <div className="relative w-full">
-                                        {item.type === 'image' ? (
-                                            <>
-                                                <Image
-                                                    src={item.url}
-                                                    alt={item.title}
-                                                    width={300}
-                                                    height={300}
-                                                    className="object-contain w-full h-auto"
-                                                    data-ai-hint={item.dataAiHint}
-                                                />
-                                                <div 
-                                                    className="absolute inset-0 cursor-pointer"
-                                                    onClick={() => setSelectedImage(item)}
-                                                />
-                                            </>
-                                        ) : (
-                                            <div className="relative">
-                                                <div className="absolute inset-0 cursor-pointer" onClick={() => setVideoToPlay(item)}/>
-                                                <video src={item.url} className="w-full h-full object-contain" preload="metadata" />
-                                                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                                                    <PlayCircle className="h-16 w-16 text-white/80 drop-shadow-lg" />
+                {itemsToShow.length > 0 ? (
+                    <>
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                            {itemsToShow.map(item => {
+                                const { firstWord, rest } = formatThemeName(item.theme[0]);
+                                const isCurrentlyFavorite = isFavorite(item.id);
+                                return (
+                                <Card key={item.id} className="overflow-hidden flex flex-col">
+                                    <CardContent className="p-0">
+                                        <div className="relative w-full">
+                                            {item.type === 'image' ? (
+                                                <>
+                                                    <Image
+                                                        src={item.url}
+                                                        alt={item.title}
+                                                        width={300}
+                                                        height={300}
+                                                        className="object-contain w-full h-auto"
+                                                        data-ai-hint={item.dataAiHint}
+                                                        loading="lazy"
+                                                    />
+                                                    <div 
+                                                        className="absolute inset-0 cursor-pointer"
+                                                        onClick={() => setSelectedImage(item)}
+                                                    />
+                                                </>
+                                            ) : (
+                                                <div className="relative">
+                                                    <div className="absolute inset-0 cursor-pointer" onClick={() => setVideoToPlay(item)}/>
+                                                    <video src={item.url} className="w-full h-full object-contain" preload="metadata" />
+                                                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                                        <PlayCircle className="h-16 w-16 text-white/80 drop-shadow-lg" />
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        )}
-                                        <Button
-                                          variant="ghost"
-                                          size="icon"
-                                          className="absolute top-1 right-1 h-8 w-8 rounded-full focus-visible:ring-0 focus-visible:ring-offset-0 hover:bg-transparent"
-                                          onClick={(e) => {
-                                            e.stopPropagation();
-                                            toggleFavorite(item);
-                                          }}
-                                        >
-                                            <Heart className={cn(
-                                                "h-6 w-6 stroke-white fill-white transition-all hover:fill-destructive hover:stroke-destructive md:h-7 md:w-7", 
-                                                isCurrentlyFavorite && "fill-destructive stroke-destructive animate-pulse-heart"
-                                            )}/>
-                                        </Button>
-                                    </div>
-                                </CardContent>
-                                <div className="p-2 space-y-1">
-                                    <div className="flex flex-wrap gap-1">
-                                        {item.fair.map(f => <Badge key={f} variant="outline" className="text-xs px-1.5 py-0.5 border-transparent bg-transparent">{formatFairName(f)}</Badge>)}
-                                    </div>
-                                    <div className="flex flex-col items-start">
-                                        <Badge variant="outline" className="border-transparent text-accent text-xs font-semibold px-1 py-0">{firstWord}</Badge>
-                                        {rest && <Badge variant="outline" className="border-transparent text-accent/80 text-[10px] -mt-1 px-1 py-0">{rest}</Badge>}
-                                    </div>
-                                </div>
-                                <CardFooter className="p-2 bg-muted/50 mt-auto">
-                                    {isMobile === undefined ? (
-                                        <div className="flex w-full gap-2 h-8" />
-                                     ) : (
-                                        <div className="flex w-full gap-2">
-                                            <Button variant="outline" size="sm" className="h-8 text-xs flex-1 hidden sm:flex" onClick={() => handleDownload(item.url, item.title)}>
-                                                <Download className="mr-2 h-4 w-4" />
-                                                Baixar
-                                            </Button>
-                                            <Button size="sm" className="h-8 text-xs flex-1" onClick={() => handleShare(item)}>
-                                                <Share2 className="mr-2 h-4 w-4" />
-                                                Compartilhar
+                                            )}
+                                            <Button
+                                            variant="ghost"
+                                            size="icon"
+                                            className="absolute top-1 right-1 h-8 w-8 rounded-full focus-visible:ring-0 focus-visible:ring-offset-0 hover:bg-transparent"
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                toggleFavorite(item);
+                                            }}
+                                            >
+                                                <Heart className={cn(
+                                                    "h-6 w-6 stroke-white fill-white transition-all hover:fill-destructive hover:stroke-destructive md:h-7 md:w-7", 
+                                                    isCurrentlyFavorite && "fill-destructive stroke-destructive animate-pulse-heart"
+                                                )}/>
                                             </Button>
                                         </div>
-                                    )}
-                                </CardFooter>
-                            </Card>
-                        )})}
-                    </div>
+                                    </CardContent>
+                                    <div className="p-2 space-y-1">
+                                        <div className="flex flex-wrap gap-1">
+                                            {item.fair.map(f => <Badge key={f} variant="outline" className="text-xs px-1.5 py-0.5 border-transparent bg-transparent">{formatFairName(f)}</Badge>)}
+                                        </div>
+                                        <div className="flex flex-col items-start">
+                                            <Badge variant="outline" className="border-transparent text-accent text-xs font-semibold px-1 py-0">{firstWord}</Badge>
+                                            {rest && <Badge variant="outline" className="border-transparent text-accent/80 text-[10px] -mt-1 px-1 py-0">{rest}</Badge>}
+                                        </div>
+                                    </div>
+                                    <CardFooter className="p-2 bg-muted/50 mt-auto">
+                                        {isMobile === undefined ? (
+                                            <div className="flex w-full gap-2 h-8" />
+                                        ) : (
+                                            <div className="flex w-full gap-2">
+                                                <Button variant="outline" size="sm" className="h-8 text-xs flex-1 hidden sm:flex" onClick={() => handleDownload(item.url, item.title)}>
+                                                    <Download className="mr-2 h-4 w-4" />
+                                                    Baixar
+                                                </Button>
+                                                <Button size="sm" className="h-8 text-xs flex-1" onClick={() => handleShare(item)}>
+                                                    <Share2 className="mr-2 h-4 w-4" />
+                                                    Compartilhar
+                                                </Button>
+                                            </div>
+                                        )}
+                                    </CardFooter>
+                                </Card>
+                            )})}
+                        </div>
+                        {visibleCount < filteredItems.length && (
+                            <div ref={loaderRef} className="flex justify-center items-center py-8">
+                                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                            </div>
+                        )}
+                    </>
                 ) : (
                     <div className="text-center py-20">
                         <h2 className="mt-4 text-2xl font-semibold">Nenhuma propaganda encontrada</h2>
@@ -373,3 +418,4 @@ export default function GalleryView() {
         </Suspense>
     );
 }
+
