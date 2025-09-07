@@ -55,6 +55,7 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: 
         return { firstWord: parts[0], rest: parts.slice(1).join(' - ') };
     }, [item.theme]);
     
+    const isCurrentlyFavorite = isFavorite(item.id);
 
     return (
         <Card className="overflow-hidden flex flex-col">
@@ -92,7 +93,7 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: 
                     >
                         <Heart className={cn(
                             "h-6 w-6 stroke-white fill-white hover:fill-destructive hover:stroke-destructive md:h-7 md:w-7", 
-                            isFavorite(item.id) && "fill-destructive stroke-destructive animate-pulse-heart"
+                            isCurrentlyFavorite && "fill-destructive stroke-destructive animate-pulse-heart"
                         )}/>
                     </Button>
                 </div>
@@ -135,14 +136,7 @@ function GalleryViewContent() {
     const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
     const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
     
-    // Estado local para o botão de favoritos principal para garantir resposta imediata
-    const [showFavorites, setShowFavorites] = useState(searchParams.get('favoritos') === 'true');
-
-    // Sincroniza o estado local com a URL se a URL mudar (ex: navegação do navegador)
-    useEffect(() => {
-        setShowFavorites(searchParams.get('favoritos') === 'true');
-    }, [searchParams]);
-
+    const showFavorites = searchParams.get('favoritos') === 'true';
 
     const loaderRef = useRef(null);
 
@@ -213,18 +207,16 @@ function GalleryViewContent() {
     };
 
     const toggleShowFavorites = () => {
-        // Atualiza o estado local imediatamente para resposta visual
         const newShowFavorites = !showFavorites;
-        setShowFavorites(newShowFavorites);
-
-        // Atualiza a URL em segundo plano
         const currentParams = new URLSearchParams(searchParams.toString());
+        
         if (newShowFavorites) {
             currentParams.set('favoritos', 'true');
         } else {
             currentParams.delete('favoritos');
         }
         router.push(`/gallery?${currentParams.toString()}`, { scroll: false });
+        router.refresh(); 
     };
 
     const formatFairName = (fairName: string): string => {
