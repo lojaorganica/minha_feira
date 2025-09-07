@@ -33,14 +33,9 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage }: { item: 
       return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    useEffect(() => {
-        setIsLocallyFavorite(isFavorite(item.id));
-    }, [isFavorite, item.id]);
-
     const handleToggleFavorite = (e: React.MouseEvent) => {
         e.stopPropagation();
-        const newState = !isLocallyFavorite;
-        setIsLocallyFavorite(newState); // Resposta visual imediata
+        setIsLocallyFavorite(current => !current); // Resposta visual imediata
         toggleFavorite(item); // Atualização em segundo plano
     };
 
@@ -218,7 +213,7 @@ function GalleryViewContent() {
         
         if (type === 'fair') {
             setSelectedFair(value === 'null' ? null : value);
-            if (value === 'null' || value === 'Todos') currentParams.delete('feira');
+            if (value === 'null' || value === 'Todas') currentParams.delete('feira');
             else currentParams.set('feira', value);
         }
         if (type === 'theme') {
@@ -328,15 +323,15 @@ function GalleryViewContent() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                      <Select value={selectedFair ?? 'null'} onValueChange={(value) => handleFilterChange('fair', value)} disabled={showFavorites}>
                         <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0 disabled:opacity-50">
-                            <div className="flex-1 text-left">
+                             <div className="flex-1 text-left">
                                 <SelectValue>
                                     {selectedFair ? formatFairName(selectedFair) : "Selecionar Feiras"}
                                 </SelectValue>
                             </div>
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="null">Mostrar Todas</SelectItem>
-                            <SelectItem value="Todas">Todas as Feiras</SelectItem>
+                            <SelectItem value="null">Mostrar Todas as Mídias</SelectItem>
+                            <SelectItem value="Todas">Apenas para Todas as Feiras</SelectItem>
                             <SelectItem value="Flamengo e Laranjeiras">Feiras Orgânicas do Flamengo e Laranjeiras</SelectItem>
                             <SelectItem value="Grajaú">Feira Orgânica do Grajaú</SelectItem>
                             <SelectItem value="Tijuca">Feira Orgânica da Tijuca</SelectItem>
