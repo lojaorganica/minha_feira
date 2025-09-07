@@ -42,7 +42,7 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
         }
     };
 
-    const handleToggleFavorite = (e: React.MouseEvent | React.TouchEvent) => {
+    const handleToggleFavorite = (e: React.MouseEvent) => {
         e.stopPropagation();
         startTransition(() => {
             toggleFavorite(item);
@@ -123,7 +123,7 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
                         </div>
                     )}
                      <button
-                        className="absolute top-1 right-1 h-8 w-8 rounded-full p-0 flex items-center justify-center border-none bg-transparent focus-visible:bg-transparent focus:bg-transparent active:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 [-webkit-tap-highlight-color:transparent]"
+                        className="absolute top-1 right-1 h-8 w-8 rounded-full p-0 flex items-center justify-center border-none bg-transparent focus-visible:bg-transparent active:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 [-webkit-tap-highlight-color:transparent]"
                         onClick={handleToggleFavorite}
                         >
                         <Heart className={cn(
@@ -164,7 +164,6 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
 function GalleryViewContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const [isPending, startTransition] = useTransition();
 
     const { favorites, isFavorite } = useGalleryFavorites();
     const isShowingFavorites = searchParams.get('favoritos') === 'true';
@@ -242,16 +241,13 @@ function GalleryViewContent() {
     };
 
     const toggleShowFavorites = () => {
-        const newIsShowingFavorites = !isShowingFavorites;
         const currentParams = new URLSearchParams(searchParams.toString());
-        if (newIsShowingFavorites) {
-            currentParams.set('favoritos', 'true');
-        } else {
+        if (isShowingFavorites) {
             currentParams.delete('favoritos');
+        } else {
+            currentParams.set('favoritos', 'true');
         }
-        startTransition(() => {
-            router.push(`/gallery?${currentParams.toString()}`, { scroll: false });
-        });
+        router.push(`/gallery?${currentParams.toString()}`, { scroll: false });
     };
 
     const formatFairName = (fairName: string): string => {
