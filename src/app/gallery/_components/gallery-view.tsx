@@ -20,8 +20,6 @@ import BackButton from '@/components/back-button';
 const ITEMS_PER_PAGE = 24;
 
 function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentlyFavorite, onToggleFavorite }: { item: GalleryItem; onShare: (item: GalleryItem) => void; onPlayVideo: (item: GalleryItem) => void; onSelectImage: (item: GalleryItem) => void; isCurrentlyFavorite: boolean; onToggleFavorite: (item: GalleryItem) => void; }) {
-    const [isPending, startTransition] = useTransition();
-
     const touchStartPos = useRef({ x: 0, y: 0 });
     const isDragging = useRef(false);
 
@@ -43,9 +41,7 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
 
     const handleToggleFavorite = (e: React.MouseEvent) => {
         e.stopPropagation();
-        startTransition(() => {
-            onToggleFavorite(item);
-        });
+        onToggleFavorite(item);
     };
     
     const handleActionClick = (action: () => void) => {
