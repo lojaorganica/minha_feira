@@ -123,7 +123,7 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
                         </div>
                     )}
                      <button
-                        className="absolute top-1 right-1 h-8 w-8 rounded-full p-0 flex items-center justify-center border-none bg-transparent focus:bg-transparent active:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 [-webkit-tap-highlight-color:transparent]"
+                        className="absolute top-1 right-1 h-8 w-8 rounded-full p-0 flex items-center justify-center border-none bg-transparent focus-visible:bg-transparent focus:bg-transparent active:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 [-webkit-tap-highlight-color:transparent]"
                         onClick={handleToggleFavorite}
                         >
                         <Heart className={cn(
@@ -164,9 +164,10 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
 function GalleryViewContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
-    
+    const [isPending, startTransition] = useTransition();
+
     const { favorites, isFavorite } = useGalleryFavorites();
-    const [isShowingFavorites, setIsShowingFavorites] = useState(searchParams.get('favoritos') === 'true');
+    const isShowingFavorites = searchParams.get('favoritos') === 'true';
 
     const [selectedFair, setSelectedFair] = useState(searchParams.get('feira') || null);
     const [selectedTheme, setSelectedTheme] = useState(searchParams.get('tema') || 'Todos');
@@ -175,13 +176,6 @@ function GalleryViewContent() {
     const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
     
     const loaderRef = useRef(null);
-
-    useEffect(() => {
-        const newIsShowingFavorites = searchParams.get('favoritos') === 'true';
-        if (newIsShowingFavorites !== isShowingFavorites) {
-            setIsShowingFavorites(newIsShowingFavorites);
-        }
-    }, [searchParams, isShowingFavorites]);
 
     const allItems = useMemo(() => getGalleryItems(), []);
     
@@ -248,16 +242,16 @@ function GalleryViewContent() {
     };
 
     const toggleShowFavorites = () => {
-        const newShowFavorites = !isShowingFavorites;
-        setIsShowingFavorites(newShowFavorites); // Atualiza o estado local imediatamente
-        
+        const newIsShowingFavorites = !isShowingFavorites;
         const currentParams = new URLSearchParams(searchParams.toString());
-        if (newShowFavorites) {
+        if (newIsShowingFavorites) {
             currentParams.set('favoritos', 'true');
         } else {
             currentParams.delete('favoritos');
         }
-        router.push(`/gallery?${currentParams.toString()}`, { scroll: false });
+        startTransition(() => {
+            router.push(`/gallery?${currentParams.toString()}`, { scroll: false });
+        });
     };
 
     const formatFairName = (fairName: string): string => {
@@ -321,13 +315,13 @@ function GalleryViewContent() {
                 <Button
                     size="icon"
                     onClick={toggleShowFavorites}
-                    className="bg-transparent hover:bg-transparent focus:bg-transparent active:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 [-webkit-tap-highlight-color:transparent]"
+                    className="bg-transparent focus-visible:bg-transparent active:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 [-webkit-tap-highlight-color:transparent]"
                 >
                     <Heart className={cn(
                         "h-7 w-7",
                         isShowingFavorites
                             ? "fill-destructive stroke-destructive"
-                            : "stroke-primary hover:fill-destructive hover:stroke-destructive"
+                            : "stroke-primary fill-white hover:fill-destructive hover:stroke-destructive"
                     )} />
                     <span className="sr-only">Mostrar Favoritos</span>
                 </Button>
