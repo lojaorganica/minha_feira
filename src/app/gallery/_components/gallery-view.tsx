@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useMemo, Suspense, useEffect, useRef } from 'react';
+import { useState, useMemo, Suspense, useEffect, useRef, useTransition } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { getGalleryItems } from '@/lib/gallery-data';
 import type { GalleryItem } from '@/lib/types';
@@ -163,6 +163,7 @@ function GalleryFilterAccordion({
     isDisabled: boolean;
 }) {
     const [openItems, setOpenItems] = useState<string[]>([]);
+    const [isPending, startTransition] = useTransition();
 
     const fairs = [
         { value: 'Todas', label: 'Todas as Feiras' },
@@ -196,12 +197,14 @@ function GalleryFilterAccordion({
     };
 
     const handleSelectAndClose = (type: 'fair' | 'theme', value: string | null) => {
-        onFilterChange(type, value);
-        setOpenItems([]);
+         startTransition(() => {
+            onFilterChange(type, value);
+            setOpenItems([]);
+        });
     };
 
     return (
-        <Accordion type="multiple" className="w-full" disabled={isDisabled} value={openItems} onValueChange={setOpenItems}>
+        <Accordion type="multiple" className="w-full" disabled={isDisabled || isPending} value={openItems} onValueChange={setOpenItems}>
             <AccordionItem value="fair-filter">
                 <AccordionTrigger className="text-lg focus:ring-0 focus:ring-offset-0 px-4 rounded-md py-2 h-auto">
                    {getFairDisplayName(selectedFair)}
@@ -210,7 +213,7 @@ function GalleryFilterAccordion({
                     <div className="flex flex-col gap-1">
                        <Button
                             onClick={() => handleSelectAndClose('fair', null)}
-                            variant={!selectedFair ? 'secondary' : 'ghost'}
+                            variant={'ghost'}
                             className={cn("justify-start h-auto text-base", !selectedFair ? "bg-accent text-accent-foreground" : "")}
                         >
                             Mostrar Todas as Mídias
@@ -219,7 +222,7 @@ function GalleryFilterAccordion({
                             <Button
                                 key={fair.value}
                                 onClick={() => handleSelectAndClose('fair', fair.value)}
-                                variant={selectedFair === fair.value ? 'secondary' : 'ghost'}
+                                variant={'ghost'}
                                 className={cn("justify-start h-auto text-base", selectedFair === fair.value ? "bg-accent text-accent-foreground" : "")}
                             >
                                 {fair.label}
@@ -238,8 +241,8 @@ function GalleryFilterAccordion({
                             <Button
                                 key={theme.value}
                                 onClick={() => handleSelectAndClose('theme', theme.value === 'Todos' ? null : theme.value)}
-                                variant={selectedTheme === theme.value ? 'secondary' : 'ghost'}
-                                className={cn("justify-start h-auto text-base", selectedTheme === theme.value || (!selectedTheme && theme.value === 'Todos') ? "bg-accent text-accent-foreground" : "")}
+                                variant={'ghost'}
+                                className={cn("justify-start h-auto text-base", (selectedTheme === theme.value || (!selectedTheme && theme.value === 'Todos')) ? "bg-accent text-accent-foreground" : "")}
                             >
                                 {theme.label}
                             </Button>
@@ -259,7 +262,7 @@ function GalleryViewContent() {
     const allItems = useMemo(() => getGalleryItems(), []);
     
     const [selectedFair, setSelectedFair] = useState(searchParams.get('feira') || null);
-    const [selectedTheme, setSelectedTheme] = useState<string | null>(searchParams.get('tema'));
+    const [selectedTheme, setSelectedTheme] = useState<string | null>(searchParams.get('tema') || null);
     const [videoToPlay, setVideoToPlay] = useState<GalleryItem | null>(null);
     const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
     
