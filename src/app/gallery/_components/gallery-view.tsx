@@ -257,42 +257,40 @@ function GalleryViewContent() {
 
 
     return (
-        <div className="flex flex-col h-full">
-             <div className="flex-shrink-0">
-                <div className="flex justify-between items-center mb-4">
-                    <BackButton />
-                    <button
-                        onClick={handleToggleShowFavorites}
-                        className="p-2 rounded-full bg-transparent border-none focus:outline-none focus:ring-0 focus:ring-offset-0 focus-visible:bg-transparent active:bg-transparent hover:bg-transparent [-webkit-tap-highlight-color:transparent]"
-                    >
-                        <Heart className={cn(
-                            "h-7 w-7 transition-colors",
-                            isShowingFavorites
-                                ? "fill-destructive stroke-destructive"
-                                : "stroke-primary fill-white"
-                        )} />
-                        <span className="sr-only">Mostrar Favoritos</span>
-                    </button>
-                </div>
-                
-                <div className="mb-2">
-                    <h1 className="text-3xl font-bold font-headline text-primary tracking-tight sm:text-4xl">
-                        Galeria de Propagandas
-                    </h1>
-                    <p className="mt-2 text-base font-medium text-foreground/90 max-w-3xl">
-                        Utilize estas artes para divulgar as feiras em suas redes sociais. Baixe e compartilhe as imagens e vídeos à vontade! Use os filtros para encontrar a propaganda ideal. 
-                    </p>
-                </div>
-                <div className="flex justify-end text-right mt-2 mb-2">
-                  <div className="flex items-center gap-2 font-bold text-lg text-accent">
-                      <Archive className="h-5 w-5" />
-                      <span>Total de Itens:</span>
-                      <span>{allItems.length}</span>
-                  </div>
+        <div>
+            <div className="flex justify-between items-center mb-4">
+                <BackButton />
+                <button
+                    onClick={handleToggleShowFavorites}
+                    className="p-2 rounded-full bg-transparent border-none focus:outline-none focus:ring-0 focus:ring-offset-0 focus-visible:bg-transparent active:bg-transparent hover:bg-transparent [-webkit-tap-highlight-color:transparent]"
+                >
+                    <Heart className={cn(
+                        "h-7 w-7 transition-colors",
+                        isShowingFavorites
+                            ? "fill-destructive stroke-destructive"
+                            : "stroke-primary fill-white"
+                    )} />
+                    <span className="sr-only">Mostrar Favoritos</span>
+                </button>
+            </div>
+            
+            <div className="mb-2">
+                <h1 className="text-3xl font-bold font-headline text-primary tracking-tight sm:text-4xl">
+                    Galeria de Propagandas
+                </h1>
+                <p className="mt-2 text-base font-medium text-foreground/90 max-w-3xl">
+                    Utilize estas artes para divulgar as feiras em suas redes sociais. Baixe e compartilhe as imagens e vídeos à vontade! Use os filtros para encontrar a propaganda ideal. 
+                </p>
+            </div>
+            <div className="flex justify-end text-right mt-2 mb-2">
+              <div className="flex items-center gap-2 font-bold text-lg text-accent">
+                  <Archive className="h-5 w-5" />
+                  <span>Total de Itens:</span>
+                  <span>{allItems.length}</span>
               </div>
             </div>
 
-            <div className="sticky top-0 bg-background/90 backdrop-blur-sm z-10 py-4 -mx-4 px-4">
+            <div className="sticky top-16 bg-background/90 backdrop-blur-sm z-10 py-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                      <Select value={selectedFair ?? 'null'} onValueChange={(value) => handleFilterChange('fair', value)} disabled={isShowingFavorites}>
                         <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0 disabled:opacity-50">
@@ -335,33 +333,31 @@ function GalleryViewContent() {
             </div>
 
             
-            <div className="flex-grow overflow-y-auto pr-4 -mr-4 -ml-4 pl-4 pt-4">
-                 <div className="pt-2">
-                    {filteredItems.length > 0 ? (
-                        <>
-                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                                {filteredItems.map(item => (
-                                    <GalleryItemCard 
-                                        key={item.id} 
-                                        item={item} 
-                                        onShare={handleShare}
-                                        onPlayVideo={setVideoToPlay}
-                                        onSelectImage={setSelectedImage}
-                                        isCurrentlyFavorite={isFavorite(item.id)}
-                                        onToggleFavorite={handleToggleFavorite}
-                                    />
-                                ))}
-                            </div>
-                        </>
-                    ) : (
-                        <div className="text-center py-20">
-                            <h2 className="mt-4 text-2xl font-semibold">Nenhuma propaganda encontrada</h2>
-                            <p className="text-lg font-semibold text-foreground/90 mt-2">
-                                {isShowingFavorites ? "Você ainda não favoritou nenhuma mídia." : "Tente ajustar seus filtros para encontrar outros resultados."}
-                            </p>
+            <div className="pt-6">
+                 {filteredItems.length > 0 ? (
+                    <>
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                            {filteredItems.map(item => (
+                                <GalleryItemCard 
+                                    key={item.id} 
+                                    item={item} 
+                                    onShare={handleShare}
+                                    onPlayVideo={setVideoToPlay}
+                                    onSelectImage={setSelectedImage}
+                                    isCurrentlyFavorite={isFavorite(item.id)}
+                                    onToggleFavorite={handleToggleFavorite}
+                                />
+                            ))}
                         </div>
-                    )}
-                 </div>
+                    </>
+                ) : (
+                    <div className="text-center py-20">
+                        <h2 className="mt-4 text-2xl font-semibold">Nenhuma propaganda encontrada</h2>
+                        <p className="text-lg font-semibold text-foreground/90 mt-2">
+                            {isShowingFavorites ? "Você ainda não favoritou nenhuma mídia." : "Tente ajustar seus filtros para encontrar outros resultados."}
+                        </p>
+                    </div>
+                )}
             </div>
 
             <Dialog open={!!videoToPlay} onOpenChange={(isOpen) => !isOpen && setVideoToPlay(null)}>
