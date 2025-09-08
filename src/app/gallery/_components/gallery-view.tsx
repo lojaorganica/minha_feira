@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useMemo, Suspense, useEffect, useRef, useTransition } from 'react';
+import { useState, useMemo, Suspense, useEffect, useRef } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { getGalleryItems } from '@/lib/gallery-data';
 import type { GalleryItem } from '@/lib/types';
@@ -114,14 +114,14 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
                         </div>
                     )}
                      <button
-                        className="absolute top-1 right-1 h-8 w-8 rounded-full p-0 flex items-center justify-center border-none bg-transparent hover:bg-transparent focus-visible:bg-transparent active:bg-transparent focus:outline-none focus:ring-0 focus:ring-offset-0 [-webkit-tap-highlight-color:transparent]"
+                        className="absolute top-1 right-1 h-8 w-8 rounded-full p-0 flex items-center justify-center border-none bg-transparent hover:bg-transparent focus-visible:bg-transparent active:bg-transparent focus:outline-none focus:ring-0 focus:ring-offset-0 [-webkit-tap-highlight-color:transparent] group"
                         onClick={handleToggleFavorite}
                         >
                         <Heart className={cn(
-                            "h-6 w-6 stroke-white drop-shadow-md transition-colors",
+                            "h-6 w-6 stroke-white drop-shadow-md transition-colors fill-white hover:fill-destructive hover:stroke-destructive",
                             isCurrentlyFavorite
                                 ? "fill-destructive stroke-destructive animate-pulse-heart"
-                                : "fill-white hover:fill-destructive hover:stroke-destructive"
+                                : "stroke-primary"
                         )}/>
                     </button>
                 </div>
@@ -208,8 +208,8 @@ function GalleryFilterAccordion({
                     <div className="flex flex-col gap-1">
                        <Button
                             onClick={() => handleSelectAndClose('fair', 'null')}
-                            variant={!selectedFair || selectedFair === 'null' ? 'default' : 'ghost'}
-                            className="justify-start h-8 text-base"
+                            variant={!selectedFair || selectedFair === 'null' ? 'secondary' : 'ghost'}
+                            className={cn("justify-start h-8 text-base", !selectedFair || selectedFair === 'null' ? "bg-accent text-accent-foreground" : "")}
                         >
                             Mostrar Todas as Mídias
                         </Button>
@@ -217,8 +217,8 @@ function GalleryFilterAccordion({
                             <Button
                                 key={fair.value}
                                 onClick={() => handleSelectAndClose('fair', fair.value)}
-                                variant={selectedFair === fair.value ? 'default' : 'ghost'}
-                                className="justify-start h-8 text-base"
+                                variant={selectedFair === fair.value ? 'secondary' : 'ghost'}
+                                className={cn("justify-start h-8 text-base", selectedFair === fair.value ? "bg-accent text-accent-foreground" : "")}
                             >
                                 {fair.label}
                             </Button>
@@ -236,8 +236,8 @@ function GalleryFilterAccordion({
                             <Button
                                 key={theme.value}
                                 onClick={() => handleSelectAndClose('theme', theme.value)}
-                                variant={selectedTheme === theme.value || (!selectedTheme && theme.value === 'Todos') ? 'default' : 'ghost'}
-                                className="justify-start h-8 text-base"
+                                variant={selectedTheme === theme.value ? 'secondary' : 'ghost'}
+                                className={cn("justify-start h-8 text-base", selectedTheme === theme.value ? "bg-accent text-accent-foreground" : "")}
                             >
                                 {theme.label}
                             </Button>
@@ -257,10 +257,9 @@ function GalleryViewContent() {
     const allItems = useMemo(() => getGalleryItems(), []);
     
     const [selectedFair, setSelectedFair] = useState(searchParams.get('feira') || null);
-    const [selectedTheme, setSelectedTheme] = useState<string | null>(searchParams.get('tema') || null);
+    const [selectedTheme, setSelectedTheme] = useState<string | null>(searchParams.get('tema') || 'Todos');
     const [videoToPlay, setVideoToPlay] = useState<GalleryItem | null>(null);
     const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
-    const [isPending, startTransition] = useTransition();
     
     const isShowingFavorites = searchParams.get('favoritos') === 'true';
 
@@ -278,35 +277,32 @@ function GalleryViewContent() {
 
 
     const handleFilterChange = (type: 'fair' | 'theme', value: string) => {
-        startTransition(() => {
-            const currentParams = new URLSearchParams(searchParams.toString());
-            
-            if (type === 'fair') {
-                const newFairValue = value === 'null' ? null : value;
-                setSelectedFair(newFairValue);
-                if (newFairValue) currentParams.set('feira', newFairValue);
-                else currentParams.delete('feira');
-            }
-            if (type === 'theme') {
-                const newThemeValue = value === 'null' || value === 'Todos' ? null : value;
-                setSelectedTheme(newThemeValue);
-                if (newThemeValue) currentParams.set('tema', newThemeValue);
-                else currentParams.delete('tema');
-            }
-            router.push(`/gallery?${currentParams.toString()}`, { scroll: false });
-        });
+        const currentParams = new URLSearchParams(searchParams.toString());
+        
+        if (type === 'fair') {
+            const newFairValue = value === 'null' ? null : value;
+            setSelectedFair(newFairValue);
+            if (newFairValue) currentParams.set('feira', newFairValue);
+            else currentParams.delete('feira');
+        }
+        if (type === 'theme') {
+            const newThemeValue = value === 'null' ? null : value;
+            setSelectedTheme(newThemeValue);
+            if (newThemeValue) currentParams.set('tema', newThemeValue);
+            else currentParams.delete('tema');
+        }
+
+        router.push(`/gallery?${currentParams.toString()}`, { scroll: false });
     };
     
     const handleToggleShowFavorites = () => {
-        startTransition(() => {
-            const currentParams = new URLSearchParams(searchParams.toString());
-            if (isShowingFavorites) {
-                currentParams.delete('favoritos');
-            } else {
-                currentParams.set('favoritos', 'true');
-            }
-            router.push(`/gallery?${currentParams.toString()}`, { scroll: false });
-        });
+        const currentParams = new URLSearchParams(searchParams.toString());
+        if (isShowingFavorites) {
+            currentParams.delete('favoritos');
+        } else {
+            currentParams.set('favoritos', 'true');
+        }
+        router.push(`/gallery?${currentParams.toString()}`, { scroll: false });
     };
 
     const handleToggleFavorite = (item: GalleryItem) => {
