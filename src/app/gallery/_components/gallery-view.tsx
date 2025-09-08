@@ -162,6 +162,8 @@ function GalleryFilterAccordion({
     onFilterChange: (type: 'fair' | 'theme', value: string) => void;
     isDisabled: boolean;
 }) {
+    const [openItems, setOpenItems] = useState<string[]>([]);
+
     const fairs = [
         { value: 'null', label: 'Mostrar Todas as Mídias' },
         { value: 'Todas', label: 'Todas as Feiras' },
@@ -173,7 +175,7 @@ function GalleryFilterAccordion({
     ];
 
     const themes = [
-        { value: 'Todos', label: 'Todos os Temas' },
+        { value: 'null', label: 'Todos os Temas' },
         { value: 'Fotografias', label: 'Fotografias' },
         { value: 'Agricultores - Animações e Cartoon', label: 'Agricultores - Animações e Cartoon' },
         { value: 'Alimentos - Animações e Cartoon', label: 'Alimentos - Animações e Cartoon' },
@@ -192,10 +194,15 @@ function GalleryFilterAccordion({
         return theme ? theme.label : "Selecionar Tema";
     };
 
+    const handleSelectAndClose = (type: 'fair' | 'theme', value: string) => {
+        onFilterChange(type, value);
+        setOpenItems([]);
+    };
+
     return (
-        <Accordion type="multiple" className="w-full" disabled={isDisabled}>
+        <Accordion type="multiple" className="w-full" disabled={isDisabled} value={openItems} onValueChange={setOpenItems}>
             <AccordionItem value="fair-filter">
-                <AccordionTrigger className="text-lg bg-accent text-accent-foreground focus:ring-0 focus:ring-offset-0 px-4 rounded-md py-2 h-auto focus-visible:no-underline">
+                <AccordionTrigger className="text-lg bg-accent text-accent-foreground focus:ring-0 focus:ring-offset-0 px-4 rounded-md py-2 h-auto focus-visible:no-underline hover:no-underline">
                     {getFairDisplayName(selectedFair)}
                 </AccordionTrigger>
                 <AccordionContent className="p-2 bg-background border rounded-b-md">
@@ -203,9 +210,13 @@ function GalleryFilterAccordion({
                         {fairs.map(fair => (
                             <Button
                                 key={fair.value}
-                                variant={selectedFair === fair.value ? 'default' : 'ghost'}
-                                onClick={() => onFilterChange('fair', fair.value)}
-                                className="justify-start h-8 text-base"
+                                onClick={() => handleSelectAndClose('fair', fair.value)}
+                                className={cn(
+                                    "justify-start h-8 text-base",
+                                    selectedFair === fair.value
+                                    ? 'bg-accent text-accent-foreground hover:bg-accent/90'
+                                    : 'bg-transparent text-foreground hover:bg-accent/80 hover:text-accent-foreground'
+                                )}
                             >
                                 {fair.label}
                             </Button>
@@ -214,7 +225,7 @@ function GalleryFilterAccordion({
                 </AccordionContent>
             </AccordionItem>
             <AccordionItem value="theme-filter">
-                <AccordionTrigger className="text-lg bg-accent text-accent-foreground focus:ring-0 focus:ring-offset-0 px-4 rounded-md mt-2 py-2 h-auto focus-visible:no-underline">
+                <AccordionTrigger className="text-lg bg-accent text-accent-foreground focus:ring-0 focus:ring-offset-0 px-4 rounded-md mt-2 py-2 h-auto focus-visible:no-underline hover:no-underline">
                     {getThemeDisplayName(selectedTheme)}
                 </AccordionTrigger>
                 <AccordionContent className="p-2 bg-background border rounded-b-md">
@@ -222,9 +233,13 @@ function GalleryFilterAccordion({
                         {themes.map(theme => (
                             <Button
                                 key={theme.value}
-                                variant={selectedTheme === theme.value ? 'default' : 'ghost'}
-                                onClick={() => onFilterChange('theme', theme.value)}
-                                className="justify-start h-8 text-base"
+                                onClick={() => handleSelectAndClose('theme', theme.value)}
+                                className={cn(
+                                    "justify-start h-8 text-base",
+                                    selectedTheme === theme.value
+                                    ? 'bg-accent text-accent-foreground hover:bg-accent/90'
+                                    : 'bg-transparent text-foreground hover:bg-accent/80 hover:text-accent-foreground'
+                                )}
                             >
                                 {theme.label}
                             </Button>
@@ -258,7 +273,7 @@ function GalleryViewContent() {
     const filteredItems = useMemo(() => {
         return sourceItems.filter(item => {
             const fairMatch = !selectedFair || (selectedFair === 'null' ? true : item.fair.includes(selectedFair as any));
-            const themeMatch = !selectedTheme || selectedTheme === 'Todos' ? true : item.theme.includes(selectedTheme as any);
+            const themeMatch = !selectedTheme || selectedTheme === 'null' ? true : item.theme.includes(selectedTheme as any);
             return fairMatch && themeMatch;
         });
     }, [sourceItems, selectedFair, selectedTheme]);
@@ -274,7 +289,7 @@ function GalleryViewContent() {
             else currentParams.delete('feira');
         }
         if (type === 'theme') {
-            const newThemeValue = value === 'Todos' ? null : value;
+            const newThemeValue = value === 'null' ? null : value;
             setSelectedTheme(newThemeValue);
             if (newThemeValue) currentParams.set('tema', newThemeValue);
             else currentParams.delete('tema');
