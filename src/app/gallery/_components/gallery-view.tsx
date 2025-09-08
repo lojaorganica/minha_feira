@@ -1,9 +1,9 @@
 
 'use client';
 
-import { useState, useMemo, Suspense, useEffect, useRef } from 'react';
+import { useState, useMemo, Suspense, useEffect, useRef, useTransition } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { getGalleryItems } from '@/lib/data';
+import { getGalleryItems } from '@/lib/gallery-data';
 import type { GalleryItem } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
@@ -163,6 +163,7 @@ function GalleryFilterAccordion({
     isDisabled: boolean;
 }) {
     const [openItems, setOpenItems] = useState<string[]>([]);
+    const [isPending, startTransition] = useTransition();
 
     const fairs = [
         { value: 'Todas', label: 'Todas as Feiras' },
@@ -196,7 +197,9 @@ function GalleryFilterAccordion({
     };
 
     const handleSelectAndClose = (type: 'fair' | 'theme', value: string | null) => {
-        onFilterChange(type, value);
+        startTransition(() => {
+            onFilterChange(type, value);
+        });
         setOpenItems([]);
     };
 
@@ -234,12 +237,20 @@ function GalleryFilterAccordion({
                 </AccordionTrigger>
                 <AccordionContent className="p-2 bg-background border rounded-b-md">
                     <div className="flex flex-col gap-1">
-                        {themes.map(theme => (
+                        <Button
+                            key={'Todos'}
+                            onClick={() => handleSelectAndClose('theme', null)}
+                            variant={'ghost'}
+                            className={cn("justify-start h-auto text-base", !selectedTheme ? "bg-accent text-accent-foreground" : "")}
+                        >
+                            Todos os Temas
+                        </Button>
+                        {themes.filter(t => t.value !== 'Todos').map(theme => (
                             <Button
                                 key={theme.value}
-                                onClick={() => handleSelectAndClose('theme', theme.value === 'Todos' ? null : theme.value)}
+                                onClick={() => handleSelectAndClose('theme', theme.value)}
                                 variant={'ghost'}
-                                className={cn("justify-start h-auto text-base", (selectedTheme === theme.value || (!selectedTheme && theme.value === 'Todos')) ? "bg-accent text-accent-foreground" : "")}
+                                className={cn("justify-start h-auto text-base", selectedTheme === theme.value ? "bg-accent text-accent-foreground" : "")}
                             >
                                 {theme.label}
                             </Button>
