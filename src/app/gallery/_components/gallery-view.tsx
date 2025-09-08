@@ -201,19 +201,15 @@ function GalleryFilterAccordion({
     return (
         <Accordion type="multiple" className="w-full" disabled={isDisabled} value={openItems} onValueChange={setOpenItems}>
             <AccordionItem value="fair-filter">
-                <AccordionTrigger className="text-lg bg-accent text-accent-foreground focus:ring-0 focus:ring-offset-0 px-4 rounded-md py-2 h-auto hover:no-underline">
-                   <div className="flex-1 text-left">{getFairDisplayName(selectedFair)}</div>
+                <AccordionTrigger className="text-lg bg-accent text-accent-foreground focus:ring-0 focus:ring-offset-0 px-4 rounded-md py-2 h-auto">
+                   {getFairDisplayName(selectedFair)}
                 </AccordionTrigger>
                 <AccordionContent className="p-2 bg-background border rounded-b-md">
                     <div className="flex flex-col gap-1">
                        <Button
                             onClick={() => handleSelectAndClose('fair', 'null')}
-                            className={cn(
-                                "justify-start h-8 text-base",
-                                !selectedFair || selectedFair === 'null'
-                                ? 'bg-accent text-accent-foreground hover:bg-accent/90'
-                                : 'bg-transparent text-foreground hover:bg-accent/80 hover:text-accent-foreground'
-                            )}
+                            variant={!selectedFair || selectedFair === 'null' ? 'default' : 'ghost'}
+                            className="justify-start h-8 text-base"
                         >
                             Mostrar Todas as Mídias
                         </Button>
@@ -221,12 +217,8 @@ function GalleryFilterAccordion({
                             <Button
                                 key={fair.value}
                                 onClick={() => handleSelectAndClose('fair', fair.value)}
-                                className={cn(
-                                    "justify-start h-8 text-base",
-                                    selectedFair === fair.value
-                                    ? 'bg-accent text-accent-foreground hover:bg-accent/90'
-                                    : 'bg-transparent text-foreground hover:bg-accent/80 hover:text-accent-foreground'
-                                )}
+                                variant={selectedFair === fair.value ? 'default' : 'ghost'}
+                                className="justify-start h-8 text-base"
                             >
                                 {fair.label}
                             </Button>
@@ -235,8 +227,8 @@ function GalleryFilterAccordion({
                 </AccordionContent>
             </AccordionItem>
             <AccordionItem value="theme-filter">
-                <AccordionTrigger className="text-lg bg-accent text-accent-foreground focus:ring-0 focus:ring-offset-0 px-4 rounded-md mt-2 py-2 h-auto hover:no-underline">
-                   <div className="flex-1 text-left">{getThemeDisplayName(selectedTheme)}</div>
+                <AccordionTrigger className="text-lg bg-accent text-accent-foreground focus:ring-0 focus:ring-offset-0 px-4 rounded-md mt-2 py-2 h-auto">
+                   {getThemeDisplayName(selectedTheme)}
                 </AccordionTrigger>
                 <AccordionContent className="p-2 bg-background border rounded-b-md">
                     <div className="flex flex-col gap-1">
@@ -244,12 +236,8 @@ function GalleryFilterAccordion({
                             <Button
                                 key={theme.value}
                                 onClick={() => handleSelectAndClose('theme', theme.value)}
-                                className={cn(
-                                    "justify-start h-8 text-base",
-                                    selectedTheme === theme.value || (!selectedTheme && theme.value === 'Todos')
-                                    ? 'bg-accent text-accent-foreground hover:bg-accent/90'
-                                    : 'bg-transparent text-foreground hover:bg-accent/80 hover:text-accent-foreground'
-                                )}
+                                variant={selectedTheme === theme.value || (!selectedTheme && theme.value === 'Todos') ? 'default' : 'ghost'}
+                                className="justify-start h-8 text-base"
                             >
                                 {theme.label}
                             </Button>
@@ -269,7 +257,7 @@ function GalleryViewContent() {
     const allItems = useMemo(() => getGalleryItems(), []);
     
     const [selectedFair, setSelectedFair] = useState(searchParams.get('feira') || null);
-    const [selectedTheme, setSelectedTheme] = useState(searchParams.get('tema') || null);
+    const [selectedTheme, setSelectedTheme] = useState<string | null>(searchParams.get('tema') || null);
     const [videoToPlay, setVideoToPlay] = useState<GalleryItem | null>(null);
     const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
     const [isPending, startTransition] = useTransition();
@@ -283,28 +271,30 @@ function GalleryViewContent() {
     const filteredItems = useMemo(() => {
         return sourceItems.filter(item => {
             const fairMatch = !selectedFair || (selectedFair === 'null' ? true : item.fair.includes(selectedFair as any));
-            const themeMatch = !selectedTheme || selectedTheme === 'null' || selectedTheme === 'Todos' ? true : item.theme.includes(selectedTheme as any);
+            const themeMatch = !selectedTheme || selectedTheme === 'Todos' ? true : item.theme.includes(selectedTheme as any);
             return fairMatch && themeMatch;
         });
     }, [sourceItems, selectedFair, selectedTheme]);
 
 
     const handleFilterChange = (type: 'fair' | 'theme', value: string) => {
-        const currentParams = new URLSearchParams(searchParams.toString());
-        
-        if (type === 'fair') {
-            const newFairValue = value === 'null' ? null : value;
-            setSelectedFair(newFairValue);
-            if (newFairValue) currentParams.set('feira', newFairValue);
-            else currentParams.delete('feira');
-        }
-        if (type === 'theme') {
-            const newThemeValue = value === 'null' || value === 'Todos' ? null : value;
-            setSelectedTheme(newThemeValue);
-            if (newThemeValue) currentParams.set('tema', newThemeValue);
-            else currentParams.delete('tema');
-        }
-        router.push(`/gallery?${currentParams.toString()}`, { scroll: false });
+        startTransition(() => {
+            const currentParams = new URLSearchParams(searchParams.toString());
+            
+            if (type === 'fair') {
+                const newFairValue = value === 'null' ? null : value;
+                setSelectedFair(newFairValue);
+                if (newFairValue) currentParams.set('feira', newFairValue);
+                else currentParams.delete('feira');
+            }
+            if (type === 'theme') {
+                const newThemeValue = value === 'null' || value === 'Todos' ? null : value;
+                setSelectedTheme(newThemeValue);
+                if (newThemeValue) currentParams.set('tema', newThemeValue);
+                else currentParams.delete('tema');
+            }
+            router.push(`/gallery?${currentParams.toString()}`, { scroll: false });
+        });
     };
     
     const handleToggleShowFavorites = () => {
