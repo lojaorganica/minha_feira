@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useMemo, Suspense, useEffect, useRef, useTransition } from 'react';
+import { useState, useMemo, Suspense, useEffect, useRef } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { getGalleryItems } from '@/lib/gallery-data';
 import type { GalleryItem } from '@/lib/types';
@@ -118,7 +118,7 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
                         onClick={handleToggleFavorite}
                         >
                         <Heart className={cn(
-                            "h-6 w-6 stroke-white drop-shadow-md transition-colors hover:fill-destructive hover:stroke-destructive",
+                            "h-6 w-6 drop-shadow-md transition-colors hover:fill-destructive hover:stroke-destructive",
                             isCurrentlyFavorite
                                 ? "fill-destructive stroke-destructive animate-pulse-heart"
                                 : "stroke-white fill-white"
@@ -259,7 +259,7 @@ function GalleryViewContent() {
     const allItems = useMemo(() => getGalleryItems(), []);
     
     const [selectedFair, setSelectedFair] = useState(searchParams.get('feira') || null);
-    const [selectedTheme, setSelectedTheme] = useState<string | null>(searchParams.get('tema') || null);
+    const [selectedTheme, setSelectedTheme] = useState<string | null>(searchParams.get('tema'));
     const [videoToPlay, setVideoToPlay] = useState<GalleryItem | null>(null);
     const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
     
