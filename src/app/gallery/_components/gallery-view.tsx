@@ -9,16 +9,14 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import Image from 'next/image';
 import { Download, Share2, Loader2, PlayCircle, X, Heart, Archive } from 'lucide-react';
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
-import { Dialog, DialogContent, DialogClose, DialogOverlay, DialogPortal } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogClose } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
 import { useGalleryFavorites } from '@/hooks/use-gallery-favorites';
 import BackButton from '@/components/back-button';
-import { ScrollArea } from '@/components/ui/scroll-area';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
-const ITEMS_PER_PAGE = 24;
 
 function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentlyFavorite, onToggleFavorite }: { item: GalleryItem; onShare: (item: GalleryItem) => void; onPlayVideo: (item: GalleryItem) => void; onSelectImage: (item: GalleryItem) => void; isCurrentlyFavorite: boolean; onToggleFavorite: (item: GalleryItem) => void; }) {
     const touchStartPos = useRef({ x: 0, y: 0 });
@@ -153,6 +151,85 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
     );
 }
 
+function GalleryFilterAccordion({
+    selectedFair,
+    selectedTheme,
+    onFilterChange,
+    isDisabled,
+}: {
+    selectedFair: string | null;
+    selectedTheme: string;
+    onFilterChange: (type: 'fair' | 'theme', value: string) => void;
+    isDisabled: boolean;
+}) {
+    const fairs = [
+        { value: 'null', label: 'Mostrar Todas as Mídias' },
+        { value: 'Todas', label: 'Todas as Feiras' },
+        { value: 'Flamengo e Laranjeiras', label: 'Feiras Orgânicas do Flamengo e Laranjeiras' },
+        { value: 'Grajaú', label: 'Feira Orgânica do Grajaú' },
+        { value: 'Tijuca', label: 'Feira Orgânica da Tijuca' },
+        { value: 'Botafogo', label: 'Feira Orgânica de Botafogo' },
+        { value: 'Leme', label: 'Feira Orgânica do Leme' },
+    ];
+
+    const themes = [
+        { value: 'Todos', label: 'Todos os Temas' },
+        { value: 'Fotografias', label: 'Fotografias' },
+        { value: 'Agricultores - Animações e Cartoon', label: 'Agricultores - Animações e Cartoon' },
+        { value: 'Alimentos - Animações e Cartoon', label: 'Alimentos - Animações e Cartoon' },
+        { value: 'Personagens - Animações e Cartoon', label: 'Personagens - Animações e Cartoon' },
+        { value: 'Story', label: 'Story' },
+        { value: 'Dias Especiais', label: 'Dias Especiais' },
+    ];
+
+    const getFairDisplayName = (value: string | null) => {
+        const fair = fairs.find(f => f.value === value);
+        return fair ? fair.label : "Selecionar Feira";
+    };
+
+    return (
+        <Accordion type="multiple" className="w-full" disabled={isDisabled}>
+            <AccordionItem value="fair-filter">
+                <AccordionTrigger className="text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0 px-4 rounded-md">
+                    {getFairDisplayName(selectedFair)}
+                </AccordionTrigger>
+                <AccordionContent className="p-2 bg-background border rounded-b-md">
+                    <div className="flex flex-col gap-1">
+                        {fairs.map(fair => (
+                            <Button
+                                key={fair.value}
+                                variant={selectedFair === fair.value ? 'default' : 'ghost'}
+                                onClick={() => onFilterChange('fair', fair.value)}
+                                className="justify-start"
+                            >
+                                {fair.label}
+                            </Button>
+                        ))}
+                    </div>
+                </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="theme-filter">
+                <AccordionTrigger className="text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0 px-4 rounded-md mt-2">
+                    {selectedTheme === 'Todos' ? 'Selecionar Tema' : selectedTheme}
+                </AccordionTrigger>
+                <AccordionContent className="p-2 bg-background border rounded-b-md">
+                    <div className="flex flex-col gap-1">
+                        {themes.map(theme => (
+                            <Button
+                                key={theme.value}
+                                variant={selectedTheme === theme.value ? 'default' : 'ghost'}
+                                onClick={() => onFilterChange('theme', theme.value)}
+                                className="justify-start"
+                            >
+                                {theme.label}
+                            </Button>
+                        ))}
+                    </div>
+                </AccordionContent>
+            </AccordionItem>
+        </Accordion>
+    );
+}
 
 function GalleryViewContent() {
     const router = useRouter();
@@ -212,20 +289,6 @@ function GalleryViewContent() {
 
     const handleToggleFavorite = (item: GalleryItem) => {
         toggleFavorite(item);
-    };
-
-    const formatFairName = (fairName: string): string => {
-        if (fairName === 'Todas') {
-            return 'Todas as Feiras';
-        }
-        if (fairName === 'Flamengo e Laranjeiras') {
-            return 'Feiras Orgânicas do Flamengo e Laranjeiras';
-        }
-        const doExceptions = ['Leme', 'Grajaú', 'Flamengo'];
-        if (doExceptions.includes(fairName)) {
-            return `Feira Orgânica do ${fairName}`;
-        }
-        return `Feira Orgânica de ${fairName}`;
     };
     
     const handleShare = async (item: GalleryItem) => {
@@ -290,52 +353,14 @@ function GalleryViewContent() {
               </div>
             </div>
 
-            <div className="sticky top-16 bg-background/95 backdrop-blur-sm z-10 py-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                     <Dialog modal={false}>
-                        <Select value={selectedFair ?? 'null'} onValueChange={(value) => handleFilterChange('fair', value)} disabled={isShowingFavorites}>
-                            <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0 disabled:opacity-50">
-                                <div className="flex-1 text-left">
-                                    <SelectValue>
-                                        {selectedFair ? formatFairName(selectedFair) : "Selecionar Feiras"}
-                                    </SelectValue>
-                                </div>
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="null">Mostrar Todas as Mídias</SelectItem>
-                                <SelectItem value="Todas">Todas as Feiras</SelectItem>
-                                <SelectItem value="Flamengo e Laranjeiras">Feiras Orgânicas do Flamengo e Laranjeiras</SelectItem>
-                                <SelectItem value="Grajaú">Feira Orgânica do Grajaú</SelectItem>
-                                <SelectItem value="Tijuca">Feira Orgânica da Tijuca</SelectItem>
-                                <SelectItem value="Botafogo">Feira Orgânica de Botafogo</SelectItem>
-                                <SelectItem value="Leme">Feira Orgânica do Leme</SelectItem>
-                            </SelectContent>
-                        </Select>
-                     </Dialog>
-                    
-                     <Dialog modal={false}>
-                        <Select value={selectedTheme} onValueChange={(value) => handleFilterChange('theme', value)} disabled={isShowingFavorites}>
-                            <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0 disabled:opacity-50">
-                                <div className="flex-1 text-left">
-                                    <SelectValue>
-                                        {selectedTheme === 'Todos' ? 'Selecionar Temas' : selectedTheme}
-                                    </SelectValue>
-                                </div>
-                            </SelectTrigger>
-                            <SelectContent>
-                            <SelectItem value="Todos">Todos os Temas</SelectItem>
-                            <SelectItem value="Fotografias">Fotografias</SelectItem>
-                            <SelectItem value="Agricultores - Animações e Cartoon">Agricultores - Animações e Cartoon</SelectItem>
-                            <SelectItem value="Alimentos - Animações e Cartoon">Alimentos - Animações e Cartoon</SelectItem>
-                            <SelectItem value="Personagens - Animações e Cartoon">Personagens - Animações e Cartoon</SelectItem>
-                            <SelectItem value="Story">Story</SelectItem>
-                            <SelectItem value="Dias Especiais">Dias Especiais</SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </Dialog>
-                </div>
+            <div className="sticky top-16 bg-background/95 backdrop-blur-sm z-10 py-4 space-y-2">
+                <GalleryFilterAccordion
+                    selectedFair={selectedFair}
+                    selectedTheme={selectedTheme}
+                    onFilterChange={handleFilterChange}
+                    isDisabled={isShowingFavorites}
+                />
             </div>
-
             
             <div className="pt-6">
                  {filteredItems.length > 0 ? (
