@@ -282,7 +282,7 @@ function GalleryViewContent() {
                     Utilize estas artes para divulgar as feiras em suas redes sociais. Baixe e compartilhe as imagens e vídeos à vontade! Use os filtros para encontrar a propaganda ideal. 
                 </p>
             </div>
-            <div className="flex justify-end text-right mt-2 mb-2">
+             <div className="flex justify-end text-right mt-2 mb-2">
               <div className="flex items-center gap-2 font-bold text-lg text-accent">
                   <Archive className="h-5 w-5" />
                   <span>Total de Itens:</span>
@@ -290,7 +290,7 @@ function GalleryViewContent() {
               </div>
             </div>
 
-            <div className="sticky top-16 bg-background/90 backdrop-blur-sm z-10 py-4">
+            <div className="sticky top-16 bg-background/95 backdrop-blur-sm z-10 py-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                      <Select value={selectedFair ?? 'null'} onValueChange={(value) => handleFilterChange('fair', value)} disabled={isShowingFavorites}>
                         <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0 disabled:opacity-50">
