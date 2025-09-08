@@ -124,6 +124,17 @@ const allItemUrls: string[] = [
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_18_joaninha.png?alt=media&token=9616c3cb-3d34-438a-a255-88e3c6456ba3',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_33_batatman.png?alt=media&token=58dce275-1ad8-4a64-a9ff-a09a16044873',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_34_inhame_aranha.png?alt=media&token=ebfea0f7-9fd5-45dd-9306-62296927d9fa',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_36_robinete.png?alt=media&token=03a9fa8f-7355-4026-ae04-8723c4cdd92c',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_42_aqualface.png?alt=media&token=3655cf86-971a-4be9-8ab0-b229e14bf849',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_42_sporock.png?alt=media&token=70a8f0d1-ba90-4a1e-ad7e-e16a8b8449a4',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_44_uva_negra.png?alt=media&token=5fc8eab0-1427-430f-8c6b-cf2bab24ece3',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_46_coisa_de_milho.png?alt=media&token=956aa132-883e-48c6-9872-2f9137a44e78',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_49_limao_america.png?alt=media&token=f3dc4829-5711-40d0-be54-326bd25bf0bf',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_50_uverine.png?alt=media&token=34061057-c91d-4655-ac1e-30c694f39fd0',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_52_berinjela_negra.png?alt=media&token=4ad7fa5f-c3f9-4804-8c85-7b8d8b1245eb',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_55_brulk.png?alt=media&token=af988f4e-fe58-4c39-bbce-071eb6bd110c',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_56_mandiorpheus.png?alt=media&token=2b54c654-d793-46b7-a326-a4eeac08d572',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_59_abobrinha_maravilha.png?alt=media&token=6b2327a6-d67b-46e0-aba9-a5daf4ab0725',
 ];
 
 function getFairCategories(fileName: string): GalleryFair[] {
