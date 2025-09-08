@@ -158,7 +158,7 @@ function GalleryFilterAccordion({
     isDisabled,
 }: {
     selectedFair: string | null;
-    selectedTheme: string;
+    selectedTheme: string | null;
     onFilterChange: (type: 'fair' | 'theme', value: string) => void;
     isDisabled: boolean;
 }) {
@@ -186,11 +186,16 @@ function GalleryFilterAccordion({
         const fair = fairs.find(f => f.value === value);
         return fair ? fair.label : "Selecionar Feira";
     };
+    
+    const getThemeDisplayName = (value: string | null) => {
+        const theme = themes.find(t => t.value === value);
+        return theme ? theme.label : "Selecionar Tema";
+    };
 
     return (
         <Accordion type="multiple" className="w-full" disabled={isDisabled}>
             <AccordionItem value="fair-filter">
-                <AccordionTrigger className="text-lg bg-accent text-accent-foreground hover:no-underline focus:ring-0 focus:ring-offset-0 px-4 rounded-md py-2 h-auto">
+                <AccordionTrigger className="text-lg bg-accent text-accent-foreground focus:ring-0 focus:ring-offset-0 px-4 rounded-md py-2 h-auto focus-visible:no-underline">
                     {getFairDisplayName(selectedFair)}
                 </AccordionTrigger>
                 <AccordionContent className="p-2 bg-background border rounded-b-md">
@@ -200,7 +205,7 @@ function GalleryFilterAccordion({
                                 key={fair.value}
                                 variant={selectedFair === fair.value ? 'default' : 'ghost'}
                                 onClick={() => onFilterChange('fair', fair.value)}
-                                className="justify-start h-9"
+                                className="justify-start h-8 text-base"
                             >
                                 {fair.label}
                             </Button>
@@ -209,8 +214,8 @@ function GalleryFilterAccordion({
                 </AccordionContent>
             </AccordionItem>
             <AccordionItem value="theme-filter">
-                <AccordionTrigger className="text-lg bg-accent text-accent-foreground hover:no-underline focus:ring-0 focus:ring-offset-0 px-4 rounded-md mt-2 py-2 h-auto">
-                    {selectedTheme === 'Todos' ? 'Selecionar Tema' : selectedTheme}
+                <AccordionTrigger className="text-lg bg-accent text-accent-foreground focus:ring-0 focus:ring-offset-0 px-4 rounded-md mt-2 py-2 h-auto focus-visible:no-underline">
+                    {getThemeDisplayName(selectedTheme)}
                 </AccordionTrigger>
                 <AccordionContent className="p-2 bg-background border rounded-b-md">
                     <div className="flex flex-col gap-1">
@@ -219,7 +224,7 @@ function GalleryFilterAccordion({
                                 key={theme.value}
                                 variant={selectedTheme === theme.value ? 'default' : 'ghost'}
                                 onClick={() => onFilterChange('theme', theme.value)}
-                                className="justify-start h-9"
+                                className="justify-start h-8 text-base"
                             >
                                 {theme.label}
                             </Button>
@@ -239,7 +244,7 @@ function GalleryViewContent() {
     const allItems = useMemo(() => getGalleryItems(), []);
     
     const [selectedFair, setSelectedFair] = useState(searchParams.get('feira') || null);
-    const [selectedTheme, setSelectedTheme] = useState(searchParams.get('tema') || 'Todos');
+    const [selectedTheme, setSelectedTheme] = useState(searchParams.get('tema') || null);
     const [videoToPlay, setVideoToPlay] = useState<GalleryItem | null>(null);
     const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
     const [isPending, startTransition] = useTransition();
@@ -253,7 +258,7 @@ function GalleryViewContent() {
     const filteredItems = useMemo(() => {
         return sourceItems.filter(item => {
             const fairMatch = !selectedFair || (selectedFair === 'null' ? true : item.fair.includes(selectedFair as any));
-            const themeMatch = selectedTheme === 'Todos' || item.theme.includes(selectedTheme as any);
+            const themeMatch = !selectedTheme || selectedTheme === 'Todos' ? true : item.theme.includes(selectedTheme as any);
             return fairMatch && themeMatch;
         });
     }, [sourceItems, selectedFair, selectedTheme]);
@@ -263,14 +268,16 @@ function GalleryViewContent() {
         const currentParams = new URLSearchParams(searchParams.toString());
         
         if (type === 'fair') {
-            setSelectedFair(value === 'null' ? null : value);
-            if (value === 'null') currentParams.delete('feira');
-            else currentParams.set('feira', value);
+            const newFairValue = value === 'null' ? null : value;
+            setSelectedFair(newFairValue);
+            if (newFairValue) currentParams.set('feira', newFairValue);
+            else currentParams.delete('feira');
         }
         if (type === 'theme') {
-            setSelectedTheme(value);
-            if (value === 'Todos') currentParams.delete('tema');
-            else currentParams.set('tema', value);
+            const newThemeValue = value === 'Todos' ? null : value;
+            setSelectedTheme(newThemeValue);
+            if (newThemeValue) currentParams.set('tema', newThemeValue);
+            else currentParams.delete('tema');
         }
         router.push(`/gallery?${currentParams.toString()}`, { scroll: false });
     };
