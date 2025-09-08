@@ -144,7 +144,7 @@ const ProductCard = ({ product, farmerName, responsibleName }: ProductCardProps)
           <div className="flex justify-between items-start">
             <CardTitle className="text-2xl sm:text-xl font-headline text-primary">{product.name}</CardTitle>
             <Button variant="ghost" size="icon" className="h-8 w-8 -mr-2 hover:bg-transparent focus-visible:bg-transparent focus:bg-transparent active:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0" onClick={handleToggleFavorite}>
-                <Heart className={cn("h-6 w-6 text-primary", isLocallyFavorite && "fill-red-500 text-red-500")} />
+                <Heart className={cn("h-6 w-6", isLocallyFavorite && "fill-red-500 text-red-500")} />
             </Button>
           </div>
           <CardDescription className="text-lg mt-1 font-semibold text-foreground/90 flex-grow">{product.description}</CardDescription>

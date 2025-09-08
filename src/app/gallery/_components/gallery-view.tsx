@@ -159,7 +159,7 @@ function GalleryFilterAccordion({
 }: {
     selectedFair: string | null;
     selectedTheme: string | null;
-    onFilterChange: (type: 'fair' | 'theme', value: string) => void;
+    onFilterChange: (type: 'fair' | 'theme', value: string | null) => void;
     isDisabled: boolean;
 }) {
     const [openItems, setOpenItems] = useState<string[]>([]);
@@ -182,7 +182,7 @@ function GalleryFilterAccordion({
         { value: 'Story', label: 'Story' },
         { value: 'Dias Especiais', label: 'Dias Especiais' },
     ];
-
+    
     const getFairDisplayName = (value: string | null) => {
         const fair = fairs.find(f => f.value === value);
         return fair ? fair.label : "Selecionar Feira";
@@ -193,7 +193,7 @@ function GalleryFilterAccordion({
         return theme ? theme.label : "Selecionar Tema";
     };
 
-    const handleSelectAndClose = (type: 'fair' | 'theme', value: string) => {
+    const handleSelectAndClose = (type: 'fair' | 'theme', value: string | null) => {
         onFilterChange(type, value);
         setOpenItems([]);
     };
@@ -207,9 +207,9 @@ function GalleryFilterAccordion({
                 <AccordionContent className="p-2 bg-background border rounded-b-md">
                     <div className="flex flex-col gap-1">
                        <Button
-                            onClick={() => handleSelectAndClose('fair', 'null')}
-                            variant={!selectedFair || selectedFair === 'null' ? 'secondary' : 'ghost'}
-                            className={cn("justify-start h-8 text-base", !selectedFair || selectedFair === 'null' ? "bg-accent text-accent-foreground" : "")}
+                            onClick={() => handleSelectAndClose('fair', null)}
+                            variant={!selectedFair ? 'secondary' : 'ghost'}
+                            className={cn("justify-start h-8 text-base", !selectedFair ? "bg-accent text-accent-foreground" : "")}
                         >
                             Mostrar Todas as Mídias
                         </Button>
@@ -257,7 +257,7 @@ function GalleryViewContent() {
     const allItems = useMemo(() => getGalleryItems(), []);
     
     const [selectedFair, setSelectedFair] = useState(searchParams.get('feira') || null);
-    const [selectedTheme, setSelectedTheme] = useState<string | null>(searchParams.get('tema') || 'Todos');
+    const [selectedTheme, setSelectedTheme] = useState<string | null>(searchParams.get('tema') || null);
     const [videoToPlay, setVideoToPlay] = useState<GalleryItem | null>(null);
     const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
     
@@ -269,26 +269,24 @@ function GalleryViewContent() {
     
     const filteredItems = useMemo(() => {
         return sourceItems.filter(item => {
-            const fairMatch = !selectedFair || (selectedFair === 'null' ? true : item.fair.includes(selectedFair as any));
+            const fairMatch = !selectedFair || item.fair.includes(selectedFair as any);
             const themeMatch = !selectedTheme || selectedTheme === 'Todos' ? true : item.theme.includes(selectedTheme as any);
             return fairMatch && themeMatch;
         });
     }, [sourceItems, selectedFair, selectedTheme]);
 
 
-    const handleFilterChange = (type: 'fair' | 'theme', value: string) => {
+    const handleFilterChange = (type: 'fair' | 'theme', value: string | null) => {
         const currentParams = new URLSearchParams(searchParams.toString());
         
         if (type === 'fair') {
-            const newFairValue = value === 'null' ? null : value;
-            setSelectedFair(newFairValue);
-            if (newFairValue) currentParams.set('feira', newFairValue);
+            setSelectedFair(value);
+            if (value) currentParams.set('feira', value);
             else currentParams.delete('feira');
         }
         if (type === 'theme') {
-            const newThemeValue = value === 'null' ? null : value;
-            setSelectedTheme(newThemeValue);
-            if (newThemeValue) currentParams.set('tema', newThemeValue);
+             setSelectedTheme(value);
+            if (value) currentParams.set('tema', value);
             else currentParams.delete('tema');
         }
 
