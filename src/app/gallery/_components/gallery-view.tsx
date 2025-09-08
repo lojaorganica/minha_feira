@@ -378,7 +378,7 @@ function GalleryViewContent() {
               <div className="flex items-center gap-2 font-bold text-lg text-accent">
                   <Archive className="h-5 w-5" />
                   <span>Total de Itens:</span>
-                  <span>{allItems.length}</span>
+                  <span>{getGalleryItems().length}</span>
               </div>
             </div>
 
