@@ -1,9 +1,9 @@
 
 'use client';
 
-import { useState, useMemo, Suspense, useEffect, useRef, useTransition } from 'react';
+import { useState, useMemo, Suspense, useEffect, useRef } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { getGalleryItems } from '@/lib/gallery-data';
+import { getGalleryItems } from '@/lib/data';
 import type { GalleryItem } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
@@ -118,7 +118,7 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
                         onClick={handleToggleFavorite}
                         >
                         <Heart className={cn(
-                            "h-6 w-6 drop-shadow-md transition-colors hover:fill-destructive hover:stroke-destructive",
+                            "h-6 w-6 drop-shadow-md transition-colors group-hover:fill-destructive group-hover:stroke-destructive",
                             isCurrentlyFavorite
                                 ? "fill-destructive stroke-destructive animate-pulse-heart"
                                 : "stroke-white fill-white"
@@ -163,7 +163,6 @@ function GalleryFilterAccordion({
     isDisabled: boolean;
 }) {
     const [openItems, setOpenItems] = useState<string[]>([]);
-    const [isPending, startTransition] = useTransition();
 
     const fairs = [
         { value: 'Todas', label: 'Todas as Feiras' },
@@ -197,14 +196,12 @@ function GalleryFilterAccordion({
     };
 
     const handleSelectAndClose = (type: 'fair' | 'theme', value: string | null) => {
-         startTransition(() => {
-            onFilterChange(type, value);
-            setOpenItems([]);
-        });
+        onFilterChange(type, value);
+        setOpenItems([]);
     };
 
     return (
-        <Accordion type="multiple" className="w-full" disabled={isDisabled || isPending} value={openItems} onValueChange={setOpenItems}>
+        <Accordion type="multiple" className="w-full" disabled={isDisabled} value={openItems} onValueChange={setOpenItems}>
             <AccordionItem value="fair-filter">
                 <AccordionTrigger className="text-lg focus:ring-0 focus:ring-offset-0 px-4 rounded-md py-2 h-auto">
                    {getFairDisplayName(selectedFair)}
@@ -471,5 +468,3 @@ export default function GalleryView() {
         </Suspense>
     );
 }
-
-    

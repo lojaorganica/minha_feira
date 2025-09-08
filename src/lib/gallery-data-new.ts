@@ -1,9 +1,9 @@
 
 import type { GalleryItem, GalleryFair, GalleryTheme } from './types';
-import { getGalleryItems as getNewGalleryItems } from './gallery-data-new';
 
+// Este arquivo conterá as novas URLs da galeria.
 const allItemUrls: string[] = [
-    // As URLs serão adicionadas aqui em lotes.
+    // Novas URLs serão adicionadas aqui.
 ];
 
 function getFairCategories(fileName: string): GalleryFair[] {
@@ -55,16 +55,10 @@ function extractFileNameFromUrl(url: string): string {
     }
 }
 
-let galleryItemsCache: GalleryItem[] | null = null;
-
 export function getGalleryItems(): GalleryItem[] {
-  if (galleryItemsCache) {
-    return galleryItemsCache;
-  }
-  
-  const oldItems: GalleryItem[] = allItemUrls.map((url, index) => {
+  return allItemUrls.map((url, index) => {
     const fileName = extractFileNameFromUrl(url);
-    const id = `item-${index}-${fileName.split('.')[0]}`;
+    const id = `new-item-${index}-${fileName.split('.')[0]}`;
     
     let title = fileName
       .replace(/_/g, ' ')
@@ -96,10 +90,4 @@ export function getGalleryItems(): GalleryItem[] {
       theme: getThemeCategories(fileName),
     };
   });
-
-  const newItems = getNewGalleryItems();
-  const allItems = [...oldItems, ...newItems];
-  
-  galleryItemsCache = allItems;
-  return galleryItemsCache;
 }
