@@ -16,6 +16,7 @@ import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
 import { useGalleryFavorites } from '@/hooks/use-gallery-favorites';
 import BackButton from '@/components/back-button';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 const ITEMS_PER_PAGE = 24;
 
@@ -167,7 +168,7 @@ function GalleryViewContent() {
     const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
     const [isPending, startTransition] = useTransition();
     
-    const loaderRef = useRef(null);
+    const scrollAreaRef = useRef<HTMLDivElement>(null);
 
     const isShowingFavorites = searchParams.get('favoritos') === 'true';
 
@@ -187,32 +188,6 @@ function GalleryViewContent() {
         setVisibleCount(ITEMS_PER_PAGE);
     }, [filteredItems]);
 
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                if (entries[0].isIntersecting) {
-                    setVisibleCount((prevCount) =>
-                        Math.min(prevCount + ITEMS_PER_PAGE, filteredItems.length)
-                    );
-                }
-            },
-            { rootMargin: '200px' }
-        );
-
-        const currentLoaderRef = loaderRef.current;
-        if (currentLoaderRef) {
-            observer.observe(currentLoaderRef);
-        }
-
-        return () => {
-            if (currentLoaderRef) {
-                observer.unobserve(currentLoaderRef);
-            }
-        };
-    }, [filteredItems.length]);
-
-    const itemsToShow = useMemo(() => filteredItems.slice(0, visibleCount), [filteredItems, visibleCount]);
 
     const handleFilterChange = (type: 'fair' | 'theme', value: string) => {
         const currentParams = new URLSearchParams(searchParams.toString());
@@ -301,7 +276,7 @@ function GalleryViewContent() {
 
 
     return (
-        <>
+        <div className="flex flex-col h-full">
             <div className="flex justify-between items-center mb-4">
                 <BackButton />
                 <button
@@ -335,7 +310,7 @@ function GalleryViewContent() {
                 </div>
             </div>
             
-             <div className="sticky top-16 z-40 bg-background/95 py-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+             <div className="py-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                      <Select value={selectedFair ?? 'null'} onValueChange={(value) => handleFilterChange('fair', value)} disabled={isShowingFavorites}>
                         <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0 disabled:opacity-50">
@@ -378,37 +353,34 @@ function GalleryViewContent() {
             </div>
 
             
-            <div className="flex-grow pt-6">
-                {itemsToShow.length > 0 ? (
-                    <>
-                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                            {itemsToShow.map(item => (
-                                <GalleryItemCard 
-                                    key={item.id} 
-                                    item={item} 
-                                    onShare={handleShare}
-                                    onPlayVideo={setVideoToPlay}
-                                    onSelectImage={setSelectedImage}
-                                    isCurrentlyFavorite={isFavorite(item.id)}
-                                    onToggleFavorite={handleToggleFavorite}
-                                />
-                            ))}
-                        </div>
-                        {visibleCount < filteredItems.length && (
-                            <div ref={loaderRef} className="flex justify-center items-center py-8">
-                                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+             <ScrollArea className="flex-grow pr-4 -mr-4">
+                 <div className="pt-2">
+                    {filteredItems.length > 0 ? (
+                        <>
+                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                                {filteredItems.map(item => (
+                                    <GalleryItemCard 
+                                        key={item.id} 
+                                        item={item} 
+                                        onShare={handleShare}
+                                        onPlayVideo={setVideoToPlay}
+                                        onSelectImage={setSelectedImage}
+                                        isCurrentlyFavorite={isFavorite(item.id)}
+                                        onToggleFavorite={handleToggleFavorite}
+                                    />
+                                ))}
                             </div>
-                        )}
-                    </>
-                ) : (
-                    <div className="text-center py-20">
-                        <h2 className="mt-4 text-2xl font-semibold">Nenhuma propaganda encontrada</h2>
-                        <p className="text-lg font-semibold text-foreground/90 mt-2">
-                            {isShowingFavorites ? "Você ainda não favoritou nenhuma mídia." : "Tente ajustar seus filtros para encontrar outros resultados."}
-                        </p>
-                    </div>
-                )}
-            </div>
+                        </>
+                    ) : (
+                        <div className="text-center py-20">
+                            <h2 className="mt-4 text-2xl font-semibold">Nenhuma propaganda encontrada</h2>
+                            <p className="text-lg font-semibold text-foreground/90 mt-2">
+                                {isShowingFavorites ? "Você ainda não favoritou nenhuma mídia." : "Tente ajustar seus filtros para encontrar outros resultados."}
+                            </p>
+                        </div>
+                    )}
+                 </div>
+            </ScrollArea>
 
             <Dialog open={!!videoToPlay} onOpenChange={(isOpen) => !isOpen && setVideoToPlay(null)}>
                 <DialogContent className="max-w-3xl p-0 border-0 bg-transparent">
@@ -459,7 +431,7 @@ function GalleryViewContent() {
                 </DialogContent>
             </Dialog>
 
-        </>
+        </div>
     );
 }
 
@@ -471,5 +443,3 @@ export default function GalleryView() {
         </Suspense>
     );
 }
-
-    
