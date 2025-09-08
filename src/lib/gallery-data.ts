@@ -1,5 +1,7 @@
+
 import type { GalleryItem, GalleryFair, GalleryTheme } from './types';
-import { getGalleryItems as getNewGalleryItems } from './gallery-data-new';
+import { getNewGalleryItems } from './gallery-data-new';
+import { getExtraGalleryItems } from './gallery-data-extra';
 
 const allItemUrls: string[] = [
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Faagr_cartoon_feira_botafogo_67_ivison.jpg?alt=media&token=6448f512-2caa-4852-9e74-052f207a2e37',
@@ -179,9 +181,9 @@ const allItemUrls: string[] = [
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feiras_flamengo_laranjeiras_80_uva_negra.png?alt=media&token=bb990aa6-f533-4275-a241-0b8344cac861',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feiras_flamengo_laranjeiras_82_limao.png?alt=media&token=1a7c917d-c619-4b4d-aceb-403ad22e8d58',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feiras_flamengo_laranjeiras_93_abobrinha.png?alt=media&token=6d3b6395-a7ad-4538-98a7-732494b7b0b4',
-    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feiras_flamengo_laranjeiras_93_pepino.png?alt=media&token=0dc5c5d8-ed9c-471d-8067-4ffe4b7ee6e7',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feiras_flamengo_laranjeiras_93_pepino.png?alt=media&token=0dc5c5d8-ed9c-471d-8067-4ffe4b7ee6e7'
 ];
-
+    
 function getFairCategories(fileName: string): GalleryFair[] {
     const fairs: GalleryFair[] = [];
     if (fileName.includes('todas_feiras')) fairs.push('Todas');
@@ -231,16 +233,10 @@ function extractFileNameFromUrl(url: string): string {
     }
 }
 
-let galleryItemsCache: GalleryItem[] | null = null;
-
-export function getGalleryItems(): GalleryItem[] {
-  if (galleryItemsCache) {
-    return galleryItemsCache;
-  }
-  
-  const oldItems: GalleryItem[] = allItemUrls.map((url, index) => {
+function getOldGalleryItems(): GalleryItem[] {
+    return allItemUrls.map((url, index) => {
     const fileName = extractFileNameFromUrl(url);
-    const id = `item-${index}-${fileName.split('.')[0]}`;
+    const id = `old-item-${index}-${fileName.split('.')[0]}`;
     
     let title = fileName
       .replace(/_/g, ' ')
@@ -272,10 +268,12 @@ export function getGalleryItems(): GalleryItem[] {
       theme: getThemeCategories(fileName),
     };
   });
+}
 
+export function getGalleryItems(): GalleryItem[] {
+  const oldItems = getOldGalleryItems();
   const newItems = getNewGalleryItems();
-  const allItems = [...oldItems, ...newItems];
-  
-  galleryItemsCache = allItems;
-  return galleryItemsCache;
+  const extraItems = getExtraGalleryItems();
+
+  return [...oldItems, ...newItems, ...extraItems];
 }
