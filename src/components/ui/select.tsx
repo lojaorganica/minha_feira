@@ -81,8 +81,6 @@ const SelectContent = React.forwardRef<
           "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]"
       )}
       position={position}
-      sideOffset={4}
-      onCloseAutoFocus={(e) => e.preventDefault()}
       {...props}
     >
       <SelectScrollUpButton />

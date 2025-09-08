@@ -11,7 +11,7 @@ import Image from 'next/image';
 import { Download, Share2, Loader2, PlayCircle, X, Heart, Archive } from 'lucide-react';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
-import { Dialog, DialogContent, DialogClose } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogClose, DialogOverlay, DialogPortal } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
 import { useGalleryFavorites } from '@/hooks/use-gallery-favorites';
@@ -292,43 +292,47 @@ function GalleryViewContent() {
 
             <div className="sticky top-16 bg-background/95 backdrop-blur-sm z-10 py-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                     <Select value={selectedFair ?? 'null'} onValueChange={(value) => handleFilterChange('fair', value)} disabled={isShowingFavorites}>
-                        <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0 disabled:opacity-50">
-                             <div className="flex-1 text-left">
-                                <SelectValue>
-                                    {selectedFair ? formatFairName(selectedFair) : "Selecionar Feiras"}
-                                </SelectValue>
-                            </div>
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="null">Mostrar Todas as Mídias</SelectItem>
-                            <SelectItem value="Todas">Todas as Feiras</SelectItem>
-                            <SelectItem value="Flamengo e Laranjeiras">Feiras Orgânicas do Flamengo e Laranjeiras</SelectItem>
-                            <SelectItem value="Grajaú">Feira Orgânica do Grajaú</SelectItem>
-                            <SelectItem value="Tijuca">Feira Orgânica da Tijuca</SelectItem>
-                            <SelectItem value="Botafogo">Feira Orgânica de Botafogo</SelectItem>
-                            <SelectItem value="Leme">Feira Orgânica do Leme</SelectItem>
-                        </SelectContent>
-                    </Select>
+                     <Dialog>
+                        <Select value={selectedFair ?? 'null'} onValueChange={(value) => handleFilterChange('fair', value)} disabled={isShowingFavorites}>
+                            <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0 disabled:opacity-50">
+                                <div className="flex-1 text-left">
+                                    <SelectValue>
+                                        {selectedFair ? formatFairName(selectedFair) : "Selecionar Feiras"}
+                                    </SelectValue>
+                                </div>
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="null">Mostrar Todas as Mídias</SelectItem>
+                                <SelectItem value="Todas">Todas as Feiras</SelectItem>
+                                <SelectItem value="Flamengo e Laranjeiras">Feiras Orgânicas do Flamengo e Laranjeiras</SelectItem>
+                                <SelectItem value="Grajaú">Feira Orgânica do Grajaú</SelectItem>
+                                <SelectItem value="Tijuca">Feira Orgânica da Tijuca</SelectItem>
+                                <SelectItem value="Botafogo">Feira Orgânica de Botafogo</SelectItem>
+                                <SelectItem value="Leme">Feira Orgânica do Leme</SelectItem>
+                            </SelectContent>
+                        </Select>
+                     </Dialog>
                     
-                    <Select value={selectedTheme} onValueChange={(value) => handleFilterChange('theme', value)} disabled={isShowingFavorites}>
-                        <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0 disabled:opacity-50">
-                             <div className="flex-1 text-left">
-                                <SelectValue>
-                                    {selectedTheme === 'Todos' ? 'Selecionar Temas' : selectedTheme}
-                                </SelectValue>
-                            </div>
-                        </SelectTrigger>
-                        <SelectContent>
-                           <SelectItem value="Todos">Todos os Temas</SelectItem>
-                           <SelectItem value="Fotografias">Fotografias</SelectItem>
-                           <SelectItem value="Agricultores - Animações e Cartoon">Agricultores - Animações e Cartoon</SelectItem>
-                           <SelectItem value="Alimentos - Animações e Cartoon">Alimentos - Animações e Cartoon</SelectItem>
-                           <SelectItem value="Personagens - Animações e Cartoon">Personagens - Animações e Cartoon</SelectItem>
-                           <SelectItem value="Story">Story</SelectItem>
-                           <SelectItem value="Dias Especiais">Dias Especiais</SelectItem>
-                        </SelectContent>
-                    </Select>
+                     <Dialog>
+                        <Select value={selectedTheme} onValueChange={(value) => handleFilterChange('theme', value)} disabled={isShowingFavorites}>
+                            <SelectTrigger className="w-full text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0 disabled:opacity-50">
+                                <div className="flex-1 text-left">
+                                    <SelectValue>
+                                        {selectedTheme === 'Todos' ? 'Selecionar Temas' : selectedTheme}
+                                    </SelectValue>
+                                </div>
+                            </SelectTrigger>
+                            <SelectContent>
+                            <SelectItem value="Todos">Todos os Temas</SelectItem>
+                            <SelectItem value="Fotografias">Fotografias</SelectItem>
+                            <SelectItem value="Agricultores - Animações e Cartoon">Agricultores - Animações e Cartoon</SelectItem>
+                            <SelectItem value="Alimentos - Animações e Cartoon">Alimentos - Animações e Cartoon</SelectItem>
+                            <SelectItem value="Personagens - Animações e Cartoon">Personagens - Animações e Cartoon</SelectItem>
+                            <SelectItem value="Story">Story</SelectItem>
+                            <SelectItem value="Dias Especiais">Dias Especiais</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </Dialog>
                 </div>
             </div>
 
