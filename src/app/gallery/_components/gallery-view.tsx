@@ -190,7 +190,7 @@ function GalleryFilterAccordion({
     return (
         <Accordion type="multiple" className="w-full" disabled={isDisabled}>
             <AccordionItem value="fair-filter">
-                <AccordionTrigger className="text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0 px-4 rounded-md">
+                <AccordionTrigger className="text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0 px-4 rounded-md py-2 h-auto">
                     {getFairDisplayName(selectedFair)}
                 </AccordionTrigger>
                 <AccordionContent className="p-2 bg-background border rounded-b-md">
@@ -209,7 +209,7 @@ function GalleryFilterAccordion({
                 </AccordionContent>
             </AccordionItem>
             <AccordionItem value="theme-filter">
-                <AccordionTrigger className="text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0 px-4 rounded-md mt-2">
+                <AccordionTrigger className="text-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-0 focus:ring-offset-0 px-4 rounded-md mt-2 py-2 h-auto">
                     {selectedTheme === 'Todos' ? 'Selecionar Tema' : selectedTheme}
                 </AccordionTrigger>
                 <AccordionContent className="p-2 bg-background border rounded-b-md">
@@ -252,7 +252,7 @@ function GalleryViewContent() {
     
     const filteredItems = useMemo(() => {
         return sourceItems.filter(item => {
-            const fairMatch = !selectedFair || (selectedFair === 'Todas' ? item.fair.includes('Todas') : item.fair.includes(selectedFair as any));
+            const fairMatch = !selectedFair || (selectedFair === 'null' ? true : item.fair.includes(selectedFair as any));
             const themeMatch = selectedTheme === 'Todos' || item.theme.includes(selectedTheme as any);
             return fairMatch && themeMatch;
         });
