@@ -118,10 +118,10 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
                         onClick={handleToggleFavorite}
                         >
                         <Heart className={cn(
-                            "h-6 w-6 stroke-white drop-shadow-md transition-colors fill-white hover:fill-destructive hover:stroke-destructive",
+                            "h-6 w-6 stroke-white drop-shadow-md transition-colors hover:fill-destructive hover:stroke-destructive",
                             isCurrentlyFavorite
                                 ? "fill-destructive stroke-destructive animate-pulse-heart"
-                                : "stroke-white"
+                                : "stroke-white fill-white"
                         )}/>
                     </button>
                 </div>
@@ -184,13 +184,13 @@ function GalleryFilterAccordion({
     ];
     
     const getFairDisplayName = (value: string | null) => {
-        if (!value) return "Selecionar Feira";
+        if (!value || value === 'Todas') return "Selecionar Feira";
         const fair = fairs.find(f => f.value === value);
         return fair ? fair.label : "Selecionar Feira";
     };
     
     const getThemeDisplayName = (value: string | null) => {
-        if (!value) return "Selecionar Tema";
+        if (!value || value === 'Todos') return "Selecionar Tema";
         const theme = themes.find(t => t.value === value);
         return theme ? theme.label : "Selecionar Tema";
     };
@@ -237,9 +237,9 @@ function GalleryFilterAccordion({
                         {themes.map(theme => (
                             <Button
                                 key={theme.value}
-                                onClick={() => handleSelectAndClose('theme', theme.value)}
+                                onClick={() => handleSelectAndClose('theme', theme.value === 'Todos' ? null : theme.value)}
                                 variant={selectedTheme === theme.value ? 'secondary' : 'ghost'}
-                                className={cn("justify-start h-auto text-base", selectedTheme === theme.value ? "bg-accent text-accent-foreground" : "")}
+                                className={cn("justify-start h-auto text-base", selectedTheme === theme.value || (!selectedTheme && theme.value === 'Todos') ? "bg-accent text-accent-foreground" : "")}
                             >
                                 {theme.label}
                             </Button>
@@ -259,7 +259,7 @@ function GalleryViewContent() {
     const allItems = useMemo(() => getGalleryItems(), []);
     
     const [selectedFair, setSelectedFair] = useState(searchParams.get('feira') || null);
-    const [selectedTheme, setSelectedTheme] = useState<string | null>(searchParams.get('tema'));
+    const [selectedTheme, setSelectedTheme] = useState<string | null>(searchParams.get('tema') || null);
     const [videoToPlay, setVideoToPlay] = useState<GalleryItem | null>(null);
     const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
     
