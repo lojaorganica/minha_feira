@@ -365,7 +365,7 @@ function GalleryViewContent() {
             </div>
 
             <Dialog open={!!videoToPlay} onOpenChange={(isOpen) => !isOpen && setVideoToPlay(null)}>
-                <DialogContent className="max-w-3xl p-0 border-0 bg-transparent">
+                <DialogContent className="max-w-3xl p-0 border-0 bg-transparent" showOverlay={true}>
                     {videoToPlay && (
                         <video 
                           src={videoToPlay.url} 
@@ -389,7 +389,7 @@ function GalleryViewContent() {
             </Dialog>
 
             <Dialog open={!!selectedImage} onOpenChange={(isOpen) => !isOpen && setSelectedImage(null)}>
-                <DialogContent className="p-0 border-0 max-w-4xl w-full">
+                <DialogContent className="p-0 border-0 max-w-4xl w-full" showOverlay={true}>
                     {selectedImage && (
                         <div className="relative w-full h-auto">
                             <Image
