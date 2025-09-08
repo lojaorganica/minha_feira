@@ -31,7 +31,7 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
         if (isDragging.current) return;
         const touchCurrentPos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
         const deltaX = Math.abs(touchCurrentPos.x - touchStartPos.current.x);
-        const deltaY = Math.abs(touchCurrentPos.y - touchStartPos.current.y);
+        const deltaY = Math.abs(touchCurrentPos.y - startPos.current.y);
         
         if (deltaX > 10 || deltaY > 10) {
             isDragging.current = true;
@@ -200,7 +200,7 @@ function GalleryFilterAccordion({
                                 key={fair.value}
                                 variant={selectedFair === fair.value ? 'default' : 'ghost'}
                                 onClick={() => onFilterChange('fair', fair.value)}
-                                className="justify-start"
+                                className="justify-start h-9"
                             >
                                 {fair.label}
                             </Button>
@@ -219,7 +219,7 @@ function GalleryFilterAccordion({
                                 key={theme.value}
                                 variant={selectedTheme === theme.value ? 'default' : 'ghost'}
                                 onClick={() => onFilterChange('theme', theme.value)}
-                                className="justify-start"
+                                className="justify-start h-9"
                             >
                                 {theme.label}
                             </Button>
