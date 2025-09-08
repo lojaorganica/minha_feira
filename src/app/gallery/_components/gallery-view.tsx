@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useMemo, Suspense, useEffect, useRef } from 'react';
+import { useState, useMemo, Suspense, useEffect, useRef, useTransition } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { getGalleryItems } from '@/lib/gallery-data';
 import type { GalleryItem } from '@/lib/types';
@@ -31,7 +31,7 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
         if (isDragging.current) return;
         const touchCurrentPos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
         const deltaX = Math.abs(touchCurrentPos.x - touchStartPos.current.x);
-        const deltaY = Math.abs(touchCurrentPos.y - startPos.current.y);
+        const deltaY = Math.abs(touchCurrentPos.y - touchStartPos.current.y);
         
         if (deltaX > 10 || deltaY > 10) {
             isDragging.current = true;
@@ -121,7 +121,7 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
                             "h-6 w-6 stroke-white drop-shadow-md transition-colors fill-white hover:fill-destructive hover:stroke-destructive",
                             isCurrentlyFavorite
                                 ? "fill-destructive stroke-destructive animate-pulse-heart"
-                                : "stroke-primary"
+                                : "stroke-white"
                         )}/>
                     </button>
                 </div>
@@ -184,11 +184,13 @@ function GalleryFilterAccordion({
     ];
     
     const getFairDisplayName = (value: string | null) => {
+        if (!value) return "Selecionar Feira";
         const fair = fairs.find(f => f.value === value);
         return fair ? fair.label : "Selecionar Feira";
     };
     
     const getThemeDisplayName = (value: string | null) => {
+        if (!value) return "Selecionar Tema";
         const theme = themes.find(t => t.value === value);
         return theme ? theme.label : "Selecionar Tema";
     };
@@ -201,7 +203,7 @@ function GalleryFilterAccordion({
     return (
         <Accordion type="multiple" className="w-full" disabled={isDisabled} value={openItems} onValueChange={setOpenItems}>
             <AccordionItem value="fair-filter">
-                <AccordionTrigger className="text-lg bg-accent text-accent-foreground focus:ring-0 focus:ring-offset-0 px-4 rounded-md py-2 h-auto">
+                <AccordionTrigger className="text-lg focus:ring-0 focus:ring-offset-0 px-4 rounded-md py-2 h-auto">
                    {getFairDisplayName(selectedFair)}
                 </AccordionTrigger>
                 <AccordionContent className="p-2 bg-background border rounded-b-md">
@@ -209,7 +211,7 @@ function GalleryFilterAccordion({
                        <Button
                             onClick={() => handleSelectAndClose('fair', null)}
                             variant={!selectedFair ? 'secondary' : 'ghost'}
-                            className={cn("justify-start h-8 text-base", !selectedFair ? "bg-accent text-accent-foreground" : "")}
+                            className={cn("justify-start h-auto text-base", !selectedFair ? "bg-accent text-accent-foreground" : "")}
                         >
                             Mostrar Todas as Mídias
                         </Button>
@@ -218,7 +220,7 @@ function GalleryFilterAccordion({
                                 key={fair.value}
                                 onClick={() => handleSelectAndClose('fair', fair.value)}
                                 variant={selectedFair === fair.value ? 'secondary' : 'ghost'}
-                                className={cn("justify-start h-8 text-base", selectedFair === fair.value ? "bg-accent text-accent-foreground" : "")}
+                                className={cn("justify-start h-auto text-base", selectedFair === fair.value ? "bg-accent text-accent-foreground" : "")}
                             >
                                 {fair.label}
                             </Button>
@@ -227,7 +229,7 @@ function GalleryFilterAccordion({
                 </AccordionContent>
             </AccordionItem>
             <AccordionItem value="theme-filter">
-                <AccordionTrigger className="text-lg bg-accent text-accent-foreground focus:ring-0 focus:ring-offset-0 px-4 rounded-md mt-2 py-2 h-auto">
+                <AccordionTrigger className="text-lg focus:ring-0 focus:ring-offset-0 px-4 rounded-md mt-2 py-2 h-auto">
                    {getThemeDisplayName(selectedTheme)}
                 </AccordionTrigger>
                 <AccordionContent className="p-2 bg-background border rounded-b-md">
@@ -237,7 +239,7 @@ function GalleryFilterAccordion({
                                 key={theme.value}
                                 onClick={() => handleSelectAndClose('theme', theme.value)}
                                 variant={selectedTheme === theme.value ? 'secondary' : 'ghost'}
-                                className={cn("justify-start h-8 text-base", selectedTheme === theme.value ? "bg-accent text-accent-foreground" : "")}
+                                className={cn("justify-start h-auto text-base", selectedTheme === theme.value ? "bg-accent text-accent-foreground" : "")}
                             >
                                 {theme.label}
                             </Button>
@@ -257,7 +259,7 @@ function GalleryViewContent() {
     const allItems = useMemo(() => getGalleryItems(), []);
     
     const [selectedFair, setSelectedFair] = useState(searchParams.get('feira') || null);
-    const [selectedTheme, setSelectedTheme] = useState<string | null>(searchParams.get('tema') || null);
+    const [selectedTheme, setSelectedTheme] = useState<string | null>(searchParams.get('tema'));
     const [videoToPlay, setVideoToPlay] = useState<GalleryItem | null>(null);
     const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
     
@@ -269,7 +271,7 @@ function GalleryViewContent() {
     
     const filteredItems = useMemo(() => {
         return sourceItems.filter(item => {
-            const fairMatch = !selectedFair || item.fair.includes(selectedFair as any);
+            const fairMatch = !selectedFair || selectedFair === 'Todas' ? true : item.fair.includes(selectedFair as any);
             const themeMatch = !selectedTheme || selectedTheme === 'Todos' ? true : item.theme.includes(selectedTheme as any);
             return fairMatch && themeMatch;
         });
@@ -281,12 +283,12 @@ function GalleryViewContent() {
         
         if (type === 'fair') {
             setSelectedFair(value);
-            if (value) currentParams.set('feira', value);
+            if (value && value !== 'Todas') currentParams.set('feira', value);
             else currentParams.delete('feira');
         }
         if (type === 'theme') {
              setSelectedTheme(value);
-            if (value) currentParams.set('tema', value);
+            if (value && value !== 'Todos') currentParams.set('tema', value);
             else currentParams.delete('tema');
         }
 
@@ -344,10 +346,10 @@ function GalleryViewContent() {
                     className="p-2 rounded-full bg-transparent border-none focus:outline-none focus:ring-0 focus:ring-offset-0 focus-visible:bg-transparent active:bg-transparent hover:bg-transparent [-webkit-tap-highlight-color:transparent] group"
                 >
                     <Heart className={cn(
-                        "h-7 w-7 transition-colors",
+                        "h-7 w-7 transition-colors group-hover:fill-destructive group-hover:stroke-destructive",
                         isShowingFavorites
                             ? "fill-destructive stroke-destructive"
-                            : "stroke-primary fill-white group-hover:fill-destructive group-hover:stroke-destructive"
+                            : "stroke-primary fill-white"
                     )} />
                     <span className="sr-only">Mostrar Favoritos</span>
                 </button>
@@ -466,3 +468,5 @@ export default function GalleryView() {
         </Suspense>
     );
 }
+
+    
