@@ -175,7 +175,6 @@ function GalleryFilterAccordion({
     ];
 
     const themes = [
-        { value: 'Todos', label: 'Todos os Temas' },
         { value: 'Fotografias', label: 'Fotografias' },
         { value: 'Agricultores - Animações e Cartoon', label: 'Agricultores - Animações e Cartoon' },
         { value: 'Alimentos - Animações e Cartoon', label: 'Alimentos - Animações e Cartoon' },
@@ -184,21 +183,14 @@ function GalleryFilterAccordion({
         { value: 'Dias Especiais', label: 'Dias Especiais' },
     ];
     
-    const getFairDisplayName = (value: string | null) => {
-        if (!value || value === 'Todas') return "Selecionar Feira";
-        const fair = fairs.find(f => f.value === value);
-        return fair ? fair.label : "Selecionar Feira";
-    };
-    
-    const getThemeDisplayName = (value: string | null) => {
-        if (!value || value === 'Todos') return "Selecionar Tema";
-        const theme = themes.find(t => t.value === value);
-        return theme ? theme.label : "Selecionar Tema";
-    };
-
-    const handleSelectAndClose = (type: 'fair' | 'theme', value: string | null) => {
+    const handleSelectAndClose = (type: 'fair' | 'theme', value: string) => {
         startTransition(() => {
-            onFilterChange(type, value);
+            if (type === 'fair') {
+                 onFilterChange('fair', selectedFair === value ? null : value);
+            }
+            if (type === 'theme') {
+                 onFilterChange('theme', selectedTheme === value ? null : value);
+            }
         });
         setOpenItems([]);
     };
@@ -207,17 +199,10 @@ function GalleryFilterAccordion({
         <Accordion type="multiple" className="w-full" disabled={isDisabled} value={openItems} onValueChange={setOpenItems}>
             <AccordionItem value="fair-filter">
                 <AccordionTrigger className="text-lg focus:ring-0 focus:ring-offset-0 px-4 rounded-md py-2 h-auto">
-                   {getFairDisplayName(selectedFair)}
+                   Selecionar Feira
                 </AccordionTrigger>
                 <AccordionContent className="p-2 bg-background border rounded-b-md">
                     <div className="flex flex-col gap-1">
-                       <Button
-                            onClick={() => handleSelectAndClose('fair', null)}
-                            variant={'ghost'}
-                            className={cn("justify-start h-auto text-base", !selectedFair ? "bg-accent text-accent-foreground" : "")}
-                        >
-                            Mostrar Todas as Mídias
-                        </Button>
                         {fairs.map(fair => (
                             <Button
                                 key={fair.value}
@@ -233,19 +218,11 @@ function GalleryFilterAccordion({
             </AccordionItem>
             <AccordionItem value="theme-filter">
                 <AccordionTrigger className="text-lg focus:ring-0 focus:ring-offset-0 px-4 rounded-md mt-2 py-2 h-auto">
-                   {getThemeDisplayName(selectedTheme)}
+                   Selecionar Tema
                 </AccordionTrigger>
                 <AccordionContent className="p-2 bg-background border rounded-b-md">
                     <div className="flex flex-col gap-1">
-                        <Button
-                            key={'Todos'}
-                            onClick={() => handleSelectAndClose('theme', null)}
-                            variant={'ghost'}
-                            className={cn("justify-start h-auto text-base", !selectedTheme ? "bg-accent text-accent-foreground" : "")}
-                        >
-                            Todos os Temas
-                        </Button>
-                        {themes.filter(t => t.value !== 'Todos').map(theme => (
+                        {themes.map(theme => (
                             <Button
                                 key={theme.value}
                                 onClick={() => handleSelectAndClose('theme', theme.value)}
