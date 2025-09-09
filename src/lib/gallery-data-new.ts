@@ -219,7 +219,6 @@ function getThemeCategories(fileName: string): GalleryTheme[] {
     if (fileName.startsWith('aagr')) themes.push('Agricultores - Animações e Cartoon');
     if (fileName.startsWith('aali')) themes.push('Alimentos - Animações e Cartoon');
     if (fileName.startsWith('ap_')) themes.push('Personagens - Animações e Cartoon');
-    
     if (fileName.includes('story')) themes.push('Story');
     if (fileName.includes('especial')) themes.push('Dias Especiais');
 

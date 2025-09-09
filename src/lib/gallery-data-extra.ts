@@ -54,7 +54,7 @@ const allItemUrls: string[] = [
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_104_todas_feiras.png?alt=media&token=33d6ff96-1419-4605-89a6-bb5bc623854f',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_105_feiras_flamengo_laranjeiras.png?alt=media&token=28ba7cae-3e5a-4c30-8453-8998ef421160',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_105_todas_feiras.png?alt=media&token=f81cd7b8-7341-453b-9d25-315ab25f12d2',
-    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_106_feiras_flamengo_laranjeiras.png?alt=media&token=ea662e40-ce90-4943-87a3-b22042138950',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_106_todas_feiras.png?alt=media&token=2878e890-ced7-4d06-953e-79bf347d5ee1',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_16_feira_grajau.png?alt=media&token=3f092fbe-dfad-4a55-b341-447b0331bdb1',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_17_feira_botafogo.png?alt=media&token=0f21f6fe-99b4-4681-ab29-4a4c00f7424b',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_17_feira_grajau.png?alt=media&token=33cfad97-7e6a-4615-b43a-0f4543c2bd5e',
@@ -221,7 +221,6 @@ function getThemeCategories(fileName: string): GalleryTheme[] {
     if (fileName.startsWith('aagr')) themes.push('Agricultores - Animações e Cartoon');
     if (fileName.startsWith('aali')) themes.push('Alimentos - Animações e Cartoon');
     if (fileName.startsWith('ap_')) themes.push('Personagens - Animações e Cartoon');
-    
     if (fileName.includes('story')) themes.push('Story');
     if (fileName.includes('especial')) themes.push('Dias Especiais');
 
@@ -288,3 +287,4 @@ export function getExtraGalleryItems(): GalleryItem[] {
     };
   });
 }
+
