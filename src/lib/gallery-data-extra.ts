@@ -210,6 +210,7 @@ function getFairCategories(fileName: string): GalleryFair[] {
     if (fileName.includes('feira_botafogo')) fairs.push('Botafogo');
     if (fileName.includes('feira_leme')) fairs.push('Leme');
     
+    // Se nenhuma feira específica for encontrada, assume-se que é para todas.
     if (fairs.length === 0) fairs.push('Todas');
     return fairs;
 }
@@ -226,7 +227,7 @@ function getThemeCategories(fileName: string): GalleryTheme[] {
 
     if (themes.length === 0) {
         if (fileName.endsWith('.mp4')) {
-            themes.push('Agricultores - Animações e Cartoon');
+            themes.push('Personagens - Animações e Cartoon');
         } else {
              themes.push('Fotografias');
         }
@@ -287,4 +288,3 @@ export function getExtraGalleryItems(): GalleryItem[] {
     };
   });
 }
-

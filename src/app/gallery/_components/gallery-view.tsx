@@ -259,8 +259,8 @@ function GalleryViewContent() {
     
     const filteredItems = useMemo(() => {
         return sourceItems.filter(item => {
-            const fairMatch = !selectedFair || selectedFair === 'Todas' ? true : item.fair.includes(selectedFair as any);
-            const themeMatch = !selectedTheme || selectedTheme === 'Todos' ? true : item.theme.includes(selectedTheme as any);
+            const fairMatch = !selectedFair || item.fair.includes(selectedFair as any);
+            const themeMatch = !selectedTheme || item.theme.includes(selectedTheme as any);
             return fairMatch && themeMatch;
         });
     }, [sourceItems, selectedFair, selectedTheme]);
@@ -271,12 +271,12 @@ function GalleryViewContent() {
         
         if (type === 'fair') {
             setSelectedFair(value);
-            if (value && value !== 'Todas') currentParams.set('feira', value);
+            if (value) currentParams.set('feira', value);
             else currentParams.delete('feira');
         }
         if (type === 'theme') {
              setSelectedTheme(value);
-            if (value && value !== 'Todos') currentParams.set('tema', value);
+            if (value) currentParams.set('tema', value);
             else currentParams.delete('tema');
         }
 
@@ -410,7 +410,7 @@ function GalleryViewContent() {
                     )}
                      <DialogClose asChild>
                         <button
-                          className="absolute right-2 top-2 rounded-full bg-accent p-1 text-accent-foreground transition-opacity hover:bg-accent/90 focus:outline-none focus:ring-2 focus:ring-white disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground"
+                          className="absolute right-2 top-2 rounded-full bg-accent p-1 text-accent-foreground transition-opacity hover:bg-accent/90 focus:outline-none focus:ring-0 focus-visible:outline-none disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground"
                           aria-label="Fechar"
                         >
                             <X className="h-4 w-4" />
@@ -435,7 +435,7 @@ function GalleryViewContent() {
                     )}
                      <DialogClose asChild>
                        <button
-                          className="absolute right-2 top-2 rounded-full bg-accent p-1 text-accent-foreground transition-opacity hover:bg-accent/90 focus:outline-none focus:ring-2 focus:ring-white disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground"
+                          className="absolute right-2 top-2 rounded-full bg-accent p-1 text-accent-foreground transition-opacity hover:bg-accent/90 focus:outline-none focus:ring-0 focus-visible:outline-none disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground"
                           aria-label="Fechar"
                         >
                             <X className="h-4 w-4" />
