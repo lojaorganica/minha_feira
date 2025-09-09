@@ -48,8 +48,8 @@ const allItemUrls: string[] = [
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feira_tijuca_76_abobrinha_maravilha.png?alt=media&token=8d154ca5-30dc-4c43-ab29-c32fd7d27fff',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feira_tijuca_80_pepino_verde.mp4?alt=media&token=a2e427e8-7c74-4957-8fe7-32898c98057d',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feira_tijuca_91_beterraba_de_ferro.mp4?alt=media&token=79cfaddf-d0c0-48fb-9480-0787d66ac5d9',
-    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_100_feiras_flamengo_laranjeiras_especial.png?alt=media&token=91ea86db-096f-4a19-b23b-21554960e9b0',
-    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_101_feiras_flamengo_laranjeiras_especial.png?alt=media&token=a91e2c0f-3af0-4532-941d-f1d7d4b94d7c',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_100_feiras_flamengo_laranjeiras.png?alt=media&token=91ea86db-096f-4a19-b23b-21554960e9b0',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_101_feiras_flamengo_laranjeiras.png?alt=media&token=a91e2c0f-3af0-4532-941d-f1d7d4b94d7c',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_104_feiras_flamengo_laranjeiras.png?alt=media&token=9645ed01-1b76-4e27-85c5-dcd5f518745f',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_104_todas_feiras.png?alt=media&token=33d6ff96-1419-4605-89a6-bb5bc623854f',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_105_feiras_flamengo_laranjeiras.png?alt=media&token=28ba7cae-3e5a-4c30-8453-8998ef421160',
@@ -161,11 +161,11 @@ const allItemUrls: string[] = [
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_chuva_10_feira_botafogo.png?alt=media&token=53f72ddf-d829-4f77-9833-8660ef973d72',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_chuva_11_feira_leme.png?alt=media&token=967f6e39-8a8a-4c6c-9856-3f12ade1d6c1',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_chuva_12_todas_feiras.png?alt=media&token=de487e97-0c48-4349-bf43-6a8112900d59',
-    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_06_feiras_flamengo_laranjeiras_especial.png?alt=media&token=13944fa6-03c1-424c-b727-f843485f6f22',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_06_feiras_flamengo_laranjeiras.png?alt=media&token=13944fa6-03c1-424c-b727-f843485f6f22',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_07_todas_feiras.png?alt=media&token=0c6bea03-3935-4639-a0e3-9bcbd33cf808',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_08_todas_feiras.png?alt=media&token=56c2eda9-daac-4693-904e-b2cc6996e235',
-    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_100_todas_feiras_especial.png?alt=media&token=db59ef83-a38d-431a-80fc-a1f2060295b4',
-    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_101_feiras_flamengo_laranjeiras_especial.png?alt=media&token=ba12cd57-2f7f-474b-beb4-3efed5c9de0b',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_100_todas_feiras.png?alt=media&token=db59ef83-a38d-431a-80fc-a1f2060295b4',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_101_feiras_flamengo_laranjeiras.png?alt=media&token=ba12cd57-2f7f-474b-beb4-3efed5c9de0b',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_105_feiras_flamengo_laranjeiras.png?alt=media&token=2c6bb5e8-3702-40f0-88d6-dcfc30c80ac8',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_106_todas_feiras.png?alt=media&token=49a11a3c-095a-47fa-ab16-d0085a31c810',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_107_feiras_flamengo_laranjeiras.png?alt=media&token=e6d6067a-0643-481e-98bc-35be29e2d154',
@@ -218,14 +218,14 @@ function getFairCategories(fileName: string): GalleryFair[] {
 function getThemeCategories(fileName: string): GalleryTheme[] {
     const themes: GalleryTheme[] = [];
     
-    if (fileName.startsWith('fot')) themes.push('Fotografias');
-    if (fileName.startsWith('aagr')) themes.push('Agricultores - Animações e Cartoon');
-    if (fileName.startsWith('aali')) themes.push('Alimentos - Animações e Cartoon');
-    if (fileName.startsWith('ap')) themes.push('Personagens - Animações e Cartoon');
+    if (fileName.startsWith('fot_')) themes.push('Fotografias');
+    if (fileName.startsWith('aagr_')) themes.push('Agricultores - Animações e Cartoon');
+    if (fileName.startsWith('aali_')) themes.push('Alimentos - Animações e Cartoon');
+    if (fileName.startsWith('ap_')) themes.push('Personagens - Animações e Cartoon');
     
     // As palavras-chave 'story' e 'especial' podem coexistir com os temas acima
-    if (fileName.includes('story')) themes.push('Story');
-    if (fileName.includes('especial')) themes.push('Dias Especiais');
+    if (fileName.includes('_story_')) themes.push('Story');
+    if (fileName.includes('_especial')) themes.push('Dias Especiais');
 
     // Se após todas as verificações, nenhum tema foi atribuído, aplicamos uma regra padrão.
     // Isso evita que um item fique sem tema.
