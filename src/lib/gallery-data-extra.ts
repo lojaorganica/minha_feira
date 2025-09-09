@@ -55,7 +55,6 @@ const allItemUrls: string[] = [
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_105_feiras_flamengo_laranjeiras.png?alt=media&token=28ba7cae-3e5a-4c30-8453-8998ef421160',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_105_todas_feiras.png?alt=media&token=f81cd7b8-7341-453b-9d25-315ab25f12d2',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_106_feiras_flamengo_laranjeiras.png?alt=media&token=ea662e40-ce90-4943-87a3-b22042138950',
-    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_106_todas_feiras.png?alt=media&token=2878e890-ced7-4d06-953e-79bf347d5ee1',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_16_feira_grajau.png?alt=media&token=3f092fbe-dfad-4a55-b341-447b0331bdb1',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_17_feira_botafogo.png?alt=media&token=0f21f6fe-99b4-4681-ab29-4a4c00f7424b',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_17_feira_grajau.png?alt=media&token=33cfad97-7e6a-4615-b43a-0f4543c2bd5e',
@@ -184,7 +183,6 @@ const allItemUrls: string[] = [
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_81_feiras_flamengo_laranjeiras.png?alt=media&token=6e5361e3-2bb1-4a98-a071-70ff578e979b',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_86_feiras_flamengo_laranjeiras.png?alt=media&token=02ea7dc9-1ae6-4740-9b31-5940b7e1beec',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_87_todas_feiras.png?alt=media&token=8d29edf1-4171-4171-932e-31e8a40210a0',
-    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fespecial_dia_das_maes_10a.jpg?alt=media&token=04867325-bff0-4e2d-a18a-3eedcd98cae7',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_88_feiras_flamengo_laranjeiras.png?alt=media&token=ae312598-6b6b-414d-84d9-c3407ecbe77b',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_89_todas_feiras.png?alt=media&token=284c5a20-5902-4c10-9857-7a157819368e',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_90_todas_feiras.png?alt=media&token=99fbb7cc-5d25-4b4e-ae45-89490c18e636',
@@ -200,7 +198,7 @@ const allItemUrls: string[] = [
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_chuva_17_todas_feiras.png?alt=media&token=0fc68154-09ef-41d5-a270-119fcd5d2c27',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_chuva_19_feiras_flamengo_laranjeiras.png?alt=media&token=f4d8b975-1240-4a73-bd25-9aabdb6099e2',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_chuva_23_feiras_flamengo_laranjeiras.png?alt=media&token=7f5df071-2da1-438f-a425-bbfe8464d0b1',
-    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_chuva_92_todas_feiras.png?alt=media&token=831f13a2-6713-4560-a409-bbd3587710c3'
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_chuva_92_todas_feiras.png?alt=media&token=831f13a2-6713-4560-a409-bbd3587710c3',
 ];
 
 function getFairCategories(fileName: string): GalleryFair[] {
@@ -218,13 +216,15 @@ function getFairCategories(fileName: string): GalleryFair[] {
 
 function getThemeCategories(fileName: string): GalleryTheme[] {
     const themes: GalleryTheme[] = [];
-    if (fileName.includes('story')) themes.push('Story');
-    else if (fileName.startsWith('fot')) themes.push('Fotografias');
-    else if (fileName.startsWith('aagr')) themes.push('Agricultores - Animações e Cartoon');
-    else if (fileName.startsWith('aali')) themes.push('Alimentos - Animações e Cartoon');
-    else if (fileName.startsWith('ap_')) themes.push('Personagens - Animações e Cartoon');
-    else if (fileName.includes('especial')) themes.push('Dias Especiais');
     
+    if (fileName.startsWith('fot')) themes.push('Fotografias');
+    if (fileName.startsWith('aagr')) themes.push('Agricultores - Animações e Cartoon');
+    if (fileName.startsWith('aali')) themes.push('Alimentos - Animações e Cartoon');
+    if (fileName.startsWith('ap_')) themes.push('Personagens - Animações e Cartoon');
+    
+    if (fileName.includes('story')) themes.push('Story');
+    if (fileName.includes('especial')) themes.push('Dias Especiais');
+
     if (themes.length === 0) {
         if (fileName.endsWith('.mp4')) {
             themes.push('Agricultores - Animações e Cartoon');
