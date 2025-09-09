@@ -11,8 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Edit, PlusCircle, Trash2, ShoppingBag, User, DollarSign, Download, Share2, History, Search, Tag, Calendar as CalendarIcon, Truck, Phone, Home, MapPin, AlertTriangle, Power, X, FileText, FileImage, FileJson, PackageCheck } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -31,6 +30,8 @@ import { cn } from '@/lib/utils';
 import { useUser } from '@/hooks/use-user';
 import jsPDF from 'jspdf';
 import * as htmlToImage from 'html-to-image';
+import { AlertDialog, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, AlertDialogCancel, AlertDialogAction } from "@/components/ui/alert-dialog";
+
 
 function useDebounce(value: string, delay: number) {
   const [debouncedValue, setDebouncedValue] = useState(value);
@@ -622,34 +623,38 @@ function ProductsTabContent({ products, farmerId, onProductUpdate }: { products:
                                             </Label>
                                         </div>
                                         <div className="flex w-full gap-2">
-                                            <AlertDialog>
-                                                <AlertDialogTrigger asChild>
+                                            <Dialog>
+                                                <DialogTrigger asChild>
                                                     <Button variant="ghost" className="w-full text-destructive hover:bg-destructive hover:text-destructive-foreground">
                                                         <Trash2 className="h-4 w-4 mr-2" />
                                                         Excluir
                                                     </Button>
-                                                </AlertDialogTrigger>
-                                                <AlertDialogContent>
-                                                    <AlertDialogHeader>
-                                                        <AlertDialogTitle className="flex items-center gap-2 text-xl">
+                                                </DialogTrigger>
+                                                <DialogContent>
+                                                    <DialogHeader>
+                                                        <DialogTitle className="flex items-center gap-2 text-xl">
                                                         <AlertTriangle className="text-destructive"/>
                                                             Tem certeza que deseja excluir este produto?
-                                                        </AlertDialogTitle>
-                                                        <AlertDialogDescription className="text-base">
+                                                        </DialogTitle>
+                                                        <DialogDescription className="text-base">
                                                             Esta ação não pode ser desfeita. Isso irá remover permanentemente o produto <span className="font-bold">"{product.name}"</span> do seu inventário.
-                                                        </AlertDialogDescription>
-                                                    </AlertDialogHeader>
-                                                    <AlertDialogFooter>
-                                                        <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                                                        <AlertDialogAction 
-                                                            onClick={() => handleDeleteProduct(product.id)}
-                                                            className="bg-destructive hover:bg-destructive/90 text-destructive-foreground"
-                                                        >
-                                                            Sim, Excluir
-                                                        </AlertDialogAction>
-                                                    </AlertDialogFooter>
-                                                </AlertDialogContent>
-                                            </AlertDialog>
+                                                        </DialogDescription>
+                                                    </DialogHeader>
+                                                    <DialogFooter>
+                                                        <DialogClose asChild>
+                                                          <Button variant="outline">Cancelar</Button>
+                                                        </DialogClose>
+                                                        <DialogClose asChild>
+                                                          <Button 
+                                                              onClick={() => handleDeleteProduct(product.id)}
+                                                              className="bg-destructive hover:bg-destructive/90 text-destructive-foreground"
+                                                          >
+                                                              Sim, Excluir
+                                                          </Button>
+                                                        </DialogClose>
+                                                    </DialogFooter>
+                                                </DialogContent>
+                                            </Dialog>
                                             
                                             <EditProductForm product={product} onSaveChanges={onProductUpdate} />
                                         </div>
