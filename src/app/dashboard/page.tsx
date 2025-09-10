@@ -17,7 +17,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverTrigger, PopoverAnchor } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
@@ -385,18 +385,19 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
                 </DialogHeader>
                 <div className="grid gap-4 py-4 text-base">
                      <Popover open={isSuggestionsOpen && suggestions.length > 0} onOpenChange={setSuggestionsOpen}>
-                        <PopoverTrigger asChild>
+                        <PopoverAnchor asChild>
                              <div className="space-y-2">
                                 <Label htmlFor="new-name">Nome do Produto</Label>
                                 <Input 
                                     id="new-name"
                                     value={name} 
                                     onChange={handleNameChange}
+                                    onFocus={() => { if(name.length > 0) setSuggestionsOpen(true); }}
                                     className="bg-card" 
                                     autoComplete="off"
                                 />
                             </div>
-                        </PopoverTrigger>
+                        </PopoverAnchor>
                         <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start">
                             <ScrollArea className="h-auto max-h-64">
                                 <div className="p-2 space-y-1">
