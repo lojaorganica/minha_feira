@@ -420,20 +420,18 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
                         />
                         {isSuggestionsOpen && (
                             <div className="absolute z-50 w-full bg-background border rounded-md shadow-lg mt-1 max-h-96 overflow-y-auto">
-                                <ScrollArea className="h-auto">
-                                    <div className="p-2 space-y-1">
-                                    {suggestions.map(p => (
-                                        <Button
-                                            key={p.id}
-                                            variant="ghost"
-                                            className="w-full justify-start h-auto"
-                                            onClick={() => handleSuggestionClick(p)}
-                                        >
-                                            {p.name}
-                                        </Button>
-                                    ))}
-                                    </div>
-                                </ScrollArea>
+                                <div className="p-2 space-y-1">
+                                {suggestions.map(p => (
+                                    <Button
+                                        key={p.id}
+                                        variant="ghost"
+                                        className="w-full justify-start h-auto"
+                                        onClick={() => handleSuggestionClick(p)}
+                                    >
+                                        {p.name}
+                                    </Button>
+                                ))}
+                                </div>
                             </div>
                         )}
                     </div>
@@ -586,6 +584,11 @@ function ProductsTabContent({ products, farmerId, onProductUpdate }: { products:
     const [isPending, startTransition] = useTransition();
     const { toast } = useToast();
 
+    // Ordena os produtos alfabeticamente
+    const sortedProducts = useMemo(() => {
+        return [...products].sort((a, b) => a.name.localeCompare(b.name, 'pt-BR', { sensitivity: 'base' }));
+    }, [products]);
+
     const handlePromotionToggle = (productId: string, checked: boolean) => {
         startTransition(() => {
             toggleProductPromotion(productId, checked);
@@ -633,13 +636,13 @@ function ProductsTabContent({ products, farmerId, onProductUpdate }: { products:
                 </div>
             </CardHeader>
             <CardContent>
-                {products.length === 0 ? (
+                {sortedProducts.length === 0 ? (
                     <div className="text-center py-12">
                         <p className="text-lg font-semibold text-muted-foreground">Nenhum produto encontrado com o termo pesquisado.</p>
                     </div>
                 ) : (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                        {products.map((product) => {
+                        {sortedProducts.map((product) => {
                             const isLojaOrganica = product.farmerId === '134';
                             const isOutOfStock = product.stock !== undefined && product.stock <= 0;
 
@@ -1290,9 +1293,3 @@ export default function DashboardPage() {
         </Suspense>
     );
 }
-
-    
-
-    
-
-
