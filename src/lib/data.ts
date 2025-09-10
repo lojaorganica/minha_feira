@@ -6,6 +6,7 @@
 
 
 
+
 import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerOrder, CustomerClassification, CustomerAddress, ProductCategory } from './types';
 
 let products: Product[] = [
@@ -483,7 +484,6 @@ let products: Product[] = [
     farmerId: '2',
     description: 'Amoras orgânicas, ricas em antioxidantes e sabor agridoce.',
     status: 'active',
-    stock: 10,
   },
   {
     id: '39',
@@ -2408,6 +2408,8 @@ export function updateCustomerClassification(customerId: string, classification:
 
 
     
+
+
 
 
 

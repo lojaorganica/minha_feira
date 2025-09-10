@@ -286,7 +286,7 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newName = e.target.value;
         setName(newName);
-        setSuggestionsOpen(newName.length > 0);
+        setSuggestionsOpen(newName.length > 0 && suggestions.length > 0);
     };
 
     const handleSuggestionClick = (product: Product) => {
@@ -355,7 +355,7 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
         setIsSaving(true);
         const newProductData: Omit<Product, 'id' | 'status'> = {
             name,
-            price,
+            price: price,
             unit,
             description,
             stock: stock === '' ? undefined : Number(stock),
@@ -414,23 +414,22 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
                             onChange={handleNameChange}
                             className="bg-card" 
                             autoComplete="off"
+                            onFocus={() => setSuggestionsOpen(name.length > 0 && suggestions.length > 0)}
                         />
-                        {isSuggestionsOpen && suggestions.length > 0 && name.length > 0 && (
-                            <div className="absolute z-50 w-full bg-background border rounded-md shadow-lg mt-1">
-                                <ScrollArea className="max-h-64">
-                                    <div className="p-2 space-y-1">
-                                    {suggestions.map(p => (
-                                        <Button
-                                            key={p.id}
-                                            variant="ghost"
-                                            className="w-full justify-start h-auto"
-                                            onClick={() => handleSuggestionClick(p)}
-                                        >
-                                            {p.name}
-                                        </Button>
-                                    ))}
-                                    </div>
-                                </ScrollArea>
+                        {isSuggestionsOpen && (
+                            <div className="absolute z-50 w-full bg-background border rounded-md shadow-lg mt-1 max-h-96">
+                                <div className="p-2 space-y-1">
+                                {suggestions.map(p => (
+                                    <Button
+                                        key={p.id}
+                                        variant="ghost"
+                                        className="w-full justify-start h-auto"
+                                        onClick={() => handleSuggestionClick(p)}
+                                    >
+                                        {p.name}
+                                    </Button>
+                                ))}
+                                </div>
                             </div>
                         )}
                     </div>
@@ -1213,7 +1212,7 @@ function DashboardContent() {
 
     const handleProductUpdate = () => {
         setAllProducts(getProducts({ includePaused: true }));
-        setSearchTerm(''); // Limpa a busca para mostrar o novo produto
+        setSearchTerm('');
     };
 
     const handleTabChange = (newTab: string) => {
@@ -1292,3 +1291,4 @@ export default function DashboardPage() {
     
 
     
+
