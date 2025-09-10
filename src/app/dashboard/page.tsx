@@ -17,7 +17,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
-import { Popover, PopoverContent, PopoverTrigger, PopoverAnchor } from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
@@ -248,7 +248,6 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
 
     // Estados para o autocompletar
     const [isSuggestionsOpen, setSuggestionsOpen] = useState(false);
-    const inputRef = useRef<HTMLInputElement>(null);
 
     const allProductsCatalog = useMemo(() => {
         const uniqueProducts = new Map<string, Product>();
@@ -297,7 +296,6 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
         setImage(product.image);
         setDataAiHint(product.dataAiHint);
         setSuggestionsOpen(false);
-        // O foco já deve estar no input, então não precisamos mexer nisso
     };
 
     const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -393,21 +391,19 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
                 </DialogHeader>
                 <div className="grid gap-4 py-4 text-base">
                      <Popover open={isSuggestionsOpen} onOpenChange={setSuggestionsOpen}>
-                        <PopoverAnchor asChild>
+                        <PopoverTrigger asChild>
                              <div className="space-y-2">
                                 <Label htmlFor="new-name">Nome do Produto</Label>
                                 <Input 
                                     id="new-name"
-                                    ref={inputRef}
                                     value={name} 
                                     onChange={handleNameChange}
-                                    onFocus={() => name.length > 0 && setSuggestionsOpen(true)}
                                     onBlur={() => setTimeout(() => setSuggestionsOpen(false), 150)}
                                     className="bg-card" 
                                     autoComplete="off"
                                 />
                             </div>
-                        </PopoverAnchor>
+                        </PopoverTrigger>
                         <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start">
                             {suggestions.length > 0 ? (
                                 <ScrollArea className="h-auto max-h-64">
@@ -500,6 +496,7 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
         </Dialog>
     );
 }
+
 
 
 // Componente para Edição Rápida de Estoque
@@ -1283,4 +1280,3 @@ export default function DashboardPage() {
         </Suspense>
     );
 }
-
