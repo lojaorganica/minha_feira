@@ -31,6 +31,7 @@ import { useUser } from '@/hooks/use-user';
 import jsPDF from 'jspdf';
 import * as htmlToImage from 'html-to-image';
 import { AlertDialog, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, AlertDialogCancel, AlertDialogAction } from "@/components/ui/alert-dialog";
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 
 function useDebounce(value: string, delay: number) {
@@ -234,6 +235,7 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
     const [isSaving, setIsSaving] = useState(false);
     const { toast } = useToast();
     
+    // Estados do formulário
     const [name, setName] = useState('');
     const [price, setPrice] = useState<number | undefined>(undefined);
     const [formattedPrice, setFormattedPrice] = useState('');
@@ -241,7 +243,21 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
     const [description, setDescription] = useState('');
     const [stock, setStock] = useState<number | ''>('');
     const [category, setCategory] = useState<ProductCategory>('Verdura');
+    const [image, setImage] = useState('https://placehold.co/600x400.png');
+    const [dataAiHint, setDataAiHint] = useState('');
 
+    // Estados para o autocompletar
+    const [isSuggestionsOpen, setSuggestionsOpen] = useState(false);
+    const [suggestions, setSuggestions] = useState<Product[]>([]);
+    const allProductsCatalog = useMemo(() => {
+        const uniqueProducts = new Map<string, Product>();
+        getProducts({ includePaused: true }).forEach(p => {
+            if (!uniqueProducts.has(p.name.toLowerCase())) {
+                uniqueProducts.set(p.name.toLowerCase(), p);
+            }
+        });
+        return Array.from(uniqueProducts.values());
+    }, []);
 
     const resetForm = () => {
         setName('');
@@ -251,7 +267,32 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
         setDescription('');
         setStock('');
         setCategory('Verdura');
-    }
+        setImage('https://placehold.co/600x400.png');
+        setDataAiHint('');
+    };
+
+    const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setName(value);
+        if (value.length > 1) {
+            const filteredSuggestions = allProductsCatalog.filter(p =>
+                p.name.toLowerCase().includes(value.toLowerCase())
+            );
+            setSuggestions(filteredSuggestions);
+            setSuggestionsOpen(true);
+        } else {
+            setSuggestionsOpen(false);
+        }
+    };
+
+    const handleSuggestionClick = (product: Product) => {
+        setName(product.name);
+        setDescription(product.description);
+        setCategory(product.category);
+        setImage(product.image); // Preenche a imagem
+        setDataAiHint(product.dataAiHint); // Preenche a dica de IA
+        setSuggestionsOpen(false);
+    };
 
     const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const rawValue = e.target.value.replace(/\D/g, ''); 
@@ -297,14 +338,16 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
         }
 
         setIsSaving(true);
-        const newProductData: Omit<Product, 'id' | 'image' | 'dataAiHint' | 'status'> = {
+        const newProductData: Omit<Product, 'id' | 'status'> = {
             name,
             price,
             unit,
             description,
             stock: stock === '' ? undefined : Number(stock),
             category,
-            farmerId
+            farmerId,
+            image, // Salva a imagem preenchida
+            dataAiHint, // Salva a dica de IA
         };
 
         addProduct(newProductData);
@@ -336,13 +379,43 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
                 <DialogHeader>
                     <DialogTitle>Adicionar Novo Produto</DialogTitle>
                     <DialogDescription>
-                        Preencha os detalhes do novo produto. Clique em salvar para adicioná-lo ao seu catálogo.
+                        Preencha os detalhes do novo produto. Comece a digitar o nome para ver sugestões.
                     </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4 text-base">
                     <div className="space-y-2">
                         <Label htmlFor="new-name">Nome do Produto</Label>
-                        <Input id="new-name" value={name} onChange={(e) => setName(e.target.value)} className="bg-card" spellCheck="false" autoCorrect="off" />
+                        <Popover open={isSuggestionsOpen} onOpenChange={setSuggestionsOpen}>
+                            <PopoverTrigger asChild>
+                                <Input 
+                                    id="new-name" 
+                                    value={name} 
+                                    onChange={handleNameChange}
+                                    className="bg-card" 
+                                    spellCheck="false" 
+                                    autoCorrect="off"
+                                    autoComplete="off"
+                                />
+                            </PopoverTrigger>
+                            {suggestions.length > 0 && (
+                                <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start">
+                                    <ScrollArea className="h-auto max-h-64">
+                                        <div className="p-2 space-y-1">
+                                        {suggestions.map(p => (
+                                            <Button
+                                                key={p.id}
+                                                variant="ghost"
+                                                className="w-full justify-start h-auto"
+                                                onClick={() => handleSuggestionClick(p)}
+                                            >
+                                                {p.name}
+                                            </Button>
+                                        ))}
+                                        </div>
+                                    </ScrollArea>
+                                </PopoverContent>
+                            )}
+                        </Popover>
                     </div>
                     
                      <div className="space-y-2">
