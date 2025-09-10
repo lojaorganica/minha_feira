@@ -250,14 +250,8 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
     const [isSuggestionsOpen, setSuggestionsOpen] = useState(false);
 
     const allProductsCatalog = useMemo(() => {
-        const uniqueProducts = new Map<string, Product>();
         // Busca em todos os produtos, incluindo pausados, para ter uma base de dados completa
-        getProducts({ includePaused: true }).forEach(p => {
-            if (!uniqueProducts.has(p.name.toLowerCase())) {
-                uniqueProducts.set(p.name.toLowerCase(), p);
-            }
-        });
-        return Array.from(uniqueProducts.values());
+        return getProducts({ includePaused: true });
     }, []);
     
     const suggestions = useMemo(() => {
@@ -282,9 +276,9 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newName = e.target.value;
         setName(newName);
-        if (newName.length > 0 && !isSuggestionsOpen) {
+        if (newName.length > 0) {
             setSuggestionsOpen(true);
-        } else if (newName.length === 0 && isSuggestionsOpen) {
+        } else {
             setSuggestionsOpen(false);
         }
     };
@@ -390,7 +384,7 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
                     </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4 text-base">
-                     <Popover open={isSuggestionsOpen} onOpenChange={setSuggestionsOpen}>
+                     <Popover open={isSuggestionsOpen && suggestions.length > 0} onOpenChange={setSuggestionsOpen}>
                         <PopoverTrigger asChild>
                              <div className="space-y-2">
                                 <Label htmlFor="new-name">Nome do Produto</Label>
@@ -398,33 +392,26 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
                                     id="new-name"
                                     value={name} 
                                     onChange={handleNameChange}
-                                    onBlur={() => setTimeout(() => setSuggestionsOpen(false), 150)}
                                     className="bg-card" 
                                     autoComplete="off"
                                 />
                             </div>
                         </PopoverTrigger>
                         <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start">
-                            {suggestions.length > 0 ? (
-                                <ScrollArea className="h-auto max-h-64">
-                                    <div className="p-2 space-y-1">
-                                    {suggestions.map(p => (
-                                        <Button
-                                            key={p.id}
-                                            variant="ghost"
-                                            className="w-full justify-start h-auto"
-                                            onClick={() => handleSuggestionClick(p)}
-                                        >
-                                            {p.name}
-                                        </Button>
-                                    ))}
-                                    </div>
-                                </ScrollArea>
-                            ) : (
-                                <div className="p-4 text-sm text-center text-muted-foreground">
-                                    Nenhum produto encontrado.
+                            <ScrollArea className="h-auto max-h-64">
+                                <div className="p-2 space-y-1">
+                                {suggestions.map(p => (
+                                    <Button
+                                        key={p.id}
+                                        variant="ghost"
+                                        className="w-full justify-start h-auto"
+                                        onClick={() => handleSuggestionClick(p)}
+                                    >
+                                        {p.name}
+                                    </Button>
+                                ))}
                                 </div>
-                            )}
+                            </ScrollArea>
                         </PopoverContent>
                     </Popover>
                     
