@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import { Suspense, useState, useMemo, useTransition, useRef, useEffect } from 'react';
@@ -246,6 +245,7 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
     const [image, setImage] = useState('https://placehold.co/600x400.png');
     const [dataAiHint, setDataAiHint] = useState('');
     const [isSuggestionsOpen, setSuggestionsOpen] = useState(false);
+    const suggestionsRef = useRef<HTMLDivElement>(null);
     
     const allProductsCatalog = useMemo(() => {
         return getProducts({ includePaused: true });
@@ -257,6 +257,17 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
             .filter(p => p.name.toLowerCase().startsWith(name.toLowerCase()))
             .sort((a, b) => a.name.localeCompare(b.name, 'pt-BR', { sensitivity: 'base' }));
     }, [name, allProductsCatalog]);
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (suggestionsRef.current && !suggestionsRef.current.contains(event.target as Node)) {
+                setSuggestionsOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
 
     const resetForm = () => {
         setName('');
@@ -377,36 +388,35 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
                     </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4 text-base">
-                     <Popover open={isSuggestionsOpen && suggestions.length > 0} onOpenChange={setSuggestionsOpen}>
-                        <PopoverTrigger asChild>
-                             <div className="space-y-2">
-                                <Label htmlFor="new-name">Nome do Produto</Label>
-                                <Input 
-                                    id="new-name"
-                                    value={name} 
-                                    onChange={handleNameChange}
-                                    className="bg-card" 
-                                    autoComplete="off"
-                                />
+                     <div className="space-y-2 relative">
+                        <Label htmlFor="new-name">Nome do Produto</Label>
+                        <Input 
+                            id="new-name"
+                            value={name} 
+                            onChange={handleNameChange}
+                            onFocus={() => setSuggestionsOpen(name.length > 0 && suggestions.length > 0)}
+                            className="bg-card" 
+                            autoComplete="off"
+                        />
+                        {isSuggestionsOpen && suggestions.length > 0 && (
+                            <div ref={suggestionsRef} className="absolute z-10 w-full bg-background border rounded-md shadow-lg mt-1">
+                                <ScrollArea className="h-auto max-h-64">
+                                    <div className="p-2 space-y-1">
+                                    {suggestions.map(p => (
+                                        <Button
+                                            key={p.id}
+                                            variant="ghost"
+                                            className="w-full justify-start h-auto"
+                                            onClick={() => handleSuggestionClick(p)}
+                                        >
+                                            {p.name}
+                                        </Button>
+                                    ))}
+                                    </div>
+                                </ScrollArea>
                             </div>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start">
-                            <ScrollArea className="h-auto max-h-64">
-                                <div className="p-2 space-y-1">
-                                {suggestions.map(p => (
-                                    <Button
-                                        key={p.id}
-                                        variant="ghost"
-                                        className="w-full justify-start h-auto"
-                                        onClick={() => handleSuggestionClick(p)}
-                                    >
-                                        {p.name}
-                                    </Button>
-                                ))}
-                                </div>
-                            </ScrollArea>
-                        </PopoverContent>
-                    </Popover>
+                        )}
+                    </div>
                     
                      <div className="space-y-2">
                         <Label htmlFor="new-category">Categoria</Label>
@@ -1260,3 +1270,5 @@ export default function DashboardPage() {
         </Suspense>
     );
 }
+
+    
