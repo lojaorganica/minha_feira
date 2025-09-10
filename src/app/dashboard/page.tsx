@@ -4,7 +4,7 @@
 
 import { Suspense, useState, useMemo, useTransition, useRef, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { getOrders, getProducts, toggleProductPromotion, updateProduct, deleteProduct, toggleProductStatus, getFarmerById, updateProductStock, addProduct } from "@/lib/data";
+import { getOrders, getProducts, toggleProductPromotion, updateProduct, deleteProduct, toggleProductStatus, getFarmerById, updateProductStock, addProduct, getProductByName } from "@/lib/data";
 import type { Order, Product, CustomerAddress, ProductCategory } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -247,6 +247,7 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
     const [dataAiHint, setDataAiHint] = useState('');
     
     const [isSuggestionsOpen, setSuggestionsOpen] = useState(false);
+    const containerRef = useRef<HTMLDivElement>(null);
     
     const allProductsCatalog = useMemo(() => {
         return getProducts({ includePaused: true });
@@ -386,6 +387,19 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
         }, 500);
     };
 
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+                setSuggestionsOpen(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
     return (
         <Dialog open={isOpen} onOpenChange={(open) => {
             setIsOpen(open);
@@ -415,11 +429,7 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
                     )}
                      <div 
                         className="space-y-2 relative" 
-                        onBlur={(e) => {
-                            if (!e.currentTarget.contains(e.relatedTarget)) {
-                                setSuggestionsOpen(false);
-                            }
-                        }}
+                        ref={containerRef}
                      >
                         <Label htmlFor="new-name">Nome do Produto</Label>
                         <Input 
@@ -1211,7 +1221,7 @@ function DashboardContent() {
         
         const relevantOrders = allOrders.filter(order =>
              order.items.some(item => {
-                const product = getProducts({ includePaused: true }).find(p => p.name === item.productName);
+                const product = getProductByName(item.productName);
                 return product ? product.farmerId === farmerId : false;
              })
         );
