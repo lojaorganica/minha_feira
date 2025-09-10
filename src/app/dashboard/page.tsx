@@ -247,7 +247,6 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
     const [dataAiHint, setDataAiHint] = useState('');
     
     const [isSuggestionsOpen, setSuggestionsOpen] = useState(false);
-    const containerRef = useRef<HTMLDivElement>(null);
     
     const allProductsCatalog = useMemo(() => {
         return getProducts({ includePaused: true });
@@ -294,12 +293,6 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
         const newName = e.target.value;
         setName(newName);
         setSuggestionsOpen(newName.length > 0);
-    };
-    
-    const handleContainerBlur = (e: React.FocusEvent<HTMLDivElement>) => {
-        if (!e.currentTarget.contains(e.relatedTarget as Node)) {
-            setSuggestionsOpen(false);
-        }
     };
 
     const handleSuggestionClick = (product: Product) => {
@@ -422,8 +415,11 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
                     )}
                      <div 
                         className="space-y-2 relative" 
-                        ref={containerRef} 
-                        onBlur={handleContainerBlur}
+                        onBlur={(e) => {
+                            if (!e.currentTarget.contains(e.relatedTarget)) {
+                                setSuggestionsOpen(false);
+                            }
+                        }}
                      >
                         <Label htmlFor="new-name">Nome do Produto</Label>
                         <Input 
@@ -436,14 +432,17 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
                         />
                          {isSuggestionsOpen && suggestions.length > 0 && (
                             <div className="absolute z-50 w-full bg-background border rounded-md shadow-lg mt-1 max-h-96 overflow-y-auto">
-                                <ScrollArea className="max-h-96">
+                                <ScrollArea className="max-h-60">
                                     <div className="p-2 space-y-1">
                                         {suggestions.map(p => (
                                             <Button
                                                 key={p.id}
                                                 variant="ghost"
                                                 className="w-full justify-start h-auto"
-                                                onClick={() => handleSuggestionClick(p)}
+                                                onMouseDown={(e) => {
+                                                    e.preventDefault();
+                                                    handleSuggestionClick(p);
+                                                }}
                                             >
                                                 {p.name}
                                             </Button>
