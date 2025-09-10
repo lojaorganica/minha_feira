@@ -17,7 +17,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
-import { Popover, PopoverContent, PopoverTrigger, PopoverAnchor } from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
@@ -394,7 +394,7 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
                 <div className="grid gap-4 py-4 text-base">
                     <Popover open={isSuggestionsOpen} onOpenChange={setSuggestionsOpen}>
                         <PopoverTrigger asChild>
-                            <div className="space-y-2">
+                             <div className="space-y-2">
                                 <Label htmlFor="new-name">Nome do Produto</Label>
                                 <Input 
                                     id="new-name"
