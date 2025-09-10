@@ -248,8 +248,6 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
     const [dataAiHint, setDataAiHint] = useState('');
     
     const [isSuggestionsOpen, setSuggestionsOpen] = useState(false);
-    const suggestionsRef = useRef<HTMLDivElement>(null);
-    const inputRef = useRef<HTMLInputElement>(null);
     
     const allProductsCatalog = useMemo(() => {
         return getProducts({ includePaused: true });
@@ -274,22 +272,6 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
         }).sort((a, b) => a.name.localeCompare(b.name, 'pt-BR', { sensitivity: 'base' }));
 
     }, [name, allProductsCatalog]);
-
-     useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (
-                suggestionsRef.current && 
-                !suggestionsRef.current.contains(event.target as Node) &&
-                inputRef.current &&
-                !inputRef.current.contains(event.target as Node)
-            ) {
-                setSuggestionsOpen(false);
-            }
-        };
-
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, []);
 
     const resetForm = () => {
         setName('');
@@ -322,7 +304,7 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
         const rawValue = e.target.value.replace(/\D/g, ''); 
         if (!rawValue) {
             setFormattedPrice('');
-            setPrice(undefined);
+            setPrice(0);
             return;
         }
 
@@ -344,6 +326,17 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
     };
 
     const handleSubmit = () => {
+        const productExists = farmerProducts.some(p => p.name.trim().toLowerCase() === name.trim().toLowerCase());
+
+        if (productExists) {
+            toast({
+                variant: 'destructive',
+                title: 'Produto Duplicado',
+                description: 'Este produto já existe no seu catálogo e não pode ser adicionado novamente.',
+            });
+            return;
+        }
+
         if (!name || price === undefined || !unit) {
             toast({
                 variant: 'destructive',
@@ -357,17 +350,6 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
                 variant: "destructive",
                 title: "Preço Inválido",
                 description: "O preço do produto não pode ser negativo.",
-            });
-            return;
-        }
-
-        const productExists = farmerProducts.some(p => p.name.trim().toLowerCase() === name.trim().toLowerCase());
-
-        if (productExists) {
-            toast({
-                variant: 'destructive',
-                title: 'Produto Duplicado',
-                description: 'Este produto já existe no seu catálogo e não pode ser adicionado novamente.',
             });
             return;
         }
@@ -429,17 +411,14 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
                      <div className="space-y-2 relative">
                         <Label htmlFor="new-name">Nome do Produto</Label>
                         <Input 
-                            ref={inputRef}
                             id="new-name"
                             value={name} 
                             onChange={handleNameChange}
-                            onFocus={() => setSuggestionsOpen(name.length > 0 && suggestions.length > 0)}
                             className="bg-card" 
                             autoComplete="off"
                         />
                         {isSuggestionsOpen && suggestions.length > 0 && (
                              <div
-                                ref={suggestionsRef}
                                 className="absolute z-50 w-full bg-background border rounded-md shadow-lg mt-1 max-h-96"
                             >
                                 <ScrollArea className="max-h-96">
