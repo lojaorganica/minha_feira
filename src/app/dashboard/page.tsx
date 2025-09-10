@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { Suspense, useState, useMemo, useTransition, useRef, useEffect } from 'react';
@@ -255,8 +256,9 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
         if (name.length < 1) return [];
         const lowerCaseName = name.toLowerCase();
         
-        const filtered = allProductsCatalog
-            .filter(p => p.name.toLowerCase().includes(lowerCaseName));
+        const filtered = allProductsCatalog.filter(p => 
+            p.name.toLowerCase().includes(lowerCaseName)
+        );
 
         const uniqueNames = new Set();
         return filtered.filter(p => {
@@ -417,19 +419,21 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
                             onFocus={() => setSuggestionsOpen(name.length > 0 && suggestions.length > 0)}
                         />
                         {isSuggestionsOpen && (
-                            <div className="absolute z-50 w-full bg-background border rounded-md shadow-lg mt-1 max-h-96">
-                                <div className="p-2 space-y-1">
-                                {suggestions.map(p => (
-                                    <Button
-                                        key={p.id}
-                                        variant="ghost"
-                                        className="w-full justify-start h-auto"
-                                        onClick={() => handleSuggestionClick(p)}
-                                    >
-                                        {p.name}
-                                    </Button>
-                                ))}
-                                </div>
+                            <div className="absolute z-50 w-full bg-background border rounded-md shadow-lg mt-1 max-h-96 overflow-y-auto">
+                                <ScrollArea className="h-auto">
+                                    <div className="p-2 space-y-1">
+                                    {suggestions.map(p => (
+                                        <Button
+                                            key={p.id}
+                                            variant="ghost"
+                                            className="w-full justify-start h-auto"
+                                            onClick={() => handleSuggestionClick(p)}
+                                        >
+                                            {p.name}
+                                        </Button>
+                                    ))}
+                                    </div>
+                                </ScrollArea>
                             </div>
                         )}
                     </div>
@@ -1175,6 +1179,11 @@ function DashboardContent() {
     const [isHistoryDialogOpen, setHistoryDialogOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const debouncedSearchTerm = useDebounce(searchTerm, 300);
+    
+    const handleProductUpdate = () => {
+        setAllProducts(getProducts({ includePaused: true }));
+        setSearchTerm('');
+    };
 
     const { pendingOrders, historyOrders, farmerProducts } = useMemo(() => {
         const farmerId = user?.id;
@@ -1208,12 +1217,6 @@ function DashboardContent() {
             product.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
         );
     }, [farmerProducts, debouncedSearchTerm]);
-
-
-    const handleProductUpdate = () => {
-        setAllProducts(getProducts({ includePaused: true }));
-        setSearchTerm('');
-    };
 
     const handleTabChange = (newTab: string) => {
         router.push(`/dashboard?tab=${newTab}`, { scroll: false });
@@ -1291,4 +1294,5 @@ export default function DashboardPage() {
     
 
     
+
 

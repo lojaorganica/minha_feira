@@ -7,6 +7,7 @@
 
 
 
+
 import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerOrder, CustomerClassification, CustomerAddress, ProductCategory } from './types';
 
 let products: Product[] = [
@@ -2112,9 +2113,6 @@ export function getProducts(options: { includePaused?: boolean } = {}): Product[
       return product;
   });
 
-  // Ordena os produtos alfabeticamente pelo nome
-  allProducts.sort((a, b) => a.name.localeCompare(b.name, 'pt-BR', { sensitivity: 'base' }));
-
   if (includePaused) {
     return allProducts;
   }
@@ -2408,6 +2406,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
 
     
+
 
 
 
