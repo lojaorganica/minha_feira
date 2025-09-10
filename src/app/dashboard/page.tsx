@@ -442,7 +442,7 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
                         />
                          {isSuggestionsOpen && suggestions.length > 0 && (
                             <div className="absolute z-50 w-full bg-background border rounded-md shadow-lg mt-1">
-                                <ScrollArea className="max-h-60">
+                                <ScrollArea className="max-h-96">
                                     <div className="p-2 space-y-1">
                                         {suggestions.map(p => (
                                             <Button
