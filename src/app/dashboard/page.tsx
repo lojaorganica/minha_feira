@@ -271,7 +271,9 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
             }
         });
         
-        // A ordenação já é garantida pela fonte de dados (getProducts)
+        // Ordena os resultados alfabeticamente
+        uniqueSuggestions.sort((a, b) => a.name.localeCompare(b.name, 'pt-BR', { sensitivity: 'base' }));
+
         return uniqueSuggestions;
 
     }, [name, allProductsCatalog]);
