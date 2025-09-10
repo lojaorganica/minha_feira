@@ -220,37 +220,35 @@ const allItemUrls: string[] = [
 
 function getFairCategories(fileName: string): GalleryFair[] {
     const fairs: GalleryFair[] = [];
-    if (fileName.includes('todas_feiras')) fairs.push('Todas');
-    if (fileName.includes('feiras_flamengo_laranjeiras')) fairs.push('Flamengo e Laranjeiras');
-    if (fileName.includes('feira_grajau')) fairs.push('Grajaú');
-    if (fileName.includes('feira_tijuca')) fairs.push('Tijuca');
-    if (fileName.includes('feira_botafogo')) fairs.push('Botafogo');
-    if (fileName.includes('feira_leme')) fairs.push('Leme');
-    
-    // Se nenhuma feira específica for encontrada, assume-se que é para todas.
-    if (fairs.length === 0) fairs.push('Todas');
+    const fairsMap: Record<string, GalleryFair> = {
+        'todas_feiras': 'Todas',
+        'feiras_flamengo_laranjeiras': 'Flamengo e Laranjeiras',
+        'feira_grajau': 'Grajaú',
+        'feira_tijuca': 'Tijuca',
+        'feira_botafogo': 'Botafogo',
+        'feira_leme': 'Leme',
+    };
+    for (const key in fairsMap) {
+        if (fileName.includes(key)) {
+            fairs.push(fairsMap[key]);
+        }
+    }
     return fairs;
 }
 
 function getThemeCategories(fileName: string): GalleryTheme[] {
     const themes: GalleryTheme[] = [];
-    
-    if (fileName.startsWith('fot_')) themes.push('Fotografias');
-    if (fileName.startsWith('aagr_')) themes.push('Agricultores - Animações e Cartoon');
-    if (fileName.startsWith('aali_')) themes.push('Alimentos - Animações e Cartoon');
-    if (fileName.startsWith('ap_')) themes.push('Personagens - Animações e Cartoon');
-    
-    // As palavras-chave 'story' e 'especial' podem coexistir com os temas acima
-    if (fileName.includes('story')) themes.push('Story');
-    if (fileName.includes('especial')) themes.push('Dias Especiais');
-
-    // Se após todas as verificações, nenhum tema foi atribuído, aplicamos uma regra padrão.
-    // Isso evita que um item fique sem tema.
-    if (themes.length === 0) {
-        if (fileName.endsWith('.mp4')) {
-            themes.push('Personagens - Animações e Cartoon');
-        } else {
-             themes.push('Fotografias');
+    const themesMap: Record<string, GalleryTheme> = {
+        'fot_': 'Fotografias',
+        'aagr_': 'Agricultores - Animações e Cartoon',
+        'aali_': 'Alimentos - Animações e Cartoon',
+        'ap_': 'Personagens - Animações e Cartoon',
+        'story': 'Story',
+        'especial': 'Dias Especiais'
+    };
+    for (const key in themesMap) {
+        if (fileName.includes(key)) {
+            themes.push(themesMap[key]);
         }
     }
     return themes;
@@ -273,10 +271,10 @@ function extractFileNameFromUrl(url: string): string {
     }
 }
 
-export function getExtraGalleryItems(): GalleryItem[] {
+export function getNewGalleryItems(): GalleryItem[] {
   return allItemUrls.map((url, index) => {
     const fileName = extractFileNameFromUrl(url);
-    const id = `extra-item-${index}-${fileName.split('.')[0]}`;
+    const id = `new-item-${index}-${fileName.split('.')[0]}`;
     
     let title = fileName
       .replace(/_/g, ' ')
