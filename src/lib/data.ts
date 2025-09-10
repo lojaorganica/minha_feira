@@ -1,18 +1,52 @@
 
-
-
-
-
-
-
-
-
-
-
 import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerOrder, CustomerClassification, CustomerAddress, ProductCategory } from './types';
 
-let products: Product[] = [
-  {
+// ============================================================================
+// IN-MEMORY DATA STORE WITH LOCALSTORAGE PERSISTENCE
+// ============================================================================
+
+// Helper function to get data from localStorage or use a default value
+function getStoredData<T>(key: string, defaultValue: T[]): T[] {
+  if (typeof window === 'undefined') {
+    return defaultValue;
+  }
+  try {
+    const storedValue = localStorage.getItem(key);
+    if (storedValue) {
+      return JSON.parse(storedValue);
+    }
+  } catch (error) {
+    console.error(`Error reading ${key} from localStorage`, error);
+  }
+  // If nothing is stored, initialize localStorage with the default value
+  try {
+    localStorage.setItem(key, JSON.stringify(defaultValue));
+  } catch (error) {
+    console.error(`Error writing default ${key} to localStorage`, error);
+  }
+  return defaultValue;
+}
+
+// Helper function to save data to localStorage
+function setStoredData<T>(key: string, value: T[]): void {
+  if (typeof window === 'undefined') {
+    return;
+  }
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch (error) {
+    console.error(`Error writing ${key} to localStorage`, error);
+  }
+}
+
+const PRODUCTS_KEY = 'minha_feira_products';
+const FARMERS_KEY = 'minha_feira_farmers';
+const ORDERS_KEY = 'minha_feira_orders';
+const CUSTOMERS_KEY = 'minha_feira_customers';
+
+// Initial default data
+const defaultProducts: Product[] = [
+   {
     id: '1',
     name: 'Cenouras Orgânicas',
     category: 'Raiz e Tubérculo',
@@ -474,18 +508,6 @@ let products: Product[] = [
     description: 'Abobrinha italiana orgânica, versátil para refogados, assados e pratos leves.',
     status: 'active',
     stock: 30,
-  },
-  {
-    id: '38',
-    name: 'Amora Orgânica',
-    category: 'Fruta',
-    price: 9.50,
-    unit: 'caixa',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/amora.webp?alt=media&token=75996ac4-1ab9-41b4-9ebd-cff5a876e295',
-    dataAiHint: 'blackberry',
-    farmerId: '2',
-    description: 'Amoras orgânicas, ricas em antioxidantes e sabor agridoce.',
-    status: 'active',
   },
   {
     id: '39',
@@ -1644,8 +1666,7 @@ let products: Product[] = [
     stock: 15,
   }
 ];
-
-let farmers: Farmer[] = [
+const defaultFarmers: Farmer[] = [
   {
     id: '1',
     responsibleName: 'Matias Ponte',
@@ -1773,8 +1794,7 @@ let farmers: Farmer[] = [
     image: 'https://placehold.co/100x100.png'
   }
 ];
-
-let orders: Order[] = [
+const defaultOrders: Order[] = [
     {
         id: 'ORD-001',
         customerName: 'Alice Johnson',
@@ -1834,8 +1854,7 @@ let orders: Order[] = [
         },
     }
 ];
-
-let customers: Customer[] = [
+const defaultCustomers: Customer[] = [
     {
         id: 'cust-001',
         name: 'Cliente Exemplo',
@@ -1922,7 +1941,11 @@ let customers: Customer[] = [
     }
 ];
 
-// Mapa de imagens padrão para produtos básicos
+let products: Product[] = getStoredData(PRODUCTS_KEY, defaultProducts);
+let farmers: Farmer[] = getStoredData(FARMERS_KEY, defaultFarmers);
+let orders: Order[] = getStoredData(ORDERS_KEY, defaultOrders);
+let customers: Customer[] = getStoredData(CUSTOMERS_KEY, defaultCustomers);
+
 const defaultProductImages = new Map<string, string>([
     ['couve flor', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_flor.webp?alt=media&token=5e32779d-a643-4845-9b4b-6f3b6474b444'],
     ['couve mineira', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_mineira.webp?alt=media&token=fb0702ac-1c9a-4414-9857-bd0908d68348'],
@@ -2065,34 +2088,28 @@ const defaultProductImages = new Map<string, string>([
     ['pimentão snackpim', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pimentao_amarelo.webp?alt=media&token=c4a9a8f2-8e0c-4e8a-8a6a-0c5d5e5f4d4d'],
 ]);
 
-
 export function getProducts(options: { includePaused?: boolean } = {}): Product[] {
+  let currentProducts = getStoredData(PRODUCTS_KEY, defaultProducts);
   const { includePaused = false } = options;
-  let allProducts = products.map(p => {
+
+  currentProducts = currentProducts.map(p => {
     // Simula a expiração da promoção
-    if (p.promotion && p.promotion.isActive && new Date() > p.promotion.expiresAt) {
+    if (p.promotion && p.promotion.isActive && new Date(p.promotion.expiresAt) < new Date()) {
       return { ...p, promotion: { ...p.promotion, isActive: false } };
     }
     return p;
   });
-
+  
   // Aplica imagens padrão com lógica aprimorada
-  allProducts = allProducts.map(product => {
-      // Não sobrescreve a imagem de produtos que já possuem uma URL específica e válida (não placeholder)
+  currentProducts = currentProducts.map(product => {
       if (product.image && !product.image.startsWith('https://placehold.co')) {
           return product;
       }
       
-      // Normaliza o nome do produto para busca: minúsculas, sem acentos, sem hífen
-      const normalizedProductName = product.name
-          .toLowerCase()
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]|-/g, "");
-
+      const normalizedProductName = product.name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]|-/g, "");
       let bestMatch = '';
       let bestMatchImageUrl = '';
 
-      // Itera sobre as palavras-chave do mapa para encontrar a correspondência mais longa
       for (const [keyword, imageUrl] of defaultProductImages.entries()) {
           const normalizedKeyword = keyword.normalize("NFD").replace(/[\u0300-\u036f]|-/g, "");
           if (normalizedProductName.includes(normalizedKeyword) && normalizedKeyword.length > bestMatch.length) {
@@ -2101,95 +2118,103 @@ export function getProducts(options: { includePaused?: boolean } = {}): Product[
           }
       }
 
-      // Se uma correspondência foi encontrada, atualiza a imagem do produto
       if (bestMatchImageUrl) {
           return { ...product, image: bestMatchImageUrl };
       }
       
-      // Se nenhuma palavra-chave corresponder, garante que haja uma imagem de placeholder válida
       if (!product.image || !product.image.startsWith('http')) {
         return { ...product, image: 'https://placehold.co/600x400.png' };
       }
 
       return product;
   });
+  
+  setStoredData(PRODUCTS_KEY, currentProducts);
 
-  // Ordena os produtos alfabeticamente pelo nome
-  allProducts.sort((a, b) => a.name.localeCompare(b.name, 'pt-BR', { sensitivity: 'base' }));
+  const sortedProducts = [...currentProducts].sort((a, b) => a.name.localeCompare(b.name, 'pt-BR', { sensitivity: 'base' }));
 
   if (includePaused) {
-    return allProducts;
+    return sortedProducts;
   }
   
-  return allProducts.filter(p => p.status === 'active');
+  return sortedProducts.filter(p => p.status === 'active');
 }
 
 export function getProductById(id: string): Product | undefined {
-  // Busca em todos os produtos, incluindo os pausados, para garantir que um pedido antigo possa encontrar seu produto.
   return getProducts({ includePaused: true }).find((p) => p.name === id || p.id === id);
 }
 
 export function addProduct(newProductData: Omit<Product, 'id' | 'status'>): Product {
     const newId = `prod-${Date.now()}-${Math.random().toString(16).slice(2)}`;
-    
     const newProduct: Product = {
         ...newProductData,
         id: newId,
         status: 'active',
     };
-
-    products.push(newProduct);
+    const currentProducts = getProducts({ includePaused: true });
+    currentProducts.push(newProduct);
+    setStoredData(PRODUCTS_KEY, currentProducts);
     return newProduct;
 }
 
 export function deleteProduct(productId: string): boolean {
-    const initialLength = products.length;
-    products = products.filter(p => p.id !== productId);
-    return products.length < initialLength;
+    let currentProducts = getProducts({ includePaused: true });
+    const initialLength = currentProducts.length;
+    currentProducts = currentProducts.filter(p => p.id !== productId);
+    setStoredData(PRODUCTS_KEY, currentProducts);
+    return currentProducts.length < initialLength;
 }
 
 export function updateProduct(productId: string, updatedData: Partial<Omit<Product, 'unitAmount'>>): Product | undefined {
-    const productIndex = products.findIndex(p => p.id === productId);
+    let currentProducts = getProducts({ includePaused: true });
+    const productIndex = currentProducts.findIndex(p => p.id === productId);
     if (productIndex !== -1) {
-        products[productIndex] = { ...products[productIndex], ...updatedData };
-        return products[productIndex];
+        currentProducts[productIndex] = { ...currentProducts[productIndex], ...updatedData };
+        setStoredData(PRODUCTS_KEY, currentProducts);
+        return currentProducts[productIndex];
     }
     return undefined;
 }
 
 export function updateProductStock(productId: string, newStock: number): Product | undefined {
-    const productIndex = products.findIndex(p => p.id === productId);
+    let currentProducts = getProducts({ includePaused: true });
+    const productIndex = currentProducts.findIndex(p => p.id === productId);
     if (productIndex !== -1) {
-        products[productIndex].stock = newStock;
-        return products[productIndex];
+        currentProducts[productIndex].stock = newStock;
+        setStoredData(PRODUCTS_KEY, currentProducts);
+        return currentProducts[productIndex];
     }
     return undefined;
 }
 
 export function toggleProductStatus(productId: string, status: 'active' | 'paused'): Product | undefined {
-    const productIndex = products.findIndex(p => p.id === productId);
+    let currentProducts = getProducts({ includePaused: true });
+    const productIndex = currentProducts.findIndex(p => p.id === productId);
     if (productIndex !== -1) {
-        products[productIndex].status = status;
-        return products[productIndex];
+        currentProducts[productIndex].status = status;
+        setStoredData(PRODUCTS_KEY, currentProducts);
+        return currentProducts[productIndex];
     }
     return undefined;
 }
 
 export function toggleProductPromotion(productId: string, promote: boolean): Product | undefined {
-    const productIndex = products.findIndex(p => p.id === productId);
+    let currentProducts = getProducts({ includePaused: true });
+    const productIndex = currentProducts.findIndex(p => p.id === productId);
     if (productIndex === -1) return undefined;
 
     if (promote) {
-        products[productIndex].promotion = {
+        currentProducts[productIndex].promotion = {
             isActive: true,
-            expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 dias a partir de agora
+            expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) 
         };
     } else {
-        if (products[productIndex].promotion) {
-            products[productIndex].promotion!.isActive = false;
+        if (currentProducts[productIndex].promotion) {
+            currentProducts[productIndex].promotion!.isActive = false;
         }
     }
-    return products[productIndex];
+    setStoredData(PRODUCTS_KEY, currentProducts);
+    return currentProducts[productIndex];
 }
 
 export function getPromotionalProducts(): (Product & { farmerName: string, responsibleName?: string })[] {
@@ -2204,55 +2229,58 @@ export function getPromotionalProducts(): (Product & { farmerName: string, respo
     });
 }
 
-
 export function getFarmers(): Farmer[] {
-  return farmers;
+  return getStoredData(FARMERS_KEY, defaultFarmers);
 }
 
 export function getFarmerById(id: string): Farmer | undefined {
-  return farmers.find((f) => f.id === id);
+  return getFarmers().find((f) => f.id === id);
 }
 
 export function updateFarmer(farmerId: string, updatedData: Partial<Farmer>): Farmer | undefined {
-    const farmerIndex = farmers.findIndex(f => f.id === farmerId);
+    let currentFarmers = getFarmers();
+    const farmerIndex = currentFarmers.findIndex(f => f.id === farmerId);
     if (farmerIndex !== -1) {
-        const newAddress = { ...farmers[farmerIndex].address, ...updatedData.address };
-        farmers[farmerIndex] = { ...farmers[farmerIndex], ...updatedData, address: newAddress };
-        return farmers[farmerIndex];
+        const newAddress = { ...currentFarmers[farmerIndex].address, ...updatedData.address };
+        currentFarmers[farmerIndex] = { ...currentFarmers[farmerIndex], ...updatedData, address: newAddress };
+        setStoredData(FARMERS_KEY, currentFarmers);
+        return currentFarmers[farmerIndex];
     }
     return undefined;
 }
 
 export function updateCustomer(customerId: string, updatedData: Partial<Customer>): Customer | undefined {
-    const customerIndex = customers.findIndex(c => c.id === customerId);
+    let currentCustomers = getCustomers();
+    const customerIndex = currentCustomers.findIndex(c => c.id === customerId);
     if (customerIndex !== -1) {
-        const newAddress = { ...customers[customerIndex].address, ...updatedData.address };
-        customers[customerIndex] = { ...customers[customerIndex], ...updatedData, address: newAddress };
-        return customers[customerIndex];
+        const newAddress = { ...currentCustomers[customerIndex].address, ...updatedData.address };
+        currentCustomers[customerIndex] = { ...currentCustomers[customerIndex], ...updatedData, address: newAddress };
+        setStoredData(CUSTOMERS_KEY, currentCustomers);
+        return currentCustomers[customerIndex];
     }
     return undefined;
 }
 
 export function addFarmer(farmerData: Omit<Farmer, 'id' | 'location' | 'image'>): Farmer {
-    const newId = `farmer-${farmers.length + 1 + Date.now()}`;
+    let currentFarmers = getFarmers();
+    const newId = `farmer-${currentFarmers.length + 1 + Date.now()}`;
     const newFarmer: Farmer = {
         id: newId,
-        // Usando uma localização aleatória perto do Rio de Janeiro para simulação
         location: { lat: -22.9068 + (Math.random() - 0.5) * 0.5, lng: -43.1729 + (Math.random() - 0.5) * 0.5 },
         image: 'https://placehold.co/100x100.png',
         ...farmerData,
     };
-    farmers.push(newFarmer);
-    console.log("Novo agricultor adicionado:", newFarmer);
-    console.log("Lista de agricultores atualizada:", farmers);
+    currentFarmers.push(newFarmer);
+    setStoredData(FARMERS_KEY, currentFarmers);
     return newFarmer;
 }
 
 export function getFarmersWithProducts(farmerIds?: string[]): FarmerWithProducts[] {
   const result: FarmerWithProducts[] = [];
   const currentProducts = getProducts();
+  const allFarmers = getFarmers();
 
-  const targetFarmers = farmerIds ? farmers.filter(f => farmerIds.includes(f.id)) : farmers;
+  const targetFarmers = farmerIds ? allFarmers.filter(f => farmerIds.includes(f.id)) : allFarmers;
 
   targetFarmers.forEach(farmer => {
     const farmerProducts = currentProducts.filter(product => product.farmerId === farmer.id);
@@ -2264,21 +2292,21 @@ export function getFarmersWithProducts(farmerIds?: string[]): FarmerWithProducts
   return result;
 }
 
-
 export function getOrders(): Order[] {
-    return orders;
+    return getStoredData(ORDERS_KEY, defaultOrders);
 }
 
 export function getCustomers(): Customer[] {
-    const customerIdsFromOrders = new Set(orders.map(o => o.customerName));
+    const currentCustomers = getStoredData(CUSTOMERS_KEY, defaultCustomers);
+    const currentOrders = getOrders();
+    const customerIdsFromOrders = new Set(currentOrders.map(o => o.customerName));
     
-    // Simula a criação de um 'id' para clientes que só existem em pedidos
     const customersFromOrders: Customer[] = Array.from(customerIdsFromOrders)
       .map(name => {
-          const existingCustomer = customers.find(c => c.name === name);
-          if (existingCustomer) return null; // Já existe na lista principal
+          const existingCustomer = currentCustomers.find(c => c.name === name);
+          if (existingCustomer) return null;
 
-          const order = orders.find(o => o.customerName === name);
+          const order = currentOrders.find(o => o.customerName === name);
           if (!order || !order.customerContact) return null;
           
           const addressString = typeof order.customerContact.address === 'string' 
@@ -2296,8 +2324,7 @@ export function getCustomers(): Customer[] {
           };
       }).filter((c): c is Customer => Boolean(c));
       
-    // Une a lista principal com os clientes derivados dos pedidos, sem duplicatas
-    const allKnownCustomers = [...customers];
+    const allKnownCustomers = [...currentCustomers];
     customersFromOrders.forEach(c => {
       if (!allKnownCustomers.some(ac => ac.id === c.id)) {
         allKnownCustomers.push(c);
@@ -2312,118 +2339,21 @@ export function getCustomerById(id: string): Customer | undefined {
 }
 
 export function updateCustomerClassification(customerId: string, classification: CustomerClassification): Customer | undefined {
-    const customerIndex = customers.findIndex(c => c.id === customerId);
+    let currentCustomers = getStoredData(CUSTOMERS_KEY, defaultCustomers);
+    const customerIndex = currentCustomers.findIndex(c => c.id === customerId);
     if (customerIndex !== -1) {
-        customers[customerIndex].classification = classification;
-        return customers[customerIndex];
+        currentCustomers[customerIndex].classification = classification;
+        setStoredData(CUSTOMERS_KEY, currentCustomers);
+        return currentCustomers[customerIndex];
     }
-    // Se o cliente não estava na lista original (veio dos pedidos), adiciona-o
+    
     const orderCustomer = getCustomerById(customerId);
     if (orderCustomer) {
         const newCustomer = { ...orderCustomer, classification };
-        customers.push(newCustomer);
+        currentCustomers.push(newCustomer);
+        setStoredData(CUSTOMERS_KEY, currentCustomers);
         return newCustomer;
     }
 
     return undefined;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
