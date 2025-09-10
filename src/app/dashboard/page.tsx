@@ -441,7 +441,7 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
                             onFocus={() => setSuggestionsOpen(name.length > 0)}
                         />
                          {isSuggestionsOpen && suggestions.length > 0 && (
-                            <div className="absolute z-50 w-full bg-background border rounded-md shadow-lg mt-1 max-h-96 overflow-y-auto">
+                            <div className="absolute z-50 w-full bg-background border rounded-md shadow-lg mt-1">
                                 <ScrollArea className="max-h-60">
                                     <div className="p-2 space-y-1">
                                         {suggestions.map(p => (
