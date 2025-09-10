@@ -17,7 +17,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
-import { Popover, PopoverContent, PopoverTrigger, PopoverAnchor } from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
@@ -245,15 +245,12 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
     const [category, setCategory] = useState<ProductCategory>('Verdura');
     const [image, setImage] = useState('https://placehold.co/600x400.png');
     const [dataAiHint, setDataAiHint] = useState('');
-
-    // Estados para o autocompletar
     const [isSuggestionsOpen, setSuggestionsOpen] = useState(false);
-
+    
     const allProductsCatalog = useMemo(() => {
-        // Busca em todos os produtos, incluindo pausados, para ter uma base de dados completa
         return getProducts({ includePaused: true });
     }, []);
-    
+
     const suggestions = useMemo(() => {
         if (name.length < 1) return [];
         return allProductsCatalog
@@ -276,11 +273,7 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newName = e.target.value;
         setName(newName);
-        if (newName.length > 0) {
-            setSuggestionsOpen(true);
-        } else {
-            setSuggestionsOpen(false);
-        }
+        setSuggestionsOpen(newName.length > 0 && suggestions.length > 0);
     };
 
     const handleSuggestionClick = (product: Product) => {
@@ -344,8 +337,8 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
             stock: stock === '' ? undefined : Number(stock),
             category,
             farmerId,
-            image, // Salva a imagem preenchida
-            dataAiHint, // Salva a dica de IA
+            image,
+            dataAiHint,
         };
 
         addProduct(newProductData);
@@ -385,19 +378,18 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
                 </DialogHeader>
                 <div className="grid gap-4 py-4 text-base">
                      <Popover open={isSuggestionsOpen && suggestions.length > 0} onOpenChange={setSuggestionsOpen}>
-                        <PopoverAnchor asChild>
+                        <PopoverTrigger asChild>
                              <div className="space-y-2">
                                 <Label htmlFor="new-name">Nome do Produto</Label>
                                 <Input 
                                     id="new-name"
                                     value={name} 
                                     onChange={handleNameChange}
-                                    onFocus={() => { if(name.length > 0) setSuggestionsOpen(true); }}
                                     className="bg-card" 
                                     autoComplete="off"
                                 />
                             </div>
-                        </PopoverAnchor>
+                        </PopoverTrigger>
                         <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start">
                             <ScrollArea className="h-auto max-h-64">
                                 <div className="p-2 space-y-1">
@@ -1268,5 +1260,3 @@ export default function DashboardPage() {
         </Suspense>
     );
 }
-
-    
