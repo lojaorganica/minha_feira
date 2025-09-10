@@ -270,9 +270,9 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
                 return true;
             }
         });
-
-        // Ordena as sugestões alfabeticamente
-        return uniqueSuggestions.sort((a, b) => a.name.localeCompare(b.name, 'pt-BR', { sensitivity: 'base' }));
+        
+        // A ordenação já é garantida pela fonte de dados (getProducts)
+        return uniqueSuggestions;
 
     }, [name, allProductsCatalog]);
 
@@ -291,7 +291,7 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newName = e.target.value;
         setName(newName);
-        setSuggestionsOpen(newName.length > 0 && suggestions.length > 0);
+        setSuggestionsOpen(newName.length > 0);
     };
 
     const handleSuggestionClick = (product: Product) => {
@@ -420,7 +420,7 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
                             onChange={handleNameChange}
                             className="bg-card" 
                             autoComplete="off"
-                            onFocus={() => setSuggestionsOpen(name.length > 0 && suggestions.length > 0)}
+                            onFocus={() => setSuggestionsOpen(name.length > 0)}
                             onBlur={() => setTimeout(() => setSuggestionsOpen(false), 150)}
                         />
                          {isSuggestionsOpen && suggestions.length > 0 && (
@@ -591,10 +591,8 @@ function ProductsTabContent({ products, farmerId, onProductUpdate }: { products:
     const [isPending, startTransition] = useTransition();
     const { toast } = useToast();
 
-    // Ordena os produtos alfabeticamente
-    const sortedProducts = useMemo(() => {
-        return [...products].sort((a, b) => a.name.localeCompare(b.name, 'pt-BR', { sensitivity: 'base' }));
-    }, [products]);
+    // A ordenação agora é garantida pela fonte de dados `getProducts`
+    const sortedProducts = products;
 
     const handlePromotionToggle = (productId: string, checked: boolean) => {
         startTransition(() => {

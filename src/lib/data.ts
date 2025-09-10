@@ -7,29 +7,35 @@ import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerOrde
 // ============================================================================
 
 // Helper function to get data from localStorage or use a default value
-function getStoredData<T>(key: string, defaultValue: T[]): T[] {
-  if (typeof window === 'undefined') {
-    return defaultValue;
-  }
-  try {
-    const storedValue = localStorage.getItem(key);
-    if (storedValue) {
-      return JSON.parse(storedValue);
+function getStoredData<T>(key: string, defaultValue: T[], sortFn?: (a: T, b: T) => number): T[] {
+  let data: T[] = defaultValue;
+  if (typeof window !== 'undefined') {
+    try {
+      const storedValue = localStorage.getItem(key);
+      if (storedValue) {
+        data = JSON.parse(storedValue);
+      } else {
+         // If nothing is stored, initialize localStorage with the default value
+        localStorage.setItem(key, JSON.stringify(defaultValue));
+      }
+    } catch (error) {
+      console.error(`Error reading ${key} from localStorage`, error);
+      data = defaultValue;
     }
-  } catch (error) {
-    console.error(`Error reading ${key} from localStorage`, error);
   }
-  // If nothing is stored, initialize localStorage with the default value
-  try {
-    localStorage.setItem(key, JSON.stringify(defaultValue));
-  } catch (error) {
-    console.error(`Error writing default ${key} to localStorage`, error);
+  
+  if (sortFn) {
+      data.sort(sortFn);
   }
-  return defaultValue;
+  return data;
 }
 
+
 // Helper function to save data to localStorage
-function setStoredData<T>(key: string, value: T[]): void {
+function setStoredData<T>(key: string, value: T[], sortFn?: (a: T, b: T) => number): void {
+   if (sortFn) {
+    value.sort(sortFn);
+  }
   if (typeof window === 'undefined') {
     return;
   }
@@ -44,6 +50,9 @@ const PRODUCTS_KEY = 'minha_feira_products';
 const FARMERS_KEY = 'minha_feira_farmers';
 const ORDERS_KEY = 'minha_feira_orders';
 const CUSTOMERS_KEY = 'minha_feira_customers';
+
+const productSortFn = (a: Product, b: Product) => a.name.localeCompare(b.name, 'pt-BR', { sensitivity: 'base' });
+
 
 // Initial default data
 const defaultProducts: Product[] = [
@@ -1866,7 +1875,7 @@ const defaultCustomers: Customer[] = [
 
 
 // State management
-let products: Product[] = getStoredData(PRODUCTS_KEY, defaultProducts);
+let products: Product[] = getStoredData(PRODUCTS_KEY, defaultProducts, productSortFn);
 let farmers: Farmer[] = getStoredData(FARMERS_KEY, defaultFarmers);
 let orders: Order[] = getStoredData(ORDERS_KEY, defaultOrders);
 let customers: Customer[] = getStoredData(CUSTOMERS_KEY, defaultCustomers);
@@ -1877,9 +1886,6 @@ let customers: Customer[] = getStoredData(CUSTOMERS_KEY, defaultCustomers);
 
 export function getProducts({ includePaused = false }: { includePaused?: boolean } = {}): Product[] {
   const allProducts = [...products];
-  // Garante que a ordenação seja sempre aplicada
-  allProducts.sort((a, b) => a.name.localeCompare(b.name, 'pt-BR', { sensitivity: 'base' }));
-
   if (includePaused) {
     return allProducts;
   }
@@ -1901,33 +1907,32 @@ export function addProduct(productData: Omit<Product, 'id' | 'status'>): Product
         status: 'active',
     };
     products.push(newProduct);
-    products.sort((a, b) => a.name.localeCompare(b.name, 'pt-BR', { sensitivity: 'base' }));
-    setStoredData(PRODUCTS_KEY, products);
+    setStoredData(PRODUCTS_KEY, products, productSortFn);
     return newProduct;
 }
 
 export function updateProduct(id: string, updates: Partial<Omit<Product, 'id' | 'status' | 'farmerId' | 'image' | 'promotion'>>) {
   products = products.map(p => p.id === id ? { ...p, ...updates } : p);
-  setStoredData(PRODUCTS_KEY, products);
+  setStoredData(PRODUCTS_KEY, products, productSortFn);
 }
 
 export function updateProductStock(productId: string, newStock: number) {
     products = products.map(p => 
         p.id === productId ? { ...p, stock: newStock } : p
     );
-    setStoredData(PRODUCTS_KEY, products);
+    setStoredData(PRODUCTS_KEY, products, productSortFn);
 }
 
 export function deleteProduct(id: string) {
   products = products.filter(p => p.id !== id);
-  setStoredData(PRODUCTS_KEY, products);
+  setStoredData(PRODUCTS_KEY, products, productSortFn);
 }
 
 export function toggleProductStatus(productId: string, status: 'active' | 'paused') {
     products = products.map(p => 
         p.id === productId ? { ...p, status } : p
     );
-    setStoredData(PRODUCTS_KEY, products);
+    setStoredData(PRODUCTS_KEY, products, productSortFn);
 }
 
 export function toggleProductPromotion(productId: string, isActive: boolean) {
@@ -1943,7 +1948,7 @@ export function toggleProductPromotion(productId: string, isActive: boolean) {
         }
         return p;
     });
-    setStoredData(PRODUCTS_KEY, products);
+    setStoredData(PRODUCTS_KEY, products, productSortFn);
 }
 
 export function getPromotionalProducts(): (Product & { farmerName: string, responsibleName?: string })[] {
