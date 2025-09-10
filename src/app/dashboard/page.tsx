@@ -231,7 +231,7 @@ function EditProductForm({ product: initialProduct, onSaveChanges }: { product: 
 
 
 
-function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => void, farmerId: string }) {
+function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProductAdded: () => void, farmerId: string, farmerProducts: Product[] }) {
     const [isOpen, setIsOpen] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
     const { toast } = useToast();
@@ -244,7 +244,7 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
     const [description, setDescription] = useState('');
     const [stock, setStock] = useState<number | ''>('');
     const [category, setCategory] = useState<ProductCategory>('Verdura');
-    const [image, setImage] = useState('https://placehold.co/600x400.png');
+    const [image, setImage] = useState('');
     const [dataAiHint, setDataAiHint] = useState('');
     
     const [isSuggestionsOpen, setSuggestionsOpen] = useState(false);
@@ -264,10 +264,11 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
         // Remover duplicatas baseadas no nome, mantendo a primeira ocorrência
         const uniqueNames = new Set();
         return filtered.filter(p => {
-            if (uniqueNames.has(p.name)) {
+            const trimmedName = p.name.trim();
+            if (uniqueNames.has(trimmedName)) {
                 return false;
             } else {
-                uniqueNames.add(p.name);
+                uniqueNames.add(trimmedName);
                 return true;
             }
         }).sort((a, b) => a.name.localeCompare(b.name, 'pt-BR', { sensitivity: 'base' }));
@@ -298,7 +299,7 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
         setDescription('');
         setStock('');
         setCategory('Verdura');
-        setImage('https://placehold.co/600x400.png');
+        setImage('');
         setDataAiHint('');
     };
 
@@ -360,6 +361,17 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
             return;
         }
 
+        const productExists = farmerProducts.some(p => p.name.trim().toLowerCase() === name.trim().toLowerCase());
+
+        if (productExists) {
+            toast({
+                variant: 'destructive',
+                title: 'Produto Duplicado',
+                description: 'Este produto já existe no seu catálogo e não pode ser adicionado novamente.',
+            });
+            return;
+        }
+
         setIsSaving(true);
         const newProductData: Omit<Product, 'id' | 'status'> = {
             name,
@@ -369,7 +381,7 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
             stock: stock === '' ? undefined : Number(stock),
             category,
             farmerId,
-            image,
+            image: image || 'https://placehold.co/600x400.png',
             dataAiHint,
         };
 
@@ -409,7 +421,7 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
                     </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4 text-base">
-                     {image && !image.includes('placehold.co') && (
+                     {image && (
                         <div className="relative aspect-video w-full rounded-md overflow-hidden bg-muted">
                             <Image src={image} alt={name} fill className="object-cover" data-ai-hint={dataAiHint}/>
                         </div>
@@ -428,7 +440,7 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
                         {isSuggestionsOpen && suggestions.length > 0 && (
                              <div
                                 ref={suggestionsRef}
-                                className="absolute z-50 w-full bg-background border rounded-md shadow-lg mt-1"
+                                className="absolute z-50 w-full bg-background border rounded-md shadow-lg mt-1 max-h-96"
                             >
                                 <ScrollArea className="max-h-96">
                                     <div className="p-2 space-y-1">
@@ -639,7 +651,7 @@ function ProductsTabContent({ products, farmerId, onProductUpdate }: { products:
                         <CardTitle>Meus Produtos</CardTitle>
                         <CardDescription>Adicione, edite, promova ou gerencie o estoque dos seus produtos.</CardDescription>
                     </div>
-                     <AddProductForm onProductAdded={onProductUpdate} farmerId={farmerId} />
+                     <AddProductForm onProductAdded={onProductUpdate} farmerId={farmerId} farmerProducts={products} />
                 </div>
             </CardHeader>
             <CardContent>
