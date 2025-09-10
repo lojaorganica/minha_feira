@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { Suspense, useState, useMemo, useTransition, useRef, useEffect } from 'react';
@@ -254,9 +255,21 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
 
     const suggestions = useMemo(() => {
         if (name.length < 1) return [];
-        return allProductsCatalog
+        const filtered = allProductsCatalog
             .filter(p => p.name.toLowerCase().startsWith(name.toLowerCase()))
             .sort((a, b) => a.name.localeCompare(b.name, 'pt-BR', { sensitivity: 'base' }));
+
+        // Remover duplicatas baseadas no nome
+        const uniqueNames = new Set();
+        return filtered.filter(p => {
+            if (uniqueNames.has(p.name)) {
+                return false;
+            } else {
+                uniqueNames.add(p.name);
+                return true;
+            }
+        });
+
     }, [name, allProductsCatalog]);
 
     useEffect(() => {
@@ -401,20 +414,22 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
                         {isSuggestionsOpen && suggestions.length > 0 && (
                             <div
                                 ref={suggestionsRef}
-                                className="absolute z-10 w-full bg-background border rounded-md shadow-lg mt-1 max-h-96 overflow-y-auto"
+                                className="absolute z-10 w-full bg-background border rounded-md shadow-lg mt-1"
                             >
-                                <div className="p-2 space-y-1">
-                                {suggestions.map(p => (
-                                    <Button
-                                        key={p.id}
-                                        variant="ghost"
-                                        className="w-full justify-start h-auto"
-                                        onClick={() => handleSuggestionClick(p)}
-                                    >
-                                        {p.name}
-                                    </Button>
-                                ))}
-                                </div>
+                                <ScrollArea className="max-h-96">
+                                    <div className="p-2 space-y-1">
+                                    {suggestions.map(p => (
+                                        <Button
+                                            key={p.id}
+                                            variant="ghost"
+                                            className="w-full justify-start h-auto"
+                                            onClick={() => handleSuggestionClick(p)}
+                                        >
+                                            {p.name}
+                                        </Button>
+                                    ))}
+                                    </div>
+                                </ScrollArea>
                             </div>
                         )}
                     </div>
