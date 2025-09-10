@@ -399,21 +399,22 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
                             autoComplete="off"
                         />
                         {isSuggestionsOpen && suggestions.length > 0 && (
-                            <div ref={suggestionsRef} className="absolute z-10 w-full bg-background border rounded-md shadow-lg mt-1">
-                                <ScrollArea className="h-auto max-h-64">
-                                    <div className="p-2 space-y-1">
-                                    {suggestions.map(p => (
-                                        <Button
-                                            key={p.id}
-                                            variant="ghost"
-                                            className="w-full justify-start h-auto"
-                                            onClick={() => handleSuggestionClick(p)}
-                                        >
-                                            {p.name}
-                                        </Button>
-                                    ))}
-                                    </div>
-                                </ScrollArea>
+                            <div
+                                ref={suggestionsRef}
+                                className="absolute z-10 w-full bg-background border rounded-md shadow-lg mt-1 max-h-96 overflow-y-auto"
+                            >
+                                <div className="p-2 space-y-1">
+                                {suggestions.map(p => (
+                                    <Button
+                                        key={p.id}
+                                        variant="ghost"
+                                        className="w-full justify-start h-auto"
+                                        onClick={() => handleSuggestionClick(p)}
+                                    >
+                                        {p.name}
+                                    </Button>
+                                ))}
+                                </div>
                             </div>
                         )}
                     </div>
