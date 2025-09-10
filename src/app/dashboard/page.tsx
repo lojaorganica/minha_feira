@@ -17,7 +17,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverTrigger, PopoverAnchor } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
@@ -386,7 +386,7 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
                     <div className="space-y-2">
                         <Label htmlFor="new-name">Nome do Produto</Label>
                         <Popover open={isSuggestionsOpen} onOpenChange={setSuggestionsOpen}>
-                            <PopoverTrigger asChild>
+                             <PopoverAnchor asChild>
                                 <Input 
                                     id="new-name" 
                                     value={name} 
@@ -396,7 +396,7 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
                                     autoCorrect="off"
                                     autoComplete="off"
                                 />
-                            </PopoverTrigger>
+                             </PopoverAnchor>
                             {suggestions.length > 0 && (
                                 <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start">
                                     <ScrollArea className="h-auto max-h-64">
