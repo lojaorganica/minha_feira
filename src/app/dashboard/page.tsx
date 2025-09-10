@@ -257,14 +257,14 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
                 uniqueProducts.set(p.name.toLowerCase(), p);
             }
         });
-        return Array.from(uniqueProducts.values()).sort((a, b) => a.name.localeCompare(b.name));
+        return Array.from(uniqueProducts.values());
     }, []);
     
     const suggestions = useMemo(() => {
         if (name.length < 1) return [];
-        return allProductsCatalog.filter(p =>
-            p.name.toLowerCase().includes(name.toLowerCase())
-        );
+        return allProductsCatalog
+            .filter(p => p.name.toLowerCase().startsWith(name.toLowerCase()))
+            .sort((a, b) => a.name.localeCompare(b.name));
     }, [name, allProductsCatalog]);
 
     const resetForm = () => {
@@ -280,10 +280,11 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
     };
 
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setName(e.target.value);
-        if (e.target.value.length > 0) {
+        const newName = e.target.value;
+        setName(newName);
+        if (newName.length > 0 && !isSuggestionsOpen) {
             setSuggestionsOpen(true);
-        } else {
+        } else if (newName.length === 0 && isSuggestionsOpen) {
             setSuggestionsOpen(false);
         }
     };
@@ -295,7 +296,6 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
         setImage(product.image);
         setDataAiHint(product.dataAiHint);
         setSuggestionsOpen(false);
-        inputRef.current?.focus(); // Mantém o foco no input
     };
 
     const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -399,6 +399,7 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
                                     ref={inputRef}
                                     value={name} 
                                     onChange={handleNameChange}
+                                    onFocus={() => name.length > 0 && setSuggestionsOpen(true)}
                                     className="bg-card" 
                                     autoComplete="off"
                                 />
