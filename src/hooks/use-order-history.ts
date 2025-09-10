@@ -3,7 +3,7 @@
 
 import type { CustomerOrder } from "@/lib/types";
 import { useState, useEffect, useCallback, createContext, useContext } from "react";
-import { getProductById } from "@/lib/data";
+import { getProductByName } from "@/lib/data";
 
 export interface OrderHistoryContextType {
   orders: CustomerOrder[];
@@ -44,7 +44,7 @@ export function useOrderHistoryState() {
   const addOrder = useCallback((order: Omit<CustomerOrder, 'items'> & { items: { productName: string, quantity: number }[] }) => {
     // Enrich items with unit before saving
     const enrichedItems = order.items.map(item => {
-        const productDetails = getProductById(item.productName);
+        const productDetails = getProductByName(item.productName);
         return {
             ...item,
             productUnit: productDetails?.unit || ''

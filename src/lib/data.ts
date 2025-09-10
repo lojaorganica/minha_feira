@@ -1889,6 +1889,10 @@ export function getProductById(id: string): Product | undefined {
   return products.find(p => p.id === id);
 }
 
+export function getProductByName(name: string): Product | undefined {
+  return products.find(p => p.name === name);
+}
+
 export function addProduct(productData: Omit<Product, 'id' | 'status'>): Product {
     const newProduct: Product = {
         ...productData,
