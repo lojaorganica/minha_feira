@@ -392,9 +392,9 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
                 </DialogHeader>
                 <div className="grid gap-4 py-4 text-base">
                     <Popover open={isSuggestionsOpen} onOpenChange={setSuggestionsOpen}>
-                        <div className="space-y-2">
-                            <Label htmlFor="new-name">Nome do Produto</Label>
-                            <PopoverAnchor asChild>
+                        <PopoverAnchor asChild>
+                            <div className="space-y-2">
+                                <Label htmlFor="new-name">Nome do Produto</Label>
                                 <Input 
                                     id="new-name"
                                     ref={inputRef}
@@ -404,8 +404,8 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
                                     className="bg-card" 
                                     autoComplete="off"
                                 />
-                            </PopoverAnchor>
-                        </div>
+                            </div>
+                        </PopoverAnchor>
                         <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start">
                             {suggestions.length > 0 ? (
                                 <ScrollArea className="h-auto max-h-64">
