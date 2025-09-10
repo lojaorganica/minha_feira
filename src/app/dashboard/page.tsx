@@ -246,8 +246,10 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
     const [category, setCategory] = useState<ProductCategory>('Verdura');
     const [image, setImage] = useState('https://placehold.co/600x400.png');
     const [dataAiHint, setDataAiHint] = useState('');
+    
     const [isSuggestionsOpen, setSuggestionsOpen] = useState(false);
     const suggestionsRef = useRef<HTMLDivElement>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
     
     const allProductsCatalog = useMemo(() => {
         return getProducts({ includePaused: true });
@@ -255,11 +257,11 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
 
     const suggestions = useMemo(() => {
         if (name.length < 1) return [];
+        const lowerCaseName = name.toLowerCase();
         const filtered = allProductsCatalog
-            .filter(p => p.name.toLowerCase().startsWith(name.toLowerCase()))
-            .sort((a, b) => a.name.localeCompare(b.name, 'pt-BR', { sensitivity: 'base' }));
+            .filter(p => p.name.toLowerCase().startsWith(lowerCaseName));
 
-        // Remover duplicatas baseadas no nome
+        // Remover duplicatas baseadas no nome, mantendo a primeira ocorrência
         const uniqueNames = new Set();
         return filtered.filter(p => {
             if (uniqueNames.has(p.name)) {
@@ -268,13 +270,18 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
                 uniqueNames.add(p.name);
                 return true;
             }
-        });
+        }).sort((a, b) => a.name.localeCompare(b.name, 'pt-BR', { sensitivity: 'base' }));
 
     }, [name, allProductsCatalog]);
 
-    useEffect(() => {
+     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
-            if (suggestionsRef.current && !suggestionsRef.current.contains(event.target as Node)) {
+            if (
+                suggestionsRef.current && 
+                !suggestionsRef.current.contains(event.target as Node) &&
+                inputRef.current &&
+                !inputRef.current.contains(event.target as Node)
+            ) {
                 setSuggestionsOpen(false);
             }
         };
@@ -298,7 +305,7 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newName = e.target.value;
         setName(newName);
-        setSuggestionsOpen(newName.length > 0);
+        setSuggestionsOpen(newName.length > 0 && suggestions.length > 0);
     };
 
     const handleSuggestionClick = (product: Product) => {
@@ -402,19 +409,26 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
                     </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4 text-base">
+                     {image && !image.includes('placehold.co') && (
+                        <div className="relative aspect-video w-full rounded-md overflow-hidden bg-muted">
+                            <Image src={image} alt={name} fill className="object-cover" data-ai-hint={dataAiHint}/>
+                        </div>
+                    )}
                      <div className="space-y-2 relative">
                         <Label htmlFor="new-name">Nome do Produto</Label>
                         <Input 
+                            ref={inputRef}
                             id="new-name"
                             value={name} 
                             onChange={handleNameChange}
+                            onFocus={() => setSuggestionsOpen(name.length > 0 && suggestions.length > 0)}
                             className="bg-card" 
                             autoComplete="off"
                         />
                         {isSuggestionsOpen && suggestions.length > 0 && (
-                            <div
+                             <div
                                 ref={suggestionsRef}
-                                className="absolute z-10 w-full bg-background border rounded-md shadow-lg mt-1"
+                                className="absolute z-50 w-full bg-background border rounded-md shadow-lg mt-1"
                             >
                                 <ScrollArea className="max-h-96">
                                     <div className="p-2 space-y-1">
