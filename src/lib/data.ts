@@ -5,6 +5,7 @@
 
 
 
+
 import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerOrder, CustomerClassification, CustomerAddress, ProductCategory } from './types';
 
 let products: Product[] = [
@@ -2135,7 +2136,7 @@ export function addProduct(newProductData: Omit<Product, 'id' | 'status'>): Prod
         status: 'active',
     };
 
-    products.unshift(newProduct); // Adiciona no início da lista para fácil visualização
+    products.push(newProduct);
     return newProduct;
 }
 
@@ -2407,6 +2408,7 @@ export function updateCustomerClassification(customerId: string, classification:
 
 
     
+
 
 
 
