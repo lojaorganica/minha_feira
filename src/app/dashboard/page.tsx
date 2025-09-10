@@ -296,6 +296,7 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
         setImage(product.image);
         setDataAiHint(product.dataAiHint);
         setSuggestionsOpen(false);
+        inputRef.current?.focus();
     };
 
     const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -390,10 +391,10 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
                     </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4 text-base">
-                    <div className="space-y-2">
-                        <Label htmlFor="new-name">Nome do Produto</Label>
-                        <Popover open={isSuggestionsOpen} onOpenChange={setSuggestionsOpen}>
-                             <PopoverAnchor asChild>
+                    <Popover open={isSuggestionsOpen} onOpenChange={setSuggestionsOpen}>
+                        <div className="space-y-2">
+                            <Label htmlFor="new-name">Nome do Produto</Label>
+                            <PopoverAnchor asChild>
                                 <Input 
                                     id="new-name"
                                     ref={inputRef}
@@ -403,31 +404,31 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
                                     className="bg-card" 
                                     autoComplete="off"
                                 />
-                             </PopoverAnchor>
-                            <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start">
-                                {suggestions.length > 0 ? (
-                                    <ScrollArea className="h-auto max-h-64">
-                                        <div className="p-2 space-y-1">
-                                        {suggestions.map(p => (
-                                            <Button
-                                                key={p.id}
-                                                variant="ghost"
-                                                className="w-full justify-start h-auto"
-                                                onClick={() => handleSuggestionClick(p)}
-                                            >
-                                                {p.name}
-                                            </Button>
-                                        ))}
-                                        </div>
-                                    </ScrollArea>
-                                ) : (
-                                    <div className="p-4 text-sm text-center text-muted-foreground">
-                                        Nenhum produto encontrado.
+                            </PopoverAnchor>
+                        </div>
+                        <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start">
+                            {suggestions.length > 0 ? (
+                                <ScrollArea className="h-auto max-h-64">
+                                    <div className="p-2 space-y-1">
+                                    {suggestions.map(p => (
+                                        <Button
+                                            key={p.id}
+                                            variant="ghost"
+                                            className="w-full justify-start h-auto"
+                                            onClick={() => handleSuggestionClick(p)}
+                                        >
+                                            {p.name}
+                                        </Button>
+                                    ))}
                                     </div>
-                                )}
-                            </PopoverContent>
-                        </Popover>
-                    </div>
+                                </ScrollArea>
+                            ) : (
+                                <div className="p-4 text-sm text-center text-muted-foreground">
+                                    Nenhum produto encontrado.
+                                </div>
+                            )}
+                        </PopoverContent>
+                    </Popover>
                     
                      <div className="space-y-2">
                         <Label htmlFor="new-category">Categoria</Label>
