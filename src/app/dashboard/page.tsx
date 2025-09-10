@@ -417,21 +417,24 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
                             className="bg-card" 
                             autoComplete="off"
                             onFocus={() => setSuggestionsOpen(name.length > 0 && suggestions.length > 0)}
+                            onBlur={() => setTimeout(() => setSuggestionsOpen(false), 150)}
                         />
-                        {isSuggestionsOpen && (
+                         {isSuggestionsOpen && suggestions.length > 0 && (
                             <div className="absolute z-50 w-full bg-background border rounded-md shadow-lg mt-1 max-h-96 overflow-y-auto">
-                                <div className="p-2 space-y-1">
-                                {suggestions.map(p => (
-                                    <Button
-                                        key={p.id}
-                                        variant="ghost"
-                                        className="w-full justify-start h-auto"
-                                        onClick={() => handleSuggestionClick(p)}
-                                    >
-                                        {p.name}
-                                    </Button>
-                                ))}
-                                </div>
+                                <ScrollArea className="max-h-96">
+                                    <div className="p-2 space-y-1">
+                                        {suggestions.map(p => (
+                                            <Button
+                                                key={p.id}
+                                                variant="ghost"
+                                                className="w-full justify-start h-auto"
+                                                onClick={() => handleSuggestionClick(p)}
+                                            >
+                                                {p.name}
+                                            </Button>
+                                        ))}
+                                    </div>
+                                </ScrollArea>
                             </div>
                         )}
                     </div>
@@ -1290,6 +1293,4 @@ export default function DashboardPage() {
             </div>
         }>
             <DashboardContent />
-        </Suspense>
-    );
-}
+        </Suspense

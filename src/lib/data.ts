@@ -515,7 +515,7 @@ const defaultProducts: Product[] = [
     category: 'Verdura',
     price: 3.50,
     unit: 'maço',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/azedinha.webp?alt=media&token.value=9e5fa2ef-55b7-4e80-860c-691ae12f24f8',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/azedinha.webp?alt=media&token=9e5fa2ef-55b7-4e80-860c-691ae12f24f8',
     dataAiHint: 'sorrel',
     farmerId: '1',
     description: 'Azedinha com seu sabor cítrico único, ótima para sucos, saladas e sopas.',
@@ -1104,7 +1104,7 @@ const defaultProducts: Product[] = [
     dataAiHint: 'romaine lettuce',
     farmerId: '1',
     description: 'Alface romana, com folhas longas e crocantes, ideal para a salada Caesar.',
-    status: 'active',
+    status: 'paused',
     stock: 20,
   },
   {
@@ -1557,7 +1557,7 @@ const defaultProducts: Product[] = [
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_acacia.webp?alt=media&token=b94ee3e6-52de-4f78-a801-38f5254c840c',
     dataAiHint: 'acacia honey',
     farmerId: '134',
-    description: 'A Acácia é conhecida como Árvore da Vida, e o mel de suas flores é um néctar precioso. Produzido de forma natural na encantadora Serra do Roncador, em Mato Grosso, este mel é um verdadeiro tesouro da natureza. Rico em vitamina C e repleto de antioxidantes poderosos, como flavonoides e betacaroteno, ele ainda concentra minerais essenciais como cálcio, magnésio e potássio. Um alimento nutritivo, saboroso e cheio de vitalidade para o seu dia a dia.',
+    description: 'A Acácia é conhecida como Árvore da Vida, e o mel de suas flores é um néctar precioso. Produzido de forma natural na encantadora Serra do Roncador, em Mato Grosso, este mel é um verdadeiro tesouro da nature. Rico em vitamina C e repleto de antioxidantes poderosos, como flavonoides e betacaroteno, ele ainda concentra minerais essenciais como cálcio, magnésio e potássio. Um alimento nutritivo, saboroso e cheio de vitalidade para o seu dia a dia.',
     status: 'active',
     stock: 15,
   },
@@ -1759,601 +1759,276 @@ const defaultFarmers: Farmer[] = [
     fairs: ['Tijuca'],
     location: { lat: -22.92, lng: -43.23 },
     bio: 'Saúde e sabor em cada folha. Nossos produtos são cultivados sem agrotóxicos, com respeito à natureza.',
-    address: { street: 'Rua Natural', number: '30', neighborhood: 'Tijuca', city: 'Rio de Janeiro', state: 'RJ', zipCode: '20510-000' },
-    pixKey: 'naturalmente.organicos@email.com',
-    shippingCost: 0,
+    address: { street: 'Rua da Saúde', number: '88', neighborhood: 'Tijuca', city: 'Rio de Janeiro', state: 'RJ', zipCode: '20511-000' },
+    pixKey: 'contato@naturalmenteorganicos.com',
+    shippingCost: 20.00,
     phone: '5521987654327',
     image: 'https://placehold.co/100x100.png'
   },
   {
-    id: '8',
-    responsibleName: 'Ronilson (Ronin)',
-    name: 'Sítio Paraíso',
-    prepostos: ['Ruan'],
-    fairs: ['Tijuca'],
-    location: { lat: -22.89, lng: -43.25 },
-    bio: 'O paraíso dos orgânicos. Produção familiar com foco na qualidade e no sabor autêntico dos alimentos.',
-    address: { street: 'Caminho do Paraíso', number: '77', neighborhood: 'Alto', city: 'Teresópolis', state: 'RJ', zipCode: '25963-000' },
-    pixKey: 'ronin.paraiso@email.com',
-    shippingCost: 20.00,
-    phone: '5521987654328',
-    image: 'https://placehold.co/100x100.png'
-  },
-  {
     id: '134',
-    responsibleName: 'Marcos Melo',
+    responsibleName: 'Giulia Pestana',
     name: 'Loja Orgânica',
     prepostos: [],
-    fairs: ['Tijuca', 'Botafogo'],
-    location: { lat: -22.93, lng: -43.24 },
-    bio: 'Méis orgânicos certificados, de alta qualidade, raros e medicinais, produzidos com respeito às abelhas e à natureza.',
-    address: { street: 'Estrada do Mel', number: '500', neighborhood: 'Quitandinha', city: 'Petrópolis', state: 'RJ', zipCode: '25651-000' },
-    pixKey: 'marcos.melo.lojaorganica@email.com',
-    shippingCost: 16.00,
-    phone: '5521987654329',
+    fairs: ['Tijuca', 'Botafogo', 'Grajaú', 'Leme', 'Flamengo', 'Laranjeiras'],
+    location: { lat: -22.92, lng: -43.23 },
+    bio: 'Sou a Giulia Pestana, apaixonada por um estilo de vida saudável e em harmonia com a natureza. Minha paixão me levou a criar a Loja Orgânica, um espaço dedicado a todos que buscam bem-estar e qualidade de vida. Atuo em todas as feiras do Circuito Carioca de Feiras Orgânicas, oferecendo produtos que nutrem o corpo e a alma, cuidadosamente selecionados para você e sua família.',
+    address: { street: 'Rua dos Sabores Naturais', number: '101', neighborhood: 'Jardim Botânico', city: 'Rio de Janeiro', state: 'RJ', zipCode: '22460-000' },
+    pixKey: 'giulia.pestana@email.com',
+    shippingCost: 20.00,
+    phone: '5521987654328',
     image: 'https://placehold.co/100x100.png'
   }
 ];
 const defaultOrders: Order[] = [
-    {
-        id: 'ORD-001',
-        customerName: 'Alice Johnson',
-        items: [
-            { productName: 'Cenouras Orgânicas', quantity: 2 },
-            { productName: 'Alho Poró Orgânico', quantity: 1 },
-        ],
-        status: 'Pendente',
-        total: 8.50,
-        date: new Date(2024, 6, 20),
-        deliveryOption: 'delivery',
-        customerContact: { 
-            address: { street: 'Rua das Flores', number: '123', neighborhood: 'Centro', city: 'Rio de Janeiro', state: 'RJ', zipCode: '20000-000' },
-            phone: '21999991111' 
-        },
-    },
-    {
-        id: 'ORD-002',
-        customerName: 'Bob Williams',
-        items: [
-            { productName: 'Abóbora Moranga Orgânica', quantity: 1 },
-            { productName: 'Batata Inglesa Orgânica', quantity: 1 },
-        ],
-        status: 'Confirmado',
-        total: 13.00,
-        date: new Date(2024, 6, 19),
-        deliveryOption: 'pickup',
-        pickupLocation: 'Feira da Tijuca',
-    },
-    {
-        id: 'ORD-003',
-        customerName: 'Charlie Brown',
-        items: [
-            { productName: 'Maçã Fuji Orgânica', quantity: 4 },
-            { productName: 'Morangos Frescos Orgânicos', quantity: 1 },
-        ],
-        status: 'Pendente',
-        total: 10.00,
-        date: new Date(2024, 6, 20),
-        deliveryOption: 'pickup',
-        pickupLocation: 'Feira de Botafogo',
-    },
-    {
-        id: 'ORD-004',
-        customerName: 'Diana Miller',
-        items: [
-            { productName: 'Tomate Italiano Orgânico', quantity: 2 },
-            { productName: 'Couve Mineira Orgânica', quantity: 1 },
-        ],
-        status: 'Rejeitado',
-        total: 8.00,
-        date: new Date(2024, 6, 18),
-        deliveryOption: 'delivery',
-        customerContact: { 
-             address: { street: 'Av. Copacabana', number: '456', neighborhood: 'Copacabana', city: 'Rio de Janeiro', state: 'RJ', zipCode: '22000-000' },
-             phone: '21988882222' 
-        },
+  {
+    id: 'ORD-001',
+    customerName: 'Maria Silva',
+    items: [
+      { productName: 'Tomate Italiano Orgânico', quantity: 2 },
+      { productName: 'Cenouras Orgânicas', quantity: 1 }
+    ],
+    status: 'Pendente',
+    total: 10.50,
+    date: new Date('2024-07-20T10:30:00'),
+    deliveryOption: 'pickup',
+    pickupLocation: 'Feira da Glória'
+  },
+   {
+    id: 'ORD-002',
+    customerName: 'João Pereira',
+    items: [
+      { productName: 'Morangos Frescos Orgânicos', quantity: 2 },
+      { productName: 'Laranja Pera Orgânica', quantity: 3 }
+    ],
+    status: 'Pendente',
+    total: 14.00,
+    date: new Date('2024-07-21T11:00:00'),
+    deliveryOption: 'delivery',
+    customerContact: { 
+        address: { street: 'Rua das Flores', number: '123', neighborhood: 'Copacabana', city: 'Rio de Janeiro', state: 'RJ', zipCode: '22010-000' },
+        phone: '5521998877665'
     }
+  }
 ];
 const defaultCustomers: Customer[] = [
-    {
-        id: 'cust-001',
-        name: 'Cliente Exemplo',
-        email: 'cliente@exemplo.com',
-        favoriteFarmerIds: ['1', '2'],
-        address: {
-            street: 'Rua de Exemplo',
-            number: '123',
-            neighborhood: 'Bairro Exemplo',
-            city: 'Rio de Janeiro',
-            state: 'RJ',
-            zipCode: '22221-010',
-        },
-        phone: '21912345678',
-        image: 'https://placehold.co/100x100.png',
-        classification: 'ouro',
+  {
+    id: 'cust-001',
+    name: 'Maria Silva',
+    email: 'maria.silva@email.com',
+    favoriteFarmerIds: ['1', '3'],
+    address: {
+        street: 'Avenida Atlântica',
+        number: '1702',
+        complement: 'Apto 801',
+        neighborhood: 'Copacabana',
+        city: 'Rio de Janeiro',
+        state: 'RJ',
+        zipCode: '22021-001'
     },
-    {
-        id: 'cust-alice',
-        name: 'Alice Johnson',
-        email: 'alice.j@email.com',
-        address: {
-            street: 'Rua das Flores',
-            number: '123',
-            neighborhood: 'Jardim Botânico',
-            city: 'Rio de Janeiro',
-            state: 'RJ',
-            zipCode: '22461-000',
-        },
-        phone: '21999991111',
-        favoriteFarmerIds: ['1', '3'],
-        image: 'https://placehold.co/100x100.png',
-        classification: 'prata'
+    phone: '5521999998888',
+    image: 'https://placehold.co/100x100.png',
+    classification: 'ouro'
+  },
+  {
+    id: 'cust-002',
+    name: 'João Pereira',
+    email: 'joao.pereira@email.com',
+    favoriteFarmerIds: ['2'],
+     address: {
+        street: 'Rua do Catete',
+        number: '200',
+        complement: '',
+        neighborhood: 'Catete',
+        city: 'Rio de Janeiro',
+        state: 'RJ',
+        zipCode: '22220-000'
     },
-     {
-        id: 'cust-bob',
-        name: 'Bob Williams',
-        email: 'bob.w@email.com',
-        address: {
-            street: 'Praça da Bandeira',
-            number: '789',
-            neighborhood: 'Tijuca',
-            city: 'Rio de Janeiro',
-            state: 'RJ',
-            zipCode: '20270-130',
-        },
-        phone: '21977773333',
-        favoriteFarmerIds: ['4', '3'],
-        image: 'https://placehold.co/100x100.png',
-        classification: 'bronze'
-    },
-     {
-        id: 'cust-charlie',
-        name: 'Charlie Brown',
-        email: 'charlie.b@email.com',
-        address: {
-            street: 'Avenida Atlântica',
-            number: '123',
-            neighborhood: 'Copacabana',
-            city: 'Rio de Janeiro',
-            state: 'RJ',
-            zipCode: '22070-000',
-        },
-        phone: '21966664444',
-        favoriteFarmerIds: ['2'],
-        image: 'https://placehold.co/100x100.png',
-        classification: 'diamante'
-    },
-    {
-        id: 'cust-diana',
-        name: 'Diana Miller',
-        email: 'diana.m@email.com',
-        address: {
-            street: 'Av. Copacabana',
-            number: '456',
-            neighborhood: 'Copacabana',
-            city: 'Rio de Janeiro',
-            state: 'RJ',
-            zipCode: '22020-001',
-        },
-        phone: '21988882222',
-        favoriteFarmerIds: ['1'],
-        image: 'https://placehold.co/100x100.png'
-    }
+    phone: '5521988887777',
+    image: 'https://placehold.co/100x100.png',
+    classification: 'prata'
+  }
 ];
 
+
+// State management
 let products: Product[] = getStoredData(PRODUCTS_KEY, defaultProducts);
 let farmers: Farmer[] = getStoredData(FARMERS_KEY, defaultFarmers);
 let orders: Order[] = getStoredData(ORDERS_KEY, defaultOrders);
 let customers: Customer[] = getStoredData(CUSTOMERS_KEY, defaultCustomers);
 
-const defaultProductImages = new Map<string, string>([
-    ['couve flor', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_flor.webp?alt=media&token=5e32779d-a643-4845-9b4b-6f3b6474b444'],
-    ['couve mineira', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_mineira.webp?alt=media&token=fb0702ac-1c9a-4414-9857-bd0908d68348'],
-    ['couve toscana', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_toscana.webp?alt=media&token=d4d592f2-8fbe-4489-a044-6d46d2fc3753'],
-    ['couve kale', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_kale.webp?alt=media&token=0f9318de-5203-44c4-9c85-420452ed7627'],
-    ['couve', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_mineira.webp?alt=media&token=fb0702ac-1c9a-4414-9857-bd0908d68348'],
-    ['maca fuji', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/maca_fuji.webp?alt=media&token=d9b195e6-0e42-4976-83fe-fdf87dfafd7c'],
-    ['maca', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/maca_fuji.webp?alt=media&token=d9b195e6-0e42-4976-83fe-fdf87dfafd7c'],
-    ['alface americana', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_americana.webp?alt=media&token=d745a4e5-1f8c-4333-8a8a-48a4201d308a'],
-    ['alface mimosa verde', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_mimosa_verde.webp?alt=media&token=4635346b-69f9-4a54-94b6-8cb1b85f4afb'],
-    ['alface mimosa roxa', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_mimosa_roxa.webp?alt=media&token=c8b001dc-6f00-486f-af0a-22c99ed83d01'],
-    ['alface mimosa', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_mimosa_verde.webp?alt=media&token=4635346b-69f9-4a54-94b6-8cb1b85f4afb'],
-    ['alface frisee', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_frisee.webp?alt=media&token=060f2493-fb76-4a37-b40a-5de7bd0981c9'],
-    ['brocolis brasileiro', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/brocolis_brasileiro.webp?alt=media&token=30d32afc-e5e7-4f0e-a740-e43efeda8862'],
-    ['brocolis americano', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/brocolis_americano.webp?alt=media&token=fd124564-9af1-438e-8e3b-34c320279c8b'],
-    ['brocolis', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/brocolis_americano.webp?alt=media&token=fd124564-9af1-438e-8e3b-34c320279c8b'],
-    ['beterraba', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/beterraba.webp?alt=media&token=d33b9ad6-d6c9-4641-b2fc-e4ed9893cbb0'],
-    ['tomate italiano', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tomate_italiano.webp?alt=media&token=f4195895-85ed-42f7-92b7-55085c4c1a72'],
-    ['tomate', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tomate_italiano.webp?alt=media&token=f4195895-85ed-42f7-92b7-55085c4c1a72'],
-    ['cenoura', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/cenoura.webp?alt=media&token=83e659dc-2bd5-42f5-bc98-a178690858f1'],
-    ['morango', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/morango.webp?alt=media&token=086479b1-5b7e-451d-9635-193264f55e31'],
-    ['pão', 'https://placehold.co/600x400.png'],
-    ['leite', 'https://placehold.co/600x400.png'],
-    ['queijo', 'https://placehold.co/600x400.png'],
-    ['laranja lima', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/laranja_lima.webp?alt=media&token=df719cd2-1767-436b-9ab5-b2a55c3a2000'],
-    ['laranja pera', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/laranja_pera.webp?alt=media&token=b4db9a4e-b349-4805-ac9d-fee1fcb4d5d8'],
-    ['laranja', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/laranja_pera.webp?alt=media&token=b4db9a4e-b349-4805-ac9d-fee1fcb4d5d8'],
-    ['iogurte', 'https://placehold.co/600x400.png'],
-    ['baguete', 'https://placehold.co/600x400.png'],
-    ['pimentao verde', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pimentao_verde.webp?alt=media&token=e93a384f-c567-4d1a-9f4a-7140f7b09335'],
-    ['pimentao vermelho', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pimentao_vermelho.webp?alt=media&token=d10b7b1b-9e4a-4b9e-8b1b-7e6d6e7f8e8e'],
-    ['pimentao amarelo', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pimentao_amarelo.webp?alt=media&token=c4a9a8f2-8e0c-4e8a-8a6a-0c5d5e5f4d4d'],
-    ['pimentao', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pimentao_verde.webp?alt=media&token=e93a384f-c567-4d1a-9f4a-7140f7b09335'],
-    ['manga palmer', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/manga_palmer.webp?alt=media&token=fdf4085f-fbef-41b1-be8a-a613dde3c2e4'],
-    ['manga tommy', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/manga_tommy.webp?alt=media&token=a5b2a911-0dc0-4266-a433-08c018eb8b68'],
-    ['manga carlotinha', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/manga_carlotinha.webp?alt=media&token=0417fa54-ab7b-4bf2-9078-1945e2da9b07'],
-    ['manga', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/manga_palmer.webp?alt=media&token=fdf4085f-fbef-41b1-be8a-a613dde3c2e4'],
-    ['alho', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alho.webp?alt=media&token=8071bc57-cdd1-4105-98da-6253f6f13050'],
-    ['tangerina ponkan', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tangerina_ponkan.webp?alt=media&token=eceafacb-80ae-44f1-8349-8edd8222bf30'],
-    ['tangerina pokan', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tangerina_ponkan.webp?alt=media&token=eceafacb-80ae-44f1-8349-8edd8222bf30'],
-    ['batata doce', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batata_doce.webp?alt=media&token=9777102d-626a-4f4e-b2d7-1045f0cc4148'],
-    ['mamao papaya', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mamao_papaya.webp?alt=media&token=6935a389-a40d-4eb2-b1ae-cdaed2be18a3'],
-    ['inhame', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/inhame.webp?alt=media&token=230229d4-3136-45a0-a5df-605c7de2592b'],
-    ['limao taiti', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/limao_taiti.webp?alt=media&token=5f538bf1-e909-4346-8c0d-92c1e145b897'],
-    ['banana prata', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/banana_prata.webp?alt=media&token=d38fe201-0312-48fc-9cf7-6e2b1fd97bf8'],
-    ['goiaba vermelha', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/goiaba_vermelha.webp?alt=media&token=da3e5869-d746-4b9b-b23c-ab5418912991'],
-    ['abacaxi', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/abacaxi.webp?alt=media&token=4caa0219-8635-4fbb-8e1c-fdec6909ebda'],
-    ['berinjela', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/berinjela.webp?alt=media&token=ad1f7bd9-75db-4fc4-ac6d-3608733d71e9'],
-    ['abóbora japonesa', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/abobora_japonesa.webp?alt=media&token=9cc8d464-1f1a-404e-8d32-aeddadc861ba'],
-    ['abobora baianinha', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/abobora_baianinha.webp?alt=media&token=9860ba6a-82f2-439b-92c2-0c57d6d338a3'],
-    ['alface lisa', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_lisa.webp?alt=media&token=ced73d99-300e-4904-9072-9c8e4fcecd79'],
-    ['alface crespa', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_crespa.webp?alt=media&token=a057c9ac-0fe9-40b0-a016-49d16b016941'],
-    ['alface roxa', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_roxa.webp?alt=media&token=c566920b-b13c-4d87-916a-813e320aedec'],
-    ['abacate', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/abacate.webp?alt=media&token=90d0ec6c-ca97-40eb-b694-5f489d925864'],
-    ['aipim', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/aipim.webp?alt=media&token=ab467c17-50b2-4319-8aad-0845e323b526'],
-    ['almeirão', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/almeirao.webp?alt=media&token=de89169e-8993-46bd-9c82-5a9d289ebdc3'],
-    ['ameixa', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/ameixa.webp?alt=media&token=9216759e-b1b0-44ce-9404-09cd0503a111'],
-    ['abobrinha italiana', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/abobrinha_italiana.webp?alt=media&token=1c5c4cae-04b4-497f-99bf-94b09f8cdc7d'],
-    ['amora', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/amora.webp?alt=media&token=75996ac4-1ab9-41b4-9ebd-cff5a876e295'],
-    ['azedinha', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/azedinha.webp?alt=media&token=9e5fa2ef-55b7-4e80-860c-691ae12f24f8'],
-    ['banana dagua', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/banana_dagua.webp?alt=media&token=e09c1df0-0a4c-42eb-b356-d668db6e80c9'],
-    ['banana nanica', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/banana_nanica.webp?alt=media&token=f55bf317-5650-497b-92a7-0d6da754f1b1'],
-    ['coentro', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/coentro.webp?alt=media&token=d4bb207b-4d74-4de4-bc80-8843dd338010'],
-    ['cebolinha', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/cebolinha.webp?alt=media&token=48e03912-a30e-4032-94b8-9a84b6209d3e'],
-    ['cebola roxa', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/cebola_roxa.webp?alt=media&token=e2c5234f-af01-4481-a046-71295fe900fe'],
-    ['cebola', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/cebola.webp?alt=media&token=d038a9a2-f0f9-421f-b436-324602f0b5bd'],
-    ['repolho verde', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/repolho_verde.webp?alt=media&token=8a4ea4ee-bcac-4757-a54d-f0a4b095a9dc'],
-    ['repolho roxo', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/repolho_roxo.webp?alt=media&token=2ea7df6f-0845-4042-aa71-38812b164b6a'],
-    ['maçã gala', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/maca_gala.webp?alt=media&token=1f30fbe4-e6db-4958-81e1-e953db358643'],
-    ['rucula cultivada', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/rucula_cultivada.webp?alt=media&token=e5386372-e97f-479e-9559-eb3202d5e946'],
-    ['rucula selvagem', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/rucula_selvagem.webp?alt=media&token=96d7f629-4be6-46c7-9e67-3108758865c7'],
-    ['rucula', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/rucula_cultivada.webp?alt=media&token=e5386372-e97f-479e-9559-eb3202d5e946'],
-    ['mamao formosa', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mamao_formosa.webp?alt=media&token=7887ce63-fb00-42fe-a5d3-8f70e128bdb3'],
-    ['ovos yamaguishi', 'https://placehold.co/600x400.png'],
-    ['ovos', 'https://placehold.co/600x400.png'],
-    ['gengibre', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/gengibre.webp?alt=media&token=b70596de-b66f-4c39-a8c9-6951a442ff84'],
-    ['cúrcuma', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/curcuma.webp?alt=media&token=52fffeff-7486-4cab-9021-81331e7c5cc6'],
-    ['melão amarelo', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/melao_amarelo.webp?alt=media&token=718ddb9c-9381-44aa-be87-31514c4426df'],
-    ['melão orange', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/melao_orange.webp?alt=media&token=fb9e85b4-2fa0-44f0-92b0-b2e492c58fab'],
-    ['melão pele de sapo', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/melao_pele_de_sapo.webp?alt=media&token=47c0283d-6af0-47a9-ace4-340f8331b100'],
-    ['melão cantaloupe', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/melao_cantaloupe.webp?alt=media&token=04174dc3-46c3-49d6-8096-ecb20dd1e978'],
-    ['mel', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_aroeira.webp?alt=media&token=ae8fab08-dbc6-4ce2-a182-0ceba0f21f5a'],
-    ['acelga', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/acelga.webp?alt=media&token=0721f75b-65a2-40cf-8754-c10afd93acc6'],
-    ['alho poró', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alho_poro.webp?alt=media&token=84c5bcc6-06f2-46be-8589-68b3e7be0fa5'],
-    ['chuchu', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/chuchu.webp?alt=media&token=4ef6fcb9-2d57-47b6-b397-ec466ccfc6cd'],
-    ['batata inglesa', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batata_inglesa.webp?alt=media&token=41f17e48-9a43-4980-b61d-1c12a91f3cf2'],
-    ['batata baroa', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batata_baroa.webp?alt=media&token=58b079cb-80de-40fb-97f0-a654a34f1c1b'],
-    ['batata yacon', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batata_yacon.webp?alt=media&token=1531f6ab-5dde-4141-8715-28005e7d615e'],
-    ['tomate grape', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tomate_grape.webp?alt=media&token=34f6fc49-11e6-49bb-9ef2-28ff3d6690c3'],
-    ['tomate salada', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tomate_salada.webp?alt=media&token=3fd5f103-22d9-4781-936a-46409e4da5fd'],
-    ['tomate cereja', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tomate_cereja.webp?alt=media&token=675a4a40-8ff8-439b-9366-db40ed3b7b96'],
-    ['cogumelo shiitake', 'https://placehold.co/600x400.png'],
-    ['cogumelo paris', 'https://placehold.co/600x400.png'],
-    ['cogumelo shimeji', 'https://placehold.co/600x400.png'],
-    ['cogumelo portobello', 'https://placehold.co/600x400.png'],
-    ['limão siciliano', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/limao_siciliano.webp?alt=media&token=a2d02d86-f7b4-45f2-85f4-5e0bd2affeaf'],
-    ['limão cravo', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/limao_cravo.webp?alt=media&token=d631609c-427a-4e87-be2c-6242f94b37ef'],
-    ['limão galego', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/limao_galego.webp?alt=media&token=e8341d8b-9733-478b-9bd0-0104de2365cb'],
-    ['pepino caipira', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pepino_caipira.webp?alt=media&token=5e96c1ce-de1b-475d-9d12-4fa0b6d269e4'],
-    ['pepino', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pepino.webp?alt=media&token=e47fbf50-b714-4f92-846c-5e6e63d284e1'],
-    ['kiwi', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/kiwi.webp?alt=media&token=4e24b5ed-6b1f-44e8-8655-95eec46e1521'],
-    ['tangerina murcote', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tangerina_murcote.webp?alt=media&token=191284e1-755c-41e5-91d8-7af8d3798906'],
-    ['abóbora paulistinha', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/abobora_paulistinha.webp?alt=media&token=085ac67e-9468-4e75-90f7-0698285bcc35'],
-    ['abóbora moranga', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/abobora_moranga.webp?alt=media&token=f4ba0711-99f5-4cd5-bd0f-41fafaf1bcd0'],
-    ['mostarda', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mostarda.webp?alt=media&token=4e6b4187-dc70-41c2-904d-7ec8572c31b0'],
-    ['salsa', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/salsa.webp?alt=media&token=dca13030-a3a2-43ea-b5ef-b33e5fb918e0'],
-    ['chicória', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/chicoria.webp?alt=media&token=64cf0f70-4063-4ca5-96a1-4c8026705058'],
-    ['rabanete', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/rabanete.webp?alt=media&token=fd084d85-6e5f-4519-ae09-e0606e54b063'],
-    ['alface romana', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_romana.webp?alt=media&token=f0a4afb0-0d99-48ad-88a2-0e3a8f048d17'],
-    ['agrião', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/agriao.webp?alt=media&token=c27c2017-aa81-4c03-a41c-c6323c14e213'],
-    ['espinafre', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/espinafre.webp?alt=media&token=314e18aa-482f-4cef-badc-db518683d218'],
-    ['laranja bahia', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/laranja_bahia.webp?alt=media&token=edcc24af-9353-41c9-9be9-bc03b08beeaa'],
-    ['laranja seleta', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/laranja_seleta.webp?alt=media&token=e38ae12f-82ae-4bd9-a08f-593634abfdc5'],
-    ['hortelã', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/hortela.webp?alt=media&token=97dacb1f-e59f-4891-9176-73eec1e16188'],
-    ['poejo', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/poejo.webp?alt=media&token=47edb116-120c-4c97-910a-a6c49e85a8e9'],
-    ['radicchio', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/radicchio.webp?alt=media&token=473281ea-32f7-4a12-a93a-23a821b91505'],
-    ['milho verde', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/milho_verde.webp?alt=media&token=06cf8e19-7d36-42eb-8b27-cde60f2c41d6'],
-    ['milho', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/milho_verde.webp?alt=media&token=06cf8e19-7d36-42eb-8b27-cde60f2c41d6'],
-    ['vagem', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/vagem.webp?alt=media&token=d034c795-629f-40c8-a033-a6dec200a0b3'],
-    ['feijao preto', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/feijao_preto.webp?alt=media&token=37fb877a-32f5-419f-a2fd-eb01841d991d'],
-    ['feijao carioca', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/feijao_carioca.webp?alt=media&token=67c3dfb7-4e77-4593-a133-3a7fd51f1ef2'],
-    ['feijao vermelho', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/feijao_vermelho.webp?alt=media&token=0eb5f6e0-33fc-4407-a608-9c44bf770c5f'],
-    ['oregano', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/oregano.webp?alt=media&token=0b64f7ac-1aa4-4e21-a6b0-67eee4c6124e'],
-    ['china', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/china.webp?alt=media&token=39bf916d-67aa-4534-81f6-cdade5a4aeca'],
-    ['capuchinha', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/capuchinha.webp?alt=media&token=beb2ab63-17f2-4044-8b3a-30561cacf991'],
-    ['quiabo', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/quiabo.webp?alt=media&token=de5f050e-8c83-46ab-9671-e370b659ff1f'],
-    ['jilo', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/jilo.webp?alt=media&token=21a949a4-5df3-4b27-ae98-7469466f94be'],
-    ['mini melancia', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mini_melancia.webp?alt=media&token=e26cd7c8-9313-4eb6-8c60-050147ea898b'],
-    ['mexerica ole', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mexerica_ole.webp?alt=media&token=67cc4615-dfe9-47ba-b982-fe173d0c3023'],
-    ['caqui', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/caqui.webp?alt=media&token=6d9835e9-ae1c-4cb0-83e3-e839ccb780c2'],
-    ['caju', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/caju.webp?alt=media&token=7a76f64c-ed10-4451-8112-5d09020049b9'],
-    ['carambola', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/carambola.webp?alt=media&token=57b1c4f3-5d99-4bc3-ae84-b627807beed3'],
-    ['uva vitoria', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/uva_vitoria.webp?alt=media&token=a3ba40e3-ac32-44f0-b9b4-e75c875f2d4f'],
-    ['pera williams', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pera_williams.webp?alt=media&token=5bb791b0-9f75-4cd6-9a50-c4a978b351b7'],
-    ['pera', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pera_williams.webp?alt=media&token=5bb791b0-9f75-4cd6-9a50-c4a978b351b7'],
-    ['pessego', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pessego.webp?alt=media&token=40ca1fb9-a000-4b9e-bbd5-52775e5d0720'],
-    ['aipo', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/aipo.webp?alt=media&token=568de33a-7127-4e14-a96e-cce9357ebbf2'],
-    ['mexerica bergamota', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tangerina_ponkan.webp?alt=media&token=eceafacb-80ae-44f1-8349-8edd8222bf30'],
-    ['batata bolinha', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batata_bolinha.webp?alt=media&token=19bff4eb-5e8d-47a7-9aeb-ce51db6b8c87'],
-    ['pimentão snackpim', 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pimentao_amarelo.webp?alt=media&token=c4a9a8f2-8e0c-4e8a-8a6a-0c5d5e5f4d4d'],
-]);
+// ============================================================================
+// PRODUCT FUNCTIONS
+// ============================================================================
 
-export function getProducts(options: { includePaused?: boolean } = {}): Product[] {
-  let currentProducts = getStoredData(PRODUCTS_KEY, defaultProducts);
-  const { includePaused = false } = options;
-
-  currentProducts = currentProducts.map(p => {
-    // Simula a expiração da promoção
-    if (p.promotion && p.promotion.isActive && new Date(p.promotion.expiresAt) < new Date()) {
-      return { ...p, promotion: { ...p.promotion, isActive: false } };
-    }
-    return p;
-  });
-  
-  // Aplica imagens padrão com lógica aprimorada
-  currentProducts = currentProducts.map(product => {
-      if (product.image && !product.image.startsWith('https://placehold.co')) {
-          return product;
-      }
-      
-      const normalizedProductName = product.name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]|-/g, "");
-      let bestMatch = '';
-      let bestMatchImageUrl = '';
-
-      for (const [keyword, imageUrl] of defaultProductImages.entries()) {
-          const normalizedKeyword = keyword.normalize("NFD").replace(/[\u0300-\u036f]|-/g, "");
-          if (normalizedProductName.includes(normalizedKeyword) && normalizedKeyword.length > bestMatch.length) {
-              bestMatch = keyword;
-              bestMatchImageUrl = imageUrl;
-          }
-      }
-
-      if (bestMatchImageUrl) {
-          return { ...product, image: bestMatchImageUrl };
-      }
-      
-      if (!product.image || !product.image.startsWith('http')) {
-        return { ...product, image: 'https://placehold.co/600x400.png' };
-      }
-
-      return product;
-  });
-  
-  setStoredData(PRODUCTS_KEY, currentProducts);
-
-  const sortedProducts = [...currentProducts].sort((a, b) => a.name.localeCompare(b.name, 'pt-BR', { sensitivity: 'base' }));
+export function getProducts({ includePaused = false }: { includePaused?: boolean } = {}): Product[] {
+  const allProducts = [...products];
+  allProducts.sort((a, b) => a.name.localeCompare(b.name, 'pt-BR', { sensitivity: 'base' }));
 
   if (includePaused) {
-    return sortedProducts;
+    return allProducts;
   }
-  
-  return sortedProducts.filter(p => p.status === 'active');
+  return allProducts.filter(p => p.status === 'active');
 }
 
 export function getProductById(id: string): Product | undefined {
-  return getProducts({ includePaused: true }).find((p) => p.name === id || p.id === id);
+  return products.find(p => p.id === id);
 }
 
-export function addProduct(newProductData: Omit<Product, 'id' | 'status'>): Product {
-    const newId = `prod-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+export function addProduct(productData: Omit<Product, 'id' | 'status'>): Product {
     const newProduct: Product = {
-        ...newProductData,
-        id: newId,
+        ...productData,
+        id: `prod-${Date.now()}-${Math.random().toString(16).substring(2, 8)}`,
         status: 'active',
     };
-    const currentProducts = getProducts({ includePaused: true });
-    currentProducts.push(newProduct);
-    setStoredData(PRODUCTS_KEY, currentProducts);
+    products.push(newProduct);
+    products.sort((a, b) => a.name.localeCompare(b.name, 'pt-BR', { sensitivity: 'base' }));
+    setStoredData(PRODUCTS_KEY, products);
     return newProduct;
 }
 
-export function deleteProduct(productId: string): boolean {
-    let currentProducts = getProducts({ includePaused: true });
-    const initialLength = currentProducts.length;
-    currentProducts = currentProducts.filter(p => p.id !== productId);
-    setStoredData(PRODUCTS_KEY, currentProducts);
-    return currentProducts.length < initialLength;
+export function updateProduct(id: string, updates: Partial<Omit<Product, 'id' | 'status' | 'farmerId' | 'image' | 'promotion'>>) {
+  products = products.map(p => p.id === id ? { ...p, ...updates } : p);
+  setStoredData(PRODUCTS_KEY, products);
 }
 
-export function updateProduct(productId: string, updatedData: Partial<Omit<Product, 'unitAmount'>>): Product | undefined {
-    let currentProducts = getProducts({ includePaused: true });
-    const productIndex = currentProducts.findIndex(p => p.id === productId);
-    if (productIndex !== -1) {
-        currentProducts[productIndex] = { ...currentProducts[productIndex], ...updatedData };
-        setStoredData(PRODUCTS_KEY, currentProducts);
-        return currentProducts[productIndex];
-    }
-    return undefined;
+export function updateProductStock(productId: string, newStock: number) {
+    products = products.map(p => 
+        p.id === productId ? { ...p, stock: newStock } : p
+    );
+    setStoredData(PRODUCTS_KEY, products);
 }
 
-export function updateProductStock(productId: string, newStock: number): Product | undefined {
-    let currentProducts = getProducts({ includePaused: true });
-    const productIndex = currentProducts.findIndex(p => p.id === productId);
-    if (productIndex !== -1) {
-        currentProducts[productIndex].stock = newStock;
-        setStoredData(PRODUCTS_KEY, currentProducts);
-        return currentProducts[productIndex];
-    }
-    return undefined;
+export function deleteProduct(id: string) {
+  products = products.filter(p => p.id !== id);
+  setStoredData(PRODUCTS_KEY, products);
 }
 
-export function toggleProductStatus(productId: string, status: 'active' | 'paused'): Product | undefined {
-    let currentProducts = getProducts({ includePaused: true });
-    const productIndex = currentProducts.findIndex(p => p.id === productId);
-    if (productIndex !== -1) {
-        currentProducts[productIndex].status = status;
-        setStoredData(PRODUCTS_KEY, currentProducts);
-        return currentProducts[productIndex];
-    }
-    return undefined;
+export function toggleProductStatus(productId: string, status: 'active' | 'paused') {
+    products = products.map(p => 
+        p.id === productId ? { ...p, status } : p
+    );
+    setStoredData(PRODUCTS_KEY, products);
 }
 
-export function toggleProductPromotion(productId: string, promote: boolean): Product | undefined {
-    let currentProducts = getProducts({ includePaused: true });
-    const productIndex = currentProducts.findIndex(p => p.id === productId);
-    if (productIndex === -1) return undefined;
-
-    if (promote) {
-        currentProducts[productIndex].promotion = {
-            isActive: true,
-            expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) 
-        };
-    } else {
-        if (currentProducts[productIndex].promotion) {
-            currentProducts[productIndex].promotion!.isActive = false;
+export function toggleProductPromotion(productId: string, isActive: boolean) {
+    products = products.map(p => {
+        if (p.id === productId) {
+            return {
+                ...p,
+                promotion: {
+                    isActive,
+                    expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days from now
+                }
+            };
         }
-    }
-    setStoredData(PRODUCTS_KEY, currentProducts);
-    return currentProducts[productIndex];
+        return p;
+    });
+    setStoredData(PRODUCTS_KEY, products);
 }
 
 export function getPromotionalProducts(): (Product & { farmerName: string, responsibleName?: string })[] {
-    const activePromotions = getProducts().filter(p => p.promotion?.isActive);
-    return activePromotions.map(p => {
-        const farmer = getFarmerById(p.farmerId);
-        return {
-            ...p,
-            farmerName: farmer ? farmer.name : "Agricultor Desconhecido",
-            responsibleName: farmer?.responsibleName,
-        };
-    });
+    const now = new Date();
+    return products
+        .filter(p => 
+            p.promotion && 
+            p.promotion.isActive && 
+            new Date(p.promotion.expiresAt) > now &&
+            p.status === 'active'
+        )
+        .map(p => {
+            const farmer = getFarmerById(p.farmerId);
+            return {
+                ...p,
+                farmerName: farmer?.name || 'Desconhecido',
+                responsibleName: farmer?.responsibleName
+            };
+        });
 }
 
+
+// ============================================================================
+// FARMER FUNCTIONS
+// ============================================================================
+
 export function getFarmers(): Farmer[] {
-  return getStoredData(FARMERS_KEY, defaultFarmers);
+  return farmers;
 }
 
 export function getFarmerById(id: string): Farmer | undefined {
-  return getFarmers().find((f) => f.id === id);
-}
-
-export function updateFarmer(farmerId: string, updatedData: Partial<Farmer>): Farmer | undefined {
-    let currentFarmers = getFarmers();
-    const farmerIndex = currentFarmers.findIndex(f => f.id === farmerId);
-    if (farmerIndex !== -1) {
-        const newAddress = { ...currentFarmers[farmerIndex].address, ...updatedData.address };
-        currentFarmers[farmerIndex] = { ...currentFarmers[farmerIndex], ...updatedData, address: newAddress };
-        setStoredData(FARMERS_KEY, currentFarmers);
-        return currentFarmers[farmerIndex];
-    }
-    return undefined;
-}
-
-export function updateCustomer(customerId: string, updatedData: Partial<Customer>): Customer | undefined {
-    let currentCustomers = getCustomers();
-    const customerIndex = currentCustomers.findIndex(c => c.id === customerId);
-    if (customerIndex !== -1) {
-        const newAddress = { ...currentCustomers[customerIndex].address, ...updatedData.address };
-        currentCustomers[customerIndex] = { ...currentCustomers[customerIndex], ...updatedData, address: newAddress };
-        setStoredData(CUSTOMERS_KEY, currentCustomers);
-        return currentCustomers[customerIndex];
-    }
-    return undefined;
-}
-
-export function addFarmer(farmerData: Omit<Farmer, 'id' | 'location' | 'image'>): Farmer {
-    let currentFarmers = getFarmers();
-    const newId = `farmer-${currentFarmers.length + 1 + Date.now()}`;
-    const newFarmer: Farmer = {
-        id: newId,
-        location: { lat: -22.9068 + (Math.random() - 0.5) * 0.5, lng: -43.1729 + (Math.random() - 0.5) * 0.5 },
-        image: 'https://placehold.co/100x100.png',
-        ...farmerData,
-    };
-    currentFarmers.push(newFarmer);
-    setStoredData(FARMERS_KEY, currentFarmers);
-    return newFarmer;
+  return farmers.find(f => f.id === id);
 }
 
 export function getFarmersWithProducts(farmerIds?: string[]): FarmerWithProducts[] {
-  const result: FarmerWithProducts[] = [];
-  const currentProducts = getProducts();
-  const allFarmers = getFarmers();
+  let filteredFarmers = farmers;
+  if (farmerIds && farmerIds.length > 0) {
+    filteredFarmers = farmers.filter(f => farmerIds.includes(f.id));
+  }
 
-  const targetFarmers = farmerIds ? allFarmers.filter(f => farmerIds.includes(f.id)) : allFarmers;
-
-  targetFarmers.forEach(farmer => {
-    const farmerProducts = currentProducts.filter(product => product.farmerId === farmer.id);
-    if(farmerProducts.length > 0) {
-      result.push({ ...farmer, products: farmerProducts });
-    }
-  });
-
-  return result;
+  return filteredFarmers.map(farmer => ({
+    ...farmer,
+    products: products.filter(product => product.farmerId === farmer.id && product.status === 'active')
+  }));
 }
+
+export function addFarmer(farmerData: Omit<Farmer, 'id' | 'location' | 'image'>): Farmer {
+    const newFarmer: Farmer = {
+        ...farmerData,
+        id: `farm-${Date.now()}-${Math.random().toString(16).substring(2, 8)}`,
+        location: { lat: -22.90, lng: -43.20 }, // Default location, can be updated
+        image: 'https://placehold.co/100x100.png', // Default image
+    };
+    farmers.push(newFarmer);
+    setStoredData(FARMERS_KEY, farmers);
+    return newFarmer;
+}
+
+export function updateFarmer(farmerId: string, updates: Partial<Farmer>) {
+    farmers = farmers.map(f => {
+        if (f.id === farmerId) {
+            // Lógica para mesclar o endereço aninhado
+            const updatedAddress = updates.address ? { ...f.address, ...updates.address } : f.address;
+            return { ...f, ...updates, address: updatedAddress };
+        }
+        return f;
+    });
+    setStoredData(FARMERS_KEY, farmers);
+}
+
+// ============================================================================
+// ORDER FUNCTIONS
+// ============================================================================
 
 export function getOrders(): Order[] {
-    return getStoredData(ORDERS_KEY, defaultOrders);
+  return orders;
 }
 
+// ============================================================================
+// CUSTOMER FUNCTIONS
+// ============================================================================
+
 export function getCustomers(): Customer[] {
-    const currentCustomers = getStoredData(CUSTOMERS_KEY, defaultCustomers);
-    const currentOrders = getOrders();
-    const customerIdsFromOrders = new Set(currentOrders.map(o => o.customerName));
-    
-    const customersFromOrders: Customer[] = Array.from(customerIdsFromOrders)
-      .map(name => {
-          const existingCustomer = currentCustomers.find(c => c.name === name);
-          if (existingCustomer) return null;
-
-          const order = currentOrders.find(o => o.customerName === name);
-          if (!order || !order.customerContact) return null;
-          
-          const addressString = typeof order.customerContact.address === 'string' 
-              ? order.customerContact.address 
-              : `${order.customerContact.address.street}, ${order.customerContact.address.number}`;
-
-          return {
-              id: `cust-${name.toLowerCase().replace(' ', '-')}`,
-              name: order.customerName,
-              email: `${name.toLowerCase().replace(' ', '.')}@email.com`,
-              address: { street: addressString, number: '', neighborhood: '', city: '', state: '', zipCode: '' },
-              phone: order.customerContact?.phone || 'Telefone não informado',
-              favoriteFarmerIds: [],
-              image: 'https://placehold.co/100x100.png'
-          };
-      }).filter((c): c is Customer => Boolean(c));
-      
-    const allKnownCustomers = [...currentCustomers];
-    customersFromOrders.forEach(c => {
-      if (!allKnownCustomers.some(ac => ac.id === c.id)) {
-        allKnownCustomers.push(c);
-      }
-    });
-
-    return allKnownCustomers;
+  return customers;
 }
 
 export function getCustomerById(id: string): Customer | undefined {
-    return getCustomers().find(c => c.id === id);
+    return customers.find(c => c.id === id);
 }
 
-export function updateCustomerClassification(customerId: string, classification: CustomerClassification): Customer | undefined {
-    let currentCustomers = getStoredData(CUSTOMERS_KEY, defaultCustomers);
-    const customerIndex = currentCustomers.findIndex(c => c.id === customerId);
-    if (customerIndex !== -1) {
-        currentCustomers[customerIndex].classification = classification;
-        setStoredData(CUSTOMERS_KEY, currentCustomers);
-        return currentCustomers[customerIndex];
-    }
-    
-    const orderCustomer = getCustomerById(customerId);
-    if (orderCustomer) {
-        const newCustomer = { ...orderCustomer, classification };
-        currentCustomers.push(newCustomer);
-        setStoredData(CUSTOMERS_KEY, currentCustomers);
-        return newCustomer;
-    }
+export function updateCustomer(customerId: string, updates: Partial<Customer>) {
+    customers = customers.map(c => {
+        if (c.id === customerId) {
+             const updatedAddress = updates.address ? { ...c.address, ...updates.address } : c.address;
+            return { ...c, ...updates, address: updatedAddress };
+        }
+        return c;
+    });
+    setStoredData(CUSTOMERS_KEY, customers);
+}
 
-    return undefined;
+export function updateCustomerClassification(customerId: string, classification: CustomerClassification) {
+    customers = customers.map(c => 
+        c.id === customerId ? { ...c, classification } : c
+    );
+    setStoredData(CUSTOMERS_KEY, customers);
 }
