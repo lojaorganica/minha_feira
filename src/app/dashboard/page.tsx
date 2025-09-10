@@ -248,7 +248,8 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
 
     // Estados para o autocompletar
     const [isSuggestionsOpen, setSuggestionsOpen] = useState(false);
-    const [suggestions, setSuggestions] = useState<Product[]>([]);
+    const inputRef = useRef<HTMLInputElement>(null);
+
     const allProductsCatalog = useMemo(() => {
         const uniqueProducts = new Map<string, Product>();
         getProducts({ includePaused: true }).forEach(p => {
@@ -256,8 +257,15 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
                 uniqueProducts.set(p.name.toLowerCase(), p);
             }
         });
-        return Array.from(uniqueProducts.values());
+        return Array.from(uniqueProducts.values()).sort((a, b) => a.name.localeCompare(b.name));
     }, []);
+    
+    const suggestions = useMemo(() => {
+        if (name.length < 1) return [];
+        return allProductsCatalog.filter(p =>
+            p.name.toLowerCase().includes(name.toLowerCase())
+        );
+    }, [name, allProductsCatalog]);
 
     const resetForm = () => {
         setName('');
@@ -272,13 +280,8 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
     };
 
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
-        setName(value);
-        if (value.length > 1) {
-            const filteredSuggestions = allProductsCatalog.filter(p =>
-                p.name.toLowerCase().includes(value.toLowerCase())
-            );
-            setSuggestions(filteredSuggestions);
+        setName(e.target.value);
+        if (e.target.value.length > 0) {
             setSuggestionsOpen(true);
         } else {
             setSuggestionsOpen(false);
@@ -289,9 +292,10 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
         setName(product.name);
         setDescription(product.description);
         setCategory(product.category);
-        setImage(product.image); // Preenche a imagem
-        setDataAiHint(product.dataAiHint); // Preenche a dica de IA
+        setImage(product.image);
+        setDataAiHint(product.dataAiHint);
         setSuggestionsOpen(false);
+        inputRef.current?.focus(); // Mantém o foco no input
     };
 
     const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -367,7 +371,10 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
     return (
         <Dialog open={isOpen} onOpenChange={(open) => {
             setIsOpen(open);
-            if (!open) resetForm();
+            if (!open) {
+                resetForm();
+                setSuggestionsOpen(false);
+            }
         }}>
             <DialogTrigger asChild>
                 <Button>
@@ -388,17 +395,16 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
                         <Popover open={isSuggestionsOpen} onOpenChange={setSuggestionsOpen}>
                              <PopoverAnchor asChild>
                                 <Input 
-                                    id="new-name" 
+                                    id="new-name"
+                                    ref={inputRef}
                                     value={name} 
                                     onChange={handleNameChange}
                                     className="bg-card" 
-                                    spellCheck="false" 
-                                    autoCorrect="off"
                                     autoComplete="off"
                                 />
                              </PopoverAnchor>
-                            {suggestions.length > 0 && (
-                                <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start">
+                            <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start">
+                                {suggestions.length > 0 ? (
                                     <ScrollArea className="h-auto max-h-64">
                                         <div className="p-2 space-y-1">
                                         {suggestions.map(p => (
@@ -413,8 +419,12 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
                                         ))}
                                         </div>
                                     </ScrollArea>
-                                </PopoverContent>
-                            )}
+                                ) : (
+                                    <div className="p-4 text-sm text-center text-muted-foreground">
+                                        Nenhum produto encontrado.
+                                    </div>
+                                )}
+                            </PopoverContent>
                         </Popover>
                     </div>
                     
