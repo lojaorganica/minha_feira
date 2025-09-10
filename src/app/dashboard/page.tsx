@@ -237,7 +237,7 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
     const { toast } = useToast();
     
     const [name, setName] = useState('');
-    const [price, setPrice] = useState<number | undefined>(0);
+    const [price, setPrice] = useState<number>(0);
     const [formattedPrice, setFormattedPrice] = useState('');
     const [unit, setUnit] = useState('unidade');
     const [description, setDescription] = useState('');
@@ -327,7 +327,7 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
 
     const handleSubmit = () => {
         const productExists = farmerProducts.some(p => p.name.trim().toLowerCase() === name.trim().toLowerCase());
-
+        
         if (productExists) {
             toast({
                 variant: 'destructive',
@@ -336,7 +336,7 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
             });
             return;
         }
-
+        
         if (!name || price === undefined || !unit) {
             toast({
                 variant: 'destructive',
@@ -345,6 +345,7 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
             });
             return;
         }
+
          if (price < 0) {
             toast({
                 variant: "destructive",
