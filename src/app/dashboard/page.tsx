@@ -229,6 +229,7 @@ function EditProductForm({ product: initialProduct, onSaveChanges }: { product: 
 }
 
 
+
 function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => void, farmerId: string }) {
     const [isOpen, setIsOpen] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
@@ -284,7 +285,7 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newName = e.target.value;
         setName(newName);
-        setSuggestionsOpen(newName.length > 0 && suggestions.length > 0);
+        setSuggestionsOpen(newName.length > 0);
     };
 
     const handleSuggestionClick = (product: Product) => {
@@ -394,7 +395,6 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
                             id="new-name"
                             value={name} 
                             onChange={handleNameChange}
-                            onFocus={() => setSuggestionsOpen(name.length > 0 && suggestions.length > 0)}
                             className="bg-card" 
                             autoComplete="off"
                         />
