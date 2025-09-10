@@ -1004,6 +1004,7 @@ Entrega: ${deliveryText}
                                 </span>
                                     <span>R${order.total.toFixed(2).replace('.', ',')}</span>
                                 </div>
+                                </div>
                             </CardContent>
                             <CardFooter>
                                 <div className="flex w-full gap-2">
