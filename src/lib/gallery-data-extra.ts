@@ -271,10 +271,10 @@ function extractFileNameFromUrl(url: string): string {
     }
 }
 
-export function getNewGalleryItems(): GalleryItem[] {
+export function getExtraGalleryItems(): GalleryItem[] {
   return allItemUrls.map((url, index) => {
     const fileName = extractFileNameFromUrl(url);
-    const id = `new-item-${index}-${fileName.split('.')[0]}`;
+    const id = `extra-item-${index}-${fileName.split('.')[0]}`;
     
     let title = fileName
       .replace(/_/g, ' ')
