@@ -408,14 +408,6 @@ function GalleryViewContent() {
                             Seu navegador não suporta a tag de vídeo.
                         </video>
                     )}
-                     <DialogClose asChild>
-                        <button
-                          className="absolute right-2 top-2 rounded-full bg-accent p-1 text-accent-foreground transition-opacity hover:bg-accent/90 focus:outline-none focus:ring-0 focus-visible:outline-none disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground"
-                          aria-label="Fechar"
-                        >
-                            <X className="h-4 w-4" />
-                        </button>
-                    </DialogClose>
                 </DialogContent>
             </Dialog>
 
@@ -433,14 +425,6 @@ function GalleryViewContent() {
                             />
                         </div>
                     )}
-                     <DialogClose asChild>
-                       <button
-                          className="absolute right-2 top-2 rounded-full bg-accent p-1 text-accent-foreground transition-opacity hover:bg-accent/90 focus:outline-none focus:ring-0 focus-visible:outline-none disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground"
-                          aria-label="Fechar"
-                        >
-                            <X className="h-4 w-4" />
-                        </button>
-                    </DialogClose>
                 </DialogContent>
             </Dialog>
 
