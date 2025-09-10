@@ -255,11 +255,11 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
     const suggestions = useMemo(() => {
         if (name.length < 1) return [];
         const lowerCaseName = name.toLowerCase();
-        
+    
         const filtered = allProductsCatalog.filter(p => 
-            p.name.toLowerCase().includes(lowerCaseName)
+            p.name.toLowerCase().startsWith(lowerCaseName)
         );
-
+    
         const uniqueNames = new Set();
         const uniqueSuggestions = filtered.filter(p => {
             const trimmedName = p.name.trim();
@@ -270,12 +270,12 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
                 return true;
             }
         });
-        
+    
         // Ordena os resultados alfabeticamente
         uniqueSuggestions.sort((a, b) => a.name.localeCompare(b.name, 'pt-BR', { sensitivity: 'base' }));
-
+    
         return uniqueSuggestions;
-
+    
     }, [name, allProductsCatalog]);
 
     const resetForm = () => {
