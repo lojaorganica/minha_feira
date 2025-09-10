@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import { Suspense, useState, useMemo, useTransition, useRef, useEffect } from 'react';
@@ -236,7 +235,6 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
     const [isSaving, setIsSaving] = useState(false);
     const { toast } = useToast();
     
-    // Estados do formulário
     const [name, setName] = useState('');
     const [price, setPrice] = useState<number | undefined>(undefined);
     const [formattedPrice, setFormattedPrice] = useState('');
@@ -256,10 +254,10 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
     const suggestions = useMemo(() => {
         if (name.length < 1) return [];
         const lowerCaseName = name.toLowerCase();
+        
         const filtered = allProductsCatalog
-            .filter(p => p.name.toLowerCase().startsWith(lowerCaseName));
+            .filter(p => p.name.toLowerCase().includes(lowerCaseName));
 
-        // Remover duplicatas baseadas no nome, mantendo a primeira ocorrência
         const uniqueNames = new Set();
         return filtered.filter(p => {
             const trimmedName = p.name.trim();
@@ -288,7 +286,7 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newName = e.target.value;
         setName(newName);
-        setSuggestionsOpen(newName.length > 0 && suggestions.length > 0);
+        setSuggestionsOpen(newName.length > 0);
     };
 
     const handleSuggestionClick = (product: Product) => {
@@ -417,11 +415,9 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
                             className="bg-card" 
                             autoComplete="off"
                         />
-                        {isSuggestionsOpen && suggestions.length > 0 && (
-                             <div
-                                className="absolute z-50 w-full bg-background border rounded-md shadow-lg mt-1 max-h-96"
-                            >
-                                <ScrollArea className="max-h-96">
+                        {isSuggestionsOpen && suggestions.length > 0 && name.length > 0 && (
+                            <div className="absolute z-50 w-full bg-background border rounded-md shadow-lg mt-1">
+                                <ScrollArea className="max-h-64">
                                     <div className="p-2 space-y-1">
                                     {suggestions.map(p => (
                                         <Button
@@ -1185,7 +1181,7 @@ function DashboardContent() {
         const farmerId = user?.id;
         if (!farmerId) return { pendingOrders: [], historyOrders: [], farmerProducts: [] };
 
-        const currentFarmerProducts = getProducts({ includePaused: true }).filter(p => p.farmerId === farmerId);
+        const currentFarmerProducts = allProducts.filter(p => p.farmerId === farmerId);
         const farmerProductNames = new Set(currentFarmerProducts.map(p => p.name));
         
         const relevantOrders = allOrders.filter(order =>
@@ -1217,6 +1213,7 @@ function DashboardContent() {
 
     const handleProductUpdate = () => {
         setAllProducts(getProducts({ includePaused: true }));
+        setSearchTerm(''); // Limpa a busca para mostrar o novo produto
     };
 
     const handleTabChange = (newTab: string) => {
@@ -1291,5 +1288,7 @@ export default function DashboardPage() {
         </Suspense>
     );
 }
+
+    
 
     
