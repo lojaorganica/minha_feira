@@ -237,7 +237,7 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
     const { toast } = useToast();
     
     const [name, setName] = useState('');
-    const [price, setPrice] = useState<number | undefined>(undefined);
+    const [price, setPrice] = useState<number | undefined>(0);
     const [formattedPrice, setFormattedPrice] = useState('');
     const [unit, setUnit] = useState('unidade');
     const [description, setDescription] = useState('');
@@ -275,7 +275,7 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
 
     const resetForm = () => {
         setName('');
-        setPrice(undefined);
+        setPrice(0);
         setFormattedPrice('');
         setUnit('unidade');
         setDescription('');
@@ -994,7 +994,6 @@ Entrega: ${deliveryText}
                                             </div>
                                         )}
                                     </div>
-                                </div>
                                 
                                 <Separator />
                                 <div className="flex justify-between items-center text-lg font-bold">
@@ -1196,10 +1195,12 @@ function DashboardContent() {
         if (!farmerId) return { pendingOrders: [], historyOrders: [], farmerProducts: [] };
 
         const currentFarmerProducts = allProducts.filter(p => p.farmerId === farmerId);
-        const farmerProductNames = new Set(currentFarmerProducts.map(p => p.name));
         
         const relevantOrders = allOrders.filter(order =>
-            order.items.some(item => farmerProductNames.has(item.productName))
+             order.items.some(item => {
+                const product = getProducts({ includePaused: true }).find(p => p.name === item.productName);
+                return product ? product.farmerId === farmerId : false;
+             })
         );
         
         return {
@@ -1293,4 +1294,6 @@ export default function DashboardPage() {
             </div>
         }>
             <DashboardContent />
-        </Suspense
+        </Suspense>
+    );
+}
