@@ -1,4 +1,5 @@
 
+
 import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerOrder, CustomerClassification, CustomerAddress, ProductCategory } from './types';
 
 // ============================================================================
@@ -183,6 +184,19 @@ const defaultProducts: Product[] = [
     description: 'Hortelã fresca e aromática, perfeita para chás, sucos, quibes e sobremesas.',
     status: 'active',
     stock: 70,
+  },
+  {
+    id: '12',
+    name: 'Amora Orgânica',
+    category: 'Fruta',
+    price: 6.00,
+    unit: 'caixa',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/amora.webp?alt=media&token=475338b1-3e4b-4f9e-b2d2-8b6b1d4d3b8e',
+    dataAiHint: 'blackberry',
+    farmerId: '2',
+    description: 'Amoras orgânicas, doces e suculentas, perfeitas para sobremesas e geleias.',
+    status: 'active',
+    stock: 20
   },
   {
     id: '13',
