@@ -261,7 +261,7 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
         );
 
         const uniqueNames = new Set();
-        return filtered.filter(p => {
+        const uniqueSuggestions = filtered.filter(p => {
             const trimmedName = p.name.trim();
             if (uniqueNames.has(trimmedName)) {
                 return false;
@@ -269,7 +269,10 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
                 uniqueNames.add(trimmedName);
                 return true;
             }
-        }).sort((a, b) => a.name.localeCompare(b.name, 'pt-BR', { sensitivity: 'base' }));
+        });
+
+        // Ordena as sugestões alfabeticamente
+        return uniqueSuggestions.sort((a, b) => a.name.localeCompare(b.name, 'pt-BR', { sensitivity: 'base' }));
 
     }, [name, allProductsCatalog]);
 

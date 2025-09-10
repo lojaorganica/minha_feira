@@ -1877,6 +1877,7 @@ let customers: Customer[] = getStoredData(CUSTOMERS_KEY, defaultCustomers);
 
 export function getProducts({ includePaused = false }: { includePaused?: boolean } = {}): Product[] {
   const allProducts = [...products];
+  // Garante que a ordenação seja sempre aplicada
   allProducts.sort((a, b) => a.name.localeCompare(b.name, 'pt-BR', { sensitivity: 'base' }));
 
   if (includePaused) {
