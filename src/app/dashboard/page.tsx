@@ -252,6 +252,7 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
 
     const allProductsCatalog = useMemo(() => {
         const uniqueProducts = new Map<string, Product>();
+        // Busca em todos os produtos, incluindo pausados, para ter uma base de dados completa
         getProducts({ includePaused: true }).forEach(p => {
             if (!uniqueProducts.has(p.name.toLowerCase())) {
                 uniqueProducts.set(p.name.toLowerCase(), p);
@@ -392,7 +393,7 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
                 </DialogHeader>
                 <div className="grid gap-4 py-4 text-base">
                     <Popover open={isSuggestionsOpen} onOpenChange={setSuggestionsOpen}>
-                        <PopoverAnchor asChild>
+                        <PopoverTrigger asChild>
                             <div className="space-y-2">
                                 <Label htmlFor="new-name">Nome do Produto</Label>
                                 <Input 
@@ -405,7 +406,7 @@ function AddProductForm({ onProductAdded, farmerId }: { onProductAdded: () => vo
                                     autoComplete="off"
                                 />
                             </div>
-                        </PopoverAnchor>
+                        </PopoverTrigger>
                         <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start">
                             {suggestions.length > 0 ? (
                                 <ScrollArea className="h-auto max-h-64">
