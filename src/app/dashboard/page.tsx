@@ -247,6 +247,7 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
     const [dataAiHint, setDataAiHint] = useState('');
     
     const [isSuggestionsOpen, setSuggestionsOpen] = useState(false);
+    const containerRef = useRef<HTMLDivElement>(null);
     
     const allProductsCatalog = useMemo(() => {
         return getProducts({ includePaused: true });
@@ -271,7 +272,6 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
             }
         });
     
-        // Ordena os resultados alfabeticamente
         uniqueSuggestions.sort((a, b) => a.name.localeCompare(b.name, 'pt-BR', { sensitivity: 'base' }));
     
         return uniqueSuggestions;
@@ -294,6 +294,12 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
         const newName = e.target.value;
         setName(newName);
         setSuggestionsOpen(newName.length > 0);
+    };
+    
+    const handleContainerBlur = (e: React.FocusEvent<HTMLDivElement>) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+            setSuggestionsOpen(false);
+        }
     };
 
     const handleSuggestionClick = (product: Product) => {
@@ -414,7 +420,11 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
                             <Image src={image} alt={name} fill className="object-cover" data-ai-hint={dataAiHint}/>
                         </div>
                     )}
-                     <div className="space-y-2 relative">
+                     <div 
+                        className="space-y-2 relative" 
+                        ref={containerRef} 
+                        onBlur={handleContainerBlur}
+                     >
                         <Label htmlFor="new-name">Nome do Produto</Label>
                         <Input 
                             id="new-name"
@@ -423,7 +433,6 @@ function AddProductForm({ onProductAdded, farmerId, farmerProducts }: { onProduc
                             className="bg-card" 
                             autoComplete="off"
                             onFocus={() => setSuggestionsOpen(name.length > 0)}
-                            onBlur={() => setTimeout(() => setSuggestionsOpen(false), 150)}
                         />
                          {isSuggestionsOpen && suggestions.length > 0 && (
                             <div className="absolute z-50 w-full bg-background border rounded-md shadow-lg mt-1 max-h-96 overflow-y-auto">
