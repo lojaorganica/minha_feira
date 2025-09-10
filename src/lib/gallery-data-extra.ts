@@ -3,6 +3,7 @@ import type { GalleryItem, GalleryFair, GalleryTheme } from './types';
 
 // Lote 2: Contém as URLs da galeria a partir do item 251.
 const allItemUrls: string[] = [
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fespecial_dia_das_maes_03.jpg?alt=media&token=eea2f616-5285-40ce-9e05-bb2be3aa8d9b',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feira_grajau_32_inhame_aranha.mp4?alt=media&token=3c61b9ac-bf2a-433c-b8c8-570fe1144cc2',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feira_grajau_35_robinete.mp4?alt=media&token=3aed7d59-3109-4788-b6d8-2aedb3d820cd',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feira_grajau_37_sporock.mp4?alt=media&token=45b2b6af-c42e-428c-a223-31f48f241951',
@@ -224,8 +225,8 @@ function getThemeCategories(fileName: string): GalleryTheme[] {
     if (fileName.startsWith('ap_')) themes.push('Personagens - Animações e Cartoon');
     
     // As palavras-chave 'story' e 'especial' podem coexistir com os temas acima
-    if (fileName.includes('_story_')) themes.push('Story');
-    if (fileName.includes('_especial')) themes.push('Dias Especiais');
+    if (fileName.includes('story')) themes.push('Story');
+    if (fileName.includes('especial')) themes.push('Dias Especiais');
 
     // Se após todas as verificações, nenhum tema foi atribuído, aplicamos uma regra padrão.
     // Isso evita que um item fique sem tema.

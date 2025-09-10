@@ -222,8 +222,8 @@ function getThemeCategories(fileName: string): GalleryTheme[] {
     if (fileName.startsWith('ap_')) themes.push('Personagens - Animações e Cartoon');
     
     // As palavras-chave 'story' e 'especial' podem coexistir com os temas acima
-    if (fileName.includes('_story_')) themes.push('Story');
-    if (fileName.includes('_especial')) themes.push('Dias Especiais');
+    if (fileName.includes('story')) themes.push('Story');
+    if (fileName.includes('especial')) themes.push('Dias Especiais');
 
     // Se após todas as verificações, nenhum tema foi atribuído, aplicamos uma regra padrão.
     // Isso evita que um item fique sem tema.
