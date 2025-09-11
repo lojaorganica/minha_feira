@@ -1,6 +1,5 @@
 
-
-import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerOrder, CustomerClassification, CustomerAddress, ProductCategory } from './types';
+import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerClassification, CustomerAddress, ProductCategory } from './types';
 
 // ============================================================================
 // IN-MEMORY DATA STORE WITH LOCALSTORAGE PERSISTENCE
@@ -46,7 +45,7 @@ function setStoredData<T>(key: string, value: T[], sortFn?: (a: T, b: T) => numb
   }
 }
 
-const PRODUCTS_KEY = 'minha_feira_products_v3';
+const PRODUCTS_KEY = 'minha_feira_products_v4';
 const FARMERS_KEY = 'minha_feira_farmers';
 const ORDERS_KEY = 'minha_feira_orders';
 const CUSTOMERS_KEY = 'minha_feira_customers';
@@ -1379,6 +1378,48 @@ let defaultProducts: Product[] = [
   }
 ];
 
+const lojaOrganicaProducts: Product[] = [
+    {
+        id: '134',
+        name: 'Mel de Flores Silvestres Orgânico',
+        price: 25.00,
+        unit: 'pote',
+        category: 'Apícola',
+        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_silvestre.jpg?alt=media&token=24225028-25f0-4573-be5d-a6073f32462b',
+        dataAiHint: 'wildflower honey',
+        farmerId: '134',
+        description: 'Mel puro de flores silvestres, colhido de forma sustentável.',
+        status: 'active',
+        stock: 50
+    },
+    {
+        id: '135',
+        name: 'Mel de Flores de Laranjeira Orgânico',
+        price: 28.00,
+        unit: 'pote',
+        category: 'Apícola',
+        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_laranjeira.jpg?alt=media&token=7c8d9c57-6b4e-4f7f-8d2b-5868e404b9e2',
+        dataAiHint: 'orange blossom honey',
+        farmerId: '134',
+        description: 'Mel delicado de flores de laranjeira, com um toque cítrico.',
+        status: 'active',
+        stock: 40
+    },
+    {
+        id: '136',
+        name: 'Mel de Flores de Eucalipto Orgânico',
+        price: 26.00,
+        unit: 'pote',
+        category: 'Apícola',
+        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_eucalipto.jpg?alt=media&token=8b1c4b1d-2b3a-4e8c-9d1e-8d6e3e5d7f2a',
+        dataAiHint: 'eucalyptus honey',
+        farmerId: '134',
+        description: 'Mel de eucalipto, com sabor mais robusto e notas mentoladas.',
+        status: 'active',
+        stock: 45
+    }
+];
+
 const domicilioOrganicoProducts: Product[] = [
     {
         id: '137',
@@ -1408,6 +1449,7 @@ const domicilioOrganicoProducts: Product[] = [
     }
 ];
 
+defaultProducts.push(...lojaOrganicaProducts);
 defaultProducts.push(...domicilioOrganicoProducts);
 
 const defaultFarmers: Farmer[] = [
@@ -1537,6 +1579,27 @@ pixKey: 'oneias.souza@email.com',
     phone: '5521966667777',
     fairs: ['Grajaú', 'Tijuca', 'Botafogo', 'Leme', 'Flamengo', 'Laranjeiras'],
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/ivison_fragoso.jpg?alt=media&token=7c1b1c1b-1c1c-4b1b-8b1b-1c1c1c1c1c1c'
+  },
+  {
+    id: '134',
+    responsibleName: 'Apicultores da Serra',
+    name: 'Loja Orgânica',
+    location: { lat: -22.48, lng: -43.05 },
+    bio: 'Uma seleção especial dos melhores produtos orgânicos de parceiros, com foco em méis e derivados.',
+    address: {
+      street: 'Avenida Brasil',
+      number: '1000',
+      complement: '',
+      neighborhood: 'Centro',
+      city: 'Rio de Janeiro',
+      state: 'RJ',
+      zipCode: '20000-000'
+    },
+    pixKey: 'loja.organica@email.com',
+    shippingCost: 15.00,
+    phone: '5521955556666',
+    fairs: [],
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/loja_organica.png?alt=media&token=3b3d1b3e-3b3d-4b3d-8b3d-3b3d1b3e3b3d'
   }
 ];
 
@@ -1868,3 +1931,44 @@ export function updateCustomer(id: string, updates: Partial<Omit<Customer, 'id'>
   });
   setStoredData(CUSTOMERS_KEY, customers);
 }
+
+const lojaOrganicaId = '134';
+
+// Verifica se o agricultor "Loja Orgânica" já existe
+let lojaOrganicaFarmer = farmers.find(f => f.id === lojaOrganicaId);
+
+if (!lojaOrganicaFarmer) {
+  const newLojaOrganicaFarmer: Farmer = {
+    id: lojaOrganicaId,
+    responsibleName: 'Apicultores da Serra',
+    name: 'Loja Orgânica',
+    location: { lat: -22.48, lng: -43.05 },
+    bio: 'Uma seleção especial dos melhores produtos orgânicos de parceiros, com foco em méis e derivados.',
+    address: {
+      street: 'Avenida Brasil',
+      number: '1000',
+      complement: '',
+      neighborhood: 'Centro',
+      city: 'Rio de Janeiro',
+      state: 'RJ',
+      zipCode: '20000-000'
+    },
+    pixKey: 'loja.organica@email.com',
+    shippingCost: 15.00,
+    phone: '5521955556666',
+    fairs: [],
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/loja_organica.png?alt=media&token=3b3d1b3e-3b3d-4b3d-8b3d-3b3d1b3e3b3d'
+  };
+  farmers.push(newLojaOrganicaFarmer);
+  setStoredData(FARMERS_KEY, farmers);
+}
+
+// Garante que os produtos da Loja Orgânica existam
+lojaOrganicaProducts.forEach(product => {
+    if (!products.some(p => p.id === product.id)) {
+        products.push(product);
+    }
+});
+setStoredData(PRODUCTS_KEY, products, productSortFn);
+
+    
