@@ -55,7 +55,7 @@ const productSortFn = (a: Product, b: Product) => a.name.localeCompare(b.name, '
 
 
 // Initial default data
-const defaultProducts: Product[] = [
+let defaultProducts: Product[] = [
    {
     id: '1',
     name: 'Cenouras Orgânicas',
@@ -1379,15 +1379,17 @@ const defaultProducts: Product[] = [
   }
 ];
 
-// Enrich default products for Ivison Fragoso
+// Enrich default products for Ivison Fragoso with all fruits
 const fruitsForIvison = defaultProducts
   .filter(p => p.category === 'Fruta')
-  .map((p, index) => ({
+  .map((p) => ({
     ...p,
-    id: `6-fruit-${p.id}-${index}`, // Create a more unique ID
+    id: `ivison-fruit-${p.id}`, // Create a unique ID for Ivison's version
     farmerId: '6' 
   }));
-const allDefaultProducts = [...defaultProducts, ...fruitsForIvison];
+
+// Combine the original list with the new fruit list for Ivison
+defaultProducts.push(...fruitsForIvison);
 
 
 const defaultFarmers: Farmer[] = [
@@ -1656,7 +1658,7 @@ const defaultOrders: Order[] = [
 
 
 // State management for data
-let products = getStoredData(PRODUCTS_KEY, allDefaultProducts, productSortFn);
+let products = getStoredData(PRODUCTS_KEY, defaultProducts, productSortFn);
 let farmers = getStoredData(FARMERS_KEY, defaultFarmers);
 let orders = getStoredData(ORDERS_KEY, defaultOrders);
 let customers = getStoredData(CUSTOMERS_KEY, defaultCustomers);
