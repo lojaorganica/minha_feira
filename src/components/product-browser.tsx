@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useMemo, useState, useRef, useEffect, Suspense } from "react";
@@ -92,29 +91,26 @@ function ProductBrowserContent() {
   const router = useRouter();
   const { searchTerm, setSearchTerm } = useSearch();
   
-  const initialFarmerId = searchParams.get('farmerId');
-  const [selectedFarmerId, setSelectedFarmerId] = useState<string | null>(initialFarmerId);
+  // A "fonte da verdade" é a URL. Não precisamos de um estado separado.
+  const selectedFarmerId = searchParams.get('farmerId');
   const filterRef = useRef<HTMLDivElement>(null);
   
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
-
-  useEffect(() => {
-    const farmerIdFromUrl = searchParams.get('farmerId');
-    if (farmerIdFromUrl !== selectedFarmerId) {
-        setSelectedFarmerId(farmerIdFromUrl);
-    }
-  }, [searchParams]);
   
   const handleSelectFarmer = (farmerId: string | null) => {
-    setSelectedFarmerId(farmerId);
-    // Atualiza a URL para refletir o filtro, sem o ID do agricultor se 'Todos' for selecionado
-    const newPath = farmerId ? `/catalog?farmerId=${farmerId}` : '/catalog';
-    router.push(newPath, { scroll: false });
+    // Atualiza a URL para refletir o filtro.
+    const currentParams = new URLSearchParams(searchParams.toString());
+    if (farmerId) {
+      currentParams.set('farmerId', farmerId);
+    } else {
+      currentParams.delete('farmerId');
+    }
+    router.push(`/catalog?${currentParams.toString()}`, { scroll: false });
   };
   
   useEffect(() => {
     // Rola para a área de resultados quando uma busca ou filtro é ativado
-    if ((debouncedSearchTerm || selectedFarmerId !== initialFarmerId) && filterRef.current) {
+    if (filterRef.current && (debouncedSearchTerm || selectedFarmerId)) {
         // Usamos um pequeno timeout para garantir que o DOM foi atualizado antes de rolar
         setTimeout(() => {
             if(filterRef.current) {
@@ -126,7 +122,7 @@ function ProductBrowserContent() {
             }
         }, 100);
     }
-  }, [debouncedSearchTerm, selectedFarmerId, initialFarmerId]);
+  }, [debouncedSearchTerm, selectedFarmerId]);
 
   const allFarmers = useMemo(() => getFarmers(), []);
   
