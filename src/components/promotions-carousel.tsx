@@ -50,11 +50,12 @@ export default function PromotionsCarousel() {
                 >
                     <CarouselContent className="-ml-4">
                         {promotions.map((product) => {
+                             const isLojaOrganica = product.farmerId === '134';
                             return (
                                 <CarouselItem key={product.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
                                     <div className="p-1 h-full">
                                         <Card className="overflow-hidden h-full flex flex-col">
-                                            <div className="relative bg-muted/30 aspect-[3/2]">
+                                            <div className={cn("relative bg-muted/30", isLojaOrganica ? "aspect-[3/4]" : "aspect-[3/2]")}>
                                                 <Image
                                                     src={product.image}
                                                     alt={product.name}

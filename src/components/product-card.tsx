@@ -75,6 +75,8 @@ const ProductCard = ({ product, farmerName, responsibleName }: ProductCardProps)
         return isKgProduct ? Math.max(0.2, newQuantity) : Math.max(1, newQuantity);
     });
   };
+  
+  const isLojaOrganica = product.farmerId === '134';
 
   const renderQuantityInput = () => {
     if (isKgProduct) {
@@ -127,7 +129,7 @@ const ProductCard = ({ product, farmerName, responsibleName }: ProductCardProps)
   return (
     <>
       <Card className="flex flex-col h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-        <div className="relative rounded-t-lg bg-muted/30 aspect-[3/2]">
+        <div className={cn("relative rounded-t-lg bg-muted/30", isLojaOrganica ? "aspect-[3/4]" : "aspect-[3/2]")}>
           <Image
             src={product.image}
             alt={product.name}
