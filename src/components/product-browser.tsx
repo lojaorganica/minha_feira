@@ -3,7 +3,7 @@
 
 import { useMemo, useState, useRef, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { getFarmersWithProducts, getFarmers } from "@/lib/data";
+import { getFarmers, getProducts } from "@/lib/data";
 import type { FarmerWithProducts, Farmer } from "@/lib/types";
 import { useSearch } from "@/hooks/use-search";
 import ProductCard from "./product-card";
@@ -127,16 +127,19 @@ function ProductBrowserContent() {
             }
         }, 100);
     }
-  }, [debouncedSearchTerm, selectedFarmerId]);
+  }, [debouncedSearchTerm, selectedFarmerId, initialFarmerId]);
 
   const allFarmers = useMemo(() => getFarmers(), []);
-
-  const allFarmersWithProducts: FarmerWithProducts[] = useMemo(() => {
-    return getFarmersWithProducts();
-  }, []);
+  
+  const allProducts = useMemo(() => getProducts({ includePaused: false }), []);
 
   const filteredProductsByFarmer: FarmerWithProducts[] = useMemo(() => {
-    let farmers = allFarmersWithProducts;
+    const farmersWithProducts = allFarmers.map(farmer => ({
+      ...farmer,
+      products: allProducts.filter(p => p.farmerId === farmer.id),
+    }));
+
+    let farmers = farmersWithProducts;
 
     // 1. Filtrar por agricultor selecionado
     if (selectedFarmerId) {
@@ -145,21 +148,23 @@ function ProductBrowserContent() {
 
     // 2. Filtrar por termo de busca
     if (!debouncedSearchTerm) {
-      return farmers;
+      return farmers.filter(farmer => farmer.products.length > 0);
     }
 
     return farmers
       .map(farmer => {
         const filteredProducts = farmer.products.filter(product =>
-          product.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) && product.status === 'active'
+          product.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
         );
         return { ...farmer, products: filteredProducts };
       })
       .filter(farmer => farmer.products.length > 0);
       
-  }, [debouncedSearchTerm, allFarmersWithProducts, selectedFarmerId]);
+  }, [debouncedSearchTerm, allProducts, allFarmers, selectedFarmerId]);
+  
+  const hasAnyProducts = useMemo(() => allProducts.length > 0, [allProducts]);
 
-  if (allFarmersWithProducts.length === 0) {
+  if (!hasAnyProducts) {
      return (
          <section className="py-12 md:py-16">
              <div className="container text-center">
