@@ -99,12 +99,11 @@ function ProductBrowserContent() {
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
   useEffect(() => {
-    // Sincroniza o estado com a URL quando ela muda externamente
     const farmerIdFromUrl = searchParams.get('farmerId');
     if (farmerIdFromUrl !== selectedFarmerId) {
-      setSelectedFarmerId(farmerIdFromUrl);
+        setSelectedFarmerId(farmerIdFromUrl);
     }
-  }, [searchParams, selectedFarmerId]);
+  }, [searchParams]);
   
   const handleSelectFarmer = (farmerId: string | null) => {
     setSelectedFarmerId(farmerId);
