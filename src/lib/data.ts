@@ -1,4 +1,5 @@
 
+
 import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerClassification, CustomerAddress, ProductCategory } from './types';
 
 // ============================================================================
@@ -1380,30 +1381,30 @@ let defaultProducts: Product[] = [
 
 const lojaOrganicaProducts: Product[] = [
     {
-        id: '134',
-        name: 'Mel de Flores Silvestres Orgânico',
-        price: 25.00,
+        id: '1001',
+        name: 'Mel de Aroeira Orgânico',
+        price: 35.00,
         unit: 'pote',
         category: 'Apícola',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_silvestre.jpg?alt=media&token=24225028-25f0-4573-be5d-a6073f32462b',
-        dataAiHint: 'wildflower honey',
+        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_aroeira.jpg?alt=media&token=b1d6e159-2f22-4a69-8e7c-1b7e45e7f139',
+        dataAiHint: 'aroeira honey',
         farmerId: '134',
-        description: 'Mel puro de flores silvestres, colhido de forma sustentável.',
+        description: 'Mel raro e medicinal de Aroeira, com sabor intenso e propriedades anti-inflamatórias. Produzido em áreas preservadas.',
         status: 'active',
-        stock: 50
+        stock: 30
     },
     {
-        id: '135',
-        name: 'Mel de Flores de Laranjeira Orgânico',
-        price: 28.00,
+        id: '1002',
+        name: 'Mel de Acácia Orgânico',
+        price: 32.00,
         unit: 'pote',
         category: 'Apícola',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_laranjeira.jpg?alt=media&token=7c8d9c57-6b4e-4f7f-8d2b-5868e404b9e2',
-        dataAiHint: 'orange blossom honey',
+        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_acacia.jpg?alt=media&token=8d2e8b3b-8588-4e8c-9b1e-0e1f7c0f1b2c',
+        dataAiHint: 'acacia honey',
         farmerId: '134',
-        description: 'Mel delicado de flores de laranjeira, com um toque cítrico.',
+        description: 'Mel de Acácia, de cor clara e sabor suave e floral. Cristaliza muito lentamente, mantendo-se líquido por mais tempo.',
         status: 'active',
-        stock: 40
+        stock: 35
     },
     {
         id: '136',
@@ -1414,10 +1415,23 @@ const lojaOrganicaProducts: Product[] = [
         image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_eucalipto.jpg?alt=media&token=8b1c4b1d-2b3a-4e8c-9d1e-8d6e3e5d7f2a',
         dataAiHint: 'eucalyptus honey',
         farmerId: '134',
-        description: 'Mel de eucalipto, com sabor mais robusto e notas mentoladas.',
+        description: 'Mel de eucalipto, com sabor mais robusto e notas mentoladas, ideal para acompanhar queijos ou em chás.',
         status: 'active',
         stock: 45
-    }
+    },
+    {
+        id: '134',
+        name: 'Mel de Flores Silvestres Orgânico',
+        price: 25.00,
+        unit: 'pote',
+        category: 'Apícola',
+        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_silvestre.jpg?alt=media&token=24225028-25f0-4573-be5d-a6073f32462b',
+        dataAiHint: 'wildflower honey',
+        farmerId: '134',
+        description: 'Um blend de néctares de diversas flores silvestres, resultando em um mel de sabor complexo e único a cada safra.',
+        status: 'active',
+        stock: 50
+    },
 ];
 
 const domicilioOrganicoProducts: Product[] = [
@@ -1582,10 +1596,10 @@ pixKey: 'oneias.souza@email.com',
   },
   {
     id: '134',
-    responsibleName: 'Apicultores da Serra',
+    responsibleName: 'Marcos Melo',
     name: 'Loja Orgânica',
     location: { lat: -22.48, lng: -43.05 },
-    bio: 'Uma seleção especial dos melhores produtos orgânicos de parceiros, com foco em méis e derivados.',
+    bio: 'Méis orgânicos certificados, de alta qualidade, raros e medicinais, produzidos com respeito às abelhas e à natureza.',
     address: {
       street: 'Avenida Brasil',
       number: '1000',
@@ -1940,10 +1954,10 @@ let lojaOrganicaFarmer = farmers.find(f => f.id === lojaOrganicaId);
 if (!lojaOrganicaFarmer) {
   const newLojaOrganicaFarmer: Farmer = {
     id: lojaOrganicaId,
-    responsibleName: 'Apicultores da Serra',
+    responsibleName: 'Marcos Melo',
     name: 'Loja Orgânica',
     location: { lat: -22.48, lng: -43.05 },
-    bio: 'Uma seleção especial dos melhores produtos orgânicos de parceiros, com foco em méis e derivados.',
+    bio: 'Méis orgânicos certificados, de alta qualidade, raros e medicinais, produzidos com respeito às abelhas e à natureza.',
     address: {
       street: 'Avenida Brasil',
       number: '1000',
