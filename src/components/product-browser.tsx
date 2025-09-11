@@ -91,14 +91,22 @@ function ProductBrowserContent() {
   const router = useRouter();
   const { searchTerm, setSearchTerm } = useSearch();
   
-  // A "fonte da verdade" é a URL. Não precisamos de um estado separado.
   const selectedFarmerId = searchParams.get('farmerId');
   const filterRef = useRef<HTMLDivElement>(null);
   
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
   
+  // Limpa o termo de busca ao carregar a página com um agricultor selecionado
+  useEffect(() => {
+    if (selectedFarmerId) {
+      setSearchTerm('');
+    }
+  }, [selectedFarmerId, setSearchTerm]);
+
   const handleSelectFarmer = (farmerId: string | null) => {
-    // Atualiza a URL para refletir o filtro.
+    // Limpa a busca ao selecionar um novo agricultor
+    setSearchTerm('');
+    
     const currentParams = new URLSearchParams(searchParams.toString());
     if (farmerId) {
       currentParams.set('farmerId', farmerId);
@@ -109,12 +117,10 @@ function ProductBrowserContent() {
   };
   
   useEffect(() => {
-    // Rola para a área de resultados quando uma busca ou filtro é ativado
     if (filterRef.current && (debouncedSearchTerm || selectedFarmerId)) {
-        // Usamos um pequeno timeout para garantir que o DOM foi atualizado antes de rolar
         setTimeout(() => {
             if(filterRef.current) {
-              const topPos = filterRef.current.getBoundingClientRect().top + window.scrollY - 100; // 100px de offset (altura do header)
+              const topPos = filterRef.current.getBoundingClientRect().top + window.scrollY - 100;
               window.scrollTo({
                 top: topPos,
                 behavior: 'smooth'
@@ -125,7 +131,6 @@ function ProductBrowserContent() {
   }, [debouncedSearchTerm, selectedFarmerId]);
 
   const allFarmers = useMemo(() => getFarmers(), []);
-  
   const allProducts = useMemo(() => getProducts({ includePaused: false }), []);
 
   const filteredProductsByFarmer: FarmerWithProducts[] = useMemo(() => {
@@ -136,12 +141,10 @@ function ProductBrowserContent() {
 
     let farmers = farmersWithProducts;
 
-    // 1. Filtrar por agricultor selecionado
     if (selectedFarmerId) {
       farmers = farmers.filter(farmer => farmer.id === selectedFarmerId);
     }
 
-    // 2. Filtrar por termo de busca
     if (!debouncedSearchTerm) {
       return farmers.filter(farmer => farmer.products.length > 0);
     }
@@ -208,7 +211,7 @@ function ProductBrowserContent() {
               <div className="container text-center">
                   <h2 className="font-headline text-2xl font-bold text-primary">Nenhum produto encontrado</h2>
                   <p className="mt-2 text-lg font-semibold text-foreground/90">
-                      Sua busca por "{searchTerm}" não encontrou resultados {selectedFarmerId ? `em ${allFarmers.find(f => f.id === selectedFarmerId)?.name}` : ''}.
+                      Sua busca por "{searchTerm}" não encontrou resultados{selectedFarmerId ? ` em ${allFarmers.find(f => f.id === selectedFarmerId)?.name}` : ''}.
                   </p>
               </div>
           </section>
