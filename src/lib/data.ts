@@ -246,6 +246,19 @@ let defaultProducts: Product[] = [
     status: 'active',
     stock: 35,
   },
+   {
+    id: '150',
+    name: 'Brócolis Brasileiro Orgânico',
+    category: 'Verdura',
+    price: 4.20,
+    unit: 'unidade',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/brocolis_brasileiro.webp?alt=media&token=30d32afc-e5e7-4f0e-a740-e43efeda8862',
+    dataAiHint: 'brazilian broccoli',
+    farmerId: '1',
+    description: 'Brócolis brasileiro (de rama), com talos e folhas aproveitáveis e sabor mais intenso.',
+    status: 'active',
+    stock: 30
+  },
   {
     id: '16',
     name: 'Beterraba Orgânica',
