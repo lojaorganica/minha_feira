@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useMemo, useState, useRef, useEffect, Suspense } from "react";
@@ -95,13 +96,6 @@ function ProductBrowserContent() {
   const filterRef = useRef<HTMLDivElement>(null);
   
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
-  
-  useEffect(() => {
-    // Se um ID de agricultor estiver na URL, limpe qualquer termo de busca.
-    if (searchParams.get('farmerId')) {
-      setSearchTerm('');
-    }
-  }, [searchParams, setSearchTerm]);
 
   const handleSelectFarmer = (farmerId: string | null) => {
     // Sempre limpa a busca ao selecionar um novo agricultor ou "Todos"
