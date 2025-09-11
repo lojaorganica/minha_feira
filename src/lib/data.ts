@@ -1481,8 +1481,8 @@ defaultProducts.push(...domicilioOrganicoProducts);
 const defaultFarmers: Farmer[] = [
   {
     id: '1',
-    responsibleName: 'Maria e Pedro Silva',
-    prepostos: ['Maria Silva', 'Pedro Silva'],
+    responsibleName: 'Matias Ponte',
+    prepostos: ['David Bulhões', 'Rosana Paixão', 'Cristiane Alcãntara', 'Evelyn'],
     name: 'Sítio Fazenda Mata Verde',
     location: { lat: -22.469, lng: -42.969 },
     bio: 'Produzimos hortaliças e legumes com muito carinho, seguindo os princípios da agricultura orgânica para levar saúde e sabor à sua mesa.',
@@ -1546,7 +1546,7 @@ const defaultFarmers: Farmer[] = [
   {
     id: '4',
     name: 'Sítio Cachoeirinha II',
-    responsibleName: 'Lúcia Martins',
+    responsibleName: 'Walace Oliveira',
     prepostos: ['Ana Martins', 'José Martins'],
     location: { lat: -22.427, lng: -42.991 },
     bio: 'Da nossa horta na montanha para a sua mesa. Produtos frescos, orgânicos e cultivados com técnicas de permacultura.',
@@ -1567,7 +1567,7 @@ const defaultFarmers: Farmer[] = [
   {
     id: '5',
     name: 'Sítio Tapera',
-    responsibleName: 'Onéias de Souza',
+    responsibleName: 'Ailton Lima',
     prepostos: ['Rosana de Souza'],
     location: { lat: -22.450, lng: -42.850 },
     bio: 'Desde 1990, nossa família se dedica à produção de orgânicos, com foco em folhas, ervas e temperos frescos e aromáticos.',
@@ -1579,7 +1579,7 @@ const defaultFarmers: Farmer[] = [
       state: 'RJ',
       zipCode: '26060-000'
     },
-pixKey: 'oneias.souza@email.com',
+    pixKey: 'oneias.souza@email.com',
     shippingCost: 15.00,
     phone: '5521977778888',
     fairs: ['Grajaú'],
@@ -1997,6 +1997,8 @@ lojaOrganicaProducts.forEach(product => {
 });
 setStoredData(PRODUCTS_KEY, products, productSortFn);
 
+
+    
 
     
 
