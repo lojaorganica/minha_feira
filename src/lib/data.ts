@@ -52,6 +52,89 @@ const CUSTOMERS_KEY = 'minha_feira_customers';
 
 const productSortFn = (a: Product, b: Product) => a.name.localeCompare(b.name, 'pt-BR', { sensitivity: 'base' });
 
+const lojaOrganicaProducts: Product[] = [
+    {
+        id: '1001',
+        name: 'Mel de Aroeira Orgânico',
+        price: 35.00,
+        unit: 'pote',
+        category: 'Apícola',
+        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_aroeira.webp?alt=media&token=cc691f95-6565-42b1-9abd-95cca2e6b31d',
+        dataAiHint: 'aroeira honey',
+        farmerId: '134',
+        description: 'Mel raro e medicinal de Aroeira, com sabor intenso e propriedades anti-inflamatórias. Produzido em áreas preservadas.',
+        status: 'active',
+        stock: 30
+    },
+    {
+        id: '1002',
+        name: 'Mel de Acácia Orgânico',
+        price: 32.00,
+        unit: 'pote',
+        category: 'Apícola',
+        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_acacia.webp?alt=media&token=b94ee3e6-52de-4f78-a801-38f5254c840c',
+        dataAiHint: 'acacia honey',
+        farmerId: '134',
+        description: 'Mel de Acácia, de cor clara e sabor suave e floral. Cristaliza muito lentamente, mantendo-se líquido por mais tempo.',
+        status: 'active',
+        stock: 35
+    },
+    {
+        id: '136',
+        name: 'Mel de Flores de Eucalipto Orgânico',
+        price: 26.00,
+        unit: 'pote',
+        category: 'Apícola',
+        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_eucalipto.webp?alt=media&token=22fad2b2-c030-4f6e-ac57-6d5b6fa0cc49',
+        dataAiHint: 'eucalyptus honey',
+        farmerId: '134',
+        description: 'Mel de eucalipto, com sabor mais robusto e notas mentoladas, ideal para acompanhar queijos ou em chás.',
+        status: 'active',
+        stock: 45
+    },
+    {
+        id: '134',
+        name: 'Mel de Flores Silvestres Orgânico',
+        price: 25.00,
+        unit: 'pote',
+        category: 'Apícola',
+        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_silvestre.webp?alt=media&token=4856b4c9-7f07-4559-8977-2b5e6f3fdeb9',
+        dataAiHint: 'wildflower honey',
+        farmerId: '134',
+        description: 'Um blend de néctares de diversas flores silvestres, resultando em um mel de sabor complexo e único a cada safra.',
+        status: 'active',
+        stock: 50
+    },
+];
+
+const domicilioOrganicoProducts: Product[] = [
+    {
+        id: '137',
+        name: 'Amora Orgânica',
+        price: 6.50,
+        unit: 'caixa',
+        category: 'Fruta',
+        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/amora.webp?alt=media&token=86e42b5a-4e5b-4b1e-9e7b-8e9e1c7c4a3b',
+        dataAiHint: 'blackberry',
+        farmerId: '6',
+        description: 'Amoras orgânicas do Domicílio Orgânico, doces e suculentas, perfeitas para geleias e consumo in natura.',
+        status: 'active',
+        stock: 15
+    },
+    {
+        id: '139',
+        name: 'Cenouras Orgânicas (Domicílio)',
+        category: 'Raiz e Tubérculo',
+        price: 3.00,
+        unit: 'maço',
+        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/cenoura.webp?alt=media&token=83e659dc-2bd5-42f5-bc98-a178690858f1',
+        dataAiHint: 'organic carrots',
+        farmerId: '6',
+        description: 'Cenouras orgânicas do Domicílio Orgânico, frescas e crocantes.',
+        status: 'active',
+        stock: 40
+    }
+];
 
 // Initial default data
 let defaultProducts: Product[] = [
@@ -1391,90 +1474,6 @@ let defaultProducts: Product[] = [
   }
 ];
 
-const lojaOrganicaProducts: Product[] = [
-    {
-        id: '1001',
-        name: 'Mel de Aroeira Orgânico',
-        price: 35.00,
-        unit: 'pote',
-        category: 'Apícola',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_aroeira.webp?alt=media&token=cc691f95-6565-42b1-9abd-95cca2e6b31d',
-        dataAiHint: 'aroeira honey',
-        farmerId: '134',
-        description: 'Mel raro e medicinal de Aroeira, com sabor intenso e propriedades anti-inflamatórias. Produzido em áreas preservadas.',
-        status: 'active',
-        stock: 30
-    },
-    {
-        id: '1002',
-        name: 'Mel de Acácia Orgânico',
-        price: 32.00,
-        unit: 'pote',
-        category: 'Apícola',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_acacia.webp?alt=media&token=b94ee3e6-52de-4f78-a801-38f5254c840c',
-        dataAiHint: 'acacia honey',
-        farmerId: '134',
-        description: 'Mel de Acácia, de cor clara e sabor suave e floral. Cristaliza muito lentamente, mantendo-se líquido por mais tempo.',
-        status: 'active',
-        stock: 35
-    },
-    {
-        id: '136',
-        name: 'Mel de Flores de Eucalipto Orgânico',
-        price: 26.00,
-        unit: 'pote',
-        category: 'Apícola',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_eucalipto.webp?alt=media&token=22fad2b2-c030-4f6e-ac57-6d5b6fa0cc49',
-        dataAiHint: 'eucalyptus honey',
-        farmerId: '134',
-        description: 'Mel de eucalipto, com sabor mais robusto e notas mentoladas, ideal para acompanhar queijos ou em chás.',
-        status: 'active',
-        stock: 45
-    },
-    {
-        id: '134',
-        name: 'Mel de Flores Silvestres Orgânico',
-        price: 25.00,
-        unit: 'pote',
-        category: 'Apícola',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_silvestre.webp?alt=media&token=4856b4c9-7f07-4559-8977-2b5e6f3fdeb9',
-        dataAiHint: 'wildflower honey',
-        farmerId: '134',
-        description: 'Um blend de néctares de diversas flores silvestres, resultando em um mel de sabor complexo e único a cada safra.',
-        status: 'active',
-        stock: 50
-    },
-];
-
-const domicilioOrganicoProducts: Product[] = [
-    {
-        id: '137',
-        name: 'Amora Orgânica',
-        price: 6.50,
-        unit: 'caixa',
-        category: 'Fruta',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/amora.webp?alt=media&token=86e42b5a-4e5b-4b1e-9e7b-8e9e1c7c4a3b',
-        dataAiHint: 'blackberry',
-        farmerId: '6',
-        description: 'Amoras orgânicas do Domicílio Orgânico, doces e suculentas, perfeitas para geleias e consumo in natura.',
-        status: 'active',
-        stock: 15
-    },
-    {
-        id: '139',
-        name: 'Cenouras Orgânicas',
-        category: 'Raiz e Tubérculo',
-        price: 3.00,
-        unit: 'maço',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/cenoura.webp?alt=media&token=83e659dc-2bd5-42f5-bc98-a178690858f1',
-        dataAiHint: 'organic carrots',
-        farmerId: '6',
-        description: 'Cenouras orgânicas do Domicílio Orgânico, frescas e crocantes.',
-        status: 'active',
-        stock: 40
-    }
-];
-
 defaultProducts.push(...lojaOrganicaProducts);
 defaultProducts.push(...domicilioOrganicoProducts);
 
@@ -1499,12 +1498,12 @@ const defaultFarmers: Farmer[] = [
     shippingCost: 20.00,
     phone: '5521912345678',
     fairs: ['Tijuca', 'Grajaú'],
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/joao_da_silva.jpg?alt=media&token=09c85775-685b-4c07-b08e-e28a01101d2c'
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/matias_ponte.jpg?alt=media&token=8d2e854d-7634-46a2-9e9b-31d7f46146c9'
   },
   {
     id: '2',
     name: 'Sítio Cachoeirinha I',
-    responsibleName: 'Mariana Costa',
+    responsibleName: 'Onéias Gonçalves',
     prepostos: ['Carlos Costa'],
     location: { lat: -22.319, lng: -42.531 },
     bio: 'Nossa paixão é cultivar frutas orgânicas, suculentas e cheias de sabor. Do nosso pomar para a sua casa.',
@@ -1520,12 +1519,12 @@ const defaultFarmers: Farmer[] = [
     shippingCost: 22.00,
     phone: '5521987654321',
     fairs: ['Flamengo', 'Laranjeiras', 'Botafogo'],
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mariana_costa.jpg?alt=media&token=6a12b918-07e3-4c9f-8a03-7b70527376c7'
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/oneias_goncalves.jpg?alt=media&token=8d2e854d-7634-46a2-9e9b-31d7f46146c9'
   },
    {
     id: '3',
     name: 'Sítio Paraíso',
-    responsibleName: 'Carlos Pereira',
+    responsibleName: 'Ronilson',
     prepostos: [],
     location: { lat: -22.520, lng: -43.170 },
     bio: 'Cultivamos uma grande variedade de legumes e temperos orgânicos, sempre respeitando a terra e os ciclos da natureza.',
@@ -1541,7 +1540,7 @@ const defaultFarmers: Farmer[] = [
     shippingCost: 25.00,
     phone: '5521998877665',
     fairs: ['Botafogo'],
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/carlos_pereira.jpg?alt=media&token=78d4c57a-9a9e-4b48-9c1d-17e9e7354b5a'
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/ronilson.jpg?alt=media&token=8d2e854d-7634-46a2-9e9b-31d7f46146c9'
   },
   {
     id: '4',
@@ -1562,7 +1561,7 @@ const defaultFarmers: Farmer[] = [
     shippingCost: 18.00,
     phone: '5521988889999',
     fairs: ['Leme', 'Tijuca'],
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/lucia_martins.jpg?alt=media&token=7d0b3e64-1c5c-4f1b-8b9a-1e1b1d1d1e1b'
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/walace_oliveira.jpg?alt=media&token=8d2e854d-7634-46a2-9e9b-31d7f46146c9'
   },
   {
     id: '5',
@@ -1583,7 +1582,7 @@ const defaultFarmers: Farmer[] = [
     shippingCost: 15.00,
     phone: '5521977778888',
     fairs: ['Grajaú'],
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/oneias_de_souza.jpg?alt=media&token=7c1b1c1b-1c1c-4b1b-8b1b-1c1c1c1c1c1c'
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/ailton_lima.jpg?alt=media&token=8d2e854d-7634-46a2-9e9b-31d7f46146c9'
   },
   {
     id: '6',
@@ -1625,7 +1624,28 @@ const defaultFarmers: Farmer[] = [
     shippingCost: 15.00,
     phone: '5521955556666',
     fairs: [],
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/loja_organica.png?alt=media&token=3b3d1b3e-3b3d-4b3d-8b3d-3b3d1b3e3b3d'
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/marcos_melo.jpg?alt=media&token=8d2e854d-7634-46a2-9e9b-31d7f46146c9'
+  },
+  {
+    id: '7',
+    responsibleName: 'Wendel Oliveira',
+    name: 'Sítio Cachoeirinha III',
+    location: { lat: -22.420, lng: -42.980 },
+    bio: 'Especialistas em raízes e tubérculos. Produtos orgânicos com sabor autêntico da terra serrana.',
+    address: {
+        street: 'Estrada do Rocio',
+        number: 's/n',
+        complement: '',
+        neighborhood: 'Rocio',
+        city: 'Petrópolis',
+        state: 'RJ',
+        zipCode: '25725-000'
+    },
+    pixKey: 'wendel.oliveira@email.com',
+    shippingCost: 20.00,
+    phone: '5521955554444',
+    fairs: ['Grajaú'],
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/wendel_oliveira.jpg?alt=media&token=8d2e854d-7634-46a2-9e9b-31d7f46146c9'
   }
 ];
 
@@ -1957,49 +1977,3 @@ export function updateCustomer(id: string, updates: Partial<Omit<Customer, 'id'>
   });
   setStoredData(CUSTOMERS_KEY, customers);
 }
-
-const lojaOrganicaId = '134';
-
-// Verifica se o agricultor "Loja Orgânica" já existe
-let lojaOrganicaFarmer = farmers.find(f => f.id === lojaOrganicaId);
-
-if (!lojaOrganicaFarmer) {
-  const newLojaOrganicaFarmer: Farmer = {
-    id: lojaOrganicaId,
-    responsibleName: 'Marcos Melo',
-    name: 'Loja Orgânica',
-    location: { lat: -22.48, lng: -43.05 },
-    bio: 'Méis orgânicos certificados, de alta qualidade, raros e medicinais, produzidos com respeito às abelhas e à natureza.',
-    address: {
-      street: 'Avenida Brasil',
-      number: '1000',
-      complement: '',
-      neighborhood: 'Centro',
-      city: 'Rio de Janeiro',
-      state: 'RJ',
-      zipCode: '20000-000'
-    },
-    pixKey: 'loja.organica@email.com',
-    shippingCost: 15.00,
-    phone: '5521955556666',
-    fairs: [],
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/loja_organica.png?alt=media&token=3b3d1b3e-3b3d-4b3d-8b3d-3b3d1b3e3b3d'
-  };
-  farmers.push(newLojaOrganicaFarmer);
-  setStoredData(FARMERS_KEY, farmers);
-}
-
-// Garante que os produtos da Loja Orgânica existam
-lojaOrganicaProducts.forEach(product => {
-    if (!products.some(p => p.id === product.id)) {
-        products.push(product);
-    }
-});
-setStoredData(PRODUCTS_KEY, products, productSortFn);
-
-
-    
-
-    
-
-    
