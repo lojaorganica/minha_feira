@@ -1379,30 +1379,50 @@ let defaultProducts: Product[] = [
   }
 ];
 
-const fruitsForIvison = defaultProducts
-    .filter(p => p.category === 'Fruta')
-    .map((p, index) => ({
+const fruits = defaultProducts
+    .filter(p => p.category === 'Fruta');
+
+const fruitsForIvison: Product[] = fruits.map((p, index) => ({
       ...p,
-      id: (1000 + index).toString(), // Create a new unique ID
-      farmerId: '6'
-    }));
+      id: (1001 + index).toString(), // Create a new unique ID starting from 1001
+      farmerId: '6' // Farmer Ivison Fragoso
+}));
+
+// Manually add the missing 'Amora Orgânica' for Ivison if it wasn't in the original fruit list for some reason
+const amoraExists = fruitsForIvison.some(p => p.name === 'Amora Orgânica');
+if (!amoraExists) {
+    fruitsForIvison.push({
+        id: '137', // Unique ID
+        name: 'Amora Orgânica',
+        price: 6.50, // Ivison's price
+        unit: 'caixa',
+        category: 'Fruta',
+        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/amora.webp?alt=media&token=86e42b5a-4e5b-4b1e-9e7b-8e9e1c7c4a3b',
+        dataAiHint: 'blackberry',
+        farmerId: '6', // Farmer Ivison Fragoso
+        description: 'Amoras orgânicas do Domicílio Orgânico, doces e suculentas, perfeitas para geleias e consumo in natura.',
+        status: 'active',
+        stock: 20,
+    });
+}
+
+// Add the new Carrot product for Ivison
+fruitsForIvison.push({
+    id: '138', // New unique ID
+    name: 'Cenouras Orgânicas',
+    category: 'Raiz e Tubérculo',
+    price: 3.00, // Price for Ivison
+    unit: 'maço',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/cenoura.webp?alt=media&token=83e659dc-2bd5-42f5-bc98-a178690858f1',
+    dataAiHint: 'organic carrots',
+    farmerId: '6', // Farmer Ivison Fragoso
+    description: 'Cenouras orgânicas do Domicílio Orgânico, frescas e crocantes.',
+    status: 'active',
+    stock: 40,
+});
+
 
 defaultProducts.push(...fruitsForIvison);
-
-// Manually add the missing 'Amora Orgânica' for Ivison
-defaultProducts.push({
-    id: '137', // Unique ID
-    name: 'Amora Orgânica',
-    price: 6.50, // Ivison's price
-    unit: 'caixa',
-    category: 'Fruta',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/amora.webp?alt=media&token=86e42b5a-4e5b-4b1e-9e7b-8e9e1c7c4a3b',
-    dataAiHint: 'blackberry',
-    farmerId: '6', // Farmer Ivison Fragoso
-    description: 'Amoras orgânicas do Domicílio Orgânico, doces e suculentas, perfeitas para geleias e consumo in natura.',
-    status: 'active',
-    stock: 20,
-});
 
 
 const defaultFarmers: Farmer[] = [
@@ -1863,5 +1883,6 @@ export function updateCustomer(id: string, updates: Partial<Omit<Customer, 'id'>
   });
   setStoredData(CUSTOMERS_KEY, customers);
 }
+
 
 
