@@ -31,7 +31,7 @@ const ProductCard = ({ product, farmerName, responsibleName }: ProductCardProps)
 
   const [quantity, setQuantity] = useState(initialQuantity);
   const [isAlertOpen, setAlertOpen] = useState(false);
-  const [isLocallyFavorite, setIsLocallyFavorite] = useState(isFavorite(product.id));
+  const [isLocallyFavorite, setIsLocallyFavorite] = useState(false);
 
   useEffect(() => {
     setIsLocallyFavorite(isFavorite(product.id));
