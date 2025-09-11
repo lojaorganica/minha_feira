@@ -109,8 +109,8 @@ const lojaOrganicaProducts: Product[] = [
 
 const domicilioOrganicoProducts: Product[] = [
     {
-        id: '137',
-        name: 'Amora Orgânica',
+        id: 'prod-domicilio-amora',
+        name: 'Amora Orgânica (Domicílio)',
         price: 6.50,
         unit: 'caixa',
         category: 'Fruta',
@@ -122,7 +122,7 @@ const domicilioOrganicoProducts: Product[] = [
         stock: 15
     },
     {
-        id: '139',
+        id: 'prod-domicilio-cenoura',
         name: 'Cenouras Orgânicas (Domicílio)',
         category: 'Raiz e Tubérculo',
         price: 3.00,
@@ -1494,7 +1494,7 @@ const defaultFarmers: Farmer[] = [
       state: 'RJ',
       zipCode: '25755-352'
     },
-    pixKey: 'joao.silva@email.com',
+    pixKey: 'matiasponte@email.com',
     shippingCost: 20.00,
     phone: '5521912345678',
     fairs: ['Tijuca', 'Grajaú'],
@@ -1557,7 +1557,7 @@ const defaultFarmers: Farmer[] = [
       state: 'RJ',
       zipCode: '25755-352'
     },
-    pixKey: 'lucia.horta.montanha@picpay.com',
+    pixKey: 'walace.oliveira@picpay.com',
     shippingCost: 18.00,
     phone: '5521988889999',
     fairs: ['Leme', 'Tijuca'],
@@ -1578,7 +1578,7 @@ const defaultFarmers: Farmer[] = [
       state: 'RJ',
       zipCode: '26060-000'
     },
-    pixKey: 'oneias.souza@email.com',
+    pixKey: 'ailton.lima@email.com',
     shippingCost: 15.00,
     phone: '5521977778888',
     fairs: ['Grajaú'],
