@@ -40,8 +40,7 @@ const ProductCard = ({ product, farmerName, responsibleName }: ProductCardProps)
 
   const isFarmerDifferent = cartFarmerId !== null && product.farmerId !== cartFarmerId;
   const currentFarmerInCartName = cartFarmerId ? getFarmerById(cartFarmerId)?.name ?? null : '';
-  const isLojaOrganica = product.farmerId === '134';
-
+  
   const handleActionAttempt = () => {
     if (isFarmerDifferent) {
       setAlertOpen(true);
@@ -128,10 +127,7 @@ const ProductCard = ({ product, farmerName, responsibleName }: ProductCardProps)
   return (
     <>
       <Card className="flex flex-col h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-        <div className={cn(
-          "relative rounded-t-lg bg-muted/30",
-           isLojaOrganica ? "aspect-[3/4]" : "aspect-[3/2]"
-        )}>
+        <div className="relative rounded-t-lg bg-muted/30 aspect-[3/2]">
           <Image
             src={product.image}
             alt={product.name}
