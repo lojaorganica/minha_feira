@@ -1,5 +1,4 @@
 
-
 import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerOrder, CustomerClassification, CustomerAddress, ProductCategory } from './types';
 
 // ============================================================================
@@ -46,7 +45,7 @@ function setStoredData<T>(key: string, value: T[], sortFn?: (a: T, b: T) => numb
   }
 }
 
-const PRODUCTS_KEY = 'minha_feira_products';
+const PRODUCTS_KEY = 'minha_feira_products_v2';
 const FARMERS_KEY = 'minha_feira_farmers';
 const ORDERS_KEY = 'minha_feira_orders';
 const CUSTOMERS_KEY = 'minha_feira_customers';
@@ -193,6 +192,19 @@ let defaultProducts: Product[] = [
     description: 'Hortelã fresca e aromática, perfeita para chás, sucos, quibes e sobremesas.',
     status: 'active',
     stock: 70,
+  },
+   {
+    id: '12',
+    name: 'Amora Orgânica',
+    price: 6.00,
+    unit: 'caixa',
+    category: 'Fruta',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/amora.webp?alt=media&token=86e42b5a-4e5b-4b1e-9e7b-8e9e1c7c4a3b',
+    dataAiHint: 'blackberry',
+    farmerId: '2',
+    description: 'Amoras orgânicas, doces e suculentas, perfeitas para geleias, tortas e consumo in natura.',
+    status: 'active',
+    stock: 15,
   },
   {
     id: '13',
@@ -1363,21 +1375,21 @@ let defaultProducts: Product[] = [
     description: 'Alface Frisée orgânica, de folhas crocantes e um leve amargor, ótima para saladas gourmet.',
     status: 'active',
     stock: 15,
-  },
-  {
-    id: '1001',
-    name: 'Amora Orgânica',
-    category: 'Fruta',
-    price: 7.00,
-    unit: 'caixa',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/amora.webp?alt=media&token=75996ac4-1ab9-41b4-9ebd-cff5a876e295',
-    dataAiHint: 'organic blackberry',
-    farmerId: '6',
-    description: 'Amoras orgânicas, doces e suculentas, perfeitas para sobremesas e geleias.',
-    status: 'active',
-    stock: 20
-  },
+  }
 ];
+
+// Create a separate list of fruits for Ivison Fragoso (farmerId: '6')
+const fruitsForIvison: Product[] = defaultProducts
+    .filter(p => p.category === 'Fruta')
+    .map((p, index) => ({
+      ...p,
+      // Create a new unique ID for each fruit for Ivison
+      id: `1000${index}`,
+      farmerId: '6'
+    }));
+
+// Add the new fruit list to the default products
+defaultProducts.push(...fruitsForIvison);
 
 
 const defaultFarmers: Farmer[] = [
@@ -1839,4 +1851,3 @@ export function updateCustomer(id: string, updates: Partial<Omit<Customer, 'id'>
   setStoredData(CUSTOMERS_KEY, customers);
 }
 
-    
