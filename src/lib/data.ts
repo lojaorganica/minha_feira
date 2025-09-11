@@ -1391,19 +1391,16 @@ const fruitsForIvison: Product[] = fruits.map((p, index) => ({
 // Manually add the missing 'Amora Orgânica' for Ivison if it wasn't in the original fruit list for some reason
 const amoraExists = fruitsForIvison.some(p => p.name === 'Amora Orgânica');
 if (!amoraExists) {
-    fruitsForIvison.push({
-        id: '137', // Unique ID
-        name: 'Amora Orgânica',
-        price: 6.50, // Ivison's price
-        unit: 'caixa',
-        category: 'Fruta',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/amora.webp?alt=media&token=86e42b5a-4e5b-4b1e-9e7b-8e9e1c7c4a3b',
-        dataAiHint: 'blackberry',
-        farmerId: '6', // Farmer Ivison Fragoso
-        description: 'Amoras orgânicas do Domicílio Orgânico, doces e suculentas, perfeitas para geleias e consumo in natura.',
-        status: 'active',
-        stock: 20,
-    });
+    const amoraOriginal = defaultProducts.find(p => p.id === '12');
+    if (amoraOriginal) {
+        fruitsForIvison.push({
+            ...amoraOriginal,
+            id: '137', // Unique ID
+            price: 6.50, // Ivison's price
+            farmerId: '6', // Farmer Ivison Fragoso
+            description: 'Amoras orgânicas do Domicílio Orgânico, doces e suculentas, perfeitas para geleias e consumo in natura.',
+        });
+    }
 }
 
 // Add the new Carrot product for Ivison
@@ -1883,6 +1880,7 @@ export function updateCustomer(id: string, updates: Partial<Omit<Customer, 'id'>
   });
   setStoredData(CUSTOMERS_KEY, customers);
 }
+
 
 
 
