@@ -1,5 +1,4 @@
 
-
 import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerClassification, CustomerAddress, ProductCategory } from './types';
 
 // ============================================================================
@@ -47,7 +46,7 @@ function setStoredData<T>(key: string, value: T[], sortFn?: (a: T, b: T) => numb
 }
 
 const PRODUCTS_KEY = 'minha_feira_products_v4';
-const FARMERS_KEY = 'minha_feira_farmers';
+const FARMERS_KEY = 'minha_feira_farmers_v2';
 const ORDERS_KEY = 'minha_feira_orders';
 const CUSTOMERS_KEY = 'minha_feira_customers';
 
@@ -1482,9 +1481,9 @@ defaultProducts.push(...domicilioOrganicoProducts);
 const defaultFarmers: Farmer[] = [
   {
     id: '1',
-    responsibleName: 'João da Silva',
+    responsibleName: 'Sítio Fazenda Mata Verde',
     prepostos: ['Maria Silva', 'Pedro Silva'],
-    name: 'Sítio Verdejar',
+    name: 'Sítio Fazenda Mata Verde',
     location: { lat: -22.469, lng: -42.969 },
     bio: 'Produzimos hortaliças e legumes com muito carinho, seguindo os princípios da agricultura orgânica para levar saúde e sabor à sua mesa.',
     address: {
@@ -1504,7 +1503,7 @@ const defaultFarmers: Farmer[] = [
   },
   {
     id: '2',
-    name: 'Frutas do Bem',
+    name: 'Sítio Cachoeirinha I',
     responsibleName: 'Mariana Costa',
     prepostos: ['Carlos Costa'],
     location: { lat: -22.319, lng: -42.531 },
@@ -1546,7 +1545,7 @@ const defaultFarmers: Farmer[] = [
   },
   {
     id: '4',
-    name: 'Horta da Montanha',
+    name: 'Caminho da Roça',
     responsibleName: 'Lúcia Martins',
     prepostos: ['Ana Martins', 'José Martins'],
     location: { lat: -22.427, lng: -42.991 },
@@ -1997,5 +1996,3 @@ lojaOrganicaProducts.forEach(product => {
     }
 });
 setStoredData(PRODUCTS_KEY, products, productSortFn);
-
-    
