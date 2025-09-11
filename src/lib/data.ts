@@ -1381,239 +1381,31 @@ let defaultProducts: Product[] = [
 
 const domicilioOrganicoProducts: Product[] = [
     {
-        id: '1001', name: 'Tomate Italiano Orgânico', category: 'Fruta', price: 3.0, unit: 'kg',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tomate_italiano.webp?alt=media&token=f4195895-85ed-42f7-92b7-55085c4c1a72',
-        dataAiHint: 'italian tomatoes', farmerId: '6', description: 'Tomates italianos orgânicos, perfeitos para molhos encorpados e saladas.',
-        status: 'active', stock: 30
-    },
-    {
-        id: '1002', name: 'Morangos Frescos Orgânicos', category: 'Fruta', price: 4.0, unit: 'caixa',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/morango.webp?alt=media&token=086479b1-5b7e-451d-9635-193264f55e31',
-        dataAiHint: 'fresh strawberries', farmerId: '6', description: 'Morangos orgânicos maduros e doces, colhidos no pico do frescor.',
-        status: 'active', stock: 25
-    },
-    {
-        id: '1003', name: 'Laranja Pera Orgânica', category: 'Fruta', price: 2.0, unit: 'kg',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/laranja_pera.webp?alt=media&token=b4db9a4e-b349-4805-ac9d-fee1fcb4d5d8',
-        dataAiHint: 'pera orange', farmerId: '6', description: 'Laranja Pera orgânica, ideal para sucos, com sabor adocicado e pouca acidez.',
-        status: 'active', stock: 100
-    },
-    {
-        id: '1004', name: 'Amora Orgânica', price: 6.50, unit: 'caixa', category: 'Fruta',
+        id: '137',
+        name: 'Amora Orgânica',
+        price: 6.50,
+        unit: 'caixa',
+        category: 'Fruta',
         image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/amora.webp?alt=media&token=86e42b5a-4e5b-4b1e-9e7b-8e9e1c7c4a3b',
-        dataAiHint: 'blackberry', farmerId: '6', description: 'Amoras orgânicas do Domicílio Orgânico, doces e suculentas, perfeitas para geleias e consumo in natura.',
-        status: 'active', stock: 15
+        dataAiHint: 'blackberry',
+        farmerId: '6',
+        description: 'Amoras orgânicas do Domicílio Orgânico, doces e suculentas, perfeitas para geleias e consumo in natura.',
+        status: 'active',
+        stock: 15
     },
     {
-        id: '1005', name: 'Maçã Fuji Orgânica', category: 'Fruta', price: 1.8, unit: 'kg',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/maca_fuji.webp?alt=media&token=d9b195e6-0e42-4976-83fe-fdf87dfafd7c',
-        dataAiHint: 'fuji apple', farmerId: '6', description: 'Maçãs Fuji orgânicas, conhecidas por sua doçura e textura crocante.',
-        status: 'active', stock: 120
-    },
-    {
-        id: '1006', name: 'Manga Palmer Orgânica', category: 'Fruta', price: 6.50, unit: 'kg',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/manga_palmer.webp?alt=media&token=fdf4085f-fbef-41b1-be8a-a613dde3c2e4',
-        dataAiHint: 'palmer mango', farmerId: '6', description: 'Manga Palmer doce e sem fibras, perfeita para consumo in natura ou sucos.',
-        status: 'active', stock: 40
-    },
-    {
-        id: '1007', name: 'Tangerina Ponkan Orgânica', category: 'Fruta', price: 4.80, unit: 'kg',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tangerina_ponkan.webp?alt=media&token=eceafacb-80ae-44f1-8349-8edd8222bf30',
-        dataAiHint: 'ponkan tangerine', farmerId: '6', description: 'Tangerina Ponkan suculenta e fácil de descascar, colhida no ponto certo de doçura.',
-        status: 'active', stock: 60
-    },
-    {
-        id: '1008', name: 'Mamão Papaya Orgânico', category: 'Fruta', price: 5.20, unit: 'unidade',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mamao_papaya.webp?alt=media&token=6935a389-a40d-4eb2-b1ae-cdaed2be18a3',
-        dataAiHint: 'papaya', farmerId: '6', description: 'Mamão Papaya orgânico, doce e macio. Perfeito para o café da manhã ou sobremesas.',
-        status: 'active', stock: 25
-    },
-    {
-        id: '1009', name: 'Limão Taiti Orgânico', category: 'Fruta', price: 3.90, unit: 'kg',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/limao_taiti.webp?alt=media&token=5f538bf1-e909-4346-8c0d-92c1e145b897',
-        dataAiHint: 'tahiti lime', farmerId: '6', description: 'Limão Taiti orgânico, suculento e com poucas sementes. Ideal para sucos, temperos e sobremesas.',
-        status: 'active', stock: 90
-    },
-    {
-        id: '1010', name: 'Banana Prata Orgânica', category: 'Fruta', price: 5.50, unit: 'dúzia',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/banana_prata.webp?alt=media&token=d38fe201-0312-48fc-9cf7-6e2b1fd97bf8',
-        dataAiHint: 'silver banana', farmerId: '6', description: 'Banana prata orgânica, ideal para o consumo diário, rica em potássio e de sabor suave.',
-        status: 'active', stock: 50
-    },
-    {
-        id: '1011', name: 'Goiaba Vermelha Orgânica', category: 'Fruta', price: 5.80, unit: 'kg',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/goiaba_vermelha.webp?alt=media&token=da3e5869-d746-4b9b-b23c-ab5418912991',
-        dataAiHint: 'red guava', farmerId: '6', description: 'Goiabas vermelhas orgânicas, doces e perfumadas, perfeitas para sucos e sobremesas.',
-        status: 'active', stock: 30
-    },
-    {
-        id: '1012', name: 'Abacaxi Orgânico', category: 'Fruta', price: 7.00, unit: 'unidade',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/abacaxi.webp?alt=media&token=4caa0219-8635-4fbb-8e1c-fdec6909ebda',
-        dataAiHint: 'pineapple', farmerId: '6', description: 'Abacaxi pérola orgânico, doce e suculento, perfeito para o verão.',
-        status: 'active', stock: 20
-    },
-    {
-        id: '1013', name: 'Berinjela Orgânica', category: 'Fruta', price: 3.70, unit: 'kg',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/berinjela.webp?alt=media&token=ad1f7bd9-75db-4fc4-ac6d-3608733d71e9',
-        dataAiHint: 'eggplant', farmerId: '6', description: 'Berinjela orgânica, ideal para antepastos, lasanhas e parmegiana.',
-        status: 'active', stock: 15
-    },
-    {
-        id: '1014', name: 'Abacate Orgânico', category: 'Fruta', price: 5.50, unit: 'unidade',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/abacate.webp?alt=media&token=90d0ec6c-ca97-40eb-b694-5f489d925864',
-        dataAiHint: 'avocado', farmerId: '6', description: 'Abacate cremoso e rico em gorduras saudáveis, perfeito para guacamole ou vitaminas.',
-        status: 'active', stock: 15
-    },
-    {
-        id: '1015', name: 'Ameixa Orgânica', category: 'Fruta', price: 8.00, unit: 'kg',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/ameixa.webp?alt=media&token=9216759e-b1b0-44ce-9404-09cd0503a111',
-        dataAiHint: 'plum', farmerId: '6', description: 'Ameixas orgânicas doces e suculentas, perfeitas para comer in natura ou fazer geleias.',
-        status: 'active', stock: 10
-    },
-    {
-        id: '1016', name: 'Banana d\'Água Orgânica', category: 'Fruta', price: 5.00, unit: 'dúzia',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/banana_dagua.webp?alt=media&token=e09c1df0-0a4c-42eb-b356-d668db6e80c9',
-        dataAiHint: 'nanica banana', farmerId: '6', description: 'Banana d\'água, também conhecida como nanica, doce e macia, ideal para sobremesas.',
-        status: 'active', stock: 40
-    },
-    {
-        id: '1017', name: 'Banana Nanica Orgânica', category: 'Fruta', price: 5.00, unit: 'dúzia',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/banana_nanica.webp?alt=media&token=f55bf317-5650-497b-92a7-0d6da754f1b1',
-        dataAiHint: 'dwarf banana', farmerId: '6', description: 'Banana nanica orgânica, doce e macia, ideal para sobremesas e consumo diário.',
-        status: 'active', stock: 40
-    },
-    {
-        id: '1018', name: 'Maçã Gala Orgânica', category: 'Fruta', price: 6.50, unit: 'kg',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/maca_gala.webp?alt=media&token=1f30fbe4-e6db-4958-81e1-e953db358643',
-        dataAiHint: 'gala apple', farmerId: '6', description: 'Maçãs Gala orgânicas, com sabor suave e doce, ideais para lanches.',
-        status: 'active', stock: 80
-    },
-    {
-        id: '1019', name: 'Mamão Formosa Orgânico', category: 'Fruta', price: 6.00, unit: 'unidade',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mamao_formosa.webp?alt=media&token=7887ce63-fb00-42fe-a5d3-8f70e128bdb3',
-        dataAiHint: 'formosa papaya', farmerId: '6', description: 'Mamão Formosa de polpa macia e doce, rico em vitaminas.',
-        status: 'active', stock: 10
-    },
-    {
-        id: '1020', name: 'Melão Amarelo Orgânico', category: 'Fruta', price: 7.00, unit: 'unidade',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/melao_amarelo.webp?alt=media&token=718ddb9c-9381-44aa-be87-31514c4426df',
-        dataAiHint: 'yellow melon', farmerId: '6', description: 'Melão amarelo doce e refrescante, perfeito para dias quentes.',
-        status: 'active', stock: 12
-    },
-    {
-        id: '1021', name: 'Melão Orange Orgânico', category: 'Fruta', price: 8.00, unit: 'unidade',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/melao_orange.webp?alt=media&token=fb9e85b4-2fa0-44f0-92b0-b2e492c58fab',
-        dataAiHint: 'orange melon', farmerId: '6', description: 'Melão Orange com polpa alaranjada e sabor adocicado e perfumado.',
-        status: 'active', stock: 10
-    },
-    {
-        id: '1022', name: 'Melão Pele de Sapo Orgânico', category: 'Fruta', price: 8.50, unit: 'unidade',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/melao_pele_de_sapo.webp?alt=media&token=47c0283d-6af0-47a9-ace4-340f8331b100',
-        dataAiHint: 'piel de sapo melon', farmerId: '6', description: 'Melão Pele de Sapo, de polpa branca, muito doce e suculenta.',
-        status: 'active', stock: 8
-    },
-    {
-        id: '1023', name: 'Melão Cantaloupe Orgânico', category: 'Fruta', price: 9.00, unit: 'unidade',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/melao_cantaloupe.webp?alt=media&token=04174dc3-46c3-49d6-8096-ecb20dd1e978',
-        dataAiHint: 'cantaloupe melon', farmerId: '6', description: 'Melão Cantaloupe, com polpa alaranjada e sabor aromático inconfundível.',
-        status: 'active', stock: 8
-    },
-    {
-        id: '1024', name: 'Jiló Orgânico', category: 'Fruta', price: 4.50, unit: 'kg',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/jilo.webp?alt=media&token=21a949a4-5df3-4b27-ae98-7469466f94be',
-        dataAiHint: 'scarlet eggplant', farmerId: '6', description: 'Jiló orgânico com seu sabor amargo característico, perfeito para fritadas e conservas.',
-        status: 'active', stock: 15
-    },
-    {
-        id: '1025', name: 'Tomatinho Grape Orgânico', category: 'Fruta', price: 5.50, unit: 'caixa',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tomate_grape.webp?alt=media&token=34f6fc49-11e6-49bb-9ef2-28ff3d6690c3',
-        dataAiHint: 'grape tomato', farmerId: '6', description: 'Tomatinhos grape, pequenos e muito doces, perfeitos para lanches e saladas.',
-        status: 'active', stock: 20
-    },
-    {
-        id: '1026', name: 'Tomate Salada Orgânico', category: 'Fruta', price: 4.80, unit: 'kg',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tomate_salada.webp?alt=media&token=3fd5f103-22d9-4781-936a-46409e4da5fd',
-        dataAiHint: 'salad tomato', farmerId: '6', description: 'Tomate para salada, firme e com poucas sementes, ideal para fatiar.',
-        status: 'active', stock: 35
-    },
-    {
-        id: '1027', name: 'Tomatinho Cereja Orgânico', category: 'Fruta', price: 5.00, unit: 'caixa',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tomate_cereja.webp?alt=media&token=675a4a40-8ff8-439b-9366-db40ed3b7b96',
-        dataAiHint: 'cherry tomato', farmerId: '6', description: 'Tomate cereja, pequeno e adocicado, ótimo para saladas, espetinhos e aperitivos.',
-        status: 'active', stock: 20
-    },
-    {
-        id: '1028', name: 'Kiwi Orgânico', category: 'Fruta', price: 9.00, unit: 'kg',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/kiwi.webp?alt=media&token=4e24b5ed-6b1f-44e8-8655-95eec46e1521',
-        dataAiHint: 'kiwi', farmerId: '6', description: 'Kiwi orgânico, com sua polpa verde vibrante e sabor agridoce, rico em vitamina C.',
-        status: 'active', stock: 12
-    },
-    {
-        id: '1029', name: 'Pera Williams Orgânica', category: 'Fruta', price: 7.80, unit: 'kg',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pera_williams.webp?alt=media&token=5bb791b0-9f75-4cd6-9a50-c4a978b351b7',
-        dataAiHint: 'williams pear', farmerId: '6', description: 'Pera Williams com polpa macia, suculenta e muito aromática, ideal para consumo in natura e sobremesas.',
-        status: 'active', stock: 18
-    },
-    {
-        id: '1030', name: 'Limão Siciliano Orgânico', category: 'Fruta', price: 8.50, unit: 'kg',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/limao_siciliano.webp?alt=media&token=a2d02d86-f7b4-45f2-85f4-5e0bd2affeaf',
-        dataAiHint: 'sicilian lemon', farmerId: '6', description: 'Limão siciliano, grande, de casca amarela e muito perfumado, ideal para risotos e sobremesas.',
-        status: 'active', stock: 10
-    },
-    {
-        id: '1031', name: 'Limão Cravo Orgânico', category: 'Fruta', price: 4.50, unit: 'kg',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/limao_cravo.webp?alt=media&token=d631609c-427a-4e87-be2c-6242f94b37ef',
-        dataAiHint: 'rangpur lime', farmerId: '6', description: 'Limão cravo (ou rosa), com casca avermelhada e sabor único, ótimo para temperos e caipirinhas.',
-        status: 'active', stock: 20
-    },
-    {
-        id: '1032', name: 'Limão Galego Orgânico', category: 'Fruta', price: 4.80, unit: 'kg',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/limao_galego.webp?alt=media&token=e8341d8b-9733-478b-9bd0-0104de2365cb',
-        dataAiHint: 'key lime', farmerId: '6', description: 'Limão galego, pequeno e de casca fina, muito suculento e ácido, um clássico nacional.',
-        status: 'active', stock: 25
-    },
-    {
-        id: '1033', name: 'Tangerina Murcote Orgânica', category: 'Fruta', price: 5.50, unit: 'kg',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tangerina_murcote.webp?alt=media&token=191284e1-755c-41e5-91d8-7af8d3798906',
-        dataAiHint: 'murcott tangerine', farmerId: '6', description: 'Tangerina Murcote, de sabor muito doce e cor intensa, perfeita para sucos.',
-        status: 'active', stock: 30
-    },
-    {
-        id: '1034', name: 'Pimentão Verde Orgânico', category: 'Fruta', price: 2.80, unit: 'kg',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pimentao_verde.webp?alt=media&token=e93a384f-c567-4d1a-9f4a-7140f7b09335',
-        dataAiHint: 'green bell pepper', farmerId: '6', description: 'Pimentão verde orgânico, ideal para rechear, assar ou usar em refogados.',
-        status: 'active', stock: 15
-    },
-    {
-        id: '1035', name: 'Pimentão Amarelo Orgânico', category: 'Fruta', price: 3.20, unit: 'kg',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pimentao_amarelo.webp?alt=media&token=c4a9a8f2-8e0c-4e8a-8a6a-0c5d5e5f4d4d',
-        dataAiHint: 'yellow bell pepper', farmerId: '6', description: 'Pimentão amarelo orgânico, de sabor suave e adocicado, ótimo para saladas e pratos coloridos.',
-        status: 'active', stock: 15
-    },
-    {
-        id: '1036', name: 'Laranja Bahia Orgânica', category: 'Fruta', price: 5.00, unit: 'kg',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/laranja_bahia.webp?alt=media&token=edcc24af-9353-41c9-9be9-bc03b08beeaa',
-        dataAiHint: 'navel orange', farmerId: '6', description: 'Laranja Bahia, sem sementes e com umbigo característico, ideal para consumo in natura.',
-        status: 'active', stock: 40
-    },
-    {
-        id: '1037', name: 'Laranja Seleta Orgânica', category: 'Fruta', price: 4.50, unit: 'kg',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/laranja_seleta.webp?alt=media&token=e38ae12f-82ae-4bd9-a08f-593634abfdc5',
-        dataAiHint: 'selecta orange', farmerId: '6', description: 'Laranja Seleta, muito suculenta e de sabor adocicado, excelente para sucos.',
-        status: 'active', stock: 50
-    },
-    {
-        id: '1038', name: 'Pimentão Vermelho Orgânico', category: 'Fruta', price: 3.20, unit: 'kg',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pimentao_vermelho.webp?alt=media&token=d10b7b1b-9e4a-4b9e-8b1b-7e6d6e7f8e8e',
-        dataAiHint: 'red bell pepper', farmerId: '6', description: 'Pimentão vermelho orgânico, de sabor adocicado, perfeito para saladas, assados e molhos.',
-        status: 'active', stock: 15
-    },
-    {
-        id: '1039', name: 'Cenouras Orgânicas', category: 'Fruta', price: 3.00, unit: 'maço',
+        id: '139',
+        name: 'Cenouras Orgânicas',
+        category: 'Raiz e Tubérculo',
+        price: 3.00,
+        unit: 'maço',
         image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/cenoura.webp?alt=media&token=83e659dc-2bd5-42f5-bc98-a178690858f1',
-        dataAiHint: 'organic carrots', farmerId: '6', description: 'Cenouras orgânicas do Domicílio Orgânico, frescas e crocantes.',
-        status: 'active', stock: 40
-    },
+        dataAiHint: 'organic carrots',
+        farmerId: '6',
+        description: 'Cenouras orgânicas do Domicílio Orgânico, frescas e crocantes.',
+        status: 'active',
+        stock: 40
+    }
 ];
 
 defaultProducts.push(...domicilioOrganicoProducts);
@@ -2082,3 +1874,6 @@ export function updateCustomer(id: string, updates: Partial<Omit<Customer, 'id'>
 
 
 
+
+
+    
