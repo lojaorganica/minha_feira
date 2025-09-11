@@ -1481,7 +1481,7 @@ defaultProducts.push(...domicilioOrganicoProducts);
 const defaultFarmers: Farmer[] = [
   {
     id: '1',
-    responsibleName: 'Sítio Fazenda Mata Verde',
+    responsibleName: 'Maria e Pedro Silva',
     prepostos: ['Maria Silva', 'Pedro Silva'],
     name: 'Sítio Fazenda Mata Verde',
     location: { lat: -22.469, lng: -42.969 },
@@ -1522,9 +1522,9 @@ const defaultFarmers: Farmer[] = [
     fairs: ['Flamengo', 'Laranjeiras', 'Botafogo'],
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mariana_costa.jpg?alt=media&token=6a12b918-07e3-4c9f-8a03-7b70527376c7'
   },
-  {
+   {
     id: '3',
-    name: 'Sítio Santo Antônio',
+    name: 'Sítio Paraíso',
     responsibleName: 'Carlos Pereira',
     prepostos: [],
     location: { lat: -22.520, lng: -43.170 },
@@ -1537,7 +1537,7 @@ const defaultFarmers: Farmer[] = [
       state: 'RJ',
       zipCode: '25730-000'
     },
-    pixKey: 'sítio.santo.antonio@email.com',
+    pixKey: 'sitio.paraiso@email.com',
     shippingCost: 25.00,
     phone: '5521998877665',
     fairs: ['Botafogo'],
@@ -1545,7 +1545,7 @@ const defaultFarmers: Farmer[] = [
   },
   {
     id: '4',
-    name: 'Caminho da Roça',
+    name: 'Sítio Cachoeirinha II',
     responsibleName: 'Lúcia Martins',
     prepostos: ['Ana Martins', 'José Martins'],
     location: { lat: -22.427, lng: -42.991 },
@@ -1997,5 +1997,7 @@ lojaOrganicaProducts.forEach(product => {
 });
 setStoredData(PRODUCTS_KEY, products, productSortFn);
 
+
+    
 
     
