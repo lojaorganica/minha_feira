@@ -96,15 +96,15 @@ function ProductBrowserContent() {
   
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
   
-  // Limpa o termo de busca ao carregar a página com um agricultor selecionado
   useEffect(() => {
-    if (selectedFarmerId) {
+    // Se um ID de agricultor estiver na URL, limpe qualquer termo de busca.
+    if (searchParams.get('farmerId')) {
       setSearchTerm('');
     }
-  }, [selectedFarmerId, setSearchTerm]);
+  }, [searchParams, setSearchTerm]);
 
   const handleSelectFarmer = (farmerId: string | null) => {
-    // Limpa a busca ao selecionar um novo agricultor
+    // Sempre limpa a busca ao selecionar um novo agricultor ou "Todos"
     setSearchTerm('');
     
     const currentParams = new URLSearchParams(searchParams.toString());
@@ -201,7 +201,7 @@ function ProductBrowserContent() {
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
                 {farmer.products.map((product) => (
-                  <ProductCard key={product.id} product={product} farmerName={farmer.name} responsibleName={farmer.responsibleName} />
+                  <ProductCard key={`${farmer.id}-${product.id}`} product={product} farmerName={farmer.name} responsibleName={farmer.responsibleName} />
                 ))}
               </div>
             </section>
