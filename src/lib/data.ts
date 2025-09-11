@@ -1505,7 +1505,7 @@ pixKey: 'oneias.souza@email.com',
     responsibleName: 'Ivison Fragoso',
     prepostos: [],
     location: { lat: -22.906, lng: -43.172 },
-    bio: 'Entregamos saúde e sabor na sua casa. Somos um delivery de orgânicos com produtos de agricultores parceiros de todo o Rio.',
+    bio: 'Levando o melhor do campo para a sua casa. Produtos orgânicos com entrega rápida e segura.',
     address: {
       street: 'Rua do Catete',
       number: '100',
