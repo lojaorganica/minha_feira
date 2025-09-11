@@ -46,7 +46,7 @@ function setStoredData<T>(key: string, value: T[], sortFn?: (a: T, b: T) => numb
   }
 }
 
-const PRODUCTS_KEY = 'minha_feira_products_v2';
+const PRODUCTS_KEY = 'minha_feira_products_v3';
 const FARMERS_KEY = 'minha_feira_farmers';
 const ORDERS_KEY = 'minha_feira_orders';
 const CUSTOMERS_KEY = 'minha_feira_customers';
@@ -1868,12 +1868,3 @@ export function updateCustomer(id: string, updates: Partial<Omit<Customer, 'id'>
   });
   setStoredData(CUSTOMERS_KEY, customers);
 }
-
-
-
-
-
-
-
-
-    
