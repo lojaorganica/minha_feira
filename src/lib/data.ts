@@ -1373,523 +1373,321 @@ const defaultProducts: Product[] = [
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_frisee.webp?alt=media&token=060f2493-fb76-4a37-b40a-5de7bd0981c9',
     dataAiHint: 'frisee lettuce',
     farmerId: '1',
-    description: 'Alface Frisée com folhas finas e um leve amargor, ótima para saladas com molhos cremosos.',
+    description: 'Alface Frisée orgânica, de folhas crocantes e um leve amargor, ótima para saladas gourmet.',
     status: 'active',
-    stock: 10,
+    stock: 15,
   },
   {
     id: '108',
-    name: 'China Orgânica',
-    category: 'Verdura',
-    price: 3.8,
-    unit: 'unidade',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/china.webp?alt=media&token=39bf916d-67aa-4534-81f6-cdade5a4aeca',
-    farmerId: '1',
-    description: 'Também conhecida como Pak Choi, esta verdura asiática tem talos crocantes e sabor suave. É muito versátil para refogados, sopas e saladas.',
-    status: 'active',
-    stock: 15,
-  },
-  {
-    id: '109',
-    name: 'Capuchinha Orgânica',
-    category: 'Verdura',
-    price: 4.00,
-    unit: 'maço',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/capuchinha.webp?alt=media&token=beb2ab63-17f2-4044-8b3a-30561cacf991',
-    dataAiHint: 'nasturtium',
-    farmerId: '1',
-    description: 'Flores e folhas comestíveis com um sabor picante semelhante ao agrião, ideais para saladas.',
-    status: 'active',
-    stock: 10,
-  },
-  {
-    id: '110',
-    name: 'Rúcula Selvagem Orgânica',
-    category: 'Verdura',
-    price: 4.00,
-    unit: 'maço',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/rucula_selvagem.webp?alt=media&token=96d7f629-4be6-46c7-9e67-3108758865c7',
-    dataAiHint: 'wild arugula',
-    farmerId: '1',
-    description: 'Com sabor mais intenso e picante que a rúcula cultivada, ótima para saladas marcantes.',
-    status: 'active',
-    stock: 15,
-  },
-  {
-    id: '114',
-    name: 'Quiabo Orgânico',
-    category: 'Legume',
-    price: 5,
-    unit: 'kg',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/quiabo.webp?alt=media&token=de5f050e-8c83-46ab-9671-e370b659ff1f',
-    dataAiHint: 'okra',
-    farmerId: '1',
-    description: 'Quiabo orgânico fresco, ideal para refogados, saladas e o prato típico "frango com quiabo".',
-    status: 'active',
-    stock: 20,
-  },
-  {
-    id: '116',
-    name: 'Pepino Caipira Orgânico',
-    category: 'Legume',
-    price: 3.80,
-    unit: 'kg',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pepino_caipira.webp?alt=media&token=5e96c1ce-de1b-475d-9d12-4fa0b6d269e4',
-    dataAiHint: 'caipira cucumber',
-    farmerId: '1',
-    description: 'Pepino caipira, com casca mais clara e sabor suave, ótimo para saladas do dia a dia.',
-    status: 'active',
-    stock: 25,
-  },
-  {
-    id: '117',
-    name: 'Mini Melancia Orgânica',
+    name: 'Amora Orgânica',
     category: 'Fruta',
-    price: 10.00,
-    unit: 'unidade',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mini_melancia.webp?alt=media&token=e26cd7c8-9313-4eb6-8c60-050147ea898b',
-    dataAiHint: 'mini watermelon',
-    farmerId: '2',
-    description: 'Mini melancia doce e refrescante, no tamanho ideal para sua família.',
-    status: 'active',
-    stock: 8,
-  },
-  {
-    id: '118',
-    name: 'Mexerica Olé Orgânica',
-    category: 'Fruta',
-    price: 6.00,
-    unit: 'kg',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mexerica_ole.webp?alt=media&token=67cc4615-dfe9-47ba-b982-fe173d0c3023',
-    dataAiHint: 'ole tangerine',
-    farmerId: '2',
-    description: 'Mexerica Olé, de casca fina e sabor adocicado, fácil de descascar.',
-    status: 'active',
-    stock: 15,
-  },
-  {
-    id: '120',
-    name: 'Manga Tommy Orgânica',
-    category: 'Fruta',
-    price: 6.80,
-    unit: 'kg',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/manga_tommy.webp?alt=media&token=a5b2a911-0dc0-4266-a433-08c018eb8b68',
-    dataAiHint: 'tommy atkins mango',
-    farmerId: '2',
-    description: 'Manga Tommy, a mais popular do Brasil, com polpa firme e sabor adocicado.',
-    status: 'active',
-    stock: 20,
-  },
-  {
-    id: '121',
-    name: 'Manga Carlotinha Orgânica',
-    category: 'Fruta',
-    price: 7.20,
-    unit: 'kg',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/manga_carlotinha.webp?alt=media&token=0417fa54-ab7b-4bf2-9078-1945e2da9b07',
-    dataAiHint: 'carlotinha mango',
-    farmerId: '2',
-    description: 'Manga Carlotinha, pequena e muito doce, ideal para consumo in natura.',
-    status: 'active',
-    stock: 15,
-  },
-  {
-    id: '122',
-    name: 'Brócolis Brasileiro Orgânico',
-    category: 'Verdura',
-    price: 4.80,
-    unit: 'unidade',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/brocolis_brasileiro.webp?alt=media&token=30d32afc-e5e7-4f0e-a740-e43efeda8862',
-    dataAiHint: 'brazilian broccoli',
-    farmerId: '1',
-    description: 'Brócolis brasileiro (de rama), com talos e folhas comestíveis, ótimo em refogados.',
-    status: 'active',
-    stock: 25,
-  },
-  {
-    id: '123',
-    name: 'Caqui Orgânico',
-    category: 'Fruta',
-    price: 8.00,
-    unit: 'kg',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/caqui.webp?alt=media&token=6d9835e9-ae1c-4cb0-83e3-e839ccb780c2',
-    dataAiHint: 'persimmon',
-    farmerId: '2',
-    description: 'Caqui orgânico doce e de polpa macia, uma delícia de sobremesa.',
-    status: 'active',
-    stock: 12,
-  },
-  {
-    id: '124',
-    name: 'Cajú Orgânico',
-    category: 'Fruta',
-    price: 9.50,
-    unit: 'kg',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/caju.webp?alt=media&token=7a76f64c-ed10-4451-8112-5d09020049b9',
-    dataAiHint: 'cashew fruit',
-    farmerId: '2',
-    description: 'Cajú orgânico, fruto de sabor único, perfeito para sucos e doces.',
-    status: 'active',
-    stock: 10,
-  },
-  {
-    id: '125',
-    name: 'Carambola Orgânica',
-    category: 'Fruta',
-    price: 7.50,
-    unit: 'kg',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/carambola.webp?alt=media&token=57b1c4f3-5d99-4bc3-ae84-b627807beed3',
-    dataAiHint: 'star fruit',
-    farmerId: '2',
-    description: 'Carambola orgânica, com seu formato de estrela e sabor agridoce, ótima para sucos e decoração.',
-    status: 'active',
-    stock: 15,
-  },
-  {
-    id: '126',
-    name: 'Mel de Aroeira Orgânico',
-    category: 'Apícola',
-    price: 35.00,
-    unit: 'pote',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_aroeira.webp?alt=media&token=cc691f95-6565-42b1-9abd-95cca2e6b31d',
-    dataAiHint: 'aroeira honey',
-    farmerId: '134',
-    description: 'O mel de aroeira é um verdadeiro presente da natureza. Extremamente rico em compostos fenólicos e minerais essenciais — como cálcio, cobre, magnésio, potássio e ferro —, ele se destaca por suas propriedades antibacterianas, anti-inflamatórias, antioxidantes e fortalecedoras do sistema imunológico. Seu sabor marcante lembra o melado de cana, justamente pela presença do ferro em sua composição, o que o torna ainda mais especial e nutritivo. É um aliado poderoso para quem enfrenta anemia, problemas gástricos, baixa imunidade, além de oferecer benefícios especiais para mulheres no período menstrual e para os idosos, contribuindo para mais vitalidade e bem-estar no dia a dia. Delicioso e versátil, pode ser saboreado no café da manhã, em tapiocas, pães, frutas ou para adoçar chás e cafés, trazendo saúde e energia de forma natural.',
-    status: 'active',
-    stock: 20,
-  },
-  {
-    id: '127',
-    name: 'Mel de Eucalipto Orgânico',
-    category: 'Apícola',
-    price: 30.00,
-    unit: 'pote',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_eucalipto.webp?alt=media&token=22fad2b2-c030-4f6e-ac57-6d5b6fa0cc49',
-    dataAiHint: 'eucalyptus honey',
-    farmerId: '134',
-    description: 'Mel de Eucalipto, de sabor forte e refrescante, ótimo para aliviar sintomas de resfriados.',
-    status: 'active',
-    stock: 25,
-  },
-  {
-    id: '128',
-    name: 'Mel de Acácia Orgânico',
-    category: 'Apícola',
-    price: 40.00,
-    unit: 'pote',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_acacia.webp?alt=media&token=b94ee3e6-52de-4f78-a801-38f5254c840c',
-    dataAiHint: 'acacia honey',
-    farmerId: '134',
-    description: 'A Acácia é conhecida como Árvore da Vida, e o mel de suas flores é um néctar precioso. Produzido de forma natural na encantadora Serra do Roncador, em Mato Grosso, este mel é um verdadeiro tesouro da nature. Rico em vitamina C e repleto de antioxidantes poderosos, como flavonoides e betacaroteno, ele ainda concentra minerais essenciais como cálcio, magnésio e potássio. Um alimento nutritivo, saboroso e cheio de vitalidade para o seu dia a dia.',
-    status: 'active',
-    stock: 15,
-  },
-  {
-    id: '129',
-    name: 'Mel Silvestre Orgânico',
-    category: 'Apícola',
-    price: 28.00,
-    unit: 'pote',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_silvestre.webp?alt=media&token=4856b4c9-7f07-4559-8977-2b5e6f3fdeb9',
-    dataAiHint: 'wildflower honey',
-    farmerId: '134',
-    description: 'Mel Silvestre, um blend de flores do campo com sabor rico e complexo.',
-    status: 'active',
-    stock: 30,
-  },
-  {
-    id: '130',
-    name: 'Uva Vitória Orgânica',
-    category: 'Fruta',
-    price: 12.00,
+    price: 7.00,
     unit: 'caixa',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/uva_vitoria.webp?alt=media&token=a3ba40e3-ac32-44f0-b9b4-e75c875f2d4f',
-    dataAiHint: 'vitoria grapes',
-    farmerId: '2',
-    description: 'Uva Vitória, sem sementes e muito doce, perfeita para lanches e sobremesas.',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/amora.webp?alt=media&token=75996ac4-1ab9-41b4-9ebd-cff5a876e295',
+    dataAiHint: 'organic blackberry',
+    farmerId: '6',
+    description: 'Amoras orgânicas, doces e suculentas, perfeitas para sobremesas e geleias.',
     status: 'active',
-    stock: 18,
-  },
-  {
-    id: '131',
-    name: 'Pêssego Orgânico',
-    category: 'Fruta',
-    price: 8.50,
-    unit: 'kg',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pessego.webp?alt=media&token=40ca1fb9-a000-4b9e-bbd5-52775e5d0720',
-    dataAiHint: 'peach',
-    farmerId: '2',
-    description: 'Pêssegos orgânicos, macios e suculentos, com um sabor doce e aveludado, perfeitos para comer in natura ou em sobremesas.',
-    status: 'active',
-    stock: 14,
-  },
-  {
-    id: '132',
-    name: 'Laranja Lima Orgânica',
-    category: 'Fruta',
-    price: 5.20,
-    unit: 'kg',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/laranja_lima.webp?alt=media&token=df719cd2-1767-436b-9ab5-b2a55c3a2000',
-    dataAiHint: 'lima orange',
-    farmerId: '2',
-    description: 'Laranja Lima orgânica, de sabor suave e sem acidez, excelente para crianças e para o preparo de sucos.',
-    status: 'active',
-    stock: 60,
-  },
-  {
-    id: '133',
-    name: 'Batata Bolinha',
-    category: 'Raiz e Tubérculo',
-    price: 5.00,
-    unit: 'kg',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batata_bolinha.webp?alt=media&token=19bff4eb-5e8d-47a7-9aeb-ce51db6b8c87',
-    farmerId: '4',
-    description: 'Pequenas e macias, ideais para conservas, saladas e para assar inteiras com ervas.',
-    dataAiHint: 'small potatoes',
-    status: 'active',
-    stock: 30,
-  },
-  {
-    id: '134',
-    name: 'Mexerica Bergamota',
-    category: 'Fruta',
-    price: 6.50,
-    unit: 'kg',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mexerica_bergamota.webp?alt=media&token=452f0390-d797-4c48-acb1-996b765ea883',
-    farmerId: '2',
-    description: 'Cultivar de casca fina e aroma marcante, a bergamota é fácil de descascar e tem um sabor doce e intenso.',
-    dataAiHint: 'bergamot tangerine',
-    status: 'active',
-    stock: 25,
-  },
-  {
-    id: '135',
-    name: 'Aipo (Salsão)',
-    category: 'Verdura',
-    price: 4.50,
-    unit: 'unidade',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/aipo.webp?alt=media&token=568de33a-7127-4e14-a96e-cce9357ebbf2',
-    farmerId: '1',
-    description: 'Crocante e aromático, o aipo é ideal para sopas, saladas e como base para caldos.',
-    dataAiHint: 'celery',
-    status: 'active',
-    stock: 20,
-  },
-  {
-    id: '136',
-    name: 'Pimentão Snackpim',
-    category: 'Fruta',
-    price: 6.00,
-    unit: 'caixa',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pimentao_amarelo.webp?alt=media&token=c4a9a8f2-8e0c-4e8a-8a6a-0c5d5e5f4d4d',
-    farmerId: '3',
-    description: 'Mini pimentões coloridos, doces e com poucas sementes. Perfeitos para comer como um snack saudável.',
-    dataAiHint: 'snack peppers',
-    status: 'active',
-    stock: 15,
+    stock: 20
   }
 ];
+
 const defaultFarmers: Farmer[] = [
   {
     id: '1',
-    responsibleName: 'Matias Ponte',
-    name: 'Sítio Fazenda Mata Verde',
-    prepostos: ['David Bulhões', 'Rosana Santos', 'Evelyn Alcântara'],
-    fairs: ['Flamengo', 'Grajaú', 'Tijuca'],
-    location: { lat: -22.9068, lng: -43.1729 },
-    bio: 'Uma fazenda familiar dedicada à agricultura orgânica e sustentável há mais de 30 anos.',
-    address: { street: 'Estrada da Paciência', number: '123', neighborhood: 'Santa Cruz', city: 'Rio de Janeiro', state: 'RJ', zipCode: '23520-000' },
-    pixKey: 'fazenda.mata.verde@email.com',
-    shippingCost: 15.00,
-    phone: '5521987654321',
-    image: 'https://placehold.co/100x100.png'
+    responsibleName: 'João da Silva',
+    prepostos: ['Maria Silva', 'Pedro Silva'],
+    name: 'Sítio Verdejar',
+    location: { lat: -22.469, lng: -42.969 },
+    bio: 'Produzimos hortaliças e legumes com muito carinho, seguindo os princípios da agricultura orgânica para levar saúde e sabor à sua mesa.',
+    address: {
+      street: 'Estrada do Brejal',
+      number: '1200',
+      complement: 'Sítio Verdejar',
+      neighborhood: 'Brejal',
+      city: 'Petrópolis',
+      state: 'RJ',
+      zipCode: '25755-352'
+    },
+    pixKey: 'joao.silva@email.com',
+    shippingCost: 20.00,
+    phone: '5521912345678',
+    fairs: ['Tijuca', 'Grajaú'],
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/joao_da_silva.jpg?alt=media&token=09c85775-685b-4c07-b08e-e28a01101d2c'
   },
   {
     id: '2',
-    responsibleName: 'Ailton Lima',
-    name: 'Sítio Tapera',
-    prepostos: ['Felipe Carvalho', 'Thiago Carvalho'],
-    fairs: ['Laranjeiras', 'Botafogo'],
-    location: { lat: -22.91, lng: -43.2 },
-    bio: 'Somos especializados no cultivo das frutas orgânicas mais doces e suculentas com amor e carinho.',
-    address: { street: 'Rua das Maçãs', number: '45', neighborhood: 'Centro', city: 'Nova Iguaçu', state: 'RJ', zipCode: '26210-000' },
-    pixKey: '123.456.789-01',
-    shippingCost: 12.50,
-    phone: '5521987654322',
-    image: 'https://placehold.co/100x100.png'
+    name: 'Frutas do Bem',
+    responsibleName: 'Mariana Costa',
+    prepostos: ['Carlos Costa'],
+    location: { lat: -22.319, lng: -42.531 },
+    bio: 'Nossa paixão é cultivar frutas orgânicas, suculentas e cheias de sabor. Do nosso pomar para a sua casa.',
+    address: {
+      street: 'Rua das Macieiras',
+      number: '50',
+      neighborhood: 'Vale das Frutas',
+      city: 'Nova Friburgo',
+      state: 'RJ',
+      zipCode: '28600-000'
+    },
+    pixKey: '24987654321',
+    shippingCost: 22.00,
+    phone: '5521987654321',
+    fairs: ['Flamengo', 'Laranjeiras', 'Botafogo'],
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mariana_costa.jpg?alt=media&token=6a12b918-07e3-4c9f-8a03-7b70527376c7'
   },
   {
     id: '3',
-    responsibleName: 'Onéias Gonçalves',
-    name: "Sítio Cachoeirinha I",
-    prepostos: ['Luciene Silva'],
-    fairs: [],
-    location: { lat: -22.88, lng: -43.15 },
-    bio: 'Produção familiar de Nova Friburgo com foco em legumes e verduras frescas da estação.',
-    address: { street: 'Avenida do Leite', number: '789', neighborhood: 'Centro', city: 'Duque de Caxias', state: 'RJ', zipCode: '25010-000' },
-    pixKey: '(21) 99999-8888',
-    shippingCost: 10.00,
-    phone: '5521987654323',
-    image: 'https://placehold.co/100x100.png'
+    name: 'Sítio Santo Antônio',
+    responsibleName: 'Carlos Pereira',
+    prepostos: [],
+    location: { lat: -22.520, lng: -43.170 },
+    bio: 'Cultivamos uma grande variedade de legumes e temperos orgânicos, sempre respeitando a terra e os ciclos da natureza.',
+    address: {
+      street: 'Estrada da Saudade',
+      number: 's/n',
+      neighborhood: 'Itaipava',
+      city: 'Petrópolis',
+      state: 'RJ',
+      zipCode: '25730-000'
+    },
+    pixKey: 'sítio.santo.antonio@email.com',
+    shippingCost: 25.00,
+    phone: '5521998877665',
+    fairs: ['Botafogo'],
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/carlos_pereira.jpg?alt=media&token=78d4c57a-9a9e-4b48-9c1d-17e9e7354b5a'
   },
   {
     id: '4',
-    responsibleName: 'Walace Oliveira',
-    name: 'Sítio Cachoeirinha II',
-    prepostos: ['Vitor Hugo', 'Michele Conceição'],
-    fairs: ['Laranjeiras', 'Leme'],
-    location: { lat: -22.95, lng: -43.22 },
-    bio: 'Cultivamos com paixão as melhores hortaliças, ervas e temperos para a sua mesa.',
-    address: { street: 'Travessa do Pão', number: '10', neighborhood: 'Icaraí', city: 'Niterói', state: 'RJ', zipCode: '24220-000' },
-    pixKey: 'sitio.cachoeirinha2@email.com',
-    shippingCost: 0,
-    phone: '5521987654324',
-    image: 'https://placehold.co/100x100.png'
+    name: 'Horta da Montanha',
+    responsibleName: 'Lúcia Martins',
+    prepostos: ['Ana Martins', 'José Martins'],
+    location: { lat: -22.427, lng: -42.991 },
+    bio: 'Da nossa horta na montanha para a sua mesa. Produtos frescos, orgânicos e cultivados com técnicas de permacultura.',
+    address: {
+      street: 'Caminho do Imperador',
+      number: '3000',
+      neighborhood: 'Fazenda Inglesa',
+      city: 'Petrópolis',
+      state: 'RJ',
+      zipCode: '25755-352'
+    },
+    pixKey: 'lucia.horta.montanha@picpay.com',
+    shippingCost: 18.00,
+    phone: '5521988889999',
+    fairs: ['Leme', 'Tijuca'],
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/lucia_martins.jpg?alt=media&token=7d0b3e64-1c5c-4f1b-8b9a-1e1b1d1d1e1b'
   },
   {
     id: '5',
-    responsibleName: 'Wendel Oliveira',
-    name: 'Sítio Cachoeirinha III',
-    prepostos: [],
-    fairs: ['Flamengo'],
-    location: { lat: -22.93, lng: -43.19 },
-    bio: 'Cultivando o futuro, um vegetal de cada vez. Frescor e qualidade direto da terra para sua mesa.',
-    address: { street: 'Estrada da Cachoeira', number: '55', neighborhood: 'Centro', city: 'Magé', state: 'RJ', zipCode: '25900-000' },
-    pixKey: 'wendel.oliveira@email.com',
-    shippingCost: 18.00,
-    phone: '5521987654325',
-    image: 'https://placehold.co/100x100.png'
+    name: 'Sítio Tapera',
+    responsibleName: 'Onéias de Souza',
+    prepostos: ['Rosana de Souza'],
+    location: { lat: -22.450, lng: -42.850 },
+    bio: 'Desde 1990, nossa família se dedica à produção de orgânicos, com foco em folhas, ervas e temperos frescos e aromáticos.',
+    address: {
+      street: 'Estrada do Tinguá',
+      number: 'km 5',
+      neighborhood: 'Tinguá',
+      city: 'Nova Iguaçu',
+      state: 'RJ',
+      zipCode: '26060-000'
+    },
+pixKey: 'oneias.souza@email.com',
+    shippingCost: 15.00,
+    phone: '5521977778888',
+    fairs: ['Grajaú'],
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/oneias_de_souza.jpg?alt=media&token=7c1b1c1b-1c1c-4b1b-8b1b-1c1c1c1c1c1c'
   },
   {
     id: '6',
-    responsibleName: 'Ivison Fragoso',
     name: 'Domicílio Orgânico',
-    prepostos: ['Cristina Marques', 'Nathalia Souza'],
-    fairs: ['Flamengo', 'Laranjeiras', 'Botafogo'],
-    location: { lat: -22.96, lng: -43.18 },
-    bio: 'Levando o melhor do campo para a sua casa. Produtos orgânicos com entrega rápida e segura.',
-    address: { street: 'Rua do Domicílio', number: '20', neighborhood: 'Laranjeiras', city: 'Rio de Janeiro', state: 'RJ', zipCode: '22240-000' },
-    pixKey: '12.345.678/0001-99',
-    shippingCost: 14.00,
-    phone: '5521987654326',
-    image: 'https://placehold.co/100x100.png'
-  },
-  {
-    id: '7',
-    responsibleName: 'Lúcia Rodrigues',
-    name: 'Naturalmente Orgânicos',
+    responsibleName: 'Ivison Fragoso',
     prepostos: [],
-    fairs: ['Tijuca'],
-    location: { lat: -22.92, lng: -43.23 },
-    bio: 'Saúde e sabor em cada folha. Nossos produtos são cultivados sem agrotóxicos, com respeito à natureza.',
-    address: { street: 'Rua da Saúde', number: '88', neighborhood: 'Tijuca', city: 'Rio de Janeiro', state: 'RJ', zipCode: '20511-000' },
-    pixKey: 'contato@naturalmenteorganicos.com',
-    shippingCost: 20.00,
-    phone: '5521987654327',
-    image: 'https://placehold.co/100x100.png'
-  },
-  {
-    id: '134',
-    responsibleName: 'Giulia Pestana',
-    name: 'Loja Orgânica',
-    prepostos: [],
-    fairs: ['Tijuca', 'Botafogo', 'Grajaú', 'Leme', 'Flamengo', 'Laranjeiras'],
-    location: { lat: -22.92, lng: -43.23 },
-    bio: 'Sou a Giulia Pestana, apaixonada por um estilo de vida saudável e em harmonia com a natureza. Minha paixão me levou a criar a Loja Orgânica, um espaço dedicado a todos que buscam bem-estar e qualidade de vida. Atuo em todas as feiras do Circuito Carioca de Feiras Orgânicas, oferecendo produtos que nutrem o corpo e a alma, cuidadosamente selecionados para você e sua família.',
-    address: { street: 'Rua dos Sabores Naturais', number: '101', neighborhood: 'Jardim Botânico', city: 'Rio de Janeiro', state: 'RJ', zipCode: '22460-000' },
-    pixKey: 'giulia.pestana@email.com',
-    shippingCost: 20.00,
-    phone: '5521987654328',
-    image: 'https://placehold.co/100x100.png'
+    location: { lat: -22.906, lng: -43.172 },
+    bio: 'Entregamos saúde e sabor na sua casa. Somos um delivery de orgânicos com produtos de agricultores parceiros de todo o Rio.',
+    address: {
+      street: 'Rua do Catete',
+      number: '100',
+      neighborhood: 'Catete',
+      city: 'Rio de Janeiro',
+      state: 'RJ',
+      zipCode: '22220-000'
+    },
+    pixKey: 'ivison.fragoso@email.com',
+    shippingCost: 12.00,
+    phone: '5521966667777',
+    fairs: ['Grajaú', 'Tijuca', 'Botafogo', 'Leme', 'Flamengo', 'Laranjeiras'],
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/ivison_fragoso.jpg?alt=media&token=7c1b1c1b-1c1c-4b1b-8b1b-1c1c1c1c1c1c'
   }
 ];
-const defaultOrders: Order[] = [
-  {
-    id: 'ORD-001',
-    customerName: 'Maria Silva',
-    items: [
-      { productName: 'Tomate Italiano Orgânico', quantity: 2 },
-      { productName: 'Cenouras Orgânicas', quantity: 1 }
-    ],
-    status: 'Pendente',
-    total: 10.50,
-    date: new Date('2024-07-20T10:30:00'),
-    deliveryOption: 'pickup',
-    pickupLocation: 'Feira da Glória'
-  },
-   {
-    id: 'ORD-002',
-    customerName: 'João Pereira',
-    items: [
-      { productName: 'Morangos Frescos Orgânicos', quantity: 2 },
-      { productName: 'Laranja Pera Orgânica', quantity: 3 }
-    ],
-    status: 'Pendente',
-    total: 14.00,
-    date: new Date('2024-07-21T11:00:00'),
-    deliveryOption: 'delivery',
-    customerContact: { 
-        address: { street: 'Rua das Flores', number: '123', neighborhood: 'Copacabana', city: 'Rio de Janeiro', state: 'RJ', zipCode: '22010-000' },
-        phone: '5521998877665'
-    }
-  }
-];
+
 const defaultCustomers: Customer[] = [
   {
     id: 'cust-001',
-    name: 'Maria Silva',
-    email: 'maria.silva@email.com',
+    name: 'Maria Oliveira',
+    email: 'maria.oliveira@exemplo.com',
     favoriteFarmerIds: ['1', '3'],
     address: {
-        street: 'Avenida Atlântica',
-        number: '1702',
-        complement: 'Apto 801',
+        street: 'Rua das Flores',
+        number: '123',
+        complement: 'Apto 405',
         neighborhood: 'Copacabana',
         city: 'Rio de Janeiro',
         state: 'RJ',
-        zipCode: '22021-001'
+        zipCode: '22050002'
     },
     phone: '5521999998888',
-    image: 'https://placehold.co/100x100.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/maria_oliveira.jpg?alt=media&token=7c1b1c1b-1c1c-4b1b-8b1b-1c1c1c1c1c1c',
     classification: 'ouro'
   },
-  {
+   {
     id: 'cust-002',
-    name: 'João Pereira',
-    email: 'joao.pereira@email.com',
+    name: 'José Santos',
+    email: 'jose.santos@exemplo.com',
     favoriteFarmerIds: ['2'],
      address: {
-        street: 'Rua do Catete',
-        number: '200',
-        complement: '',
-        neighborhood: 'Catete',
+        street: 'Avenida Atlântica',
+        number: '1702',
+        complement: 'Bloco 2, Apto 801',
+        neighborhood: 'Copacabana',
         city: 'Rio de Janeiro',
         state: 'RJ',
-        zipCode: '22220-000'
+        zipCode: '22021001'
     },
     phone: '5521988887777',
-    image: 'https://placehold.co/100x100.png',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/jose_santos.jpg?alt=media&token=7c1b1c1b-1c1c-4b1b-8b1b-1c1c1c1c1c1c',
     classification: 'prata'
+  },
+   {
+    id: 'cust-003',
+    name: 'Ana Pereira',
+    email: 'ana.pereira@exemplo.com',
+    favoriteFarmerIds: ['4', '5'],
+     address: {
+        street: 'Rua Barata Ribeiro',
+        number: '502',
+        complement: 'Apto 202',
+        neighborhood: 'Copacabana',
+        city: 'Rio de Janeiro',
+        state: 'RJ',
+        zipCode: '22040002'
+    },
+    phone: '5521977776666',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/ana_pereira.jpg?alt=media&token=7c1b1c1b-1c1c-4b1b-8b1b-1c1c1c1c1c1c',
+    classification: 'diamante'
+  }
+];
+
+const defaultOrders: Order[] = [
+  {
+    id: 'ORD-1699981200000-abc',
+    customerName: 'Maria Oliveira',
+    items: [
+      { productName: 'Cenouras Orgânicas', quantity: 2 },
+      { productName: 'Tomate Italiano Orgânico', quantity: 1 },
+    ],
+    status: 'Pendente',
+    total: 8.00,
+    date: new Date('2024-07-14T10:00:00Z'),
+    deliveryOption: 'pickup',
+    pickupLocation: 'Feira da Tijuca'
+  },
+  {
+    id: 'ORD-1700067600000-def',
+    customerName: 'José Santos',
+    items: [
+      { productName: 'Morangos Frescos Orgânicos', quantity: 1 },
+      { productName: 'Laranja Pera Orgânica', quantity: 3 },
+    ],
+    status: 'Pendente',
+    total: 10.00,
+    date: new Date('2024-07-15T11:00:00Z'),
+    deliveryOption: 'delivery',
+    customerContact: {
+        address: {
+            street: 'Avenida Atlântica',
+            number: '1702',
+            complement: 'Bloco 2, Apto 801',
+            neighborhood: 'Copacabana',
+            city: 'Rio de Janeiro',
+            state: 'RJ',
+            zipCode: '22021001'
+        },
+        phone: '5521988887777'
+    }
+  },
+  {
+    id: 'ORD-1700154000000-ghi',
+    customerName: 'Ana Pereira',
+    items: [
+      { productName: 'Cenouras Orgânicas', quantity: 1 },
+      { productName: 'Alho Poró Orgânico', quantity: 2 },
+    ],
+    status: 'Confirmado',
+    total: 11.50,
+    date: new Date('2024-06-16T12:00:00Z'),
+    deliveryOption: 'pickup',
+    pickupLocation: 'Feira do Grajaú'
+  },
+  {
+    id: 'ORD-1700240400000-jkl',
+    customerName: 'Maria Oliveira',
+    items: [
+      { productName: 'Morangos Frescos Orgânicos', quantity: 2 },
+      { productName: 'Couve Mineira Orgânica', quantity: 1 },
+    ],
+    status: 'Confirmado',
+    total: 10.20,
+    date: new Date('2024-05-10T13:00:00Z'),
+    deliveryOption: 'delivery',
+    customerContact: {
+         address: {
+            street: 'Rua das Flores',
+            number: '123',
+            complement: 'Apto 405',
+            neighborhood: 'Copacabana',
+            city: 'Rio de Janeiro',
+            state: 'RJ',
+            zipCode: '22050002'
+        },
+        phone: '5521999998888'
+    }
   }
 ];
 
 
-// State management
-let products: Product[] = getStoredData(PRODUCTS_KEY, defaultProducts, productSortFn);
-let farmers: Farmer[] = getStoredData(FARMERS_KEY, defaultFarmers);
-let orders: Order[] = getStoredData(ORDERS_KEY, defaultOrders);
-let customers: Customer[] = getStoredData(CUSTOMERS_KEY, defaultCustomers);
+// State management for data
+let products = getStoredData(PRODUCTS_KEY, defaultProducts, productSortFn);
+let farmers = getStoredData(FARMERS_KEY, defaultFarmers);
+let orders = getStoredData(ORDERS_KEY, defaultOrders);
+let customers = getStoredData(CUSTOMERS_KEY, defaultCustomers);
 
 // ============================================================================
-// PRODUCT FUNCTIONS
+// DATA ACCESS FUNCTIONS
 // ============================================================================
 
-export function getProducts({ includePaused = false }: { includePaused?: boolean } = {}): Product[] {
-  const allProducts = [...products];
-  if (includePaused) {
-    return allProducts;
+export function getProducts(options: { includePaused?: boolean, farmerId?: string } = {}): Product[] {
+  let filteredProducts = [...products];
+
+  if (!options.includePaused) {
+    filteredProducts = filteredProducts.filter(p => p.status === 'active');
   }
-  return allProducts.filter(p => p.status === 'active');
+  
+  if (options.farmerId) {
+    filteredProducts = filteredProducts.filter(p => p.farmerId === options.farmerId);
+  }
+
+  // Check and update promotion status
+  const now = new Date();
+  filteredProducts.forEach(p => {
+    if (p.promotion && p.promotion.isActive && new Date(p.promotion.expiresAt) < now) {
+      p.promotion.isActive = false;
+    }
+  });
+
+  setStoredData(PRODUCTS_KEY, products, productSortFn); // Save any promotion status changes
+  return filteredProducts;
 }
 
 export function getProductById(id: string): Product | undefined {
@@ -1900,66 +1698,46 @@ export function getProductByName(name: string): Product | undefined {
   return products.find(p => p.name === name);
 }
 
-export function addProduct(productData: Omit<Product, 'id' | 'status'>): Product {
-    const newProduct: Product = {
-        ...productData,
-        id: `prod-${Date.now()}-${Math.random().toString(16).substring(2, 8)}`,
-        status: 'active',
+export function getFarmers(): Farmer[] {
+  return farmers;
+}
+
+export function getFarmerById(id: string): Farmer | undefined {
+  return farmers.find(f => f.id === id);
+}
+
+export function getOrders(options: { farmerId?: string } = {}): Order[] {
+  const allOrders = [...orders];
+  if(options.farmerId) {
+      const farmerProducts = new Set(getProducts({farmerId: options.farmerId, includePaused: true}).map(p => p.name));
+      return allOrders.filter(order => order.items.some(item => farmerProducts.has(item.productName)));
+  }
+  return allOrders;
+}
+
+export function getCustomers(): Customer[] {
+  return customers;
+}
+
+export function getCustomerById(id: string): Customer | undefined {
+  return customers.find(c => c.id === id);
+}
+
+export function getFarmersWithProducts(farmerIds?: string[]): FarmerWithProducts[] {
+  const farmersToProcess = farmerIds ? farmers.filter(f => farmerIds.includes(f.id)) : farmers;
+  
+  return farmersToProcess.map(farmer => {
+    const farmerProducts = getProducts({includePaused: false}).filter(product => product.farmerId === farmer.id);
+    return {
+      ...farmer,
+      products: farmerProducts,
     };
-    products.push(newProduct);
-    setStoredData(PRODUCTS_KEY, products, productSortFn);
-    return newProduct;
+  });
 }
 
-export function updateProduct(id: string, updates: Partial<Omit<Product, 'id' | 'status' | 'farmerId' | 'image' | 'promotion'>>) {
-  products = products.map(p => p.id === id ? { ...p, ...updates } : p);
-  setStoredData(PRODUCTS_KEY, products, productSortFn);
-}
-
-export function updateProductStock(productId: string, newStock: number) {
-    products = products.map(p => 
-        p.id === productId ? { ...p, stock: newStock } : p
-    );
-    setStoredData(PRODUCTS_KEY, products, productSortFn);
-}
-
-export function deleteProduct(id: string) {
-  products = products.filter(p => p.id !== id);
-  setStoredData(PRODUCTS_KEY, products, productSortFn);
-}
-
-export function toggleProductStatus(productId: string, status: 'active' | 'paused') {
-    products = products.map(p => 
-        p.id === productId ? { ...p, status } : p
-    );
-    setStoredData(PRODUCTS_KEY, products, productSortFn);
-}
-
-export function toggleProductPromotion(productId: string, isActive: boolean) {
-    products = products.map(p => {
-        if (p.id === productId) {
-            return {
-                ...p,
-                promotion: {
-                    isActive,
-                    expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days from now
-                }
-            };
-        }
-        return p;
-    });
-    setStoredData(PRODUCTS_KEY, products, productSortFn);
-}
-
-export function getPromotionalProducts(): (Product & { farmerName: string, responsibleName?: string })[] {
-    const now = new Date();
-    return products
-        .filter(p => 
-            p.promotion && 
-            p.promotion.isActive && 
-            new Date(p.promotion.expiresAt) > now &&
-            p.status === 'active'
-        )
+export function getPromotionalProducts() {
+    return getProducts({includePaused: false})
+        .filter(p => p.promotion?.isActive)
         .map(p => {
             const farmer = getFarmerById(p.farmerId);
             return {
@@ -1970,89 +1748,105 @@ export function getPromotionalProducts(): (Product & { farmerName: string, respo
         });
 }
 
-
 // ============================================================================
-// FARMER FUNCTIONS
+// DATA MODIFICATION FUNCTIONS
 // ============================================================================
 
-export function getFarmers(): Farmer[] {
-  return farmers;
-}
-
-export function getFarmerById(id: string): Farmer | undefined {
-  return farmers.find(f => f.id === id);
-}
-
-export function getFarmersWithProducts(farmerIds?: string[]): FarmerWithProducts[] {
-  let filteredFarmers = farmers;
-  if (farmerIds && farmerIds.length > 0) {
-    filteredFarmers = farmers.filter(f => farmerIds.includes(f.id));
-  }
-
-  return filteredFarmers.map(farmer => ({
-    ...farmer,
-    products: products.filter(product => product.farmerId === farmer.id && product.status === 'active')
-  }));
-}
-
-export function addFarmer(farmerData: Omit<Farmer, 'id' | 'location' | 'image'>): Farmer {
-    const newFarmer: Farmer = {
-        ...farmerData,
-        id: `farm-${Date.now()}-${Math.random().toString(16).substring(2, 8)}`,
-        location: { lat: -22.90, lng: -43.20 }, // Default location, can be updated
-        image: 'https://placehold.co/100x100.png', // Default image
+export function addProduct(newProductData: Omit<Product, 'id' | 'status'>): Product {
+    const newId = `prod-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+    const newProduct: Product = {
+        ...newProductData,
+        id: newId,
+        status: 'active',
     };
-    farmers.push(newFarmer);
-    setStoredData(FARMERS_KEY, farmers);
-    return newFarmer;
+    products.push(newProduct);
+    setStoredData(PRODUCTS_KEY, products, productSortFn);
+    return newProduct;
 }
 
-export function updateFarmer(farmerId: string, updates: Partial<Farmer>) {
-    farmers = farmers.map(f => {
-        if (f.id === farmerId) {
-            // Lógica para mesclar o endereço aninhado
-            const updatedAddress = updates.address ? { ...f.address, ...updates.address } : f.address;
-            return { ...f, ...updates, address: updatedAddress };
-        }
-        return f;
-    });
-    setStoredData(FARMERS_KEY, farmers);
+
+export function updateProduct(id: string, updates: Partial<Omit<Product, 'id' | 'farmerId'>>) {
+  products = products.map(p => {
+    if (p.id === id) {
+      return { ...p, ...updates };
+    }
+    return p;
+  });
+  setStoredData(PRODUCTS_KEY, products, productSortFn);
 }
 
-// ============================================================================
-// ORDER FUNCTIONS
-// ============================================================================
-
-export function getOrders(): Order[] {
-  return orders;
+export function updateProductStock(id: string, newStock: number) {
+    updateProduct(id, { stock: newStock });
 }
 
-// ============================================================================
-// CUSTOMER FUNCTIONS
-// ============================================================================
-
-export function getCustomers(): Customer[] {
-  return customers;
+export function deleteProduct(id: string) {
+  products = products.filter(p => p.id !== id);
+  setStoredData(PRODUCTS_KEY, products, productSortFn);
 }
 
-export function getCustomerById(id: string): Customer | undefined {
-    return customers.find(c => c.id === id);
+export function toggleProductStatus(id: string, newStatus: 'active' | 'paused') {
+    updateProduct(id, { status: newStatus });
 }
 
-export function updateCustomer(customerId: string, updates: Partial<Customer>) {
+
+export function toggleProductPromotion(id: string, isActive: boolean) {
+    const product = getProductById(id);
+    if(product) {
+        const promotion = {
+            isActive,
+            expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 dias a partir de agora
+        };
+        updateProduct(id, { promotion });
+    }
+}
+
+export function addOrder(order: CustomerOrder) {
+    orders.push(order);
+    setStoredData(ORDERS_KEY, orders);
+}
+
+export function updateCustomerClassification(customerId: string, classification: CustomerClassification) {
     customers = customers.map(c => {
-        if (c.id === customerId) {
-             const updatedAddress = updates.address ? { ...c.address, ...updates.address } : c.address;
-            return { ...c, ...updates, address: updatedAddress };
+        if(c.id === customerId) {
+            return { ...c, classification };
         }
         return c;
     });
     setStoredData(CUSTOMERS_KEY, customers);
 }
 
-export function updateCustomerClassification(customerId: string, classification: CustomerClassification) {
-    customers = customers.map(c => 
-        c.id === customerId ? { ...c, classification } : c
-    );
-    setStoredData(CUSTOMERS_KEY, customers);
+export function addFarmer(farmerData: Omit<Farmer, 'id' | 'location' | 'image'>): Farmer {
+    const newId = `farm-${Date.now()}`;
+    const newFarmer: Farmer = {
+        ...farmerData,
+        id: newId,
+        location: { lat: -22.9068, lng: -43.1729 }, // Posição padrão (Centro do Rio)
+        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/default_farmer.png?alt=media&token=8e9e1c7c-4a3b-4f1e-9e7b-8e9e1c7c4a3b' // Imagem padrão
+    };
+    farmers.push(newFarmer);
+    setStoredData(FARMERS_KEY, farmers);
+    return newFarmer;
+}
+
+export function updateFarmer(id: string, updates: Partial<Omit<Farmer, 'id'>>) {
+  farmers = farmers.map(f => {
+    if (f.id === id) {
+      // Mescla o endereço corretamente se ele for fornecido nas atualizações
+      const newAddress = updates.address ? { ...f.address, ...updates.address } : f.address;
+      return { ...f, ...updates, address: newAddress };
+    }
+    return f;
+  });
+  setStoredData(FARMERS_KEY, farmers);
+}
+
+export function updateCustomer(id: string, updates: Partial<Omit<Customer, 'id'>>) {
+  customers = customers.map(c => {
+    if (c.id === id) {
+      const newAddress = updates.address ? { ...c.address, ...updates.address } : c.address;
+      return { ...c, ...updates, address: newAddress };
+    }
+    return c;
+  });
+  setStoredData(CUSTOMERS_KEY, customers);
 }
