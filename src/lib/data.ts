@@ -1609,7 +1609,7 @@ const domicilioOrganicoProducts: Product[] = [
         status: 'active', stock: 15
     },
     {
-        id: '1039', name: 'Cenouras Orgânicas', category: 'Raiz e Tubérculo', price: 3.00, unit: 'maço',
+        id: '1039', name: 'Cenouras Orgânicas', category: 'Fruta', price: 3.00, unit: 'maço',
         image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/cenoura.webp?alt=media&token=83e659dc-2bd5-42f5-bc98-a178690858f1',
         dataAiHint: 'organic carrots', farmerId: '6', description: 'Cenouras orgânicas do Domicílio Orgânico, frescas e crocantes.',
         status: 'active', stock: 40
@@ -2076,6 +2076,7 @@ export function updateCustomer(id: string, updates: Partial<Omit<Customer, 'id'>
   });
   setStoredData(CUSTOMERS_KEY, customers);
 }
+
 
 
 
