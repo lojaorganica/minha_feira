@@ -1996,3 +1996,6 @@ lojaOrganicaProducts.forEach(product => {
     }
 });
 setStoredData(PRODUCTS_KEY, products, productSortFn);
+
+
+    
