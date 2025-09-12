@@ -32,6 +32,9 @@ const ProductCard = ({ product, farmerName, responsibleName }: ProductCardProps)
   const [quantity, setQuantity] = useState(initialQuantity);
   const [isAlertOpen, setAlertOpen] = useState(false);
   const [isLocallyFavorite, setIsLocallyFavorite] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const descriptionNeedsTruncation = product.description.length > 120;
 
   useEffect(() => {
     setIsLocallyFavorite(isFavorite(product.id));
@@ -145,7 +148,14 @@ const ProductCard = ({ product, farmerName, responsibleName }: ProductCardProps)
                 <Heart className={cn("h-6 w-6", isLocallyFavorite && "fill-red-500 text-red-500")} />
             </Button>
           </div>
-          <CardDescription className="text-lg mt-1 font-semibold text-foreground/90 flex-grow">{product.description}</CardDescription>
+          <CardDescription className={cn("text-lg mt-1 font-semibold text-foreground/90 flex-grow", !isExpanded && descriptionNeedsTruncation && "line-clamp-3")}>
+            {product.description}
+          </CardDescription>
+          {descriptionNeedsTruncation && (
+              <button onClick={() => setIsExpanded(!isExpanded)} className="read-more-button">
+                  {isExpanded ? 'Ler menos' : 'Ler mais'}
+              </button>
+          )}
         </CardContent>
          <CardFooter className="p-4 pt-0 flex flex-col items-start gap-4">
             <div className="flex items-center gap-2 text-sm text-muted-foreground font-semibold">

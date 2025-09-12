@@ -6,7 +6,7 @@ import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerClas
 // IN-MEMORY DATA STORE WITH LOCALSTORAGE PERSISTENCE
 // ============================================================================
 
-const PRODUCTS_KEY = 'minha_feira_products_v5';
+const PRODUCTS_KEY = 'minha_feira_products_v6';
 const FARMERS_KEY = 'minha_feira_farmers_v3';
 const ORDERS_KEY = 'minha_feira_orders';
 const CUSTOMERS_KEY = 'minha_feira_customers';
@@ -96,7 +96,7 @@ const lojaOrganicaProducts: Product[] = [
         image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_aroeira.webp?alt=media&token=cc691f95-6565-42b1-9abd-95cca2e6b31d',
         dataAiHint: 'aroeira honey',
         farmerId: '134',
-        description: "Um mel raro e de sabor intenso, produzido pelas abelhas a partir da flor da Aroeira, árvore nativa de áreas preservadas do Brasil, conhecida por muitos como a “Árvore da Vida”, e cultivado numa propriedade na Serra do Roncador, no Mato Grosso — onde se entrelaçam pedaços dos biomas da Amazônia e do Cerrado. Este mel de coloração escura e sabor marcante é valorizado por sua ação anti-inflamatória, antioxidante, cicatrizante e antibacteriana, além de conter ferro, que o torna útil no combate à anemia, e outros minerais e compostos fenólicos importantes que fortalecem a imunidade. Outro diferencial importantíssimo está na complexidade de sua composição: não se baseia só no néctar das flores da aroeira, mas também no melato — esse líquido adocicado formado por insetos (como pulgões) que se alimentam da seiva da árvore, participando da produção do mel junto com enzimas naturais. Tudo isso torna este mel extraordinário!",
+        description: 'Um mel raro e de sabor intenso, produzido pelas abelhas a partir da flor da Aroeira, árvore nativa de áreas preservadas do Brasil, conhecida por muitos como a “Árvore da Vida”, e cultivado numa propriedade na Serra do Roncador, no Mato Grosso — onde se entrelaçam pedaços dos biomas da Amazônia e do Cerrado. Este mel de coloração escura e sabor marcante é valorizado por sua ação anti-inflamatória, antioxidante, cicatrizante e antibacteriana, além de conter ferro, que o torna útil no combate à anemia, e outros minerais e compostos fenólicos importantes que fortalecem a imunidade. Outro diferencial importantíssimo está na complexidade de sua composição: não se baseia só no néctar das flores da aroeira, mas também no melato — esse líquido adocicado formado por insetos (como pulgões) que se alimentam da seiva da árvore, participando da produção do mel junto com enzimas naturais. Tudo isso torna este mel extraordinário!',
         status: 'active',
         stock: 30
     },

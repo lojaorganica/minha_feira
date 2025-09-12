@@ -141,4 +141,8 @@
   .animate-pulse-heart {
     animation: pulse-heart 1.5s ease-in-out infinite;
   }
+
+  .read-more-button {
+      @apply text-sm font-bold text-accent hover:text-accent/80 underline mt-1;
+  }
 }
