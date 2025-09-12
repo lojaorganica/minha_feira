@@ -23,13 +23,19 @@ function hydrateFromStorage() {
     const storedProducts = localStorage.getItem(PRODUCTS_KEY);
     if (storedProducts) {
       const parsedProducts = JSON.parse(storedProducts);
-      // Validation check: If the stored products don't match the default ones (e.g., length mismatch, missing critical items),
-      // it's safer to discard the cache and use the fresh data from the code.
-      if (parsedProducts.length === defaultProducts.length && parsedProducts.find((p: Product) => p.id === '1001')) {
+      
+      // Robust validation: Check if stored data is consistent with the source code data.
+      // If lengths differ or a specific product's content (like the description we've been changing) doesn't match,
+      // invalidate the cache.
+      const defaultAroeira = defaultProducts.find(p => p.id === '1001');
+      const storedAroeira = parsedProducts.find((p: Product) => p.id === '1001');
+
+      if (parsedProducts.length === defaultProducts.length && storedAroeira && storedAroeira.description === defaultAroeira?.description) {
          products = parsedProducts;
       } else {
-        // Cache is invalid, use default and overwrite
+        // Cache is invalid or outdated, overwrite it with fresh data from the code.
         localStorage.setItem(PRODUCTS_KEY, JSON.stringify(defaultProducts));
+        products = defaultProducts;
       }
     } else {
       localStorage.setItem(PRODUCTS_KEY, JSON.stringify(defaultProducts));
