@@ -25,6 +25,7 @@ const getInitialUserState = (): { user: Customer | Farmer | null; userType: 'cus
             } else if (storedUserType === 'farmer') {
                 freshData = getFarmerById(parsedUser.id);
             }
+            // Se freshData não for encontrado (ex: agricultor removido), o login será invalidado.
             if (freshData) {
                 return { user: freshData, userType: storedUserType };
             }
@@ -32,6 +33,7 @@ const getInitialUserState = (): { user: Customer | Farmer | null; userType: 'cus
     } catch (error) {
         console.error("Falha ao carregar o usuário inicial do localStorage", error);
     }
+    // Retorna nulo se não houver dados válidos, forçando um novo login ou seleção.
     return { user: null, userType: null };
 };
 
@@ -44,8 +46,8 @@ export function useUser() {
   const cartContext = useContext(CartContext);
   
   useEffect(() => {
-    // Agora o useEffect só controla o estado de 'isUserLoaded'
-    // A checagem real ocorre fora, o que evita o "piscar" da UI
+    // A lógica de `getInitialUserState` agora trata de buscar dados frescos na inicialização.
+    // Este useEffect apenas marca que o carregamento inicial terminou.
     setIsUserLoaded(true);
   }, []);
 
