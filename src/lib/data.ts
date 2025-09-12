@@ -22,7 +22,15 @@ function hydrateFromStorage() {
   try {
     const storedProducts = localStorage.getItem(PRODUCTS_KEY);
     if (storedProducts) {
-      products = JSON.parse(storedProducts);
+      const parsedProducts = JSON.parse(storedProducts);
+      // Validation check: If the stored products don't match the default ones (e.g., length mismatch, missing critical items),
+      // it's safer to discard the cache and use the fresh data from the code.
+      if (parsedProducts.length === defaultProducts.length && parsedProducts.find((p: Product) => p.id === '1001')) {
+         products = parsedProducts;
+      } else {
+        // Cache is invalid, use default and overwrite
+        localStorage.setItem(PRODUCTS_KEY, JSON.stringify(defaultProducts));
+      }
     } else {
       localStorage.setItem(PRODUCTS_KEY, JSON.stringify(defaultProducts));
     }
@@ -50,6 +58,11 @@ function hydrateFromStorage() {
 
   } catch (error) {
     console.error("Error hydrating data from localStorage", error);
+    // If hydration fails, reset to defaults
+    products = defaultProducts;
+    farmers = defaultFarmers;
+    orders = defaultOrders;
+    customers = defaultCustomers;
   }
 
   isHydrated = true;
