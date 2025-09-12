@@ -83,7 +83,7 @@ const lojaOrganicaProducts: Product[] = [
         image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_aroeira.webp?alt=media&token=cc691f95-6565-42b1-9abd-95cca2e6b31d',
         dataAiHint: 'aroeira honey',
         farmerId: '134',
-        description: 'Mel raro e medicinal de Aroeira, com sabor intenso e propriedades anti-inflamatórias. Produzido em áreas preservadas.',
+        description: "Um mel raro e de sabor intenso, produzido pelas abelhas a partir da flor da Aroeira, árvore nativa de áreas preservadas do Brasil e conhecida por muitos como a 'Árvore da Vida' por suas inúmeras propriedades medicinais. Este mel de coloração escura e sabor marcante é valorizado por sua ação anti-inflamatória, cicatrizante e antibacteriana, sendo a escolha perfeita para quem busca um produto com personalidade, história e múltiplos benefícios para a saúde.",
         status: 'active',
         stock: 30
     },
