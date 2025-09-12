@@ -128,7 +128,7 @@ const lojaOrganicaProducts: Product[] = [
         image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_eucalipto.webp?alt=media&token=22fad2b2-c030-4f6e-ac57-6d5b6fa0cc49',
         dataAiHint: 'eucalyptus honey',
         farmerId: '134',
-        description: 'Mel de eucalipto, com sabor mais robusto e notas mentoladas, ideal para acompanhar queijos ou em chás.',
+        description: 'O mel de eucalipto é um dos mais reconhecidos por suas propriedades medicinais expectorantes, antissépticas, antibacterianas, anti-inflamatórias e antioxidantes. Produzido a partir das flores de eucalipto, ele concentra compostos naturais como o eucaliptol (1,8-cineol), que ajuda a fluidificar secreções e aliviar sintomas de gripes, resfriados, tosses e problemas respiratórios. De fato, o eucaliptol tem sido amplamente estudado por sua ação broncodilatadora e sua capacidade de atuar como um componente ativo em inalantes e xaropes respiratórios.\nRico em minerais como ferro, cálcio e magnésio, vitaminas B e C, além de antioxidantes potentes, esse mel fortalece o sistema imunológico, auxilia na recuperação de quadros de anemia e promove energia e vitalidade no dia a dia — com benefícios também documentados para a saúde gastrointestinal e proteção contra infecções do trato respiratório superior. Seja puro, em salada de frutas no café da manhã, chás, o mel de eucalipto é mais que alimento: é cuidado e saúde.',
         status: 'active',
         stock: 45
     },
@@ -2038,3 +2038,4 @@ export function updateCustomer(id: string, updates: Partial<Omit<Customer, 'id'>
   });
   setStoredData(CUSTOMERS_KEY, customers);
 }
+
