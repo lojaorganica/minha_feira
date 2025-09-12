@@ -1481,7 +1481,7 @@ const defaultFarmers: Farmer[] = [
   {
     id: '1',
     responsibleName: 'Matias Ponte',
-    prepostos: ['David Bulhões', 'Rosana Paixão', 'Cristiane Alcãntara', 'Evelyn'],
+    prepostos: ['Cristiane Alcântara', 'David Bulhões', 'Guilherme Ponte', 'Rosana Paixão', 'Evelyn Alcântara'],
     name: 'Sítio Fazenda Mata Verde',
     location: { lat: -22.469, lng: -42.969 },
     bio: 'Produzimos hortaliças e legumes com muito carinho, seguindo os princípios da agricultura orgânica para levar saúde e sabor à sua mesa.',
@@ -1497,14 +1497,14 @@ const defaultFarmers: Farmer[] = [
     pixKey: 'matiasponte@email.com',
     shippingCost: 20.00,
     phone: '5521912345678',
-    fairs: ['Tijuca', 'Grajaú'],
+    fairs: ['Flamengo', 'Tijuca', 'Grajaú'],
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/matias_ponte.jpg?alt=media&token=8d2e854d-7634-46a2-9e9b-31d7f46146c9'
   },
   {
     id: '2',
     name: 'Sítio Cachoeirinha I',
     responsibleName: 'Onéias Gonçalves',
-    prepostos: ['Carlos Costa'],
+    prepostos: ['Luciene Silva'],
     location: { lat: -22.319, lng: -42.531 },
     bio: 'Nossa paixão é cultivar frutas orgânicas, suculentas e cheias de sabor. Do nosso pomar para a sua casa.',
     address: {
@@ -1518,7 +1518,7 @@ const defaultFarmers: Farmer[] = [
     pixKey: '24987654321',
     shippingCost: 22.00,
     phone: '5521987654321',
-    fairs: ['Flamengo', 'Laranjeiras', 'Botafogo'],
+    fairs: ['Tijuca'],
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/oneias_goncalves.jpg?alt=media&token=8d2e854d-7634-46a2-9e9b-31d7f46146c9'
   },
    {
@@ -1546,7 +1546,7 @@ const defaultFarmers: Farmer[] = [
     id: '4',
     name: 'Sítio Cachoeirinha II',
     responsibleName: 'Walace Oliveira',
-    prepostos: ['Ana Martins', 'José Martins'],
+    prepostos: ['Michelli Conceição', 'Vitor Hugo'],
     location: { lat: -22.427, lng: -42.991 },
     bio: 'Da nossa horta na montanha para a sua mesa. Produtos frescos, orgânicos e cultivados com técnicas de permacultura.',
     address: {
@@ -1560,14 +1560,14 @@ const defaultFarmers: Farmer[] = [
     pixKey: 'walace.oliveira@picpay.com',
     shippingCost: 18.00,
     phone: '5521988889999',
-    fairs: ['Leme', 'Tijuca'],
+    fairs: ['Laranjeiras', 'Leme'],
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/walace_oliveira.jpg?alt=media&token=8d2e854d-7634-46a2-9e9b-31d7f46146c9'
   },
   {
     id: '5',
     name: 'Sítio Tapera',
     responsibleName: 'Ailton Lima',
-    prepostos: ['Rosana de Souza'],
+    prepostos: ['Felipe Carvalho', 'Thiago Carvalho'],
     location: { lat: -22.450, lng: -42.850 },
     bio: 'Desde 1990, nossa família se dedica à produção de orgânicos, com foco em folhas, ervas e temperos frescos e aromáticos.',
     address: {
@@ -1581,7 +1581,7 @@ const defaultFarmers: Farmer[] = [
     pixKey: 'ailton.lima@email.com',
     shippingCost: 15.00,
     phone: '5521977778888',
-    fairs: ['Grajaú'],
+    fairs: ['Laranjeiras', 'Botafogo'],
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/ailton_lima.jpg?alt=media&token=8d2e854d-7634-46a2-9e9b-31d7f46146c9'
   },
   {
@@ -1630,6 +1630,7 @@ const defaultFarmers: Farmer[] = [
     id: '7',
     responsibleName: 'Wendel Oliveira',
     name: 'Sítio Cachoeirinha III',
+    prepostos: ['Fafi'],
     location: { lat: -22.420, lng: -42.980 },
     bio: 'Especialistas em raízes e tubérculos. Produtos orgânicos com sabor autêntico da terra serrana.',
     address: {
@@ -1644,7 +1645,7 @@ const defaultFarmers: Farmer[] = [
     pixKey: 'wendel.oliveira@email.com',
     shippingCost: 20.00,
     phone: '5521955554444',
-    fairs: ['Grajaú'],
+    fairs: ['Flamengo'],
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/wendel_oliveira.jpg?alt=media&token=8d2e854d-7634-46a2-9e9b-31d7f46146c9'
   }
 ];
