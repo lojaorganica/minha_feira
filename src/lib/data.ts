@@ -1539,7 +1539,7 @@ const defaultFarmers: Farmer[] = [
     pixKey: 'sitio.paraiso@email.com',
     shippingCost: 25.00,
     phone: '5521998877665',
-    fairs: ['Botafogo'],
+    fairs: ['Tijuca'],
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/ronilson.jpg?alt=media&token=8d2e854d-7634-46a2-9e9b-31d7f46146c9'
   },
   {
@@ -1602,7 +1602,7 @@ const defaultFarmers: Farmer[] = [
     pixKey: 'ivison.fragoso@email.com',
     shippingCost: 12.00,
     phone: '5521966667777',
-    fairs: ['Grajaú', 'Tijuca', 'Botafogo', 'Leme', 'Flamengo', 'Laranjeiras'],
+    fairs: ['Botafogo', 'Flamengo', 'Laranjeiras'],
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/ivison_fragoso.jpg?alt=media&token=7c1b1c1b-1c1c-4b1b-8b1b-1c1c1c1c1c1c'
   },
   {
@@ -1623,7 +1623,7 @@ const defaultFarmers: Farmer[] = [
     pixKey: 'loja.organica@email.com',
     shippingCost: 15.00,
     phone: '5521955556666',
-    fairs: [],
+    fairs: ['Tijuca'],
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/marcos_melo.jpg?alt=media&token=8d2e854d-7634-46a2-9e9b-31d7f46146c9'
   },
   {
