@@ -611,8 +611,9 @@ function ProductsTabContent({ products, farmerId, onProductUpdate }: { products:
     const [isPending, startTransition] = useTransition();
     const { toast } = useToast();
 
-    // A ordenação agora é garantida pela fonte de dados `getProducts`
-    const sortedProducts = products;
+    const sortedProducts = useMemo(() => {
+        return [...products].sort((a, b) => a.name.localeCompare(b.name, 'pt-BR', { sensitivity: 'base' }));
+    }, [products]);
 
     const handlePromotionToggle = (productId: string, checked: boolean) => {
         startTransition(() => {
