@@ -152,9 +152,15 @@ const ProductCard = ({ product, farmerName, responsibleName }: ProductCardProps)
             {product.description}
           </CardDescription>
           {descriptionNeedsTruncation && (
-              <button onClick={() => setIsExpanded(!isExpanded)} className="read-more-button">
-                  {isExpanded ? 'Ler menos' : 'Ler mais'}
-              </button>
+              <div className="text-right mt-2">
+                <Button 
+                    onClick={() => setIsExpanded(!isExpanded)}
+                    size="sm"
+                    className="h-auto px-3 py-1 text-xs bg-accent text-accent-foreground hover:bg-accent/80"
+                >
+                    {isExpanded ? 'Ler menos' : 'Ler mais'}
+                </Button>
+              </div>
           )}
         </CardContent>
          <CardFooter className="p-4 pt-0 flex flex-col items-start gap-4">
