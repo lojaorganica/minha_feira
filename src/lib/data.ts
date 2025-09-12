@@ -6,28 +6,53 @@ import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerClas
 // IN-MEMORY DATA STORE WITH LOCALSTORAGE PERSISTENCE
 // ============================================================================
 
-// Helper function to get data from localStorage or use a default value
-function getStoredData<T>(key: string, defaultValue: T[], sortFn?: (a: T, b: T) => number): T[] {
-  let data: T[] = defaultValue;
-  if (typeof window !== 'undefined') {
-    try {
-      const storedValue = localStorage.getItem(key);
-      if (storedValue) {
-        data = JSON.parse(storedValue);
-      } else {
-         // If nothing is stored, initialize localStorage with the default value
-        localStorage.setItem(key, JSON.stringify(defaultValue));
-      }
-    } catch (error) {
-      console.error(`Error reading ${key} from localStorage`, error);
-      data = defaultValue;
+const PRODUCTS_KEY = 'minha_feira_products_v5';
+const FARMERS_KEY = 'minha_feira_farmers_v3';
+const ORDERS_KEY = 'minha_feira_orders';
+const CUSTOMERS_KEY = 'minha_feira_customers';
+
+let isHydrated = false;
+
+// Helper to hydrate data from localStorage on the client side
+function hydrateFromStorage() {
+  if (typeof window === 'undefined' || isHydrated) {
+    return;
+  }
+
+  try {
+    const storedProducts = localStorage.getItem(PRODUCTS_KEY);
+    if (storedProducts) {
+      products = JSON.parse(storedProducts);
+    } else {
+      localStorage.setItem(PRODUCTS_KEY, JSON.stringify(defaultProducts));
     }
+
+    const storedFarmers = localStorage.getItem(FARMERS_KEY);
+    if (storedFarmers) {
+      farmers = JSON.parse(storedFarmers);
+    } else {
+      localStorage.setItem(FARMERS_KEY, JSON.stringify(defaultFarmers));
+    }
+    
+    const storedOrders = localStorage.getItem(ORDERS_KEY);
+    if (storedOrders) {
+      orders = JSON.parse(storedOrders);
+    } else {
+      localStorage.setItem(ORDERS_KEY, JSON.stringify(defaultOrders));
+    }
+
+    const storedCustomers = localStorage.getItem(CUSTOMERS_KEY);
+    if (storedCustomers) {
+      customers = JSON.parse(storedCustomers);
+    } else {
+      localStorage.setItem(CUSTOMERS_KEY, JSON.stringify(defaultCustomers));
+    }
+
+  } catch (error) {
+    console.error("Error hydrating data from localStorage", error);
   }
-  
-  if (sortFn) {
-      data.sort(sortFn);
-  }
-  return data;
+
+  isHydrated = true;
 }
 
 
@@ -45,11 +70,6 @@ function setStoredData<T>(key: string, value: T[], sortFn?: (a: T, b: T) => numb
     console.error(`Error writing ${key} to localStorage`, error);
   }
 }
-
-const PRODUCTS_KEY = 'minha_feira_products_v4';
-const FARMERS_KEY = 'minha_feira_farmers_v2';
-const ORDERS_KEY = 'minha_feira_orders';
-const CUSTOMERS_KEY = 'minha_feira_customers';
 
 const productSortFn = (a: Product, b: Product) => a.name.localeCompare(b.name, 'pt-BR', { sensitivity: 'base' });
 
@@ -1502,6 +1522,27 @@ const defaultFarmers: Farmer[] = [
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/matias_ponte.jpg?alt=media&token=8d2e854d-7634-46a2-9e9b-31d7f46146c9'
   },
   {
+    id: '5',
+    name: 'Sítio Tapera',
+    responsibleName: 'Ailton Lima',
+    prepostos: ['Felipe Carvalho', 'Thiago Carvalho'],
+    location: { lat: -22.450, lng: -42.850 },
+    bio: 'Desde 1990, nossa família se dedica à produção de orgânicos, com foco em folhas, ervas e temperos frescos e aromáticos.',
+    address: {
+      street: 'Estrada do Tinguá',
+      number: 'km 5',
+      neighborhood: 'Tinguá',
+      city: 'Nova Iguaçu',
+      state: 'RJ',
+      zipCode: '26060-000'
+    },
+    pixKey: 'ailton.lima@email.com',
+    shippingCost: 15.00,
+    phone: '5521977778888',
+    fairs: ['Laranjeiras', 'Botafogo'],
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/ailton_lima.jpg?alt=media&token=8d2e854d-7634-46a2-9e9b-31d7f46146c9'
+  },
+  {
     id: '2',
     name: 'Sítio Cachoeirinha I',
     responsibleName: 'Onéias Gonçalves',
@@ -1521,27 +1562,6 @@ const defaultFarmers: Farmer[] = [
     phone: '5521987654321',
     fairs: ['Tijuca'],
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/oneias_goncalves.jpg?alt=media&token=8d2e854d-7634-46a2-9e9b-31d7f46146c9'
-  },
-   {
-    id: '3',
-    name: 'Sítio Paraíso',
-    responsibleName: 'Ronilson',
-    prepostos: [],
-    location: { lat: -22.520, lng: -43.170 },
-    bio: 'Cultivamos uma grande variedade de legumes e temperos orgânicos, sempre respeitando a terra e os ciclos da natureza.',
-    address: {
-      street: 'Estrada da Saudade',
-      number: 's/n',
-      neighborhood: 'Itaipava',
-      city: 'Petrópolis',
-      state: 'RJ',
-      zipCode: '25730-000'
-    },
-    pixKey: 'sitio.paraiso@email.com',
-    shippingCost: 25.00,
-    phone: '5521998877665',
-    fairs: ['Tijuca'],
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/ronilson.jpg?alt=media&token=8d2e854d-7634-46a2-9e9b-31d7f46146c9'
   },
   {
     id: '4',
@@ -1565,25 +1585,47 @@ const defaultFarmers: Farmer[] = [
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/walace_oliveira.jpg?alt=media&token=8d2e854d-7634-46a2-9e9b-31d7f46146c9'
   },
   {
-    id: '5',
-    name: 'Sítio Tapera',
-    responsibleName: 'Ailton Lima',
-    prepostos: ['Felipe Carvalho', 'Thiago Carvalho'],
-    location: { lat: -22.450, lng: -42.850 },
-    bio: 'Desde 1990, nossa família se dedica à produção de orgânicos, com foco em folhas, ervas e temperos frescos e aromáticos.',
+    id: '7',
+    responsibleName: 'Wendel Oliveira',
+    name: 'Sítio Cachoeirinha III',
+    prepostos: ['Fafi'],
+    location: { lat: -22.420, lng: -42.980 },
+    bio: 'Especialistas em raízes e tubérculos. Produtos orgânicos com sabor autêntico da terra serrana.',
     address: {
-      street: 'Estrada do Tinguá',
-      number: 'km 5',
-      neighborhood: 'Tinguá',
-      city: 'Nova Iguaçu',
-      state: 'RJ',
-      zipCode: '26060-000'
+        street: 'Estrada do Rocio',
+        number: 's/n',
+        complement: '',
+        neighborhood: 'Rocio',
+        city: 'Petrópolis',
+        state: 'RJ',
+        zipCode: '25725-000'
     },
-    pixKey: 'ailton.lima@email.com',
-    shippingCost: 15.00,
-    phone: '5521977778888',
-    fairs: ['Laranjeiras', 'Botafogo'],
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/ailton_lima.jpg?alt=media&token=8d2e854d-7634-46a2-9e9b-31d7f46146c9'
+    pixKey: 'wendel.oliveira@email.com',
+    shippingCost: 20.00,
+    phone: '5521955554444',
+    fairs: ['Flamengo'],
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/wendel_oliveira.jpg?alt=media&token=8d2e854d-7634-46a2-9e9b-31d7f46146c9'
+  },
+  {
+    id: '3',
+    name: 'Sítio Paraíso',
+    responsibleName: 'Ronilson',
+    prepostos: [],
+    location: { lat: -22.520, lng: -43.170 },
+    bio: 'Cultivamos uma grande variedade de legumes e temperos orgânicos, sempre respeitando a terra e os ciclos da natureza.',
+    address: {
+      street: 'Estrada da Saudade',
+      number: 's/n',
+      neighborhood: 'Itaipava',
+      city: 'Petrópolis',
+      state: 'RJ',
+      zipCode: '25730-000'
+    },
+    pixKey: 'sitio.paraiso@email.com',
+    shippingCost: 25.00,
+    phone: '5521998877665',
+    fairs: ['Tijuca'],
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/ronilson.jpg?alt=media&token=8d2e854d-7634-46a2-9e9b-31d7f46146c9'
   },
   {
     id: '6',
@@ -1626,28 +1668,6 @@ const defaultFarmers: Farmer[] = [
     phone: '5521955556666',
     fairs: ['Tijuca'],
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/marcos_melo.jpg?alt=media&token=8d2e854d-7634-46a2-9e9b-31d7f46146c9'
-  },
-  {
-    id: '7',
-    responsibleName: 'Wendel Oliveira',
-    name: 'Sítio Cachoeirinha III',
-    prepostos: ['Fafi'],
-    location: { lat: -22.420, lng: -42.980 },
-    bio: 'Especialistas em raízes e tubérculos. Produtos orgânicos com sabor autêntico da terra serrana.',
-    address: {
-        street: 'Estrada do Rocio',
-        number: 's/n',
-        complement: '',
-        neighborhood: 'Rocio',
-        city: 'Petrópolis',
-        state: 'RJ',
-        zipCode: '25725-000'
-    },
-    pixKey: 'wendel.oliveira@email.com',
-    shippingCost: 20.00,
-    phone: '5521955554444',
-    fairs: ['Flamengo'],
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/wendel_oliveira.jpg?alt=media&token=8d2e854d-7634-46a2-9e9b-31d7f46146c9'
   }
 ];
 
@@ -1787,16 +1807,18 @@ const defaultOrders: Order[] = [
 
 
 // State management for data
-let products = getStoredData(PRODUCTS_KEY, defaultProducts, productSortFn);
-let farmers = getStoredData(FARMERS_KEY, defaultFarmers);
-let orders = getStoredData(ORDERS_KEY, defaultOrders);
-let customers = getStoredData(CUSTOMERS_KEY, defaultCustomers);
+let products = defaultProducts;
+let farmers = defaultFarmers;
+let orders = defaultOrders;
+let customers = defaultCustomers;
+
 
 // ============================================================================
 // DATA ACCESS FUNCTIONS
 // ============================================================================
 
 export function getProducts(options: { includePaused?: boolean, farmerId?: string } = {}): Product[] {
+  hydrateFromStorage();
   let filteredProducts = [...products];
 
   if (!options.includePaused) {
@@ -1820,22 +1842,27 @@ export function getProducts(options: { includePaused?: boolean, farmerId?: strin
 }
 
 export function getProductById(id: string): Product | undefined {
+  hydrateFromStorage();
   return products.find(p => p.id === id);
 }
 
 export function getProductByName(name: string): Product | undefined {
+  hydrateFromStorage();
   return products.find(p => p.name === name);
 }
 
 export function getFarmers(): Farmer[] {
+  hydrateFromStorage();
   return farmers;
 }
 
 export function getFarmerById(id: string): Farmer | undefined {
+  hydrateFromStorage();
   return farmers.find(f => f.id === id);
 }
 
 export function getOrders(options: { farmerId?: string } = {}): Order[] {
+  hydrateFromStorage();
   const allOrders = [...orders];
   if(options.farmerId) {
       const farmerProducts = new Set(getProducts({farmerId: options.farmerId, includePaused: true}).map(p => p.name));
@@ -1845,14 +1872,17 @@ export function getOrders(options: { farmerId?: string } = {}): Order[] {
 }
 
 export function getCustomers(): Customer[] {
+  hydrateFromStorage();
   return customers;
 }
 
 export function getCustomerById(id: string): Customer | undefined {
+  hydrateFromStorage();
   return customers.find(c => c.id === id);
 }
 
 export function getFarmersWithProducts(farmerIds?: string[]): FarmerWithProducts[] {
+  hydrateFromStorage();
   const farmersToProcess = farmerIds ? farmers.filter(f => farmerIds.includes(f.id)) : farmers;
   
   return farmersToProcess.map(farmer => {
@@ -1865,6 +1895,7 @@ export function getFarmersWithProducts(farmerIds?: string[]): FarmerWithProducts
 }
 
 export function getPromotionalProducts() {
+    hydrateFromStorage();
     return getProducts({includePaused: false})
         .filter(p => p.promotion?.isActive)
         .map(p => {
@@ -1882,6 +1913,7 @@ export function getPromotionalProducts() {
 // ============================================================================
 
 export function addProduct(newProductData: Omit<Product, 'id' | 'status'>): Product {
+    hydrateFromStorage();
     const newId = `prod-${Date.now()}-${Math.random().toString(16).slice(2)}`;
     const newProduct: Product = {
         ...newProductData,
@@ -1895,6 +1927,7 @@ export function addProduct(newProductData: Omit<Product, 'id' | 'status'>): Prod
 
 
 export function updateProduct(id: string, updates: Partial<Omit<Product, 'id' | 'farmerId'>>) {
+  hydrateFromStorage();
   products = products.map(p => {
     if (p.id === id) {
       return { ...p, ...updates };
@@ -1909,6 +1942,7 @@ export function updateProductStock(id: string, newStock: number) {
 }
 
 export function deleteProduct(id: string) {
+  hydrateFromStorage();
   products = products.filter(p => p.id !== id);
   setStoredData(PRODUCTS_KEY, products, productSortFn);
 }
@@ -1919,6 +1953,7 @@ export function toggleProductStatus(id: string, newStatus: 'active' | 'paused') 
 
 
 export function toggleProductPromotion(id: string, isActive: boolean) {
+    hydrateFromStorage();
     const product = getProductById(id);
     if(product) {
         const promotion = {
@@ -1930,11 +1965,13 @@ export function toggleProductPromotion(id: string, isActive: boolean) {
 }
 
 export function addOrder(order: CustomerOrder) {
+    hydrateFromStorage();
     orders.push(order);
     setStoredData(ORDERS_KEY, orders);
 }
 
 export function updateCustomerClassification(customerId: string, classification: CustomerClassification) {
+    hydrateFromStorage();
     customers = customers.map(c => {
         if(c.id === customerId) {
             return { ...c, classification };
@@ -1945,6 +1982,7 @@ export function updateCustomerClassification(customerId: string, classification:
 }
 
 export function addFarmer(farmerData: Omit<Farmer, 'id' | 'location' | 'image'>): Farmer {
+    hydrateFromStorage();
     const newId = `farm-${Date.now()}`;
     const newFarmer: Farmer = {
         ...farmerData,
@@ -1958,6 +1996,7 @@ export function addFarmer(farmerData: Omit<Farmer, 'id' | 'location' | 'image'>)
 }
 
 export function updateFarmer(id: string, updates: Partial<Omit<Farmer, 'id'>>) {
+  hydrateFromStorage();
   farmers = farmers.map(f => {
     if (f.id === id) {
       // Mescla o endereço corretamente se ele for fornecido nas atualizações
@@ -1970,6 +2009,7 @@ export function updateFarmer(id: string, updates: Partial<Omit<Farmer, 'id'>>) {
 }
 
 export function updateCustomer(id: string, updates: Partial<Omit<Customer, 'id'>>) {
+  hydrateFromStorage();
   customers = customers.map(c => {
     if (c.id === id) {
       const newAddress = updates.address ? { ...c.address, ...updates.address } : c.address;
