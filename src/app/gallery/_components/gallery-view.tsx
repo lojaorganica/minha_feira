@@ -261,9 +261,9 @@ function GalleryViewContent() {
         const isSpecialCase = selectedFair === 'Todas' && selectedTheme === 'Personagens - Animações e Cartoon';
     
         if (isSpecialCase) {
-            // Regra especial: retorna itens que contêm "todas_feiras" e "ap" na URL.
-            return sourceItems.filter(item => 
-                item.url.includes('todas_feiras') && item.url.includes('ap_')
+             return sourceItems.filter(item => 
+                item.fair.includes('Todas') && 
+                item.theme.includes('Personagens - Animações e Cartoon')
             );
         }
     
