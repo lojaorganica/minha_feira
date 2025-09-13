@@ -258,27 +258,17 @@ function GalleryViewContent() {
     }, [isShowingFavorites, favorites, allItems]);
     
     const filteredItems = useMemo(() => {
-        return sourceItems.filter(item => {
-            const url = item.url.toLowerCase();
-            const themeIsCharacters = selectedTheme === 'Personagens - Animações e Cartoon';
-            const fairIsAll = selectedFair === 'Todas';
+        let items = sourceItems;
 
-            let fairMatch = !selectedFair || item.fair.includes(selectedFair as any);
-            let themeMatch = !selectedTheme || item.theme.includes(selectedTheme as any);
+        if (selectedFair) {
+            items = items.filter(item => item.fair.includes(selectedFair as any));
+        }
 
-            // Regra Específica
-            if (fairIsAll && themeIsCharacters) {
-                return url.includes('todas_feiras') && url.includes('ap_');
-            }
-            if (fairIsAll) {
-                fairMatch = url.includes('todas_feiras');
-            }
-            if (themeIsCharacters) {
-                themeMatch = url.includes('ap_');
-            }
+        if (selectedTheme) {
+            items = items.filter(item => item.theme.includes(selectedTheme as any));
+        }
 
-            return fairMatch && themeMatch;
-        });
+        return items;
     }, [sourceItems, selectedFair, selectedTheme]);
 
 
@@ -456,5 +446,7 @@ export default function GalleryView() {
         </Suspense>
     );
 }
+
+    
 
     
