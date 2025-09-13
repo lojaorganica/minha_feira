@@ -258,6 +258,16 @@ function GalleryViewContent() {
     }, [isShowingFavorites, favorites, allItems]);
     
     const filteredItems = useMemo(() => {
+        const isSpecialCase = selectedFair === 'Todas' && selectedTheme === 'Personagens - Animações e Cartoon';
+    
+        if (isSpecialCase) {
+            // Regra especial: retorna itens que contêm "todas_feiras" e "ap" na URL.
+            return sourceItems.filter(item => 
+                item.url.includes('todas_feiras') && item.url.includes('ap_')
+            );
+        }
+    
+        // Lógica de filtro padrão
         return sourceItems.filter(item => {
             const fairMatch = !selectedFair || item.fair.includes(selectedFair as any);
             const themeMatch = !selectedTheme || item.theme.includes(selectedTheme as any);

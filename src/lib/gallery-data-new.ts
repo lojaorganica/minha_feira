@@ -227,18 +227,10 @@ function getThemeCategories(fileName: string): GalleryTheme[] {
         'story': 'Story',
         'especial': 'Dias Especiais'
     };
-    
-    // Adiciona o tema de Personagens para 'todas_feiras' que sejam animações
-    if (fileName.includes('todas_feiras') && fileName.includes('ap_')) {
-        themes.push('Personagens - Animações e Cartoon');
-    }
 
     for (const key in themesMap) {
         if (fileName.includes(key)) {
-            // Evita duplicatas
-            if (!themes.includes(themesMap[key])) {
-                themes.push(themesMap[key]);
-            }
+            themes.push(themesMap[key]);
         }
     }
     return themes;

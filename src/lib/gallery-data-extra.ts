@@ -246,6 +246,7 @@ function getThemeCategories(fileName: string): GalleryTheme[] {
         'story': 'Story',
         'especial': 'Dias Especiais'
     };
+
     for (const key in themesMap) {
         if (fileName.includes(key)) {
             themes.push(themesMap[key]);
