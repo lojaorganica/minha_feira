@@ -128,10 +128,15 @@ function ProductBrowserContent() {
   const allProducts = useMemo(() => getProducts({ includePaused: false }), []);
 
   const filteredProductsByFarmer: FarmerWithProducts[] = useMemo(() => {
-    const farmersWithProducts = allFarmers.map(farmer => ({
-      ...farmer,
-      products: allProducts.filter(p => p.farmerId === farmer.id),
-    }));
+    const farmersWithProducts = allFarmers.map(farmer => {
+        const farmerProducts = allProducts.filter(p => p.farmerId === farmer.id);
+        // Garante a ordenação alfabética dos produtos para cada agricultor
+        farmerProducts.sort((a, b) => a.name.localeCompare(b.name, 'pt-BR', { sensitivity: 'base' }));
+        return {
+          ...farmer,
+          products: farmerProducts,
+        };
+    });
 
     let farmers = farmersWithProducts;
 
