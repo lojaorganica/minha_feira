@@ -22,15 +22,22 @@ function hydrateFromStorage() {
   try {
     const storedProducts = localStorage.getItem(PRODUCTS_KEY);
     if (storedProducts) {
-      const parsedProducts = JSON.parse(storedProducts);
+      const parsedProducts: Product[] = JSON.parse(storedProducts);
       
       // Robust validation: Check if stored data is consistent with the source code data.
-      // If lengths differ or a specific product's content (like the description we've been changing) doesn't match,
-      // invalidate the cache.
-      const defaultAroeira = defaultProducts.find(p => p.id === '1001');
-      const storedAroeira = parsedProducts.find((p: Product) => p.id === '1001');
+      // If lengths differ or if any product description doesn't match, invalidate the cache.
+      let isCacheValid = parsedProducts.length === defaultProducts.length;
+      if (isCacheValid) {
+        for (const defaultProd of defaultProducts) {
+            const storedProd = parsedProducts.find(p => p.id === defaultProd.id);
+            if (!storedProd || storedProd.description !== defaultProd.description) {
+                isCacheValid = false;
+                break;
+            }
+        }
+      }
 
-      if (parsedProducts.length === defaultProducts.length && storedAroeira && storedAroeira.description === defaultAroeira?.description) {
+      if (isCacheValid) {
          products = parsedProducts;
       } else {
         // Cache is invalid or outdated, overwrite it with fresh data from the code.
@@ -115,7 +122,7 @@ const lojaOrganicaProducts: Product[] = [
         image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mel_de_acacia.webp?alt=media&token=b94ee3e6-52de-4f78-a801-38f5254c840c',
         dataAiHint: 'acacia honey',
         farmerId: '134',
-        description: 'Mel de Acácia, de cor clara e sabor suave e floral. Cristaliza muito lentamente, mantendo-se líquido por mais tempo.',
+        description: 'Cultivado numa propriedade na Serra do Roncador, no Mato Grosso — onde se entrelaçam biomas da Amazônia e do Cerrado — este mel orgânico de acácia se destaca não só pelo sabor delicado, mas por suas qualidades nutricionais e funcionais. A acácia (gênero Acacia) tem sido associada à simbologia de “Árvore da Vida” desde a antiguidade, presente na mitologia egípcia como símbolo de renovação e imortalidade. Ele costuma ter cor clara e aroma floral suave, delicioso!\n\nPesquisas recentes mostram que o mel de acácia contém compostos fenólicos e flavonoides significativos, que atuam como antioxidantes protetores do organismo. Estudos também apontam que amostras de acácia têm teor mineral considerável: potássio (K), magnésio (Mg), ferro (Fe), zinco (Zn) e sódio (Na) entre os elementos detectados. A acidez livre costuma estar entre valores moderados (por volta de 16-21 meq/kg), o que contribui para seu sabor suave. Além disso, enzimas como invertase e diastase são observadas em acácia de boa qualidade, atestando sua pureza e frescor.\nEsse mel fornece energia rápida (principalmente pelos açúcares naturais), antioxidantes que ajudam a combater estresse oxidativo e inflamações, minerais que participam de processos metabólicos essenciais — entre eles ferro (útil para quem está com anemia), magnésio que ajuda contra câimbras e fadiga, potássio para o funcionamento circulatório e nervoso — e vitamina C em pequenas proporções, que atua protegendo o sistema imunológico.\nSe você busca um mel que una leveza, pureza, benefícios comprovados, sabor refinado e significado simbólico, este mel de acácia do Serra do Roncador entrega tudo isso. Um presente da natureza com doçura divina!',
         status: 'active',
         stock: 35
     },
@@ -2039,3 +2046,6 @@ export function updateCustomer(id: string, updates: Partial<Omit<Customer, 'id'>
   setStoredData(CUSTOMERS_KEY, customers);
 }
 
+
+
+  
