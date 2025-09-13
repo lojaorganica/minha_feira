@@ -21,14 +21,7 @@ const formatItemQuantity = (item: any) => {
 };
 
 const getDisplayOrderId = (orderId: string) => {
-    const parts = orderId.split('-');
-    const lastPart = parts.pop() || '';
-    // Se for um timestamp longo, pega os últimos 5 dígitos.
-    if (lastPart.length > 5 && /^\d+$/.test(lastPart)) {
-        return lastPart.slice(-5);
-    }
-    // Se não for, retorna o que tiver (ex: o próprio "abc" ou um ID já curto)
-    return lastPart;
+    return orderId.slice(-5);
 }
 
 export default function OrderHistoryPage() {
