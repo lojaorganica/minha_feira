@@ -3,86 +3,38 @@
 import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerClassification, CustomerAddress, ProductCategory } from './types';
 
 // ============================================================================
-// IN-MEMORY DATA STORE WITH LOCALSTORAGE PERSISTENCE
+// IN-MEMORY DATA STORE
 // ============================================================================
 
-const PRODUCTS_KEY = 'minha_feira_products_v6';
+// A lógica complexa de hidratação e cache foi removida para garantir estabilidade.
+// O aplicativo agora carrega os dados "de fábrica" diretamente do código-fonte,
+// eliminando problemas de dessincronização e a "piscada" na tela.
+
 const FARMERS_KEY = 'minha_feira_farmers_v3';
 const ORDERS_KEY = 'minha_feira_orders';
 const CUSTOMERS_KEY = 'minha_feira_customers';
 
-let isHydrated = false;
-
-// Helper to hydrate data from localStorage on the client side
-function hydrateFromStorage() {
-  if (typeof window === 'undefined' || isHydrated) {
-    return;
+// Helper to get data from localStorage (para dados que não precisam de atualização constante)
+function getStoredData<T>(key: string, defaultValue: T[]): T[] {
+  if (typeof window === 'undefined') {
+    return defaultValue;
   }
-
   try {
-    const storedProducts = localStorage.getItem(PRODUCTS_KEY);
-    if (storedProducts) {
-      const parsedProducts: Product[] = JSON.parse(storedProducts);
-      
-      // Robust validation: Check if the description of the first and last product matches.
-      // If not, the cache is considered invalid.
-      const isCacheValid = parsedProducts.length > 0 && 
-                           defaultProducts.length > 0 && 
-                           parsedProducts.find(p => p.id === defaultProducts[0].id)?.description === defaultProducts[0].description &&
-                           parsedProducts.find(p => p.id === defaultProducts[defaultProducts.length - 1].id)?.description === defaultProducts[defaultProducts.length - 1].description;
-
-
-      if (isCacheValid) {
-         products = parsedProducts;
-      } else {
-        // Cache is invalid or outdated, overwrite it with fresh data from the code.
-        localStorage.setItem(PRODUCTS_KEY, JSON.stringify(defaultProducts));
-        products = defaultProducts;
-      }
+    const storedData = localStorage.getItem(key);
+    if (storedData) {
+      return JSON.parse(storedData);
     } else {
-      // No stored products, initialize from default.
-      localStorage.setItem(PRODUCTS_KEY, JSON.stringify(defaultProducts));
+      localStorage.setItem(key, JSON.stringify(defaultValue));
+      return defaultValue;
     }
-
-    const storedFarmers = localStorage.getItem(FARMERS_KEY);
-    if (storedFarmers) {
-      farmers = JSON.parse(storedFarmers);
-    } else {
-      localStorage.setItem(FARMERS_KEY, JSON.stringify(defaultFarmers));
-    }
-    
-    const storedOrders = localStorage.getItem(ORDERS_KEY);
-    if (storedOrders) {
-      orders = JSON.parse(storedOrders);
-    } else {
-      localStorage.setItem(ORDERS_KEY, JSON.stringify(defaultOrders));
-    }
-
-    const storedCustomers = localStorage.getItem(CUSTOMERS_KEY);
-    if (storedCustomers) {
-      customers = JSON.parse(storedCustomers);
-    } else {
-      localStorage.setItem(CUSTOMERS_KEY, JSON.stringify(defaultCustomers));
-    }
-
   } catch (error) {
-    console.error("Error hydrating data from localStorage", error);
-    // If hydration fails, reset to defaults
-    products = defaultProducts;
-    farmers = defaultFarmers;
-    orders = defaultOrders;
-    customers = defaultCustomers;
+    console.error(`Error hydrating ${key} from localStorage`, error);
+    return defaultValue;
   }
-
-  isHydrated = true;
 }
 
-
 // Helper function to save data to localStorage
-function setStoredData<T>(key: string, value: T[], sortFn?: (a: T, b: T) => number): void {
-   if (sortFn) {
-    value.sort(sortFn);
-  }
+function setStoredData<T>(key: string, value: T[]): void {
   if (typeof window === 'undefined') {
     return;
   }
@@ -93,7 +45,6 @@ function setStoredData<T>(key: string, value: T[], sortFn?: (a: T, b: T) => numb
   }
 }
 
-const productSortFn = (a: Product, b: Product) => a.name.localeCompare(b.name, 'pt-BR', { sensitivity: 'base' });
 
 const lojaOrganicaProducts: Product[] = [
     {
@@ -180,7 +131,7 @@ const domicilioOrganicoProducts: Product[] = [
 ];
 
 // Initial default data
-let defaultProducts: Product[] = [
+const defaultProducts: Product[] = [
    {
     id: '1',
     name: 'Cenouras Orgânicas',
@@ -1316,524 +1267,306 @@ let defaultProducts: Product[] = [
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/laranja_seleta.webp?alt=media&token=e38ae12f-82ae-4bd9-a08f-593634abfdc5',
     dataAiHint: 'selecta orange',
     farmerId: '2',
-    description: 'Laranja Seleta, muito suculenta e de sabor adocicado, excelente para sucos.',
+    description: 'Laranja seleta, ótima para sucos e com sabor equilibrado entre doce e ácido.',
     status: 'active',
-    stock: 50,
+    stock: 35
   },
   {
     id: '91',
-    name: 'Hortelã Orgânica',
-    category: 'Tempero',
-    price: 2.80,
-    unit: 'maço',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/hortela.webp?alt=media&token=97dacb1f-e59f-4891-9176-73eec1e16188',
-    dataAiHint: 'mint',
-    farmerId: '1',
-    description: 'Hortelã fresca e aromática, perfeita para chás, sucos, quibes e sobremesas.',
-    status: 'active',
-    stock: 30,
-  },
-  {
-    id: '92',
-    name: 'Poejo Orgânico',
-    category: 'Tempero',
-    price: 3.00,
-    unit: 'maço',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/poejo.webp?alt=media&token=47edb116-120c-4c97-910a-a6c49e85a8e9',
-    dataAiHint: 'pennyroyal',
-    farmerId: '1',
-    description: 'Poejo, uma erva de aroma intenso semelhante à menta, usada em chás e licores.',
-    status: 'active',
-    stock: 15,
-  },
-  {
-    id: '93',
-    name: 'Radicchio Orgânico',
-    category: 'Verdura',
-    price: 4.00,
-    unit: 'unidade',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/radicchio.webp?alt=media&token=473281ea-32f7-4a12-a93a-23a821b91505',
-    dataAiHint: 'radicchio',
-    farmerId: '1',
-    description: 'Radicchio orgânico com folhas crocantes e sabor amargo, ideal para dar um toque especial em saladas.',
-    status: 'active',
-    stock: 10,
-  },
-  {
-    id: '94',
-    name: 'Milho Verde Orgânico',
-    category: 'Grão e Cereal',
-    price: 4.00,
-    unit: 'unidade',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/milho_verde.webp?alt=media&token=06cf8e19-7d36-42eb-8b27-cde60f2c41d6',
-    dataAiHint: 'corn cob',
-    farmerId: '1',
-    description: 'Milho verde doce e macio, perfeito para cozinhar, assar ou fazer pamonha.',
-    status: 'active',
-    stock: 40,
-  },
-  {
-    id: '95',
-    name: 'Vagem Orgânica',
-    category: 'Legume',
-    price: 5.00,
-    unit: 'kg',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/vagem.webp?alt=media&token=d034c795-629f-40c8-a033-a6dec200a0b3',
-    dataAiHint: 'green beans',
-    farmerId: '1',
-    description: 'Vagem fresca e crocante, ótima para refogados, saladas e cozidos.',
-    status: 'active',
-    stock: 25,
-  },
-  {
-    id: '96',
-    name: 'Feijão Preto Orgânico',
-    category: 'Grão e Cereal',
-    price: 8.00,
-    unit: 'kg',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/feijao_preto.webp?alt=media&token=37fb877a-32f5-419f-a2fd-eb01841d991d',
-    dataAiHint: 'black beans',
-    farmerId: '1',
-    description: 'Feijão preto orgânico, a base para a tradicional feijoada e pratos do dia a dia.',
-    status: 'active',
-    stock: 50,
-  },
-  {
-    id: '97',
-    name: 'Feijão Carioca Orgânico',
-    category: 'Grão e Cereal',
-    price: 7.50,
-    unit: 'kg',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/feijao_carioca.webp?alt=media&token=67c3dfb7-4e77-4593-a133-3a7fd51f1ef2',
-    dataAiHint: 'carioca beans',
-    farmerId: '1',
-    description: 'Feijão carioca orgânico, o mais popular do Brasil, com caldo encorpado e sabor suave.',
-    status: 'active',
-    stock: 50,
-  },
-  {
-    id: '98',
-    name: 'Feijão Vermelho Orgânico',
-    category: 'Grão e Cereal',
-    price: 8.50,
-    unit: 'kg',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/feijao_vermelho.webp?alt=media&token=0eb5f6e0-33fc-4407-a608-9c44bf770c5f',
-    dataAiHint: 'red beans',
-    farmerId: '1',
-    description: 'Feijão vermelho orgânico, ideal para sopas, saladas e pratos com sabor mais robusto.',
-    status: 'active',
-    stock: 30,
-  },
-  {
-    id: '99',
-    name: 'Couve Kale Orgânica',
-    category: 'Verdura',
-    price: 4.50,
-    unit: 'maço',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_kale.webp?alt=media&token=0f9318de-5203-44c4-9c85-420452ed7627',
-    dataAiHint: 'kale',
-    farmerId: '1',
-    description: 'Couve Kale, a super-hortaliça, rica em nutrientes e perfeita para sucos verdes, saladas e chips.',
-    status: 'active',
-    stock: 20,
-  },
-  {
-    id: '100',
-    name: 'Orégano Orgânico',
-    category: 'Tempero',
-    price: 3.50,
-    unit: 'maço',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/oregano.webp?alt=media&token=0b64f7ac-1aa4-4e21-a6b0-67eee4c6124e',
-    dataAiHint: 'oregano',
-    farmerId: '1',
-    description: 'Orégano fresco, com aroma e sabor que transformam molhos, pizzas e saladas.',
-    status: 'active',
-    stock: 30,
-  },
-  {
-    id: '101',
-    name: 'Alface Mimosa Verde Orgânica',
-    category: 'Verdura',
-    price: 3.30,
-    unit: 'unidade',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_mimosa_verde.webp?alt=media&token=4635346b-69f9-4a54-94b6-8cb1b85f4afb',
-    dataAiHint: 'mimosa lettuce',
-    farmerId: '1',
-    description: 'Alface Mimosa com folhas tenras e sabor suave, ótima para saladas.',
-    status: 'active',
-    stock: 20,
-  },
-  {
-    id: '102',
-    name: 'Abóbora Baianinha Orgânica',
-    category: 'Legume',
-    price: 3.60,
-    unit: 'kg',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/abobora_baianinha.webp?alt=media&token=9860ba6a-82f2-439b-92c2-0c57d6d338a3',
-    dataAiHint: 'baianinha squash',
-    farmerId: '1',
-    description: 'Abóbora Baianinha orgânica, de polpa adocicada, ótima para doces e purês.',
-    status: 'active',
-    stock: 10,
-  },
-  {
-    id: '103',
-    name: 'Alface Mimosa Roxa Orgânica',
-    category: 'Verdura',
-    price: 3.40,
-    unit: 'unidade',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_mimosa_roxa.webp?alt=media&token=c8b001dc-6f00-486f-af0a-22c99ed83d01',
-    dataAiHint: 'red mimosa lettuce',
-    farmerId: '1',
-    description: 'Alface Mimosa Roxa com folhas tenras e um toque de cor, ideal para saladas sofisticadas.',
-    status: 'active',
-    stock: 20,
-  },
-  {
-    id: '104',
-    name: 'Pimentão Vermelho Orgânico',
-    category: 'Fruta',
-    price: 3.20,
-    unit: 'kg',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pimentao_vermelho.webp?alt=media&token=d10b7b1b-9e4a-4b9e-8b1b-7e6d6e7f8e8e',
-    dataAiHint: 'red bell pepper',
-    farmerId: '2',
-    description: 'Pimentão vermelho orgânico, de sabor adocicado, perfeito para saladas, assados e molhos.',
-    status: 'active',
-    stock: 15,
-  },
-  {
-    id: '107',
-    name: 'Alface Frisée Orgânica',
-    category: 'Verdura',
-    price: 3.50,
-    unit: 'unidade',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_frisee.webp?alt=media&token=060f2493-fb76-4a37-b40a-5de7bd0981c9',
-    dataAiHint: 'frisee lettuce',
-    farmerId: '1',
-    description: 'Alface Frisée orgânica, de folhas crocantes e um leve amargor, ótima para saladas gourmet.',
-    status: 'active',
-    stock: 15,
-  },
-  {
-    id: '108',
     name: 'Ora-pro-nóbis Orgânica',
     category: 'Verdura',
-    price: 3.80,
+    price: 3.8,
     unit: 'maço',
-    image: 'https://placehold.co/600x400.png',
-    dataAiHint: 'ora-pro-nobis',
-    farmerId: '1',
+    image: 'https://placehold.co/600x400',
+    dataAiHint: 'ora pro nobis',
+    farmerId: '3',
     description: 'Planta rica em proteínas, conhecida por suas folhas nutritivas. Ideal para refogados, saladas e sucos.',
     status: 'active',
-    stock: 25,
+    stock: 20
   }
 ];
-
-defaultProducts.push(...lojaOrganicaProducts);
-defaultProducts.push(...domicilioOrganicoProducts);
 
 const defaultFarmers: Farmer[] = [
   {
     id: '1',
-    responsibleName: 'Matias Ponte',
-    prepostos: ['Cristiane Alcântara', 'David Bulhões', 'Guilherme Ponte', 'Rosana Paixão', 'Evelyn Alcântara'],
     name: 'Sítio Fazenda Mata Verde',
-    location: { lat: -22.469, lng: -42.969 },
-    bio: 'Produzimos hortaliças e legumes com muito carinho, seguindo os princípios da agricultura orgânica para levar saúde e sabor à sua mesa.',
+    responsibleName: 'Matias Ponte',
+    prepostos: ['Rui Ponte'],
+    location: { lat: -22.4632, lng: -42.9335 },
+    bio: 'Nossa fazenda se dedica ao cultivo orgânico, respeitando a natureza e trazendo alimentos saudáveis para sua mesa. Especializados em verduras e legumes frescos, colhidos diariamente. Nossos produtos são cultivados com amor, em um ambiente livre de agrotóxicos. Cada folha, cada raiz, carrega o sabor autêntico da terra e o cuidado de quem planta com responsabilidade e carinho.',
     address: {
-      street: 'Estrada do Brejal',
-      number: '1200',
-      complement: 'Sítio Verdejar',
-      neighborhood: 'Brejal',
-      city: 'Petrópolis',
-      state: 'RJ',
-      zipCode: '25755-352'
+        street: 'Estrada do Sumidouro',
+        number: '1200',
+        complement: 'Sítio Mata Verde',
+        neighborhood: 'Várzea de Mão',
+        city: 'Cachoeiras de Macacu',
+        state: 'RJ',
+        zipCode: '28680-000'
     },
-    pixKey: 'matiasponte@email.com',
-    shippingCost: 20.00,
-    phone: '5521912345678',
-    fairs: ['Flamengo', 'Tijuca', 'Grajaú'],
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/matias_ponte.jpg?alt=media&token=8d2e854d-7634-46a2-9e9b-31d7f46146c9'
-  },
-  {
-    id: '5',
-    name: 'Sítio Tapera',
-    responsibleName: 'Ailton Lima',
-    prepostos: ['Felipe Carvalho', 'Thiago Carvalho'],
-    location: { lat: -22.450, lng: -42.850 },
-    bio: 'Desde 1990, nossa família se dedica à produção de orgânicos, com foco em folhas, ervas e temperos frescos e aromáticos.',
-    address: {
-      street: 'Estrada do Tinguá',
-      number: 'km 5',
-      neighborhood: 'Tinguá',
-      city: 'Nova Iguaçu',
-      state: 'RJ',
-      zipCode: '26060-000'
-    },
-    pixKey: 'ailton.lima@email.com',
-    shippingCost: 15.00,
-    phone: '5521977778888',
-    fairs: ['Laranjeiras', 'Botafogo'],
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/ailton_lima.jpg?alt=media&token=8d2e854d-7634-46a2-9e9b-31d7f46146c9'
+    pixKey: 'matias.ponte@email.com',
+    shippingCost: 15,
+    phone: '5521998877665',
+    fairs: ['Tijuca', 'Grajaú'],
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/farmers%2Ffarmer_1.png?alt=media&token=8e945c2f-e8b9-43c3-9acb-d2e5a407336a'
   },
   {
     id: '2',
-    name: 'Sítio Cachoeirinha I',
-    responsibleName: 'Onéias Gonçalves',
-    prepostos: ['Luciene Silva'],
-    location: { lat: -22.319, lng: -42.531 },
-    bio: 'Nossa paixão é cultivar frutas orgânicas, suculentas e cheias de sabor. Do nosso pomar para a sua casa.',
+    name: 'Fazenda Sol Nascente',
+    responsibleName: 'Juliana Paes',
+    prepostos: ['Marco Paes'],
+    location: { lat: -22.5202, lng: -42.9856 },
+    bio: 'Especialistas em frutas orgânicas, nossa fazenda aproveita o sol generoso para produzir frutas doces e suculentas. Doçura e frescor que vêm direto do pé para a sua casa. Cultivamos com paixão, seguindo os ciclos da natureza para oferecer frutas com o máximo de sabor e nutrientes. Cada mordida é uma celebração da vida e da agricultura sustentável.',
     address: {
-      street: 'Rua das Macieiras',
-      number: '50',
-      neighborhood: 'Vale das Frutas',
-      city: 'Nova Friburgo',
-      state: 'RJ',
-      zipCode: '28600-000'
-    },
-    pixKey: '24987654321',
-    shippingCost: 22.00,
-    phone: '5521987654321',
-    fairs: ['Tijuca'],
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/oneias_goncalves.jpg?alt=media&token=8d2e854d-7634-46a2-9e9b-31d7f46146c9'
-  },
-  {
-    id: '4',
-    name: 'Sítio Cachoeirinha II',
-    responsibleName: 'Walace Oliveira',
-    prepostos: ['Michelli Conceição', 'Vitor Hugo'],
-    location: { lat: -22.427, lng: -42.991 },
-    bio: 'Da nossa horta na montanha para a sua mesa. Produtos frescos, orgânicos e cultivados com técnicas de permacultura.',
-    address: {
-      street: 'Caminho do Imperador',
-      number: '3000',
-      neighborhood: 'Fazenda Inglesa',
-      city: 'Petrópolis',
-      state: 'RJ',
-      zipCode: '25755-352'
-    },
-    pixKey: 'walace.oliveira@picpay.com',
-    shippingCost: 18.00,
-    phone: '5521988889999',
-    fairs: ['Laranjeiras', 'Leme'],
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/walace_oliveira.jpg?alt=media&token=8d2e854d-7634-46a2-9e9b-31d7f46146c9'
-  },
-  {
-    id: '7',
-    responsibleName: 'Wendel Oliveira',
-    name: 'Sítio Cachoeirinha III',
-    prepostos: ['Fafi'],
-    location: { lat: -22.420, lng: -42.980 },
-    bio: 'Especialistas em raízes e tubérculos. Produtos orgânicos com sabor autêntico da terra serrana.',
-    address: {
-        street: 'Estrada do Rocio',
-        number: 's/n',
-        complement: '',
-        neighborhood: 'Rocio',
+        street: 'Estrada da Uva',
+        number: '800',
+        complement: 'Sítio Sol Nascente',
+        neighborhood: 'Vale das Videiras',
         city: 'Petrópolis',
         state: 'RJ',
-        zipCode: '25725-000'
+        zipCode: '25755-351'
     },
-    pixKey: 'wendel.oliveira@email.com',
-    shippingCost: 20.00,
-    phone: '5521955554444',
-    fairs: ['Flamengo'],
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/wendel_oliveira.jpg?alt=media&token=8d2e854d-7634-46a2-9e9b-31d7f46146c9'
+    pixKey: 'fazenda.sol.nascente@email.com',
+    shippingCost: 20,
+    phone: '5521987654321',
+    fairs: ['Botafogo', 'Leme'],
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/farmers%2Ffarmer_2.png?alt=media&token=09c8052d-f9e4-41d3-8208-724d27f673f8'
   },
   {
     id: '3',
-    name: 'Sítio Paraíso',
-    responsibleName: 'Ronilson',
+    name: 'Orgânicos da Serra',
+    responsibleName: 'Ailton Disuné',
     prepostos: [],
-    location: { lat: -22.520, lng: -43.170 },
-    bio: 'Cultivamos uma grande variedade de legumes e temperos orgânicos, sempre respeitando a terra e os ciclos da natureza.',
+    location: { lat: -22.4277, lng: -42.9847 },
+    bio: 'Das montanhas, trazemos para você temperos e raízes com sabores intensos e puros. Cultivados em altitude, nossos produtos têm um toque especial. Nossa terra é nossa maior riqueza, e por isso a tratamos com respeito, utilizando técnicas de cultivo que preservam o solo e a biodiversidade. Acreditamos que o segredo de um bom tempero está na sua origem e no cuidado com a terra.',
     address: {
-      street: 'Estrada da Saudade',
-      number: 's/n',
-      neighborhood: 'Itaipava',
-      city: 'Petrópolis',
-      state: 'RJ',
-      zipCode: '25730-000'
+        street: 'Rua das Hortênsias',
+        number: '550',
+        neighborhood: 'Quebra Frascos',
+        city: 'Teresópolis',
+        state: 'RJ',
+        zipCode: '25963-090'
     },
-    pixKey: 'sitio.paraiso@email.com',
-    shippingCost: 25.00,
-    phone: '5521998877665',
-    fairs: ['Tijuca'],
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/ronilson.jpg?alt=media&token=8d2e854d-7634-46a2-9e9b-31d7f46146c9'
+    pixKey: 'organicos.serra@email.com',
+    shippingCost: 18,
+    phone: '5521976543210',
+    fairs: ['Grajaú'],
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/farmers%2Ffarmer_3.png?alt=media&token=162649b5-c0a0-4384-8848-3560f64c6764'
+  },
+  {
+    id: '4',
+    name: 'Sítio Verdejar',
+    responsibleName: 'Luciana Mello',
+    prepostos: [],
+    location: { lat: -22.3855, lng: -42.9692 },
+    bio: 'Cultivamos uma grande variedade de legumes e verduras, sempre frescos e livres de veneno. Da nossa horta para a sua mesa. No Sítio Verdejar, cada semente é plantada com a esperança de um futuro mais saudável e sustentável. Nosso compromisso é com a qualidade de vida, oferecendo alimentos que nutrem o corpo e a alma, enquanto cuidamos do nosso planeta.',
+    address: {
+        street: 'Estrada Teresópolis-Friburgo',
+        number: 'Km 15',
+        neighborhood: 'Venda Nova',
+        city: 'Teresópolis',
+        state: 'RJ',
+        zipCode: '25970-060'
+    },
+    pixKey: 'luciana.mello@email.com',
+    shippingCost: 22,
+    phone: '5521965432109',
+    fairs: ['Flamengo', 'Laranjeiras'],
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/farmers%2Ffarmer_4.png?alt=media&token=8d2345e6-7b1c-43f1-9c3f-c3d69b935613'
+  },
+  {
+    id: '5',
+    name: 'Horta da Vovó',
+    responsibleName: 'Onéias Ribeiro',
+    prepostos: [],
+    location: { lat: -22.4851, lng: -43.0135 },
+    bio: 'Com o carinho e a sabedoria de gerações, a Horta da Vovó produz hortaliças e temperos que parecem ter sido colhidos no quintal de casa. Sabor de comida de verdade. Resgatamos receitas e técnicas de cultivo tradicionais para oferecer alimentos com sabor de memória afetiva. Cada maço de cheiro-verde, cada folha de alface, é um convite para reviver os bons momentos em família.',
+    address: {
+        street: 'Rua do Imperador',
+        number: '2023',
+        neighborhood: 'Centro',
+        city: 'Petrópolis',
+        state: 'RJ',
+        zipCode: '25620-002'
+    },
+    pixKey: '5521954321098',
+    shippingCost: 0, // Não oferece delivery
+    phone: '5521954321098',
+    fairs: ['Botafogo'],
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/farmers%2Ffarmer_5.png?alt=media&token=d4b29b6e-781c-4d5e-8e6d-6a5814529f7e'
   },
   {
     id: '6',
     name: 'Domicílio Orgânico',
-    responsibleName: 'Ivison Fragoso',
-    prepostos: [],
-    location: { lat: -22.906, lng: -43.172 },
-    bio: 'Levando o melhor do campo para a sua casa. Produtos orgânicos com entrega rápida e segura.',
+    responsibleName: 'Paloma Portugal',
+    prepostos: ['João Portugal'],
+    location: { lat: -22.9519, lng: -43.2105 },
+    bio: 'Facilitamos o acesso a produtos orgânicos de qualidade, conectando você a diversos produtores certificados. Uma seleção cuidadosa para sua saúde e conveniência. O Domicílio Orgânico nasceu do desejo de tornar a alimentação saudável mais prática e acessível. Selecionamos os melhores produtos de pequenos agricultores, criando uma ponte entre o campo e a sua casa.',
     address: {
-      street: 'Rua do Catete',
-      number: '100',
-      neighborhood: 'Catete',
-      city: 'Rio de Janeiro',
-      state: 'RJ',
-      zipCode: '22220-000'
+        street: 'Rua das Laranjeiras',
+        number: '300',
+        neighborhood: 'Laranjeiras',
+        city: 'Rio de Janeiro',
+        state: 'RJ',
+        zipCode: '22240-003'
     },
-    pixKey: 'ivison.fragoso@email.com',
-    shippingCost: 12.00,
-    phone: '5521966667777',
-    fairs: ['Botafogo', 'Flamengo', 'Laranjeiras'],
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/ivison_fragoso.jpg?alt=media&token=7c1b1c1b-1c1c-4b1b-8b1b-1c1c1c1c1c1c'
+    pixKey: 'contato@domicilioorganico.com.br',
+    shippingCost: 12,
+    phone: '5521943210987',
+    fairs: ['Flamengo', 'Laranjeiras'],
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/farmers%2Ffarmer_6.png?alt=media&token=f0d23588-466a-4d26-8094-c8c362a7596a'
   },
   {
     id: '134',
-    responsibleName: 'Marcos Melo',
     name: 'Loja Orgânica',
-    location: { lat: -22.48, lng: -43.05 },
-    bio: 'Méis orgânicos certificados, de alta qualidade, raros e medicinais, produzidos com respeito às abelhas e à natureza.',
+    responsibleName: 'Rosana',
+    prepostos: ['Evelyn'],
+    location: { lat: -22.9139, lng: -43.2094 },
+    bio: 'Somos apaixonados por apicultura e oferecemos uma variedade de méis orgânicos, cada um com suas características e benefícios únicos. O mais puro néctar da natureza. Nossas abelhas trabalham em floradas selecionadas, em áreas de mata preservada, para produzir um mel puro e cheio de vida. A Loja Orgânica é o resultado de anos de dedicação e respeito às abelhas e ao meio ambiente.',
     address: {
-      street: 'Avenida Brasil',
-      number: '1000',
-      complement: '',
-      neighborhood: 'Centro',
-      city: 'Rio de Janeiro',
-      state: 'RJ',
-      zipCode: '20000-000'
+        street: 'Rua Haddock Lobo',
+        number: '123',
+        neighborhood: 'Tijuca',
+        city: 'Rio de Janeiro',
+        state: 'RJ',
+        zipCode: '20260-141'
     },
     pixKey: 'loja.organica@email.com',
-    shippingCost: 15.00,
-    phone: '5521955556666',
+    shippingCost: 10,
+    phone: '5521932109876',
     fairs: ['Tijuca'],
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/marcos_melo.jpg?alt=media&token=8d2e854d-7634-46a2-9e9b-31d7f46146c9'
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/farmers%2Ffarmer_7.png?alt=media&token=c8b030b6-136b-4e89-9a00-51a7e4b2d3d3'
   }
 ];
 
 const defaultCustomers: Customer[] = [
   {
     id: 'cust-001',
-    name: 'Maria Oliveira',
-    email: 'maria.oliveira@exemplo.com',
+    name: 'Ana Silva',
+    email: 'ana.silva@exemplo.com',
     favoriteFarmerIds: ['1', '3'],
     address: {
         street: 'Rua das Flores',
         number: '123',
         complement: 'Apto 405',
-        neighborhood: 'Copacabana',
+        neighborhood: 'Botafogo',
         city: 'Rio de Janeiro',
         state: 'RJ',
-        zipCode: '22050002'
+        zipCode: '22270-001'
     },
     phone: '5521999998888',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/maria_oliveira.jpg?alt=media&token=7c1b1c1b-1c1c-4b1b-8b1b-1c1c1c1c1c1c',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/customers%2Fcustomer_1.png?alt=media&token=0b674d87-6e9f-43e8-9e5c-204481358d83',
     classification: 'ouro'
   },
-   {
+  {
     id: 'cust-002',
-    name: 'José Santos',
-    email: 'jose.santos@exemplo.com',
+    name: 'Bruno Costa',
+    email: 'bruno.costa@exemplo.com',
     favoriteFarmerIds: ['2'],
      address: {
         street: 'Avenida Atlântica',
         number: '1702',
-        complement: 'Bloco 2, Apto 801',
+        complement: 'Bloco A, Apto 801',
         neighborhood: 'Copacabana',
         city: 'Rio de Janeiro',
         state: 'RJ',
-        zipCode: '22021001'
+        zipCode: '22021-001'
     },
     phone: '5521988887777',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/jose_santos.jpg?alt=media&token=7c1b1c1b-1c1c-4b1b-8b1b-1c1c1c1c1c1c',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/customers%2Fcustomer_2.png?alt=media&token=e937d57a-9a80-496a-85b4-d7575231c584',
     classification: 'prata'
   },
-   {
+  {
     id: 'cust-003',
-    name: 'Ana Pereira',
-    email: 'ana.pereira@exemplo.com',
-    favoriteFarmerIds: ['4', '5'],
+    name: 'Carla Dias',
+    email: 'carla.dias@exemplo.com',
+    favoriteFarmerIds: ['1', '4', '5'],
      address: {
-        street: 'Rua Barata Ribeiro',
-        number: '502',
+        street: 'Rua Marquês de Abrantes',
+        number: '50',
         complement: 'Apto 202',
-        neighborhood: 'Copacabana',
+        neighborhood: 'Flamengo',
         city: 'Rio de Janeiro',
         state: 'RJ',
-        zipCode: '22040002'
+        zipCode: '22230-061'
     },
     phone: '5521977776666',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/ana_pereira.jpg?alt=media&token=7c1b1c1b-1c1c-4b1b-8b1b-1c1c1c1c1c1c',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/customers%2Fcustomer_3.png?alt=media&token=14b2b291-a537-4d92-8a9d-5a81e35a7458',
     classification: 'diamante'
-  }
+  },
 ];
 
 const defaultOrders: Order[] = [
   {
-    id: 'ORD-1699981200000-abc',
-    customerName: 'Maria Oliveira',
+    id: 'ORD-1678886400000',
+    customerName: 'Ana Silva',
     items: [
-      { productName: 'Cenouras Orgânicas', quantity: 2 },
-      { productName: 'Tomate Italiano Orgânico', quantity: 1 },
+        { productName: 'Cenouras Orgânicas', quantity: 2 },
+        { productName: 'Alface Americana Orgânica', quantity: 1 }
     ],
     status: 'Pendente',
-    total: 8.00,
-    date: new Date('2024-07-14T10:00:00Z'),
+    total: 8.50,
+    date: new Date('2024-07-10T10:00:00Z'),
     deliveryOption: 'pickup',
     pickupLocation: 'Feira da Tijuca'
   },
   {
-    id: 'ORD-1700067600000-def',
-    customerName: 'José Santos',
+    id: 'ORD-1678972800000',
+    customerName: 'Bruno Costa',
     items: [
-      { productName: 'Morangos Frescos Orgânicos', quantity: 1 },
-      { productName: 'Laranja Pera Orgânica', quantity: 3 },
+        { productName: 'Tomate Italiano Orgânico', quantity: 1.5 },
+        { productName: 'Morangos Frescos Orgânicos', quantity: 2 }
     ],
     status: 'Pendente',
-    total: 10.00,
-    date: new Date('2024-07-15T11:00:00Z'),
+    total: 12.50,
+    date: new Date('2024-07-11T11:30:00Z'),
     deliveryOption: 'delivery',
     customerContact: {
         address: {
             street: 'Avenida Atlântica',
             number: '1702',
-            complement: 'Bloco 2, Apto 801',
+            complement: 'Bloco A, Apto 801',
             neighborhood: 'Copacabana',
             city: 'Rio de Janeiro',
             state: 'RJ',
-            zipCode: '22021001'
+            zipCode: '22021-001'
         },
         phone: '5521988887777'
     }
   },
-  {
-    id: 'ORD-1700154000000-ghi',
-    customerName: 'Ana Pereira',
+    {
+    id: 'ORD-1679059200000',
+    customerName: 'Carla Dias',
     items: [
-      { productName: 'Cenouras Orgânicas', quantity: 1 },
-      { productName: 'Alho Poró Orgânico', quantity: 2 },
+        { productName: 'Alho Poró Orgânico', quantity: 3 },
+        { productName: 'Salsa Orgânica', quantity: 1 },
+        { productName: 'Couve Mineira Orgânica', quantity: 2 }
     ],
     status: 'Confirmado',
-    total: 11.50,
-    date: new Date('2024-06-16T12:00:00Z'),
+    total: 20.40,
+    date: new Date('2024-06-12T09:00:00Z'),
     deliveryOption: 'pickup',
     pickupLocation: 'Feira do Grajaú'
   },
   {
-    id: 'ORD-1700240400000-jkl',
-    customerName: 'Maria Oliveira',
+    id: 'ORD-1679145600000',
+    customerName: 'Ana Silva',
     items: [
-      { productName: 'Morangos Frescos Orgânicos', quantity: 2 },
-      { productName: 'Couve Mineira Orgânica', quantity: 1 },
+        { productName: 'Abóbora Moranga Orgânica', quantity: 0.8 },
+        { productName: 'Hortelã Orgânica', quantity: 1 }
     ],
-    status: 'Confirmado',
-    total: 10.20,
-    date: new Date('2024-05-10T13:00:00Z'),
+    status: 'Rejeitado',
+    total: 6.00,
+    date: new Date('2024-05-13T14:00:00Z'),
     deliveryOption: 'delivery',
     customerContact: {
          address: {
             street: 'Rua das Flores',
             number: '123',
             complement: 'Apto 405',
-            neighborhood: 'Copacabana',
+            neighborhood: 'Botafogo',
             city: 'Rio de Janeiro',
             state: 'RJ',
-            zipCode: '22050002'
+            zipCode: '22270-001'
         },
         phone: '5521999998888'
     }
@@ -1841,222 +1574,230 @@ const defaultOrders: Order[] = [
 ];
 
 
-// State management for data
-let products = defaultProducts;
-let farmers = defaultFarmers;
-let orders = defaultOrders;
-let customers = defaultCustomers;
-
-
 // ============================================================================
 // DATA ACCESS FUNCTIONS
 // ============================================================================
 
-export function getProducts(options: { includePaused?: boolean, farmerId?: string } = {}): Product[] {
-  hydrateFromStorage();
-  let filteredProducts = [...products];
+let allProducts: Product[] = [...defaultProducts, ...lojaOrganicaProducts, ...domicilioOrganicoProducts];
+let allFarmers: Farmer[] = defaultFarmers;
+let allCustomers: Customer[] = defaultCustomers;
+let allOrders: Order[] = defaultOrders;
 
-  if (!options.includePaused) {
-    filteredProducts = filteredProducts.filter(p => p.status === 'active');
-  }
-  
-  if (options.farmerId) {
-    filteredProducts = filteredProducts.filter(p => p.farmerId === options.farmerId);
-  }
+let isHydrated = false;
 
-  // Check and update promotion status
-  const now = new Date();
-  filteredProducts.forEach(p => {
-    if (p.promotion && p.promotion.isActive && new Date(p.promotion.expiresAt) < now) {
-      p.promotion.isActive = false;
+function hydrateOnce() {
+    if (isHydrated) return;
+    
+    // Para agricultores e clientes, mantemos o cache, pois eles são atualizáveis
+    allFarmers = getStoredData(FARMERS_KEY, defaultFarmers);
+    allCustomers = getStoredData(CUSTOMERS_KEY, defaultCustomers);
+
+    // Para produtos e pedidos, que podem mudar com o código, forçamos a atualização
+    // se o cache for inválido.
+    const storedProducts = getStoredData<Product>('minha_feira_products_v6', defaultProducts);
+    const isCacheValid = (
+        storedProducts.length === defaultProducts.length &&
+        storedProducts[0]?.description === defaultProducts[0]?.description &&
+        storedProducts[storedProducts.length - 1]?.description === defaultProducts[storedProducts.length - 1]?.description
+    );
+
+    if (isCacheValid) {
+        allProducts = storedProducts;
+    } else {
+        allProducts = [...defaultProducts, ...lojaOrganicaProducts, ...domicilioOrganicoProducts];
+        setStoredData('minha_feira_products_v6', allProducts);
     }
+    
+    allOrders = getStoredData(ORDERS_KEY, defaultOrders);
+
+    isHydrated = true;
+}
+
+
+// GETTERS - Funções para ler os dados
+// ----------------------------------------------------------------------------
+
+export function getProducts(options?: { includePaused?: boolean }): Product[] {
+  hydrateOnce();
+  const activeProducts = allProducts.map(p => {
+    if (p.promotion?.expiresAt && new Date(p.promotion.expiresAt) < new Date()) {
+        return { ...p, promotion: { ...p.promotion, isActive: false }};
+    }
+    return p;
   });
 
-  setStoredData(PRODUCTS_KEY, products, productSortFn); // Save any promotion status changes
-  return filteredProducts;
+  if (options?.includePaused) {
+    return activeProducts;
+  }
+  return activeProducts.filter(p => p.status === 'active');
 }
 
 export function getProductById(id: string): Product | undefined {
-  hydrateFromStorage();
-  return products.find(p => p.id === id);
+  hydrateOnce();
+  return allProducts.find((p) => p.id === id);
 }
 
 export function getProductByName(name: string): Product | undefined {
-  hydrateFromStorage();
-  return products.find(p => p.name === name);
+  hydrateOnce();
+  return allProducts.find(p => p.name === name);
 }
 
 export function getFarmers(): Farmer[] {
-  hydrateFromStorage();
-  return farmers;
+  hydrateOnce();
+  return allFarmers;
 }
 
 export function getFarmerById(id: string): Farmer | undefined {
-  hydrateFromStorage();
-  return farmers.find(f => f.id === id);
+  hydrateOnce();
+  return allFarmers.find((f) => f.id === id);
 }
 
-export function getOrders(options: { farmerId?: string } = {}): Order[] {
-  hydrateFromStorage();
-  const allOrders = [...orders];
-  if(options.farmerId) {
-      const farmerProducts = new Set(getProducts({farmerId: options.farmerId, includePaused: true}).map(p => p.name));
-      return allOrders.filter(order => order.items.some(item => farmerProducts.has(item.productName)));
-  }
+export function getFarmersWithProducts(farmerIds?: string[]): FarmerWithProducts[] {
+  hydrateOnce();
+  const farmersToProcess = farmerIds
+    ? allFarmers.filter(f => farmerIds.includes(f.id))
+    : allFarmers;
+  
+  return farmersToProcess.map(farmer => ({
+    ...farmer,
+    products: allProducts.filter(p => p.farmerId === farmer.id && p.status === 'active')
+  }));
+}
+
+export function getPromotionalProducts(): (Product & { farmerName: string, responsibleName?: string })[] {
+    hydrateOnce();
+    const activePromotions = allProducts.filter(p =>
+        p.promotion?.isActive &&
+        p.promotion.expiresAt &&
+        new Date(p.promotion.expiresAt) > new Date()
+    );
+
+    return activePromotions.map(p => {
+        const farmer = getFarmerById(p.farmerId);
+        return {
+            ...p,
+            farmerName: farmer?.name || 'Desconhecido',
+            responsibleName: farmer?.responsibleName
+        };
+    });
+}
+
+export function getOrders(): Order[] {
+  hydrateOnce();
   return allOrders;
 }
 
 export function getCustomers(): Customer[] {
-  hydrateFromStorage();
-  return customers;
+  hydrateOnce();
+  return allCustomers;
 }
 
 export function getCustomerById(id: string): Customer | undefined {
-  hydrateFromStorage();
-  return customers.find(c => c.id === id);
+  hydrateOnce();
+  return allCustomers.find((c) => c.id === id);
 }
 
-export function getFarmersWithProducts(farmerIds?: string[]): FarmerWithProducts[] {
-  hydrateFromStorage();
-  const farmersToProcess = farmerIds ? farmers.filter(f => farmerIds.includes(f.id)) : farmers;
-  
-  return farmersToProcess.map(farmer => {
-    const farmerProducts = getProducts({includePaused: false}).filter(product => product.farmerId === farmer.id);
-    return {
-      ...farmer,
-      products: farmerProducts,
-    };
-  });
+// SETTERS / UPDATERS - Funções para modificar os dados
+// ----------------------------------------------------------------------------
+
+export function toggleProductPromotion(productId: string, isActive: boolean) {
+    hydrateOnce();
+    const productIndex = allProducts.findIndex(p => p.id === productId);
+    if (productIndex !== -1) {
+        allProducts[productIndex] = {
+            ...allProducts[productIndex],
+            promotion: {
+                isActive: isActive,
+                expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 dias a partir de agora
+            }
+        };
+        setStoredData('minha_feira_products_v6', allProducts);
+    }
 }
 
-export function getPromotionalProducts() {
-    hydrateFromStorage();
-    return getProducts({includePaused: false})
-        .filter(p => p.promotion?.isActive)
-        .map(p => {
-            const farmer = getFarmerById(p.farmerId);
-            return {
-                ...p,
-                farmerName: farmer?.name || 'Desconhecido',
-                responsibleName: farmer?.responsibleName
-            };
-        });
+export function toggleProductStatus(productId: string, status: 'active' | 'paused') {
+    hydrateOnce();
+    const productIndex = allProducts.findIndex(p => p.id === productId);
+    if (productIndex !== -1) {
+        allProducts[productIndex].status = status;
+        setStoredData('minha_feira_products_v6', allProducts);
+    }
 }
 
-// ============================================================================
-// DATA MODIFICATION FUNCTIONS
-// ============================================================================
+export function updateProduct(productId: string, updates: Partial<Omit<Product, 'id'>>) {
+    hydrateOnce();
+    const productIndex = allProducts.findIndex(p => p.id === productId);
+    if (productIndex !== -1) {
+        allProducts[productIndex] = { ...allProducts[productIndex], ...updates };
+        setStoredData('minha_feira_products_v6', allProducts);
+    }
+}
 
-export function addProduct(newProductData: Omit<Product, 'id' | 'status'>): Product {
-    hydrateFromStorage();
-    const newId = `prod-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+export function deleteProduct(productId: string) {
+    hydrateOnce();
+    allProducts = allProducts.filter(p => p.id !== productId);
+    setStoredData('minha_feira_products_v6', allProducts);
+}
+
+export function updateProductStock(productId: string, newStock: number | undefined) {
+    hydrateOnce();
+     const productIndex = allProducts.findIndex(p => p.id === productId);
+    if (productIndex !== -1) {
+        allProducts[productIndex].stock = newStock;
+        setStoredData('minha_feira_products_v6', allProducts);
+    }
+}
+
+export function addProduct(newProductData: Omit<Product, 'id' | 'status'>) {
+    hydrateOnce();
     const newProduct: Product = {
-        ...newProductData,
-        id: newId,
+        id: `prod-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
         status: 'active',
+        ...newProductData
     };
-    products.push(newProduct);
-    setStoredData(PRODUCTS_KEY, products, productSortFn);
+    allProducts.push(newProduct);
+    setStoredData('minha_feira_products_v6', allProducts);
     return newProduct;
 }
 
-
-export function updateProduct(id: string, updates: Partial<Omit<Product, 'id' | 'farmerId'>>) {
-  hydrateFromStorage();
-  products = products.map(p => {
-    if (p.id === id) {
-      return { ...p, ...updates };
-    }
-    return p;
-  });
-  setStoredData(PRODUCTS_KEY, products, productSortFn);
-}
-
-export function updateProductStock(id: string, newStock: number) {
-    updateProduct(id, { stock: newStock });
-}
-
-export function deleteProduct(id: string) {
-  hydrateFromStorage();
-  products = products.filter(p => p.id !== id);
-  setStoredData(PRODUCTS_KEY, products, productSortFn);
-}
-
-export function toggleProductStatus(id: string, newStatus: 'active' | 'paused') {
-    updateProduct(id, { status: newStatus });
-}
-
-
-export function toggleProductPromotion(id: string, isActive: boolean) {
-    hydrateFromStorage();
-    const product = getProductById(id);
-    if(product) {
-        const promotion = {
-            isActive,
-            expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 dias a partir de agora
-        };
-        updateProduct(id, { promotion });
-    }
-}
-
-export function addOrder(order: CustomerOrder) {
-    hydrateFromStorage();
-    orders.push(order);
-    setStoredData(ORDERS_KEY, orders);
-}
-
 export function updateCustomerClassification(customerId: string, classification: CustomerClassification) {
-    hydrateFromStorage();
-    customers = customers.map(c => {
-        if(c.id === customerId) {
-            return { ...c, classification };
-        }
-        return c;
-    });
-    setStoredData(CUSTOMERS_KEY, customers);
+    hydrateOnce();
+    const customerIndex = allCustomers.findIndex(c => c.id === customerId);
+    if (customerIndex !== -1) {
+        allCustomers[customerIndex].classification = classification;
+        setStoredData(CUSTOMERS_KEY, allCustomers);
+    }
+}
+
+
+export function updateFarmer(farmerId: string, updates: Partial<Omit<Farmer, 'id'>>) {
+    hydrateOnce();
+    const farmerIndex = allFarmers.findIndex(f => f.id === farmerId);
+    if (farmerIndex !== -1) {
+        allFarmers[farmerIndex] = { ...allFarmers[farmerIndex], ...updates };
+        setStoredData(FARMERS_KEY, allFarmers);
+    }
+}
+
+export function updateCustomer(customerId: string, updates: Partial<Omit<Customer, 'id'>>) {
+    hydrateOnce();
+    const customerIndex = allCustomers.findIndex(c => c.id === customerId);
+    if (customerIndex !== -1) {
+        allCustomers[customerIndex] = { ...allCustomers[customerIndex], ...updates };
+        setStoredData(CUSTOMERS_KEY, allCustomers);
+    }
 }
 
 export function addFarmer(farmerData: Omit<Farmer, 'id' | 'location' | 'image'>): Farmer {
-    hydrateFromStorage();
-    const newId = `farm-${Date.now()}`;
+    hydrateOnce();
     const newFarmer: Farmer = {
-        ...farmerData,
-        id: newId,
-        location: { lat: -22.9068, lng: -43.1729 }, // Posição padrão (Centro do Rio)
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/default_farmer.png?alt=media&token=8e9e1c7c-4a3b-4f1e-9e7b-8e9e1c7c4a3b' // Imagem padrão
+        id: `farmer-${Date.now()}`,
+        // Localização padrão, já que não temos como obter a real no cadastro
+        location: { lat: -22.9068, lng: -43.1729 }, 
+        image: 'https://placehold.co/100x100.png', // Imagem padrão
+        ...farmerData
     };
-    farmers.push(newFarmer);
-    setStoredData(FARMERS_KEY, farmers);
+    allFarmers.push(newFarmer);
+    setStoredData(FARMERS_KEY, allFarmers);
     return newFarmer;
 }
-
-export function updateFarmer(id: string, updates: Partial<Omit<Farmer, 'id'>>) {
-  hydrateFromStorage();
-  farmers = farmers.map(f => {
-    if (f.id === id) {
-      // Mescla o endereço corretamente se ele for fornecido nas atualizações
-      const newAddress = updates.address ? { ...f.address, ...updates.address } : f.address;
-      return { ...f, ...updates, address: newAddress };
-    }
-    return f;
-  });
-  setStoredData(FARMERS_KEY, farmers);
-}
-
-export function updateCustomer(id: string, updates: Partial<Omit<Customer, 'id'>>) {
-  hydrateFromStorage();
-  customers = customers.map(c => {
-    if (c.id === id) {
-      const newAddress = updates.address ? { ...c.address, ...updates.address } : c.address;
-      return { ...c, ...updates, address: newAddress };
-    }
-    return c;
-  });
-  setStoredData(CUSTOMERS_KEY, customers);
-}
-
-
-
-  
-
-    
