@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import Image from "next/image";
@@ -7,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardTitle, CardDescription } from "@/components/ui/card";
 import { Plus, Minus, ShoppingCart, Tractor, X, Heart, User } from "lucide-react";
 import { useCart } from "@/hooks/use-cart";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Input } from "./ui/input";
 import { cn } from "@/lib/utils";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
@@ -34,7 +35,7 @@ const ProductCard = ({ product, farmerName, responsibleName }: ProductCardProps)
   const [isLocallyFavorite, setIsLocallyFavorite] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const descriptionNeedsTruncation = product.description.length > 120;
+  const descriptionNeedsTruncation = useMemo(() => product.description.length > 120, [product.description]);
 
   useEffect(() => {
     setIsLocallyFavorite(isFavorite(product.id));

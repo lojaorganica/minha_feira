@@ -25,17 +25,8 @@ function hydrateFromStorage() {
       const parsedProducts: Product[] = JSON.parse(storedProducts);
       
       // Robust validation: Check if stored data is consistent with the source code data.
-      // If lengths differ or if any product description doesn't match, invalidate the cache.
-      let isCacheValid = parsedProducts.length === defaultProducts.length;
-      if (isCacheValid) {
-        for (const defaultProd of defaultProducts) {
-            const storedProd = parsedProducts.find(p => p.id === defaultProd.id);
-            if (!storedProd || storedProd.description !== defaultProd.description) {
-                isCacheValid = false;
-                break;
-            }
-        }
-      }
+      // If the description of the first product doesn't match, invalidate the entire cache.
+      const isCacheValid = parsedProducts.length > 0 && defaultProducts.length > 0 && parsedProducts[0].description === defaultProducts[0].description;
 
       if (isCacheValid) {
          products = parsedProducts;
