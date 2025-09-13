@@ -21,7 +21,7 @@ const formatItemQuantity = (item: any) => {
 };
 
 const getDisplayOrderId = (orderId: string) => {
-    return orderId.slice(-5);
+    return (orderId.match(/\d/g) || []).join('').slice(-5);
 }
 
 export default function OrderHistoryPage() {

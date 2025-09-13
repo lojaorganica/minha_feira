@@ -938,7 +938,7 @@ Entrega: ${deliveryText}
     };
 
     const getDisplayOrderId = (orderId: string) => {
-        return orderId.slice(-5);
+        return (orderId.match(/\d/g) || []).join('').slice(-5);
     }
 
     return (
