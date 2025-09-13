@@ -4,7 +4,7 @@ import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerClas
 
 // ============================================================================
 // IN-MEMORY DATA STORE WITH LOCALSTORAGE PERSISTENCE
-// =================================e===========================================
+// ============================================================================
 
 const PRODUCTS_KEY = 'minha_feira_products_v6';
 const FARMERS_KEY = 'minha_feira_farmers_v3';
