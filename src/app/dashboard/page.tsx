@@ -26,7 +26,7 @@ import { useToast } from "@/hooks/use-toast";
 import BackButton from "@/components/back-button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Loader2 } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils";
 import { useUser } from '@/hooks/use-user';
 import jsPDF from 'jspdf';
 import * as htmlToImage from 'html-to-image';
@@ -937,6 +937,20 @@ Entrega: ${deliveryText}
         doc.save(`pedido_${order.id}.pdf`);
     };
 
+    const getDisplayOrderId = (orderId: string) => {
+        const parts = orderId.split('-');
+        if (parts.length > 1) {
+            const lastPart = parts[parts.length - 1];
+            // Se for um timestamp longo, pega os últimos 5 dígitos.
+            if (lastPart.length > 5) {
+                return lastPart.slice(-5);
+            }
+            // Se for um ID já curto ou diferente, retorna como está.
+            return lastPart;
+        }
+        return orderId;
+    }
+
     return (
         <Card>
             <CardHeader>
@@ -957,7 +971,7 @@ Entrega: ${deliveryText}
                             <CardHeader>
                                 <div className="flex justify-between items-start">
                                     <div>
-                                        <CardTitle className="font-headline text-2xl text-primary">{order.id.substring(order.id.length - 6)}</CardTitle>
+                                        <CardTitle className="font-headline text-2xl text-primary">{getDisplayOrderId(order.id)}</CardTitle>
                                         <CardDescription className="text-base font-semibold text-foreground/90 flex items-center gap-2 mt-1">
                                             <User className="h-4 w-4"/>
                                             {order.customerName}

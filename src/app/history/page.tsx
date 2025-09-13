@@ -20,6 +20,20 @@ const formatItemQuantity = (item: any) => {
     return `${item.quantity}x`;
 };
 
+const getDisplayOrderId = (orderId: string) => {
+    const parts = orderId.split('-');
+    if (parts.length > 1) {
+        const lastPart = parts[parts.length - 1];
+        // Se for um timestamp longo, pega os últimos 5 dígitos.
+        if (lastPart.length > 5) {
+            return lastPart.slice(-5);
+        }
+        // Se for um ID já curto ou diferente, retorna como está.
+        return lastPart;
+    }
+    return orderId;
+}
+
 export default function OrderHistoryPage() {
     const { orders, isLoaded } = useOrderHistory();
 
@@ -53,7 +67,7 @@ export default function OrderHistoryPage() {
                             <CardHeader className="bg-muted/50">
                                 <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
                                     <div>
-                                        <CardTitle className="font-headline text-xl text-primary">Pedido {order.id.split('-')[1]}</CardTitle>
+                                        <CardTitle className="font-headline text-xl text-primary">Pedido {getDisplayOrderId(order.id)}</CardTitle>
                                         <CardDescription className="flex items-center gap-2 mt-1 font-semibold">
                                             <Calendar className="h-4 w-4" />
                                             {format(new Date(order.date), "dd 'de' MMMM 'de' yyyy, 'às' HH:mm", { locale: ptBR })}
