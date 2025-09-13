@@ -939,16 +939,13 @@ Entrega: ${deliveryText}
 
     const getDisplayOrderId = (orderId: string) => {
         const parts = orderId.split('-');
-        if (parts.length > 1) {
-            const lastPart = parts[parts.length - 1];
-            // Se for um timestamp longo, pega os últimos 5 dígitos.
-            if (lastPart.length > 5) {
-                return lastPart.slice(-5);
-            }
-            // Se for um ID já curto ou diferente, retorna como está.
-            return lastPart;
+        const lastPart = parts.pop() || '';
+        // Se for um timestamp longo, pega os últimos 5 dígitos.
+        if (lastPart.length > 5 && /^\d+$/.test(lastPart)) {
+            return lastPart.slice(-5);
         }
-        return orderId;
+        // Se não for, retorna o que tiver (ex: o próprio "abc" ou um ID já curto)
+        return lastPart;
     }
 
     return (
