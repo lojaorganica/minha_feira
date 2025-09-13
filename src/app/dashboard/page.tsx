@@ -670,10 +670,11 @@ function ProductsTabContent({ products, farmerId, onProductUpdate }: { products:
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         {sortedProducts.map((product) => {
                             const isOutOfStock = product.stock !== undefined && product.stock <= 0;
+                            const isLojaOrganica = product.farmerId === '134';
 
                             return (
                                 <Card key={product.id} className={cn("flex flex-col border-primary border-2 transition-opacity", (product.status === 'paused' || isOutOfStock) && 'opacity-60')}>
-                                    <div className="relative bg-muted/30 aspect-[3/2]">
+                                    <div className={cn("relative bg-muted/30", isLojaOrganica ? "aspect-[3/4]" : "aspect-[3/2]")}>
                                         <Image 
                                             src={product.image} 
                                             alt={product.name} 
