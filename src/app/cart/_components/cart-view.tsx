@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { useCart } from "@/hooks/use-cart";
@@ -340,7 +341,7 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
     window.open(whatsappUrl, '_blank');
 
     const newOrder = {
-      id: `ORD-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
+      id: `ORD-${Date.now().toString().slice(-5)}`,
       customerName: user.name,
       items: cartItems.map(item => ({ productName: item.name, quantity: item.quantity })),
       status: 'Pendente' as 'Pendente',
