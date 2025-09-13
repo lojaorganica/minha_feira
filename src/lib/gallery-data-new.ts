@@ -219,7 +219,7 @@ function getFairCategories(fileName: string): GalleryFair[] {
 
 function getThemeCategories(fileName: string): GalleryTheme[] {
     const themes: GalleryTheme[] = [];
-     const themesMap: Record<string, GalleryTheme> = {
+    const themesMap: Record<string, GalleryTheme> = {
         'fot_': 'Fotografias',
         'aagr_': 'Agricultores - Animações e Cartoon',
         'aali_': 'Alimentos - Animações e Cartoon',
@@ -227,9 +227,18 @@ function getThemeCategories(fileName: string): GalleryTheme[] {
         'story': 'Story',
         'especial': 'Dias Especiais'
     };
-     for (const key in themesMap) {
+    
+    // Adiciona o tema de Personagens para 'todas_feiras' que sejam animações
+    if (fileName.includes('todas_feiras') && fileName.includes('ap_')) {
+        themes.push('Personagens - Animações e Cartoon');
+    }
+
+    for (const key in themesMap) {
         if (fileName.includes(key)) {
-            themes.push(themesMap[key]);
+            // Evita duplicatas
+            if (!themes.includes(themesMap[key])) {
+                themes.push(themesMap[key]);
+            }
         }
     }
     return themes;
