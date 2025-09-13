@@ -4,7 +4,7 @@ import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerClas
 
 // ============================================================================
 // IN-MEMORY DATA STORE WITH LOCALSTORAGE PERSISTENCE
-// ============================================================================
+// =================================e===========================================
 
 const PRODUCTS_KEY = 'minha_feira_products_v6';
 const FARMERS_KEY = 'minha_feira_farmers_v3';
@@ -24,11 +24,13 @@ function hydrateFromStorage() {
     if (storedProducts) {
       const parsedProducts: Product[] = JSON.parse(storedProducts);
       
-      // Robust validation: Check if the first product's description matches.
+      // Robust validation: Check if the description of the first and last product matches.
       // If not, the cache is considered invalid.
       const isCacheValid = parsedProducts.length > 0 && 
                            defaultProducts.length > 0 && 
-                           parsedProducts.find(p => p.id === defaultProducts[0].id)?.description === defaultProducts[0].description;
+                           parsedProducts.find(p => p.id === defaultProducts[0].id)?.description === defaultProducts[0].description &&
+                           parsedProducts.find(p => p.id === defaultProducts[defaultProducts.length - 1].id)?.description === defaultProducts[defaultProducts.length - 1].description;
+
 
       if (isCacheValid) {
          products = parsedProducts;
