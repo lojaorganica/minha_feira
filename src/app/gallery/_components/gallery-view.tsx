@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { useState, useMemo, Suspense, useEffect, useRef, useTransition } from 'react';
@@ -260,27 +261,16 @@ function GalleryViewContent() {
     const urlMatch = (item: GalleryItem, keyword: string) => item.url.includes(keyword);
 
     const filteredItems = useMemo(() => {
-        let items = sourceItems;
-
         const isSpecialCase = selectedFair === 'Todas' && selectedTheme === 'Personagens - Animações e Cartoon';
-        
         if (isSpecialCase) {
-             return items.filter(item => urlMatch(item, 'ap') && urlMatch(item, 'todas_feiras'));
+             return sourceItems.filter(item => urlMatch(item, 'ap') && urlMatch(item, 'todas_feiras'));
         }
 
-        if (selectedFair) {
-            items = items.filter(item => item.fair.includes(selectedFair as any));
-        }
-
-        if (selectedTheme) {
-             if (selectedTheme === 'Personagens - Animações e Cartoon') {
-                items = items.filter(item => urlMatch(item, 'ap'));
-            } else {
-                items = items.filter(item => item.theme.includes(selectedTheme as any));
-            }
-        }
-
-        return items;
+        return sourceItems.filter(item => {
+            const fairMatch = !selectedFair || item.fair.includes(selectedFair as any);
+            const themeMatch = !selectedTheme || item.theme.includes(selectedTheme as any);
+            return fairMatch && themeMatch;
+        });
     }, [sourceItems, selectedFair, selectedTheme]);
 
 
@@ -460,3 +450,4 @@ export default function GalleryView() {
     
 
     
+
