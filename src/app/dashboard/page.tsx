@@ -957,7 +957,7 @@ Entrega: ${deliveryText}
                             <CardHeader>
                                 <div className="flex justify-between items-start">
                                     <div>
-                                        <CardTitle className="font-headline text-2xl text-primary">{order.id.split('-').pop()}</CardTitle>
+                                        <CardTitle className="font-headline text-2xl text-primary">{order.id.substring(order.id.length - 6)}</CardTitle>
                                         <CardDescription className="text-base font-semibold text-foreground/90 flex items-center gap-2 mt-1">
                                             <User className="h-4 w-4"/>
                                             {order.customerName}
