@@ -246,8 +246,8 @@ function GalleryViewContent() {
     const { favorites, toggleFavorite, isFavorite } = useGalleryFavorites();
     const allItems = useMemo(() => getGalleryItems(), []);
     
-    const [selectedFair, setSelectedFair] = useState(searchParams.get('feira') || null);
-    const [selectedTheme, setSelectedTheme] = useState<string | null>(searchParams.get('tema') || null);
+    const selectedFair = searchParams.get('feira');
+    const selectedTheme = searchParams.get('tema');
     const [videoToPlay, setVideoToPlay] = useState<GalleryItem | null>(null);
     const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
     
@@ -257,15 +257,27 @@ function GalleryViewContent() {
         return isShowingFavorites ? favorites : allItems;
     }, [isShowingFavorites, favorites, allItems]);
     
+    const urlMatch = (item: GalleryItem, keyword: string) => item.url.includes(keyword);
+
     const filteredItems = useMemo(() => {
         let items = sourceItems;
+
+        const isSpecialCase = selectedFair === 'Todas' && selectedTheme === 'Personagens - Animações e Cartoon';
+        
+        if (isSpecialCase) {
+             return items.filter(item => urlMatch(item, 'ap') && urlMatch(item, 'todas_feiras'));
+        }
 
         if (selectedFair) {
             items = items.filter(item => item.fair.includes(selectedFair as any));
         }
 
         if (selectedTheme) {
-            items = items.filter(item => item.theme.includes(selectedTheme as any));
+             if (selectedTheme === 'Personagens - Animações e Cartoon') {
+                items = items.filter(item => urlMatch(item, 'ap'));
+            } else {
+                items = items.filter(item => item.theme.includes(selectedTheme as any));
+            }
         }
 
         return items;
@@ -276,12 +288,10 @@ function GalleryViewContent() {
         const currentParams = new URLSearchParams(searchParams.toString());
         
         if (type === 'fair') {
-            setSelectedFair(value);
             if (value) currentParams.set('feira', value);
             else currentParams.delete('feira');
         }
         if (type === 'theme') {
-             setSelectedTheme(value);
             if (value) currentParams.set('tema', value);
             else currentParams.delete('tema');
         }
