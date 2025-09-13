@@ -24,9 +24,11 @@ function hydrateFromStorage() {
     if (storedProducts) {
       const parsedProducts: Product[] = JSON.parse(storedProducts);
       
-      // Robust validation: Check if stored data is consistent with the source code data.
-      // If the description of the first product doesn't match, invalidate the entire cache.
-      const isCacheValid = parsedProducts.length > 0 && defaultProducts.length > 0 && parsedProducts[0].description === defaultProducts[0].description;
+      // Robust validation: Check if the first product's description matches.
+      // If not, the cache is considered invalid.
+      const isCacheValid = parsedProducts.length > 0 && 
+                           defaultProducts.length > 0 && 
+                           parsedProducts.find(p => p.id === defaultProducts[0].id)?.description === defaultProducts[0].description;
 
       if (isCacheValid) {
          products = parsedProducts;
@@ -36,6 +38,7 @@ function hydrateFromStorage() {
         products = defaultProducts;
       }
     } else {
+      // No stored products, initialize from default.
       localStorage.setItem(PRODUCTS_KEY, JSON.stringify(defaultProducts));
     }
 
@@ -1509,6 +1512,19 @@ let defaultProducts: Product[] = [
     description: 'Alface Frisée orgânica, de folhas crocantes e um leve amargor, ótima para saladas gourmet.',
     status: 'active',
     stock: 15,
+  },
+  {
+    id: '108',
+    name: 'Ora-pro-nóbis Orgânica',
+    category: 'Verdura',
+    price: 3.80,
+    unit: 'maço',
+    image: 'https://placehold.co/600x400.png',
+    dataAiHint: 'ora-pro-nobis',
+    farmerId: '1',
+    description: 'Planta rica em proteínas, conhecida por suas folhas nutritivas. Ideal para refogados, saladas e sucos.',
+    status: 'active',
+    stock: 25,
   }
 ];
 
@@ -2040,3 +2056,5 @@ export function updateCustomer(id: string, updates: Partial<Omit<Customer, 'id'>
 
 
   
+
+    
