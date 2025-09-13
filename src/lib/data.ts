@@ -128,7 +128,7 @@ const lojaOrganicaProducts: Product[] = [
     },
     {
         id: '136',
-        name: 'Mel de Flores de Eucalipto Orgânico',
+        name: 'Mel de Eucalipto Orgânico',
         price: 26.00,
         unit: 'pote',
         category: 'Apícola',
@@ -141,7 +141,7 @@ const lojaOrganicaProducts: Product[] = [
     },
     {
         id: '134',
-        name: 'Mel de Flores Silvestres Orgânico',
+        name: 'Mel Silvestre Orgânico',
         price: 25.00,
         unit: 'pote',
         category: 'Apícola',
