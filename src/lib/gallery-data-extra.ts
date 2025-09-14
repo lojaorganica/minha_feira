@@ -246,7 +246,7 @@ const allItemUrls: string[] = [
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_80_beterraba_de_ferro.mp4?alt=media&token=7c1b8c8d-69cd-4569-b1d5-94f3876007e1',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_82_mandiorpheus.mp4?alt=media&token=c1e19488-8422-48e0-a7d5-d0c3ab751515',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_85_brulk.mp4?alt=media&token=54e2840b-7157-418a-8664-9a8c6a086208',
-    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_89_uverine.mp4?alt=media&token=e9ea156e-8d5c-43bc-9d7a-d02f5a6b7d59',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_69_uverine.mp4?alt=media&token=dc53a7cd-c863-4973-affa-7a64d70a4802',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_90_limao_america.mp4?alt=media&token=1e5d3c63-6623-42eb-82b5-e6a3f5a11c8a',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_91_coisa_de_milho.mp4?alt=media&token=172e276f-0046-4c48-b4b1-87ab3c490ec9',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_92_uva_negra.mp4?alt=media&token=9635fddb-f35f-4d3b-9a99-8736ac4b3d7b',
@@ -279,15 +279,22 @@ function getFairCategories(fileName: string): GalleryFair[] {
 
 function getThemeCategories(fileName: string): GalleryTheme[] {
     const themes: GalleryTheme[] = [];
-    if (fileName.startsWith('fot_')) themes.push('Fotografias');
-    if (fileName.startsWith('aagr_')) themes.push('Agricultores - Animações e Cartoon');
-    if (fileName.startsWith('aali_')) themes.push('Alimentos - Animações e Cartoon');
-    if (fileName.startsWith('ap_')) themes.push('Personagens - Animações e Cartoon');
-    if (fileName.includes('_story_')) themes.push('Story');
-    if (fileName.startsWith('especial')) themes.push('Dias Especiais');
-    if (themes.length === 0) {
-        // Se nenhuma categoria específica for encontrada, não atribui nenhuma.
+    if (fileName.startsWith('fot_')) {
+        themes.push('Fotografias');
+    } else if (fileName.startsWith('aagr_')) {
+        themes.push('Agricultores - Animações e Cartoon');
+    } else if (fileName.startsWith('aali_')) {
+        themes.push('Alimentos - Animações e Cartoon');
+    } else if (fileName.startsWith('ap_')) {
+        themes.push('Personagens - Animações e Cartoon');
+    } else if (fileName.startsWith('especial')) {
+        themes.push('Dias Especiais');
     }
+
+    if (fileName.includes('_story_')) {
+        themes.push('Story');
+    }
+    
     return themes;
 }
 
