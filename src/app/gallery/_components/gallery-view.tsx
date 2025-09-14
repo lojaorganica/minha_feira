@@ -261,8 +261,18 @@ function GalleryViewContent() {
     
     const filteredItems = useMemo(() => {
         return sourceItems.filter(item => {
-            const fairMatch = !selectedFair || item.fair.includes(selectedFair as any);
             const themeMatch = !selectedTheme || item.theme.includes(selectedTheme as any);
+            
+            const fairMatch = (() => {
+                if (!selectedFair) {
+                    return true;
+                }
+                if (selectedFair === 'Todas') {
+                    return item.url.includes('todas_feiras');
+                }
+                return item.fair.includes(selectedFair as any);
+            })();
+
             return fairMatch && themeMatch;
         });
     }, [sourceItems, selectedFair, selectedTheme]);
