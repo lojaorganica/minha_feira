@@ -233,7 +233,25 @@ const allItemUrls: string[] = [
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_todas_feiras_81_mandiorpheus.mp4?alt=media&token=82f6e91f-0e8a-4d2b-bbd4-5cc8e4e758e9',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_todas_feiras_82_pepino_verde.mp4?alt=media&token=425d0c65-06a7-47b2-a429-2aa828a2a5f7',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_todas_feiras_64_inhame_aranha.png?alt=media&token=3526f683-a529-4c4a-adb0-62450cc3b513',
-    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_story_todas_feiras_80_pepino.png?alt=media&token=ba9dd9e5-75a3-453e-872f-62e03f804ab3'
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_story_todas_feiras_80_pepino.png?alt=media&token=ba9dd9e5-75a3-453e-872f-62e03f804ab3',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feiras_flamengo_laranjeiras_20_joaninha.png?alt=media&token=0b67e761-4603-4f96-b072-46603a95de1e',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_story_feiras_flamengo_laranjeiras_22_joaninha.png?alt=media&token=d1f4d924-f7c7-4340-9a2c-47343e061801',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_22_joaninha.mp4?alt=media&token=262074ba-e070-496a-9128-403310061e38',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_23_batatman.mp4?alt=media&token=e93a61f8-00b8-4c4e-9844-386d396a84d2',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_24_inhame_aranha.mp4?alt=media&token=14d59f0f-6294-4d64-9642-886985a9f5d3',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_25_sporock.mp4?alt=media&token=d6a9bf6b-74a9-4674-8b5e-f513ba6f5bc2',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_26_robinete.mp4?alt=media&token=d1f6920f-b44e-4b69-8fe0-c8f921f06a88',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_27_aqualface.mp4?alt=media&token=b7f584e0-352b-426b-8df2-ff2636eb01e0',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_79_pepino_verde.mp4?alt=media&token=25e364e0-593b-486a-8b83-a7c5ec4c7b8c',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_80_beterraba_de_ferro.mp4?alt=media&token=7c1b8c8d-69cd-4569-b1d5-94f3876007e1',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_82_mandiorpheus.mp4?alt=media&token=c1e19488-8422-48e0-a7d5-d0c3ab751515',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_85_brulk.mp4?alt=media&token=54e2840b-7157-418a-8664-9a8c6a086208',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_89_uverine.mp4?alt=media&token=e9ea156e-8d5c-43bc-9d7a-d02f5a6b7d59',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_90_limao_america.mp4?alt=media&token=1e5d3c63-6623-42eb-82b5-e6a3f5a11c8a',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_91_coisa_de_milho.mp4?alt=media&token=172e276f-0046-4c48-b4b1-87ab3c490ec9',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_92_uva_negra.mp4?alt=media&token=9635fddb-f35f-4d3b-9a99-8736ac4b3d7b',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_96_abobrinha_maravilha.mp4?alt=media&token=0d106ca8-7f93-4a11-b0e2-632345e69d9c',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_97_berinjela_negra.mp4?alt=media&token=78184f3e-52f5-4122-bcf8-f80e0471b058'
 ];
 
 function getFairCategories(fileName: string): GalleryFair[] {

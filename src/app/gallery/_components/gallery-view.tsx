@@ -75,9 +75,9 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
     };
 
     const { firstWord, rest } = useMemo(() => {
-        const parts = item.theme[0].split(' - ');
+        const parts = item.theme[0]?.split(' - ') || [item.title];
         return { firstWord: parts[0], rest: parts.slice(1).join(' - ') };
-    }, [item.theme]);
+    }, [item.theme, item.title]);
     
     return (
         <Card className="overflow-hidden flex flex-col">
@@ -258,27 +258,16 @@ function GalleryViewContent() {
         return isShowingFavorites ? favorites : allItems;
     }, [isShowingFavorites, favorites, allItems]);
     
-    
     const filteredItems = useMemo(() => {
-        let items = sourceItems;
-
-        if (selectedFair === 'Todas' && selectedTheme === 'Personagens - Animações e Cartoon') {
-            return items.filter(item => item.url.includes('ap_') && item.url.includes('todas_feiras'));
+        if (!selectedFair && !selectedTheme) {
+            return sourceItems;
         }
-
-        if (selectedFair) {
-            if (selectedFair === 'Todas') {
-                items = items.filter(item => item.fair.includes('Todas'));
-            } else {
-                items = items.filter(item => item.fair.includes(selectedFair as any));
-            }
-        }
-
-        if (selectedTheme) {
-            items = items.filter(item => item.theme.includes(selectedTheme as any));
-        }
-
-        return items;
+    
+        return sourceItems.filter(item => {
+            const fairMatch = selectedFair ? item.fair.includes(selectedFair as any) : true;
+            const themeMatch = selectedTheme ? item.theme.includes(selectedTheme as any) : true;
+            return fairMatch && themeMatch;
+        });
     }, [sourceItems, selectedFair, selectedTheme]);
 
 
@@ -454,7 +443,5 @@ export default function GalleryView() {
         </Suspense>
     );
 }
-
-    
 
     
