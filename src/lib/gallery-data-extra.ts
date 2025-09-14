@@ -294,6 +294,7 @@ function getFairCategories(fileName: string): GalleryFair[] {
 
 function getThemeCategories(fileName: string): GalleryTheme[] {
     const themes: GalleryTheme[] = [];
+    
     if (fileName.startsWith('fot_')) {
         themes.push('Fotografias');
     } else if (fileName.startsWith('aagr_')) {
