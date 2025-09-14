@@ -259,12 +259,8 @@ function GalleryViewContent() {
     }, [isShowingFavorites, favorites, allItems]);
     
     const filteredItems = useMemo(() => {
-        if (!selectedFair && !selectedTheme) {
-            return sourceItems;
-        }
-
         return sourceItems.filter(item => {
-            const fairMatch = !selectedFair || item.fair.includes(selectedFair as any);
+            const fairMatch = !selectedFair || (selectedFair === 'Todas' ? item.fair.includes('Todas') : item.fair.includes(selectedFair as any));
             const themeMatch = !selectedTheme || item.theme.includes(selectedTheme as any);
             return fairMatch && themeMatch;
         });
@@ -443,5 +439,3 @@ export default function GalleryView() {
         </Suspense>
     );
 }
-
-    

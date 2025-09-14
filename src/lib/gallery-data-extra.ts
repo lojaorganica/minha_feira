@@ -352,5 +352,3 @@ export function getExtraGalleryItems(): GalleryItem[] {
     };
   });
 }
-
-    

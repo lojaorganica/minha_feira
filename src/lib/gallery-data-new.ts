@@ -218,8 +218,7 @@ function getFairCategories(fileName: string): GalleryFair[] {
     if (fileName.includes('feira_leme')) {
         fairs.push('Leme');
     }
-    // Retorna um array, mesmo que vazio, para garantir consistência.
-    return fairs;
+    return fairs.length > 0 ? fairs : [];
 }
 
 function getThemeCategories(fileName: string): GalleryTheme[] {
@@ -240,7 +239,7 @@ function getThemeCategories(fileName: string): GalleryTheme[] {
         themes.push('Story');
     }
     
-    return themes;
+    return themes.length > 0 ? themes : [];
 }
 
 function extractFileNameFromUrl(url: string): string {
@@ -296,5 +295,3 @@ export function getNewGalleryItems(): GalleryItem[] {
     };
   });
 }
-
-    
