@@ -219,8 +219,6 @@ function getFairCategories(fileName: string): GalleryFair[] {
     if (fileName.includes('feira_leme')) {
         fairs.push('Leme');
     }
-    // If no specific fair is found, it might be for all, but let's be explicit
-    // and only return if a match is found. If no fairs, it's an empty array.
     return fairs;
 }
 
@@ -232,7 +230,7 @@ function getThemeCategories(fileName: string): GalleryTheme[] {
     if (fileName.startsWith('ap_')) themes.push('Personagens - Animações e Cartoon');
     if (fileName.includes('_story_')) themes.push('Story');
     if (fileName.startsWith('especial')) themes.push('Dias Especiais');
-    return themes.length > 0 ? themes : [];
+    return themes;
 }
 
 function extractFileNameFromUrl(url: string): string {
