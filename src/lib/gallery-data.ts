@@ -17,3 +17,4 @@ export function getGalleryItems(): GalleryItem[] {
   // A soma agora inclui todos os arquivos importados.
   return [...newItems, ...extraItems];
 }
+
