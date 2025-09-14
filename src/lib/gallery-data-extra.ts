@@ -166,6 +166,9 @@ const allItemUrls: string[] = [
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Faali_story_cartoon_011_todas_feiras.png?alt=media&token=7ef01ca7-f1bf-41ad-af39-0893982e5f21',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Faali_cartoon_022_feiras_flamengo_laranjeiras.png?alt=media&token=ec1b32ab-312e-4254-9eee-2c49db247a28',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Faali_story_cartoon_111_feiras_flamengo_laranjeiras.png?alt=media&token=9ecdc472-3533-4a7a-adc2-e23653a94743',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_tijuca_76_abobrinha_maravilha.png?alt=media&token=91fe35d1-61d0-4c47-aab4-be6a0cd06f30',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_tijuca_92_beterraba_de_ferro.png?alt=media&token=8082d54a-1cde-4893-9b5d-ec123e3f84f3',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_tijuca_81_pepino_verde.png?alt=media&token=b33cf144-855e-4731-aaf6-3de935f12bf8',
 ];
 
 function getFairCategories(fileName: string): GalleryFair[] {
@@ -272,3 +275,5 @@ export function getExtraGalleryItems(): GalleryItem[] {
     };
   });
 }
+
+    
