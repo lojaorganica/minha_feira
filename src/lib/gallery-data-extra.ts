@@ -238,13 +238,27 @@ const allItemUrls: string[] = [
 
 function getFairCategories(fileName: string): GalleryFair[] {
     const fairs: GalleryFair[] = [];
-    if (fileName.includes('todas_feiras')) fairs.push('Todas');
-    if (fileName.includes('feiras_flamengo_laranjeiras')) fairs.push('Flamengo e Laranjeiras');
-    if (fileName.includes('feira_grajau')) fairs.push('Grajaú');
-    if (fileName.includes('feira_tijuca')) fairs.push('Tijuca');
-    if (fileName.includes('feira_botafogo')) fairs.push('Botafogo');
-    if (fileName.includes('feira_leme')) fairs.push('Leme');
-    return fairs.length > 0 ? fairs : [];
+    if (fileName.includes('todas_feiras')) {
+        fairs.push('Todas');
+    }
+    if (fileName.includes('feiras_flamengo_laranjeiras')) {
+        fairs.push('Flamengo e Laranjeiras');
+    }
+    if (fileName.includes('feira_grajau')) {
+        fairs.push('Grajaú');
+    }
+    if (fileName.includes('feira_tijuca')) {
+        fairs.push('Tijuca');
+    }
+    if (fileName.includes('feira_botafogo')) {
+        fairs.push('Botafogo');
+    }
+    if (fileName.includes('feira_leme')) {
+        fairs.push('Leme');
+    }
+    // If no specific fair is found, it might be for all, but let's be explicit
+    // and only return if a match is found. If no fairs, it's an empty array.
+    return fairs;
 }
 
 function getThemeCategories(fileName: string): GalleryTheme[] {

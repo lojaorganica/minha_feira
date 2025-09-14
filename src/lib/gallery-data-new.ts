@@ -125,7 +125,7 @@ const allItemUrls: string[] = [
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_33_batatman.png?alt=media&token=58dce275-1ad8-4a64-a9ff-a09a16044873',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_34_inhame_aranha.png?alt=media&token=ebfea0f7-9fd5-45dd-9306-62296927d9fa',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_36_robinete.png?alt=media&token=03a9fa8f-7355-4026-ae04-8723c4cdd92c',
-    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_42_aqualface.png?alt=media&token=3655cf86-971a-4be9-8ab0-b229e14bf849',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_42_aqualface.png?alt=media&token=3655cf86-971a-4be9-8ab0-b229e14bf842',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_42_sporock.png?alt=media&token=70a8f0d1-ba90-4a1e-ad7e-e16a8b8449a4',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_44_uva_negra.png?alt=media&token=5fc8eab0-1427-430f-8c6b-cf2bab24ece3',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_46_coisa_de_milho.png?alt=media&token=956aa132-883e-48c6-9872-2f9137a44e78',
@@ -201,13 +201,27 @@ const allItemUrls: string[] = [
 
 function getFairCategories(fileName: string): GalleryFair[] {
     const fairs: GalleryFair[] = [];
-    if (fileName.includes('todas_feiras')) fairs.push('Todas');
-    if (fileName.includes('feiras_flamengo_laranjeiras')) fairs.push('Flamengo e Laranjeiras');
-    if (fileName.includes('feira_grajau')) fairs.push('Grajaú');
-    if (fileName.includes('feira_tijuca')) fairs.push('Tijuca');
-    if (fileName.includes('feira_botafogo')) fairs.push('Botafogo');
-    if (fileName.includes('feira_leme')) fairs.push('Leme');
-    return fairs.length > 0 ? fairs : [];
+    if (fileName.includes('todas_feiras')) {
+        fairs.push('Todas');
+    }
+    if (fileName.includes('feiras_flamengo_laranjeiras')) {
+        fairs.push('Flamengo e Laranjeiras');
+    }
+    if (fileName.includes('feira_grajau')) {
+        fairs.push('Grajaú');
+    }
+    if (fileName.includes('feira_tijuca')) {
+        fairs.push('Tijuca');
+    }
+    if (fileName.includes('feira_botafogo')) {
+        fairs.push('Botafogo');
+    }
+    if (fileName.includes('feira_leme')) {
+        fairs.push('Leme');
+    }
+    // If no specific fair is found, it might be for all, but let's be explicit
+    // and only return if a match is found. If no fairs, it's an empty array.
+    return fairs;
 }
 
 function getThemeCategories(fileName: string): GalleryTheme[] {
