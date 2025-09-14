@@ -238,39 +238,24 @@ const allItemUrls: string[] = [
 
 function getFairCategories(fileName: string): GalleryFair[] {
     const fairs: GalleryFair[] = [];
-    const fairsMap: Record<string, GalleryFair> = {
-        'todas_feiras': 'Todas',
-        'feiras_flamengo_laranjeiras': 'Flamengo e Laranjeiras',
-        'feira_grajau': 'Grajaú',
-        'feira_tijuca': 'Tijuca',
-        'feira_botafogo': 'Botafogo',
-        'feira_leme': 'Leme',
-    };
-    for (const key in fairsMap) {
-        if (fileName.includes(key)) {
-            fairs.push(fairsMap[key]);
-        }
-    }
-    return fairs.length > 0 ? fairs : ['Todas'];
+    if (fileName.includes('todas_feiras')) fairs.push('Todas');
+    if (fileName.includes('feiras_flamengo_laranjeiras')) fairs.push('Flamengo e Laranjeiras');
+    if (fileName.includes('feira_grajau')) fairs.push('Grajaú');
+    if (fileName.includes('feira_tijuca')) fairs.push('Tijuca');
+    if (fileName.includes('feira_botafogo')) fairs.push('Botafogo');
+    if (fileName.includes('feira_leme')) fairs.push('Leme');
+    return fairs.length > 0 ? fairs : [];
 }
 
 function getThemeCategories(fileName: string): GalleryTheme[] {
     const themes: GalleryTheme[] = [];
-    const themesMap: Record<string, GalleryTheme> = {
-        'fot_': 'Fotografias',
-        'aagr_': 'Agricultores - Animações e Cartoon',
-        'aali_': 'Alimentos - Animações e Cartoon',
-        'ap_': 'Personagens - Animações e Cartoon',
-        'story': 'Story',
-        'especial': 'Dias Especiais'
-    };
-
-    for (const key in themesMap) {
-        if (fileName.includes(key)) {
-            themes.push(themesMap[key]);
-        }
-    }
-    return themes.length > 0 ? themes : ['Fotografias'];
+    if (fileName.startsWith('fot_')) themes.push('Fotografias');
+    if (fileName.startsWith('aagr_')) themes.push('Agricultores - Animações e Cartoon');
+    if (fileName.startsWith('aali_')) themes.push('Alimentos - Animações e Cartoon');
+    if (fileName.startsWith('ap_')) themes.push('Personagens - Animações e Cartoon');
+    if (fileName.includes('_story_')) themes.push('Story');
+    if (fileName.startsWith('especial')) themes.push('Dias Especiais');
+    return themes.length > 0 ? themes : [];
 }
 
 function extractFileNameFromUrl(url: string): string {

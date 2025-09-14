@@ -260,19 +260,25 @@ function GalleryViewContent() {
     
     
     const filteredItems = useMemo(() => {
-        // Regra especial
+        let items = sourceItems;
+
         if (selectedFair === 'Todas' && selectedTheme === 'Personagens - Animações e Cartoon') {
-            return sourceItems.filter(item => 
-                item.url.includes('ap_') && item.url.includes('todas_feiras')
-            );
+            return items.filter(item => item.url.includes('ap_') && item.url.includes('todas_feiras'));
         }
 
-        // Filtro padrão
-        return sourceItems.filter(item => {
-            const themeMatch = !selectedTheme || item.theme.includes(selectedTheme as any);
-            const fairMatch = !selectedFair || (selectedFair === 'Todas' ? item.url.includes('todas_feiras') : item.fair.includes(selectedFair as any));
-            return themeMatch && fairMatch;
-        });
+        if (selectedFair) {
+            if (selectedFair === 'Todas') {
+                items = items.filter(item => item.fair.includes('Todas'));
+            } else {
+                items = items.filter(item => item.fair.includes(selectedFair as any));
+            }
+        }
+
+        if (selectedTheme) {
+            items = items.filter(item => item.theme.includes(selectedTheme as any));
+        }
+
+        return items;
     }, [sourceItems, selectedFair, selectedTheme]);
 
 
@@ -448,5 +454,7 @@ export default function GalleryView() {
         </Suspense>
     );
 }
+
+    
 
     

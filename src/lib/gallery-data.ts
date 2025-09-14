@@ -18,3 +18,4 @@ export function getGalleryItems(): GalleryItem[] {
   return [...newItems, ...extraItems];
 }
 
+    
