@@ -260,20 +260,18 @@ function GalleryViewContent() {
     
     
     const filteredItems = useMemo(() => {
+        // Regra especial
+        if (selectedFair === 'Todas' && selectedTheme === 'Personagens - Animações e Cartoon') {
+            return sourceItems.filter(item => 
+                item.url.includes('ap_') && item.url.includes('todas_feiras')
+            );
+        }
+
+        // Filtro padrão
         return sourceItems.filter(item => {
             const themeMatch = !selectedTheme || item.theme.includes(selectedTheme as any);
-            
-            const fairMatch = (() => {
-                if (!selectedFair) {
-                    return true;
-                }
-                if (selectedFair === 'Todas') {
-                    return item.url.includes('todas_feiras');
-                }
-                return item.fair.includes(selectedFair as any);
-            })();
-
-            return fairMatch && themeMatch;
+            const fairMatch = !selectedFair || (selectedFair === 'Todas' ? item.url.includes('todas_feiras') : item.fair.includes(selectedFair as any));
+            return themeMatch && fairMatch;
         });
     }, [sourceItems, selectedFair, selectedTheme]);
 
@@ -450,12 +448,5 @@ export default function GalleryView() {
         </Suspense>
     );
 }
-
-    
-
-    
-
-
-
 
     

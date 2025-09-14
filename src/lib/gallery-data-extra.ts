@@ -231,7 +231,9 @@ const allItemUrls: string[] = [
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_todas_feiras_74_brulk.mp4?alt=media&token=056c7e2b-f111-477c-a4b5-827d08f395f1',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_todas_feiras_78_abobrinha_maravilha.mp4?alt=media&token=7c1c2a0d-b4d6-444c-ac9a-653df3985160',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_todas_feiras_81_mandiorpheus.mp4?alt=media&token=82f6e91f-0e8a-4d2b-bbd4-5cc8e4e758e9',
-    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_todas_feiras_82_pepino_verde.mp4?alt=media&token=425d0c65-06a7-47b2-a429-2aa828a2a5f7'
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_todas_feiras_82_pepino_verde.mp4?alt=media&token=425d0c65-06a7-47b2-a429-2aa828a2a5f7',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_todas_feiras_64_inhame_aranha.png?alt=media&token=3526f683-a529-4c4a-adb0-62450cc3b513',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_story_todas_feiras_80_pepino.png?alt=media&token=ba9dd9e5-75a3-453e-872f-62e03f804ab3'
 ];
 
 function getFairCategories(fileName: string): GalleryFair[] {
@@ -249,7 +251,7 @@ function getFairCategories(fileName: string): GalleryFair[] {
             fairs.push(fairsMap[key]);
         }
     }
-    return fairs;
+    return fairs.length > 0 ? fairs : ['Todas'];
 }
 
 function getThemeCategories(fileName: string): GalleryTheme[] {
@@ -268,7 +270,7 @@ function getThemeCategories(fileName: string): GalleryTheme[] {
             themes.push(themesMap[key]);
         }
     }
-    return themes;
+    return themes.length > 0 ? themes : ['Fotografias'];
 }
 
 function extractFileNameFromUrl(url: string): string {
@@ -324,7 +326,5 @@ export function getExtraGalleryItems(): GalleryItem[] {
     };
   });
 }
-
-  
 
     
