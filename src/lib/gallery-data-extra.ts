@@ -154,6 +154,8 @@ const allItemUrls: string[] = [
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_chuva_23_feiras_flamengo_laranjeiras.png?alt=media&token=7f5df071-2da1-438f-a425-bbfe8464d0b1',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Faali_cartoon_035_beterraba_feiras_flamengo_laranjeiras.png?alt=media&token=a8c4c8eb-4d1c-41c0-a8ff-a7e20fc42ea4',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Faali_story_cartoon_033_beterraba_feiras_flamengo_laranjeiras.png?alt=media&token=aa3d03c3-6625-4e86-9582-d5d1a9a9af80',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Faali_cartoon_046_feiras_flamengo_laranjeiras.png?alt=media&token=0838d3d8-3791-4b6c-b4b8-97216fa47f9a',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Faali_story_cartoon_022_feiras_flamengo_laranjeiras.png?alt=media&token=ada022f6-1600-4b46-b018-a84da1cd9348',
 ];
 
 function getFairCategories(fileName: string): GalleryFair[] {
