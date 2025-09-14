@@ -285,8 +285,12 @@ function getThemeCategories(fileName: string): GalleryTheme[] {
     if (fileName.startsWith('ap_')) themes.push('Personagens - Animações e Cartoon');
     if (fileName.includes('_story_')) themes.push('Story');
     if (fileName.startsWith('especial')) themes.push('Dias Especiais');
+    if (themes.length === 0) {
+        // Se nenhuma categoria específica for encontrada, não atribui nenhuma.
+    }
     return themes;
 }
+
 
 function extractFileNameFromUrl(url: string): string {
     try {

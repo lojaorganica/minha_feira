@@ -218,17 +218,28 @@ function getFairCategories(fileName: string): GalleryFair[] {
     if (fileName.includes('feira_leme')) {
         fairs.push('Leme');
     }
+    // Retorna um array, mesmo que vazio, para garantir consistência.
     return fairs;
 }
 
 function getThemeCategories(fileName: string): GalleryTheme[] {
     const themes: GalleryTheme[] = [];
-    if (fileName.startsWith('fot_')) themes.push('Fotografias');
-    if (fileName.startsWith('aagr_')) themes.push('Agricultores - Animações e Cartoon');
-    if (fileName.startsWith('aali_')) themes.push('Alimentos - Animações e Cartoon');
-    if (fileName.startsWith('ap_')) themes.push('Personagens - Animações e Cartoon');
-    if (fileName.includes('_story_')) themes.push('Story');
-    if (fileName.startsWith('especial')) themes.push('Dias Especiais');
+    if (fileName.startsWith('fot_')) {
+        themes.push('Fotografias');
+    } else if (fileName.startsWith('aagr_')) {
+        themes.push('Agricultores - Animações e Cartoon');
+    } else if (fileName.startsWith('aali_')) {
+        themes.push('Alimentos - Animações e Cartoon');
+    } else if (fileName.startsWith('ap_')) {
+        themes.push('Personagens - Animações e Cartoon');
+    } else if (fileName.startsWith('especial')) {
+        themes.push('Dias Especiais');
+    }
+
+    if (fileName.includes('_story_')) {
+        themes.push('Story');
+    }
+    
     return themes;
 }
 

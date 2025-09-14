@@ -262,10 +262,10 @@ function GalleryViewContent() {
         if (!selectedFair && !selectedTheme) {
             return sourceItems;
         }
-    
+
         return sourceItems.filter(item => {
-            const fairMatch = selectedFair ? item.fair.includes(selectedFair as any) : true;
-            const themeMatch = selectedTheme ? item.theme.includes(selectedTheme as any) : true;
+            const fairMatch = !selectedFair || item.fair.includes(selectedFair as any);
+            const themeMatch = !selectedTheme || item.theme.includes(selectedTheme as any);
             return fairMatch && themeMatch;
         });
     }, [sourceItems, selectedFair, selectedTheme]);
