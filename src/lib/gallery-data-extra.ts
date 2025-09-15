@@ -305,6 +305,7 @@ const allItemUrls: string[] = [
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fespecial_dia_das_maes_10a.jpg?alt=media&token=04867325-bff0-4e2d-a18a-3eedcd98cae7',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fespecial_dia_dos_pais_01.png?alt=media&token=1f495bf8-a68e-4371-b223-6474da1007bd',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fespecial_dia_dos_pais_112.jpg?alt=media&token=6b46a3dd-498c-4944-b38b-e22f3e148a81',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Faagr_feira_tijuca_34_luciene.mp4?alt=media&token=cdcf9e6d-6bd3-4582-86f3-65ae7d427a74'
 ];
 
 function getFairCategories(fileName: string): GalleryFair[] {
