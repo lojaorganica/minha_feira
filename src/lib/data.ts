@@ -608,7 +608,6 @@ const domicilioOrganicoProducts: Product[] = [
         stock: 40
     },
     ...allFruits
-    .filter(fruit => fruit.name !== 'Amora Orgânica') // Evita a duplicação da Amora
     .map((fruit, index) => ({
       ...fruit,
       id: `domicilio-fruit-${index}-${fruit.id}`,
@@ -1966,6 +1965,188 @@ const defaultProducts: Product[] = [
     description: 'Feijão vermelho orgânico, de grãos firmes, ideal para sopas, saladas e pratos com inspiração mexicana.',
     status: 'active',
     stock: 40
+  },
+  {
+    id: 'prod-laranja-lima',
+    name: 'Laranja Lima Orgânica',
+    category: 'Fruta',
+    price: 5.20,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/laranja_lima.webp?alt=media&token=df719cd2-1767-436b-9ab5-b2a55c3a2000',
+    dataAiHint: 'lima orange',
+    farmerId: '2',
+    description: 'Laranja Lima, de sabor suave e doce, com baixa acidez, ideal para bebês e crianças.',
+    status: 'active',
+    stock: 30
+  },
+  {
+    id: 'prod-manga-carlotinha',
+    name: 'Manga Carlotinha Orgânica',
+    category: 'Fruta',
+    price: 7.00,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/manga_carlotinha.webp?alt=media&token=0417fa54-ab7b-4bf2-9078-1945e2da9b07',
+    dataAiHint: 'carlotinha mango',
+    farmerId: '2',
+    description: 'Manga Carlotinha, variedade de sabor adocicado e polpa suculenta.',
+    status: 'active',
+    stock: 25
+  },
+  {
+    id: 'prod-manga-tommy',
+    name: 'Manga Tommy Orgânica',
+    category: 'Fruta',
+    price: 6.80,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/manga_tommy.webp?alt=media&token=a5b2a911-0dc0-4266-a433-08c018eb8b68',
+    dataAiHint: 'tommy atkins mango',
+    farmerId: '2',
+    description: 'Manga Tommy, a mais popular do Brasil, com polpa firme e sabor que equilibra doce e ácido.',
+    status: 'active',
+    stock: 45
+  },
+  {
+    id: 'prod-mexerica-bergamota',
+    name: 'Mexerica Bergamota Orgânica',
+    category: 'Fruta',
+    price: 5.80,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mexerica_bergamota.webp?alt=media&token=452f0390-d797-4c48-acb1-996b765ea883',
+    dataAiHint: 'bergamot tangerine',
+    farmerId: '2',
+    description: 'Mexerica Bergamota (ou vergamota), muito aromática e de sabor intenso, um clássico do sul.',
+    status: 'active',
+    stock: 25
+  },
+  {
+    id: 'prod-mexerica-ole',
+    name: 'Mexerica Olé Orgânica',
+    category: 'Fruta',
+    price: 6.00,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mexerica_ole.webp?alt=media&token=67cc4615-dfe9-47ba-b982-fe173d0c3023',
+    dataAiHint: 'ole tangerine',
+    farmerId: '2',
+    description: 'Mexerica Olé, variedade nova de casca fina, sem sementes e muito suculenta.',
+    status: 'active',
+    stock: 20
+  },
+  {
+    id: 'prod-milho-verde',
+    name: 'Milho Verde Orgânico',
+    category: 'Grão e Cereal',
+    price: 4.50,
+    unit: 'unidade',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/milho_verde.webp?alt=media&token=06cf8e19-7d36-42eb-8b27-cde60f2c41d6',
+    dataAiHint: 'green corn',
+    farmerId: '5',
+    description: 'Milho verde orgânico, doce e macio. Perfeito para cozinhar, assar na brasa ou para pamonhas e curau.',
+    status: 'active',
+    stock: 60
+  },
+  {
+    id: 'prod-melancia-mini',
+    name: 'Melancia Mini Orgânica',
+    category: 'Fruta',
+    price: 9.00,
+    unit: 'unidade',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mini_melancia.webp?alt=media&token=e26cd7c8-9313-4eb6-8c60-050147ea898b',
+    dataAiHint: 'mini watermelon',
+    farmerId: '2',
+    description: 'Mini melancia, com todo o sabor e doçura da melancia tradicional em um tamanho prático.',
+    status: 'active',
+    stock: 15
+  },
+  {
+    id: 'prod-oregano',
+    name: 'Orégano Orgânico',
+    category: 'Tempero',
+    price: 3.50,
+    unit: 'maço',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/oregano.webp?alt=media&token=0b64f7ac-1aa4-4e21-a6b0-67eee4c6124e',
+    dataAiHint: 'oregano',
+    farmerId: '3',
+    description: 'Orégano fresco, com aroma intenso que realça molhos, pizzas e carnes.',
+    status: 'active',
+    stock: 30
+  },
+  {
+    id: 'prod-pepino-caipira',
+    name: 'Pepino Caipira Orgânico',
+    category: 'Legume',
+    price: 3.80,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pepino_caipira.webp?alt=media&token=5e96c1ce-de1b-475d-9d12-4fa0b6d269e4',
+    dataAiHint: 'caipira cucumber',
+    farmerId: '1',
+    description: 'Pepino caipira, variedade mais rústica de sabor marcante, ideal para saladas e picles.',
+    status: 'active',
+    stock: 25
+  },
+  {
+    id: 'prod-pessego',
+    name: 'Pêssego Orgânico',
+    category: 'Fruta',
+    price: 9.50,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pessego.webp?alt=media&token=40ca1fb9-a000-4b9e-bbd5-52775e5d0720',
+    dataAiHint: 'peach',
+    farmerId: '2',
+    description: 'Pêssegos orgânicos, suculentos e aveludados, para comer ao natural ou em compotas e tortas.',
+    status: 'active',
+    stock: 20
+  },
+  {
+    id: 'prod-pimentao-vermelho',
+    name: 'Pimentão Vermelho Orgânico',
+    category: 'Fruta',
+    price: 3.50,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pimentao_vermelho.webp?alt=media&token=3d566dc3-61ba-4f68-9b7c-9004207bb8ff',
+    dataAiHint: 'red bell pepper',
+    farmerId: '2',
+    description: 'Pimentão vermelho, o mais doce entre os pimentões, ótimo para assados, saladas e molhos.',
+    status: 'active',
+    stock: 15
+  },
+  {
+    id: 'prod-poejo',
+    name: 'Poejo Orgânico',
+    category: 'Tempero',
+    price: 3.00,
+    unit: 'maço',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/poejo.webp?alt=media&token=47edb116-120c-4c97-910a-a6c49e85a8e9',
+    dataAiHint: 'pennyroyal',
+    farmerId: '3',
+    description: 'Poejo, erva de aroma mentolado intenso, usada em chás e licores.',
+    status: 'active',
+    stock: 20
+  },
+  {
+    id: 'prod-quiabo',
+    name: 'Quiabo Orgânico',
+    category: 'Legume',
+    price: 4.80,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/quiabo.webp?alt=media&token=de5f050e-8c83-46ab-9671-e370b659ff1f',
+    dataAiHint: 'okra',
+    farmerId: '1',
+    description: 'Quiabo orgânico, sem baba, perfeito para o clássico frango com quiabo e outras receitas.',
+    status: 'active',
+    stock: 30
+  },
+  {
+    id: 'prod-radicchio',
+    name: 'Radicchio Orgânico',
+    category: 'Verdura',
+    price: 5.00,
+    unit: 'unidade',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/radicchio.webp?alt=media&token=473281ea-32f7-4a12-a93a-23a821b91505',
+    dataAiHint: 'radicchio',
+    farmerId: '1',
+    description: 'Radicchio, uma verdura de folhas arroxeadas e sabor amargo, ideal para saladas sofisticadas.',
+    status: 'active',
+    stock: 15
   }
 ];
 
@@ -2484,3 +2665,5 @@ export function addFarmer(farmerData: Omit<Farmer, 'id' | 'location' | 'image'>)
     setStoredData(FARMERS_KEY, allFarmers);
     return newFarmer;
 }
+
+    
