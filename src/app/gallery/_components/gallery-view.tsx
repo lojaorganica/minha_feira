@@ -119,7 +119,7 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
                         onClick={handleToggleFavorite}
                         >
                         <Heart className={cn(
-                            "h-6 w-6 drop-shadow-md transition-colors group-hover:fill-destructive group-hover:stroke-destructive",
+                            "h-6 w-6 drop-shadow-md transition-colors",
                             isCurrentlyFavorite
                                 ? "fill-destructive stroke-destructive animate-pulse-heart"
                                 : "stroke-white fill-white"
@@ -330,10 +330,10 @@ function GalleryViewContent() {
                 <BackButton />
                 <button
                     onClick={handleToggleShowFavorites}
-                    className="p-2 rounded-full bg-transparent border-none focus:outline-none focus:ring-0 focus:ring-offset-0 focus-visible:bg-transparent active:bg-transparent hover:bg-transparent [-webkit-tap-highlight-color:transparent] group"
+                    className="p-2 rounded-full bg-transparent border-none focus:outline-none focus:ring-0 focus:ring-offset-0 focus-visible:bg-transparent active:bg-transparent hover:bg-transparent [-webkit-tap-highlight-color:transparent]"
                 >
                     <Heart className={cn(
-                        "h-7 w-7 transition-colors group-hover:fill-destructive group-hover:stroke-destructive",
+                        "h-7 w-7 transition-colors",
                         isShowingFavorites
                             ? "fill-destructive stroke-destructive"
                             : "stroke-primary fill-white"
