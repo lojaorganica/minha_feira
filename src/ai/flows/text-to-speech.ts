@@ -66,7 +66,7 @@ const generateSpeechFlow = ai.defineFlow(
         responseModalities: ['AUDIO'],
         speechConfig: {
           voiceConfig: {
-            prebuiltVoiceConfig: { voiceName: 'Rey' }, // Voz feminina válida e garantida.
+            prebuiltVoiceConfig: { voiceName: 'Narration-Female-BRA-1' }, // Voz feminina válida e garantida.
           },
         },
       },
