@@ -306,7 +306,9 @@ export default function RomaneioPage() {
             let responseText = "";
             let currentData = [...romaneioData];
 
-            if (result.clearAll) {
+            if (result.conversationalResponse) {
+                responseText = result.conversationalResponse;
+            } else if (result.clearAll) {
                 currentData = romaneioData.map(item => ({ ...item, quantidade: '', fornecedor: '' }));
                 responseText = "Entendido. O romaneio foi limpo.";
             } else if (result.items.length > 0) {
