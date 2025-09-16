@@ -8,6 +8,7 @@ import { OrderHistoryProvider } from '@/components/order-history-provider';
 import AppShell from '@/components/app-shell';
 import { FavoritesProvider } from '@/hooks/use-favorites.tsx';
 import { GalleryFavoritesProvider } from '@/hooks/use-gallery-favorites';
+import SofiaAssistant from '@/components/sofia-assistant';
 
 export const metadata: Metadata = {
   title: 'Minha Feira',
@@ -32,6 +33,7 @@ export default function RootLayout({
                       <AppShell>
                         {children}
                       </AppShell>
+                      <SofiaAssistant />
                       <Toaster />
                   </SearchProvider>
               </CartProvider>
