@@ -325,15 +325,15 @@ function GalleryViewContent() {
 
 
     return (
-        <div>
+        <div className="desktop-device">
             <div className="flex justify-between items-center mb-4">
                 <BackButton />
                 <button
                     onClick={handleToggleShowFavorites}
-                    className="p-2 rounded-full bg-transparent border-none focus:outline-none focus:ring-0 focus:ring-offset-0 focus-visible:bg-transparent active:bg-transparent hover:bg-transparent [-webkit-tap-highlight-color:transparent]"
+                    className="p-2 rounded-full group bg-transparent border-none focus:outline-none focus:ring-0 focus:ring-offset-0 focus-visible:bg-transparent active:bg-transparent hover:bg-transparent [-webkit-tap-highlight-color:transparent]"
                 >
                     <Heart className={cn(
-                        "h-7 w-7 transition-colors",
+                        "h-7 w-7 transition-colors desktop-device:group-hover:fill-destructive desktop-device:group-hover:stroke-destructive",
                         isShowingFavorites
                             ? "fill-destructive stroke-destructive"
                             : "stroke-primary fill-white"
@@ -439,3 +439,5 @@ export default function GalleryView() {
         </Suspense>
     );
 }
+
+    
