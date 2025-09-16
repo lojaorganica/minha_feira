@@ -607,7 +607,9 @@ const domicilioOrganicoProducts: Product[] = [
         status: 'active',
         stock: 40
     },
-    ...allFruits.map((fruit, index) => ({
+    ...allFruits
+    .filter(fruit => fruit.name !== 'Amora Orgânica') // Evita a duplicação da Amora
+    .map((fruit, index) => ({
       ...fruit,
       id: `domicilio-fruit-${index}-${fruit.id}`,
       farmerId: '6',
@@ -1769,6 +1771,71 @@ const defaultProducts: Product[] = [
     description: 'Planta rica em proteínas, conhecida por suas folhas nutritivas. Ideal para refogados, saladas e sucos.',
     status: 'active',
     stock: 20
+  },
+  {
+    id: '92',
+    name: 'Abóbora Baianinha Orgânica',
+    category: 'Legume',
+    price: 3.90,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/abobora_baianinha.webp?alt=media&token=9860ba6a-82f2-439b-92c2-0c57d6d338a3',
+    dataAiHint: 'brazilian squash',
+    farmerId: '1',
+    description: 'Abóbora Baianinha, de polpa alaranjada e sabor adocicado, ótima para doces e purês.',
+    status: 'active',
+    stock: 15
+  },
+  {
+    id: '93',
+    name: 'Aipo Orgânico',
+    category: 'Tempero',
+    price: 3.70,
+    unit: 'unidade',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/aipo.webp?alt=media&token=568de33a-7127-4e14-a96e-cce9357ebbf2',
+    dataAiHint: 'celery',
+    farmerId: '3',
+    description: 'Aipo (ou salsão) com talos crocantes e sabor aromático, excelente para caldos, sopas e saladas.',
+    status: 'active',
+    stock: 22
+  },
+  {
+    id: '94',
+    name: 'Alface Frisée Orgânica',
+    category: 'Verdura',
+    price: 3.30,
+    unit: 'unidade',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_frisee.webp?alt=media&token=060f2493-fb76-4a37-b40a-5de7bd0981c9',
+    dataAiHint: 'frisee lettuce',
+    farmerId: '1',
+    description: 'Alface Frisée, com folhas finas, rendadas e um sabor levemente amargo, ideal para saladas sofisticadas.',
+    status: 'active',
+    stock: 18
+  },
+  {
+    id: '95',
+    name: 'Alface Mimosa Roxa Orgânica',
+    category: 'Verdura',
+    price: 3.10,
+    unit: 'unidade',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_mimosa_roxa.webp?alt=media&token=c8b001dc-6f00-486f-af0a-22c99ed83d01',
+    dataAiHint: 'red mimosa lettuce',
+    farmerId: '1',
+    description: 'Alface Mimosa com folhas tenras e bordas avermelhadas, de sabor suave e amanteigado.',
+    status: 'active',
+    stock: 25
+  },
+  {
+    id: '96',
+    name: 'Alface Mimosa Verde Orgânica',
+    category: 'Verdura',
+    price: 3.10,
+    unit: 'unidade',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_mimosa_verde.webp?alt=media&token=4635346b-69f9-4a54-94b6-8cb1b85f4afb',
+    dataAiHint: 'green mimosa lettuce',
+    farmerId: '1',
+    description: 'Alface Mimosa de folhas macias e sabor delicado, uma variedade clássica e muito apreciada.',
+    status: 'active',
+    stock: 25
   }
 ];
 
