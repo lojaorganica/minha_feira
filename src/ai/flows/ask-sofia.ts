@@ -84,6 +84,13 @@ const askSofiaFlow = ai.defineFlow(
     outputSchema: AskSofiaOutputSchema,
   },
   async ({ question }) => {
+    // Para a simulação, vamos ignorar a transcrição de áudio e usar uma pergunta fixa.
+    // O prompt está preparado para responder a perguntas como "qual o seu nome" ou "o que você faz".
+    // Em uma implementação real, usaríamos um flow de Speech-to-Text aqui.
+    if (!question || question.trim() === '') {
+        question = "Me fale sobre o aplicativo.";
+    }
+    
     const { output } = await sofiaPrompt({ question });
     return output!;
   }
