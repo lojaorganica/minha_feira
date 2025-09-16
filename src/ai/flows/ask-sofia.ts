@@ -13,6 +13,7 @@ import { z } from 'zod';
 
 const AskSofiaInputSchema = z.object({
   question: z.string().describe('The user\'s question about the app.'),
+  userName: z.string().optional().describe("The user's first name."),
 });
 export type AskSofiaInput = z.infer<typeof AskSofiaInputSchema>;
 
@@ -37,6 +38,11 @@ const sofiaPrompt = ai.definePrompt({
   - **Objetivo:** Resolver dúvidas e incentivar o uso das funcionalidades, explicando seus benefícios.
   - **Regra de Ouro:** Você NUNCA processa pedidos, altera dados ou navega pelo app. Sua única função é CONVERSAR e INFORMAR. Se pedirem para você fazer algo (ex: "adicione um produto"), explique educadamente que você só pode tirar dúvidas e guiar.
 
+  **CONTEXTO DO USUÁRIO:**
+  {{#if userName}}
+  - Você está falando com **{{userName}}**. Use o nome dele para uma saudação inicial amigável (ex: "Olá, {{userName}}! Como posso ajudar?"), mas não repita o nome a cada frase para soar natural.
+  {{/if}}
+
   **SUA BASE DE CONHECIMENTO (Use isso para formular suas respostas):**
 
   1.  **O que é o App Minha Feira?**
@@ -50,11 +56,11 @@ const sofiaPrompt = ai.definePrompt({
 
   3.  **Funcionalidades para AGRICULTORES:**
       - **Painel de Controle:** Onde gerenciam tudo.
-      - **Meus Produtos:** Podem adicionar, editar preço/detalhes, pausar (esconder do catálogo) e colocar produtos em PROMOÇÃO por 7 dias.
+      - **Meus Produtos:** Podem adicionar, editar preço/detalhes, pausar (esconder do catálogo) e colocar produtos em PROMOÇÃO por 7 dias. Para editar, basta ir na aba "Meus Produtos", encontrar o card do item e usar os botões "Editar", "Editar Estoque" ou os interruptores de "Ativo" e "Promover".
       - **Controle de Estoque:** Uma página para atualizar rapidamente a quantidade disponível de cada item. É importante manter atualizado para evitar vender o que não tem.
       - **Tabela de Preços:** Gera uma lista de preços bonita e organizada para compartilhar no WhatsApp ou imprimir para usar na barraca da feira.
       - **Meus Clientes:** Podem ver quem compra com eles e classificar os clientes (Bronze, Prata, Ouro, Diamante) para identificar os mais fiéis e criar ações de fidelidade.
-      - **Romaneio:** Uma ferramenta essencial para organizar a logística da feira. O agricultor pode preencher a lista de produtos que levará, seja digitando ou usando o comando de voz com você, Sofia. Ajuda a não esquecer nada!
+      - **Romaneio:** Uma ferramenta essencial para organizar a logística da feira. O agricultor pode preencher a lista de produtos que levará, seja digitando ou usando o comando de voz. Ajuda a não esquecer nada!
       - **Galeria de Propagandas:** Essa é uma ferramenta poderosa! Contém imagens e vídeos profissionais para os agricultores baixarem e usarem para divulgar suas barracas e as feiras nas redes sociais (Instagram, Facebook, WhatsApp). Usar esse material ajuda a atrair mais clientes e a fortalecer a imagem do Circuito Carioca.
 
   4.  **Funcionalidades para CLIENTES:**
@@ -83,15 +89,15 @@ const askSofiaFlow = ai.defineFlow(
     inputSchema: AskSofiaInputSchema,
     outputSchema: AskSofiaOutputSchema,
   },
-  async ({ question }) => {
+  async (input) => {
     // Para a simulação, vamos ignorar a transcrição de áudio e usar uma pergunta fixa.
     // O prompt está preparado para responder a perguntas como "qual o seu nome" ou "o que você faz".
     // Em uma implementação real, usaríamos um flow de Speech-to-Text aqui.
-    if (!question || question.trim() === '') {
-        question = "Me fale sobre o aplicativo.";
+    if (!input.question || input.question.trim() === '') {
+        input.question = "Me fale sobre o aplicativo.";
     }
     
-    const { output } = await sofiaPrompt({ question });
+    const { output } = await sofiaPrompt(input);
     return output!;
   }
 );

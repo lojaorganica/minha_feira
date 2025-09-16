@@ -10,6 +10,7 @@ import { generateSpeech } from '@/ai/flows/text-to-speech';
 import { useToast } from '@/hooks/use-toast';
 import { usePathname } from 'next/navigation';
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { useUser } from '@/hooks/use-user';
 
 const publicPaths = [
     '/welcome',
@@ -33,6 +34,7 @@ export default function SofiaAssistant() {
   const audioChunksRef = useRef<Blob[]>([]);
   const { toast } = useToast();
   const pathname = usePathname();
+  const { user } = useUser();
 
   const isPublicPage = publicPaths.includes(pathname);
   
@@ -110,7 +112,8 @@ export default function SofiaAssistant() {
             
             // Simulação da pergunta do usuário. O flow de askSofia já está preparado
             // para responder à pergunta "qual o seu nome" ou "o que você faz"
-            const { answer } = await askSofia({ question: "Me fale sobre o aplicativo." });
+            const userName = user?.name.split(' ')[0];
+            const { answer } = await askSofia({ question: "Me fale sobre o aplicativo.", userName });
             
             playResponse(answer);
 
