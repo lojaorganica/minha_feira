@@ -141,4 +141,13 @@
   .animate-pulse-heart {
     animation: pulse-heart 1.5s ease-in-out infinite;
   }
+
+  @media (hover: hover) and (pointer: fine) {
+    .desktop-hover\\:fill-destructive:hover {
+      fill: hsl(var(--destructive));
+    }
+    .desktop-hover\\:stroke-destructive:hover {
+        stroke: hsl(var(--destructive));
+    }
+  }
 }
