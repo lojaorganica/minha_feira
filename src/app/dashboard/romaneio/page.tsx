@@ -21,6 +21,7 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { Separator } from '@/components/ui/separator';
 import { processRomaneioAudio } from '@/ai/flows/process-romaneio-audio';
+import { generateSpeech } from '@/ai/flows/text-to-speech';
 import { cn } from '@/lib/utils';
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert"
 
@@ -48,6 +49,7 @@ export default function RomaneioPage() {
   const [isRecording, setIsRecording] = useState(false);
   const [isProcessingAudio, setIsProcessingAudio] = useState(false);
   const [showMicAlert, setShowMicAlert] = useState(false);
+  const [audioSrc, setAudioSrc] = useState<string | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   
@@ -257,6 +259,18 @@ export default function RomaneioPage() {
     }
   };
 
+  const playResponse = async (text: string) => {
+    try {
+      const result = await generateSpeech({
+        text,
+        voiceName: 'Erinome',
+      });
+      setAudioSrc(result.audioDataUri);
+    } catch (error) {
+      console.error('Erro ao gerar a fala da Sofia:', error);
+    }
+  };
+
   const startRecording = async () => {
     // Evita múltiplas chamadas se já estiver gravando
     if (isRecording || isProcessingAudio) return;
@@ -268,6 +282,7 @@ export default function RomaneioPage() {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       
       setShowMicAlert(false);
+      setAudioSrc(null);
       mediaRecorderRef.current = new MediaRecorder(stream);
       audioChunksRef.current = [];
 
@@ -293,10 +308,10 @@ export default function RomaneioPage() {
 
             if (result.clearAll) {
                 currentData = romaneioData.map(item => ({ ...item, quantidade: '', fornecedor: '' }));
-                responseText = "Romaneio limpo com sucesso.";
+                responseText = "Entendido. O romaneio foi limpo.";
             } else if (result.items.length > 0) {
               const s = result.items.length > 1 ? 's' : '';
-              responseText = `Romaneio atualizado com ${result.items.length} item${s}.`;
+              responseText = `Ok, atualizei ${result.items.length} item${s} no seu romaneio.`;
 
               result.items.forEach(extractedItem => {
                   const itemIndex = currentData.findIndex(
@@ -310,10 +325,11 @@ export default function RomaneioPage() {
                   }
               });
             } else {
-                responseText = "Nenhum item do romaneio foi identificado no áudio.";
+                responseText = "Desculpe, não consegui identificar nenhum item para o romaneio no seu áudio. Poderia tentar de novo?";
             }
             
             setRomaneioData(currentData);
+            playResponse(responseText);
 
             toast({
               title: "Processamento de Voz Concluído",
@@ -322,6 +338,8 @@ export default function RomaneioPage() {
 
           } catch (e) {
             console.error(e);
+            const errorText = "Ocorreu um erro ao processar o áudio. Por favor, tente novamente.";
+            playResponse(errorText);
             toast({
               variant: 'destructive',
               title: "Erro ao processar áudio",
@@ -532,6 +550,18 @@ export default function RomaneioPage() {
         </Card>
       </div>
 
+       {/* Player de áudio oculto */}
+       {audioSrc && (
+        <audio
+          src={audioSrc}
+          autoPlay
+          onEnded={() => setAudioSrc(null)}
+          className="hidden"
+        >
+          Seu navegador não suporta o elemento de áudio.
+        </audio>
+       )}
+
        {/* Botão de Gravação Flutuante */}
       <div className="fixed bottom-6 right-6 no-print z-50">
         <Button
@@ -560,3 +590,5 @@ export default function RomaneioPage() {
     </div>
   );
 }
+
+    
