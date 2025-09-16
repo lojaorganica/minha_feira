@@ -8,23 +8,31 @@ import { generateSpeech } from '@/ai/flows/text-to-speech';
 import { Loader2, Volume2 } from 'lucide-react';
 import BackButton from '@/components/back-button';
 
+const voices = [
+    { id: 'Despina', name: 'Voz 1 (Despina)' },
+    { id: 'Callirrhoe', name: 'Voz 2 (Callirrhoe)' },
+    { id: 'Aoede', name: 'Voz 3 (Aoede)' },
+    { id: 'Erinome', name: 'Voz 4 (Erinome)' },
+];
+
 export default function SofiaVoiceTestPage() {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<string | null>(null);
   const [audioSrc, setAudioSrc] = useState<string | null>(null);
 
-  const handleTestVoice = async () => {
-    setIsLoading(true);
+  const handleTestVoice = async (voiceName: string) => {
+    setIsLoading(voiceName);
     setAudioSrc(null);
     try {
       const result = await generateSpeech({
         text: 'Olá! Eu sou a Sofia, sua assistente virtual no Minha Feira. Estou aqui para ajudar você a encontrar os melhores produtos orgânicos e facilitar sua experiência de compra. Como posso ajudar hoje?',
+        voiceName: voiceName,
       });
       setAudioSrc(result.audioDataUri);
     } catch (error) {
       console.error('Erro ao gerar a voz:', error);
       // Aqui você pode adicionar um toast de erro se quiser
     } finally {
-      setIsLoading(false);
+      setIsLoading(null);
     }
   };
 
@@ -37,23 +45,27 @@ export default function SofiaVoiceTestPage() {
         <CardHeader>
           <CardTitle className="font-headline text-2xl sm:text-3xl text-primary">Teste de Voz da Sofia</CardTitle>
           <CardDescription className="text-lg font-semibold text-foreground/90">
-            Clique no botão abaixo para ouvir uma amostra da voz da nossa assistente de IA, Sofia.
+            Clique nos botões abaixo para ouvir diferentes opções de voz para a nossa assistente de IA, Sofia.
           </CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col items-center justify-center gap-6 py-10">
-          <Button onClick={handleTestVoice} disabled={isLoading} size="lg">
-            {isLoading ? (
-              <>
-                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                Gerando Áudio...
-              </>
-            ) : (
-              <>
-                <Volume2 className="mr-2 h-5 w-5" />
-                Ouvir a Voz da Sofia
-              </>
-            )}
-          </Button>
+            <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 w-full'>
+                {voices.map((voice) => (
+                    <Button key={voice.id} onClick={() => handleTestVoice(voice.id)} disabled={!!isLoading} size="lg">
+                        {isLoading === voice.id ? (
+                        <>
+                            <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                            Gerando...
+                        </>
+                        ) : (
+                        <>
+                            <Volume2 className="mr-2 h-5 w-5" />
+                            Ouvir {voice.name}
+                        </>
+                        )}
+                    </Button>
+                ))}
+            </div>
 
           {audioSrc && (
             <audio
