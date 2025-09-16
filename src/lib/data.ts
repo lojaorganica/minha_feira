@@ -608,6 +608,7 @@ const domicilioOrganicoProducts: Product[] = [
         stock: 40
     },
     ...allFruits
+    .filter(fruit => fruit.name !== 'Amora Orgânica') // Evita a duplicação
     .map((fruit, index) => ({
       ...fruit,
       id: `domicilio-fruit-${index}-${fruit.id}`,
@@ -1764,7 +1765,7 @@ const defaultProducts: Product[] = [
     category: 'Verdura',
     price: 3.8,
     unit: 'maço',
-    image: 'https://placehold.co/600x400',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/ora_pro_nobis.webp?alt=media&token=8f0077e9-7a90-4371-a98f-fd53ed7c2ef0',
     dataAiHint: 'ora pro nobis',
     farmerId: '3',
     description: 'Planta rica em proteínas, conhecida por suas folhas nutritivas. Ideal para refogados, saladas e sucos.',
@@ -2147,6 +2148,45 @@ const defaultProducts: Product[] = [
     description: 'Radicchio, uma verdura de folhas arroxeadas e sabor amargo, ideal para saladas sofisticadas.',
     status: 'active',
     stock: 15
+  },
+  {
+    id: 'prod-rucula-selvagem',
+    name: 'Rúcula Selvagem Orgânica',
+    category: 'Verdura',
+    price: 3.80,
+    unit: 'maço',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/rucula_selvagem.webp?alt=media&token=96d7f629-4be6-46c7-9e67-3108758865c7',
+    dataAiHint: 'wild arugula',
+    farmerId: '1',
+    description: 'Rúcula selvagem com folhas mais escuras e sabor ainda mais intenso e picante.',
+    status: 'active',
+    stock: 20
+  },
+  {
+    id: 'prod-uva-vitoria',
+    name: 'Uva Vitória Orgânica',
+    category: 'Fruta',
+    price: 12.00,
+    unit: 'caixa',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/uva_vitoria.webp?alt=media&token=a3ba40e3-ac32-44f0-b9b4-e75c875f2d4f',
+    dataAiHint: 'vitoria grape',
+    farmerId: '2',
+    description: 'Uva Vitória sem sementes, de sabor doce e cor intensa, ideal para consumo in natura.',
+    status: 'active',
+    stock: 30
+  },
+  {
+    id: 'prod-vagem',
+    name: 'Vagem Orgânica',
+    category: 'Legume',
+    price: 5.50,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/vagem.webp?alt=media&token=d034c795-629f-40c8-a033-a6dec200a0b3',
+    dataAiHint: 'green beans',
+    farmerId: '1',
+    description: 'Vagem orgânica, macia e crocante. Perfeita para cozinhar no vapor ou refogar.',
+    status: 'active',
+    stock: 25
   }
 ];
 
