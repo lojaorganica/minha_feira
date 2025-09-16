@@ -595,19 +595,6 @@ const allFruits: Product[] = [
 
 const domicilioOrganicoProducts: Product[] = [
     {
-        id: 'prod-domicilio-amora',
-        name: 'Amora Orgânica',
-        price: 6.50,
-        unit: 'caixa',
-        category: 'Fruta',
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/amora.webp?alt=media&token=86e42b5a-4e5b-4b1e-9e7b-8e9e1c7c4a3b',
-        dataAiHint: 'blackberry',
-        farmerId: '6',
-        description: 'Amoras orgânicas do Domicílio Orgânico, doces e suculentas, perfeitas para geleias e consumo in natura.',
-        status: 'active',
-        stock: 15
-    },
-    {
         id: 'prod-domicilio-cenoura',
         name: 'Cenouras Orgânicas',
         category: 'Raiz e Tubérculo',
