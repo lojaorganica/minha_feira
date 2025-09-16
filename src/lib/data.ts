@@ -101,7 +101,7 @@ const lojaOrganicaProducts: Product[] = [
     },
 ];
 
-const allFruits: Product[] = [
+const allMasterFruits: Product[] = [
   {
     id: '2',
     name: 'Tomate Italiano Orgânico',
@@ -590,6 +590,162 @@ const allFruits: Product[] = [
     description: 'Laranja seleta, ótima para sucos e com sabor equilibrado entre doce e ácido.',
     status: 'active',
     stock: 35
+  },
+  {
+    id: 'prod-caju',
+    name: 'Caju Orgânico',
+    category: 'Fruta',
+    price: 9.50,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/caju.webp?alt=media&token=7a76f64c-ed10-4451-8112-5d09020049b9',
+    dataAiHint: 'cashew fruit',
+    farmerId: '2',
+    description: 'Caju orgânico, fruto de sabor único, perfeito para sucos e doces. Acompanha a castanha.',
+    status: 'active',
+    stock: 20
+  },
+  {
+    id: 'prod-caqui',
+    name: 'Caqui Orgânico',
+    category: 'Fruta',
+    price: 6.80,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/caqui.webp?alt=media&token=6d9835e9-ae1c-4cb0-83e3-e839ccb780c2',
+    dataAiHint: 'persimmon',
+    farmerId: '2',
+    description: 'Caqui orgânico de polpa doce e macia, sem cica. Ideal para consumo in natura.',
+    status: 'active',
+    stock: 25
+  },
+  {
+    id: 'prod-carambola',
+    name: 'Carambola Orgânica',
+    category: 'Fruta',
+    price: 7.20,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/carambola.webp?alt=media&token=57b1c4f3-5d99-4bc3-ae84-b627807beed3',
+    dataAiHint: 'star fruit',
+    farmerId: '2',
+    description: 'Carambola orgânica, com seu formato de estrela e sabor agridoce. Ótima para sucos, saladas e decoração.',
+    status: 'active',
+    stock: 18
+  },
+  {
+    id: 'prod-laranja-lima',
+    name: 'Laranja Lima Orgânica',
+    category: 'Fruta',
+    price: 5.20,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/laranja_lima.webp?alt=media&token=df719cd2-1767-436b-9ab5-b2a55c3a2000',
+    dataAiHint: 'lima orange',
+    farmerId: '2',
+    description: 'Laranja Lima, de sabor suave e doce, com baixa acidez, ideal para bebês e crianças.',
+    status: 'active',
+    stock: 30
+  },
+  {
+    id: 'prod-manga-carlotinha',
+    name: 'Manga Carlotinha Orgânica',
+    category: 'Fruta',
+    price: 7.00,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/manga_carlotinha.webp?alt=media&token=0417fa54-ab7b-4bf2-9078-1945e2da9b07',
+    dataAiHint: 'carlotinha mango',
+    farmerId: '2',
+    description: 'Manga Carlotinha, variedade de sabor adocicado e polpa suculenta.',
+    status: 'active',
+    stock: 25
+  },
+  {
+    id: 'prod-manga-tommy',
+    name: 'Manga Tommy Orgânica',
+    category: 'Fruta',
+    price: 6.80,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/manga_tommy.webp?alt=media&token=a5b2a911-0dc0-4266-a433-08c018eb8b68',
+    dataAiHint: 'tommy atkins mango',
+    farmerId: '2',
+    description: 'Manga Tommy, a mais popular do Brasil, com polpa firme e sabor que equilibra doce e ácido.',
+    status: 'active',
+    stock: 45
+  },
+  {
+    id: 'prod-mexerica-bergamota',
+    name: 'Mexerica Bergamota Orgânica',
+    category: 'Fruta',
+    price: 5.80,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mexerica_bergamota.webp?alt=media&token=452f0390-d797-4c48-acb1-996b765ea883',
+    dataAiHint: 'bergamot tangerine',
+    farmerId: '2',
+    description: 'Mexerica Bergamota (ou vergamota), muito aromática e de sabor intenso, um clássico do sul.',
+    status: 'active',
+    stock: 25
+  },
+  {
+    id: 'prod-mexerica-ole',
+    name: 'Mexerica Olé Orgânica',
+    category: 'Fruta',
+    price: 6.00,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mexerica_ole.webp?alt=media&token=67cc4615-dfe9-47ba-b982-fe173d0c3023',
+    dataAiHint: 'ole tangerine',
+    farmerId: '2',
+    description: 'Mexerica Olé, variedade nova de casca fina, sem sementes e muito suculenta.',
+    status: 'active',
+    stock: 20
+  },
+  {
+    id: 'prod-melancia-mini',
+    name: 'Melancia Mini Orgânica',
+    category: 'Fruta',
+    price: 9.00,
+    unit: 'unidade',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mini_melancia.webp?alt=media&token=e26cd7c8-9313-4eb6-8c60-050147ea898b',
+    dataAiHint: 'mini watermelon',
+    farmerId: '2',
+    description: 'Mini melancia, com todo o sabor e doçura da melancia tradicional em um tamanho prático.',
+    status: 'active',
+    stock: 15
+  },
+  {
+    id: 'prod-pessego',
+    name: 'Pêssego Orgânico',
+    category: 'Fruta',
+    price: 9.50,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pessego.webp?alt=media&token=40ca1fb9-a000-4b9e-bbd5-52775e5d0720',
+    dataAiHint: 'peach',
+    farmerId: '2',
+    description: 'Pêssegos orgânicos, suculentos e aveludados, para comer ao natural ou em compotas e tortas.',
+    status: 'active',
+    stock: 20
+  },
+  {
+    id: 'prod-pimentao-vermelho',
+    name: 'Pimentão Vermelho Orgânico',
+    category: 'Fruta',
+    price: 3.50,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pimentao_vermelho.webp?alt=media&token=3d566dc3-61ba-4f68-9b7c-9004207bb8ff',
+    dataAiHint: 'red bell pepper',
+    farmerId: '2',
+    description: 'Pimentão vermelho, o mais doce entre os pimentões, ótimo para assados, saladas e molhos.',
+    status: 'active',
+    stock: 15
+  },
+  {
+    id: 'prod-uva-vitoria',
+    name: 'Uva Vitória Orgânica',
+    category: 'Fruta',
+    price: 12.00,
+    unit: 'caixa',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/uva_vitoria.webp?alt=media&token=a3ba40e3-ac32-44f0-b9b4-e75c875f2d4f',
+    dataAiHint: 'vitoria grape',
+    farmerId: '2',
+    description: 'Uva Vitória sem sementes, de sabor doce e cor intensa, ideal para consumo in natura.',
+    status: 'active',
+    stock: 30
   }
 ];
 
@@ -607,9 +763,7 @@ const domicilioOrganicoProducts: Product[] = [
         status: 'active',
         stock: 40
     },
-    ...allFruits
-    .filter(fruit => fruit.name !== 'Amora Orgânica') // Evita a duplicação
-    .map((fruit, index) => ({
+    ...allMasterFruits.map((fruit, index) => ({
       ...fruit,
       id: `domicilio-fruit-${index}-${fruit.id}`,
       farmerId: '6',
