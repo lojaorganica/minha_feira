@@ -53,6 +53,7 @@ export default function RomaneioPage() {
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   const audioPlayerRef = useRef<HTMLAudioElement | null>(null);
+  const audioContextRef = useRef<AudioContext | null>(null);
   
   const printRef = useRef<HTMLDivElement>(null);
 
@@ -259,12 +260,12 @@ export default function RomaneioPage() {
   
   const playResponse = async (text: string) => {
     if (!text) return;
-
+    
     toast({
         title: "Sofia Responde:",
         description: text,
     });
-    
+
     try {
         const { audioDataUri } = await generateSpeech({
             text,
@@ -279,129 +280,144 @@ export default function RomaneioPage() {
     }
   };
 
-
   const processAudioResult = async (result: ProcessRomaneioAudioOutput) => {
-    let dataWithUpdates = [...romaneioData];
     let responseText = "";
-
-    const updatedQuantitiesProducts: string[] = [];
-    const updatedSuppliersProducts: string[] = [];
-    const removedSuppliersProducts: string[] = [];
 
     if (result.conversationalResponse) {
         responseText = result.conversationalResponse;
-    } else if (result.clearAll) {
-        dataWithUpdates = dataWithUpdates.map(item => ({ ...item, quantidade: '', fornecedor: '' }));
-        responseText = "Entendido. O romaneio foi limpo.";
-    } else if (result.clearQuantitiesOnly) {
-        dataWithUpdates = dataWithUpdates.map(item => ({ ...item, quantidade: '' }));
-        responseText = "Ok, as quantidades foram limpas.";
-    } else if (result.clearSuppliersOnly) {
-        dataWithUpdates = dataWithUpdates.map(item => ({ ...item, fornecedor: '' }));
-        responseText = "Certo, limpei os nomes dos fornecedores.";
-    } else if (result.items && result.items.length > 0) {
-        result.items.forEach(extractedItem => {
-            const itemIndex = dataWithUpdates.findIndex(
-                romaneioItem => romaneioItem.produto.toLowerCase() === extractedItem.product.toLowerCase()
-            );
+    } else {
+        const updatedQuantitiesProducts: string[] = [];
+        const updatedSuppliersProducts: string[] = [];
+        const removedSuppliersProducts: string[] = [];
 
-            if (itemIndex !== -1) {
-                const currentItem = dataWithUpdates[itemIndex];
-                let finalQuantity = currentItem.quantidade;
-                let finalFornecedor = currentItem.fornecedor;
+        let dataWithUpdates = [...romaneioData]; // Start with a fresh copy
 
-                if (extractedItem.fornecedor !== undefined) {
-                    const newSupplier = extractedItem.fornecedor.trim();
-                    if (newSupplier === '' && currentItem.fornecedor !== '') {
-                        finalFornecedor = '';
-                        if (!removedSuppliersProducts.includes(currentItem.produto)) {
-                            removedSuppliersProducts.push(currentItem.produto);
+        if (result.clearAll) {
+            dataWithUpdates = dataWithUpdates.map(item => ({ ...item, quantidade: '', fornecedor: '' }));
+            responseText = "Entendido. O romaneio foi limpo.";
+        } else if (result.clearQuantitiesOnly) {
+            dataWithUpdates = dataWithUpdates.map(item => ({ ...item, quantidade: '' }));
+            responseText = "Ok, as quantidades foram limpas.";
+        } else if (result.clearSuppliersOnly) {
+            dataWithUpdates = dataWithUpdates.map(item => ({ ...item, fornecedor: '' }));
+            responseText = "Certo, limpei os nomes dos fornecedores.";
+        } else if (result.items && result.items.length > 0) {
+            result.items.forEach(extractedItem => {
+                const itemIndex = dataWithUpdates.findIndex(
+                    romaneioItem => romaneioItem.produto.toLowerCase() === extractedItem.product.toLowerCase()
+                );
+
+                if (itemIndex !== -1) {
+                    const currentItem = dataWithUpdates[itemIndex];
+                    let finalQuantity = currentItem.quantidade;
+                    let finalFornecedor = currentItem.fornecedor;
+
+                    if (extractedItem.fornecedor !== undefined) {
+                        const newSupplier = extractedItem.fornecedor.trim();
+                        if (newSupplier === '' && currentItem.fornecedor !== '') {
+                            finalFornecedor = '';
+                            if (!removedSuppliersProducts.includes(currentItem.produto)) {
+                                removedSuppliersProducts.push(currentItem.produto);
+                            }
+                        } else if (newSupplier !== '' && newSupplier !== currentItem.fornecedor) {
+                            finalFornecedor = newSupplier;
+                            if (!updatedSuppliersProducts.includes(currentItem.produto)) {
+                                updatedSuppliersProducts.push(currentItem.produto);
+                            }
                         }
-                    } else if (newSupplier !== '' && newSupplier !== currentItem.fornecedor) {
-                        finalFornecedor = newSupplier;
-                        if (!updatedSuppliersProducts.includes(currentItem.produto)) {
-                            updatedSuppliersProducts.push(currentItem.produto);
+                    }
+
+                    if (extractedItem.quantity !== undefined && extractedItem.quantity.trim() !== '') {
+                        const changeMatch = extractedItem.quantity.trim().match(/^([+-]?)(\d+(\.\d+)?)\s*(.*)/);
+                        const currentMatch = currentItem.quantidade.trim().match(/^(\d+(\.\d+)?)\s*(.*)/);
+                        const changeUnit = changeMatch ? (changeMatch[4]?.trim() || (currentMatch ? currentMatch[3]?.trim() : '')) : '';
+                        
+                        if (changeMatch) {
+                            const operator = changeMatch[1];
+                            const changeValue = parseFloat(changeMatch[2]);
+                            const currentValue = currentMatch ? parseFloat(currentMatch[1]) : 0;
+                            let newValue = 0;
+
+                            if (operator === '+') newValue = currentValue + changeValue;
+                            else if (operator === '-') newValue = Math.max(0, currentValue - changeValue);
+                            else newValue = changeValue;
+
+                            finalQuantity = newValue > 0 ? `${newValue} ${changeUnit}`.trim() : '';
+                        } else {
+                            finalQuantity = extractedItem.quantity.trim();
                         }
+                        
+                        if (finalQuantity !== currentItem.quantidade && !updatedQuantitiesProducts.includes(currentItem.produto)) {
+                            updatedQuantitiesProducts.push(currentItem.produto);
+                        }
+                    } else if (extractedItem.quantity !== undefined && extractedItem.quantity.trim() === '') {
+                         finalQuantity = '';
+                         if (currentItem.quantidade !== '' && !updatedQuantitiesProducts.includes(currentItem.produto)) {
+                            updatedQuantitiesProducts.push(currentItem.produto);
+                         }
                     }
+
+                    dataWithUpdates[itemIndex] = {
+                        ...currentItem,
+                        quantidade: finalQuantity,
+                        fornecedor: finalFornecedor,
+                    };
                 }
+            });
 
-                if (extractedItem.quantity !== undefined && extractedItem.quantity.trim() !== '') {
-                    const changeMatch = extractedItem.quantity.trim().match(/^([+-]?)(\d+(\.\d+)?)\s*(.*)/);
-                    const currentMatch = currentItem.quantidade.trim().match(/^(\d+(\.\d+)?)\s*(.*)/);
-                    const changeUnit = changeMatch ? (changeMatch[4]?.trim() || (currentMatch ? currentMatch[3]?.trim() : '')) : '';
-                    
-                    if (changeMatch) {
-                        const operator = changeMatch[1];
-                        const changeValue = parseFloat(changeMatch[2]);
-                        const currentValue = currentMatch ? parseFloat(currentMatch[1]) : 0;
-                        let newValue = 0;
-
-                        if (operator === '+') newValue = currentValue + changeValue;
-                        else if (operator === '-') newValue = Math.max(0, currentValue - changeValue);
-                        else newValue = changeValue;
-
-                        finalQuantity = newValue > 0 ? `${newValue} ${changeUnit}`.trim() : '';
-                    } else {
-                        finalQuantity = extractedItem.quantity.trim();
-                    }
-                    
-                    if (finalQuantity !== currentItem.quantidade && !updatedQuantitiesProducts.includes(currentItem.produto)) {
-                        updatedQuantitiesProducts.push(currentItem.produto);
-                    }
-                } else if (extractedItem.quantity !== undefined && extractedItem.quantity.trim() === '') {
-                     finalQuantity = '';
-                     if (currentItem.quantidade !== '' && !updatedQuantitiesProducts.includes(currentItem.produto)) {
-                        updatedQuantitiesProducts.push(currentItem.produto);
-                     }
-                }
-
-
-                dataWithUpdates[itemIndex] = {
-                    ...currentItem,
-                    quantidade: finalQuantity,
-                    fornecedor: finalFornecedor,
-                };
+            const parts = [];
+            if (updatedQuantitiesProducts.length > 0) {
+                const plural = updatedQuantitiesProducts.length > 1;
+                parts.push(`atualizei a${plural ? 's' : ''} quantidade${plural ? 's' : ''} de ${updatedQuantitiesProducts.join(', ')}`);
             }
-        });
+            if (updatedSuppliersProducts.length > 0) {
+                const plural = updatedSuppliersProducts.length > 1;
+                parts.push(`adicionei o${plural ? 's' : ''} fornecedor${plural ? 'es' : ''} para ${updatedSuppliersProducts.join(', ')}`);
+            }
+            if (removedSuppliersProducts.length > 0) {
+                const plural = removedSuppliersProducts.length > 1;
+                parts.push(`removi o${plural ? 's' : ''} fornecedor${plural ? 'es' : ''} de ${removedSuppliersProducts.join(', ')}`);
+            }
 
-        const parts = [];
-        if (updatedQuantitiesProducts.length > 0) {
-            const plural = updatedQuantitiesProducts.length > 1;
-            parts.push(`atualizei a${plural ? 's' : ''} quantidade${plural ? 's' : ''} de ${updatedQuantitiesProducts.join(', ')}`);
+            if (parts.length > 0) {
+                responseText = "Ok. " + parts.join('. E também, ').replace(/^\w/, c => c.toUpperCase()) + '.';
+            } else {
+                 responseText = "Não identifiquei nenhuma alteração para fazer.";
+            }
         }
-        if (updatedSuppliersProducts.length > 0) {
-            const plural = updatedSuppliersProducts.length > 1;
-            parts.push(`adicionei o${plural ? 's' : ''} fornecedor${plural ? 'es' : ''} para ${updatedSuppliersProducts.join(', ')}`);
-        }
-        if (removedSuppliersProducts.length > 0) {
-            const plural = removedSuppliersProducts.length > 1;
-            parts.push(`removi o${plural ? 's' : ''} fornecedor${plural ? 'es' : ''} de ${removedSuppliersProducts.join(', ')}`);
-        }
-
-        if (parts.length > 0) {
-            responseText = "Ok. " + parts.join('. E também, ').replace(/^\w/, c => c.toUpperCase()) + '.';
-        }
-    } 
-    
-    if (!responseText) {
-       responseText = "Não identifiquei nenhuma alteração para fazer.";
+        setRomaneioData(dataWithUpdates);
     }
     
-    setRomaneioData(dataWithUpdates);
-    await playResponse(responseText);
+    if (responseText) {
+        await playResponse(responseText);
+    }
+  };
+
+  const unlockAudio = () => {
+    if (audioContextRef.current && audioContextRef.current.state === 'suspended') {
+      audioContextRef.current.resume();
+    }
+    if (audioPlayerRef.current && audioPlayerRef.current.paused) {
+      audioPlayerRef.current.play().catch(() => {}); // Play and catch errors if it fails
+      audioPlayerRef.current.pause();
+    }
   };
 
   const startRecording = async () => {
     if (isRecording || isProcessingAudio) return;
 
     try {
+      // 1. Get Mic Permission First
       if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
         throw new Error('API de mídia não suportada neste navegador.');
       }
-      
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       setShowMicAlert(false);
+
+      // 2. Unlock Audio Context on user gesture
+      unlockAudio();
       
+      // 3. Start Recording
       mediaRecorderRef.current = new MediaRecorder(stream);
       audioChunksRef.current = [];
 
@@ -453,6 +469,17 @@ export default function RomaneioPage() {
       setIsRecording(false);
     }
   };
+
+   useEffect(() => {
+    // Initialize AudioContext
+    if (typeof window !== 'undefined' && !audioContextRef.current) {
+        audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+    }
+    // Set up a silent audio player to be ready
+    if (audioPlayerRef.current) {
+        audioPlayerRef.current.src = "data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA";
+    }
+  }, []);
 
 
   if (!isUserLoaded || isLoading) {
