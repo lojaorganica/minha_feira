@@ -188,7 +188,7 @@ function GalleryFilterAccordion({
         { value: 'Dias Especiais', label: 'Dias Especiais' },
     ];
     
-    const handleSelectAndClose = (type: 'fair' | 'theme', value: string) => {
+    const handleSelect = (type: 'fair' | 'theme', value: string) => {
         startTransition(() => {
             if (type === 'fair') {
                  onFilterChange('fair', selectedFair === value ? null : value);
@@ -197,7 +197,7 @@ function GalleryFilterAccordion({
                  onFilterChange('theme', selectedTheme === value ? null : value);
             }
         });
-        setOpenItems([]);
+        setOpenItems([]); 
     };
 
     return (
@@ -211,7 +211,7 @@ function GalleryFilterAccordion({
                         {fairs.map(fair => (
                             <Button
                                 key={fair.value}
-                                onClick={() => handleSelectAndClose('fair', fair.value)}
+                                onClick={() => handleSelect('fair', fair.value)}
                                 variant={'ghost'}
                                 className={cn("justify-start h-auto text-base", selectedFair === fair.value ? "bg-accent text-accent-foreground" : "")}
                             >
@@ -230,7 +230,7 @@ function GalleryFilterAccordion({
                         {themes.map(theme => (
                             <Button
                                 key={theme.value}
-                                onClick={() => handleSelectAndClose('theme', theme.value)}
+                                onClick={() => handleSelect('theme', theme.value)}
                                 variant={'ghost'}
                                 className={cn("justify-start h-auto text-base", selectedTheme === theme.value ? "bg-accent text-accent-foreground" : "")}
                             >
@@ -452,4 +452,5 @@ export default function GalleryView() {
 
 
     
+
 
