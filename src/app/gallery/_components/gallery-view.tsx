@@ -105,7 +105,7 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
                         </>
                     ) : (
                          <div 
-                            className="relative cursor-pointer bg-black/10" 
+                            className="relative cursor-pointer" 
                             onClick={() => handleActionClick(() => onPlayVideo(item))}
                          >
                             <video 
@@ -329,7 +329,7 @@ function GalleryViewContent() {
 
 
     return (
-        <div className="desktop-device">
+        <div>
             <div className="flex justify-between items-center mb-4">
                 <BackButton />
                 <button
@@ -362,7 +362,7 @@ function GalleryViewContent() {
               </div>
             </div>
 
-            <div className="sticky top-20 bg-background/95 backdrop-blur-sm z-10 py-4 space-y-2">
+            <div className="sticky top-16 bg-background/95 backdrop-blur-sm z-10 py-4 space-y-2">
                 <GalleryFilterAccordion
                     selectedFair={selectedFair}
                     selectedTheme={selectedTheme}
@@ -452,6 +452,7 @@ export default function GalleryView() {
 
 
     
+
 
 
 
