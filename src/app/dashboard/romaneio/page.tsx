@@ -261,10 +261,12 @@ export default function RomaneioPage() {
 
  const playResponse = async (text: string) => {
     if (!text) return;
+    
     toast({
         title: "Sofia Responde:",
         description: text,
     });
+    
     try {
         const result = await generateSpeech({
             text,
