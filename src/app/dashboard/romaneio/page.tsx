@@ -53,6 +53,7 @@ export default function RomaneioPage() {
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   const audioPlayerRef = useRef<HTMLAudioElement | null>(null);
+  const [audioSrc, setAudioSrc] = useState<string | null>(null);
   
   const printRef = useRef<HTMLDivElement>(null);
 
@@ -258,7 +259,7 @@ export default function RomaneioPage() {
   };
 
   const playResponse = async (text: string) => {
-    if (!text || !audioPlayerRef.current) return;
+    if (!text) return;
     
     toast({
         title: "Sofia Responde:",
@@ -270,10 +271,7 @@ export default function RomaneioPage() {
             text,
             voiceName: 'Erinome',
         });
-        if (audioPlayerRef.current) {
-            audioPlayerRef.current.src = audioDataUri;
-            await audioPlayerRef.current.play();
-        }
+        setAudioSrc(audioDataUri);
     } catch (error) {
         console.error('Erro ao gerar ou tocar a fala da Sofia:', error);
     }
@@ -407,7 +405,7 @@ export default function RomaneioPage() {
 
       if (audioPlayerRef.current) {
         audioPlayerRef.current.src = 'data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA';
-        audioPlayerRef.current.play().catch(() => {}); // Play silent audio to unlock
+        audioPlayer-Ref.current.play().catch(() => {}); // Play silent audio to unlock
       }
 
       mediaRecorderRef.current = new MediaRecorder(stream);
@@ -638,8 +636,15 @@ export default function RomaneioPage() {
         </Card>
       </div>
 
-       {/* Player de áudio oculto para controlar a reprodução */}
-       <audio ref={audioPlayerRef} className="hidden" />
+       {/* Player de áudio centralizado e estável */}
+       <audio 
+            ref={audioPlayerRef} 
+            src={audioSrc || undefined} 
+            autoPlay 
+            onEnded={() => setAudioSrc(null)}
+            className="hidden" 
+        />
+
 
        {/* Botão de Gravação Flutuante */}
       <div className="fixed bottom-6 right-6 no-print z-50">

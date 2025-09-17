@@ -42,14 +42,19 @@ export default function SofiaAssistant() {
   const isRomaneioPage = pathname === '/dashboard/romaneio';
 
   useEffect(() => {
+    // Não mostra o balão de dica se o assistente não for ser exibido
+    if (isPublicPage || isRomaneioPage) {
+      return;
+    }
+    
     const hintShown = localStorage.getItem('sofia_hint_shown');
-    if (!hintShown && !isRomaneioPage) { // Só mostra o hint fora da pág do romaneio
+    if (!hintShown) {
       const timer = setTimeout(() => {
         setShowHint(true);
       }, 3000);
       return () => clearTimeout(timer);
     }
-  }, [isRomaneioPage]);
+  }, [isPublicPage, isRomaneioPage]);
 
   const handleInteractionStart = () => {
     if (showHint) {
@@ -107,16 +112,6 @@ export default function SofiaAssistant() {
           const base64Audio = reader.result as string;
           
           try {
-            // Se estiver na página do Romaneio, a Sofia só fala, não responde perguntas gerais
-            if (isRomaneioPage) {
-                // A lógica de processamento do romaneio já está na própria página,
-                // então este botão não precisa fazer nada aqui para não duplicar.
-                // Apenas avisamos que a função de ajuda geral está desativada aqui.
-                playResponse("Use o botão do Romaneio para ditar os itens. Esta função de ajuda geral está desativada aqui.");
-                setIsProcessing(false);
-                return;
-            }
-
             const { text: transcribedText } = await transcribeAudio({ audioDataUri: base64Audio });
 
             if (!transcribedText) {
