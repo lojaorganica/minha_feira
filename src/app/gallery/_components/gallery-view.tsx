@@ -112,7 +112,6 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
                                 src={item.url} 
                                 className="w-full h-full object-contain" 
                                 preload="metadata"
-                                poster={item.url.replace('.mp4', '.png')}
                             />
                             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                                 <PlayCircle className="h-16 w-16 text-white/80 drop-shadow-lg" />
