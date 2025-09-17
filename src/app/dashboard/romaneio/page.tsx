@@ -257,10 +257,10 @@ export default function RomaneioPage() {
         });
     }
   };
-
+  
   const playResponse = async (text: string) => {
     if (!text) return;
-    
+
     toast({
         title: "Sofia Responde:",
         description: text,
@@ -271,14 +271,17 @@ export default function RomaneioPage() {
             text,
             voiceName: 'Erinome',
         });
-        setAudioSrc(audioDataUri);
+        if (audioPlayerRef.current) {
+            audioPlayerRef.current.src = audioDataUri;
+            audioPlayerRef.current.play();
+        }
     } catch (error) {
         console.error('Erro ao gerar ou tocar a fala da Sofia:', error);
     }
- };
+  };
 
 
- const processAudioResult = async (result: ProcessRomaneioAudioOutput) => {
+  const processAudioResult = async (result: ProcessRomaneioAudioOutput) => {
     let dataWithUpdates = [...romaneioData];
     let responseText = "";
 
@@ -308,7 +311,6 @@ export default function RomaneioPage() {
                 let finalQuantity = currentItem.quantidade;
                 let finalFornecedor = currentItem.fornecedor;
 
-                // Lógica para Fornecedor
                 if (extractedItem.fornecedor !== undefined) {
                     const newSupplier = extractedItem.fornecedor.trim();
                     if (newSupplier === '' && currentItem.fornecedor !== '') {
@@ -324,7 +326,6 @@ export default function RomaneioPage() {
                     }
                 }
 
-                // Lógica para Quantidade
                 if (extractedItem.quantity !== undefined && extractedItem.quantity.trim() !== '') {
                     const changeMatch = extractedItem.quantity.trim().match(/^([+-]?)(\d+(\.\d+)?)\s*(.*)/);
                     const currentMatch = currentItem.quantidade.trim().match(/^(\d+(\.\d+)?)\s*(.*)/);
@@ -364,7 +365,6 @@ export default function RomaneioPage() {
             }
         });
 
-        // Construção da resposta falada
         const parts = [];
         if (updatedQuantitiesProducts.length > 0) {
             const plural = updatedQuantitiesProducts.length > 1;
@@ -399,15 +399,18 @@ export default function RomaneioPage() {
       if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
         throw new Error('API de mídia não suportada neste navegador.');
       }
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       
+      // 1. Pede permissão primeiro
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       setShowMicAlert(false);
 
+      // 2. Toca o áudio silencioso após a permissão ser concedida
       if (audioPlayerRef.current) {
         audioPlayerRef.current.src = 'data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA';
-        audioPlayer-Ref.current.play().catch(() => {}); // Play silent audio to unlock
+        audioPlayerRef.current.play().catch(() => {});
       }
-
+      
+      // 3. Inicia a gravação
       mediaRecorderRef.current = new MediaRecorder(stream);
       audioChunksRef.current = [];
 
@@ -636,15 +639,7 @@ export default function RomaneioPage() {
         </Card>
       </div>
 
-       {/* Player de áudio centralizado e estável */}
-       <audio 
-            ref={audioPlayerRef} 
-            src={audioSrc || undefined} 
-            autoPlay 
-            onEnded={() => setAudioSrc(null)}
-            className="hidden" 
-        />
-
+       <audio ref={audioPlayerRef} className="hidden" />
 
        {/* Botão de Gravação Flutuante */}
       <div className="fixed bottom-6 right-6 no-print z-50">
@@ -674,3 +669,5 @@ export default function RomaneioPage() {
     </div>
   );
 }
+
+    
