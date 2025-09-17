@@ -305,8 +305,9 @@ export default function RomaneioPage() {
             
             let dataWithUpdates = [...romaneioData];
             let responseText = "";
-            let updatedProductNames: string[] = [];
-            let suppliersUpdated = 0;
+            let updatedProductQuantities: string[] = [];
+            let updatedProductSuppliers: string[] = [];
+
 
             if (result.conversationalResponse) {
                 responseText = result.conversationalResponse;
@@ -324,13 +325,13 @@ export default function RomaneioPage() {
                     const currentItem = dataWithUpdates[itemIndex];
                     let finalQuantity = currentItem.quantidade;
                     let finalFornecedor = currentItem.fornecedor;
-                    let productUpdated = false;
 
                     // Atualiza Fornecedor se presente
                     if (extractedItem.fornecedor && extractedItem.fornecedor !== currentItem.fornecedor) {
                         finalFornecedor = extractedItem.fornecedor;
-                        suppliersUpdated++;
-                        productUpdated = true;
+                        if (!updatedProductSuppliers.includes(currentItem.produto)) {
+                            updatedProductSuppliers.push(currentItem.produto);
+                        }
                     }
 
                     // Processa Quantidade
@@ -340,11 +341,11 @@ export default function RomaneioPage() {
                         if (changeMatch) {
                             const operator = changeMatch[1];
                             const changeValue = parseFloat(changeMatch[2]);
-                            const changeUnit = changeMatch[4] || '';
-
+                            
                             const currentMatch = currentItem.quantidade.match(/^(\d+(\.\d+)?)\s*(.*)/);
                             const currentValue = currentMatch ? parseFloat(currentMatch[1]) : 0;
-                            const currentUnit = currentMatch ? currentMatch[3] : changeUnit;
+                            const currentUnit = currentMatch ? currentMatch[3].trim() : '';
+                            const changeUnit = changeMatch[4] ? changeMatch[4].trim() : currentUnit;
                             
                             let newValue = 0;
                             if (operator === '+') {
@@ -355,14 +356,19 @@ export default function RomaneioPage() {
                                 newValue = changeValue;
                             }
 
-                            finalQuantity = newValue > 0 ? `${newValue} ${currentUnit || changeUnit}`.trim() : '';
+                            finalQuantity = newValue > 0 ? `${newValue} ${changeUnit}`.trim() : '';
                         } else {
                             finalQuantity = extractedItem.quantity;
                         }
-                        productUpdated = true;
+
+                        if (!updatedProductQuantities.includes(currentItem.produto)) {
+                           updatedProductQuantities.push(currentItem.produto);
+                        }
                     } else if (extractedItem.quantity === '') { // Comando para zerar
                         finalQuantity = '';
-                        productUpdated = true;
+                        if (!updatedProductQuantities.includes(currentItem.produto)) {
+                           updatedProductQuantities.push(currentItem.produto);
+                        }
                     }
 
                      dataWithUpdates[itemIndex] = {
@@ -370,23 +376,30 @@ export default function RomaneioPage() {
                         quantidade: finalQuantity,
                         fornecedor: finalFornecedor,
                     };
-                    
-                    if (productUpdated) {
-                        updatedProductNames.push(currentItem.produto);
-                    }
                   }
               });
 
-              if (updatedProductNames.length > 0) {
-                 const productList = updatedProductNames.join(', ');
-                 const plural = updatedProductNames.length > 1;
-                 responseText = `Ok, atualizei a${plural ? 's' : ''} quantidade${plural ? 's' : ''} de ${productList}.`;
-              } else if (suppliersUpdated > 0) {
-                const plural = suppliersUpdated > 1;
-                responseText = `Ok, adicionei o${plural ? 's' : ''} fornecedor${plural ? 'es' : ''}.`;
-              } else {
-                 responseText = "Não identifiquei nenhuma alteração para fazer.";
-              }
+                let quantityText = '';
+                if (updatedProductQuantities.length > 0) {
+                    const plural = updatedProductQuantities.length > 1;
+                    quantityText = `Atualizei a${plural ? 's' : ''} quantidade${plural ? 's' : ''} de ${updatedProductQuantities.join(', ')}.`;
+                }
+
+                let supplierText = '';
+                if (updatedProductSuppliers.length > 0) {
+                    const plural = updatedProductSuppliers.length > 1;
+                    supplierText = `Adicionei o${plural ? 's' : ''} fornecedor${plural ? 'es' : ''} para o${plural ? 's' : ''} item${plural ? 'ns' : ''} ${updatedProductSuppliers.join(', ')}.`;
+                }
+
+                if (quantityText && supplierText) {
+                    responseText = `${quantityText} E também, ${supplierText.charAt(0).toLowerCase() + supplierText.slice(1)}`;
+                } else if (quantityText) {
+                    responseText = `Ok. ${quantityText}`;
+                } else if (supplierText) {
+                    responseText = `Certo. ${supplierText}`;
+                } else {
+                    responseText = "Não identifiquei nenhuma alteração para fazer.";
+                }
               
             } else {
                 responseText = "Desculpe, não consegui identificar nenhum item para o romaneio no seu áudio. Poderia tentar de novo?";
@@ -649,3 +662,5 @@ export default function RomaneioPage() {
     </div>
   );
 }
+
+    
