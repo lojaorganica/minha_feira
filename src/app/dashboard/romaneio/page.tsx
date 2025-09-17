@@ -260,12 +260,17 @@ export default function RomaneioPage() {
   };
 
   const playResponse = async (text: string) => {
+    if (!text) return;
     try {
       const result = await generateSpeech({
         text,
         voiceName: 'Erinome',
       });
       setAudioSrc(result.audioDataUri);
+      toast({
+          title: "Sofia Responde:",
+          description: text,
+      });
     } catch (error) {
       console.error('Erro ao gerar a fala da Sofia:', error);
     }
@@ -305,17 +310,17 @@ export default function RomaneioPage() {
             
             let dataWithUpdates = [...romaneioData];
             let responseText = "";
-            let updatedProductQuantities: string[] = [];
-            let updatedProductSuppliers: string[] = [];
+            const updatedProductQuantities: string[] = [];
+            const updatedProductSuppliers: string[] = [];
 
 
             if (result.conversationalResponse) {
                 responseText = result.conversationalResponse;
             } else if (result.clearAll) {
-                dataWithUpdates = romaneioData.map(item => ({ ...item, quantidade: '', fornecedor: '' }));
+                dataWithUpdates = dataWithUpdates.map(item => ({ ...item, quantidade: '', fornecedor: '' }));
                 responseText = "Entendido. O romaneio foi limpo.";
             } else if (result.clearQuantitiesOnly) {
-                dataWithUpdates = romaneioData.map(item => ({ ...item, quantidade: '' }));
+                dataWithUpdates = dataWithUpdates.map(item => ({ ...item, quantidade: '' }));
                 responseText = "Ok, as quantidades foram limpas.";
             } else if (result.items && result.items.length > 0) {
               
@@ -329,48 +334,51 @@ export default function RomaneioPage() {
                     let finalQuantity = currentItem.quantidade;
                     let finalFornecedor = currentItem.fornecedor;
 
-                    // Atualiza Fornecedor se presente
                     if (extractedItem.fornecedor && extractedItem.fornecedor !== currentItem.fornecedor) {
                         finalFornecedor = extractedItem.fornecedor;
                         if (!updatedProductSuppliers.includes(currentItem.produto)) {
                             updatedProductSuppliers.push(currentItem.produto);
                         }
                     }
+                    
+                    if (typeof extractedItem.quantity === 'string') {
+                      if (extractedItem.quantity === '') { // Comando para zerar
+                          finalQuantity = '';
+                           if (!updatedProductQuantities.includes(currentItem.produto)) {
+                             updatedProductQuantities.push(currentItem.produto);
+                          }
+                      } else {
+                          const changeMatch = extractedItem.quantity.match(/^([+-]?)(\d+(\.\d+)?)\s*(.*)/);
+                          const currentMatch = currentItem.quantidade.match(/^(\d+(\.\d+)?)\s*(.*)/);
+                          
+                          if (changeMatch) {
+                              const operator = changeMatch[1];
+                              const changeValue = parseFloat(changeMatch[2]);
+                              const changeUnit = changeMatch[4]?.trim() || '';
+                              
+                              const currentValue = currentMatch ? parseFloat(currentMatch[1]) : 0;
+                              const currentUnit = currentMatch ? currentMatch[3]?.trim() : changeUnit;
+                              
+                              let newValue = 0;
+                              if (operator === '+') {
+                                  newValue = currentValue + changeValue;
+                              } else if (operator === '-') {
+                                  newValue = Math.max(0, currentValue - changeValue);
+                              } else {
+                                  newValue = changeValue;
+                              }
 
-                    // Processa Quantidade
-                    if (extractedItem.quantity) {
-                        const changeMatch = extractedItem.quantity.match(/^([+-]?)(\d+(\.\d+)?)\s*(.*)/);
-
-                        if (changeMatch) {
-                            const operator = changeMatch[1];
-                            const changeValue = parseFloat(changeMatch[2]);
-                            
-                            const currentMatch = currentItem.quantidade.match(/^(\d+(\.\d+)?)\s*(.*)/);
-                            const currentValue = currentMatch ? parseFloat(currentMatch[1]) : 0;
-                            const currentUnit = currentMatch ? currentMatch[3].trim() : (changeMatch[4] ? changeMatch[4].trim() : '');
-                            
-                            let newValue = 0;
-                            if (operator === '+') {
-                                newValue = currentValue + changeValue;
-                            } else if (operator === '-') {
-                                newValue = currentValue - changeValue;
-                            } else { // Define o valor diretamente
-                                newValue = changeValue;
-                            }
-
-                            finalQuantity = newValue > 0 ? `${newValue} ${currentUnit}`.trim() : '';
-                        } else {
-                            finalQuantity = extractedItem.quantity;
-                        }
-
-                        if (!updatedProductQuantities.includes(currentItem.produto)) {
-                           updatedProductQuantities.push(currentItem.produto);
-                        }
-                    } else if (extractedItem.quantity === '') { // Comando para zerar
-                        finalQuantity = '';
-                        if (!updatedProductQuantities.includes(currentItem.produto)) {
-                           updatedProductQuantities.push(currentItem.produto);
-                        }
+                              finalQuantity = newValue > 0 ? `${newValue} ${currentUnit}`.trim() : '';
+                          } else {
+                              finalQuantity = extractedItem.quantity;
+                          }
+                          
+                          if (finalQuantity !== currentItem.quantidade) {
+                              if (!updatedProductQuantities.includes(currentItem.produto)) {
+                                 updatedProductQuantities.push(currentItem.produto);
+                              }
+                          }
+                      }
                     }
 
                      dataWithUpdates[itemIndex] = {
@@ -390,7 +398,7 @@ export default function RomaneioPage() {
                 let supplierText = '';
                 if (updatedProductSuppliers.length > 0) {
                     const plural = updatedProductSuppliers.length > 1;
-                    supplierText = `Adicionei o${plural ? 's' : ''} fornecedor${plural ? 'es' : ''} para o${plural ? 's' : ''} item${plural ? 'ns' : ''} ${updatedProductSuppliers.join(', ')}.`;
+                    supplierText = `Adicionei o${plural ? 's' : ''} fornecedor${plural ? 'es' : ''} para ${plural ? 'os itens' : 'o item'} ${updatedProductSuppliers.join(', ')}.`;
                 }
 
                 if (quantityText && supplierText) {
