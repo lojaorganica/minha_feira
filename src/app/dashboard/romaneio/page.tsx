@@ -49,9 +49,10 @@ export default function RomaneioPage() {
   const [isRecording, setIsRecording] = useState(false);
   const [isProcessingAudio, setIsProcessingAudio] = useState(false);
   const [showMicAlert, setShowMicAlert] = useState(false);
-  const [audioSrc, setAudioSrc] = useState<string | null>(null);
+  
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
+  const audioPlayerRef = useRef<HTMLAudioElement | null>(null);
   
   const printRef = useRef<HTMLDivElement>(null);
 
@@ -84,7 +85,6 @@ export default function RomaneioPage() {
         const savedData = localStorage.getItem(key);
         if (savedData) {
           const parsedData = JSON.parse(savedData);
-           // Garante que todos os produtos atuais do agricultor estejam na lista, mesmo que não estivessem salvos
            const currentProductNames = new Set(farmerProducts.map(p => p.name));
            const savedProductNames = new Set(parsedData.map((item: RomaneioItem) => item.produto));
 
@@ -100,7 +100,6 @@ export default function RomaneioPage() {
                }
            });
            
-           // Remove produtos que não existem mais
            const finalData = fullData.filter(item => currentProductNames.has(item.produto));
 
           setRomaneioData(finalData);
@@ -126,7 +125,6 @@ export default function RomaneioPage() {
     }
   }, [selectedFair, date, farmer, farmerProducts]);
   
-  // Efeito para salvar no localStorage sempre que o romaneioData mudar
   useEffect(() => {
     if (selectedFair && date && farmer?.id && !isLoading) {
        try {
@@ -259,8 +257,8 @@ export default function RomaneioPage() {
     }
   };
 
- const playResponse = async (text: string) => {
-    if (!text) return;
+  const playResponse = async (text: string) => {
+    if (!text || !audioPlayerRef.current) return;
     
     toast({
         title: "Sofia Responde:",
@@ -268,15 +266,18 @@ export default function RomaneioPage() {
     });
     
     try {
-        const result = await generateSpeech({
+        const { audioDataUri } = await generateSpeech({
             text,
             voiceName: 'Erinome',
         });
-        setAudioSrc(result.audioDataUri);
+        if (audioPlayerRef.current) {
+            audioPlayerRef.current.src = audioDataUri;
+            await audioPlayerRef.current.play();
+        }
     } catch (error) {
-        console.error('Erro ao gerar a fala da Sofia:', error);
+        console.error('Erro ao gerar ou tocar a fala da Sofia:', error);
     }
-};
+ };
 
 
  const processAudioResult = async (result: ProcessRomaneioAudioOutput) => {
@@ -403,7 +404,12 @@ export default function RomaneioPage() {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       
       setShowMicAlert(false);
-      setAudioSrc(null);
+
+      if (audioPlayerRef.current) {
+        audioPlayerRef.current.src = 'data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA';
+        audioPlayerRef.current.play().catch(() => {}); // Play silent audio to unlock
+      }
+
       mediaRecorderRef.current = new MediaRecorder(stream);
       audioChunksRef.current = [];
 
@@ -620,22 +626,6 @@ export default function RomaneioPage() {
                 ))}
               </div>
             </div>
-            
-             {audioSrc && (
-                <div className="mt-6 no-print">
-                    <audio
-                    key={audioSrc}
-                    src={audioSrc}
-                    autoPlay
-                    controls
-                    className="w-full"
-                    onEnded={() => setAudioSrc(null)}
-                    >
-                    Seu navegador não suporta o elemento de áudio.
-                    </audio>
-                </div>
-            )}
-
           </CardContent>
           <CardFooter className="flex-col md:flex-row gap-2 justify-end no-print p-6">
              <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
@@ -647,6 +637,9 @@ export default function RomaneioPage() {
           </CardFooter>
         </Card>
       </div>
+
+       {/* Player de áudio oculto para controlar a reprodução */}
+       <audio ref={audioPlayerRef} className="hidden" />
 
        {/* Botão de Gravação Flutuante */}
       <div className="fixed bottom-6 right-6 no-print z-50">
@@ -676,7 +669,3 @@ export default function RomaneioPage() {
     </div>
   );
 }
-
-    
-
-    
