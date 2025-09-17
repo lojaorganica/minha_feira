@@ -311,21 +311,22 @@ export default function RomaneioPage() {
                     let finalQuantity = currentItem.quantidade;
                     let finalFornecedor = currentItem.fornecedor;
 
+                    // Lógica para Fornecedor
                     if (extractedItem.fornecedor !== undefined) {
                         const newSupplier = extractedItem.fornecedor.trim();
+                        finalFornecedor = newSupplier; // Sempre atualiza, mesmo se for para string vazia
                         if (newSupplier === '' && currentItem.fornecedor !== '') {
-                            finalFornecedor = '';
                             if (!removedSuppliersProducts.includes(currentItem.produto)) {
                                 removedSuppliersProducts.push(currentItem.produto);
                             }
                         } else if (newSupplier !== '' && newSupplier !== currentItem.fornecedor) {
-                            finalFornecedor = newSupplier;
                             if (!updatedSuppliersProducts.includes(currentItem.produto)) {
                                 updatedSuppliersProducts.push(currentItem.produto);
                             }
                         }
                     }
 
+                    // Lógica para Quantidade
                     if (extractedItem.quantity !== undefined && extractedItem.quantity.trim() !== '') {
                         const changeMatch = extractedItem.quantity.trim().match(/^([+-]?)(\d+(\.\d+)?)\s*(.*)/);
                         const currentMatch = currentItem.quantidade.trim().match(/^(\d+(\.\d+)?)\s*(.*)/);
