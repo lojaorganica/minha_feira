@@ -58,9 +58,7 @@ const Header = () => {
 
   const handleNavigate = (href: string) => {
     setSheetOpen(false);
-    setTimeout(() => {
-        router.push(href);
-    }, 150);
+    router.push(href);
   };
   
   const isCatalogPage = pathname === '/catalog';
