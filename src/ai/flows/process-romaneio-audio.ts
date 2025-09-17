@@ -37,7 +37,7 @@ const ProcessRomaneioAudioOutputSchema = z.object({
     items: z.array(z.object({
         product: z.string().describe('The name of the product identified in the audio. Must be one of the provided productList.'),
         quantity: z.string().describe('The quantity of the product mentioned. For commands to set a specific value (e.g., "put 10"), just use the number and unit (e.g. "10 caixas"). If the command is to add (e.g., "add 5 more"), prefix with a "+". If the command is to subtract (e.g., "remove 2"), prefix with a "-". If the command is to remove or zero out, this should be an empty string. Standardize "quilo" or "quilos" to "kg".'),
-        fornecedor: z.string().describe('The name of the supplier for the product, if mentioned. E.g., "Matias Ponte". If the command is to remove a supplier for a specific item (e.g., "remover fornecedor da couve"), this field should be an empty string (""). If no supplier is mentioned, it should also be an empty string.')
+        fornecedor: z.string().describe('The name of the supplier for the product, if mentioned. E.g., "Matias Ponte". If the command is to remove a supplier for a specific item (e.g., "remover fornecedor da couve"), this field should be an empty string ("").')
     })).describe('A list of products and their changes. Only include items mentioned in the audio. Do not assume any changes for unmentioned items.'),
     conversationalResponse: z.string().optional().describe("If the user's audio is a general question or greeting (e.g., 'What's your name?', 'Hello'), provide a helpful, conversational response here. This field should only be used when no packing slip items are detected.")
 });
@@ -74,9 +74,10 @@ const extractionPrompt = ai.definePrompt({
     - {{this}}
     {{/each}}
 
-    **REGRA DE CORREÇÃO (MUITO IMPORTANTE):**
-    *   Se um comando for uma **correção** de um único campo (ex: "corrigir o fornecedor da laranja para Sítio Alegria"), você deve identificar o item, alterar **APENAS** o campo mencionado no áudio, e **MANTER** todos os outros campos daquele item com seus valores atuais, copiando-os do **CONTEXTO ATUAL DO ROMANEIO**.
-    *   **Exemplo Prático:** Se o romaneio atual tem "Produto: Laranja, Quantidade: 10 caixas, Fornecedor: Sítio Feliz" e o áudio diz "corrigir para Sítio Alegria o fornecedor da laranja", sua saída para o item 'Laranja' DEVE ser: 'product': 'Laranja', 'quantity': '10 caixas', 'fornecedor': 'Sítio Alegria'.
+    **REGRA DE CORREÇÃO E ATUALIZAÇÃO (MUITO IMPORTANTE):**
+    *   Se um comando for uma **atualização ou correção** de um único campo (ex: "corrigir o fornecedor da laranja para Sítio Alegria" ou "colocar 10kg de tomate"), você deve identificar o item, alterar **APENAS** o campo mencionado no áudio, e **MANTER** todos os outros campos daquele item com seus valores atuais, copiando-os do **CONTEXTO ATUAL DO ROMANEIO**.
+    *   **Exemplo Prático 1:** Se o romaneio atual tem "Produto: Laranja, Quantidade: 10 caixas, Fornecedor: Sítio Feliz" e o áudio diz "corrigir para Sítio Alegria o fornecedor da laranja", sua saída para o item 'Laranja' DEVE ser: 'product': 'Laranja', 'quantity': '10 caixas', 'fornecedor': 'Sítio Alegria'.
+    *   **Exemplo Prático 2:** Se o romaneio atual tem "Produto: Tomate, Quantidade: , Fornecedor: Sítio Sol" e o áudio diz "colocar 10kg de tomate", sua saída para o item 'Tomate' DEVE ser: 'product': 'Tomate', 'quantity': '10 kg', 'fornecedor': 'Sítio Sol'.
     *   **A última informação mencionada para um campo específico é a que vale.**
     
     **REGRAS DE EXTRAÇÃO DE QUANTIDADE:**
