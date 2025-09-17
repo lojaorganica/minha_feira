@@ -53,7 +53,6 @@ export default function RomaneioPage() {
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   const audioPlayerRef = useRef<HTMLAudioElement | null>(null);
-  const [audioSrc, setAudioSrc] = useState<string | null>(null);
   
   const printRef = useRef<HTMLDivElement>(null);
 
@@ -400,17 +399,9 @@ export default function RomaneioPage() {
         throw new Error('API de mídia não suportada neste navegador.');
       }
       
-      // 1. Pede permissão primeiro
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       setShowMicAlert(false);
-
-      // 2. Toca o áudio silencioso após a permissão ser concedida
-      if (audioPlayerRef.current) {
-        audioPlayerRef.current.src = 'data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA';
-        audioPlayerRef.current.play().catch(() => {});
-      }
       
-      // 3. Inicia a gravação
       mediaRecorderRef.current = new MediaRecorder(stream);
       audioChunksRef.current = [];
 
@@ -669,5 +660,3 @@ export default function RomaneioPage() {
     </div>
   );
 }
-
-    
