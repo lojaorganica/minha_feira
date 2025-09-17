@@ -53,6 +53,8 @@ export default function RomaneioPage() {
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   
+  const [pendingResponseText, setPendingResponseText] = useState<string | null>(null);
+  
   const printRef = useRef<HTMLDivElement>(null);
 
   const farmerProducts = useMemo(() => {
@@ -278,8 +280,15 @@ export default function RomaneioPage() {
     }
 };
 
+ useEffect(() => {
+    if (pendingResponseText) {
+      playResponse(pendingResponseText);
+      setPendingResponseText(null); // Limpa o texto pendente após a chamada
+    }
+  }, [pendingResponseText]);
 
- const processAudioResult = async (result: ProcessRomaneioAudioOutput) => {
+
+ const processAudioResult = (result: ProcessRomaneioAudioOutput) => {
     let dataWithUpdates = [...romaneioData];
     let responseText = "";
 
@@ -390,7 +399,7 @@ export default function RomaneioPage() {
     }
     
     setRomaneioData(dataWithUpdates);
-    await playResponse(responseText);
+    setPendingResponseText(responseText);
   };
 
   const startRecording = async () => {
@@ -423,10 +432,10 @@ export default function RomaneioPage() {
               audioDataUri: base64Audio,
               productList: farmerProducts.map(p => p.name)
             });
-            await processAudioResult(result);
+            processAudioResult(result);
           } catch (e) {
             console.error(e);
-            await playResponse("Ocorreu um erro ao processar o áudio. Por favor, tente novamente.");
+            setPendingResponseText("Ocorreu um erro ao processar o áudio. Por favor, tente novamente.");
           } finally {
             setIsProcessingAudio(false);
           }
@@ -672,7 +681,3 @@ export default function RomaneioPage() {
     </div>
   );
 }
-
-    
-
-    
