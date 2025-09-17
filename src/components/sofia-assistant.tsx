@@ -11,6 +11,7 @@ import { useToast } from '@/hooks/use-toast';
 import { usePathname } from 'next/navigation';
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { useUser } from '@/hooks/use-user';
+import { processRomaneioAudio } from '@/ai/flows/process-romaneio-audio'; // Importar o flow do romaneio
 
 const publicPaths = [
     '/welcome',
@@ -37,16 +38,17 @@ export default function SofiaAssistant() {
   const { user } = useUser();
 
   const isPublicPage = publicPaths.includes(pathname);
-  
+  const isRomaneioPage = pathname === '/dashboard/romaneio';
+
   useEffect(() => {
     const hintShown = localStorage.getItem('sofia_hint_shown');
-    if (!hintShown) {
+    if (!hintShown && !isRomaneioPage) { // Só mostra o hint fora da pág do romaneio
       const timer = setTimeout(() => {
         setShowHint(true);
       }, 3000);
       return () => clearTimeout(timer);
     }
-  }, []);
+  }, [isRomaneioPage]);
 
   const handleInteractionStart = () => {
     if (showHint) {
@@ -104,16 +106,23 @@ export default function SofiaAssistant() {
           const base64Audio = reader.result as string;
           
           try {
-            // Speech-to-Text (simulado, pois não temos um STT flow)
-            // Para a demonstração, vamos chamar o ask-sofia diretamente
-            // com uma pergunta simulada. Na realidade, usaríamos um flow de STT aqui.
-            // Para o propósito deste protótipo, o flow 'askSofia' tem um prompt que responde a uma pergunta fixa
-            // quando não consegue transcrever o áudio.
-            
-            // Simulação da pergunta do usuário. O flow de askSofia já está preparado
-            // para responder à pergunta "qual o seu nome" ou "o que você faz"
+            // Se estiver na página do Romaneio, a Sofia só fala, não responde perguntas gerais
+            if (isRomaneioPage) {
+                // A lógica de processamento do romaneio já está na própria página,
+                // então este botão não precisa fazer nada aqui para não duplicar.
+                // Apenas avisamos que a função de pergunta não está ativa aqui.
+                playResponse("Use o botão do Romaneio para ditar os itens. Esta função de ajuda geral está desativada aqui.");
+                setIsProcessing(false);
+                return;
+            }
+
+            // Simulação de Speech-to-Text: Como não temos, usamos uma pergunta fixa
+            // mas agora passamos o nome do usuário.
             const userName = user?.name.split(' ')[0];
-            const { answer } = await askSofia({ question: "Me fale sobre o aplicativo.", userName });
+            const { answer } = await askSofia({ 
+                question: "Como eu edito um produto?", // Pergunta simulada para teste
+                userName 
+            });
             
             playResponse(answer);
 
@@ -150,7 +159,8 @@ export default function SofiaAssistant() {
     }
   };
 
-  if (isPublicPage) {
+  // Não mostra o botão flutuante em páginas públicas ou na página do romaneio (que já tem um botão dedicado)
+  if (isPublicPage || isRomaneioPage) {
     return null;
   }
 
