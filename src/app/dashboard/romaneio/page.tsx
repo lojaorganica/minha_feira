@@ -277,7 +277,6 @@ export default function RomaneioPage() {
   };
 
   const startRecording = async () => {
-    // Evita múltiplas chamadas se já estiver gravando
     if (isRecording || isProcessingAudio) return;
 
     try {
@@ -322,6 +321,9 @@ export default function RomaneioPage() {
             } else if (result.clearQuantitiesOnly) {
                 dataWithUpdates = dataWithUpdates.map(item => ({ ...item, quantidade: '' }));
                 responseText = "Ok, as quantidades foram limpas.";
+            } else if (result.clearSuppliersOnly) {
+                dataWithUpdates = dataWithUpdates.map(item => ({...item, fornecedor: ''}));
+                responseText = "Certo, limpei os nomes dos fornecedores.";
             } else if (result.items && result.items.length > 0) {
               
               result.items.forEach(extractedItem => {
@@ -334,51 +336,49 @@ export default function RomaneioPage() {
                     let finalQuantity = currentItem.quantidade;
                     let finalFornecedor = currentItem.fornecedor;
 
-                    if (extractedItem.fornecedor && extractedItem.fornecedor !== currentItem.fornecedor) {
-                        finalFornecedor = extractedItem.fornecedor;
+                    if (extractedItem.fornecedor && extractedItem.fornecedor.trim() !== currentItem.fornecedor) {
+                        finalFornecedor = extractedItem.fornecedor.trim();
                         if (!updatedProductSuppliers.includes(currentItem.produto)) {
                             updatedProductSuppliers.push(currentItem.produto);
                         }
                     }
                     
-                    if (typeof extractedItem.quantity === 'string') {
-                      if (extractedItem.quantity === '') { // Comando para zerar
-                          finalQuantity = '';
-                           if (!updatedProductQuantities.includes(currentItem.produto)) {
+                    if (typeof extractedItem.quantity === 'string' && extractedItem.quantity.trim() !== '') {
+                      const changeMatch = extractedItem.quantity.trim().match(/^([+-]?)(\d+(\.\d+)?)\s*(.*)/);
+                      const currentMatch = currentItem.quantidade.trim().match(/^(\d+(\.\d+)?)\s*(.*)/);
+                      
+                      if (changeMatch) {
+                          const operator = changeMatch[1];
+                          const changeValue = parseFloat(changeMatch[2]);
+                          const changeUnit = changeMatch[4]?.trim() || (currentMatch ? currentMatch[3]?.trim() : '');
+                          
+                          const currentValue = currentMatch ? parseFloat(currentMatch[1]) : 0;
+                          
+                          let newValue = 0;
+                          if (operator === '+') {
+                              newValue = currentValue + changeValue;
+                          } else if (operator === '-') {
+                              newValue = Math.max(0, currentValue - changeValue);
+                          } else { // Definir valor
+                              newValue = changeValue;
+                          }
+                          finalQuantity = newValue > 0 ? `${newValue} ${changeUnit}`.trim() : '';
+                      } else { // Definir valor sem operador, mas pode ter unidade
+                          finalQuantity = extractedItem.quantity.trim();
+                      }
+                      
+                      if (finalQuantity !== currentItem.quantidade) {
+                          if (!updatedProductQuantities.includes(currentItem.produto)) {
                              updatedProductQuantities.push(currentItem.produto);
                           }
-                      } else {
-                          const changeMatch = extractedItem.quantity.match(/^([+-]?)(\d+(\.\d+)?)\s*(.*)/);
-                          const currentMatch = currentItem.quantidade.match(/^(\d+(\.\d+)?)\s*(.*)/);
-                          
-                          if (changeMatch) {
-                              const operator = changeMatch[1];
-                              const changeValue = parseFloat(changeMatch[2]);
-                              const changeUnit = changeMatch[4]?.trim() || '';
-                              
-                              const currentValue = currentMatch ? parseFloat(currentMatch[1]) : 0;
-                              const currentUnit = currentMatch ? currentMatch[3]?.trim() : changeUnit;
-                              
-                              let newValue = 0;
-                              if (operator === '+') {
-                                  newValue = currentValue + changeValue;
-                              } else if (operator === '-') {
-                                  newValue = Math.max(0, currentValue - changeValue);
-                              } else {
-                                  newValue = changeValue;
-                              }
-
-                              finalQuantity = newValue > 0 ? `${newValue} ${currentUnit}`.trim() : '';
-                          } else {
-                              finalQuantity = extractedItem.quantity;
-                          }
-                          
-                          if (finalQuantity !== currentItem.quantidade) {
-                              if (!updatedProductQuantities.includes(currentItem.produto)) {
-                                 updatedProductQuantities.push(currentItem.produto);
-                              }
-                          }
                       }
+                    } else if (extractedItem.quantity === '') { // Comando explícito para zerar
+                        finalQuantity = '';
+                        if (currentItem.quantidade !== '') { // só adiciona se realmente mudou
+                            if (!updatedProductQuantities.includes(currentItem.produto)) {
+                                updatedProductQuantities.push(currentItem.produto);
+                            }
+                        }
                     }
 
                      dataWithUpdates[itemIndex] = {
@@ -411,8 +411,10 @@ export default function RomaneioPage() {
                     responseText = "Não identifiquei nenhuma alteração para fazer.";
                 }
               
-            } else {
-                responseText = "Desculpe, não consegui identificar nenhum item para o romaneio no seu áudio. Poderia tentar de novo?";
+            }
+            
+            if (!responseText) {
+                responseText = "Desculpe, não consegui entender o comando. Poderia tentar de novo?";
             }
             
             setRomaneioData(dataWithUpdates);
@@ -438,7 +440,7 @@ export default function RomaneioPage() {
       setIsRecording(true);
     } catch (err) {
       console.error("Erro ao iniciar a gravação:", err);
-      setIsRecording(false); // Garante que o estado seja resetado em caso de erro
+      setIsRecording(false);
       setShowMicAlert(true);
       toast({
         variant: "destructive",
