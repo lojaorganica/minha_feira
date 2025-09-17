@@ -424,11 +424,6 @@ export default function RomaneioPage() {
           } catch (e) {
             console.error(e);
             await playResponse("Ocorreu um erro ao processar o áudio. Por favor, tente novamente.");
-            toast({
-              variant: 'destructive',
-              title: "Erro ao processar áudio",
-              description: "Não foi possível extrair os dados do áudio. Tente novamente.",
-            });
           } finally {
             setIsProcessingAudio(false);
           }
@@ -674,4 +669,3 @@ export default function RomaneioPage() {
     </div>
   );
 }
-
