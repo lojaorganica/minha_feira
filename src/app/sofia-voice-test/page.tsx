@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -24,7 +23,7 @@ export default function SofiaVoiceTestPage() {
     setAudioSrc(null);
     try {
       const result = await generateSpeech({
-        text: 'Olá! Eu sou a Sofia, sua assistente virtual no Minha Feira. Estou aqui para ajudar você a encontrar os melhores produtos orgânicos e facilitar sua experiência de compra. Como posso ajudar hoje?',
+        text: 'Olá! Eu sou a Sofia, sua assistente virtual no Minha Feira. Como posso ajudar hoje?',
         voiceName: voiceName,
       });
       setAudioSrc(result.audioDataUri);
