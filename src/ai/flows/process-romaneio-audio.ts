@@ -36,7 +36,7 @@ const ProcessRomaneioAudioOutputSchema = z.object({
     clearSuppliersOnly: z.boolean().describe("If true, indicates the user wants to clear only the supplier names, preserving the quantities."),
     items: z.array(z.object({
         product: z.string().describe('The name of the product identified in the audio. Must be one of the provided productList.'),
-        quantity: z.string().describe('The quantity of the product mentioned. For commands to set a specific value (e.g., "put 10"), just use the number and unit (e.g. "10 caixas"). If the command is to add (e.g., "add 5 more"), prefix with a "+". If the command is to subtract (e.g., "remove 2"), prefix with a "-". If the command is to remove or zero out, this should be an empty string.'),
+        quantity: z.string().describe('The quantity of the product mentioned. For commands to set a specific value (e.g., "put 10"), just use the number and unit (e.g. "10 caixas"). If the command is to add (e.g., "add 5 more"), prefix with a "+". If the command is to subtract (e.g., "remove 2"), prefix with a "-". If the command is to remove or zero out, this should be an empty string. Standardize "quilo" or "quilos" to "kg".'),
         fornecedor: z.string().describe('The name of the supplier for the product, if mentioned. E.g., "Matias Ponte". If the command is to remove a supplier for a specific item (e.g., "remover fornecedor da couve"), this field should be an empty string (""). If no supplier is mentioned, it should also be an empty string.')
     })).describe('A list of products and their changes. Only include items mentioned in the audio. Do not assume any changes for unmentioned items.'),
     conversationalResponse: z.string().optional().describe("If the user's audio is a general question or greeting (e.g., 'What's your name?', 'Hello'), provide a helpful, conversational response here. This field should only be used when no packing slip items are detected.")
@@ -81,9 +81,10 @@ const extractionPrompt = ai.definePrompt({
     
     **REGRAS DE EXTRAÇÃO DE QUANTIDADE:**
     *   **DEFINIR VALOR:** Se o comando for para "colocar", "botar", "definir" uma quantidade (ex: "10 caixas de tomate"), o campo 'quantity' deve ser a string exata, incluindo a unidade. Ex: "10 caixas".
-    *   **ADICIONAR/SOMAR:** Se o comando for para "adicionar", "acrescentar", "mais" (ex: "colocar mais 5 quilos"), o campo 'quantity' DEVE ser prefixado com "+". Ex: "+5 quilos".
+    *   **ADICIONAR/SOMAR:** Se o comando for para "adicionar", "acrescentar", "mais" (ex: "colocar mais 5 quilos"), o campo 'quantity' DEVE ser prefixado com "+". Ex: "+5 kg".
     *   **SUBTRAIR/REMOVER:** Se o comando for para "remover", "tirar", "diminuir" uma quantidade (ex: "tirar 2 maços"), o campo 'quantity' DEVE ser prefixado com "-". Ex: "-2 maços".
     *   **ZERAR ITEM:** Se o comando for "zerar", "cancelar" ou "remover tudo" de um item (ex: "zerar a couve-flor"), o campo 'quantity' deve ser uma string vazia ("").
+    *   **PADRONIZAÇÃO:** Sempre padronize a palavra "quilo" ou "quilos" para a abreviação "kg".
     
     **REGRAS DE EXTRAÇÃO DE FORNECEDOR:**
     *   **ADICIONAR FORNECEDOR:** Se mencionar um fornecedor para um produto (ex: "colocar Matias Ponte como fornecedor da couve"), preencha o campo 'fornecedor' do item correspondente. **NÃO ALTERE A QUANTIDADE.**

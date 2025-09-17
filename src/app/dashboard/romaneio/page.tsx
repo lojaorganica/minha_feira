@@ -286,8 +286,9 @@ export default function RomaneioPage() {
         responseText = result.conversationalResponse;
     } else {
         const updatedQuantitiesProducts: string[] = [];
-        const updatedSuppliersProducts: string[] = [];
+        const updatedSuppliersInfo: { product: string; supplier: string }[] = [];
         const removedSuppliersProducts: string[] = [];
+
 
         let dataWithUpdates = [...romaneioData]; 
 
@@ -314,14 +315,12 @@ export default function RomaneioPage() {
                     // Lógica para Fornecedor
                     if (extractedItem.fornecedor !== undefined) {
                         const newSupplier = extractedItem.fornecedor.trim();
-                        finalFornecedor = newSupplier;
-                        if (newSupplier === '' && currentItem.fornecedor !== '') {
-                            if (!removedSuppliersProducts.includes(currentItem.produto)) {
+                         if (newSupplier !== currentItem.fornecedor) {
+                            finalFornecedor = newSupplier;
+                            if (newSupplier === '') {
                                 removedSuppliersProducts.push(currentItem.produto);
-                            }
-                        } else if (newSupplier !== '' && newSupplier !== currentItem.fornecedor) {
-                            if (!updatedSuppliersProducts.includes(currentItem.produto)) {
-                                updatedSuppliersProducts.push(currentItem.produto);
+                            } else {
+                                updatedSuppliersInfo.push({ product: currentItem.produto, supplier: newSupplier });
                             }
                         }
                     }
@@ -351,8 +350,10 @@ export default function RomaneioPage() {
                         } else {
                              finalQuantity = '';
                         }
-                         if (finalQuantity !== currentItem.quantidade && !updatedQuantitiesProducts.includes(currentItem.produto)) {
-                            updatedQuantitiesProducts.push(currentItem.produto);
+                         if (finalQuantity !== currentItem.quantidade) {
+                            if (!updatedQuantitiesProducts.includes(currentItem.produto)) {
+                                updatedQuantitiesProducts.push(currentItem.produto);
+                            }
                          }
                     }
 
@@ -369,9 +370,10 @@ export default function RomaneioPage() {
                 const plural = updatedQuantitiesProducts.length > 1;
                 parts.push(`atualizei a${plural ? 's' : ''} quantidade${plural ? 's' : ''} de ${updatedQuantitiesProducts.join(', ')}`);
             }
-            if (updatedSuppliersProducts.length > 0) {
-                const plural = updatedSuppliersProducts.length > 1;
-                parts.push(`adicionei o${plural ? 's' : ''} fornecedor${plural ? 'es' : ''} para ${updatedSuppliersProducts.join(', ')}`);
+             if (updatedSuppliersInfo.length > 0) {
+                const supplierText = updatedSuppliersInfo.map(info => `${info.supplier} para ${info.product}`).join(', ');
+                const plural = updatedSuppliersInfo.length > 1;
+                parts.push(`adicionei o${plural ? 's' : ''} fornecedor${plural ? 'es' : ''} ${supplierText}`);
             }
             if (removedSuppliersProducts.length > 0) {
                 const plural = removedSuppliersProducts.length > 1;
