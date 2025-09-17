@@ -53,7 +53,6 @@ export default function RomaneioPage() {
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   const audioPlayerRef = useRef<HTMLAudioElement | null>(null);
-  const audioContextRef = useRef<AudioContext | null>(null);
   
   const printRef = useRef<HTMLDivElement>(null);
 
@@ -290,7 +289,7 @@ export default function RomaneioPage() {
         const updatedSuppliersProducts: string[] = [];
         const removedSuppliersProducts: string[] = [];
 
-        let dataWithUpdates = [...romaneioData]; // Start with a fresh copy
+        let dataWithUpdates = [...romaneioData]; 
 
         if (result.clearAll) {
             dataWithUpdates = dataWithUpdates.map(item => ({ ...item, quantidade: '', fornecedor: '' }));
@@ -393,31 +392,19 @@ export default function RomaneioPage() {
     }
   };
 
-  const unlockAudio = () => {
-    if (audioContextRef.current && audioContextRef.current.state === 'suspended') {
-      audioContextRef.current.resume();
-    }
-    if (audioPlayerRef.current && audioPlayerRef.current.paused) {
-      audioPlayerRef.current.play().catch(() => {}); // Play and catch errors if it fails
-      audioPlayerRef.current.pause();
-    }
-  };
 
   const startRecording = async () => {
     if (isRecording || isProcessingAudio) return;
 
     try {
-      // 1. Get Mic Permission First
       if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
         throw new Error('API de mídia não suportada neste navegador.');
       }
+      // 1. Get Mic Permission First
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       setShowMicAlert(false);
 
-      // 2. Unlock Audio Context on user gesture
-      unlockAudio();
-      
-      // 3. Start Recording
+      // 2. Start Recording
       mediaRecorderRef.current = new MediaRecorder(stream);
       audioChunksRef.current = [];
 
@@ -454,33 +441,19 @@ export default function RomaneioPage() {
       console.error("Erro ao iniciar a gravação:", err);
       setIsRecording(false);
       setShowMicAlert(true);
-      toast({
-        variant: "destructive",
-        title: "Permissão de Microfone Negada",
-        description: "O acesso ao microfone foi negado. Verifique as configurações do seu navegador.",
-        duration: 8000,
-      });
     }
   };
 
   const stopRecording = () => {
+    if (audioPlayerRef.current) {
+        // "Unlock" audio on user gesture
+        audioPlayerRef.current.play().catch(() => {});
+    }
     if (mediaRecorderRef.current && isRecording) {
       mediaRecorderRef.current.stop();
       setIsRecording(false);
     }
   };
-
-   useEffect(() => {
-    // Initialize AudioContext
-    if (typeof window !== 'undefined' && !audioContextRef.current) {
-        audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
-    }
-    // Set up a silent audio player to be ready
-    if (audioPlayerRef.current) {
-        audioPlayerRef.current.src = "data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA";
-    }
-  }, []);
-
 
   if (!isUserLoaded || isLoading) {
     return <div className="flex justify-center items-center p-12"><Loader2 className="h-12 w-12 animate-spin text-primary" /></div>;
@@ -687,3 +660,6 @@ export default function RomaneioPage() {
     </div>
   );
 }
+
+
+    
