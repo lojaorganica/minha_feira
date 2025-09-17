@@ -362,7 +362,7 @@ function GalleryViewContent() {
               </div>
             </div>
 
-            <div className="sticky top-16 bg-background/95 backdrop-blur-sm z-10 py-4 space-y-2">
+            <div className="sticky top-20 bg-background/95 backdrop-blur-sm z-10 py-4 space-y-2">
                 <GalleryFilterAccordion
                     selectedFair={selectedFair}
                     selectedTheme={selectedTheme}
@@ -452,6 +452,7 @@ export default function GalleryView() {
 
 
     
+
 
 
 
