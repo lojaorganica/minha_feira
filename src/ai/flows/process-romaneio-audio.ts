@@ -30,7 +30,7 @@ const ProcessRomaneioAudioOutputSchema = z.object({
     items: z.array(z.object({
         product: z.string().describe('The name of the product identified in the audio. Must be one of the provided productList.'),
         quantity: z.string().describe('The quantity of the product mentioned. For commands to set a specific value (e.g., "put 10"), just use the number and unit (e.g. "10 caixas"). If the command is to add (e.g., "add 5 more"), prefix with a "+". If the command is to subtract (e.g., "remove 2"), prefix with a "-". If the command is to remove or zero out, this should be an empty string.'),
-        fornecedor: z.string().optional().describe('The name of the supplier for the product, if mentioned. E.g., "Matias Ponte". If the command is to remove a supplier (e.g., "remover fornecedor da couve"), this field should be an empty string.')
+        fornecedor: z.string().describe('The name of the supplier for the product, if mentioned. E.g., "Matias Ponte". If the command is to remove a supplier for a specific item (e.g., "remover fornecedor da couve"), this field should be an empty string (""). If no supplier is mentioned, it should also be an empty string.')
     })).describe('A list of products and their changes. Only include items mentioned in the audio. Do not assume any changes for unmentioned items.'),
     conversationalResponse: z.string().optional().describe("If the user's audio is a general question or greeting (e.g., 'What's your name?', 'Hello'), provide a helpful, conversational response here. This field should only be used when no packing slip items are detected.")
 });
