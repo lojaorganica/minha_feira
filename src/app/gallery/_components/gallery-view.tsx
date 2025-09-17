@@ -110,7 +110,7 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
                          >
                             <video 
                                 src={item.url} 
-                                className="w-full h-full object-contain" 
+                                className="w-full h-full object-contain force-gpu-layer" 
                                 preload="metadata"
                             />
                             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
