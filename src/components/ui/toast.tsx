@@ -53,8 +53,8 @@ const Toast = React.forwardRef<
       className={cn(toastVariants({ variant }), 'p-0', className)}
       {...props}
     >
-      <div className="absolute top-0 left-0 w-full h-1">
-        <Progress value={100} className="h-full animate-toast-progress" />
+      <div className="absolute top-0 left-0 w-full h-1 overflow-hidden">
+        <Progress value={100} className="h-full w-full animate-toast-progress" />
       </div>
       <div className="p-6 w-full">
           {props.children}

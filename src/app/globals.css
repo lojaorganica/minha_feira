@@ -114,11 +114,11 @@
   }
 
   @keyframes toast-progress {
-    0% {
-      width: 0%;
+    from {
+      transform: translateX(-100%);
     }
-    100% {
-      width: 100%;
+    to {
+      transform: translateX(0%);
     }
   }
 
