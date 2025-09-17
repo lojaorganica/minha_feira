@@ -66,13 +66,13 @@ const extractionPrompt = ai.definePrompt({
     *   **CORREÇÃO:** A última quantidade mencionada para um produto é a que vale.
 
     **REGRAS DE EXTRAÇÃO DE FORNECEDOR:**
-    *   **ADICIONAR FORNECEDOR:** Se mencionar um fornecedor para um produto (ex: "colocar Matias Ponte como fornecedor da couve"), preencha o campo 'fornecedor'. Mesmo que não haja quantidade, a menção do fornecedor com um produto é um comando de extração válido.
-    *   **REMOVER FORNECEDOR ESPECÍFICO:** Se o comando for "remover fornecedor" ou "tirar o fornecedor" de um produto (ex: "remover fornecedor da couve"), o campo 'fornecedor' do item correspondente deve ser uma string vazia ("").
+    *   **ADICIONAR FORNECEDOR:** Se mencionar um fornecedor para um produto (ex: "colocar Matias Ponte como fornecedor da couve"), preencha o campo 'fornecedor' do item correspondente.
+    *   **REMOVER FORNECEDOR DE ITEM ESPECÍFICO:** Se o comando for para "remover fornecedor" ou "tirar fornecedor" de um produto específico (ex: "remover fornecedor da couve"), o campo 'fornecedor' do item correspondente deve ser uma string vazia (""). **IMPORTANTE: Esta ação NÃO deve afetar a quantidade do item nem os fornecedores de outros itens.** Apenas o fornecedor daquele produto específico é removido.
 
-    **REGRAS DE LIMPEZA GERAL:**
-    *   **LIMPEZA TOTAL:** Se o agricultor disser "zerar o romaneio", "limpar tudo", etc., defina 'clearAll' como 'true' e os outros campos de limpeza como 'false'.
-    *   **LIMPAR SÓ QUANTIDADES:** Se o agricultor disser "limpar as quantidades", "zerar quantidades", etc., defina 'clearQuantitiesOnly' como 'true' e os outros campos de limpeza como 'false'.
-    *   **LIMPAR SÓ FORNECEDORES:** Se o agricultor disser "limpar os fornecedores", "remover todos os fornecedores", etc., defina 'clearSuppliersOnly' como 'true' e os outros campos de limpeza como 'false'.
+    **REGRAS DE LIMPEZA GERAL (NÃO CONFUNDIR COM REMOÇÃO DE ITEM ESPECÍFICO):**
+    *   **LIMPEZA TOTAL:** Se o agricultor disser "zerar o romaneio", "limpar tudo", etc., defina 'clearAll' como 'true'.
+    *   **LIMPAR SÓ QUANTIDADES:** Se o agricultor disser "limpar as quantidades", "zerar quantidades", etc., defina 'clearQuantitiesOnly' como 'true'.
+    *   **LIMPAR SÓ FORNECEDORES:** Se o agricultor disser "limpar os fornecedores", "remover todos os fornecedores", etc., defina 'clearSuppliersOnly' como 'true'.
     
     **2. MODO CONVERSACIONAL (SECUNDÁRIO):** Se o áudio do usuário **NÃO** contiver um comando de romaneio (nem produto, nem quantidade, nem fornecedor), mas sim uma pergunta geral, saudação ou conversa (ex: "Qual seu nome?", "Olá Sofia", "O que você faz?", "Quem é você?"), você **DEVE** usar o campo 'conversationalResponse' para responder de forma amigável e útil. Neste caso, a lista de 'items' deve ficar vazia e os campos de limpeza devem ser 'false'.
     *   Se perguntarem seu nome, diga que se chama Sofia (ou Fia) e que é a assistente de IA do app Minha Feira.
