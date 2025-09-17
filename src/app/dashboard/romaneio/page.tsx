@@ -303,68 +303,87 @@ export default function RomaneioPage() {
               productList: farmerProducts.map(p => p.name)
             });
             
+            let dataWithUpdates = [...romaneioData];
             let responseText = "";
-            let updatedRomaneioData = [...romaneioData];
+            let updatedProductNames: string[] = [];
+            let suppliersUpdated = 0;
 
             if (result.conversationalResponse) {
                 responseText = result.conversationalResponse;
             } else if (result.clearAll) {
-                updatedRomaneioData = romaneioData.map(item => ({ ...item, quantidade: '', fornecedor: '' }));
+                dataWithUpdates = romaneioData.map(item => ({ ...item, quantidade: '', fornecedor: '' }));
                 responseText = "Entendido. O romaneio foi limpo.";
             } else if (result.items && result.items.length > 0) {
               
-              let quantitiesUpdated = 0;
-              let suppliersUpdated = 0;
-
               result.items.forEach(extractedItem => {
-                  const itemIndex = updatedRomaneioData.findIndex(
+                  const itemIndex = dataWithUpdates.findIndex(
                     romaneioItem => romaneioItem.produto.toLowerCase() === extractedItem.product.toLowerCase()
                   );
 
                   if (itemIndex !== -1) {
-                    const currentItem = updatedRomaneioData[itemIndex];
+                    const currentItem = dataWithUpdates[itemIndex];
                     let finalQuantity = currentItem.quantidade;
                     let finalFornecedor = currentItem.fornecedor;
+                    let productUpdated = false;
 
                     // Atualiza Fornecedor se presente
                     if (extractedItem.fornecedor && extractedItem.fornecedor !== currentItem.fornecedor) {
                         finalFornecedor = extractedItem.fornecedor;
                         suppliersUpdated++;
+                        productUpdated = true;
                     }
 
                     // Processa Quantidade
                     if (extractedItem.quantity) {
-                        if (extractedItem.quantity.startsWith('+') || extractedItem.quantity.startsWith('-')) {
-                            const currentQtyValue = parseFloat(currentItem.quantidade) || 0;
-                            const changeQtyValue = parseFloat(extractedItem.quantity);
-                            const newTotal = currentQtyValue + changeQtyValue;
-                            finalQuantity = newTotal > 0 ? String(newTotal) : '';
+                        const changeMatch = extractedItem.quantity.match(/^([+-]?)(\d+(\.\d+)?)\s*(.*)/);
+
+                        if (changeMatch) {
+                            const operator = changeMatch[1];
+                            const changeValue = parseFloat(changeMatch[2]);
+                            const changeUnit = changeMatch[4] || '';
+
+                            const currentMatch = currentItem.quantidade.match(/^(\d+(\.\d+)?)\s*(.*)/);
+                            const currentValue = currentMatch ? parseFloat(currentMatch[1]) : 0;
+                            const currentUnit = currentMatch ? currentMatch[3] : changeUnit;
+                            
+                            let newValue = 0;
+                            if (operator === '+') {
+                                newValue = currentValue + changeValue;
+                            } else if (operator === '-') {
+                                newValue = currentValue - changeValue;
+                            } else { // Define o valor diretamente
+                                newValue = changeValue;
+                            }
+
+                            finalQuantity = newValue > 0 ? `${newValue} ${currentUnit || changeUnit}`.trim() : '';
                         } else {
-                            // Define o valor diretamente
                             finalQuantity = extractedItem.quantity;
                         }
-                        quantitiesUpdated++;
+                        productUpdated = true;
                     } else if (extractedItem.quantity === '') { // Comando para zerar
                         finalQuantity = '';
-                        quantitiesUpdated++;
+                        productUpdated = true;
                     }
 
-                     updatedRomaneioData[itemIndex] = {
+                     dataWithUpdates[itemIndex] = {
                         ...currentItem,
                         quantidade: finalQuantity,
                         fornecedor: finalFornecedor,
                     };
+                    
+                    if (productUpdated) {
+                        updatedProductNames.push(currentItem.produto);
+                    }
                   }
               });
 
-              if (quantitiesUpdated > 0 && suppliersUpdated > 0) {
-                 responseText = `Ok, atualizei ${quantitiesUpdated + suppliersUpdated} informações no seu romaneio.`;
-              } else if (quantitiesUpdated > 0) {
-                const plural = quantitiesUpdated > 1 ? 's' : '';
-                responseText = `Ok, atualizei a${plural} quantidade${plural} de ${quantitiesUpdated} ${quantitiesUpdated > 1 ? 'itens' : 'item'}.`;
+              if (updatedProductNames.length > 0) {
+                 const productList = updatedProductNames.join(', ');
+                 const plural = updatedProductNames.length > 1;
+                 responseText = `Ok, atualizei a${plural ? 's' : ''} quantidade${plural ? 's' : ''} de ${productList}.`;
               } else if (suppliersUpdated > 0) {
-                const plural = suppliersUpdated > 1 ? 's' : '';
-                responseText = `Ok, adicionei o${plural} fornecedor${plural} a ${suppliersUpdated} ${suppliersUpdated > 1 ? 'itens' : 'item'}.`;
+                const plural = suppliersUpdated > 1;
+                responseText = `Ok, adicionei o${plural ? 's' : ''} fornecedor${plural ? 'es' : ''}.`;
               } else {
                  responseText = "Não identifiquei nenhuma alteração para fazer.";
               }
@@ -373,13 +392,13 @@ export default function RomaneioPage() {
                 responseText = "Desculpe, não consegui identificar nenhum item para o romaneio no seu áudio. Poderia tentar de novo?";
             }
             
-            setRomaneioData(updatedRomaneioData);
+            setRomaneioData(dataWithUpdates);
             await playResponse(responseText);
 
           } catch (e) {
             console.error(e);
             const errorText = "Ocorreu um erro ao processar o áudio. Por favor, tente novamente.";
-            playResponse(errorText);
+            await playResponse(errorText);
             toast({
               variant: 'destructive',
               title: "Erro ao processar áudio",

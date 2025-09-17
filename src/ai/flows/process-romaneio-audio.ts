@@ -27,7 +27,7 @@ const ProcessRomaneioAudioOutputSchema = z.object({
     clearAll: z.boolean().describe("If true, indicates that the user wants to clear all quantities in the packing slip."),
     items: z.array(z.object({
         product: z.string().describe('The name of the product identified in the audio. Must be one of the provided productList.'),
-        quantity: z.string().describe('The quantity of the product mentioned. If the command is to add to an existing quantity (e.g., "add 5 more"), prefix with a "+". If the command is to subtract (e.g., "remove 2"), prefix with a "-". For commands to set a specific value (e.g., "put 10"), just use the number. If the command is to remove or zero out, this should be an empty string.'),
+        quantity: z.string().describe('The quantity of the product mentioned. For commands to set a specific value (e.g., "put 10"), just use the number and unit (e.g. "10 caixas"). If the command is to add (e.g., "add 5 more"), prefix with a "+". If the command is to subtract (e.g., "remove 2"), prefix with a "-". If the command is to remove or zero out, this should be an empty string.'),
         fornecedor: z.string().optional().describe('The name of the supplier for the product, if mentioned. E.g., "Matias Ponte".')
     })).describe('A list of products, their quantities, and optional suppliers extracted from the audio.'),
     conversationalResponse: z.string().optional().describe("If the user's audio is a general question or greeting (e.g., 'What's your name?', 'Hello'), provide a helpful, conversational response here. This field should only be used when no packing slip items are detected.")
@@ -57,12 +57,11 @@ const extractionPrompt = ai.definePrompt({
     {{/each}}
     
     **REGRAS DE EXTRAÇÃO DE QUANTIDADE:**
-    *   **DEFINIR VALOR:** Se o comando for para "colocar", "botar", "definir" uma quantidade (ex: "10 caixas de tomate"), o campo 'quantity' deve ser apenas a string "10 cx".
-    *   **ADICIONAR/SOMAR:** Se o comando for para "adicionar", "acrescentar", "mais" (ex: "colocar mais 5 quilos"), o campo 'quantity' DEVE ser prefixado com "+". Ex: "+5 kg".
+    *   **DEFINIR VALOR:** Se o comando for para "colocar", "botar", "definir" uma quantidade (ex: "10 caixas de tomate"), o campo 'quantity' deve ser a string exata, incluindo a unidade. Ex: "10 caixas".
+    *   **ADICIONAR/SOMAR:** Se o comando for para "adicionar", "acrescentar", "mais" (ex: "colocar mais 5 quilos"), o campo 'quantity' DEVE ser prefixado com "+". Ex: "+5 quilos".
     *   **SUBTRAIR/REMOVER:** Se o comando for para "remover", "tirar", "diminuir" uma quantidade (ex: "tirar 2 maços"), o campo 'quantity' DEVE ser prefixado com "-". Ex: "-2 maços".
     *   **ZERAR ITEM:** Se o comando for "zerar", "cancelar" ou "remover tudo" de um item (ex: "zerar a couve-flor"), o campo 'quantity' deve ser uma string vazia ("").
     *   **CORREÇÃO:** A última quantidade mencionada para um produto é a que vale.
-    *   **ABREVIAÇÃO:** Abreviar unidades (quilos -> kg, caixas -> cx, etc.).
 
     **OUTRAS REGRAS:**
     *   **LIMPEZA TOTAL:** Se o agricultor disser "zerar o romaneio", "limpar tudo", etc., defina 'clearAll' como 'true' e deixe 'items' vazio.
