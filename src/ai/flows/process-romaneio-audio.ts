@@ -30,7 +30,7 @@ const ProcessRomaneioAudioOutputSchema = z.object({
     items: z.array(z.object({
         product: z.string().describe('The name of the product identified in the audio. Must be one of the provided productList.'),
         quantity: z.string().describe('The quantity of the product mentioned. For commands to set a specific value (e.g., "put 10"), just use the number and unit (e.g. "10 caixas"). If the command is to add (e.g., "add 5 more"), prefix with a "+". If the command is to subtract (e.g., "remove 2"), prefix with a "-". If the command is to remove or zero out, this should be an empty string.'),
-        fornecedor: z.string().optional().describe('The name of the supplier for the product, if mentioned. E.g., "Matias Ponte".')
+        fornecedor: z.string().optional().describe('The name of the supplier for the product, if mentioned. E.g., "Matias Ponte". If the command is to remove a supplier (e.g., "remover fornecedor da couve"), this field should be an empty string.')
     })).describe('A list of products, their quantities, and optional suppliers extracted from the audio.'),
     conversationalResponse: z.string().optional().describe("If the user's audio is a general question or greeting (e.g., 'What's your name?', 'Hello'), provide a helpful, conversational response here. This field should only be used when no packing slip items are detected.")
 });
@@ -65,14 +65,15 @@ const extractionPrompt = ai.definePrompt({
     *   **ZERAR ITEM:** Se o comando for "zerar", "cancelar" ou "remover tudo" de um item (ex: "zerar a couve-flor"), o campo 'quantity' deve ser uma string vazia ("").
     *   **CORREÇÃO:** A última quantidade mencionada para um produto é a que vale.
 
+    **REGRAS DE EXTRAÇÃO DE FORNECEDOR:**
+    *   **ADICIONAR FORNECEDOR:** Se mencionar um fornecedor para um produto (ex: "colocar Matias Ponte como fornecedor da couve"), preencha o campo 'fornecedor'. Mesmo que não haja quantidade, a menção do fornecedor com um produto é um comando de extração válido.
+    *   **REMOVER FORNECEDOR:** Se o comando for "remover fornecedor" ou "tirar o fornecedor" de um produto (ex: "remover fornecedor da couve"), o campo 'fornecedor' deve ser uma string vazia ("").
+
     **REGRAS DE LIMPEZA GERAL:**
     *   **LIMPEZA TOTAL:** Se o agricultor disser "zerar o romaneio", "limpar tudo", etc., defina 'clearAll' como 'true' e os outros campos de limpeza como 'false'.
     *   **LIMPAR SÓ QUANTIDADES:** Se o agricultor disser "limpar as quantidades", "zerar quantidades", etc., defina 'clearQuantitiesOnly' como 'true' e os outros campos de limpeza como 'false'.
     *   **LIMPAR SÓ FORNECEDORES:** Se o agricultor disser "limpar os fornecedores", "remover todos os fornecedores", etc., defina 'clearSuppliersOnly' como 'true' e os outros campos de limpeza como 'false'.
     
-    **OUTRAS REGRAS:**
-    *   **FORNECEDOR:** Se mencionar um fornecedor para um produto (ex: "colocar Matias Ponte como fornecedor da couve"), preencha o campo 'fornecedor'. Mesmo que não haja quantidade, a menção do fornecedor com um produto é um comando de extração válido.
-
     **2. MODO CONVERSACIONAL (SECUNDÁRIO):** Se o áudio do usuário **NÃO** contiver um comando de romaneio (nem produto, nem quantidade, nem fornecedor), mas sim uma pergunta geral, saudação ou conversa (ex: "Qual seu nome?", "Olá Sofia", "O que você faz?", "Quem é você?"), você **DEVE** usar o campo 'conversationalResponse' para responder de forma amigável e útil. Neste caso, a lista de 'items' deve ficar vazia e os campos de limpeza devem ser 'false'.
     *   Se perguntarem seu nome, diga que se chama Sofia (ou Fia) e que é a assistente de IA do app Minha Feira.
     *   Se perguntarem o que você faz, explique que sua função principal é ajudar a preencher o romaneio por voz.

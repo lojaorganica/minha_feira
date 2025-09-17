@@ -336,13 +336,18 @@ export default function RomaneioPage() {
                     let finalQuantity = currentItem.quantidade;
                     let finalFornecedor = currentItem.fornecedor;
 
-                    if (extractedItem.fornecedor && extractedItem.fornecedor.trim() !== currentItem.fornecedor) {
-                        finalFornecedor = extractedItem.fornecedor.trim();
-                        if (!updatedProductSuppliers.includes(currentItem.produto)) {
-                            updatedProductSuppliers.push(currentItem.produto);
+                    // Lógica para fornecedor
+                    if (extractedItem.fornecedor !== undefined) {
+                        const newSupplier = extractedItem.fornecedor.trim();
+                        if (newSupplier !== currentItem.fornecedor) {
+                           finalFornecedor = newSupplier;
+                           if (!updatedProductSuppliers.includes(currentItem.produto)) {
+                                updatedProductSuppliers.push(currentItem.produto);
+                           }
                         }
                     }
                     
+                    // Lógica para quantidade
                     if (typeof extractedItem.quantity === 'string' && extractedItem.quantity.trim() !== '') {
                       const changeMatch = extractedItem.quantity.trim().match(/^([+-]?)(\d+(\.\d+)?)\s*(.*)/);
                       const currentMatch = currentItem.quantidade.trim().match(/^(\d+(\.\d+)?)\s*(.*)/);
@@ -389,6 +394,7 @@ export default function RomaneioPage() {
                   }
               });
 
+                // Construção da resposta de voz
                 let quantityText = '';
                 if (updatedProductQuantities.length > 0) {
                     const plural = updatedProductQuantities.length > 1;
@@ -402,7 +408,7 @@ export default function RomaneioPage() {
                 }
 
                 if (quantityText && supplierText) {
-                    responseText = `${quantityText} E também, ${supplierText.charAt(0).toLowerCase() + supplierText.slice(1)}`;
+                    responseText = `Ok. ${quantityText} E também, ${supplierText.charAt(0).toLowerCase() + supplierText.slice(1)}`;
                 } else if (quantityText) {
                     responseText = `Ok. ${quantityText}`;
                 } else if (supplierText) {
@@ -410,15 +416,14 @@ export default function RomaneioPage() {
                 } else {
                     responseText = "Não identifiquei nenhuma alteração para fazer.";
                 }
-              
-            }
-            
-            if (!responseText) {
-                responseText = "Desculpe, não consegui entender o comando. Poderia tentar de novo?";
+            } else {
+                 responseText = "Desculpe, não entendi o comando. Poderia tentar de novo?";
             }
             
             setRomaneioData(dataWithUpdates);
-            await playResponse(responseText);
+            if(responseText) {
+               await playResponse(responseText);
+            }
 
           } catch (e) {
             console.error(e);
