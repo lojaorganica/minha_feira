@@ -83,7 +83,7 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
         <Card className="overflow-hidden flex flex-col group">
             <CardContent className="p-0">
                 <div 
-                    className="relative w-full group-disabled:opacity-100"
+                    className="relative w-full"
                     onTouchStart={handleTouchStart}
                     onTouchMove={handleTouchMove}
                 >
@@ -108,7 +108,12 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
                             className="relative cursor-pointer" 
                             onClick={() => handleActionClick(() => onPlayVideo(item))}
                          >
-                            <video src={item.url} className="w-full h-full object-contain" preload="metadata" />
+                            <video 
+                                src={item.url} 
+                                className="w-full h-full object-contain" 
+                                preload="metadata"
+                                poster={item.url.replace('.mp4', '.png')}
+                            />
                             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                                 <PlayCircle className="h-16 w-16 text-white/80 drop-shadow-lg" />
                             </div>
@@ -445,3 +450,6 @@ export default function GalleryView() {
     
 
 
+
+
+    
