@@ -51,7 +51,7 @@ const extractionPrompt = ai.definePrompt({
 
     **MODOS DE OPERAÇÃO:**
 
-    **1. MODO DE EXTRAÇÃO (PRINCIPAL):** Se o áudio contiver nomes de produtos e/ou fornecedores, sua tarefa é extrair esses dados e preencher a lista de 'items'.
+    **1. MODO DE EXTRAÇÃO (PRINCIPAL):** Se o áudio contiver nomes de produtos e/ou fornecedores, sua tarefa é extrair esses dados e preencher a lista de 'items'. A menção de um nome de produto, mesmo sem quantidade, já caracteriza MODO DE EXTRAÇÃO.
     
     A lista de produtos possíveis que o agricultor vende é:
     {{#each productList}}
@@ -67,7 +67,7 @@ const extractionPrompt = ai.definePrompt({
 
     **REGRAS DE EXTRAÇÃO DE FORNECEDOR:**
     *   **ADICIONAR FORNECEDOR:** Se mencionar um fornecedor para um produto (ex: "colocar Matias Ponte como fornecedor da couve"), preencha o campo 'fornecedor'. Mesmo que não haja quantidade, a menção do fornecedor com um produto é um comando de extração válido.
-    *   **REMOVER FORNECEDOR:** Se o comando for "remover fornecedor" ou "tirar o fornecedor" de um produto (ex: "remover fornecedor da couve"), o campo 'fornecedor' deve ser uma string vazia ("").
+    *   **REMOVER FORNECEDOR ESPECÍFICO:** Se o comando for "remover fornecedor" ou "tirar o fornecedor" de um produto (ex: "remover fornecedor da couve"), o campo 'fornecedor' do item correspondente deve ser uma string vazia ("").
 
     **REGRAS DE LIMPEZA GERAL:**
     *   **LIMPEZA TOTAL:** Se o agricultor disser "zerar o romaneio", "limpar tudo", etc., defina 'clearAll' como 'true' e os outros campos de limpeza como 'false'.
@@ -79,7 +79,7 @@ const extractionPrompt = ai.definePrompt({
     *   Se perguntarem o que você faz, explique que sua função principal é ajudar a preencher o romaneio por voz.
     *   Sempre seja breve, amigável e profissional.
     
-    **Priorize o MODO DE EXTRAÇÃO.** Somente use o MODO CONVERSACIONAL se tiver certeza de que o usuário não está tentando ditar um item para o romaneio. A menção de um nome de produto, mesmo sem quantidade, já caracteriza MODO DE EXTRAÇÃO.
+    **Priorize o MODO DE EXTRAÇÃO.** Somente use o MODO CONVERSACIONAL se tiver certeza de que o usuário não está tentando ditar um item para o romaneio. 
 
     Use o áudio a seguir como fonte primária:
     {{media url=audioDataUri}}
@@ -98,3 +98,5 @@ const processRomaneioAudioFlow = ai.defineFlow(
     return output!;
   }
 );
+
+    
