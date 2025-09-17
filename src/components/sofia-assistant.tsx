@@ -7,11 +7,12 @@ import { Loader2, Mic, AlertTriangle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { askSofia } from '@/ai/flows/ask-sofia';
 import { generateSpeech } from '@/ai/flows/text-to-speech';
+import { transcribeAudio } from '@/ai/flows/speech-to-text';
 import { useToast } from '@/hooks/use-toast';
 import { usePathname } from 'next/navigation';
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { useUser } from '@/hooks/use-user';
-import { processRomaneioAudio } from '@/ai/flows/process-romaneio-audio'; // Importar o flow do romaneio
+
 
 const publicPaths = [
     '/welcome',
@@ -110,17 +111,21 @@ export default function SofiaAssistant() {
             if (isRomaneioPage) {
                 // A lógica de processamento do romaneio já está na própria página,
                 // então este botão não precisa fazer nada aqui para não duplicar.
-                // Apenas avisamos que a função de pergunta não está ativa aqui.
+                // Apenas avisamos que a função de ajuda geral está desativada aqui.
                 playResponse("Use o botão do Romaneio para ditar os itens. Esta função de ajuda geral está desativada aqui.");
                 setIsProcessing(false);
                 return;
             }
 
-            // Simulação de Speech-to-Text: Como não temos, usamos uma pergunta fixa
-            // mas agora passamos o nome do usuário.
+            const { text: transcribedText } = await transcribeAudio({ audioDataUri: base64Audio });
+
+            if (!transcribedText) {
+                throw new Error("Não foi possível transcrever o áudio.");
+            }
+
             const userName = user?.name.split(' ')[0];
             const { answer } = await askSofia({ 
-                question: "Como eu edito um produto?", // Pergunta simulada para teste
+                question: transcribedText,
                 userName 
             });
             
