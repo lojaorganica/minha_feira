@@ -259,22 +259,23 @@ export default function RomaneioPage() {
     }
   };
 
-  const playResponse = async (text: string) => {
+ const playResponse = async (text: string) => {
     if (!text) return;
+    toast({
+        title: "Sofia Responde:",
+        description: text,
+    });
     try {
-        toast({
-          title: "Sofia Responde:",
-          description: text,
-      });
-      const result = await generateSpeech({
-        text,
-        voiceName: 'Erinome',
-      });
-      setAudioSrc(result.audioDataUri);
+        const result = await generateSpeech({
+            text,
+            voiceName: 'Erinome',
+        });
+        setAudioSrc(result.audioDataUri);
     } catch (error) {
-      console.error('Erro ao gerar a fala da Sofia:', error);
+        console.error('Erro ao gerar a fala da Sofia:', error);
     }
-  };
+};
+
 
  const processAudioResult = (result: ProcessRomaneioAudioOutput) => {
     let dataWithUpdates = [...romaneioData];
