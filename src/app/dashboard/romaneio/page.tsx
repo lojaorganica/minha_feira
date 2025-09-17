@@ -309,9 +309,8 @@ export default function RomaneioPage() {
             
             let dataWithUpdates = [...romaneioData];
             let responseText = "";
-            const updatedProductQuantities: string[] = [];
-            const updatedProductSuppliers: string[] = [];
-
+            const updatedQuantitiesProducts: string[] = [];
+            const updatedSuppliersProducts: string[] = [];
 
             if (result.conversationalResponse) {
                 responseText = result.conversationalResponse;
@@ -336,18 +335,16 @@ export default function RomaneioPage() {
                     let finalQuantity = currentItem.quantidade;
                     let finalFornecedor = currentItem.fornecedor;
 
-                    // Lógica para fornecedor
                     if (extractedItem.fornecedor !== undefined) {
                         const newSupplier = extractedItem.fornecedor.trim();
                         if (newSupplier !== currentItem.fornecedor) {
                            finalFornecedor = newSupplier;
-                           if (!updatedProductSuppliers.includes(currentItem.produto)) {
-                                updatedProductSuppliers.push(currentItem.produto);
+                           if (!updatedSuppliersProducts.includes(currentItem.produto)) {
+                                updatedSuppliersProducts.push(currentItem.produto);
                            }
                         }
                     }
                     
-                    // Lógica para quantidade
                     if (typeof extractedItem.quantity === 'string' && extractedItem.quantity.trim() !== '') {
                       const changeMatch = extractedItem.quantity.trim().match(/^([+-]?)(\d+(\.\d+)?)\s*(.*)/);
                       const currentMatch = currentItem.quantidade.trim().match(/^(\d+(\.\d+)?)\s*(.*)/);
@@ -365,24 +362,24 @@ export default function RomaneioPage() {
                               newValue = currentValue + changeValue;
                           } else if (operator === '-') {
                               newValue = Math.max(0, currentValue - changeValue);
-                          } else { // Definir valor
+                          } else { 
                               newValue = changeValue;
                           }
                           finalQuantity = newValue > 0 ? `${newValue} ${changeUnit}`.trim() : '';
-                      } else { // Definir valor sem operador, mas pode ter unidade
+                      } else {
                           finalQuantity = extractedItem.quantity.trim();
                       }
                       
                       if (finalQuantity !== currentItem.quantidade) {
-                          if (!updatedProductQuantities.includes(currentItem.produto)) {
-                             updatedProductQuantities.push(currentItem.produto);
+                          if (!updatedQuantitiesProducts.includes(currentItem.produto)) {
+                             updatedQuantitiesProducts.push(currentItem.produto);
                           }
                       }
-                    } else if (extractedItem.quantity === '') { // Comando explícito para zerar
+                    } else if (extractedItem.quantity === '') {
                         finalQuantity = '';
-                        if (currentItem.quantidade !== '') { // só adiciona se realmente mudou
-                            if (!updatedProductQuantities.includes(currentItem.produto)) {
-                                updatedProductQuantities.push(currentItem.produto);
+                        if (currentItem.quantidade !== '') {
+                            if (!updatedQuantitiesProducts.includes(currentItem.produto)) {
+                                updatedQuantitiesProducts.push(currentItem.produto);
                             }
                         }
                     }
@@ -394,26 +391,24 @@ export default function RomaneioPage() {
                     };
                   }
               });
-
-                // Construção da resposta de voz
                 let quantityText = '';
-                if (updatedProductQuantities.length > 0) {
-                    const plural = updatedProductQuantities.length > 1;
-                    quantityText = `Atualizei a${plural ? 's' : ''} quantidade${plural ? 's' : ''} de ${updatedProductQuantities.join(', ')}.`;
+                if (updatedQuantitiesProducts.length > 0) {
+                    const plural = updatedQuantitiesProducts.length > 1;
+                    quantityText = `Atualizei a${plural ? 's' : ''} quantidade${plural ? 's' : ''} de ${updatedQuantitiesProducts.join(', ')}`;
                 }
 
                 let supplierText = '';
-                if (updatedProductSuppliers.length > 0) {
-                    const plural = updatedProductSuppliers.length > 1;
-                    supplierText = `Adicionei o${plural ? 's' : ''} fornecedor${plural ? 'es' : ''} para ${plural ? 'os itens' : 'o item'} ${updatedProductSuppliers.join(', ')}.`;
+                if (updatedSuppliersProducts.length > 0) {
+                    const plural = updatedSuppliersProducts.length > 1;
+                    supplierText = `Adicionei o${plural ? 's' : ''} fornecedor${plural ? 'es' : ''} para ${plural ? 'os itens' : 'o item'} ${updatedSuppliersProducts.join(', ')}`;
                 }
 
                 if (quantityText && supplierText) {
-                    responseText = `Ok. ${quantityText} E também, ${supplierText.charAt(0).toLowerCase() + supplierText.slice(1)}`;
+                    responseText = `Ok. ${quantityText}. E também, ${supplierText.charAt(0).toLowerCase() + supplierText.slice(1)}.`;
                 } else if (quantityText) {
-                    responseText = `Ok. ${quantityText}`;
+                    responseText = `Ok. ${quantityText}.`;
                 } else if (supplierText) {
-                    responseText = `Certo. ${supplierText}`;
+                    responseText = `Certo. ${supplierText}.`;
                 } else {
                     responseText = "Não identifiquei nenhuma alteração para fazer.";
                 }
