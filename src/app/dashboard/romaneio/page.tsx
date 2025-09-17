@@ -327,7 +327,7 @@ export default function RomaneioPage() {
 
                     // Lógica para Quantidade
                     if (extractedItem.quantity !== undefined) {
-                        const newQuantityTrimmed = extractedItem.quantity.trim();
+                        const newQuantityTrimmed = extractedItem.quantity.trim().replace(/gramas/i, 'g');
                         if (newQuantityTrimmed !== '') {
                             const changeMatch = newQuantityTrimmed.match(/^([+-]?)(\d+(\.\d+)?)\s*(.*)/);
                             const currentMatch = currentItem.quantidade.trim().match(/^(\d+(\.\d+)?)\s*(.*)/);
