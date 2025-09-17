@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -6,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { generateSpeech } from '@/ai/flows/text-to-speech';
 import { Loader2, Volume2 } from 'lucide-react';
 import BackButton from '@/components/back-button';
+import { useToast } from '@/hooks/use-toast';
 
 const voices = [
     { id: 'Despina', name: 'Voz 1 (Despina)' },
@@ -17,6 +19,7 @@ const voices = [
 export default function SofiaVoiceTestPage() {
   const [isLoading, setIsLoading] = useState<string | null>(null);
   const [audioSrc, setAudioSrc] = useState<string | null>(null);
+  const { toast } = useToast();
 
   const handleTestVoice = async (voiceName: string) => {
     setIsLoading(voiceName);
@@ -26,10 +29,24 @@ export default function SofiaVoiceTestPage() {
         text: 'Olá! Eu sou a Sofia, sua assistente virtual no Minha Feira. Como posso ajudar hoje?',
         voiceName: voiceName,
       });
-      setAudioSrc(result.audioDataUri);
+
+      if (result.error) {
+          toast({
+              variant: 'destructive',
+              title: 'Erro de Geração de Voz',
+              description: result.error,
+          });
+      } else if (result.audioDataUri) {
+          setAudioSrc(result.audioDataUri);
+      }
+
     } catch (error) {
       console.error('Erro ao gerar a voz:', error);
-      // Aqui você pode adicionar um toast de erro se quiser
+      toast({
+          variant: 'destructive',
+          title: 'Erro Inesperado',
+          description: 'Ocorreu uma falha ao tentar gerar o áudio.',
+      });
     } finally {
       setIsLoading(null);
     }

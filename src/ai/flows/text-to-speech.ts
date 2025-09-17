@@ -12,6 +12,7 @@
 import { ai } from '@/ai/genkit';
 import { z } from 'zod';
 import wav from 'wav';
+import { GoogleAIError } from '@genkit-ai/googleai';
 
 const GenerateSpeechInputSchema = z.object({
   text: z.string().describe('The text to be converted to speech.'),
@@ -20,7 +21,8 @@ const GenerateSpeechInputSchema = z.object({
 export type GenerateSpeechInput = z.infer<typeof GenerateSpeechInputSchema>;
 
 const GenerateSpeechOutputSchema = z.object({
-  audioDataUri: z.string().describe('The generated audio as a WAV data URI.'),
+  audioDataUri: z.string().optional().describe('The generated audio as a WAV data URI.'),
+  error: z.string().optional().describe('An error message if the speech generation failed.'),
 });
 export type GenerateSpeechOutput = z.infer<typeof GenerateSpeechOutputSchema>;
 
@@ -61,34 +63,46 @@ const generateSpeechFlow = ai.defineFlow(
     outputSchema: GenerateSpeechOutputSchema,
   },
   async ({ text, voiceName }) => {
-    const { media } = await ai.generate({
-      model: 'googleai/gemini-2.5-flash-preview-tts',
-      config: {
-        responseModalities: ['AUDIO'],
-        speechConfig: {
-          voiceConfig: {
-            prebuiltVoiceConfig: { voiceName: voiceName || 'Callirrhoe' },
+    try {
+      const { media } = await ai.generate({
+        model: 'googleai/gemini-2.5-flash-preview-tts',
+        config: {
+          responseModalities: ['AUDIO'],
+          speechConfig: {
+            voiceConfig: {
+              prebuiltVoiceConfig: { voiceName: voiceName || 'Callirrhoe' },
+            },
           },
         },
-      },
-      prompt: text,
-    });
+        prompt: text,
+      });
 
-    if (!media) {
-      throw new Error('A geração de áudio falhou e não retornou mídia.');
+      if (!media) {
+        throw new Error('A geração de áudio falhou e não retornou mídia.');
+      }
+
+      // O áudio vem como um data URI em formato PCM Base64.
+      // Precisamos decodificá-lo e re-codificar como WAV.
+      const pcmAudioBuffer = Buffer.from(
+        media.url.substring(media.url.indexOf(',') + 1),
+        'base64'
+      );
+
+      const wavBase64 = await toWav(pcmAudioBuffer);
+
+      return {
+        audioDataUri: `data:audio/wav;base64,${wavBase64}`,
+      };
+    } catch (err) {
+        if (err instanceof GoogleAIError && err.status === 429) {
+            return {
+                error: 'A cota de geração de voz foi atingida por hoje. Por favor, tente novamente mais tarde.'
+            };
+        }
+        console.error('Erro inesperado na geração de voz:', err);
+        return {
+            error: 'Ocorreu um erro inesperado ao gerar a voz.'
+        };
     }
-
-    // O áudio vem como um data URI em formato PCM Base64.
-    // Precisamos decodificá-lo e re-codificar como WAV.
-    const pcmAudioBuffer = Buffer.from(
-      media.url.substring(media.url.indexOf(',') + 1),
-      'base64'
-    );
-
-    const wavBase64 = await toWav(pcmAudioBuffer);
-
-    return {
-      audioDataUri: `data:audio/wav;base64,${wavBase64}`,
-    };
   }
 );
