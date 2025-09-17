@@ -109,7 +109,7 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
                             onClick={() => handleActionClick(() => onPlayVideo(item))}
                          >
                             <video src={item.url} className="w-full h-full object-contain" preload="metadata" />
-                            <div className="absolute inset-0 flex items-center justify-center bg-black/10 pointer-events-none">
+                            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                                 <PlayCircle className="h-16 w-16 text-white/80 drop-shadow-lg" />
                             </div>
                         </div>
