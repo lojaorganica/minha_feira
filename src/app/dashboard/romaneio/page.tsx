@@ -275,11 +275,6 @@ export default function RomaneioPage() {
         setAudioSrc(result.audioDataUri);
     } catch (error) {
         console.error('Erro ao gerar a fala da Sofia:', error);
-        toast({
-            variant: 'destructive',
-            title: "Erro na Voz",
-            description: "Não consegui gerar o áudio da resposta.",
-        });
     }
 };
 
@@ -681,5 +676,7 @@ export default function RomaneioPage() {
     </div>
   );
 }
+
+    
 
     
