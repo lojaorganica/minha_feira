@@ -304,47 +304,77 @@ export default function RomaneioPage() {
             });
             
             let responseText = "";
-            let dataUpdated = false;
+            let updatedRomaneioData = [...romaneioData];
 
             if (result.conversationalResponse) {
                 responseText = result.conversationalResponse;
             } else if (result.clearAll) {
-                const clearedData = romaneioData.map(item => ({ ...item, quantidade: '', fornecedor: '' }));
-                setRomaneioData(clearedData);
+                updatedRomaneioData = romaneioData.map(item => ({ ...item, quantidade: '', fornecedor: '' }));
                 responseText = "Entendido. O romaneio foi limpo.";
             } else if (result.items && result.items.length > 0) {
-              const updatedCount = result.items.length;
-              const itemPlural = updatedCount > 1 ? 'itens' : 'item';
-              responseText = `Ok, atualizei ${updatedCount} ${itemPlural} no seu romaneio.`;
-
-              // Criamos uma cópia para fazer as alterações
-              const updatedRomaneioData = [...romaneioData];
+              
+              let quantitiesUpdated = 0;
+              let suppliersUpdated = 0;
 
               result.items.forEach(extractedItem => {
                   const itemIndex = updatedRomaneioData.findIndex(
                     romaneioItem => romaneioItem.produto.toLowerCase() === extractedItem.product.toLowerCase()
                   );
+
                   if (itemIndex !== -1) {
-                    updatedRomaneioData[itemIndex] = {
-                        ...updatedRomaneioData[itemIndex],
-                        quantidade: extractedItem.quantity,
-                        ...(extractedItem.fornecedor && { fornecedor: extractedItem.fornecedor }),
+                    const currentItem = updatedRomaneioData[itemIndex];
+                    let finalQuantity = currentItem.quantidade;
+                    let finalFornecedor = currentItem.fornecedor;
+
+                    // Atualiza Fornecedor se presente
+                    if (extractedItem.fornecedor && extractedItem.fornecedor !== currentItem.fornecedor) {
+                        finalFornecedor = extractedItem.fornecedor;
+                        suppliersUpdated++;
+                    }
+
+                    // Processa Quantidade
+                    if (extractedItem.quantity) {
+                        if (extractedItem.quantity.startsWith('+') || extractedItem.quantity.startsWith('-')) {
+                            const currentQtyValue = parseFloat(currentItem.quantidade) || 0;
+                            const changeQtyValue = parseFloat(extractedItem.quantity);
+                            const newTotal = currentQtyValue + changeQtyValue;
+                            finalQuantity = newTotal > 0 ? String(newTotal) : '';
+                        } else {
+                            // Define o valor diretamente
+                            finalQuantity = extractedItem.quantity;
+                        }
+                        quantitiesUpdated++;
+                    } else if (extractedItem.quantity === '') { // Comando para zerar
+                        finalQuantity = '';
+                        quantitiesUpdated++;
+                    }
+
+                     updatedRomaneioData[itemIndex] = {
+                        ...currentItem,
+                        quantidade: finalQuantity,
+                        fornecedor: finalFornecedor,
                     };
                   }
               });
+
+              if (quantitiesUpdated > 0 && suppliersUpdated > 0) {
+                 responseText = `Ok, atualizei ${quantitiesUpdated + suppliersUpdated} informações no seu romaneio.`;
+              } else if (quantitiesUpdated > 0) {
+                const plural = quantitiesUpdated > 1 ? 's' : '';
+                responseText = `Ok, atualizei a${plural} quantidade${plural} de ${quantitiesUpdated} ${quantitiesUpdated > 1 ? 'itens' : 'item'}.`;
+              } else if (suppliersUpdated > 0) {
+                const plural = suppliersUpdated > 1 ? 's' : '';
+                responseText = `Ok, adicionei o${plural} fornecedor${plural} a ${suppliersUpdated} ${suppliersUpdated > 1 ? 'itens' : 'item'}.`;
+              } else {
+                 responseText = "Não identifiquei nenhuma alteração para fazer.";
+              }
               
-              setRomaneioData(updatedRomaneioData);
-              dataUpdated = true;
             } else {
                 responseText = "Desculpe, não consegui identificar nenhum item para o romaneio no seu áudio. Poderia tentar de novo?";
             }
             
+            setRomaneioData(updatedRomaneioData);
             await playResponse(responseText);
-
-            toast({
-              title: "Processamento de Voz Concluído",
-              description: responseText,
-            });
 
           } catch (e) {
             console.error(e);
