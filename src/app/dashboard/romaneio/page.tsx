@@ -259,7 +259,7 @@ export default function RomaneioPage() {
   
   const playResponse = async (text: string) => {
     if (!text) return;
-    
+
     toast({
         title: "Sofia Responde:",
         description: text,
@@ -400,11 +400,15 @@ export default function RomaneioPage() {
       if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
         throw new Error('API de mídia não suportada neste navegador.');
       }
-      // 1. Get Mic Permission First
+      
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       setShowMicAlert(false);
 
-      // 2. Start Recording
+      if (audioPlayerRef.current) {
+          audioPlayerRef.current.play().catch(() => {});
+          audioPlayerRef.current.pause();
+      }
+
       mediaRecorderRef.current = new MediaRecorder(stream);
       audioChunksRef.current = [];
 
@@ -445,10 +449,6 @@ export default function RomaneioPage() {
   };
 
   const stopRecording = () => {
-    if (audioPlayerRef.current) {
-        // "Unlock" audio on user gesture
-        audioPlayerRef.current.play().catch(() => {});
-    }
     if (mediaRecorderRef.current && isRecording) {
       mediaRecorderRef.current.stop();
       setIsRecording(false);
@@ -660,6 +660,3 @@ export default function RomaneioPage() {
     </div>
   );
 }
-
-
-    

@@ -33,7 +33,7 @@ export default function RootLayout({
                       <AppShell>
                         {children}
                       </AppShell>
-                      <SofiaAssistant />
+                      {/* <SofiaAssistant /> */}
                       <Toaster />
                   </SearchProvider>
               </CartProvider>
