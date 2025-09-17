@@ -262,23 +262,24 @@ export default function RomaneioPage() {
   const playResponse = async (text: string) => {
     if (!text) return;
     try {
+        toast({
+          title: "Sofia Responde:",
+          description: text,
+      });
       const result = await generateSpeech({
         text,
         voiceName: 'Erinome',
       });
       setAudioSrc(result.audioDataUri);
-      toast({
-          title: "Sofia Responde:",
-          description: text,
-      });
     } catch (error) {
       console.error('Erro ao gerar a fala da Sofia:', error);
     }
   };
 
-  const processAudioResult = (result: ProcessRomaneioAudioOutput) => {
+ const processAudioResult = (result: ProcessRomaneioAudioOutput) => {
     let dataWithUpdates = [...romaneioData];
     let responseText = "";
+
     const updatedQuantitiesProducts: string[] = [];
     const updatedSuppliersProducts: string[] = [];
     const removedSuppliersProducts: string[] = [];
@@ -313,7 +314,7 @@ export default function RomaneioPage() {
                         if (!removedSuppliersProducts.includes(currentItem.produto)) {
                             removedSuppliersProducts.push(currentItem.produto);
                         }
-                    } else if (newSupplier !== currentItem.fornecedor) {
+                    } else if (newSupplier !== '' && newSupplier !== currentItem.fornecedor) {
                         finalFornecedor = newSupplier;
                         if (!updatedSuppliersProducts.includes(currentItem.produto)) {
                             updatedSuppliersProducts.push(currentItem.produto);
@@ -322,37 +323,36 @@ export default function RomaneioPage() {
                 }
 
                 // Lógica para Quantidade
-                if (extractedItem.quantity !== undefined) {
-                    if (extractedItem.quantity.trim() === '') {
-                        finalQuantity = '';
-                        if (currentItem.quantidade !== '') {
-                            updatedQuantitiesProducts.push(currentItem.produto);
-                        }
+                if (extractedItem.quantity !== undefined && extractedItem.quantity.trim() !== '') {
+                    const changeMatch = extractedItem.quantity.trim().match(/^([+-]?)(\d+(\.\d+)?)\s*(.*)/);
+                    const currentMatch = currentItem.quantidade.trim().match(/^(\d+(\.\d+)?)\s*(.*)/);
+                    const changeUnit = changeMatch ? (changeMatch[4]?.trim() || (currentMatch ? currentMatch[3]?.trim() : '')) : '';
+                    
+                    if (changeMatch) {
+                        const operator = changeMatch[1];
+                        const changeValue = parseFloat(changeMatch[2]);
+                        const currentValue = currentMatch ? parseFloat(currentMatch[1]) : 0;
+                        let newValue = 0;
+
+                        if (operator === '+') newValue = currentValue + changeValue;
+                        else if (operator === '-') newValue = Math.max(0, currentValue - changeValue);
+                        else newValue = changeValue;
+
+                        finalQuantity = newValue > 0 ? `${newValue} ${changeUnit}`.trim() : '';
                     } else {
-                        const changeMatch = extractedItem.quantity.trim().match(/^([+-]?)(\d+(\.\d+)?)\s*(.*)/);
-                        const currentMatch = currentItem.quantidade.trim().match(/^(\d+(\.\d+)?)\s*(.*)/);
-                        const changeUnit = changeMatch ? (changeMatch[4]?.trim() || (currentMatch ? currentMatch[3]?.trim() : '')) : '';
-                        
-                        if (changeMatch) {
-                            const operator = changeMatch[1];
-                            const changeValue = parseFloat(changeMatch[2]);
-                            const currentValue = currentMatch ? parseFloat(currentMatch[1]) : 0;
-                            let newValue = 0;
-
-                            if (operator === '+') newValue = currentValue + changeValue;
-                            else if (operator === '-') newValue = Math.max(0, currentValue - changeValue);
-                            else newValue = changeValue;
-
-                            finalQuantity = newValue > 0 ? `${newValue} ${changeUnit}`.trim() : '';
-                        } else {
-                            finalQuantity = extractedItem.quantity.trim();
-                        }
-                        
-                        if (finalQuantity !== currentItem.quantidade && !updatedQuantitiesProducts.includes(currentItem.produto)) {
-                           updatedQuantitiesProducts.push(currentItem.produto);
-                        }
+                        finalQuantity = extractedItem.quantity.trim();
                     }
+                    
+                    if (finalQuantity !== currentItem.quantidade && !updatedQuantitiesProducts.includes(currentItem.produto)) {
+                        updatedQuantitiesProducts.push(currentItem.produto);
+                    }
+                } else if (extractedItem.quantity !== undefined && extractedItem.quantity.trim() === '') {
+                     finalQuantity = '';
+                     if (currentItem.quantidade !== '' && !updatedQuantitiesProducts.includes(currentItem.produto)) {
+                        updatedQuantitiesProducts.push(currentItem.produto);
+                     }
                 }
+
 
                 dataWithUpdates[itemIndex] = {
                     ...currentItem,
@@ -379,18 +379,15 @@ export default function RomaneioPage() {
 
         if (parts.length > 0) {
             responseText = "Ok. " + parts.join('. E também, ').replace(/^\w/, c => c.toUpperCase()) + '.';
-        } else {
-            responseText = "Não identifiquei nenhuma alteração para fazer.";
         }
-    } else {
-        responseText = "Desculpe, não entendi o comando. Poderia tentar de novo?";
+    } 
+    
+    if (!responseText) {
+       responseText = "Desculpe, não entendi o comando. Poderia tentar de novo?";
     }
     
     setRomaneioData(dataWithUpdates);
-    
-    if (responseText) {
-        playResponse(responseText);
-    }
+    playResponse(responseText);
   };
 
   const startRecording = async () => {
@@ -677,3 +674,4 @@ export default function RomaneioPage() {
     </div>
   );
 }
+
