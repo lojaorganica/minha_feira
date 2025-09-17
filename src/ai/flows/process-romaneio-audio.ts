@@ -24,7 +24,8 @@ export type ProcessRomaneioAudioInput = z.infer<typeof ProcessRomaneioAudioInput
 
 
 const ProcessRomaneioAudioOutputSchema = z.object({
-    clearAll: z.boolean().describe("If true, indicates that the user wants to clear all quantities in the packing slip."),
+    clearAll: z.boolean().describe("If true, indicates that the user wants to clear all quantities and suppliers in the packing slip."),
+    clearQuantitiesOnly: z.boolean().describe("If true, indicates the user wants to clear only the quantities, preserving the suppliers."),
     items: z.array(z.object({
         product: z.string().describe('The name of the product identified in the audio. Must be one of the provided productList.'),
         quantity: z.string().describe('The quantity of the product mentioned. For commands to set a specific value (e.g., "put 10"), just use the number and unit (e.g. "10 caixas"). If the command is to add (e.g., "add 5 more"), prefix with a "+". If the command is to subtract (e.g., "remove 2"), prefix with a "-". If the command is to remove or zero out, this should be an empty string.'),
@@ -63,11 +64,14 @@ const extractionPrompt = ai.definePrompt({
     *   **ZERAR ITEM:** Se o comando for "zerar", "cancelar" ou "remover tudo" de um item (ex: "zerar a couve-flor"), o campo 'quantity' deve ser uma string vazia ("").
     *   **CORREÇÃO:** A última quantidade mencionada para um produto é a que vale.
 
+    **REGRAS DE LIMPEZA GERAL:**
+    *   **LIMPEZA TOTAL:** Se o agricultor disser "zerar o romaneio", "limpar tudo", etc., defina 'clearAll' como 'true' e 'clearQuantitiesOnly' como 'false'.
+    *   **LIMPAR SÓ QUANTIDADES:** Se o agricultor disser "limpar as quantidades", "zerar quantidades", etc., defina 'clearQuantitiesOnly' como 'true' e 'clearAll' como 'false'.
+    
     **OUTRAS REGRAS:**
-    *   **LIMPEZA TOTAL:** Se o agricultor disser "zerar o romaneio", "limpar tudo", etc., defina 'clearAll' como 'true' e deixe 'items' vazio.
     *   **FORNECEDOR:** Se mencionar um fornecedor, preencha o campo 'fornecedor'.
 
-    **2. MODO CONVERSACIONAL (SECUNDÁRIO):** Se o áudio do usuário **NÃO** contiver um comando de romaneio, mas sim uma pergunta geral, saudação ou conversa (ex: "Qual seu nome?", "Olá Sofia", "O que você faz?", "Quem é você?"), você **DEVE** usar o campo 'conversationalResponse' para responder de forma amigável e útil. Neste caso, a lista de 'items' deve ficar vazia e 'clearAll' deve ser 'false'.
+    **2. MODO CONVERSACIONAL (SECUNDÁRIO):** Se o áudio do usuário **NÃO** contiver um comando de romaneio, mas sim uma pergunta geral, saudação ou conversa (ex: "Qual seu nome?", "Olá Sofia", "O que você faz?", "Quem é você?"), você **DEVE** usar o campo 'conversationalResponse' para responder de forma amigável e útil. Neste caso, a lista de 'items' deve ficar vazia e 'clearAll' e 'clearQuantitiesOnly' devem ser 'false'.
     *   Se perguntarem seu nome, diga que se chama Sofia (ou Fia) e que é a assistente de IA do app Minha Feira.
     *   Se perguntarem o que você faz, explique que sua função principal é ajudar a preencher o romaneio por voz.
     *   Sempre seja breve, amigável e profissional.

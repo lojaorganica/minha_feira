@@ -314,6 +314,9 @@ export default function RomaneioPage() {
             } else if (result.clearAll) {
                 dataWithUpdates = romaneioData.map(item => ({ ...item, quantidade: '', fornecedor: '' }));
                 responseText = "Entendido. O romaneio foi limpo.";
+            } else if (result.clearQuantitiesOnly) {
+                dataWithUpdates = romaneioData.map(item => ({ ...item, quantidade: '' }));
+                responseText = "Ok, as quantidades foram limpas.";
             } else if (result.items && result.items.length > 0) {
               
               result.items.forEach(extractedItem => {
@@ -344,8 +347,7 @@ export default function RomaneioPage() {
                             
                             const currentMatch = currentItem.quantidade.match(/^(\d+(\.\d+)?)\s*(.*)/);
                             const currentValue = currentMatch ? parseFloat(currentMatch[1]) : 0;
-                            const currentUnit = currentMatch ? currentMatch[3].trim() : '';
-                            const changeUnit = changeMatch[4] ? changeMatch[4].trim() : currentUnit;
+                            const currentUnit = currentMatch ? currentMatch[3].trim() : (changeMatch[4] ? changeMatch[4].trim() : '');
                             
                             let newValue = 0;
                             if (operator === '+') {
@@ -356,7 +358,7 @@ export default function RomaneioPage() {
                                 newValue = changeValue;
                             }
 
-                            finalQuantity = newValue > 0 ? `${newValue} ${changeUnit}`.trim() : '';
+                            finalQuantity = newValue > 0 ? `${newValue} ${currentUnit}`.trim() : '';
                         } else {
                             finalQuantity = extractedItem.quantity;
                         }
@@ -662,5 +664,3 @@ export default function RomaneioPage() {
     </div>
   );
 }
-
-    
