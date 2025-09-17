@@ -1,6 +1,7 @@
 
 'use client';
 
+import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -17,11 +18,17 @@ import { useRouter } from "next/navigation";
 import { getFarmers } from "@/lib/data";
 import type { Farmer } from "@/lib/types";
 import { Separator } from "@/components/ui/separator";
+import { Loader2 } from 'lucide-react';
 
 export default function FarmerLoginPage() {
   const { login } = useUser();
   const router = useRouter();
+  const [isClient, setIsClient] = useState(false);
   const allFarmers = getFarmers();
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const handleLogin = (farmerId: string) => {
     login(farmerId, 'farmer');
@@ -41,6 +48,11 @@ export default function FarmerLoginPage() {
                 </CardDescription>
             </CardHeader>
             <CardContent className="grid gap-4">
+              {!isClient ? (
+                <div className="flex justify-center items-center h-48">
+                  <Loader2 className="h-10 w-10 animate-spin text-primary" />
+                </div>
+              ) : (
                 <div className="space-y-3">
                   {allFarmers.map((farmer, index) => (
                     <>
@@ -57,6 +69,7 @@ export default function FarmerLoginPage() {
                     </>
                   ))}
                 </div>
+              )}
             </CardContent>
             <CardFooter className="flex flex-col gap-4">
                  <div className="text-center text-sm">
