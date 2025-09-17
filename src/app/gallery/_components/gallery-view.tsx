@@ -105,7 +105,7 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
                         </>
                     ) : (
                          <div 
-                            className="relative cursor-pointer" 
+                            className="relative cursor-pointer bg-black/10" 
                             onClick={() => handleActionClick(() => onPlayVideo(item))}
                          >
                             <video 
@@ -452,6 +452,7 @@ export default function GalleryView() {
 
 
     
+
 
 
 
