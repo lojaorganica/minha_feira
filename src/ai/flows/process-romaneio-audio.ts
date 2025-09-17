@@ -66,11 +66,13 @@ const extractionPrompt = ai.definePrompt({
     *   **ADICIONAR/SOMAR:** Se o comando for para "adicionar", "acrescentar", "mais" (ex: "colocar mais 5 quilos"), o campo 'quantity' DEVE ser prefixado com "+". Ex: "+5 quilos".
     *   **SUBTRAIR/REMOVER:** Se o comando for para "remover", "tirar", "diminuir" uma quantidade (ex: "tirar 2 maços"), o campo 'quantity' DEVE ser prefixado com "-". Ex: "-2 maços".
     *   **ZERAR ITEM:** Se o comando for "zerar", "cancelar" ou "remover tudo" de um item (ex: "zerar a couve-flor"), o campo 'quantity' deve ser uma string vazia ("").
-    *   **CORREÇÃO:** A última quantidade mencionada para um produto é a que vale.
-
+    
     **REGRAS DE EXTRAÇÃO DE FORNECEDOR:**
     *   **ADICIONAR FORNECEDOR:** Se mencionar um fornecedor para um produto (ex: "colocar Matias Ponte como fornecedor da couve"), preencha o campo 'fornecedor' do item correspondente. **NÃO ALTERE A QUANTIDADE.**
     *   **REMOVER FORNECEDOR DE ITEM ESPECÍFICO:** Se o comando for para "remover fornecedor" ou "tirar fornecedor" de um produto específico (ex: "remover fornecedor da couve"), o campo 'fornecedor' do item correspondente deve ser uma string vazia (""). **IMPORTANTE: Esta ação NÃO deve afetar a quantidade do item nem os fornecedores de outros itens.** Apenas o fornecedor daquele produto específico é removido.
+
+    **REGRA DE CORREÇÃO (MUITO IMPORTANTE):**
+    *   Se um comando for uma **correção** de um único campo (ex: "corrigir o fornecedor da laranja para Sítio Alegria"), você deve identificar o item, alterar **APENAS** o campo mencionado e manter todos os outros campos daquele item com seus valores atuais. **A última informação mencionada para um campo específico é a que vale.** Exemplo: se a laranja já tem '10 caixas' e o comando é só para corrigir o fornecedor, a quantidade '10 caixas' DEVE ser mantida na resposta.
 
     **REGRAS DE LIMPEZA GERAL (NÃO CONFUNDIR COM REMOÇÃO DE ITEM ESPECÍFICO):**
     *   **LIMPEZA TOTAL:** Se o agricultor disser "zerar o romaneio", "limpar tudo", etc., defina 'clearAll' como 'true'.
