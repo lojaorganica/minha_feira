@@ -197,7 +197,6 @@ function GalleryFilterAccordion({
                  onFilterChange('theme', selectedTheme === value ? null : value);
             }
         });
-        setOpenItems([]); 
     };
 
     return (
@@ -452,6 +451,7 @@ export default function GalleryView() {
 
 
     
+
 
 
 
