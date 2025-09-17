@@ -98,19 +98,10 @@ export default {
         'accordion-up': 'accordion-up 0.2s ease-out',
         'pulse-heart': 'pulse-heart 1.5s ease-in-out infinite',
       },
-      variants: {
-        extend: {
-           fill: ['hover-hover'],
-           stroke: ['hover-hover'],
-        }
-      }
     },
   },
   plugins: [
       require('tailwindcss-animate'),
-      function ({ addVariant }: { addVariant: (name: string, definition: string) => void }) {
-        addVariant('hover-hover', '@media (hover: hover)');
-      }
   ],
 } satisfies Config;
 
