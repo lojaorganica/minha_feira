@@ -314,7 +314,7 @@ export default function RomaneioPage() {
                     // Lógica para Fornecedor
                     if (extractedItem.fornecedor !== undefined) {
                         const newSupplier = extractedItem.fornecedor.trim();
-                        finalFornecedor = newSupplier; // Sempre atualiza, mesmo se for para string vazia
+                        finalFornecedor = newSupplier;
                         if (newSupplier === '' && currentItem.fornecedor !== '') {
                             if (!removedSuppliersProducts.includes(currentItem.produto)) {
                                 removedSuppliersProducts.push(currentItem.produto);
@@ -327,32 +327,31 @@ export default function RomaneioPage() {
                     }
 
                     // Lógica para Quantidade
-                    if (extractedItem.quantity !== undefined && extractedItem.quantity.trim() !== '') {
-                        const changeMatch = extractedItem.quantity.trim().match(/^([+-]?)(\d+(\.\d+)?)\s*(.*)/);
-                        const currentMatch = currentItem.quantidade.trim().match(/^(\d+(\.\d+)?)\s*(.*)/);
-                        const changeUnit = changeMatch ? (changeMatch[4]?.trim() || (currentMatch ? currentMatch[3]?.trim() : '')) : '';
-                        
-                        if (changeMatch) {
-                            const operator = changeMatch[1];
-                            const changeValue = parseFloat(changeMatch[2]);
-                            const currentValue = currentMatch ? parseFloat(currentMatch[1]) : 0;
-                            let newValue = 0;
+                    if (extractedItem.quantity !== undefined) {
+                        const newQuantityTrimmed = extractedItem.quantity.trim();
+                        if (newQuantityTrimmed !== '') {
+                            const changeMatch = newQuantityTrimmed.match(/^([+-]?)(\d+(\.\d+)?)\s*(.*)/);
+                            const currentMatch = currentItem.quantidade.trim().match(/^(\d+(\.\d+)?)\s*(.*)/);
+                            const changeUnit = changeMatch ? (changeMatch[4]?.trim() || (currentMatch ? currentMatch[3]?.trim() : '')) : '';
+                            
+                            if (changeMatch) {
+                                const operator = changeMatch[1];
+                                const changeValue = parseFloat(changeMatch[2]);
+                                const currentValue = currentMatch ? parseFloat(currentMatch[1]) : 0;
+                                let newValue = 0;
 
-                            if (operator === '+') newValue = currentValue + changeValue;
-                            else if (operator === '-') newValue = Math.max(0, currentValue - changeValue);
-                            else newValue = changeValue;
+                                if (operator === '+') newValue = currentValue + changeValue;
+                                else if (operator === '-') newValue = Math.max(0, currentValue - changeValue);
+                                else newValue = changeValue;
 
-                            finalQuantity = newValue > 0 ? `${newValue} ${changeUnit}`.trim() : '';
+                                finalQuantity = newValue > 0 ? `${newValue} ${changeUnit}`.trim() : '';
+                            } else {
+                                finalQuantity = newQuantityTrimmed;
+                            }
                         } else {
-                            finalQuantity = extractedItem.quantity.trim();
+                             finalQuantity = '';
                         }
-                        
-                        if (finalQuantity !== currentItem.quantidade && !updatedQuantitiesProducts.includes(currentItem.produto)) {
-                            updatedQuantitiesProducts.push(currentItem.produto);
-                        }
-                    } else if (extractedItem.quantity !== undefined && extractedItem.quantity.trim() === '') {
-                         finalQuantity = '';
-                         if (currentItem.quantidade !== '' && !updatedQuantitiesProducts.includes(currentItem.produto)) {
+                         if (finalQuantity !== currentItem.quantidade && !updatedQuantitiesProducts.includes(currentItem.produto)) {
                             updatedQuantitiesProducts.push(currentItem.produto);
                          }
                     }
@@ -427,7 +426,12 @@ export default function RomaneioPage() {
           try {
             const result = await processRomaneioAudio({
               audioDataUri: base64Audio,
-              productList: farmerProducts.map(p => p.name)
+              productList: farmerProducts.map(p => p.name),
+              romaneioAtual: romaneioData.map(item => ({
+                  produto: item.produto,
+                  fornecedor: item.fornecedor,
+                  quantidade: item.quantidade
+              }))
             });
             await processAudioResult(result);
           } catch (e) {

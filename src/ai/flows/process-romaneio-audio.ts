@@ -12,6 +12,12 @@
 import { ai } from '@/ai/genkit';
 import { z } from 'zod';
 
+const RomaneioItemSchema = z.object({
+    produto: z.string(),
+    fornecedor: z.string(),
+    quantidade: z.string(),
+});
+
 const ProcessRomaneioAudioInputSchema = z.object({
   audioDataUri: z
     .string()
@@ -19,6 +25,7 @@ const ProcessRomaneioAudioInputSchema = z.object({
       "The recorded audio as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'"
     ),
   productList: z.array(z.string()).describe('A list of all possible products the farmer sells.'),
+  romaneioAtual: z.array(RomaneioItemSchema).describe('The current state of the packing slip before any changes.'),
 });
 export type ProcessRomaneioAudioInput = z.infer<typeof ProcessRomaneioAudioInputSchema>;
 
@@ -50,8 +57,14 @@ const extractionPrompt = ai.definePrompt({
     prompt: `Você é Sofia (ou Fia), uma assistente de IA especialista em preencher um romaneio (lista de embalagem) para agricultores. Sua tarefa principal é analisar um áudio e extrair as informações.
 
     **REGRA DE OURO FUNDAMENTAL:**
-    Ações de **fornecedor** (adicionar/remover) NUNCA devem alterar a **quantidade** de um produto. Ações de **quantidade** (adicionar/remover/zerar) NUNCA devem alterar o **fornecedor**. Os campos são independentes. Se um comando de voz afeta apenas um campo, apenas esse campo deve ser alterado no item correspondente na saída.
+    Ações de **fornecedor** (adicionar/remover) NUNCA devem alterar a **quantidade** de um produto. Ações de **quantidade** (adicionar/remover/zerar) NUNCA devem alterar o **fornecedor**. Os campos são independentes.
 
+    **CONTEXTO ATUAL DO ROMANEIO (USE ISSO COMO BASE):**
+    A seguir, o estado atual do romaneio. Use-o como fonte de verdade para os valores que não forem alterados pelo comando de voz.
+    {{#each romaneioAtual}}
+    - Produto: {{produto}}, Quantidade: {{quantidade}}, Fornecedor: {{fornecedor}}
+    {{/each}}
+    
     **MODOS DE OPERAÇÃO:**
 
     **1. MODO DE EXTRAÇÃO (PRINCIPAL):** Se o áudio contiver nomes de produtos e/ou fornecedores, sua tarefa é extrair esses dados e preencher a lista de 'items'. A menção de um nome de produto, mesmo sem quantidade, já caracteriza MODO DE EXTRAÇÃO.
@@ -60,6 +73,11 @@ const extractionPrompt = ai.definePrompt({
     {{#each productList}}
     - {{this}}
     {{/each}}
+
+    **REGRA DE CORREÇÃO (MUITO IMPORTANTE):**
+    *   Se um comando for uma **correção** de um único campo (ex: "corrigir o fornecedor da laranja para Sítio Alegria"), você deve identificar o item, alterar **APENAS** o campo mencionado no áudio, e **MANTER** todos os outros campos daquele item com seus valores atuais, copiando-os do **CONTEXTO ATUAL DO ROMANEIO**.
+    *   **Exemplo Prático:** Se o romaneio atual tem "Produto: Laranja, Quantidade: 10 caixas, Fornecedor: Sítio Feliz" e o áudio diz "corrigir para Sítio Alegria o fornecedor da laranja", sua saída para o item 'Laranja' DEVE ser: 'product': 'Laranja', 'quantity': '10 caixas', 'fornecedor': 'Sítio Alegria'.
+    *   **A última informação mencionada para um campo específico é a que vale.**
     
     **REGRAS DE EXTRAÇÃO DE QUANTIDADE:**
     *   **DEFINIR VALOR:** Se o comando for para "colocar", "botar", "definir" uma quantidade (ex: "10 caixas de tomate"), o campo 'quantity' deve ser a string exata, incluindo a unidade. Ex: "10 caixas".
@@ -70,9 +88,6 @@ const extractionPrompt = ai.definePrompt({
     **REGRAS DE EXTRAÇÃO DE FORNECEDOR:**
     *   **ADICIONAR FORNECEDOR:** Se mencionar um fornecedor para um produto (ex: "colocar Matias Ponte como fornecedor da couve"), preencha o campo 'fornecedor' do item correspondente. **NÃO ALTERE A QUANTIDADE.**
     *   **REMOVER FORNECEDOR DE ITEM ESPECÍFICO:** Se o comando for para "remover fornecedor" ou "tirar fornecedor" de um produto específico (ex: "remover fornecedor da couve"), o campo 'fornecedor' do item correspondente deve ser uma string vazia (""). **IMPORTANTE: Esta ação NÃO deve afetar a quantidade do item nem os fornecedores de outros itens.** Apenas o fornecedor daquele produto específico é removido.
-
-    **REGRA DE CORREÇÃO (MUITO IMPORTANTE):**
-    *   Se um comando for uma **correção** de um único campo (ex: "corrigir o fornecedor da laranja para Sítio Alegria"), você deve identificar o item, alterar **APENAS** o campo mencionado e manter todos os outros campos daquele item com seus valores atuais. **A última informação mencionada para um campo específico é a que vale.** Exemplo: se a laranja já tem '10 caixas' e o comando é só para corrigir o fornecedor, a quantidade '10 caixas' DEVE ser mantida na resposta.
 
     **REGRAS DE LIMPEZA GERAL (NÃO CONFUNDIR COM REMOÇÃO DE ITEM ESPECÍFICO):**
     *   **LIMPEZA TOTAL:** Se o agricultor disser "zerar o romaneio", "limpar tudo", etc., defina 'clearAll' como 'true'.
@@ -103,5 +118,3 @@ const processRomaneioAudioFlow = ai.defineFlow(
     return output!;
   }
 );
-
-    
