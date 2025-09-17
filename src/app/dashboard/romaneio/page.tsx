@@ -261,10 +261,12 @@ export default function RomaneioPage() {
 
  const playResponse = async (text: string) => {
     if (!text) return;
+
     toast({
         title: "Sofia Responde:",
         description: text,
     });
+    
     try {
         const result = await generateSpeech({
             text,
@@ -277,7 +279,7 @@ export default function RomaneioPage() {
 };
 
 
- const processAudioResult = (result: ProcessRomaneioAudioOutput) => {
+ const processAudioResult = async (result: ProcessRomaneioAudioOutput) => {
     let dataWithUpdates = [...romaneioData];
     let responseText = "";
 
@@ -384,11 +386,11 @@ export default function RomaneioPage() {
     } 
     
     if (!responseText) {
-       responseText = "Desculpe, não entendi o comando. Poderia tentar de novo?";
+       responseText = "Não identifiquei nenhuma alteração para fazer.";
     }
     
     setRomaneioData(dataWithUpdates);
-    playResponse(responseText);
+    await playResponse(responseText);
   };
 
   const startRecording = async () => {
@@ -421,7 +423,7 @@ export default function RomaneioPage() {
               audioDataUri: base64Audio,
               productList: farmerProducts.map(p => p.name)
             });
-            processAudioResult(result);
+            await processAudioResult(result);
           } catch (e) {
             console.error(e);
             await playResponse("Ocorreu um erro ao processar o áudio. Por favor, tente novamente.");
@@ -670,5 +672,7 @@ export default function RomaneioPage() {
     </div>
   );
 }
+
+    
 
     
