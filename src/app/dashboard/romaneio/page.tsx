@@ -304,25 +304,25 @@ export default function RomaneioPage() {
             });
             
             let responseText = "";
-            let currentData = [...romaneioData];
+            let dataWithUpdates = [...romaneioData];
 
             if (result.conversationalResponse) {
                 responseText = result.conversationalResponse;
             } else if (result.clearAll) {
-                currentData = romaneioData.map(item => ({ ...item, quantidade: '', fornecedor: '' }));
+                dataWithUpdates = romaneioData.map(item => ({ ...item, quantidade: '', fornecedor: '' }));
                 responseText = "Entendido. O romaneio foi limpo.";
             } else if (result.items.length > 0) {
               const s = result.items.length > 1 ? 's' : '';
               responseText = `Ok, atualizei ${result.items.length} item${s} no seu romaneio.`;
 
               result.items.forEach(extractedItem => {
-                  const itemIndex = currentData.findIndex(
+                  const itemIndex = dataWithUpdates.findIndex(
                     romaneioItem => romaneioItem.produto.toLowerCase() === extractedItem.product.toLowerCase()
                   );
                   if (itemIndex !== -1) {
-                    currentData[itemIndex].quantidade = extractedItem.quantity;
+                    dataWithUpdates[itemIndex].quantidade = extractedItem.quantity;
                     if (extractedItem.fornecedor) {
-                      currentData[itemIndex].fornecedor = extractedItem.fornecedor;
+                      dataWithUpdates[itemIndex].fornecedor = extractedItem.fornecedor;
                     }
                   }
               });
@@ -330,7 +330,7 @@ export default function RomaneioPage() {
                 responseText = "Desculpe, não consegui identificar nenhum item para o romaneio no seu áudio. Poderia tentar de novo?";
             }
             
-            setRomaneioData(currentData);
+            setRomaneioData(dataWithUpdates);
             playResponse(responseText);
 
             toast({
@@ -592,5 +592,3 @@ export default function RomaneioPage() {
     </div>
   );
 }
-
-    
