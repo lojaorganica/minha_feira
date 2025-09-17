@@ -80,10 +80,10 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
     }, [item.theme, item.title]);
     
     return (
-        <Card className="overflow-hidden flex flex-col">
+        <Card className="overflow-hidden flex flex-col group">
             <CardContent className="p-0">
                 <div 
-                    className="relative w-full"
+                    className="relative w-full group-disabled:opacity-100"
                     onTouchStart={handleTouchStart}
                     onTouchMove={handleTouchMove}
                 >
@@ -443,4 +443,5 @@ export default function GalleryView() {
     
 
     
+
 
