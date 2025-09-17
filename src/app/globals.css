@@ -138,9 +138,4 @@
   .animate-pulse-heart {
     animation: pulse-heart 1.5s ease-in-out infinite;
   }
-
-  .force-gpu-layer {
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
-  }
 }
