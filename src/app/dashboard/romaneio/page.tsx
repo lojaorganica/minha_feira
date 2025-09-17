@@ -306,42 +306,37 @@ export default function RomaneioPage() {
             let responseText = "";
             let dataUpdated = false;
 
-            // Criamos uma cópia para fazer as alterações
-            let dataWithUpdates = [...romaneioData]; 
-
             if (result.conversationalResponse) {
                 responseText = result.conversationalResponse;
             } else if (result.clearAll) {
-                dataWithUpdates = dataWithUpdates.map(item => ({
-                    ...item,
-                    quantidade: '',
-                    fornecedor: '',
-                }));
-                dataUpdated = true;
+                const clearedData = romaneioData.map(item => ({ ...item, quantidade: '', fornecedor: '' }));
+                setRomaneioData(clearedData);
                 responseText = "Entendido. O romaneio foi limpo.";
-            } else if (result.items.length > 0) {
-              const s = result.items.length > 1 ? 's' : '';
-              responseText = `Ok, atualizei ${result.items.length} item${s} no seu romaneio.`;
+            } else if (result.items && result.items.length > 0) {
+              const updatedCount = result.items.length;
+              const itemPlural = updatedCount > 1 ? 'itens' : 'item';
+              responseText = `Ok, atualizei ${updatedCount} ${itemPlural} no seu romaneio.`;
+
+              // Criamos uma cópia para fazer as alterações
+              const updatedRomaneioData = [...romaneioData];
 
               result.items.forEach(extractedItem => {
-                  const itemIndex = dataWithUpdates.findIndex(
+                  const itemIndex = updatedRomaneioData.findIndex(
                     romaneioItem => romaneioItem.produto.toLowerCase() === extractedItem.product.toLowerCase()
                   );
                   if (itemIndex !== -1) {
-                    dataWithUpdates[itemIndex].quantidade = extractedItem.quantity;
-                    if (extractedItem.fornecedor) {
-                      dataWithUpdates[itemIndex].fornecedor = extractedItem.fornecedor;
-                    }
-                    dataUpdated = true;
+                    updatedRomaneioData[itemIndex] = {
+                        ...updatedRomaneioData[itemIndex],
+                        quantidade: extractedItem.quantity,
+                        ...(extractedItem.fornecedor && { fornecedor: extractedItem.fornecedor }),
+                    };
                   }
               });
+              
+              setRomaneioData(updatedRomaneioData);
+              dataUpdated = true;
             } else {
                 responseText = "Desculpe, não consegui identificar nenhum item para o romaneio no seu áudio. Poderia tentar de novo?";
-            }
-            
-            // Se houve alguma atualização, atualiza o estado
-            if(dataUpdated) {
-                setRomaneioData(dataWithUpdates);
             }
             
             await playResponse(responseText);
