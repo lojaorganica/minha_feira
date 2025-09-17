@@ -12,7 +12,7 @@ import { Label } from '@/components/ui/label';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Calendar } from '@/components/ui/calendar';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { CalendarIcon, Download, FileText, Loader2, Mic, Printer, Save, Share2, StopCircle, AlertTriangle } from 'lucide-react';
+import { CalendarIcon, Download, FileText, Loader2, Mic, Play, Printer, Save, Share2, StopCircle, AlertTriangle } from 'lucide-react';
 import BackButton from '@/components/back-button';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
@@ -52,8 +52,6 @@ export default function RomaneioPage() {
   const [audioSrc, setAudioSrc] = useState<string | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
-  
-  const [pendingResponseText, setPendingResponseText] = useState<string | null>(null);
   
   const printRef = useRef<HTMLDivElement>(null);
 
@@ -263,12 +261,10 @@ export default function RomaneioPage() {
 
  const playResponse = async (text: string) => {
     if (!text) return;
-
     toast({
         title: "Sofia Responde:",
         description: text,
     });
-    
     try {
         const result = await generateSpeech({
             text,
@@ -277,18 +273,16 @@ export default function RomaneioPage() {
         setAudioSrc(result.audioDataUri);
     } catch (error) {
         console.error('Erro ao gerar a fala da Sofia:', error);
+        toast({
+            variant: 'destructive',
+            title: "Erro na Voz",
+            description: "Não consegui gerar o áudio da resposta.",
+        });
     }
 };
 
- useEffect(() => {
-    if (pendingResponseText) {
-      playResponse(pendingResponseText);
-      setPendingResponseText(null); // Limpa o texto pendente após a chamada
-    }
-  }, [pendingResponseText]);
 
-
- const processAudioResult = (result: ProcessRomaneioAudioOutput) => {
+ const processAudioResult = async (result: ProcessRomaneioAudioOutput) => {
     let dataWithUpdates = [...romaneioData];
     let responseText = "";
 
@@ -399,7 +393,7 @@ export default function RomaneioPage() {
     }
     
     setRomaneioData(dataWithUpdates);
-    setPendingResponseText(responseText);
+    await playResponse(responseText);
   };
 
   const startRecording = async () => {
@@ -432,10 +426,10 @@ export default function RomaneioPage() {
               audioDataUri: base64Audio,
               productList: farmerProducts.map(p => p.name)
             });
-            processAudioResult(result);
+            await processAudioResult(result);
           } catch (e) {
             console.error(e);
-            setPendingResponseText("Ocorreu um erro ao processar o áudio. Por favor, tente novamente.");
+            await playResponse("Ocorreu um erro ao processar o áudio. Por favor, tente novamente.");
           } finally {
             setIsProcessingAudio(false);
           }
@@ -629,6 +623,22 @@ export default function RomaneioPage() {
                 ))}
               </div>
             </div>
+            
+             {audioSrc && (
+                <div className="mt-6 no-print">
+                    <audio
+                    key={audioSrc}
+                    src={audioSrc}
+                    autoPlay
+                    controls
+                    className="w-full"
+                    onEnded={() => setAudioSrc(null)}
+                    >
+                    Seu navegador não suporta o elemento de áudio.
+                    </audio>
+                </div>
+            )}
+
           </CardContent>
           <CardFooter className="flex-col md:flex-row gap-2 justify-end no-print p-6">
              <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
@@ -640,18 +650,6 @@ export default function RomaneioPage() {
           </CardFooter>
         </Card>
       </div>
-
-       {/* Player de áudio oculto */}
-       {audioSrc && (
-        <audio
-          src={audioSrc}
-          autoPlay
-          onEnded={() => setAudioSrc(null)}
-          className="hidden"
-        >
-          Seu navegador não suporta o elemento de áudio.
-        </audio>
-       )}
 
        {/* Botão de Gravação Flutuante */}
       <div className="fixed bottom-6 right-6 no-print z-50">
@@ -681,3 +679,5 @@ export default function RomaneioPage() {
     </div>
   );
 }
+
+    
