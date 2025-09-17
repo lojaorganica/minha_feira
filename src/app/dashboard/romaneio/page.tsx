@@ -281,114 +281,115 @@ export default function RomaneioPage() {
     let responseText = "";
     const updatedQuantitiesProducts: string[] = [];
     const updatedSuppliersProducts: string[] = [];
+    const removedSuppliersProducts: string[] = [];
 
     if (result.conversationalResponse) {
-      responseText = result.conversationalResponse;
+        responseText = result.conversationalResponse;
     } else if (result.clearAll) {
-      dataWithUpdates = dataWithUpdates.map(item => ({ ...item, quantidade: '', fornecedor: '' }));
-      responseText = "Entendido. O romaneio foi limpo.";
+        dataWithUpdates = dataWithUpdates.map(item => ({ ...item, quantidade: '', fornecedor: '' }));
+        responseText = "Entendido. O romaneio foi limpo.";
     } else if (result.clearQuantitiesOnly) {
-      dataWithUpdates = dataWithUpdates.map(item => ({ ...item, quantidade: '' }));
-      responseText = "Ok, as quantidades foram limpas.";
+        dataWithUpdates = dataWithUpdates.map(item => ({ ...item, quantidade: '' }));
+        responseText = "Ok, as quantidades foram limpas.";
     } else if (result.clearSuppliersOnly) {
-      dataWithUpdates = dataWithUpdates.map(item => ({ ...item, fornecedor: '' }));
-      responseText = "Certo, limpei os nomes dos fornecedores.";
+        dataWithUpdates = dataWithUpdates.map(item => ({ ...item, fornecedor: '' }));
+        responseText = "Certo, limpei os nomes dos fornecedores.";
     } else if (result.items && result.items.length > 0) {
-      result.items.forEach(extractedItem => {
-        const itemIndex = dataWithUpdates.findIndex(
-          romaneioItem => romaneioItem.produto.toLowerCase() === extractedItem.product.toLowerCase()
-        );
+        result.items.forEach(extractedItem => {
+            const itemIndex = dataWithUpdates.findIndex(
+                romaneioItem => romaneioItem.produto.toLowerCase() === extractedItem.product.toLowerCase()
+            );
 
-        if (itemIndex !== -1) {
-          const currentItem = dataWithUpdates[itemIndex];
-          let finalQuantity = currentItem.quantidade;
-          let finalFornecedor = currentItem.fornecedor;
+            if (itemIndex !== -1) {
+                const currentItem = dataWithUpdates[itemIndex];
+                let finalQuantity = currentItem.quantidade;
+                let finalFornecedor = currentItem.fornecedor;
 
-          if (extractedItem.fornecedor !== undefined) {
-              const newSupplier = extractedItem.fornecedor.trim();
-              if (newSupplier !== currentItem.fornecedor) {
-                 finalFornecedor = newSupplier;
-                 if (!updatedSuppliersProducts.includes(currentItem.produto)) {
-                      updatedSuppliersProducts.push(currentItem.produto);
-                 }
-              }
-          }
-          
-          if (typeof extractedItem.quantity === 'string' && extractedItem.quantity.trim() !== '') {
-            const changeMatch = extractedItem.quantity.trim().match(/^([+-]?)(\d+(\.\d+)?)\s*(.*)/);
-            const currentMatch = currentItem.quantidade.trim().match(/^(\d+(\.\d+)?)\s*(.*)/);
-            
-            const changeUnit = changeMatch ? (changeMatch[4]?.trim() || (currentMatch ? currentMatch[3]?.trim() : '')) : '';
-
-            if (changeMatch) {
-                const operator = changeMatch[1];
-                const changeValue = parseFloat(changeMatch[2]);
-                
-                const currentValue = currentMatch ? parseFloat(currentMatch[1]) : 0;
-                
-                let newValue = 0;
-                if (operator === '+') {
-                    newValue = currentValue + changeValue;
-                } else if (operator === '-') {
-                    newValue = Math.max(0, currentValue - changeValue);
-                } else { 
-                    newValue = changeValue;
+                // Lógica para Fornecedor
+                if (extractedItem.fornecedor !== undefined) {
+                    const newSupplier = extractedItem.fornecedor.trim();
+                    if (newSupplier === '' && currentItem.fornecedor !== '') {
+                        finalFornecedor = '';
+                        if (!removedSuppliersProducts.includes(currentItem.produto)) {
+                            removedSuppliersProducts.push(currentItem.produto);
+                        }
+                    } else if (newSupplier !== currentItem.fornecedor) {
+                        finalFornecedor = newSupplier;
+                        if (!updatedSuppliersProducts.includes(currentItem.produto)) {
+                            updatedSuppliersProducts.push(currentItem.produto);
+                        }
+                    }
                 }
-                finalQuantity = newValue > 0 ? `${newValue} ${changeUnit}`.trim() : '';
-            } else {
-                finalQuantity = extractedItem.quantity.trim();
-            }
-            
-            if (finalQuantity !== currentItem.quantidade) {
-                if (!updatedQuantitiesProducts.includes(currentItem.produto)) {
-                   updatedQuantitiesProducts.push(currentItem.produto);
-                }
-            }
-          } else if (extractedItem.quantity === '') {
-              finalQuantity = '';
-              if (currentItem.quantidade !== '') {
-                  if (!updatedQuantitiesProducts.includes(currentItem.produto)) {
-                      updatedQuantitiesProducts.push(currentItem.produto);
-                  }
-              }
-          }
 
-           dataWithUpdates[itemIndex] = {
-              ...currentItem,
-              quantidade: finalQuantity,
-              fornecedor: finalFornecedor,
-          };
+                // Lógica para Quantidade
+                if (extractedItem.quantity !== undefined) {
+                    if (extractedItem.quantity.trim() === '') {
+                        finalQuantity = '';
+                        if (currentItem.quantidade !== '') {
+                            updatedQuantitiesProducts.push(currentItem.produto);
+                        }
+                    } else {
+                        const changeMatch = extractedItem.quantity.trim().match(/^([+-]?)(\d+(\.\d+)?)\s*(.*)/);
+                        const currentMatch = currentItem.quantidade.trim().match(/^(\d+(\.\d+)?)\s*(.*)/);
+                        const changeUnit = changeMatch ? (changeMatch[4]?.trim() || (currentMatch ? currentMatch[3]?.trim() : '')) : '';
+                        
+                        if (changeMatch) {
+                            const operator = changeMatch[1];
+                            const changeValue = parseFloat(changeMatch[2]);
+                            const currentValue = currentMatch ? parseFloat(currentMatch[1]) : 0;
+                            let newValue = 0;
+
+                            if (operator === '+') newValue = currentValue + changeValue;
+                            else if (operator === '-') newValue = Math.max(0, currentValue - changeValue);
+                            else newValue = changeValue;
+
+                            finalQuantity = newValue > 0 ? `${newValue} ${changeUnit}`.trim() : '';
+                        } else {
+                            finalQuantity = extractedItem.quantity.trim();
+                        }
+                        
+                        if (finalQuantity !== currentItem.quantidade && !updatedQuantitiesProducts.includes(currentItem.produto)) {
+                           updatedQuantitiesProducts.push(currentItem.produto);
+                        }
+                    }
+                }
+
+                dataWithUpdates[itemIndex] = {
+                    ...currentItem,
+                    quantidade: finalQuantity,
+                    fornecedor: finalFornecedor,
+                };
+            }
+        });
+
+        // Construção da resposta falada
+        const parts = [];
+        if (updatedQuantitiesProducts.length > 0) {
+            const plural = updatedQuantitiesProducts.length > 1;
+            parts.push(`atualizei a${plural ? 's' : ''} quantidade${plural ? 's' : ''} de ${updatedQuantitiesProducts.join(', ')}`);
         }
-    });
-      let quantityText = '';
-      if (updatedQuantitiesProducts.length > 0) {
-          const plural = updatedQuantitiesProducts.length > 1;
-          quantityText = `Atualizei a${plural ? 's' : ''} quantidade${plural ? 's' : ''} de ${updatedQuantitiesProducts.join(', ')}`;
-      }
+        if (updatedSuppliersProducts.length > 0) {
+            const plural = updatedSuppliersProducts.length > 1;
+            parts.push(`adicionei o${plural ? 's' : ''} fornecedor${plural ? 'es' : ''} para ${updatedSuppliersProducts.join(', ')}`);
+        }
+        if (removedSuppliersProducts.length > 0) {
+            const plural = removedSuppliersProducts.length > 1;
+            parts.push(`removi o${plural ? 's' : ''} fornecedor${plural ? 'es' : ''} de ${removedSuppliersProducts.join(', ')}`);
+        }
 
-      let supplierText = '';
-      if (updatedSuppliersProducts.length > 0) {
-          const plural = updatedSuppliersProducts.length > 1;
-          supplierText = `Adicionei o${plural ? 's' : ''} fornecedor${plural ? 'es' : ''} para ${plural ? 'os itens' : 'o item'} ${updatedSuppliersProducts.join(', ')}`;
-      }
-
-      if (quantityText && supplierText) {
-          responseText = `Ok. ${quantityText}. E também, ${supplierText.charAt(0).toLowerCase() + supplierText.slice(1)}.`;
-      } else if (quantityText) {
-          responseText = `Ok. ${quantityText}.`;
-      } else if (supplierText) {
-          responseText = `Certo. ${supplierText}.`;
-      } else {
-          responseText = "Não identifiquei nenhuma alteração para fazer.";
-      }
+        if (parts.length > 0) {
+            responseText = "Ok. " + parts.join('. E também, ').replace(/^\w/, c => c.toUpperCase()) + '.';
+        } else {
+            responseText = "Não identifiquei nenhuma alteração para fazer.";
+        }
     } else {
-       responseText = "Desculpe, não entendi o comando. Poderia tentar de novo?";
+        responseText = "Desculpe, não entendi o comando. Poderia tentar de novo?";
     }
     
     setRomaneioData(dataWithUpdates);
     
     if (responseText) {
-      playResponse(responseText);
+        playResponse(responseText);
     }
   };
 
@@ -676,6 +677,3 @@ export default function RomaneioPage() {
     </div>
   );
 }
-
-
-    

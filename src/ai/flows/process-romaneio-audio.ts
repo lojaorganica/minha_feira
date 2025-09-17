@@ -79,7 +79,7 @@ const extractionPrompt = ai.definePrompt({
     *   Se perguntarem o que você faz, explique que sua função principal é ajudar a preencher o romaneio por voz.
     *   Sempre seja breve, amigável e profissional.
     
-    **Priorize o MODO DE EXTRAÇÃO.** Somente use o MODO CONVERSACIONAL se tiver certeza de que o usuário não está tentando ditar um item para o romaneio.
+    **Priorize o MODO DE EXTRAÇÃO.** Somente use o MODO CONVERSACIONAL se tiver certeza de que o usuário não está tentando ditar um item para o romaneio. A menção de um nome de produto, mesmo sem quantidade, já caracteriza MODO DE EXTRAÇÃO.
 
     Use o áudio a seguir como fonte primária:
     {{media url=audioDataUri}}
