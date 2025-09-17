@@ -352,10 +352,11 @@ export default function RomaneioPage() {
                       const changeMatch = extractedItem.quantity.trim().match(/^([+-]?)(\d+(\.\d+)?)\s*(.*)/);
                       const currentMatch = currentItem.quantidade.trim().match(/^(\d+(\.\d+)?)\s*(.*)/);
                       
+                      const changeUnit = changeMatch ? (changeMatch[4]?.trim() || (currentMatch ? currentMatch[3]?.trim() : '')) : '';
+
                       if (changeMatch) {
                           const operator = changeMatch[1];
                           const changeValue = parseFloat(changeMatch[2]);
-                          const changeUnit = changeMatch[4]?.trim() || (currentMatch ? currentMatch[3]?.trim() : '');
                           
                           const currentValue = currentMatch ? parseFloat(currentMatch[1]) : 0;
                           
