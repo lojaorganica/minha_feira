@@ -307,15 +307,16 @@ export default function RomaneioPage() {
             let dataUpdated = false;
 
             // Criamos uma cópia para fazer as alterações
-            const updatedRomaneioData = [...romaneioData]; 
+            let dataWithUpdates = [...romaneioData]; 
 
             if (result.conversationalResponse) {
                 responseText = result.conversationalResponse;
             } else if (result.clearAll) {
-                updatedRomaneioData.forEach(item => {
-                    item.quantidade = '';
-                    item.fornecedor = '';
-                });
+                dataWithUpdates = dataWithUpdates.map(item => ({
+                    ...item,
+                    quantidade: '',
+                    fornecedor: '',
+                }));
                 dataUpdated = true;
                 responseText = "Entendido. O romaneio foi limpo.";
             } else if (result.items.length > 0) {
@@ -323,13 +324,13 @@ export default function RomaneioPage() {
               responseText = `Ok, atualizei ${result.items.length} item${s} no seu romaneio.`;
 
               result.items.forEach(extractedItem => {
-                  const itemIndex = updatedRomaneioData.findIndex(
+                  const itemIndex = dataWithUpdates.findIndex(
                     romaneioItem => romaneioItem.produto.toLowerCase() === extractedItem.product.toLowerCase()
                   );
                   if (itemIndex !== -1) {
-                    updatedRomaneioData[itemIndex].quantidade = extractedItem.quantity;
+                    dataWithUpdates[itemIndex].quantidade = extractedItem.quantity;
                     if (extractedItem.fornecedor) {
-                      updatedRomaneioData[itemIndex].fornecedor = extractedItem.fornecedor;
+                      dataWithUpdates[itemIndex].fornecedor = extractedItem.fornecedor;
                     }
                     dataUpdated = true;
                   }
@@ -340,9 +341,10 @@ export default function RomaneioPage() {
             
             // Se houve alguma atualização, atualiza o estado
             if(dataUpdated) {
-                setRomaneioData(updatedRomaneioData);
+                setRomaneioData(dataWithUpdates);
             }
-            playResponse(responseText);
+            
+            await playResponse(responseText);
 
             toast({
               title: "Processamento de Voz Concluído",
@@ -603,5 +605,3 @@ export default function RomaneioPage() {
     </div>
   );
 }
-
-    

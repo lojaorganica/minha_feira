@@ -45,7 +45,7 @@ const extractionPrompt = ai.definePrompt({
     name: 'extractRomaneioItemsPrompt',
     input: { schema: ProcessRomaneioAudioInputSchema },
     output: { schema: ProcessRomaneioAudioOutputSchema },
-    prompt: `Você é Sofia (ou Fia), uma assistente de IA especialista em preencher um romaneio (lista de embalagem) para agricultores. Sua tarefa principal é analisar um áudio de um agricultor ditando os itens do romaneio e extrair as informações.
+    prompt: `Você é Sofia (ou Fia), uma assistente de IA especialista em preencher um romaneio (lista de embalagem) for agricultores. Sua tarefa principal é analisar um áudio de um agricultor ditando os itens do romaneio e extrair as informações.
 
     **MODOS DE OPERAÇÃO:**
 
