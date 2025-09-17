@@ -304,33 +304,44 @@ export default function RomaneioPage() {
             });
             
             let responseText = "";
-            let dataWithUpdates = [...romaneioData];
+            let dataUpdated = false;
+
+            // Criamos uma cópia para fazer as alterações
+            const updatedRomaneioData = [...romaneioData]; 
 
             if (result.conversationalResponse) {
                 responseText = result.conversationalResponse;
             } else if (result.clearAll) {
-                dataWithUpdates = romaneioData.map(item => ({ ...item, quantidade: '', fornecedor: '' }));
+                updatedRomaneioData.forEach(item => {
+                    item.quantidade = '';
+                    item.fornecedor = '';
+                });
+                dataUpdated = true;
                 responseText = "Entendido. O romaneio foi limpo.";
             } else if (result.items.length > 0) {
               const s = result.items.length > 1 ? 's' : '';
               responseText = `Ok, atualizei ${result.items.length} item${s} no seu romaneio.`;
 
               result.items.forEach(extractedItem => {
-                  const itemIndex = dataWithUpdates.findIndex(
+                  const itemIndex = updatedRomaneioData.findIndex(
                     romaneioItem => romaneioItem.produto.toLowerCase() === extractedItem.product.toLowerCase()
                   );
                   if (itemIndex !== -1) {
-                    dataWithUpdates[itemIndex].quantidade = extractedItem.quantity;
+                    updatedRomaneioData[itemIndex].quantidade = extractedItem.quantity;
                     if (extractedItem.fornecedor) {
-                      dataWithUpdates[itemIndex].fornecedor = extractedItem.fornecedor;
+                      updatedRomaneioData[itemIndex].fornecedor = extractedItem.fornecedor;
                     }
+                    dataUpdated = true;
                   }
               });
             } else {
                 responseText = "Desculpe, não consegui identificar nenhum item para o romaneio no seu áudio. Poderia tentar de novo?";
             }
             
-            setRomaneioData(dataWithUpdates);
+            // Se houve alguma atualização, atualiza o estado
+            if(dataUpdated) {
+                setRomaneioData(updatedRomaneioData);
+            }
             playResponse(responseText);
 
             toast({
@@ -592,3 +603,5 @@ export default function RomaneioPage() {
     </div>
   );
 }
+
+    
