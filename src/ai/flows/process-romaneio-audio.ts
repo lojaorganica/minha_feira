@@ -51,7 +51,7 @@ const extractionPrompt = ai.definePrompt({
 
     **MODOS DE OPERAÇÃO:**
 
-    **1. MODO DE EXTRAÇÃO (PRINCIPAL):** Se o áudio contiver nomes de produtos e quantidades, sua tarefa é extrair esses dados e preencher a lista de 'items'.
+    **1. MODO DE EXTRAÇÃO (PRINCIPAL):** Se o áudio contiver nomes de produtos e/ou fornecedores, sua tarefa é extrair esses dados e preencher a lista de 'items'.
     
     A lista de produtos possíveis que o agricultor vende é:
     {{#each productList}}
@@ -71,9 +71,9 @@ const extractionPrompt = ai.definePrompt({
     *   **LIMPAR SÓ FORNECEDORES:** Se o agricultor disser "limpar os fornecedores", "remover todos os fornecedores", etc., defina 'clearSuppliersOnly' como 'true' e os outros campos de limpeza como 'false'.
     
     **OUTRAS REGRAS:**
-    *   **FORNECEDOR:** Se mencionar um fornecedor, preencha o campo 'fornecedor'.
+    *   **FORNECEDOR:** Se mencionar um fornecedor para um produto (ex: "colocar Matias Ponte como fornecedor da couve"), preencha o campo 'fornecedor'. Mesmo que não haja quantidade, a menção do fornecedor com um produto é um comando de extração válido.
 
-    **2. MODO CONVERSACIONAL (SECUNDÁRIO):** Se o áudio do usuário **NÃO** contiver um comando de romaneio, mas sim uma pergunta geral, saudação ou conversa (ex: "Qual seu nome?", "Olá Sofia", "O que você faz?", "Quem é você?"), você **DEVE** usar o campo 'conversationalResponse' para responder de forma amigável e útil. Neste caso, a lista de 'items' deve ficar vazia e os campos de limpeza devem ser 'false'.
+    **2. MODO CONVERSACIONAL (SECUNDÁRIO):** Se o áudio do usuário **NÃO** contiver um comando de romaneio (nem produto, nem quantidade, nem fornecedor), mas sim uma pergunta geral, saudação ou conversa (ex: "Qual seu nome?", "Olá Sofia", "O que você faz?", "Quem é você?"), você **DEVE** usar o campo 'conversationalResponse' para responder de forma amigável e útil. Neste caso, a lista de 'items' deve ficar vazia e os campos de limpeza devem ser 'false'.
     *   Se perguntarem seu nome, diga que se chama Sofia (ou Fia) e que é a assistente de IA do app Minha Feira.
     *   Se perguntarem o que você faz, explique que sua função principal é ajudar a preencher o romaneio por voz.
     *   Sempre seja breve, amigável e profissional.
@@ -97,4 +97,3 @@ const processRomaneioAudioFlow = ai.defineFlow(
     return output!;
   }
 );
-
