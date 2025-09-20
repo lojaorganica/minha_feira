@@ -2354,7 +2354,7 @@ const defaultProducts: Product[] = [
     description: 'Pepino japonês orgânico, com menos sementes e casca fina, perfeito para saladas crocantes e conservas.',
     status: 'active',
     stock: 40
-  }
+  },
 ];
 
 const defaultFarmers: Farmer[] = [
@@ -2514,7 +2514,7 @@ const defaultFarmers: Farmer[] = [
     responsibleName: 'Rosana',
     prepostos: ['Evelyn'],
     location: { lat: -22.9139, lng: -43.2094 },
-    bio: 'Somos apaixonados por apicultura e oferecemos uma variedade de méis orgânicos, cada um com suas características e benefícios únicos. O mais puro néctar da natureza. Nossas abelhas trabalham em floradas selecionadas, em áreas de mata preservada, para produzir um mel puro e cheio de vida. A Loja Orgânica é o resultado de anos de dedicação e respeito às abelhas e ao meio ambiente.',
+    bio: 'Somos apaixonados por apicultura e oferecemos uma variedade de méis orgânicos, cada um com suas características e benefícios únicos. O mais puro néctar da naturea.',
     address: {
         street: 'Rua Haddock Lobo',
         number: '123',
