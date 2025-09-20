@@ -2341,6 +2341,19 @@ const defaultProducts: Product[] = [
     description: 'Vagem orgânica, macia e crocante. Perfeita para cozinhar no vapor ou refogar.',
     status: 'active',
     stock: 25
+  },
+  {
+    id: 'prod-pepino-japones',
+    name: 'Pepino Japonês Orgânico',
+    category: 'Legume',
+    price: 3.80,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pepino_japones.webp?alt=media&token=c79ef86b-0c7a-457a-9491-7e9854b72d93',
+    dataAiHint: 'japanese cucumber',
+    farmerId: '7',
+    description: 'Pepino japonês orgânico, com menos sementes e casca fina, perfeito para saladas crocantes e conservas.',
+    status: 'active',
+    stock: 40
   }
 ];
 
@@ -2472,6 +2485,28 @@ const defaultFarmers: Farmer[] = [
     phone: '5521943210987',
     fairs: ['Flamengo', 'Laranjeiras'],
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/farmers%2Ffarmer_6.png?alt=media&token=f0d23588-466a-4d26-8094-c8c362a7596a'
+  },
+  {
+    id: '7',
+    name: 'Naturalmente Orgânicos',
+    responsibleName: 'Lúcia Rodrigues',
+    prepostos: [],
+    location: { lat: -22.4277, lng: -42.9847 },
+    bio: 'Da nossa família para a sua, cultivamos legumes e verduras com o máximo respeito pela terra. Produtos frescos, saudáveis e cheios de sabor, direto da nossa horta na serra.',
+    address: {
+        street: 'Estrada do Comércio',
+        number: 's/n',
+        complement: '',
+        neighborhood: 'Vargem Grande',
+        city: 'Teresópolis',
+        state: 'RJ',
+        zipCode: '25970-123'
+    },
+    pixKey: 'lucia.rodrigues.natural@email.com',
+    shippingCost: 18,
+    phone: '5521921098765',
+    fairs: ['Tijuca'],
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/farmers%2Ffarmer_8.png?alt=media&token=42a3e35a-939e-4b77-8c38-0382744e82e3'
   },
   {
     id: '134',
@@ -2852,7 +2887,7 @@ export function addFarmer(farmerData: Omit<Farmer, 'id' | 'location' | 'image'>)
         id: `farmer-${Date.now()}`,
         // Localização padrão, já que não temos como obter a real no cadastro
         location: { lat: -22.9068, lng: -43.1729 }, 
-        image: 'https://placehold.co/100x100.png', // Imagem padrão
+        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/farmers%2Ffarmer_8.png?alt=media&token=42a3e35a-939e-4b77-8c38-0382744e82e3', // Imagem padrão
         ...farmerData
     };
     allFarmers.push(newFarmer);
