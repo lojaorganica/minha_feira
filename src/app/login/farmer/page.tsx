@@ -23,10 +23,12 @@ import { Loader2 } from 'lucide-react';
 export default function FarmerLoginPage() {
   const { login } = useUser();
   const router = useRouter();
+  const [farmers, setFarmers] = useState<Farmer[]>([]);
   const [isClient, setIsClient] = useState(false);
-  const allFarmers = getFarmers();
-
+  
   useEffect(() => {
+    // Busca a lista atualizada de agricultores quando o componente é montado no cliente
+    setFarmers(getFarmers());
     setIsClient(true);
   }, []);
 
@@ -54,7 +56,7 @@ export default function FarmerLoginPage() {
                 </div>
               ) : (
                 <div className="space-y-3">
-                  {allFarmers.map((farmer, index) => (
+                  {farmers.map((farmer, index) => (
                     <>
                       <div key={farmer.id} className="flex items-center justify-between gap-4">
                         <div>
@@ -65,7 +67,7 @@ export default function FarmerLoginPage() {
                             Entrar como {farmer.name.split(' ')[0]}
                         </Button>
                       </div>
-                      {index < allFarmers.length - 1 && <Separator />}
+                      {index < farmers.length - 1 && <Separator />}
                     </>
                   ))}
                 </div>
