@@ -2679,7 +2679,9 @@ let allOrders: Order[] = defaultOrders;
 let isHydrated = false;
 
 function hydrateOnce() {
-    if (isHydrated) return;
+    if (typeof window === 'undefined' || isHydrated) {
+        return;
+    }
     
     // Para agricultores e clientes, mantemos o cache, pois eles são atualizáveis
     allFarmers = getStoredData(FARMERS_KEY, defaultFarmers);
@@ -2688,16 +2690,18 @@ function hydrateOnce() {
     // Para produtos e pedidos, que podem mudar com o código, forçamos a atualização
     // se o cache for inválido.
     const storedProducts = getStoredData<Product>('minha_feira_products_v6', defaultProducts);
+    const liveProductList = [...defaultProducts, ...lojaOrganicaProducts, ...domicilioOrganicoProducts];
+    
     const isCacheValid = (
-        storedProducts.length === allProducts.length &&
-        storedProducts[0]?.description === defaultProducts[0]?.description &&
-        storedProducts[storedProducts.length - 1]?.description === defaultProducts[defaultProducts.length - 1]?.description
+        storedProducts.length === liveProductList.length &&
+        storedProducts[0]?.description === liveProductList[0]?.description &&
+        storedProducts[storedProducts.length - 1]?.description === liveProductList[liveProductList.length - 1]?.description
     );
 
     if (isCacheValid) {
         allProducts = storedProducts;
     } else {
-        allProducts = [...defaultProducts, ...lojaOrganicaProducts, ...domicilioOrganicoProducts];
+        allProducts = liveProductList;
         setStoredData('minha_feira_products_v6', allProducts);
     }
     
