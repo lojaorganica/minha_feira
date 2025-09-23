@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart, Menu, User, Search, History, Package, ShoppingBasket, LogOut, Users, Heart, Tag, BookOpen, BarChart3, FileText, Activity, Tags, GalleryHorizontal } from "lucide-react";
+import { ShoppingCart, Menu, User, Search, History, Package, ShoppingBasket, LogOut, Users, Heart, Tag, BookOpen, BarChart3, FileText, Activity, Tags, GalleryHorizontal, FileArchive } from "lucide-react";
 import { usePathname, useRouter } from 'next/navigation';
 
 import Logo from "@/components/logo";
@@ -40,6 +40,7 @@ const farmerMenuLinks = [
     { href: "/dashboard/statistics", label: "Estatísticas", icon: BarChart3 },
     { href: "/dashboard/romaneio", label: "Romaneio", icon: FileText },
     { href: "/gallery", label: "Propagandas", icon: GalleryHorizontal },
+    { href: "/dashboard/documents", label: "Documentações", icon: FileArchive },
 ];
 
 const Header = () => {
