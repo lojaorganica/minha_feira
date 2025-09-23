@@ -61,7 +61,7 @@ export default function DocumentsPage() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {documents.map((doc, index) => (
           <a key={index} href={doc.documentUrl} target="_blank" rel="noopener noreferrer" className="group">
             <Card className="overflow-hidden transition-all duration-300 group-hover:shadow-xl group-hover:-translate-y-1">
