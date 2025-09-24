@@ -2682,30 +2682,32 @@ function hydrateOnce() {
     if (typeof window === 'undefined' || isHydrated) {
         return;
     }
-    
-    // Para agricultores e clientes, mantemos o cache, pois eles são atualizáveis
+
+    const liveProductList = [...defaultProducts, ...lojaOrganicaProducts, ...domicilioOrganicoProducts];
+
     allFarmers = getStoredData(FARMERS_KEY, defaultFarmers);
     allCustomers = getStoredData(CUSTOMERS_KEY, defaultCustomers);
+    allOrders = getStoredData(ORDERS_KEY, defaultOrders);
 
-    // Para produtos e pedidos, que podem mudar com o código, forçamos a atualização
-    // se o cache for inválido.
-    const storedProducts = getStoredData<Product>('minha_feira_products_v6', defaultProducts);
-    const liveProductList = [...defaultProducts, ...lojaOrganicaProducts, ...domicilioOrganicoProducts];
-    
-    const isCacheValid = (
-        storedProducts.length === liveProductList.length &&
-        storedProducts[0]?.description === liveProductList[0]?.description &&
-        storedProducts[storedProducts.length - 1]?.description === liveProductList[liveProductList.length - 1]?.description
-    );
+    // Adiciona uma verificação para garantir que todos os agricultores padrão existam.
+    // Se um agricultor padrão não estiver no localStorage, ele é adicionado.
+    // Isso resolve o problema de um novo agricultor não aparecer.
+    let farmersUpdated = false;
+    defaultFarmers.forEach(df => {
+        if (!allFarmers.some(f => f.id === df.id)) {
+            allFarmers.push(df);
+            farmersUpdated = true;
+        }
+    });
 
-    if (isCacheValid) {
-        allProducts = storedProducts;
-    } else {
-        allProducts = liveProductList;
-        setStoredData('minha_feira_products_v6', allProducts);
+    if (farmersUpdated) {
+        setStoredData(FARMERS_KEY, allFarmers);
     }
     
-    allOrders = getStoredData(ORDERS_KEY, defaultOrders);
+    // Simplifica a lógica de produtos para sempre usar a lista do código-fonte,
+    // que é a fonte mais confiável da verdade e evita dessincronização.
+    allProducts = liveProductList;
+    setStoredData('minha_feira_products_v6', allProducts);
 
     isHydrated = true;
 }
