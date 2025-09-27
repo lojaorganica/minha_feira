@@ -1797,7 +1797,7 @@ let defaultProducts: Product[] = [
     { id: 'alface-mimosa-roxa', name: 'Alface Mimosa Roxa Orgânica', price: 3.1, image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_mimosa_roxa.webp?alt=media&token=c8b001dc-6f00-486f-af0a-22c99ed83d01', hint: 'red mimosa lettuce', desc: 'Alface Mimosa com folhas tenras e bordas avermelhadas, de sabor suave e amanteigado.' },
     { id: 'alface-mimosa-verde', name: 'Alface Mimosa Verde Orgânica', price: 3.1, image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_mimosa_verde.webp?alt=media&token=4635346b-69f9-4a54-94b6-8cb1b85f4afb', hint: 'green mimosa lettuce', desc: 'Alface Mimosa de folhas macias e sabor delicado, uma variedade clássica e muito apreciada.' },
   ].flatMap((lettuce) =>
-    ['1', '2', '3', '4', '5'].map((farmerId) => ({
+    ['1', '2', '3', '4', '5', '9'].map((farmerId) => ({
       id: `${lettuce.id}-${farmerId}`,
       name: lettuce.name,
       category: 'Verdura' as ProductCategory,
