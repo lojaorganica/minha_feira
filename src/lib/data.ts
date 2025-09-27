@@ -1704,7 +1704,6 @@ let defaultProducts: Product[] = [
     price: 3.80,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pepino_japones.webp?alt=media&token=c79ef86b-0c7a-457a-9491-7e9854b72d93',
-    dataAiHint: 'japanese cucumber',
     farmerId: '7',
     description: 'Pepino japonês orgânico, com menos sementes e casca fina, perfeito para saladas crocantes e conservas.',
     status: 'active',
@@ -2045,7 +2044,7 @@ function hydrateOnce() {
 
     // Garante que o novo agricultor exista na lista. Se não, adiciona e salva.
     const naturalmenteOrganicosExists = allFarmers.some(f => f.id === '7');
-    if (!naturalmenteOrganicosExists) {
+    if (!naturallyOrganicosExists) {
         const naturalmenteOrganicos = defaultFarmers.find(f => f.id === '7');
         if (naturalmenteOrganicos) {
             allFarmers.push(naturalmenteOrganicos);
