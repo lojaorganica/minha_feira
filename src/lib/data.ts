@@ -1399,45 +1399,6 @@ let defaultProducts: Product[] = [
     stock: 10,
   },
   {
-    id: '86',
-    name: 'Alface Romana Orgânica',
-    category: 'Verdura',
-    price: 3.20,
-    unit: 'unidade',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_romana.webp?alt=media&token=f0a4afb0-0d99-48ad-88a2-0e3a8f048d17',
-    dataAiHint: 'romaine lettuce',
-    farmerId: '1',
-    description: 'Alface romana, com folhas longas e crocantes, ideal para a salada Caesar.',
-    status: 'paused',
-    stock: 20,
-  },
-  {
-    id: '87',
-    name: 'Agrião Orgânico',
-    category: 'Verdura',
-    price: 3.00,
-    unit: 'maço',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/agriao.webp?alt=media&token=c27c2017-aa81-4c03-a41c-c6323c14e213',
-    dataAiHint: 'watercress',
-    farmerId: '1',
-    description: 'Agrião com seu sabor picante característico, ótimo para saladas e sopas.',
-    status: 'active',
-    stock: 25,
-  },
-  {
-    id: '88',
-    name: 'Espinafre Orgânico',
-    category: 'Verdura',
-    price: 3.50,
-    unit: 'maço',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/espinafre.webp?alt=media&token=314e18aa-482f-4cef-badc-db518683d218',
-    dataAiHint: 'spinach',
-    farmerId: '1',
-    description: 'Espinafre fresco, rico em ferro e nutrientes, perfeito para refogados e recheios.',
-    status: 'active',
-    stock: 25,
-  },
-  {
     id: '91',
     name: 'Ora-pro-nóbis Orgânica',
     category: 'Verdura',
@@ -1994,7 +1955,426 @@ let defaultProducts: Product[] = [
     description: 'Abóbora japonesa, também conhecida como cabotiá, com polpa adocicada e textura macia.',
     status: 'active',
     stock: 10
-  }
+  },
+  {
+      id: 'alface-americana-sitio-tapera',
+      name: 'Alface Americana Orgânica',
+      category: 'Verdura',
+      price: 3.5,
+      unit: 'unidade',
+      image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_americana.webp?alt=media&token=d745a4e5-1f8c-4333-8a8a-48a4201d308a',
+      dataAiHint: 'iceberg lettuce',
+      farmerId: '2',
+      description: 'Alface americana crocante e refrescante, ideal para sanduíches e saladas.',
+      status: 'active',
+      stock: 40
+  },
+  {
+      id: 'alface-lisa-sitio-tapera',
+      name: 'Alface Lisa Orgânica',
+      category: 'Verdura',
+      price: 2.8,
+      unit: 'unidade',
+      image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_lisa.webp?alt=media&token=ced73d99-300e-4904-9072-9c8e4fcecd79',
+      dataAiHint: 'butter lettuce',
+      farmerId: '2',
+      description: 'Alface lisa de folhas macias e sabor suave, perfeita para saladas delicadas.',
+      status: 'active',
+      stock: 30
+  },
+  {
+      id: 'alface-crespa-sitio-tapera',
+      name: 'Alface Crespa Orgânica',
+      category: 'Verdura',
+      price: 2.8,
+      unit: 'unidade',
+      image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_crespa.webp?alt=media&token=a057c9ac-0fe9-40b0-a016-49d16b016941',
+      dataAiHint: 'leaf lettuce',
+      farmerId: '2',
+      description: 'Alface crespa com folhas crocantes e textura ondulada, ideal para sanduíches.',
+      status: 'active',
+      stock: 30
+  },
+  {
+      id: 'alface-roxa-sitio-tapera',
+      name: 'Alface Roxa Orgânica',
+      category: 'Verdura',
+      price: 3,
+      unit: 'unidade',
+      image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_roxa.webp?alt=media&token=c566920b-b13c-4d87-916a-813e320aedec',
+      dataAiHint: 'red leaf lettuce',
+      farmerId: '2',
+      description: 'Alface roxa, adiciona cor e um sabor levemente amargo às suas saladas.',
+      status: 'active',
+      stock: 25
+  },
+  {
+      id: 'alface-romana-sitio-tapera',
+      name: 'Alface Romana Orgânica',
+      category: 'Verdura',
+      price: 3.2,
+      unit: 'unidade',
+      image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_romana.webp?alt=media&token=f0a4afb0-0d99-48ad-88a2-0e3a8f048d17',
+      dataAiHint: 'romaine lettuce',
+      farmerId: '2',
+      description: 'Alface romana, com folhas longas e crocantes, ideal para a salada Caesar.',
+      status: 'active',
+      stock: 25
+  },
+  {
+      id: 'alface-frisee-sitio-tapera',
+      name: 'Alface Frisée Orgânica',
+      category: 'Verdura',
+      price: 3.3,
+      unit: 'unidade',
+      image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_frisee.webp?alt=media&token=060f2493-fb76-4a37-b40a-5de7bd0981c9',
+      dataAiHint: 'frisee lettuce',
+      farmerId: '2',
+      description: 'Alface Frisée, com folhas finas, rendadas e um sabor levemente amargo, ideal para saladas sofisticadas.',
+      status: 'active',
+      stock: 18
+  },
+  {
+      id: 'alface-mimosa-roxa-sitio-tapera',
+      name: 'Alface Mimosa Roxa Orgânica',
+      category: 'Verdura',
+      price: 3.1,
+      unit: 'unidade',
+      image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_mimosa_roxa.webp?alt=media&token=c8b001dc-6f00-486f-af0a-22c99ed83d01',
+      dataAiHint: 'red mimosa lettuce',
+      farmerId: '2',
+      description: 'Alface Mimosa com folhas tenras e bordas avermelhadas, de sabor suave e amanteigado.',
+      status: 'active',
+      stock: 25
+  },
+  {
+      id: 'alface-mimosa-verde-sitio-tapera',
+      name: 'Alface Mimosa Verde Orgânica',
+      category: 'Verdura',
+      price: 3.1,
+      unit: 'unidade',
+      image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_mimosa_verde.webp?alt=media&token=4635346b-69f9-4a54-94b6-8cb1b85f4afb',
+      dataAiHint: 'green mimosa lettuce',
+      farmerId: '2',
+      description: 'Alface Mimosa de folhas macias e sabor delicado, uma variedade clássica e muito apreciada.',
+      status: 'active',
+      stock: 25
+  },
+  {
+      id: 'alface-americana-sitio-cachoeirinha-i',
+      name: 'Alface Americana Orgânica',
+      category: 'Verdura',
+      price: 3.5,
+      unit: 'unidade',
+      image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_americana.webp?alt=media&token=d745a4e5-1f8c-4333-8a8a-48a4201d308a',
+      dataAiHint: 'iceberg lettuce',
+      farmerId: '3',
+      description: 'Alface americana crocante e refrescante, ideal para sanduíches e saladas.',
+      status: 'active',
+      stock: 40
+  },
+  {
+      id: 'alface-lisa-sitio-cachoeirinha-i',
+      name: 'Alface Lisa Orgânica',
+      category: 'Verdura',
+      price: 2.8,
+      unit: 'unidade',
+      image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_lisa.webp?alt=media&token=ced73d99-300e-4904-9072-9c8e4fcecd79',
+      dataAiHint: 'butter lettuce',
+      farmerId: '3',
+      description: 'Alface lisa de folhas macias e sabor suave, perfeita para saladas delicadas.',
+      status: 'active',
+      stock: 30
+  },
+  {
+      id: 'alface-crespa-sitio-cachoeirinha-i',
+      name: 'Alface Crespa Orgânica',
+      category: 'Verdura',
+      price: 2.8,
+      unit: 'unidade',
+      image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_crespa.webp?alt=media&token=a057c9ac-0fe9-40b0-a016-49d16b016941',
+      dataAiHint: 'leaf lettuce',
+      farmerId: '3',
+      description: 'Alface crespa com folhas crocantes e textura ondulada, ideal para sanduíches.',
+      status: 'active',
+      stock: 30
+  },
+  {
+      id: 'alface-roxa-sitio-cachoeirinha-i',
+      name: 'Alface Roxa Orgânica',
+      category: 'Verdura',
+      price: 3,
+      unit: 'unidade',
+      image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_roxa.webp?alt=media&token=c566920b-b13c-4d87-916a-813e320aedec',
+      dataAiHint: 'red leaf lettuce',
+      farmerId: '3',
+      description: 'Alface roxa, adiciona cor e um sabor levemente amargo às suas saladas.',
+      status: 'active',
+      stock: 25
+  },
+  {
+      id: 'alface-romana-sitio-cachoeirinha-i',
+      name: 'Alface Romana Orgânica',
+      category: 'Verdura',
+      price: 3.2,
+      unit: 'unidade',
+      image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_romana.webp?alt=media&token=f0a4afb0-0d99-48ad-88a2-0e3a8f048d17',
+      dataAiHint: 'romaine lettuce',
+      farmerId: '3',
+      description: 'Alface romana, com folhas longas e crocantes, ideal para a salada Caesar.',
+      status: 'active',
+      stock: 25
+  },
+  {
+      id: 'alface-frisee-sitio-cachoeirinha-i',
+      name: 'Alface Frisée Orgânica',
+      category: 'Verdura',
+      price: 3.3,
+      unit: 'unidade',
+      image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_frisee.webp?alt=media&token=060f2493-fb76-4a37-b40a-5de7bd0981c9',
+      dataAiHint: 'frisee lettuce',
+      farmerId: '3',
+      description: 'Alface Frisée, com folhas finas, rendadas e um sabor levemente amargo, ideal para saladas sofisticadas.',
+      status: 'active',
+      stock: 18
+  },
+  {
+      id: 'alface-mimosa-roxa-sitio-cachoeirinha-i',
+      name: 'Alface Mimosa Roxa Orgânica',
+      category: 'Verdura',
+      price: 3.1,
+      unit: 'unidade',
+      image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_mimosa_roxa.webp?alt=media&token=c8b001dc-6f00-486f-af0a-22c99ed83d01',
+      dataAiHint: 'red mimosa lettuce',
+      farmerId: '3',
+      description: 'Alface Mimosa com folhas tenras e bordas avermelhadas, de sabor suave e amanteigado.',
+      status: 'active',
+      stock: 25
+  },
+  {
+      id: 'alface-mimosa-verde-sitio-cachoeirinha-i',
+      name: 'Alface Mimosa Verde Orgânica',
+      category: 'Verdura',
+      price: 3.1,
+      unit: 'unidade',
+      image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_mimosa_verde.webp?alt=media&token=4635346b-69f9-4a54-94b6-8cb1b85f4afb',
+      dataAiHint: 'green mimosa lettuce',
+      farmerId: '3',
+      description: 'Alface Mimosa de folhas macias e sabor delicado, uma variedade clássica e muito apreciada.',
+      status: 'active',
+      stock: 25
+  },
+  {
+      id: 'alface-americana-sitio-cachoeirinha-ii',
+      name: 'Alface Americana Orgânica',
+      category: 'Verdura',
+      price: 3.5,
+      unit: 'unidade',
+      image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_americana.webp?alt=media&token=d745a4e5-1f8c-4333-8a8a-48a4201d308a',
+      dataAiHint: 'iceberg lettuce',
+      farmerId: '4',
+      description: 'Alface americana crocante e refrescante, ideal para sanduíches e saladas.',
+      status: 'active',
+      stock: 40
+  },
+  {
+      id: 'alface-lisa-sitio-cachoeirinha-ii',
+      name: 'Alface Lisa Orgânica',
+      category: 'Verdura',
+      price: 2.8,
+      unit: 'unidade',
+      image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_lisa.webp?alt=media&token=ced73d99-300e-4904-9072-9c8e4fcecd79',
+      dataAiHint: 'butter lettuce',
+      farmerId: '4',
+      description: 'Alface lisa de folhas macias e sabor suave, perfeita para saladas delicadas.',
+      status: 'active',
+      stock: 30
+  },
+  {
+      id: 'alface-crespa-sitio-cachoeirinha-ii',
+      name: 'Alface Crespa Orgânica',
+      category: 'Verdura',
+      price: 2.8,
+      unit: 'unidade',
+      image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_crespa.webp?alt=media&token=a057c9ac-0fe9-40b0-a016-49d16b016941',
+      dataAiHint: 'leaf lettuce',
+      farmerId: '4',
+      description: 'Alface crespa com folhas crocantes e textura ondulada, ideal para sanduíches.',
+      status: 'active',
+      stock: 30
+  },
+  {
+      id: 'alface-roxa-sitio-cachoeirinha-ii',
+      name: 'Alface Roxa Orgânica',
+      category: 'Verdura',
+      price: 3,
+      unit: 'unidade',
+      image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_roxa.webp?alt=media&token=c566920b-b13c-4d87-916a-813e320aedec',
+      dataAiHint: 'red leaf lettuce',
+      farmerId: '4',
+      description: 'Alface roxa, adiciona cor e um sabor levemente amargo às suas saladas.',
+      status: 'active',
+      stock: 25
+  },
+  {
+      id: 'alface-romana-sitio-cachoeirinha-ii',
+      name: 'Alface Romana Orgânica',
+      category: 'Verdura',
+      price: 3.2,
+      unit: 'unidade',
+      image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_romana.webp?alt=media&token=f0a4afb0-0d99-48ad-88a2-0e3a8f048d17',
+      dataAiHint: 'romaine lettuce',
+      farmerId: '4',
+      description: 'Alface romana, com folhas longas e crocantes, ideal para a salada Caesar.',
+      status: 'active',
+      stock: 25
+  },
+  {
+      id: 'alface-frisee-sitio-cachoeirinha-ii',
+      name: 'Alface Frisée Orgânica',
+      category: 'Verdura',
+      price: 3.3,
+      unit: 'unidade',
+      image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_frisee.webp?alt=media&token=060f2493-fb76-4a37-b40a-5de7bd0981c9',
+      dataAiHint: 'frisee lettuce',
+      farmerId: '4',
+      description: 'Alface Frisée, com folhas finas, rendadas e um sabor levemente amargo, ideal para saladas sofisticadas.',
+      status: 'active',
+      stock: 18
+  },
+  {
+      id: 'alface-mimosa-roxa-sitio-cachoeirinha-ii',
+      name: 'Alface Mimosa Roxa Orgânica',
+      category: 'Verdura',
+      price: 3.1,
+      unit: 'unidade',
+      image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_mimosa_roxa.webp?alt=media&token=c8b001dc-6f00-486f-af0a-22c99ed83d01',
+      dataAiHint: 'red mimosa lettuce',
+      farmerId: '4',
+      description: 'Alface Mimosa com folhas tenras e bordas avermelhadas, de sabor suave e amanteigado.',
+      status: 'active',
+      stock: 25
+  },
+  {
+      id: 'alface-mimosa-verde-sitio-cachoeirinha-ii',
+      name: 'Alface Mimosa Verde Orgânica',
+      category: 'Verdura',
+      price: 3.1,
+      unit: 'unidade',
+      image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_mimosa_verde.webp?alt=media&token=4635346b-69f9-4a54-94b6-8cb1b85f4afb',
+      dataAiHint: 'green mimosa lettuce',
+      farmerId: '4',
+      description: 'Alface Mimosa de folhas macias e sabor delicado, uma variedade clássica e muito apreciada.',
+      status: 'active',
+      stock: 25
+  },
+  {
+      id: 'alface-americana-sitio-cachoeirinha-iii',
+      name: 'Alface Americana Orgânica',
+      category: 'Verdura',
+      price: 3.5,
+      unit: 'unidade',
+      image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_americana.webp?alt=media&token=d745a4e5-1f8c-4333-8a8a-48a4201d308a',
+      dataAiHint: 'iceberg lettuce',
+      farmerId: '5',
+      description: 'Alface americana crocante e refrescante, ideal para sanduíches e saladas.',
+      status: 'active',
+      stock: 40
+  },
+  {
+      id: 'alface-lisa-sitio-cachoeirinha-iii',
+      name: 'Alface Lisa Orgânica',
+      category: 'Verdura',
+      price: 2.8,
+      unit: 'unidade',
+      image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_lisa.webp?alt=media&token=ced73d99-300e-4904-9072-9c8e4fcecd79',
+      dataAiHint: 'butter lettuce',
+      farmerId: '5',
+      description: 'Alface lisa de folhas macias e sabor suave, perfeita para saladas delicadas.',
+      status: 'active',
+      stock: 30
+  },
+  {
+      id: 'alface-crespa-sitio-cachoeirinha-iii',
+      name: 'Alface Crespa Orgânica',
+      category: 'Verdura',
+      price: 2.8,
+      unit: 'unidade',
+      image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_crespa.webp?alt=media&token=a057c9ac-0fe9-40b0-a016-49d16b016941',
+      dataAiHint: 'leaf lettuce',
+      farmerId: '5',
+      description: 'Alface crespa com folhas crocantes e textura ondulada, ideal para sanduíches.',
+      status: 'active',
+      stock: 30
+  },
+  {
+      id: 'alface-roxa-sitio-cachoeirinha-iii',
+      name: 'Alface Roxa Orgânica',
+      category: 'Verdura',
+      price: 3,
+      unit: 'unidade',
+      image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_roxa.webp?alt=media&token=c566920b-b13c-4d87-916a-813e320aedec',
+      dataAiHint: 'red leaf lettuce',
+      farmerId: '5',
+      description: 'Alface roxa, adiciona cor e um sabor levemente amargo às suas saladas.',
+      status: 'active',
+      stock: 25
+  },
+  {
+      id: 'alface-romana-sitio-cachoeirinha-iii',
+      name: 'Alface Romana Orgânica',
+      category: 'Verdura',
+      price: 3.2,
+      unit: 'unidade',
+      image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_romana.webp?alt=media&token=f0a4afb0-0d99-48ad-88a2-0e3a8f048d17',
+      dataAiHint: 'romaine lettuce',
+      farmerId: '5',
+      description: 'Alface romana, com folhas longas e crocantes, ideal para a salada Caesar.',
+      status: 'active',
+      stock: 25
+  },
+  {
+      id: 'alface-frisee-sitio-cachoeirinha-iii',
+      name: 'Alface Frisée Orgânica',
+      category: 'Verdura',
+      price: 3.3,
+      unit: 'unidade',
+      image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_frisee.webp?alt=media&token=060f2493-fb76-4a37-b40a-5de7bd0981c9',
+      dataAiHint: 'frisee lettuce',
+      farmerId: '5',
+      description: 'Alface Frisée, com folhas finas, rendadas e um sabor levemente amargo, ideal para saladas sofisticadas.',
+      status: 'active',
+      stock: 18
+  },
+  {
+      id: 'alface-mimosa-roxa-sitio-cachoeirinha-iii',
+      name: 'Alface Mimosa Roxa Orgânica',
+      category: 'Verdura',
+      price: 3.1,
+      unit: 'unidade',
+      image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_mimosa_roxa.webp?alt=media&token=c8b001dc-6f00-486f-af0a-22c99ed83d01',
+      dataAiHint: 'red mimosa lettuce',
+      farmerId: '5',
+      description: 'Alface Mimosa com folhas tenras e bordas avermelhadas, de sabor suave e amanteigado.',
+      status: 'active',
+      stock: 25
+  },
+  {
+      id: 'alface-mimosa-verde-sitio-cachoeirinha-iii',
+      name: 'Alface Mimosa Verde Orgânica',
+      category: 'Verdura',
+      price: 3.1,
+      unit: 'unidade',
+      image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_mimosa_verde.webp?alt=media&token=4635346b-69f9-4a54-94b6-8cb1b85f4afb',
+      dataAiHint: 'green mimosa lettuce',
+      farmerId: '5',
+      description: 'Alface Mimosa de folhas macias e sabor delicado, uma variedade clássica e muito apreciada.',
+      status: 'active',
+      stock: 25
+  },
+   ...allMasterFruits,
+  ...domicilioOrganicoProducts,
+  ...lojaOrganicaProducts
 ];
 
 let defaultFarmers: Farmer[] = [
@@ -2004,628 +2384,519 @@ let defaultFarmers: Farmer[] = [
     responsibleName: 'Matias Ponte',
     prepostos: ['Rui Ponte'],
     location: { lat: -22.4632, lng: -42.9335 },
-    bio: 'Nossa fazenda se dedica ao cultivo orgânico, respeitando a natureza e trazendo alimentos saudáveis para sua mesa. Especializados em verduras e legumes frescos, colhidos diariamente. Nossos produtos são cultivados com amor, em um ambiente livre de agrotóxicos. Cada folha, cada raiz, carrega o sabor autêntico da terra e o cuidado de quem planta com responsabilidade e carinho.',
+    bio: 'Nossa fazenda se dedica ao cultivo orgânico, respeitando a natureza e oferecendo produtos frescos e saudáveis para a sua família. Temos orgulho de nossa produção sustentável.',
     address: {
-        street: 'Estrada do Sumidouro',
-        number: '1200',
-        complement: 'Sítio Mata Verde',
-        neighborhood: 'Várzea de Mão',
-        city: 'Cachoeiras de Macacu',
-        state: 'RJ',
-        zipCode: '28680-000'
+      street: 'Estrada do Abalone',
+      number: 'S/N',
+      neighborhood: 'Vale das Videiras',
+      city: 'Petrópolis',
+      state: 'RJ',
+      zipCode: '25755-355'
     },
-    pixKey: 'matias.ponte@email.com',
-    shippingCost: 15,
-    phone: '5521998877665',
-    fairs: ['Tijuca', 'Grajaú'],
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/farmers%2Ffarmer_1.png?alt=media&token=8e945c2f-e8b9-43c3-9acb-d2e5a407336a'
+    pixKey: '21999998888',
+    shippingCost: 20,
+    phone: '21999998888',
+    fairs: ['Grajaú', 'Tijuca', 'Botafogo'],
+    image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/ec7b702951f343a493a3c252277d1303.png'
+  },
+  {
+    id: '2',
+    name: 'Sítio Tapera',
+    responsibleName: 'Ailton Lima',
+    prepostos: ['Valdeci', 'Alex'],
+    location: { lat: -22.5204, lng: -42.9818 },
+    bio: 'No Sítio Tapera, cultivamos uma grande variedade de frutas, legumes e verduras orgânicas com amor e dedicação. Venha provar o sabor da nossa terra!',
+    address: {
+      street: 'Rua das Perobas',
+      number: '123',
+      neighborhood: 'Centro',
+      city: 'Magé',
+      state: 'RJ',
+      zipCode: '25900-000'
+    },
+    pixKey: 'sitiotapera@email.com',
+    shippingCost: 18,
+    phone: '21988887777',
+    fairs: ['Flamengo', 'Laranjeiras'],
+    image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/5d8b7496924b422e85a796b42b10214a.png'
   },
   {
     id: '3',
-    name: 'Sítio Tapera',
-    responsibleName: 'Ailton Lima',
-    prepostos: [],
-    location: { lat: -22.4277, lng: -42.9847 },
-    bio: 'Das montanhas, trazemos para você temperos e raízes com sabores intensos e puros. Cultivados em altitude, nossos produtos têm um toque especial. Nossa terra é nossa maior riqueza, e por isso a tratamos com respeito, utilizando técnicas de cultivo que preservam o solo e a biodiversidade. Acreditamos que o segredo de um bom tempero está na sua origem e no cuidado com a terra.',
+    name: 'Sítio Cachoeirinha I',
+    responsibleName: 'Onéias Gonçalves',
+    prepostos: ['Lili', 'Roberto'],
+    location: { lat: -22.4014, lng: -43.1554 },
+    bio: 'Somos produtores orgânicos certificados, comprometidos em levar o melhor da natureza para a sua mesa. Nossos produtos são cultivados sem agrotóxicos.',
     address: {
-        street: 'Rua das Hortênsias',
-        number: '550',
-        neighborhood: 'Quebra Frascos',
-        city: 'Teresópolis',
-        state: 'RJ',
-        zipCode: '25963-090'
+      street: 'Estrada das Cachoeiras',
+      number: 'S/N',
+      neighborhood: 'Cachoeira Grande',
+      city: 'Teresópolis',
+      state: 'RJ',
+      zipCode: '25977-225'
     },
-    pixKey: 'sitio.tapera@email.com',
-    shippingCost: 18,
-    phone: '5521976543210',
-    fairs: ['Grajaú'],
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/farmers%2Ffarmer_3.png?alt=media&token=162649b5-c0a0-4384-8848-3560f64c6764'
+    pixKey: 'oneias.sitiocachoeirinha@email.com',
+    shippingCost: 22,
+    phone: '21977776666',
+    fairs: ['Grajaú', 'Tijuca'],
+    image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/e85f67568571404e9c704f77c8e9b62e.png'
   },
   {
     id: '4',
-    name: 'Sítio Cachoeirinha I',
-    responsibleName: 'Onéias Gonçalves',
-    prepostos: [],
-    location: { lat: -22.3855, lng: -42.9692 },
-    bio: 'Com o carinho e a sabedoria de gerações, produzimos hortaliças e temperos que parecem ter sido colhidos no quintal de casa. Sabor de comida de verdade. Resgatamos receitas e técnicas de cultivo tradicionais para oferecer alimentos com sabor de memória afetiva. Cada maço de cheiro-verde, cada folha de alface, é um convite para reviver os bons momentos em família.',
+    name: 'Sítio Cachoeirinha II',
+    responsibleName: 'Walace Oliveira',
+    prepostos: ['Lucas', 'Felipe'],
+    location: { lat: -22.4020, lng: -43.1560 },
+    bio: 'Continuando a tradição da família, nosso sítio oferece produtos orgânicos de alta qualidade, cultivados com técnicas que preservam o meio ambiente.',
     address: {
-        street: 'Estrada Teresópolis-Friburgo',
-        number: 'Km 15',
-        neighborhood: 'Venda Nova',
-        city: 'Teresópolis',
-        state: 'RJ',
-        zipCode: '25970-060'
+      street: 'Estrada das Cachoeiras',
+      number: 'S/N',
+      neighborhood: 'Cachoeira Grande',
+      city: 'Teresópolis',
+      state: 'RJ',
+      zipCode: '25977-225'
     },
-    pixKey: 'oneias.cachoeirinha1@email.com',
+    pixKey: '01.234.567/0001-89',
     shippingCost: 22,
-    phone: '5521965432109',
-    fairs: ['Flamengo', 'Laranjeiras'],
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/farmers%2Ffarmer_4.png?alt=media&token=8d2345e6-7b1c-43f1-9c3f-c3d69b935613'
+    phone: '21966665555',
+    fairs: ['Grajaú', 'Botafogo'],
+    image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/2497d39106ca46f6932454a8677c770b.png'
   },
   {
     id: '5',
-    name: 'Sítio Cachoeirinha II',
-    responsibleName: 'Walace Oliveira',
-    prepostos: [],
-    location: { lat: -22.4851, lng: -43.0135 },
-    bio: 'Cultivamos uma grande variedade de legumes e verduras, sempre frescos e livres de veneno. Da nossa horta para a sua mesa. No Sítio Verdejar, cada semente é plantada com a esperança de um futuro mais saudável e sustentável. Nosso compromisso é com a qualidade de vida, oferecendo alimentos que nutrem o corpo e a alma, enquanto cuidamos do nosso planeta.',
-    address: {
-        street: 'Rua do Imperador',
-        number: '2023',
-        neighborhood: 'Centro',
-        city: 'Petrópolis',
-        state: 'RJ',
-        zipCode: '25620-002'
-    },
-    pixKey: 'walace.cachoeirinha2@email.com',
-    shippingCost: 0, // Não oferece delivery
-    phone: '5521954321098',
-    fairs: ['Botafogo'],
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/farmers%2Ffarmer_5.png?alt=media&token=d4b29b6e-781c-4d5e-8e6d-6a5814529f7e'
-  },
-   {
-    id: '10',
     name: 'Sítio Cachoeirinha III',
     responsibleName: 'Wendel Oliveira',
-    prepostos: [],
-    location: { lat: -22.4851, lng: -43.0135 },
-    bio: 'Seguindo a tradição da família, nosso sítio é um recanto de biodiversidade. Produzimos alimentos com técnicas que regeneram o solo e promovem um ecossistema equilibrado, resultando em produtos cheios de vida e sabor.',
+    prepostos: ['Caio', 'Nathalia'],
+    location: { lat: -22.4025, lng: -43.1565 },
+    bio: 'Especializados em grãos e temperos, trazemos para você o melhor da agricultura familiar orgânica, com produtos sempre frescos e saborosos.',
     address: {
-        street: 'Rua do Imperador',
-        number: '2025',
-        neighborhood: 'Centro',
-        city: 'Petrópolis',
-        state: 'RJ',
-        zipCode: '25620-002'
+      street: 'Estrada das Cachoeiras',
+      number: 'S/N',
+      neighborhood: 'Cachoeira Grande',
+      city: 'Teresópolis',
+      state: 'RJ',
+      zipCode: '25977-225'
     },
-    pixKey: 'wendel.cachoeirinha3@email.com',
-    shippingCost: 0,
-    phone: '5521954321099',
-    fairs: ['Botafogo'],
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/farmers%2Ffarmer_10.png?alt=media&token=b7e1b747-3221-4f32-8e3b-9a4f664a7541'
-  },
-  {
-    id: '9',
-    name: 'Sítio Paraíso',
-    responsibleName: 'Ronilson',
-    prepostos: [],
-    location: { lat: -22.4277, lng: -42.9847 },
-    bio: 'No Sítio Paraíso, cultivamos com amor e respeito à natureza para levar até você alimentos orgânicos frescos e cheios de sabor. Nossa missão é promover a saúde e o bem-estar através de uma agricultura sustentável.',
-    address: {
-        street: 'Estrada do Paraíso',
-        number: '1500',
-        complement: '',
-        neighborhood: 'Zona Rural',
-        city: 'Teresópolis',
-        state: 'RJ',
-        zipCode: '25970-456'
-    },
-    pixKey: 'ronilson.paraiso@email.com',
-    shippingCost: 20,
-    phone: '5521912345678',
-    fairs: ['Grajaú'],
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/farmers%2Ffarmer_9.png?alt=media&token=262646d5-11e4-4d82-b7e1-85e3a7a92c4d'
+    pixKey: 'wendel.sitiocachoeirinha@email.com',
+    phone: '21955554444',
+    fairs: ['Leme', 'Botafogo'],
+    image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/6fc13999e52c4224a1b02131976a4bd8.png'
   },
   {
     id: '6',
     name: 'Domicílio Orgânico',
     responsibleName: 'Ivison Fragoso',
-    prepostos: ['Paloma Portugal', 'João Portugal'],
+    prepostos: ['Paloma', 'Nathalia'],
     location: { lat: -22.9519, lng: -43.2105 },
-    bio: 'Facilitamos o acesso a produtos orgânicos de qualidade, conectando você a diversos produtores certificados. Uma seleção cuidadosa para sua saúde e conveniência. O Domicílio Orgânico nasceu do desejo de tornar a alimentação saudável mais prática e acessível. Selecionamos os melhores produtos de pequenos agricultores, criando uma ponte entre o campo e a sua casa.',
+    bio: 'Focados em frutas da estação e PANCs (Plantas Alimentícias Não Convencionais), oferecemos sabores únicos e nutritivos para enriquecer sua alimentação.',
     address: {
-        street: 'Rua das Laranjeiras',
-        number: '300',
-        neighborhood: 'Laranjeiras',
-        city: 'Rio de Janeiro',
-        state: 'RJ',
-        zipCode: '22240-003'
+      street: 'Rua Humaitá',
+      number: '123',
+      neighborhood: 'Humaitá',
+      city: 'Rio de Janeiro',
+      state: 'RJ',
+      zipCode: '22261-001'
     },
-    pixKey: 'contato@domicilioorganico.com.br',
-    shippingCost: 12,
-    phone: '5521943210987',
+    pixKey: 'domicilio.organico@email.com',
+    shippingCost: 15,
+    phone: '21944443333',
     fairs: ['Flamengo', 'Laranjeiras'],
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/farmers%2Ffarmer_6.png?alt=media&token=f0d23588-466a-4d26-8094-c8c362a7596a'
-  },
-  {
-    id: '134',
-    name: 'Loja Orgânica',
-    responsibleName: 'Marcos Melo',
-    prepostos: ['Rosana', 'Evelyn'],
-    location: { lat: -22.9139, lng: -43.2094 },
-    bio: 'Somos apaixonados por apicultura e oferecemos uma variedade de méis orgânicos, cada um com suas características e benefícios únicos. O mais puro néctar da natureza.',
-    address: {
-        street: 'Rua Haddock Lobo',
-        number: '123',
-        neighborhood: 'Tijuca',
-        city: 'Rio de Janeiro',
-        state: 'RJ',
-        zipCode: '20260-141'
-    },
-    pixKey: 'loja.organica@email.com',
-    shippingCost: 10,
-    phone: '5521932109876',
-    fairs: ['Tijuca'],
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/farmers%2Ffarmer_7.png?alt=media&token=c8b030b6-136b-4e89-9a00-51a7e4b2d3d3'
+    image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/a56a65576a8f4c179c381c19b33a5585.png'
   },
   {
     id: '8',
     name: 'Naturalmente Orgânicos',
     responsibleName: 'Lúcia Rodrigues',
     prepostos: [],
-    location: { lat: -22.4277, lng: -42.9847 },
-    bio: 'Da nossa família para a sua, cultivamos legumes e verduras com o máximo respeito pela terra. Produtos frescos, saudáveis e cheios de sabor, direto da nossa horta na serra.',
+    location: { lat: -22.3879, lng: -42.9737 },
+    bio: 'Somos um grupo de produtores orgânicos de Friburgo, dedicados a trazer produtos frescos da serra para a cidade, valorizando a agricultura familiar.',
     address: {
-        street: 'Estrada do Comércio',
-        number: 's/n',
-        complement: '',
+        street: 'Estrada do Amparo',
+        number: 'S/N',
+        neighborhood: 'Amparo',
+        city: 'Nova Friburgo',
+        state: 'RJ',
+        zipCode: '28605-970'
+    },
+    pixKey: 'naturalmente.organicos@email.com',
+    shippingCost: 25,
+    phone: '22998887777',
+    fairs: ['Leme', 'Botafogo'],
+    image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/256860a4f5f54366b5ab0a9f5d68d184.png'
+  },
+  {
+    id: '9',
+    name: 'Sítio Paraíso',
+    responsibleName: 'Ronilson',
+    prepostos: ['Rosa'],
+    location: { lat: -22.3571, lng: -43.0886 },
+    bio: 'Cultivamos uma variedade de verduras, legumes e a deliciosa jabuticaba, tudo com certificação orgânica e muito carinho pela terra.',
+    address: {
+        street: 'Estrada do Paraíso',
+        number: '777',
         neighborhood: 'Vargem Grande',
         city: 'Teresópolis',
         state: 'RJ',
-        zipCode: '25970-123'
+        zipCode: '25977-000'
     },
-    pixKey: 'lucia.rodrigues.natural@email.com',
-    shippingCost: 18,
-    phone: '5521921098765',
-    fairs: ['Tijuca'],
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/farmers%2Ffarmer_8.png?alt=media&token=42a3e35a-939e-4b77-8c38-0382744e82e3'
-  }
-];
-
-
-const defaultCustomers: Customer[] = [
+    pixKey: 'sitioparaiso.vendas@email.com',
+    shippingCost: 23,
+    phone: '21987654321',
+    fairs: ['Tijuca', 'Grajaú'],
+    image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/e3bb697525ad482084b655d957d69b2d.png'
+  },
   {
-    id: 'cust-001',
-    name: 'Ana Silva',
-    email: 'ana.silva@exemplo.com',
-    favoriteFarmerIds: ['1', '3'],
+    id: '134',
+    name: 'Loja Orgânica',
+    responsibleName: 'Marcos Melo',
+    prepostos: ['Felipe', 'Rosana'],
+    location: { lat: -22.9519, lng: -43.2105 },
+    bio: 'A Loja Orgânica é um empório de produtos orgânicos certificados, com foco em mel, derivados e outros produtos de mercearia. Nossa missão é oferecer saúde e sabor, conectando você aos melhores produtores.',
     address: {
-        street: 'Rua das Flores',
-        number: '123',
-        complement: 'Apto 405',
-        neighborhood: 'Botafogo',
+        street: 'Rua General Glicério',
+        number: '445',
+        neighborhood: 'Laranjeiras',
         city: 'Rio de Janeiro',
         state: 'RJ',
-        zipCode: '22270-001'
+        zipCode: '22245-120'
     },
-    phone: '5521999998888',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/customers%2Fcustomer_1.png?alt=media&token=0b674d87-6e9f-43e8-9e5c-204481358d83',
-    classification: 'ouro'
-  },
-  {
-    id: 'cust-002',
-    name: 'Bruno Costa',
-    email: 'bruno.costa@exemplo.com',
-    favoriteFarmerIds: ['2'],
-     address: {
-        street: 'Avenida Atlântica',
-        number: '1702',
-        complement: 'Bloco A, Apto 801',
-        neighborhood: 'Copacabana',
-        city: 'Rio de Janeiro',
-        state: 'RJ',
-        zipCode: '22021-001'
-    },
-    phone: '5521988887777',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/customers%2Fcustomer_2.png?alt=media&token=e937d57a-9a80-496a-85b4-d7575231c584',
-    classification: 'prata'
-  },
-  {
-    id: 'cust-003',
-    name: 'Carla Dias',
-    email: 'carla.dias@exemplo.com',
-    favoriteFarmerIds: ['1', '4', '5'],
-     address: {
-        street: 'Rua Marquês de Abrantes',
-        number: '50',
-        complement: 'Apto 202',
-        neighborhood: 'Flamengo',
-        city: 'Rio de Janeiro',
-        state: 'RJ',
-        zipCode: '22230-061'
-    },
-    phone: '5521977776666',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/customers%2Fcustomer_3.png?alt=media&token=14b2b291-a537-4d92-8a9d-5a81e35a7458',
-    classification: 'diamante'
+    pixKey: 'vendas@lojaorganica.com',
+    shippingCost: 15,
+    phone: '21988776655',
+    fairs: ['Tijuca', 'Grajaú', 'Botafogo', 'Flamengo', 'Laranjeiras', 'Leme'],
+    image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/10444391b1514785b98f265691456d2e.png'
   },
 ];
 
-const defaultOrders: Order[] = [
+let defaultCustomers: Customer[] = [
+    {
+        id: 'cust-001',
+        name: 'Ana Silva',
+        email: 'ana.silva@exemplo.com',
+        favoriteFarmerIds: ['1', '3'],
+        address: {
+            street: 'Rua das Flores',
+            number: '123',
+            complement: 'Apto 405',
+            neighborhood: 'Copacabana',
+            city: 'Rio de Janeiro',
+            state: 'RJ',
+            zipCode: '22050-002',
+        },
+        phone: '21999991234',
+        image: 'https://i.pravatar.cc/150?img=1',
+        classification: 'ouro',
+    },
+    {
+        id: 'cust-002',
+        name: 'Carlos Pereira',
+        email: 'carlos.pereira@exemplo.com',
+        favoriteFarmerIds: ['2'],
+        address: {
+            street: 'Avenida Atlântica',
+            number: '1702',
+            complement: 'Apto 801',
+            neighborhood: 'Copacabana',
+            city: 'Rio de Janeiro',
+            state: 'RJ',
+            zipCode: '22021-001',
+        },
+        phone: '21988885678',
+        image: 'https://i.pravatar.cc/150?img=2',
+        classification: 'prata',
+    },
+     {
+        id: 'cust-003',
+        name: 'Fernanda Lima',
+        email: 'fernanda.lima@exemplo.com',
+        favoriteFarmerIds: ['4', '5'],
+        address: {
+            street: 'Rua do Catete',
+            number: '311',
+            complement: 'Apto 202',
+            neighborhood: 'Catete',
+            city: 'Rio de Janeiro',
+            state: 'RJ',
+            zipCode: '22220-001',
+        },
+        phone: '21977778901',
+        image: 'https://i.pravatar.cc/150?img=3',
+        classification: 'diamante',
+    },
+    {
+        id: 'cust-004',
+        name: 'Ricardo Souza',
+        email: 'ricardo.souza@exemplo.com',
+        favoriteFarmerIds: ['1'],
+        address: {
+            street: 'Praça São Salvador',
+            number: '10',
+            complement: 'Casa',
+            neighborhood: 'Laranjeiras',
+            city: 'Rio de Janeiro',
+            state: 'RJ',
+            zipCode: '22231-140',
+        },
+        phone: '21966662345',
+        image: 'https://i.pravatar.cc/150?img=4',
+    },
+];
+
+let defaultOrders: Order[] = [
   {
-    id: 'ORD-1678886400000',
+    id: 'ORD-001',
     customerName: 'Ana Silva',
     items: [
-        { productName: 'Cenouras Orgânicas', quantity: 2 },
-        { productName: 'Alface Americana Orgânica', quantity: 1 }
+      { productName: 'Cenouras Orgânicas', quantity: 2 },
+      { productName: 'Tomate Italiano Orgânico', quantity: 1 },
+      { productName: 'Couve Mineira Orgânica', quantity: 1 }
     ],
-    status: 'Pendente',
-    total: 8.50,
-    date: new Date('2024-07-10T10:00:00Z'),
+    status: 'Confirmado',
+    total: 34.9,
+    date: new Date('2024-07-20T10:30:00'),
     deliveryOption: 'pickup',
-    pickupLocation: 'Feira da Tijuca'
+    pickupLocation: 'Feira do Grajaú',
   },
   {
-    id: 'ORD-1678972800000',
-    customerName: 'Bruno Costa',
+    id: 'ORD-002',
+    customerName: 'Carlos Pereira',
     items: [
-        { productName: 'Tomate Italiano Orgânico', quantity: 1.5 },
-        { productName: 'Morangos Frescos Orgânicos', quantity: 2 }
+      { productName: 'Morangos Frescos Orgânicos', quantity: 3 },
+      { productName: 'Laranja Pera Orgânica', quantity: 2.5 }
     ],
     status: 'Pendente',
-    total: 12.50,
-    date: new Date('2024-07-11T11:30:00Z'),
+    total: 29.5,
+    date: new Date('2024-07-24T14:00:00'),
     deliveryOption: 'delivery',
     customerContact: {
         address: {
             street: 'Avenida Atlântica',
             number: '1702',
-            complement: 'Bloco A, Apto 801',
+            complement: 'Apto 801',
             neighborhood: 'Copacabana',
             city: 'Rio de Janeiro',
             state: 'RJ',
-            zipCode: '22021-001'
+            zipCode: '22021-001',
         },
-        phone: '5521988887777'
+        phone: '21988885678'
     }
-  },
-    {
-    id: 'ORD-1679059200000',
-    customerName: 'Carla Dias',
-    items: [
-        { productName: 'Alho Poró Orgânico', quantity: 3 },
-        { productName: 'Salsa Orgânica', quantity: 1 },
-        { productName: 'Couve Mineira Orgânica', quantity: 2 }
-    ],
-    status: 'Confirmado',
-    total: 20.40,
-    date: new Date('2024-06-12T09:00:00Z'),
-    deliveryOption: 'pickup',
-    pickupLocation: 'Feira do Grajaú'
   },
   {
-    id: 'ORD-1679145600000',
-    customerName: 'Ana Silva',
+    id: 'ORD-003',
+    customerName: 'Fernanda Lima',
     items: [
-        { productName: 'Abóbora Moranga Orgânica', quantity: 0.8 },
-        { productName: 'Hortelã Orgânico', quantity: 1 }
+      { productName: 'Alho Poró Orgânico', quantity: 1 },
+      { productName: 'Hortelã Orgânico', quantity: 2 },
     ],
     status: 'Rejeitado',
-    total: 6.00,
-    date: new Date('2024-05-13T14:00:00Z'),
-    deliveryOption: 'delivery',
-    customerContact: {
-         address: {
-            street: 'Rua das Flores',
-            number: '123',
-            complement: 'Apto 405',
-            neighborhood: 'Botafogo',
-            city: 'Rio de Janeiro',
-            state: 'RJ',
-            zipCode: '22270-001'
-        },
-        phone: '5521999998888'
-    }
-  }
+    total: 10.1,
+    date: new Date('2024-07-22T09:00:00'),
+    deliveryOption: 'pickup',
+    pickupLocation: 'Feira da Tijuca',
+  },
 ];
 
 
-// ============================================================================
-// DATA ACCESS FUNCTIONS
-// ============================================================================
+// Data management functions
+let productsData: Product[] = [];
+let farmersData: Farmer[] = [];
+let ordersData: Order[] = [];
+let customersData: Customer[] = [];
 
-let allProducts: Product[] = [...defaultProducts, ...lojaOrganicaProducts, ...domicilioOrganicoProducts, ...allMasterFruits];
-let allFarmers: Farmer[] = defaultFarmers;
-let allCustomers: Customer[] = defaultCustomers;
-let allOrders: Order[] = defaultOrders;
+function initializeData() {
+  productsData = getStoredData<Product>('minha_feira_products_v3', defaultProducts);
+  farmersData = getStoredData<Farmer>(FARMERS_KEY, defaultFarmers);
+  ordersData = getStoredData<Order>(ORDERS_KEY, defaultOrders);
+  customersData = getStoredData<Customer>(CUSTOMERS_KEY, defaultCustomers);
 
-let isHydrated = false;
+  const productIds = new Set(productsData.map(p => p.id));
+  const farmerIds = new Set(farmersData.map(f => f.id));
 
-function hydrateOnce() {
-    if (typeof window === 'undefined' || isHydrated) {
-        return;
+  // Add default products if they don't exist
+  defaultProducts.forEach(p => {
+    if (!productIds.has(p.id)) {
+      productsData.push(p);
+      productIds.add(p.id);
     }
-    
-    // A fonte da verdade para agricultores agora é o `defaultFarmers`.
-    // O cache é atualizado a partir do código, não o contrário.
-    allFarmers = defaultFarmers;
-    setStoredData(FARMERS_KEY, allFarmers);
-
-    // Para clientes e pedidos, ainda usamos o localStorage para persistir as alterações do usuário.
-    allCustomers = getStoredData(CUSTOMERS_KEY, defaultCustomers);
-    allOrders = getStoredData(ORDERS_KEY, defaultOrders);
-
-    // Simplifica a lógica de produtos para sempre usar a lista do código-fonte como a fonte da verdade.
-    let productsFromCode = [...defaultProducts, ...lojaOrganicaProducts, ...domicilioOrganicoProducts, ...allMasterFruits];
-    const uniqueProductIds = new Set();
-    allProducts = productsFromCode.filter(product => {
-        if (uniqueProductIds.has(product.id)) {
-            return false;
-        } else {
-            uniqueProductIds.add(product.id);
-            return true;
-        }
-    });
-
-    setStoredData('minha_feira_products_v6', allProducts);
-
-    isHydrated = true;
-}
-
-
-// GETTERS - Funções para ler os dados
-// ----------------------------------------------------------------------------
-
-export function getProducts(options?: { includePaused?: boolean }): Product[] {
-  hydrateOnce();
-  const activeProducts = allProducts.map(p => {
-    if (p.promotion?.expiresAt && new Date(p.promotion.expiresAt) < new Date()) {
-        return { ...p, promotion: { ...p.promotion, isActive: false }};
-    }
-    return p;
   });
 
+  // Add default farmers if they don't exist
+  defaultFarmers.forEach(f => {
+    if (!farmerIds.has(f.id)) {
+      farmersData.push(f);
+      farmerIds.add(f.id);
+    }
+  });
+
+  setStoredData('minha_feira_products_v3', productsData);
+  setStoredData(FARMERS_KEY, farmersData);
+}
+
+// Ensure data is initialized on first import
+if (typeof window !== 'undefined') {
+  initializeData();
+}
+
+// ============================================================================
+// PUBLIC API
+// ============================================================================
+
+// Products
+export function getProducts(options?: { includePaused?: boolean }): Product[] {
   if (options?.includePaused) {
-    return activeProducts;
+    return productsData;
   }
-  return activeProducts.filter(p => p.status === 'active');
+  return productsData.filter(p => p.status === 'active');
 }
 
 export function getProductById(id: string): Product | undefined {
-  hydrateOnce();
-  return allProducts.find((p) => p.id === id);
+  return productsData.find(p => p.id === id);
 }
 
 export function getProductByName(name: string): Product | undefined {
-  hydrateOnce();
-  return allProducts.find(p => p.name === name);
-}
-
-export function getFarmers(): Farmer[] {
-  hydrateOnce();
-  return allFarmers;
-}
-
-export function getFarmerById(id: string): Farmer | undefined {
-  hydrateOnce();
-  return allFarmers.find((f) => f.id === id);
-}
-
-export function getFarmersWithProducts(farmerIds?: string[]): FarmerWithProducts[] {
-  hydrateOnce();
-  const farmersToProcess = farmerIds
-    ? allFarmers.filter(f => farmerIds.includes(f.id))
-    : allFarmers;
-  
-  return farmersToProcess.map(farmer => ({
-    ...farmer,
-    products: allProducts.filter(p => p.farmerId === farmer.id && p.status === 'active')
-  }));
+  return productsData.find(p => p.name === name);
 }
 
 export function getPromotionalProducts(): (Product & { farmerName: string, responsibleName?: string })[] {
-    hydrateOnce();
-    const activePromotions = allProducts.filter(p =>
-        p.promotion?.isActive &&
-        p.promotion.expiresAt &&
-        new Date(p.promotion.expiresAt) > new Date()
-    );
-
-    return activePromotions.map(p => {
+    const promotionalProducts = productsData.filter(p => p.promotion?.isActive);
+    return promotionalProducts.map(p => {
         const farmer = getFarmerById(p.farmerId);
         return {
             ...p,
-            farmerName: farmer?.name || 'Desconhecido',
+            farmerName: farmer?.name ?? 'Desconhecido',
             responsibleName: farmer?.responsibleName
         };
     });
 }
 
-export function getOrders(): Order[] {
-  hydrateOnce();
-  return allOrders;
-}
-
-export function getCustomers(): Customer[] {
-  hydrateOnce();
-  return allCustomers;
-}
-
-export function getCustomerById(id: string): Customer | undefined {
-  hydrateOnce();
-  return allCustomers.find((c) => c.id === id);
-}
-
-// SETTERS / UPDATERS - Funções para modificar os dados
-// ----------------------------------------------------------------------------
-
 export function toggleProductPromotion(productId: string, isActive: boolean) {
-    hydrateOnce();
-    const productIndex = allProducts.findIndex(p => p.id === productId);
+    const productIndex = productsData.findIndex(p => p.id === productId);
     if (productIndex !== -1) {
-        allProducts[productIndex] = {
-            ...allProducts[productIndex],
+        productsData[productIndex] = {
+            ...productsData[productIndex],
             promotion: {
                 isActive: isActive,
-                expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 dias a partir de agora
+                expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
             }
         };
-        setStoredData('minha_feira_products_v6', allProducts);
+        setStoredData('minha_feira_products_v3', productsData);
     }
 }
 
 export function toggleProductStatus(productId: string, status: 'active' | 'paused') {
-    hydrateOnce();
-    const productIndex = allProducts.findIndex(p => p.id === productId);
+    const productIndex = productsData.findIndex(p => p.id === productId);
     if (productIndex !== -1) {
-        allProducts[productIndex].status = status;
-        setStoredData('minha_feira_products_v6', allProducts);
+        productsData[productIndex].status = status;
+        setStoredData('minha_feira_products_v3', productsData);
     }
 }
 
-export function updateProduct(productId: string, updates: Partial<Omit<Product, 'id'>>) {
-    hydrateOnce();
-    const productIndex = allProducts.findIndex(p => p.id === productId);
+export function addProduct(productData: Omit<Product, 'id' | 'status'>) {
+    const newProduct: Product = {
+        ...productData,
+        id: `prod-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
+        status: 'active',
+    };
+    productsData.unshift(newProduct); // Add to the beginning
+    setStoredData('minha_feira_products_v3', productsData);
+}
+
+export function updateProduct(productId: string, updates: Partial<Product>) {
+    const productIndex = productsData.findIndex(p => p.id === productId);
     if (productIndex !== -1) {
-        allProducts[productIndex] = { ...allProducts[productIndex], ...updates };
-        setStoredData('minha_feira_products_v6', allProducts);
+        productsData[productIndex] = { ...productsData[productIndex], ...updates };
+        setStoredData('minha_feira_products_v3', productsData);
+    }
+}
+
+export function updateProductStock(productId: string, newStock: number) {
+    const productIndex = productsData.findIndex(p => p.id === productId);
+    if (productIndex !== -1) {
+        productsData[productIndex].stock = newStock >= 0 ? newStock : undefined;
+        setStoredData('minha_feira_products_v3', productsData);
     }
 }
 
 export function deleteProduct(productId: string) {
-    hydrateOnce();
-    allProducts = allProducts.filter(p => p.id !== productId);
-    setStoredData('minha_feira_products_v6', allProducts);
-}
-
-export function updateProductStock(productId: string, newStock: number | undefined) {
-    hydrateOnce();
-     const productIndex = allProducts.findIndex(p => p.id === productId);
-    if (productIndex !== -1) {
-        allProducts[productIndex].stock = newStock;
-        setStoredData('minha_feira_products_v6', allProducts);
-    }
-}
-
-export function addProduct(newProductData: Omit<Product, 'id' | 'status'>) {
-    hydrateOnce();
-    const newProduct: Product = {
-        id: `prod-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
-        status: 'active',
-        ...newProductData
-    };
-    allProducts.push(newProduct);
-    setStoredData('minha_feira_products_v6', allProducts);
-    return newProduct;
-}
-
-export function updateCustomerClassification(customerId: string, classification: CustomerClassification) {
-    hydrateOnce();
-    const customerIndex = allCustomers.findIndex(c => c.id === customerId);
-    if (customerIndex !== -1) {
-        allCustomers[customerIndex].classification = classification;
-        setStoredData(CUSTOMERS_KEY, allCustomers);
-    }
+    productsData = productsData.filter(p => p.id !== productId);
+    setStoredData('minha_feira_products_v3', productsData);
 }
 
 
-export function updateFarmer(farmerId: string, updates: Partial<Omit<Farmer, 'id'>>) {
-    hydrateOnce();
-    const farmerIndex = allFarmers.findIndex(f => f.id === farmerId);
-    if (farmerIndex !== -1) {
-        allFarmers[farmerIndex] = { ...allFarmers[farmerIndex], ...updates };
-        setStoredData(FARMERS_KEY, allFarmers);
-    }
+// Farmers
+export function getFarmers(): Farmer[] {
+  return farmersData;
 }
 
-export function updateCustomer(customerId: string, updates: Partial<Omit<Customer, 'id'>>) {
-    hydrateOnce();
-    const customerIndex = allCustomers.findIndex(c => c.id === customerId);
-    if (customerIndex !== -1) {
-        allCustomers[customerIndex] = { ...allCustomers[customerIndex], ...updates };
-        setStoredData(CUSTOMERS_KEY, allCustomers);
-    }
+export function getFarmerById(id: string): Farmer | undefined {
+  return farmersData.find(f => f.id === id);
+}
+
+export function getFarmersWithProducts(farmerIds?: string[]): FarmerWithProducts[] {
+  let filteredFarmers = farmersData;
+  if (farmerIds && farmerIds.length > 0) {
+    filteredFarmers = farmersData.filter(f => farmerIds.includes(f.id));
+  }
+  
+  return filteredFarmers.map(farmer => ({
+    ...farmer,
+    products: productsData.filter(p => p.farmerId === farmer.id && p.status === 'active'),
+  }));
 }
 
 export function addFarmer(farmerData: Omit<Farmer, 'id' | 'location' | 'image'>): Farmer {
-    hydrateOnce();
-    const newFarmer: Farmer = {
-        id: `farmer-${Date.now()}`,
-        // Localização padrão, já que não temos como obter a real no cadastro
-        location: { lat: -22.9068, lng: -43.1729 }, 
-        image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/farmers%2Ffarmer_8.png?alt=media&token=42a3e35a-939e-4b77-8c38-0382744e82e3', // Imagem padrão
-        ...farmerData
-    };
-    allFarmers.push(newFarmer);
-    setStoredData(FARMERS_KEY, allFarmers);
-    return newFarmer;
+  const newFarmer: Farmer = {
+    ...farmerData,
+    id: `farmer-${Date.now()}`,
+    // Valores padrão para os campos que não estão no formulário de cadastro
+    location: { lat: -22.9068, lng: -43.1729 }, // Localização padrão (Centro do Rio)
+    image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/ec7b702951f343a493a3c252277d1303.png',
+  };
+  farmersData.push(newFarmer);
+  setStoredData(FARMERS_KEY, farmersData);
+  return newFarmer;
 }
 
-// Associa os produtos listados ao Sítio Paraíso (ID 9)
-const sitioParaisoProducts = [
-    'Cenouras Orgânicas', 'Tomatinho Cereja Orgânico', 'Couve Mineira Orgânica',
-    'Almeirão Orgânico', 'Peixinho Orgânico', 'Alface Lisa Orgânica',
-    'Alface Americana Orgânica', 'Alface Romana Orgânica', 'Alface Mimosa Verde Orgânica',
-    'Alface Crespa Orgânica', 'Espinafre Orgânico', 'Agrião Orgânico',
-    'Cebolinha Orgânica', 'Rúcula Selvagem Orgânica', 'Acelga Orgânica',
-    'Repolho Verde Orgânico', 'Hortelã Orgânico', 'Banana Prata Orgânica',
-    'Abobrinha Italiana Orgânica', 'Limão Galego Orgânico',
-    'Abóbora Japonesa (Cabotiá) Orgânica', 'Jabuticaba Orgânica'
-];
-
-sitioParaisoProducts.forEach(productName => {
-    const product = allProducts.find(p => p.name === productName && p.farmerId !== '9');
-    if (product) {
-        const paraisoProduct = {
-            ...product,
-            id: `sitio-paraiso-${product.id}`,
-            farmerId: '9'
-        };
-        const exists = allProducts.some(p => p.id === paraisoProduct.id);
-        if(!exists) {
-           allProducts.push(paraisoProduct);
-        }
-    } else {
-        // Se o produto não existe com nenhum outro fazendeiro, cria um novo.
-        const baseProduct = allProducts.find(p => p.name === productName);
-        if (baseProduct) {
-             const paraisoProduct = {
-                ...baseProduct,
-                id: `sitio-paraiso-${baseProduct.id}`,
-                farmerId: '9'
-            };
-            const exists = allProducts.some(p => p.id === paraisoProduct.id);
-            if(!exists) {
-               allProducts.push(paraisoProduct);
-            }
-        }
+export function updateFarmer(farmerId: string, updates: Partial<Farmer>): void {
+    const farmerIndex = farmersData.findIndex(f => f.id === farmerId);
+    if (farmerIndex !== -1) {
+        farmersData[farmerIndex] = { ...farmersData[farmerIndex], ...updates };
+        setStoredData(FARMERS_KEY, farmersData);
     }
-});
+}
 
-// Adiciona todos os alfaces para os agricultores especificados
-const targetFarmerIds = ['1', '3', '4', '5', '10'];
-const lettuceProducts = allProducts.filter(p => p.name.toLowerCase().includes('alface'));
+// Customers
+export function getCustomers(): Customer[] {
+  // Simula a obtenção de clientes a partir de pedidos
+  const customerNamesFromOrders = new Set(ordersData.map(o => o.customerName));
+  const customersFromDefaults = defaultCustomers.filter(c => customerNamesFromOrders.has(c.name));
+  return customersFromDefaults;
+}
 
-let productsToAdd: Product[] = [];
+export function getCustomerById(id: string): Customer | undefined {
+    return customersData.find(c => c.id === id);
+}
 
-targetFarmerIds.forEach(farmerId => {
-  let farmerLettuces = allProducts.filter(p => p.farmerId === farmerId && p.name.toLowerCase().includes('alface'));
-  let lettucesToAdd = lettuceProducts.filter(l => !farmerLettuces.some(fl => fl.name === l.name));
-  
-  lettucesToAdd.forEach(lettuce => {
-      productsToAdd.push({
-          ...lettuce,
-          id: `lettuce-${farmerId}-${lettuce.id}`,
-          farmerId: farmerId,
-      });
-  });
-});
+export function updateCustomerClassification(customerId: string, classification: CustomerClassification): void {
+    const customerIndex = customersData.findIndex(c => c.id === customerId);
+    if (customerIndex !== -1) {
+        customersData[customerIndex].classification = classification;
+        setStoredData(CUSTOMERS_KEY, customersData);
+    }
+}
 
-allProducts.push(...productsToAdd);
+export function updateCustomer(customerId: string, updates: Partial<Customer>): void {
+    const customerIndex = customersData.findIndex(c => c.id === customerId);
+    if (customerIndex !== -1) {
+        // Trata o endereço de forma especial para mesclar em vez de substituir
+        const newAddress = { ...customersData[customerIndex].address, ...updates.address };
+        customersData[customerIndex] = { ...customersData[customerIndex], ...updates, address: newAddress };
+        setStoredData(CUSTOMERS_KEY, customersData);
+    }
+}
 
 
-
-// Remove produtos duplicados pelo ID para limpar
-const finalUniqueProducts = Array.from(new Map(allProducts.map(item => [item.id, item])).values());
-allProducts = finalUniqueProducts;
-
-setStoredData('minha_feira_products_v6', allProducts);
+// Orders
+export function getOrders(): Order[] {
+  return ordersData;
+}
