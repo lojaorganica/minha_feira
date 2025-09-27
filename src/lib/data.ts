@@ -1735,6 +1735,266 @@ let defaultProducts: Product[] = [
     status: 'active',
     stock: 15
   },
+  {
+    id: 'sitio-paraiso-prod-Cenouras Orgânicas',
+    name: 'Cenouras Orgânicas',
+    category: 'Raiz e Tubérculo',
+    price: 2.5,
+    unit: 'maço',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/cenoura.webp?alt=media&token=83e659dc-2bd5-42f5-bc98-a178690858f1',
+    dataAiHint: 'organic carrots',
+    farmerId: '9',
+    description: 'Cenouras orgânicas frescas e crocantes, perfeitas para lanches ou para cozinhar.',
+    status: 'active',
+    stock: 50
+  },
+  {
+    id: 'sitio-paraiso-prod-Tomatinho Cereja Orgânico',
+    name: 'Tomatinho Cereja Orgânico',
+    category: 'Fruta',
+    price: 5,
+    unit: 'caixa',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tomate_cereja.webp?alt=media&token=675a4a40-8ff8-439b-9366-db40ed3b7b96',
+    dataAiHint: 'cherry tomato',
+    farmerId: '9',
+    description: 'Tomate cereja, pequeno e adocicado, ótimo para saladas, espetinhos e aperitivos.',
+    status: 'active',
+    stock: 20
+  },
+  {
+    id: 'sitio-paraiso-prod-Couve Mineira Orgânica',
+    name: 'Couve Mineira Orgânica',
+    category: 'Verdura',
+    price: 2.2,
+    unit: 'maço',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/couve_mineira.webp?alt=media&token=fb0702ac-1c9a-4414-9857-bd0908d68348',
+    dataAiHint: 'collard greens',
+    farmerId: '9',
+    description: 'Couve mineira orgânica, ideal para refogados e para acompanhar a tradicional feijoada.',
+    status: 'active',
+    stock: 60
+  },
+  {
+    id: 'sitio-paraiso-prod-Almeirão Orgânico',
+    name: 'Almeirão Orgânico',
+    category: 'Verdura',
+    price: 3.2,
+    unit: 'maço',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/almeirao.webp?alt=media&token=de89169e-8993-46bd-9c82-5a9d289ebdc3',
+    dataAiHint: 'chicory',
+    farmerId: '9',
+    description: 'Almeirão com seu característico sabor amargo, ótimo para saladas e refogados.',
+    status: 'active',
+    stock: 20
+  },
+  {
+    id: 'sitio-paraiso-prod-Alface Lisa Orgânica',
+    name: 'Alface Lisa Orgânica',
+    category: 'Verdura',
+    price: 2.8,
+    unit: 'unidade',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_lisa.webp?alt=media&token=ced73d99-300e-4904-9072-9c8e4fcecd79',
+    dataAiHint: 'butter lettuce',
+    farmerId: '9',
+    description: 'Alface lisa de folhas macias e sabor suave, perfeita para saladas delicadas.',
+    status: 'active',
+    stock: 30
+  },
+  {
+    id: 'sitio-paraiso-prod-Alface Americana Orgânica',
+    name: 'Alface Americana Orgânica',
+    category: 'Verdura',
+    price: 3.5,
+    unit: 'unidade',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_americana.webp?alt=media&token=d745a4e5-1f8c-4333-8a8a-48a4201d308a',
+    dataAiHint: 'iceberg lettuce',
+    farmerId: '9',
+    description: 'Alface americana crocante e refrescante, ideal para sanduíches e saladas.',
+    status: 'active',
+    stock: 40
+  },
+  {
+    id: 'sitio-paraiso-prod-Alface Romana Orgânica',
+    name: 'Alface Romana Orgânica',
+    category: 'Verdura',
+    price: 3.2,
+    unit: 'unidade',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_romana.webp?alt=media&token=f0a4afb0-0d99-48ad-88a2-0e3a8f048d17',
+    dataAiHint: 'romaine lettuce',
+    farmerId: '9',
+    description: 'Alface romana, com folhas longas e crocantes, ideal para a salada Caesar.',
+    status: 'active',
+    stock: 20
+  },
+  {
+    id: 'sitio-paraiso-prod-Alface Mimosa Verde Orgânica',
+    name: 'Alface Mimosa Verde Orgânica',
+    category: 'Verdura',
+    price: 3.1,
+    unit: 'unidade',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_mimosa_verde.webp?alt=media&token=4635346b-69f9-4a54-94b6-8cb1b85f4afb',
+    dataAiHint: 'green mimosa lettuce',
+    farmerId: '9',
+    description: 'Alface Mimosa de folhas macias e sabor delicado, uma variedade clássica e muito apreciada.',
+    status: 'active',
+    stock: 25
+  },
+  {
+    id: 'sitio-paraiso-prod-Alface Crespa Orgânica',
+    name: 'Alface Crespa Orgânica',
+    category: 'Verdura',
+    price: 2.8,
+    unit: 'unidade',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_crespa.webp?alt=media&token=a057c9ac-0fe9-40b0-a016-49d16b016941',
+    dataAiHint: 'leaf lettuce',
+    farmerId: '9',
+    description: 'Alface crespa com folhas crocantes e textura ondulada, ideal para sanduíches.',
+    status: 'active',
+    stock: 30
+  },
+  {
+    id: 'sitio-paraiso-prod-Espinafre Orgânico',
+    name: 'Espinafre Orgânico',
+    category: 'Verdura',
+    price: 3.5,
+    unit: 'maço',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/espinafre.webp?alt=media&token=314e18aa-482f-4cef-badc-db518683d218',
+    dataAiHint: 'spinach',
+    farmerId: '9',
+    description: 'Espinafre fresco, rico em ferro e nutrientes, perfeito para refogados e recheios.',
+    status: 'active',
+    stock: 25
+  },
+  {
+    id: 'sitio-paraiso-prod-Agrião Orgânico',
+    name: 'Agrião Orgânico',
+    category: 'Verdura',
+    price: 3,
+    unit: 'maço',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/agriao.webp?alt=media&token=c27c2017-aa81-4c03-a41c-c6323c14e213',
+    dataAiHint: 'watercress',
+    farmerId: '9',
+    description: 'Agrião com seu sabor picante característico, ótimo para saladas e sopas.',
+    status: 'active',
+    stock: 25
+  },
+  {
+    id: 'sitio-paraiso-prod-Cebolinha Orgânica',
+    name: 'Cebolinha Orgânica',
+    category: 'Tempero',
+    price: 2.5,
+    unit: 'maço',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/cebolinha.webp?alt=media&token=48e03912-a30e-4032-94b8-9a84b6209d3e',
+    dataAiHint: 'chives',
+    farmerId: '9',
+    description: 'Cebolinha fresca para finalizar pratos e adicionar um sabor suave de cebola.',
+    status: 'active',
+    stock: 60
+  },
+  {
+    id: 'sitio-paraiso-prod-Rúcula Selvagem Orgânica',
+    name: 'Rúcula Selvagem Orgânica',
+    category: 'Verdura',
+    price: 3.8,
+    unit: 'maço',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/rucula_selvagem.webp?alt=media&token=96d7f629-4be6-46c7-9e67-3108758865c7',
+    dataAiHint: 'wild arugula',
+    farmerId: '9',
+    description: 'Rúcula selvagem com folhas mais escuras e sabor ainda mais intenso e picante.',
+    status: 'active',
+    stock: 20
+  },
+  {
+    id: 'sitio-paraiso-prod-Acelga Orgânica',
+    name: 'Acelga Orgânica',
+    category: 'Verdura',
+    price: 3.8,
+    unit: 'unidade',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/acelga.webp?alt=media&token=0721f75b-65a2-40cf-8754-c10afd93acc6',
+    dataAiHint: 'swiss chard',
+    farmerId: '9',
+    description: 'Acelga (couve chinesa) de textura crocante, ideal para o preparo de saladas e refogados.',
+    status: 'active',
+    stock: 18
+  },
+  {
+    id: 'sitio-paraiso-prod-Repolho Verde Orgânico',
+    name: 'Repolho Verde Orgânico',
+    category: 'Verdura',
+    price: 3.8,
+    unit: 'unidade',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/repolho_verde.webp?alt=media&token=8a4ea4ee-bcac-4757-a54d-f0a4b095a9dc',
+    dataAiHint: 'green cabbage',
+    farmerId: '9',
+    description: 'Repolho verde crocante, ótimo para saladas, refogados e charutos.',
+    status: 'active',
+    stock: 15
+  },
+  {
+    id: 'sitio-paraiso-prod-Hortelã Orgânico',
+    name: 'Hortelã Orgânico',
+    category: 'Tempero',
+    price: 2.8,
+    unit: 'maço',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/hortela.webp?alt=media&token=97dacb1f-e59f-4891-9176-73eec1e16188',
+    dataAiHint: 'mint',
+    farmerId: '9',
+    description: 'Hortelã fresca e aromática, perfeita para chás, sucos, quibes e sobremesas.',
+    status: 'active',
+    stock: 70
+  },
+  {
+    id: 'sitio-paraiso-prod-Banana Prata Orgânica',
+    name: 'Banana Prata Orgânica',
+    category: 'Fruta',
+    price: 5.5,
+    unit: 'dúzia',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/banana_prata.webp?alt=media&token=d38fe201-0312-48fc-9cf7-6e2b1fd97bf8',
+    dataAiHint: 'silver banana',
+    farmerId: '9',
+    description: 'Banana prata orgânica, ideal para o consumo diário, rica em potássio e de sabor suave.',
+    status: 'active',
+    stock: 50
+  },
+  {
+    id: 'sitio-paraiso-prod-Abobrinha Italiana Orgânica',
+    name: 'Abobrinha Italiana Orgânica',
+    category: 'Legume',
+    price: 3.8,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/abobrinha_italiana.webp?alt=media&token=1c5c4cae-04b4-497f-99bf-94b09f8cdc7d',
+    dataAiHint: 'zucchini',
+    farmerId: '9',
+    description: 'Abobrinha italiana orgânica, versátil para refogados, assados e pratos leves.',
+    status: 'active',
+    stock: 30
+  },
+  {
+    id: 'sitio-paraiso-prod-Limão Galego Orgânico',
+    name: 'Limão Galego Orgânico',
+    category: 'Fruta',
+    price: 4.8,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/limao_galego.webp?alt=media&token=e8341d8b-9733-478b-9bd0-0104de2365cb',
+    dataAiHint: 'key lime',
+    farmerId: '9',
+    description: 'Limão galego, pequeno e de casca fina, muito suculento e ácido, um clássico nacional.',
+    status: 'active',
+    stock: 25
+  },
+  {
+    id: 'sitio-paraiso-prod-Abóbora Japonesa (Cabotiá) Orgânica',
+    name: 'Abóbora Japonesa (Cabotiá) Orgânica',
+    category: 'Legume',
+    price: 3.5,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/abobora_japonesa.webp?alt=media&token=9cc8d464-1f1a-404e-8d32-aeddadc861ba',
+    dataAiHint: 'kabocha squash',
+    farmerId: '9',
+    description: 'Abóbora japonesa, também conhecida como cabotiá, com polpa adocicada e textura macia.',
+    status: 'active',
+    stock: 10
+  }
 ];
 
 let defaultFarmers: Farmer[] = [
@@ -1760,7 +2020,7 @@ let defaultFarmers: Farmer[] = [
     fairs: ['Tijuca', 'Grajaú'],
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/farmers%2Ffarmer_1.png?alt=media&token=8e945c2f-e8b9-43c3-9acb-d2e5a407336a'
   },
-    {
+  {
     id: '3',
     name: 'Sítio Tapera',
     responsibleName: 'Ailton Lima',
@@ -2348,20 +2608,16 @@ const lettuceProducts = allProducts.filter(p => p.name.toLowerCase().includes('a
 let productsToAdd: Product[] = [];
 
 targetFarmerIds.forEach(farmerId => {
-  let farmerHasProduct = allProducts.some(p => p.farmerId === farmerId);
-  if (farmerHasProduct) {
-      let farmerLettuces = allProducts.filter(p => p.farmerId === farmerId && p.name.toLowerCase().includes('alface'));
-      
-      let lettucesToAdd = lettuceProducts.filter(l => !farmerLettuces.some(fl => fl.name === l.name));
-      
-      lettucesToAdd.forEach(lettuce => {
-          productsToAdd.push({
-              ...lettuce,
-              id: `lettuce-${farmerId}-${lettuce.name.replace(/\s+/g, '-')}`,
-              farmerId: farmerId,
-          });
+  let farmerLettuces = allProducts.filter(p => p.farmerId === farmerId && p.name.toLowerCase().includes('alface'));
+  let lettucesToAdd = lettuceProducts.filter(l => !farmerLettuces.some(fl => fl.name === l.name));
+  
+  lettucesToAdd.forEach(lettuce => {
+      productsToAdd.push({
+          ...lettuce,
+          id: `lettuce-${farmerId}-${lettuce.id}`,
+          farmerId: farmerId,
       });
-  }
+  });
 });
 
 allProducts.push(...productsToAdd);
