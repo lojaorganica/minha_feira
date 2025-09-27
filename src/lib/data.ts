@@ -867,7 +867,7 @@ let defaultProducts: Product[] = [
   },
   {
     id: '11',
-    name: 'Hortelã Orgânica',
+    name: 'Hortelã Orgânico',
     category: 'Tempero',
     price: 2.80,
     unit: 'maço',
@@ -1761,31 +1761,9 @@ let defaultFarmers: Farmer[] = [
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/farmers%2Ffarmer_1.png?alt=media&token=8e945c2f-e8b9-43c3-9acb-d2e5a407336a'
   },
   {
-    id: '2',
-    name: 'Fazenda Sol Nascente',
-    responsibleName: 'Juliana Paes',
-    prepostos: ['Marco Paes'],
-    location: { lat: -22.5202, lng: -42.9856 },
-    bio: 'Especialistas em frutas orgânicas, nossa fazenda aproveita o sol generoso para produzir frutas doces e suculentas. Doçura e frescor que vêm direto do pé para a sua casa. Cultivamos com paixão, seguindo os ciclos da natureza para oferecer frutas com o máximo de sabor e nutrientes. Cada mordida é uma celebração da vida e da agricultura sustentável.',
-    address: {
-        street: 'Estrada da Uva',
-        number: '800',
-        complement: 'Sítio Sol Nascente',
-        neighborhood: 'Vale das Videiras',
-        city: 'Petrópolis',
-        state: 'RJ',
-        zipCode: '25755-351'
-    },
-    pixKey: 'fazenda.sol.nascente@email.com',
-    shippingCost: 20,
-    phone: '5521987654321',
-    fairs: ['Botafogo', 'Leme'],
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/farmers%2Ffarmer_2.png?alt=media&token=09c8052d-f9e4-41d3-8208-724d27f673f8'
-  },
-  {
     id: '3',
-    name: 'Orgânicos da Serra',
-    responsibleName: 'Ailton Disuné',
+    name: 'Sítio Tapera',
+    responsibleName: 'Ailton Lima',
     prepostos: [],
     location: { lat: -22.4277, lng: -42.9847 },
     bio: 'Das montanhas, trazemos para você temperos e raízes com sabores intensos e puros. Cultivados em altitude, nossos produtos têm um toque especial. Nossa terra é nossa maior riqueza, e por isso a tratamos com respeito, utilizando técnicas de cultivo que preservam o solo e a biodiversidade. Acreditamos que o segredo de um bom tempero está na sua origem e no cuidado com a terra.',
@@ -1797,7 +1775,7 @@ let defaultFarmers: Farmer[] = [
         state: 'RJ',
         zipCode: '25963-090'
     },
-    pixKey: 'organicos.serra@email.com',
+    pixKey: 'sitio.tapera@email.com',
     shippingCost: 18,
     phone: '5521976543210',
     fairs: ['Grajaú'],
@@ -1805,11 +1783,11 @@ let defaultFarmers: Farmer[] = [
   },
   {
     id: '4',
-    name: 'Sítio Verdejar',
-    responsibleName: 'Luciana Mello',
+    name: 'Sítio Cachoeirinha I',
+    responsibleName: 'Onéias Gonçalves',
     prepostos: [],
     location: { lat: -22.3855, lng: -42.9692 },
-    bio: 'Cultivamos uma grande variedade de legumes e verduras, sempre frescos e livres de veneno. Da nossa horta para a sua mesa. No Sítio Verdejar, cada semente é plantada com a esperança de um futuro mais saudável e sustentável. Nosso compromisso é com a qualidade de vida, oferecendo alimentos que nutrem o corpo e a alma, enquanto cuidamos do nosso planeta.',
+    bio: 'Com o carinho e a sabedoria de gerações, produzimos hortaliças e temperos que parecem ter sido colhidos no quintal de casa. Sabor de comida de verdade. Resgatamos receitas e técnicas de cultivo tradicionais para oferecer alimentos com sabor de memória afetiva. Cada maço de cheiro-verde, cada folha de alface, é um convite para reviver os bons momentos em família.',
     address: {
         street: 'Estrada Teresópolis-Friburgo',
         number: 'Km 15',
@@ -1818,7 +1796,7 @@ let defaultFarmers: Farmer[] = [
         state: 'RJ',
         zipCode: '25970-060'
     },
-    pixKey: 'luciana.mello@email.com',
+pixKey: 'oneias.cachoeirinha1@email.com',
     shippingCost: 22,
     phone: '5521965432109',
     fairs: ['Flamengo', 'Laranjeiras'],
@@ -1826,11 +1804,11 @@ let defaultFarmers: Farmer[] = [
   },
   {
     id: '5',
-    name: 'Horta da Vovó',
-    responsibleName: 'Onéias Ribeiro',
+    name: 'Sítio Cachoeirinha II',
+    responsibleName: 'Walace Oliveira',
     prepostos: [],
     location: { lat: -22.4851, lng: -43.0135 },
-    bio: 'Com o carinho e a sabedoria de gerações, a Horta da Vovó produz hortaliças e temperos que parecem ter sido colhidos no quintal de casa. Sabor de comida de verdade. Resgatamos receitas e técnicas de cultivo tradicionais para oferecer alimentos com sabor de memória afetiva. Cada maço de cheiro-verde, cada folha de alface, é um convite para reviver os bons momentos em família.',
+    bio: 'Cultivamos uma grande variedade de legumes e verduras, sempre frescos e livres de veneno. Da nossa horta para a sua mesa. No Sítio Verdejar, cada semente é plantada com a esperança de um futuro mais saudável e sustentável. Nosso compromisso é com a qualidade de vida, oferecendo alimentos que nutrem o corpo e a alma, enquanto cuidamos do nosso planeta.',
     address: {
         street: 'Rua do Imperador',
         number: '2023',
@@ -1839,56 +1817,34 @@ let defaultFarmers: Farmer[] = [
         state: 'RJ',
         zipCode: '25620-002'
     },
-    pixKey: '5521954321098',
+    pixKey: 'walace.cachoeirinha2@email.com',
     shippingCost: 0, // Não oferece delivery
     phone: '5521954321098',
     fairs: ['Botafogo'],
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/farmers%2Ffarmer_5.png?alt=media&token=d4b29b6e-781c-4d5e-8e6d-6a5814529f7e'
   },
   {
-    id: '6',
-    name: 'Domicílio Orgânico',
-    responsibleName: 'Paloma Portugal',
-    prepostos: ['João Portugal'],
-    location: { lat: -22.9519, lng: -43.2105 },
-    bio: 'Facilitamos o acesso a produtos orgânicos de qualidade, conectando você a diversos produtores certificados. Uma seleção cuidadosa para sua saúde e conveniência. O Domicílio Orgânico nasceu do desejo de tornar a alimentação saudável mais prática e acessível. Selecionamos os melhores produtos de pequenos agricultores, criando uma ponte entre o campo e a sua casa.',
+    id: '10',
+    name: 'Sítio Cachoeirinha III',
+    responsibleName: 'Wendel Oliveira',
+    prepostos: [],
+    location: { lat: -22.4851, lng: -43.0135 },
+    bio: 'Seguindo a tradição da família, nosso sítio é um recanto de biodiversidade. Produzimos alimentos com técnicas que regeneram o solo e promovem um ecossistema equilibrado, resultando em produtos cheios de vida e sabor.',
     address: {
-        street: 'Rua das Laranjeiras',
-        number: '300',
-        neighborhood: 'Laranjeiras',
-        city: 'Rio de Janeiro',
+        street: 'Rua do Imperador',
+        number: '2025',
+        neighborhood: 'Centro',
+        city: 'Petrópolis',
         state: 'RJ',
-        zipCode: '22240-003'
+        zipCode: '25620-002'
     },
-    pixKey: 'contato@domicilioorganico.com.br',
-    shippingCost: 12,
-    phone: '5521943210987',
-    fairs: ['Flamengo', 'Laranjeiras'],
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/farmers%2Ffarmer_6.png?alt=media&token=f0d23588-466a-4d26-8094-c8c362a7596a'
+    pixKey: 'wendel.cachoeirinha3@email.com',
+    shippingCost: 0,
+    phone: '5521954321099',
+    fairs: ['Botafogo'],
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/farmers%2Ffarmer_10.png?alt=media&token=b7e1b747-3221-4f32-8e3b-9a4f664a7541'
   },
   {
-    id: '8',
-    name: 'Naturalmente Orgânicos',
-    responsibleName: 'Lúcia Rodrigues',
-    prepostos: [],
-    location: { lat: -22.4277, lng: -42.9847 },
-    bio: 'Da nossa família para a sua, cultivamos legumes e verduras com o máximo respeito pela terra. Produtos frescos, saudáveis e cheios de sabor, direto da nossa horta na serra.',
-    address: {
-        street: 'Estrada do Comércio',
-        number: 's/n',
-        complement: '',
-        neighborhood: 'Vargem Grande',
-        city: 'Teresópolis',
-        state: 'RJ',
-        zipCode: '25970-123'
-    },
-    pixKey: 'lucia.rodrigues.natural@email.com',
-    shippingCost: 18,
-    phone: '5521921098765',
-    fairs: ['Tijuca'],
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/farmers%2Ffarmer_8.png?alt=media&token=42a3e35a-939e-4b77-8c38-0382744e82e3'
-  },
-   {
     id: '9',
     name: 'Sítio Paraíso',
     responsibleName: 'Ronilson',
@@ -1911,12 +1867,33 @@ let defaultFarmers: Farmer[] = [
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/farmers%2Ffarmer_9.png?alt=media&token=262646d5-11e4-4d82-b7e1-85e3a7a92c4d'
   },
   {
+    id: '6',
+    name: 'Domicílio Orgânico',
+    responsibleName: 'Ivison Fragoso',
+    prepostos: ['Paloma Portugal', 'João Portugal'],
+    location: { lat: -22.9519, lng: -43.2105 },
+    bio: 'Facilitamos o acesso a produtos orgânicos de qualidade, conectando você a diversos produtores certificados. Uma seleção cuidadosa para sua saúde e conveniência. O Domicílio Orgânico nasceu do desejo de tornar a alimentação saudável mais prática e acessível. Selecionamos os melhores produtos de pequenos agricultores, criando uma ponte entre o campo e a sua casa.',
+    address: {
+        street: 'Rua das Laranjeiras',
+        number: '300',
+        neighborhood: 'Laranjeiras',
+        city: 'Rio de Janeiro',
+        state: 'RJ',
+        zipCode: '22240-003'
+    },
+    pixKey: 'contato@domicilioorganico.com.br',
+    shippingCost: 12,
+    phone: '5521943210987',
+    fairs: ['Flamengo', 'Laranjeiras'],
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/farmers%2Ffarmer_6.png?alt=media&token=f0d23588-466a-4d26-8094-c8c362a7596a'
+  },
+  {
     id: '134',
     name: 'Loja Orgânica',
-    responsibleName: 'Rosana',
-    prepostos: ['Evelyn'],
+    responsibleName: 'Marcos Melo',
+    prepostos: ['Rosana', 'Evelyn'],
     location: { lat: -22.9139, lng: -43.2094 },
-    bio: 'Somos apaixonados por apicultura e oferecemos uma variedade de méis orgânicos, cada um com suas características e benefícios únicos. O mais puro néctar da naturea.',
+    bio: 'Somos apaixonados por apicultura e oferecemos uma variedade de méis orgânicos, cada um com suas características e benefícios únicos. O mais puro néctar da natureza.',
     address: {
         street: 'Rua Haddock Lobo',
         number: '123',
@@ -1930,8 +1907,31 @@ let defaultFarmers: Farmer[] = [
     phone: '5521932109876',
     fairs: ['Tijuca'],
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/farmers%2Ffarmer_7.png?alt=media&token=c8b030b6-136b-4e89-9a00-51a7e4b2d3d3'
+  },
+  {
+    id: '8',
+    name: 'Naturalmente Orgânicos',
+    responsibleName: 'Lúcia Rodrigues',
+    prepostos: [],
+    location: { lat: -22.4277, lng: -42.9847 },
+    bio: 'Da nossa família para a sua, cultivamos legumes e verduras com o máximo respeito pela terra. Produtos frescos, saudáveis e cheios de sabor, direto da nossa horta na serra.',
+    address: {
+        street: 'Estrada do Comércio',
+        number: 's/n',
+        complement: '',
+        neighborhood: 'Vargem Grande',
+        city: 'Teresópolis',
+        state: 'RJ',
+        zipCode: '25970-123'
+    },
+    pixKey: 'lucia.rodrigues.natural@email.com',
+    shippingCost: 18,
+    phone: '5521921098765',
+    fairs: ['Tijuca'],
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/farmers%2Ffarmer_8.png?alt=media&token=42a3e35a-939e-4b77-8c38-0382744e82e3'
   }
 ];
+
 
 const defaultCustomers: Customer[] = [
   {
@@ -2047,7 +2047,7 @@ const defaultOrders: Order[] = [
     customerName: 'Ana Silva',
     items: [
         { productName: 'Abóbora Moranga Orgânica', quantity: 0.8 },
-        { productName: 'Hortelã Orgânica', quantity: 1 }
+        { productName: 'Hortelã Orgânico', quantity: 1 }
     ],
     status: 'Rejeitado',
     total: 6.00,
@@ -2085,43 +2085,16 @@ function hydrateOnce() {
         return;
     }
     
-    // Para agricultores, clientes e pedidos, ainda usamos o localStorage para persistir as alterações do usuário.
-    allFarmers = getStoredData(FARMERS_KEY, defaultFarmers);
+    // A fonte da verdade para agricultores agora é o `defaultFarmers`.
+    // O cache é atualizado a partir do código, não o contrário.
+    allFarmers = defaultFarmers;
+    setStoredData(FARMERS_KEY, allFarmers);
+
+    // Para clientes e pedidos, ainda usamos o localStorage para persistir as alterações do usuário.
     allCustomers = getStoredData(CUSTOMERS_KEY, defaultCustomers);
     allOrders = getStoredData(ORDERS_KEY, defaultOrders);
 
-    const sitioParaisoExists = allFarmers.some(f => f.id === '9');
-    if (!sitioParaisoExists) {
-        const sitioParaiso = defaultFarmers.find(f => f.id === '9');
-        if(sitioParaiso) {
-            allFarmers.push(sitioParaiso);
-        }
-    }
-
-
-    // Garante que o novo agricultor exista na lista. Se não, adiciona e salva.
-    const naturalmenteOrganicosExists = allFarmers.some(f => f.id === '8');
-    if (!naturalmenteOrganicosExists) {
-        const naturalmenteOrganicos = defaultFarmers.find(f => f.id === '8');
-        if (naturalmenteOrganicos) {
-            allFarmers.push(naturalmenteOrganicos);
-        }
-    }
-
-     // Garante que o novo agricultor exista na lista. Se não, adiciona e salva.
-    const farmer134Exists = allFarmers.some(f => f.id === '134');
-    if (!farmer134Exists) {
-        const farmer134 = defaultFarmers.find(f => f.id === '134');
-        if (farmer134) {
-            allFarmers.push(farmer134);
-        }
-    }
-
-    setStoredData(FARMERS_KEY, allFarmers);
-
-
     // Simplifica a lógica de produtos para sempre usar a lista do código-fonte como a fonte da verdade.
-    // Isso evita o problema de hidratação onde a lista de produtos é sobrescrita por uma versão antiga do cache.
     let productsFromCode = [...defaultProducts, ...lojaOrganicaProducts, ...domicilioOrganicoProducts, ...allMasterFruits];
     const uniqueProductIds = new Set();
     allProducts = productsFromCode.filter(product => {
@@ -2342,39 +2315,20 @@ const sitioParaisoProducts = [
 sitioParaisoProducts.forEach(productName => {
     const product = allProducts.find(p => p.name === productName);
     if (product) {
-        product.farmerId = '9';
+        // Garante que o produto será associado ao Sítio Paraíso, mas evita criar duplicatas se já for dele.
+        // Se um produto é listado para o Sítio Paraíso mas está com outro farmerId, ele será corrigido.
+        if(product.farmerId !== '9') {
+             const paraisoProduct = allProducts.find(p => p.name === productName && p.farmerId === '9');
+             if(!paraisoProduct) {
+                product.farmerId = '9';
+             }
+        }
     }
 });
 
-// Garante que todos os produtos do sítio paraíso existam e estejam associados
-const paraisoProductCopies = sitioParaisoProducts.map(name => {
-    const originalProduct = allProducts.find(p => p.name === name);
-    if(originalProduct) {
-        // Cria uma cópia com um novo ID para evitar duplicatas, se necessário.
-        return {
-            ...originalProduct,
-            id: `paraiso-${originalProduct.id}`,
-            farmerId: '9'
-        };
-    }
-    return null;
-}).filter((p): p is Product => p !== null);
-
-// Remove duplicatas por nome antes de adicionar
-const existingParaisoProductNames = new Set(allProducts.filter(p => p.farmerId === '9').map(p => p.name));
-const newProductsForParaiso = paraisoProductCopies.filter(p => !existingParaisoProductNames.has(p.name));
-allProducts.push(...newProductsForParaiso);
-
-// Atualiza o farmerId dos produtos que já existem e deveriam ser do Sítio Paraíso
-allProducts.forEach(p => {
-    if (sitioParaisoProducts.includes(p.name)) {
-        p.farmerId = '9';
-    }
-});
 
 // Remove produtos duplicados pelo ID para limpar
 const finalUniqueProducts = Array.from(new Map(allProducts.map(item => [item.id, item])).values());
 allProducts = finalUniqueProducts;
 
 setStoredData('minha_feira_products_v6', allProducts);
-
