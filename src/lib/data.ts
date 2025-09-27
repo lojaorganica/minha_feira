@@ -2044,7 +2044,7 @@ function hydrateOnce() {
 
     // Garante que o novo agricultor exista na lista. Se não, adiciona e salva.
     const naturalmenteOrganicosExists = allFarmers.some(f => f.id === '7');
-    if (!naturallyOrganicosExists) {
+    if (!naturalmenteOrganicosExists) {
         const naturalmenteOrganicos = defaultFarmers.find(f => f.id === '7');
         if (naturalmenteOrganicos) {
             allFarmers.push(naturalmenteOrganicos);
