@@ -2418,48 +2418,6 @@ let defaultFarmers: Farmer[] = [
       image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/6fc13999e52c4224a1b02131976a4bd8.png'
     },
     {
-      id: '6',
-      name: 'Domicílio Orgânico',
-      responsibleName: 'Ivison Fragoso',
-      prepostos: ['Paloma', 'Nathalia'],
-      location: { lat: -22.9519, lng: -43.2105 },
-      bio: 'Focados em frutas da estação e PANCs (Plantas Alimentícias Não Convencionais), oferecemos sabores únicos e nutritivos para enriquecer sua alimentação.',
-      address: {
-        street: 'Rua Humaitá',
-        number: '123',
-        neighborhood: 'Humaitá',
-        city: 'Rio de Janeiro',
-        state: 'RJ',
-        zipCode: '22261-001'
-      },
-      pixKey: 'domicilio.organico@email.com',
-      shippingCost: 15,
-      phone: '21944443333',
-      fairs: ['Flamengo', 'Laranjeiras'],
-      image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/a56a65576a8f4c179c381c19b33a5585.png'
-    },
-    {
-      id: '8',
-      name: 'Naturalmente Orgânicos',
-      responsibleName: 'Lúcia Rodrigues',
-      prepostos: [],
-      location: { lat: -22.3879, lng: -42.9737 },
-      bio: 'Somos um grupo de produtores orgânicos de Friburgo, dedicados a trazer produtos frescos da serra para a cidade, valorizando a agricultura familiar.',
-      address: {
-          street: 'Estrada do Amparo',
-          number: 'S/N',
-          neighborhood: 'Amparo',
-          city: 'Nova Friburgo',
-          state: 'RJ',
-          zipCode: '28605-970'
-      },
-      pixKey: 'naturalmente.organicos@email.com',
-      shippingCost: 25,
-      phone: '22998887777',
-      fairs: ['Leme', 'Botafogo'],
-      image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/256860a4f5f54366b5ab0a9f5d68d184.png'
-    },
-    {
       id: '9',
       name: 'Sítio Paraíso',
       responsibleName: 'Ronilson',
@@ -2481,6 +2439,27 @@ let defaultFarmers: Farmer[] = [
       image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/e3bb697525ad482084b655d957d69b2d.png'
     },
     {
+      id: '6',
+      name: 'Domicílio Orgânico',
+      responsibleName: 'Ivison Fragoso',
+      prepostos: ['Paloma', 'Nathalia'],
+      location: { lat: -22.9519, lng: -43.2105 },
+      bio: 'Focados em frutas da estação e PANCs (Plantas Alimentícias Não Convencionais), oferecemos sabores únicos e nutritivos para enriquecer sua alimentação.',
+      address: {
+        street: 'Rua Humaitá',
+        number: '123',
+        neighborhood: 'Humaitá',
+        city: 'Rio de Janeiro',
+        state: 'RJ',
+        zipCode: '22261-001'
+      },
+      pixKey: 'domicilio.organico@email.com',
+      shippingCost: 15,
+      phone: '21944443333',
+      fairs: ['Flamengo', 'Laranjeiras'],
+      image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/a56a65576a8f4c179c381c19b33a5585.png'
+    },
+    {
       id: '134',
       name: 'Loja Orgânica',
       responsibleName: 'Marcos Melo',
@@ -2500,6 +2479,27 @@ let defaultFarmers: Farmer[] = [
       phone: '21988776655',
       fairs: ['Tijuca', 'Grajaú', 'Botafogo', 'Flamengo', 'Laranjeiras', 'Leme'],
       image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/10444391b1514785b98f265691456d2e.png'
+    },
+    {
+      id: '8',
+      name: 'Naturalmente Orgânicos',
+      responsibleName: 'Lúcia Rodrigues',
+      prepostos: [],
+      location: { lat: -22.3879, lng: -42.9737 },
+      bio: 'Somos um grupo de produtores orgânicos de Friburgo, dedicados a trazer produtos frescos da serra para a cidade, valorizando a agricultura familiar.',
+      address: {
+          street: 'Estrada do Amparo',
+          number: 'S/N',
+          neighborhood: 'Amparo',
+          city: 'Nova Friburgo',
+          state: 'RJ',
+          zipCode: '28605-970'
+      },
+      pixKey: 'naturalmente.organicos@email.com',
+      shippingCost: 25,
+      phone: '22998887777',
+      fairs: ['Leme', 'Botafogo'],
+      image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/256860a4f5f54366b5ab0a9f5d68d184.png'
     },
 ];
 
