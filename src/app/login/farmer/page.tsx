@@ -23,14 +23,9 @@ import { Loader2 } from 'lucide-react';
 export default function FarmerLoginPage() {
   const { login } = useUser();
   const router = useRouter();
-  const [farmers, setFarmers] = useState<Farmer[]>([]);
-  const [isClient, setIsClient] = useState(false);
   
-  useEffect(() => {
-    // Busca a lista atualizada de agricultores quando o componente é montado no cliente
-    setFarmers(getFarmers());
-    setIsClient(true);
-  }, []);
+  // A busca de agricultores agora é síncrona e estável
+  const farmers = getFarmers();
 
   const handleLogin = (farmerId: string) => {
     login(farmerId, 'farmer');
@@ -50,7 +45,7 @@ export default function FarmerLoginPage() {
                 </CardDescription>
             </CardHeader>
             <CardContent className="grid gap-4">
-              {!isClient ? (
+              {farmers.length === 0 ? (
                 <div className="flex justify-center items-center h-48">
                   <Loader2 className="h-10 w-10 animate-spin text-primary" />
                 </div>
