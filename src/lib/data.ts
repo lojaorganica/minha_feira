@@ -176,7 +176,7 @@ const allMasterFruits: Product[] = [
     stock: 120,
   },
    {
-    id: 'prod-jabuticaba',
+    id: 'prod-jabuticaba-sitio-paraiso',
     name: 'Jabuticaba Orgânica',
     category: 'Fruta',
     price: 7.50,
@@ -1760,7 +1760,7 @@ let defaultFarmers: Farmer[] = [
     fairs: ['Tijuca', 'Grajaú'],
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/farmers%2Ffarmer_1.png?alt=media&token=8e945c2f-e8b9-43c3-9acb-d2e5a407336a'
   },
-  {
+    {
     id: '3',
     name: 'Sítio Tapera',
     responsibleName: 'Ailton Lima',
@@ -1796,7 +1796,7 @@ let defaultFarmers: Farmer[] = [
         state: 'RJ',
         zipCode: '25970-060'
     },
-pixKey: 'oneias.cachoeirinha1@email.com',
+    pixKey: 'oneias.cachoeirinha1@email.com',
     shippingCost: 22,
     phone: '5521965432109',
     fairs: ['Flamengo', 'Laranjeiras'],
@@ -1823,7 +1823,7 @@ pixKey: 'oneias.cachoeirinha1@email.com',
     fairs: ['Botafogo'],
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/farmers%2Ffarmer_5.png?alt=media&token=d4b29b6e-781c-4d5e-8e6d-6a5814529f7e'
   },
-  {
+   {
     id: '10',
     name: 'Sítio Cachoeirinha III',
     responsibleName: 'Wendel Oliveira',
@@ -2309,22 +2309,63 @@ const sitioParaisoProducts = [
     'Cebolinha Orgânica', 'Rúcula Selvagem Orgânica', 'Acelga Orgânica',
     'Repolho Verde Orgânico', 'Hortelã Orgânico', 'Banana Prata Orgânica',
     'Abobrinha Italiana Orgânica', 'Limão Galego Orgânico',
-    'Abóbora Japonesa (Cabotiá) Orgânica'
+    'Abóbora Japonesa (Cabotiá) Orgânica', 'Jabuticaba Orgânica'
 ];
 
 sitioParaisoProducts.forEach(productName => {
-    const product = allProducts.find(p => p.name === productName);
+    const product = allProducts.find(p => p.name === productName && p.farmerId !== '9');
     if (product) {
-        // Garante que o produto será associado ao Sítio Paraíso, mas evita criar duplicatas se já for dele.
-        // Se um produto é listado para o Sítio Paraíso mas está com outro farmerId, ele será corrigido.
-        if(product.farmerId !== '9') {
-             const paraisoProduct = allProducts.find(p => p.name === productName && p.farmerId === '9');
-             if(!paraisoProduct) {
-                product.farmerId = '9';
-             }
+        const paraisoProduct = {
+            ...product,
+            id: `sitio-paraiso-${product.id}`,
+            farmerId: '9'
+        };
+        const exists = allProducts.some(p => p.id === paraisoProduct.id);
+        if(!exists) {
+           allProducts.push(paraisoProduct);
+        }
+    } else {
+        // Se o produto não existe com nenhum outro fazendeiro, cria um novo.
+        const baseProduct = allProducts.find(p => p.name === productName);
+        if (baseProduct) {
+             const paraisoProduct = {
+                ...baseProduct,
+                id: `sitio-paraiso-${baseProduct.id}`,
+                farmerId: '9'
+            };
+            const exists = allProducts.some(p => p.id === paraisoProduct.id);
+            if(!exists) {
+               allProducts.push(paraisoProduct);
+            }
         }
     }
 });
+
+// Adiciona todos os alfaces para os agricultores especificados
+const targetFarmerIds = ['1', '3', '4', '5', '10'];
+const lettuceProducts = allProducts.filter(p => p.name.toLowerCase().includes('alface'));
+
+let productsToAdd: Product[] = [];
+
+targetFarmerIds.forEach(farmerId => {
+  let farmerHasProduct = allProducts.some(p => p.farmerId === farmerId);
+  if (farmerHasProduct) {
+      let farmerLettuces = allProducts.filter(p => p.farmerId === farmerId && p.name.toLowerCase().includes('alface'));
+      
+      let lettucesToAdd = lettuceProducts.filter(l => !farmerLettuces.some(fl => fl.name === l.name));
+      
+      lettucesToAdd.forEach(lettuce => {
+          productsToAdd.push({
+              ...lettuce,
+              id: `lettuce-${farmerId}-${lettuce.name.replace(/\s+/g, '-')}`,
+              farmerId: farmerId,
+          });
+      });
+  }
+});
+
+allProducts.push(...productsToAdd);
+
 
 
 // Remove produtos duplicados pelo ID para limpar
