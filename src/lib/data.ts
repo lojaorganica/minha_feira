@@ -1,5 +1,4 @@
 
-
 import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerClassification, CustomerAddress, ProductCategory } from './types';
 
 // ============================================================================
@@ -183,7 +182,7 @@ const allMasterFruits: Product[] = [
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/jabuticaba.webp?alt=media&token=1e844c51-b8a1-405b-b76a-5cbe8af963ef',
     dataAiHint: 'jabuticaba fruit',
-    farmerId: '2',
+    farmerId: '1',
     description: 'Jabuticabas orgânicas, doces e suculentas, colhidas diretamente do pé. Perfeitas para consumo in natura, geleias e licores.',
     status: 'active',
     stock: 25
@@ -2271,5 +2270,3 @@ export function addFarmer(farmerData: Omit<Farmer, 'id' | 'location' | 'image'>)
     setStoredData(FARMERS_KEY, allFarmers);
     return newFarmer;
 }
-
-    
