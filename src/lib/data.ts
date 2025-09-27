@@ -2313,194 +2313,194 @@ let defaultProducts: Product[] = [
 ];
 
 let defaultFarmers: Farmer[] = [
-  {
-    id: '1',
-    name: 'Sítio Fazenda Mata Verde',
-    responsibleName: 'Matias Ponte',
-    prepostos: ['Rui Ponte'],
-    location: { lat: -22.4632, lng: -42.9335 },
-    bio: 'Nossa fazenda se dedica ao cultivo orgânico, respeitando a natureza e oferecendo produtos frescos e saudáveis para a sua família. Temos orgulho de nossa produção sustentável.',
-    address: {
-      street: 'Estrada do Abalone',
-      number: 'S/N',
-      neighborhood: 'Vale das Videiras',
-      city: 'Petrópolis',
-      state: 'RJ',
-      zipCode: '25755-355'
-    },
-    pixKey: '21999998888',
-    shippingCost: 20,
-    phone: '21999998888',
-    fairs: ['Grajaú', 'Tijuca', 'Botafogo'],
-    image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/ec7b702951f343a493a3c252277d1303.png'
-  },
-  {
-    id: '2',
-    name: 'Sítio Tapera',
-    responsibleName: 'Ailton Lima',
-    prepostos: ['Valdeci', 'Alex'],
-    location: { lat: -22.5204, lng: -42.9818 },
-    bio: 'No Sítio Tapera, cultivamos uma grande variedade de frutas, legumes e verduras orgânicas com amor e dedicação. Venha provar o sabor da nossa terra!',
-    address: {
-      street: 'Rua das Perobas',
-      number: '123',
-      neighborhood: 'Centro',
-      city: 'Magé',
-      state: 'RJ',
-      zipCode: '25900-000'
-    },
-    pixKey: 'sitiotapera@email.com',
-    shippingCost: 18,
-    phone: '21988887777',
-    fairs: ['Flamengo', 'Laranjeiras'],
-    image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/5d8b7496924b422e85a796b42b10214a.png'
-  },
-  {
-    id: '3',
-    name: 'Sítio Cachoeirinha I',
-    responsibleName: 'Onéias Gonçalves',
-    prepostos: ['Lili', 'Roberto'],
-    location: { lat: -22.4014, lng: -43.1554 },
-    bio: 'Somos produtores orgânicos certificados, comprometidos em levar o melhor da natureza para a sua mesa. Nossos produtos são cultivados sem agrotóxicos.',
-    address: {
-      street: 'Estrada das Cachoeiras',
-      number: 'S/N',
-      neighborhood: 'Cachoeira Grande',
-      city: 'Teresópolis',
-      state: 'RJ',
-      zipCode: '25977-225'
-    },
-    pixKey: 'oneias.sitiocachoeirinha@email.com',
-    shippingCost: 22,
-    phone: '21977776666',
-    fairs: ['Grajaú', 'Tijuca'],
-    image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/e85f67568571404e9c704f77c8e9b62e.png'
-  },
-  {
-    id: '4',
-    name: 'Sítio Cachoeirinha II',
-    responsibleName: 'Walace Oliveira',
-    prepostos: ['Lucas', 'Felipe'],
-    location: { lat: -22.4020, lng: -43.1560 },
-    bio: 'Continuando a tradição da família, nosso sítio oferece produtos orgânicos de alta qualidade, cultivados com técnicas que preservam o meio ambiente.',
-    address: {
-      street: 'Estrada das Cachoeiras',
-      number: 'S/N',
-      neighborhood: 'Cachoeira Grande',
-      city: 'Teresópolis',
-      state: 'RJ',
-      zipCode: '25977-225'
-    },
-    pixKey: '01.234.567/0001-89',
-    shippingCost: 22,
-    phone: '21966665555',
-    fairs: ['Grajaú', 'Botafogo'],
-    image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/2497d39106ca46f6932454a8677c770b.png'
-  },
-  {
-    id: '5',
-    name: 'Sítio Cachoeirinha III',
-    responsibleName: 'Wendel Oliveira',
-    prepostos: ['Caio', 'Nathalia'],
-    location: { lat: -22.4025, lng: -43.1565 },
-    bio: 'Especializados em grãos e temperos, trazemos para você o melhor da agricultura familiar orgânica, com produtos sempre frescos e saborosos.',
-    address: {
-      street: 'Estrada das Cachoeiras',
-      number: 'S/N',
-      neighborhood: 'Cachoeira Grande',
-      city: 'Teresópolis',
-      state: 'RJ',
-      zipCode: '25977-225'
-    },
-    pixKey: 'wendel.sitiocachoeirinha@email.com',
-    phone: '21955554444',
-    fairs: ['Leme', 'Botafogo'],
-    image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/6fc13999e52c4224a1b02131976a4bd8.png'
-  },
-  {
-    id: '6',
-    name: 'Domicílio Orgânico',
-    responsibleName: 'Ivison Fragoso',
-    prepostos: ['Paloma', 'Nathalia'],
-    location: { lat: -22.9519, lng: -43.2105 },
-    bio: 'Focados em frutas da estação e PANCs (Plantas Alimentícias Não Convencionais), oferecemos sabores únicos e nutritivos para enriquecer sua alimentação.',
-    address: {
-      street: 'Rua Humaitá',
-      number: '123',
-      neighborhood: 'Humaitá',
-      city: 'Rio de Janeiro',
-      state: 'RJ',
-      zipCode: '22261-001'
-    },
-    pixKey: 'domicilio.organico@email.com',
-    shippingCost: 15,
-    phone: '21944443333',
-    fairs: ['Flamengo', 'Laranjeiras'],
-    image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/a56a65576a8f4c179c381c19b33a5585.png'
-  },
-  {
-    id: '8',
-    name: 'Naturalmente Orgânicos',
-    responsibleName: 'Lúcia Rodrigues',
-    prepostos: [],
-    location: { lat: -22.3879, lng: -42.9737 },
-    bio: 'Somos um grupo de produtores orgânicos de Friburgo, dedicados a trazer produtos frescos da serra para a cidade, valorizando a agricultura familiar.',
-    address: {
-        street: 'Estrada do Amparo',
+    {
+      id: '1',
+      name: 'Sítio Fazenda Mata Verde',
+      responsibleName: 'Matias Ponte',
+      prepostos: ['Rui Ponte'],
+      location: { lat: -22.4632, lng: -42.9335 },
+      bio: 'Nossa fazenda se dedica ao cultivo orgânico, respeitando a natureza e oferecendo produtos frescos e saudáveis para a sua família. Temos orgulho de nossa produção sustentável.',
+      address: {
+        street: 'Estrada do Abalone',
         number: 'S/N',
-        neighborhood: 'Amparo',
-        city: 'Nova Friburgo',
+        neighborhood: 'Vale das Videiras',
+        city: 'Petrópolis',
         state: 'RJ',
-        zipCode: '28605-970'
+        zipCode: '25755-355'
+      },
+      pixKey: '21999998888',
+      shippingCost: 20,
+      phone: '21999998888',
+      fairs: ['Grajaú', 'Tijuca', 'Botafogo'],
+      image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/ec7b702951f343a493a3c252277d1303.png'
     },
-    pixKey: 'naturalmente.organicos@email.com',
-    shippingCost: 25,
-    phone: '22998887777',
-    fairs: ['Leme', 'Botafogo'],
-    image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/256860a4f5f54366b5ab0a9f5d68d184.png'
-  },
-  {
-    id: '9',
-    name: 'Sítio Paraíso',
-    responsibleName: 'Ronilson',
-    prepostos: ['Rosa'],
-    location: { lat: -22.3571, lng: -43.0886 },
-    bio: 'Cultivamos uma variedade de verduras, legumes e a deliciosa jabuticaba, tudo com certificação orgânica e muito carinho pela terra.',
-    address: {
-        street: 'Estrada do Paraíso',
-        number: '777',
-        neighborhood: 'Vargem Grande',
+    {
+        id: '2',
+        name: 'Sítio Tapera',
+        responsibleName: 'Ailton Lima',
+        prepostos: ['Valdeci', 'Alex'],
+        location: { lat: -22.5204, lng: -42.9818 },
+        bio: 'No Sítio Tapera, cultivamos uma grande variedade de frutas, legumes e verduras orgânicas com amor e dedicação. Venha provar o sabor da nossa terra!',
+        address: {
+            street: 'Rua das Perobas',
+            number: '123',
+            neighborhood: 'Centro',
+            city: 'Magé',
+            state: 'RJ',
+            zipCode: '25900-000'
+        },
+        pixKey: 'sitiotapera@email.com',
+        shippingCost: 18,
+        phone: '21988887777',
+        fairs: ['Flamengo', 'Laranjeiras'],
+        image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/5d8b7496924b422e85a796b42b10214a.png'
+    },
+    {
+      id: '3',
+      name: 'Sítio Cachoeirinha I',
+      responsibleName: 'Onéias Gonçalves',
+      prepostos: ['Lili', 'Roberto'],
+      location: { lat: -22.4014, lng: -43.1554 },
+      bio: 'Somos produtores orgânicos certificados, comprometidos em levar o melhor da natureza para a sua mesa. Nossos produtos são cultivados sem agrotóxicos.',
+      address: {
+        street: 'Estrada das Cachoeiras',
+        number: 'S/N',
+        neighborhood: 'Cachoeira Grande',
         city: 'Teresópolis',
         state: 'RJ',
-        zipCode: '25977-000'
+        zipCode: '25977-225'
+      },
+      pixKey: 'oneias.sitiocachoeirinha@email.com',
+      shippingCost: 22,
+      phone: '21977776666',
+      fairs: ['Grajaú', 'Tijuca'],
+      image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/e85f67568571404e9c704f77c8e9b62e.png'
     },
-    pixKey: 'sitioparaiso.vendas@email.com',
-    shippingCost: 23,
-    phone: '21987654321',
-    fairs: ['Tijuca', 'Grajaú'],
-    image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/e3bb697525ad482084b655d957d69b2d.png'
-  },
-  {
-    id: '134',
-    name: 'Loja Orgânica',
-    responsibleName: 'Marcos Melo',
-    prepostos: ['Felipe', 'Rosana'],
-    location: { lat: -22.9519, lng: -43.2105 },
-    bio: 'A Loja Orgânica é um empório de produtos orgânicos certificados, com foco em mel, derivados e outros produtos de mercearia. Nossa missão é oferecer saúde e sabor, conectando você aos melhores produtores.',
-    address: {
-        street: 'Rua General Glicério',
-        number: '445',
-        neighborhood: 'Laranjeiras',
+    {
+      id: '4',
+      name: 'Sítio Cachoeirinha II',
+      responsibleName: 'Walace Oliveira',
+      prepostos: ['Lucas', 'Felipe'],
+      location: { lat: -22.4020, lng: -43.1560 },
+      bio: 'Continuando a tradição da família, nosso sítio oferece produtos orgânicos de alta qualidade, cultivados com técnicas que preservam o meio ambiente.',
+      address: {
+        street: 'Estrada das Cachoeiras',
+        number: 'S/N',
+        neighborhood: 'Cachoeira Grande',
+        city: 'Teresópolis',
+        state: 'RJ',
+        zipCode: '25977-225'
+      },
+      pixKey: '01.234.567/0001-89',
+      shippingCost: 22,
+      phone: '21966665555',
+      fairs: ['Grajaú', 'Botafogo'],
+      image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/2497d39106ca46f6932454a8677c770b.png'
+    },
+    {
+      id: '5',
+      name: 'Sítio Cachoeirinha III',
+      responsibleName: 'Wendel Oliveira',
+      prepostos: ['Caio', 'Nathalia'],
+      location: { lat: -22.4025, lng: -43.1565 },
+      bio: 'Especializados em grãos e temperos, trazemos para você o melhor da agricultura familiar orgânica, com produtos sempre frescos e saborosos.',
+      address: {
+        street: 'Estrada das Cachoeiras',
+        number: 'S/N',
+        neighborhood: 'Cachoeira Grande',
+        city: 'Teresópolis',
+        state: 'RJ',
+        zipCode: '25977-225'
+      },
+      pixKey: 'wendel.sitiocachoeirinha@email.com',
+      phone: '21955554444',
+      fairs: ['Leme', 'Botafogo'],
+      image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/6fc13999e52c4224a1b02131976a4bd8.png'
+    },
+    {
+      id: '6',
+      name: 'Domicílio Orgânico',
+      responsibleName: 'Ivison Fragoso',
+      prepostos: ['Paloma', 'Nathalia'],
+      location: { lat: -22.9519, lng: -43.2105 },
+      bio: 'Focados em frutas da estação e PANCs (Plantas Alimentícias Não Convencionais), oferecemos sabores únicos e nutritivos para enriquecer sua alimentação.',
+      address: {
+        street: 'Rua Humaitá',
+        number: '123',
+        neighborhood: 'Humaitá',
         city: 'Rio de Janeiro',
         state: 'RJ',
-        zipCode: '22245-120'
+        zipCode: '22261-001'
+      },
+      pixKey: 'domicilio.organico@email.com',
+      shippingCost: 15,
+      phone: '21944443333',
+      fairs: ['Flamengo', 'Laranjeiras'],
+      image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/a56a65576a8f4c179c381c19b33a5585.png'
     },
-    pixKey: 'vendas@lojaorganica.com',
-    shippingCost: 15,
-    phone: '21988776655',
-    fairs: ['Tijuca', 'Grajaú', 'Botafogo', 'Flamengo', 'Laranjeiras', 'Leme'],
-    image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/10444391b1514785b98f265691456d2e.png'
-  },
+    {
+      id: '8',
+      name: 'Naturalmente Orgânicos',
+      responsibleName: 'Lúcia Rodrigues',
+      prepostos: [],
+      location: { lat: -22.3879, lng: -42.9737 },
+      bio: 'Somos um grupo de produtores orgânicos de Friburgo, dedicados a trazer produtos frescos da serra para a cidade, valorizando a agricultura familiar.',
+      address: {
+          street: 'Estrada do Amparo',
+          number: 'S/N',
+          neighborhood: 'Amparo',
+          city: 'Nova Friburgo',
+          state: 'RJ',
+          zipCode: '28605-970'
+      },
+      pixKey: 'naturalmente.organicos@email.com',
+      shippingCost: 25,
+      phone: '22998887777',
+      fairs: ['Leme', 'Botafogo'],
+      image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/256860a4f5f54366b5ab0a9f5d68d184.png'
+    },
+    {
+      id: '9',
+      name: 'Sítio Paraíso',
+      responsibleName: 'Ronilson',
+      prepostos: ['Rosa'],
+      location: { lat: -22.3571, lng: -43.0886 },
+      bio: 'Cultivamos uma variedade de verduras, legumes e a deliciosa jabuticaba, tudo com certificação orgânica e muito carinho pela terra.',
+      address: {
+          street: 'Estrada do Paraíso',
+          number: '777',
+          neighborhood: 'Vargem Grande',
+          city: 'Teresópolis',
+          state: 'RJ',
+          zipCode: '25977-000'
+      },
+      pixKey: 'sitioparaiso.vendas@email.com',
+      shippingCost: 23,
+      phone: '21987654321',
+      fairs: ['Tijuca', 'Grajaú'],
+      image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/e3bb697525ad482084b655d957d69b2d.png'
+    },
+    {
+      id: '134',
+      name: 'Loja Orgânica',
+      responsibleName: 'Marcos Melo',
+      prepostos: ['Felipe', 'Rosana'],
+      location: { lat: -22.9519, lng: -43.2105 },
+      bio: 'A Loja Orgânica é um empório de produtos orgânicos certificados, com foco em mel, derivados e outros produtos de mercearia. Nossa missão é oferecer saúde e sabor, conectando você aos melhores produtores.',
+      address: {
+          street: 'Rua General Glicério',
+          number: '445',
+          neighborhood: 'Laranjeiras',
+          city: 'Rio de Janeiro',
+          state: 'RJ',
+          zipCode: '22245-120'
+      },
+      pixKey: 'vendas@lojaorganica.com',
+      shippingCost: 15,
+      phone: '21988776655',
+      fairs: ['Tijuca', 'Grajaú', 'Botafogo', 'Flamengo', 'Laranjeiras', 'Leme'],
+      image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/10444391b1514785b98f265691456d2e.png'
+    },
 ];
 
 let defaultCustomers: Customer[] = [
