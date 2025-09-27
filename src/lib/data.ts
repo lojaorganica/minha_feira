@@ -814,7 +814,7 @@ let defaultProducts: Product[] = [
     stock: 0,
   },
   {
-    id: '7',
+    id: '7-prod',
     name: 'Abóbora Moranga Orgânica',
     category: 'Legume',
     price: 4.00,
@@ -827,7 +827,7 @@ let defaultProducts: Product[] = [
     stock: 15,
   },
   {
-    id: '8',
+    id: '8-prod',
     name: 'Couve Mineira Orgânica',
     category: 'Verdura',
     price: 2.20,
@@ -1704,7 +1704,7 @@ let defaultProducts: Product[] = [
     price: 3.80,
     unit: 'kg',
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pepino_japones.webp?alt=media&token=c79ef86b-0c7a-457a-9491-7e9854b72d93',
-    farmerId: '7',
+    farmerId: '8',
     description: 'Pepino japonês orgânico, com menos sementes e casca fina, perfeito para saladas crocantes e conservas.',
     status: 'active',
     stock: 40
@@ -1841,7 +1841,7 @@ let defaultFarmers: Farmer[] = [
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/farmers%2Ffarmer_6.png?alt=media&token=f0d23588-466a-4d26-8094-c8c362a7596a'
   },
   {
-    id: '7',
+    id: '8',
     name: 'Naturalmente Orgânicos',
     responsibleName: 'Lúcia Rodrigues',
     prepostos: [],
@@ -2043,9 +2043,9 @@ function hydrateOnce() {
     allOrders = getStoredData(ORDERS_KEY, defaultOrders);
 
     // Garante que o novo agricultor exista na lista. Se não, adiciona e salva.
-    const naturalmenteOrganicosExists = allFarmers.some(f => f.id === '7');
+    const naturalmenteOrganicosExists = allFarmers.some(f => f.id === '8');
     if (!naturalmenteOrganicosExists) {
-        const naturalmenteOrganicos = defaultFarmers.find(f => f.id === '7');
+        const naturalmenteOrganicos = defaultFarmers.find(f => f.id === '8');
         if (naturalmenteOrganicos) {
             allFarmers.push(naturalmenteOrganicos);
             setStoredData(FARMERS_KEY, allFarmers);
