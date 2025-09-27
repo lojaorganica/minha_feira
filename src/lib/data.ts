@@ -175,6 +175,19 @@ const allMasterFruits: Product[] = [
     status: 'active',
     stock: 120,
   },
+   {
+    id: 'prod-jabuticaba',
+    name: 'Jabuticaba Orgânica',
+    category: 'Fruta',
+    price: 7.50,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/jabuticaba.webp?alt=media&token=1e844c51-b8a1-405b-b76a-5cbe8af963ef',
+    dataAiHint: 'jabuticaba fruit',
+    farmerId: '2',
+    description: 'Jabuticabas orgânicas, doces e suculentas, colhidas diretamente do pé. Perfeitas para consumo in natura, geleias e licores.',
+    status: 'active',
+    stock: 25
+  },
   {
     id: '17',
     name: 'Manga Palmer Orgânica',
