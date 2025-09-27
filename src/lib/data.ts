@@ -1,4 +1,5 @@
 
+
 import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerClassification, CustomerAddress, ProductCategory } from './types';
 
 // ============================================================================
@@ -1721,6 +1722,19 @@ let defaultProducts: Product[] = [
     status: 'active',
     stock: 40
   },
+  {
+    id: 'prod-peixinho',
+    name: 'Peixinho Orgânico',
+    category: 'Verdura',
+    price: 4.00,
+    unit: 'maço',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/peixinho.webp?alt=media&token=1c437214-7582-410f-9649-03511cf4f674',
+    dataAiHint: 'lambs ear',
+    farmerId: '9',
+    description: 'Peixinho da horta, folhas aveludadas que, quando empanadas e fritas, lembram o sabor de peixe. Uma PANC surpreendente.',
+    status: 'active',
+    stock: 15
+  },
 ];
 
 let defaultFarmers: Farmer[] = [
@@ -1873,6 +1887,28 @@ let defaultFarmers: Farmer[] = [
     phone: '5521921098765',
     fairs: ['Tijuca'],
     image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/farmers%2Ffarmer_8.png?alt=media&token=42a3e35a-939e-4b77-8c38-0382744e82e3'
+  },
+   {
+    id: '9',
+    name: 'Sítio Paraíso',
+    responsibleName: 'Ronilson',
+    prepostos: [],
+    location: { lat: -22.4277, lng: -42.9847 },
+    bio: 'No Sítio Paraíso, cultivamos com amor e respeito à natureza para levar até você alimentos orgânicos frescos e cheios de sabor. Nossa missão é promover a saúde e o bem-estar através de uma agricultura sustentável.',
+    address: {
+        street: 'Estrada do Paraíso',
+        number: '1500',
+        complement: '',
+        neighborhood: 'Zona Rural',
+        city: 'Teresópolis',
+        state: 'RJ',
+        zipCode: '25970-456'
+    },
+    pixKey: 'ronilson.paraiso@email.com',
+    shippingCost: 20,
+    phone: '5521912345678',
+    fairs: ['Grajaú'],
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/farmers%2Ffarmer_9.png?alt=media&token=262646d5-11e4-4d82-b7e1-85e3a7a92c4d'
   },
   {
     id: '134',
@@ -2054,15 +2090,35 @@ function hydrateOnce() {
     allCustomers = getStoredData(CUSTOMERS_KEY, defaultCustomers);
     allOrders = getStoredData(ORDERS_KEY, defaultOrders);
 
+    const sitioParaisoExists = allFarmers.some(f => f.id === '9');
+    if (!sitioParaisoExists) {
+        const sitioParaiso = defaultFarmers.find(f => f.id === '9');
+        if(sitioParaiso) {
+            allFarmers.push(sitioParaiso);
+        }
+    }
+
+
     // Garante que o novo agricultor exista na lista. Se não, adiciona e salva.
     const naturalmenteOrganicosExists = allFarmers.some(f => f.id === '8');
     if (!naturalmenteOrganicosExists) {
         const naturalmenteOrganicos = defaultFarmers.find(f => f.id === '8');
         if (naturalmenteOrganicos) {
             allFarmers.push(naturalmenteOrganicos);
-            setStoredData(FARMERS_KEY, allFarmers);
         }
     }
+
+     // Garante que o novo agricultor exista na lista. Se não, adiciona e salva.
+    const farmer134Exists = allFarmers.some(f => f.id === '134');
+    if (!farmer134Exists) {
+        const farmer134 = defaultFarmers.find(f => f.id === '134');
+        if (farmer134) {
+            allFarmers.push(farmer134);
+        }
+    }
+
+    setStoredData(FARMERS_KEY, allFarmers);
+
 
     // Simplifica a lógica de produtos para sempre usar a lista do código-fonte como a fonte da verdade.
     // Isso evita o problema de hidratação onde a lista de produtos é sobrescrita por uma versão antiga do cache.
@@ -2270,3 +2326,55 @@ export function addFarmer(farmerData: Omit<Farmer, 'id' | 'location' | 'image'>)
     setStoredData(FARMERS_KEY, allFarmers);
     return newFarmer;
 }
+
+// Associa os produtos listados ao Sítio Paraíso (ID 9)
+const sitioParaisoProducts = [
+    'Cenouras Orgânicas', 'Tomatinho Cereja Orgânico', 'Couve Mineira Orgânica',
+    'Almeirão Orgânico', 'Peixinho Orgânico', 'Alface Lisa Orgânica',
+    'Alface Americana Orgânica', 'Alface Romana Orgânica', 'Alface Mimosa Verde Orgânica',
+    'Alface Crespa Orgânica', 'Espinafre Orgânico', 'Agrião Orgânico',
+    'Cebolinha Orgânica', 'Rúcula Selvagem Orgânica', 'Acelga Orgânica',
+    'Repolho Verde Orgânico', 'Hortelã Orgânico', 'Banana Prata Orgânica',
+    'Abobrinha Italiana Orgânica', 'Limão Galego Orgânico',
+    'Abóbora Japonesa (Cabotiá) Orgânica'
+];
+
+sitioParaisoProducts.forEach(productName => {
+    const product = allProducts.find(p => p.name === productName);
+    if (product) {
+        product.farmerId = '9';
+    }
+});
+
+// Garante que todos os produtos do sítio paraíso existam e estejam associados
+const paraisoProductCopies = sitioParaisoProducts.map(name => {
+    const originalProduct = allProducts.find(p => p.name === name);
+    if(originalProduct) {
+        // Cria uma cópia com um novo ID para evitar duplicatas, se necessário.
+        return {
+            ...originalProduct,
+            id: `paraiso-${originalProduct.id}`,
+            farmerId: '9'
+        };
+    }
+    return null;
+}).filter((p): p is Product => p !== null);
+
+// Remove duplicatas por nome antes de adicionar
+const existingParaisoProductNames = new Set(allProducts.filter(p => p.farmerId === '9').map(p => p.name));
+const newProductsForParaiso = paraisoProductCopies.filter(p => !existingParaisoProductNames.has(p.name));
+allProducts.push(...newProductsForParaiso);
+
+// Atualiza o farmerId dos produtos que já existem e deveriam ser do Sítio Paraíso
+allProducts.forEach(p => {
+    if (sitioParaisoProducts.includes(p.name)) {
+        p.farmerId = '9';
+    }
+});
+
+// Remove produtos duplicados pelo ID para limpar
+const finalUniqueProducts = Array.from(new Map(allProducts.map(item => [item.id, item])).values());
+allProducts = finalUniqueProducts;
+
+setStoredData('minha_feira_products_v6', allProducts);
+
