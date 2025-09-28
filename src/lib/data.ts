@@ -1740,7 +1740,33 @@ let defaultProducts: Product[] = [
   ...sitioParaisoLettuces,
   ...allMasterFruits,
   ...domicilioOrganicoProducts,
-  ...lojaOrganicaProducts
+  ...lojaOrganicaProducts,
+  {
+    id: 'prod-domicilio-abobora-japonesa',
+    name: 'Abóbora Japonesa (Cabotiá) Orgânica',
+    category: 'Legume',
+    price: 3.50,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/abobora_japonesa.webp?alt=media&token=9cc8d464-1f1a-404e-8d32-aeddadc861ba',
+    dataAiHint: 'kabocha squash',
+    farmerId: '6',
+    description: 'Abóbora japonesa, também conhecida como cabotiá, com polpa adocicada e textura macia.',
+    status: 'active',
+    stock: 10,
+  },
+  {
+    id: 'prod-domicilio-alho',
+    name: 'Alho Orgânico',
+    category: 'Tempero',
+    price: 3.00,
+    unit: 'kg',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alho.webp?alt=media&token=8071bc57-cdd1-4105-98da-6253f6f13050',
+    dataAiHint: 'garlic',
+    farmerId: '6',
+    description: 'Alho orgânico de sabor intenso, essencial para temperar seus pratos.',
+    status: 'active',
+    stock: 50,
+  },
 ];
 
 let defaultFarmers: Farmer[] = [
@@ -1750,7 +1776,7 @@ let defaultFarmers: Farmer[] = [
       responsibleName: 'Matias Ponte',
       prepostos: ['Rui Ponte'],
       location: { lat: -22.4632, lng: -42.9335 },
-      bio: 'Nossa fazenda se dedica ao cultivo orgânico, respeitando a naturez e oferecendo produtos frescos e saudáveis para a sua família. Temos orgulho de nossa produção sustentável.',
+      bio: 'Nossa fazenda se dedica ao cultivo orgânico, respeitando a natureza e oferecendo produtos frescos e saudáveis para a sua família. Temos orgulho de nossa produção sustentável.',
       address: {
         street: 'Estrada do Abalone',
         number: 'S/N',
