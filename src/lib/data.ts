@@ -931,6 +931,32 @@ let defaultProducts: Product[] = [
     status: 'active',
     stock: 50,
   },
+   {
+    id: 'shiitake-domicilio',
+    name: 'Cogumelo Shiitake Orgânico',
+    category: 'Legume',
+    price: 5.00,
+    unit: 'caixa',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/cogumelo_shiitake.webp?alt=media&token=615a3beb-c8b5-49cf-915f-0b592a701df3',
+    dataAiHint: 'shiitake mushroom',
+    farmerId: '6',
+    description: 'Cogumelos Shiitake orgânicos, de sabor rico e textura carnuda. Perfeitos para risotos, refogados e pratos asiáticos.',
+    status: 'active',
+    stock: 20
+  },
+  {
+    id: 'shiitake-mata-verde',
+    name: 'Cogumelo Shiitake Orgânico',
+    category: 'Legume',
+    price: 5.00,
+    unit: 'caixa',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/cogumelo_shiitake.webp?alt=media&token=615a3beb-c8b5-49cf-915f-0b592a701df3',
+    dataAiHint: 'shiitake mushroom',
+    farmerId: '1',
+    description: 'Cogumelos Shiitake orgânicos, de sabor rico e textura carnuda. Perfeitos para risotos, refogados e pratos asiáticos.',
+    status: 'active',
+    stock: 20
+  },
   {
     id: 'alface-americana-farmer-2',
     name: 'Alface Americana Orgânica',
