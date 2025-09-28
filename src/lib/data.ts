@@ -10,7 +10,7 @@ import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerClas
 // O aplicativo agora carrega os dados "de fábrica" diretamente do código-fonte,
 // eliminando problemas de dessincronização e a "piscada" na tela.
 
-const FARMERS_KEY = 'minha_feira_farmers_v3';
+const FARMERS_KEY = 'minha_feira_farmers_v4';
 const ORDERS_KEY = 'minha_feira_orders';
 const CUSTOMERS_KEY = 'minha_feira_customers';
 
