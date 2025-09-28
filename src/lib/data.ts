@@ -785,6 +785,35 @@ const domicilioOrganicoProducts: Product[] = [
     }))
 ];
 
+const allLattuces = [
+    { id: 'alface-americana', name: 'Alface Americana Orgânica', price: 3.5, image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_americana.webp?alt=media&token=d745a4e5-1f8c-4333-8a8a-48a4201d308a', hint: 'iceberg lettuce', desc: 'Alface americana crocante e refrescante, ideal para sanduíches e saladas.' },
+    { id: 'alface-lisa', name: 'Alface Lisa Orgânica', price: 2.8, image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_lisa.webp?alt=media&token=ced73d99-300e-4904-9072-9c8e4fcecd79', hint: 'butter lettuce', desc: 'Alface lisa de folhas macias e sabor suave, perfeita para saladas delicadas.' },
+    { id: 'alface-crespa', name: 'Alface Crespa Orgânica', price: 2.8, image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_crespa.webp?alt=media&token=a057c9ac-0fe9-40b0-a016-49d16b016941', hint: 'leaf lettuce', desc: 'Alface crespa com folhas crocantes e textura ondulada, ideal para sanduíches.' },
+    { id: 'alface-roxa', name: 'Alface Roxa Orgânica', price: 3, image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_roxa.webp?alt=media&token=c566920b-b13c-4d87-916a-813e320aedec', hint: 'red leaf lettuce', desc: 'Alface roxa, adiciona cor e um sabor levemente amargo às suas saladas.' },
+    { id: 'alface-romana', name: 'Alface Romana Orgânica', price: 3.2, image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_romana.webp?alt=media&token=f0a4afb0-0d99-48ad-88a2-0e3a8f048d17', hint: 'romaine lettuce', desc: 'Alface romana, com folhas longas e crocantes, ideal para a salada Caesar.' },
+    { id: 'alface-frisee', name: 'Alface Frisée Orgânica', price: 3.3, image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_frisee.webp?alt=media&token=060f2493-fb76-4a37-b40a-5de7bd0981c9', hint: 'frisee lettuce', desc: 'Alface Frisée, com folhas finas, rendadas e um sabor levemente amargo, ideal para saladas sofisticadas.' },
+    { id: 'alface-mimosa-roxa', name: 'Alface Mimosa Roxa Orgânica', price: 3.1, image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_mimosa_roxa.webp?alt=media&token=c8b001dc-6f00-486f-af0a-22c99ed83d01', hint: 'red mimosa lettuce', desc: 'Alface Mimosa com folhas tenras e bordas avermelhadas, de sabor suave e amanteigado.' },
+    { id: 'alface-mimosa-verde', name: 'Alface Mimosa Verde Orgânica', price: 3.1, image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_mimosa_verde.webp?alt=media&token=4635346b-69f9-4a54-94b6-8cb1b85f4afb', hint: 'green mimosa lettuce', desc: 'Alface Mimosa de folhas macias e sabor delicado, uma variedade clássica e muito apreciada.' },
+];
+
+const farmersWhoSellAllLattuces = ['1', '2', '3', '4', '5'];
+const lettuceProductsForMultipleFarmers = allLattuces.flatMap((lettuce) =>
+    farmersWhoSellAllLattuces.map((farmerId) => ({
+      id: `${lettuce.id}-farmer-${farmerId}`,
+      name: lettuce.name,
+      category: 'Verdura' as ProductCategory,
+      price: lettuce.price,
+      unit: 'unidade',
+      image: lettuce.image,
+      dataAiHint: lettuce.hint,
+      farmerId: farmerId,
+      description: lettuce.desc,
+      status: 'active' as 'active' | 'paused',
+      stock: 30, // Default stock
+    }))
+);
+
+
 // Initial default data
 let defaultProducts: Product[] = [
    {
@@ -1592,31 +1621,8 @@ let defaultProducts: Product[] = [
     status: 'active',
     stock: 15
   },
-  ...[
-    { id: 'alface-americana', name: 'Alface Americana Orgânica', price: 3.5, image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_americana.webp?alt=media&token=d745a4e5-1f8c-4333-8a8a-48a4201d308a', hint: 'iceberg lettuce', desc: 'Alface americana crocante e refrescante, ideal para sanduíches e saladas.' },
-    { id: 'alface-lisa', name: 'Alface Lisa Orgânica', price: 2.8, image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_lisa.webp?alt=media&token=ced73d99-300e-4904-9072-9c8e4fcecd79', hint: 'butter lettuce', desc: 'Alface lisa de folhas macias e sabor suave, perfeita para saladas delicadas.' },
-    { id: 'alface-crespa', name: 'Alface Crespa Orgânica', price: 2.8, image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_crespa.webp?alt=media&token=a057c9ac-0fe9-40b0-a016-49d16b016941', hint: 'leaf lettuce', desc: 'Alface crespa com folhas crocantes e textura ondulada, ideal para sanduíches.' },
-    { id: 'alface-roxa', name: 'Alface Roxa Orgânica', price: 3, image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_roxa.webp?alt=media&token=c566920b-b13c-4d87-916a-813e320aedec', hint: 'red leaf lettuce', desc: 'Alface roxa, adiciona cor e um sabor levemente amargo às suas saladas.' },
-    { id: 'alface-romana', name: 'Alface Romana Orgânica', price: 3.2, image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_romana.webp?alt=media&token=f0a4afb0-0d99-48ad-88a2-0e3a8f048d17', hint: 'romaine lettuce', desc: 'Alface romana, com folhas longas e crocantes, ideal para a salada Caesar.' },
-    { id: 'alface-frisee', name: 'Alface Frisée Orgânica', price: 3.3, image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_frisee.webp?alt=media&token=060f2493-fb76-4a37-b40a-5de7bd0981c9', hint: 'frisee lettuce', desc: 'Alface Frisée, com folhas finas, rendadas e um sabor levemente amargo, ideal para saladas sofisticadas.' },
-    { id: 'alface-mimosa-roxa', name: 'Alface Mimosa Roxa Orgânica', price: 3.1, image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_mimosa_roxa.webp?alt=media&token=c8b001dc-6f00-486f-af0a-22c99ed83d01', hint: 'red mimosa lettuce', desc: 'Alface Mimosa com folhas tenras e bordas avermelhadas, de sabor suave e amanteigado.' },
-    { id: 'alface-mimosa-verde', name: 'Alface Mimosa Verde Orgânica', price: 3.1, image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alface_mimosa_verde.webp?alt=media&token=4635346b-69f9-4a54-94b6-8cb1b85f4afb', hint: 'green mimosa lettuce', desc: 'Alface Mimosa de folhas macias e sabor delicado, uma variedade clássica e muito apreciada.' },
-  ].flatMap((lettuce) =>
-    ['1', '2', '3', '4', '5'].map((farmerId) => ({
-      id: `${lettuce.id}-farmer-${farmerId}`,
-      name: lettuce.name,
-      category: 'Verdura' as ProductCategory,
-      price: lettuce.price,
-      unit: 'unidade',
-      image: lettuce.image,
-      dataAiHint: lettuce.hint,
-      farmerId: farmerId,
-      description: lettuce.desc,
-      status: 'active' as 'active' | 'paused',
-      stock: 30, // Default stock
-    }))
-  ),
-   ...allMasterFruits,
+  ...lettuceProductsForMultipleFarmers,
+  ...allMasterFruits,
   ...domicilioOrganicoProducts,
   ...lojaOrganicaProducts
 ];
