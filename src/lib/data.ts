@@ -6,11 +6,8 @@ import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerClas
 // IN-MEMORY DATA STORE
 // ============================================================================
 
-// A lógica complexa de hidratação e cache foi removida para garantir estabilidade.
-// O aplicativo agora carrega os dados "de fábrica" diretamente do código-fonte,
-// eliminando problemas de dessincronização e a "piscada" na tela.
-
 const FARMERS_KEY = 'minha_feira_farmers_v4';
+const PRODUCTS_KEY = 'minha_feira_products_v4';
 const ORDERS_KEY = 'minha_feira_orders';
 const CUSTOMERS_KEY = 'minha_feira_customers';
 
@@ -1621,7 +1618,7 @@ let defaultProducts: Product[] = [
     status: 'active',
     stock: 15
   },
-  ...lettuceProductsForMultipleFarmers.filter(p => p.farmerId !== '2'), // Keep only Tapera's original lettuces
+  ...lettuceProductsForMultipleFarmers,
   ...allMasterFruits,
   ...domicilioOrganicoProducts,
   ...lojaOrganicaProducts
@@ -1946,30 +1943,6 @@ let defaultOrders: Order[] = [
   },
 ];
 
-// Combine all lettuce products for Sítio Tapera (farmerId: '2')
-const sitioTaperaLattuces = allLattuces.map(lettuce => ({
-  id: `lettuce-${lettuce.id}-farmer-2`,
-  name: lettuce.name,
-  category: 'Verdura' as ProductCategory,
-  price: lettuce.price,
-  unit: 'unidade',
-  image: lettuce.image,
-  dataAiHint: lettuce.hint,
-  farmerId: '2',
-  description: lettuce.desc,
-  status: 'active' as 'active' | 'paused',
-  stock: 30, // Default stock
-}));
-
-// Filter out all lettuce products that were previously destined for Sítio Tapera
-const otherFarmerLettuces = lettuceProductsForMultipleFarmers.filter(p => p.farmerId !== '2');
-
-// Rebuild defaultProducts with the cleaned list
-defaultProducts = [
-  ...defaultProducts.filter(p => !(p.farmerId === '2' && p.name.includes('Alface'))), // Remove old lettuces from Tapera
-  ...sitioTaperaLattuces, // Add the new, unique lettuces for Tapera
-];
-
 // Data management functions
 let productsData: Product[] = [];
 let farmersData: Farmer[] = [];
@@ -1977,7 +1950,7 @@ let ordersData: Order[] = [];
 let customersData: Customer[] = [];
 
 function initializeData() {
-  productsData = getStoredData<Product>('minha_feira_products_v3', defaultProducts);
+  productsData = getStoredData<Product>(PRODUCTS_KEY, defaultProducts);
   farmersData = getStoredData<Farmer>(FARMERS_KEY, defaultFarmers);
   ordersData = getStoredData<Order>(ORDERS_KEY, defaultOrders);
   customersData = getStoredData<Customer>(CUSTOMERS_KEY, defaultCustomers);
@@ -2001,7 +1974,7 @@ function initializeData() {
     }
   });
 
-  setStoredData('minha_feira_products_v3', productsData);
+  setStoredData(PRODUCTS_KEY, productsData);
   setStoredData(FARMERS_KEY, farmersData);
 }
 
@@ -2052,7 +2025,7 @@ export function toggleProductPromotion(productId: string, isActive: boolean) {
                 expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
             }
         };
-        setStoredData('minha_feira_products_v3', productsData);
+        setStoredData(PRODUCTS_KEY, productsData);
     }
 }
 
@@ -2060,7 +2033,7 @@ export function toggleProductStatus(productId: string, status: 'active' | 'pause
     const productIndex = productsData.findIndex(p => p.id === productId);
     if (productIndex !== -1) {
         productsData[productIndex].status = status;
-        setStoredData('minha_feira_products_v3', productsData);
+        setStoredData(PRODUCTS_KEY, productsData);
     }
 }
 
@@ -2071,14 +2044,14 @@ export function addProduct(productData: Omit<Product, 'id' | 'status'>) {
         status: 'active',
     };
     productsData.unshift(newProduct); // Add to the beginning
-    setStoredData('minha_feira_products_v3', productsData);
+    setStoredData(PRODUCTS_KEY, productsData);
 }
 
 export function updateProduct(productId: string, updates: Partial<Product>) {
     const productIndex = productsData.findIndex(p => p.id === productId);
     if (productIndex !== -1) {
         productsData[productIndex] = { ...productsData[productIndex], ...updates };
-        setStoredData('minha_feira_products_v3', productsData);
+        setStoredData(PRODUCTS_KEY, productsData);
     }
 }
 
@@ -2086,13 +2059,13 @@ export function updateProductStock(productId: string, newStock: number) {
     const productIndex = productsData.findIndex(p => p.id === productId);
     if (productIndex !== -1) {
         productsData[productIndex].stock = newStock >= 0 ? newStock : undefined;
-        setStoredData('minha_feira_products_v3', productsData);
+        setStoredData(PRODUCTS_KEY, productsData);
     }
 }
 
 export function deleteProduct(productId: string) {
     productsData = productsData.filter(p => p.id !== productId);
-    setStoredData('minha_feira_products_v3', productsData);
+    setStoredData(PRODUCTS_KEY, productsData);
 }
 
 
