@@ -1621,7 +1621,7 @@ let defaultProducts: Product[] = [
     status: 'active',
     stock: 15
   },
-  ...lettuceProductsForMultipleFarmers,
+  ...lettuceProductsForMultipleFarmers.filter(p => p.farmerId !== '2'), // Keep only Tapera's original lettuces
   ...allMasterFruits,
   ...domicilioOrganicoProducts,
   ...lojaOrganicaProducts
@@ -1946,6 +1946,29 @@ let defaultOrders: Order[] = [
   },
 ];
 
+// Combine all lettuce products for Sítio Tapera (farmerId: '2')
+const sitioTaperaLattuces = allLattuces.map(lettuce => ({
+  id: `lettuce-${lettuce.id}-farmer-2`,
+  name: lettuce.name,
+  category: 'Verdura' as ProductCategory,
+  price: lettuce.price,
+  unit: 'unidade',
+  image: lettuce.image,
+  dataAiHint: lettuce.hint,
+  farmerId: '2',
+  description: lettuce.desc,
+  status: 'active' as 'active' | 'paused',
+  stock: 30, // Default stock
+}));
+
+// Filter out all lettuce products that were previously destined for Sítio Tapera
+const otherFarmerLettuces = lettuceProductsForMultipleFarmers.filter(p => p.farmerId !== '2');
+
+// Rebuild defaultProducts with the cleaned list
+defaultProducts = [
+  ...defaultProducts.filter(p => !(p.farmerId === '2' && p.name.includes('Alface'))), // Remove old lettuces from Tapera
+  ...sitioTaperaLattuces, // Add the new, unique lettuces for Tapera
+];
 
 // Data management functions
 let productsData: Product[] = [];
