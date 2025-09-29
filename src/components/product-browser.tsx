@@ -151,7 +151,7 @@ function ProductBrowserContent() {
     return farmers
       .map(farmer => {
         const filteredProducts = farmer.products.filter(product =>
-          product.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
+          product.name.toLowerCase().startsWith(debouncedSearchTerm.toLowerCase())
         );
         return { ...farmer, products: filteredProducts };
       })
