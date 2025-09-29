@@ -123,7 +123,7 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="container flex h-auto min-h-16 items-center justify-between px-4 sm:px-6 lg:px-8 py-2">
         
         {/* Left Section */}
         <div className="flex items-center gap-2 lg:w-1/4 lg:flex-shrink-0">
@@ -160,7 +160,7 @@ const Header = () => {
         </div>
         
         {/* Center Section (Desktop Navigation) */}
-        <nav className="hidden lg:flex flex-1 justify-center items-center gap-2">
+        <nav className="hidden lg:flex flex-1 justify-center items-center gap-2 flex-wrap">
            {isUserLoaded && links.map(link => (
             <Button key={link.href} asChild variant="ghost" className="text-base font-bold text-primary hover:text-accent-foreground hover:bg-accent transition-none">
               <Link href={link.href}>{link.label}</Link>
