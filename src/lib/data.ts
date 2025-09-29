@@ -1785,7 +1785,7 @@ let defaultFarmers: Farmer[] = [
       id: '1',
       name: 'Sítio Fazenda Mata Verde',
       responsibleName: 'Matias Ponte',
-      prepostos: ['Rui Ponte'],
+      prepostos: ['Cristiane Alcântara', 'David Bulhões', 'Evelyn Alcântara', 'Rosana Santos', 'Guilherme Ponte'],
       location: { lat: -22.4632, lng: -42.9335 },
       bio: 'Nossa fazenda se dedica ao cultivo orgânico, respeitando a natureza e oferecendo produtos frescos e saudáveis para a sua família. Temos orgulho de nossa produção sustentável.',
       address: {
