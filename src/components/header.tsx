@@ -64,8 +64,7 @@ const Header = () => {
   
   const isCatalogPage = pathname === '/catalog';
   
-  const links = userType === 'customer' ? customerMenuLinks : userType === 'farmer' ? farmerMenuLinks : [];
-  const desktopLinks = userType === 'customer' ? customerMenuLinks : farmerMenuLinks;
+  const mobileLinks = userType === 'customer' ? customerMenuLinks : userType === 'farmer' ? farmerMenuLinks : [];
 
   const renderMobileMenu = () => {
     if (!isUserLoaded) {
@@ -79,8 +78,8 @@ const Header = () => {
     if (user) {
         let title, subtitle, menuItems;
         const mobileMenuLinks = userType === 'customer' 
-          ? [...links, { href: "/cart", label: "Meu Carrinho", icon: ShoppingCart }] 
-          : links;
+          ? [...mobileLinks, { href: "/cart", label: "Meu Carrinho", icon: ShoppingCart }] 
+          : mobileLinks;
           
         if(userType === 'customer') {
             const firstName = user.name.split(' ')[0];
@@ -93,7 +92,7 @@ const Header = () => {
             const firstName = nameToGreet.split(' ')[0];
             title = `Olá, ${firstName}!`;
             subtitle = "Área do Agricultor";
-            menuItems = [{ href: "/profile", label: "Meu Perfil", icon: User },...links];
+            menuItems = [{ href: "/profile", label: "Meu Perfil", icon: User },...mobileLinks];
         }
 
         return (
@@ -194,7 +193,7 @@ const Header = () => {
 
         {/* Desktop Navigation - now on its own line */}
         <nav className="hidden lg:flex w-full justify-center items-center py-1">
-          {isUserLoaded && desktopLinks.map(link => (
+          {isUserLoaded && (userType === 'customer' ? customerMenuLinks : farmerMenuLinks).map(link => (
             <Button key={link.href} asChild variant="ghost" className="text-base font-bold text-primary hover:text-accent-foreground hover:bg-accent">
               <Link href={link.href}>{link.label}</Link>
             </Button>
