@@ -27,7 +27,7 @@ const documents: Document[] = [
     date: "10/05/2012",
   },
   {
-    title: "Decreto de Criação de Mais 6 Feiras Orgânicas",
+    title: "Decreto de Criação de Mais 6 Feiras Orgânicas: Botafogo, Flamengo, Laranjeiras, Freguesia, Barra da Tijuca I e Olaria",
     imageUrl: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/documentacoes_circuito%2Fcapa_documentacoes_circuito.webp?alt=media&token=164da64b-b5bd-4554-9589-014c9e480ef3",
     documentUrl: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/documentacoes_circuito%2F03_CCFO_DECRETO_PREFEITO_DE_CRIACAO_DE_MAIS_6_FEIRAS_ORGANICAS_DIARIO_OFICIAL_05-12-2013.pdf?alt=media&token=cb357650-360b-49a5-a115-7e1455bffa7a",
     date: "05/12/2013",
@@ -123,4 +123,3 @@ export default function DocumentsPage() {
     </div>
   );
 }
-
