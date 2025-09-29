@@ -322,7 +322,14 @@ const allItemUrls: string[] = [
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_113_feiras_flamengo_laranjeiras.png?alt=media&token=9262e2fd-bcae-4891-ac19-d2a92bfa49f1',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_81_feira_botafogo.png?alt=media&token=e3180007-5a02-480a-918c-6cee9d1ddefb',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_77_feira_leme.png?alt=media&token=439ac59a-6722-4572-a4d0-b0e1c4d820fb',
-    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_108_feiras_flamengo_laranjeiras.png?alt=media&token=4f87c177-42d5-4448-812d-1562fe385b46'
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_108_feiras_flamengo_laranjeiras.png?alt=media&token=4f87c177-42d5-4448-812d-1562fe385b46',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_116_feiras_flamengo_laranjeiras.png?alt=media&token=99a6bf6c-badb-46fd-b5d3-d19d7871b8c9',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_78_feira_leme.png?alt=media&token=e4edc342-9a1f-4ae1-8f4b-06f54be9333d',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_79_feira_grajau.png?alt=media&token=38991fd5-31d8-488d-9314-5b7e11c86cf4',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_97_feira_tijuca.png?alt=media&token=0fc79951-0da0-4575-ae62-4220be582aa8',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_82_feira_botafogo.png?alt=media&token=22c0c612-50a5-4af2-938d-1556b89d3c5d',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_109_todas_feiras.png?alt=media&token=31c24fe1-6817-4645-9106-1d7d67f8f201',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_115_todas_feiras.png?alt=media&token=4f122482-0840-4fe0-87e3-b3e51ed07bbf'
 ];
 
 function getFairCategories(fileName: string): GalleryFair[] {
@@ -422,5 +429,7 @@ export function getExtraGalleryItems(): GalleryItem[] {
     };
   });
 }
+
+    
 
     
