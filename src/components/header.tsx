@@ -126,7 +126,7 @@ const Header = () => {
       <div className="container flex h-auto min-h-16 items-center justify-between px-4 sm:px-6 lg:px-8 py-2">
         
         {/* Left Section */}
-        <div className="flex items-center gap-2 lg:w-1/4 lg:flex-shrink-0">
+        <div className="flex items-center gap-2 lg:flex-1 lg:justify-start">
             <div className="lg:hidden">
               <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
                 <SheetTrigger asChild>
@@ -160,7 +160,7 @@ const Header = () => {
         </div>
         
         {/* Center Section (Desktop Navigation) */}
-        <nav className="hidden lg:flex flex-1 justify-center items-center gap-2 flex-wrap">
+        <nav className="hidden lg:flex flex-1 justify-center items-center gap-x-2 flex-wrap">
            {isUserLoaded && links.map(link => (
             <Button key={link.href} asChild variant="ghost" className="text-base font-bold text-primary hover:text-accent-foreground hover:bg-accent transition-none">
               <Link href={link.href}>{link.label}</Link>
@@ -169,7 +169,7 @@ const Header = () => {
         </nav>
         
         {/* Right Section */}
-        <div className="flex items-center justify-end gap-2 lg:w-1/4">
+        <div className="flex items-center justify-end gap-2 lg:flex-1">
 
            <Link href="/profile" className="hidden lg:flex">
                 <Button variant="ghost" size="icon" aria-label="Meu Perfil">
