@@ -24,7 +24,7 @@ import { cn } from "@/lib/utils";
 
 const customerMenuLinks = [
     { href: "/catalog", label: "Catálogo", icon: BookOpen },
-    { href: "/select-farmers", label: "Agricultores", icon: Heart },
+    { href: "/select-farmers", label: "Agricultores", icon: Users },
     { href: "/favorites", label: "Favoritos", icon: Heart },
     { href: "/promotions",label: "Promoções", icon: Tag },
     { href: "/gallery", label: "Divulgue as Feiras!", icon: GalleryHorizontal },
@@ -65,6 +65,7 @@ const Header = () => {
   const isCatalogPage = pathname === '/catalog';
   
   const links = userType === 'customer' ? customerMenuLinks : userType === 'farmer' ? farmerMenuLinks : [];
+  const desktopLinks = userType === 'customer' ? customerMenuLinks : farmerMenuLinks;
 
   const renderMobileMenu = () => {
     if (!isUserLoaded) {
@@ -193,7 +194,7 @@ const Header = () => {
 
         {/* Desktop Navigation - now on its own line */}
         <nav className="hidden lg:flex w-full justify-center items-center py-1">
-          {isUserLoaded && links.map(link => (
+          {isUserLoaded && desktopLinks.map(link => (
             <Button key={link.href} asChild variant="ghost" className="text-base font-bold text-primary hover:text-accent-foreground hover:bg-accent">
               <Link href={link.href}>{link.label}</Link>
             </Button>
