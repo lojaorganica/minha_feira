@@ -1,16 +1,20 @@
 
+
 import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerClassification, CustomerAddress, ProductCategory } from './types';
 
 // ============================================================================
 // IN-MEMORY DATA STORE
 // ============================================================================
 
+const DATA_VERSION_KEY = 'minha_feira_data_version';
+const CURRENT_DATA_VERSION = 'v1.1'; // Increment this to force a data refresh for all users
+
 const FARMERS_KEY = 'minha_feira_farmers_v4';
 const PRODUCTS_KEY = 'minha_feira_products_v7';
 const ORDERS_KEY = 'minha_feira_orders';
 const CUSTOMERS_KEY = 'minha_feira_customers';
 
-// Helper to get data from localStorage (para dados que não precisam de atualização constante)
+// Helper to get data from localStorage, with version checking
 function getStoredData<T>(key: string, defaultValue: T[]): T[] {
   if (typeof window === 'undefined') {
     return defaultValue;
@@ -20,6 +24,7 @@ function getStoredData<T>(key: string, defaultValue: T[]): T[] {
     if (storedData) {
       return JSON.parse(storedData);
     } else {
+      // If there's no data, store the default value
       localStorage.setItem(key, JSON.stringify(defaultValue));
       return defaultValue;
     }
@@ -2127,6 +2132,23 @@ let ordersData: Order[] = [];
 let customersData: Customer[] = [];
 
 function initializeData() {
+  if (typeof window === 'undefined') {
+    return;
+  }
+  
+  const storedVersion = localStorage.getItem(DATA_VERSION_KEY);
+
+  if (storedVersion !== CURRENT_DATA_VERSION) {
+    // Clear old data if version is different
+    localStorage.removeItem(PRODUCTS_KEY);
+    localStorage.removeItem(FARMERS_KEY);
+    localStorage.removeItem(ORDERS_KEY);
+    localStorage.removeItem(CUSTOMERS_KEY);
+    
+    // Store new version
+    localStorage.setItem(DATA_VERSION_KEY, CURRENT_DATA_VERSION);
+  }
+
   productsData = getStoredData<Product>(PRODUCTS_KEY, defaultProducts);
   farmersData = getStoredData<Farmer>(FARMERS_KEY, defaultFarmers);
   ordersData = getStoredData<Order>(ORDERS_KEY, defaultOrders);
