@@ -329,7 +329,15 @@ const allItemUrls: string[] = [
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_97_feira_tijuca.png?alt=media&token=0fc79951-0da0-4575-ae62-4220be582aa8',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_82_feira_botafogo.png?alt=media&token=22c0c612-50a5-4af2-938d-1556b89d3c5d',
     'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_109_todas_feiras.png?alt=media&token=31c24fe1-6817-4645-9106-1d7d67f8f201',
-    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_115_todas_feiras.png?alt=media&token=4f122482-0840-4fe0-87e3-b3e51ed07bbf'
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_115_todas_feiras.png?alt=media&token=4f122482-0840-4fe0-87e3-b3e51ed07bbf',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_117_feiras_flamengo_laranjeiras.png?alt=media&token=4e53f6f4-dd95-4ae7-aebe-3b7a9df18c59',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_109_feiras_flamengo_laranjeiras.png?alt=media&token=c3026733-dd66-42d3-9659-ef8e10d197e2',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_79_feira_leme.png?alt=media&token=d56b3fa3-6f29-467f-9b36-8fdc1dc69070',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_80_feira_grajau.png?alt=media&token=14399f5a-ebdf-411c-8c48-bd23058446d9',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_98_feira_tijuca.png?alt=media&token=4ddc1ed9-63a7-4f47-9746-08ccdc1ac6b0',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_83_feira_botafogo.png?alt=media&token=452e855a-516e-4852-9790-894af1d07d4d',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_118_todas_feiras.png?alt=media&token=1ae24125-24f9-45b6-9f6d-e2628de302c9',
+    'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_110_todas_feiras.png?alt=media&token=7fff55d6-1d01-4061-9cda-00ceaeadf2b0'
 ];
 
 function getFairCategories(fileName: string): GalleryFair[] {
@@ -429,6 +437,8 @@ export function getExtraGalleryItems(): GalleryItem[] {
     };
   });
 }
+
+    
 
     
 
