@@ -45,7 +45,7 @@ const documents: Document[] = [
     date: "20/04/2015",
   },
   {
-    title: "Resolução de Criação de Mais 8 Feiras Orgânicas",
+    title: "Resolução de Criação de Mais 8 Feiras Orgânicas: Ipanema II, Barra da Tijuca II, Gávea, Grajaú, Ilha do Governador, Leme, Tijuca II e Urca",
     imageUrl: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/documentacoes_circuito%2Fcapa_documentacoes_circuito.webp?alt=media&token=164da64b-b5bd-4554-9589-014c9e480ef3",
     documentUrl: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/documentacoes_circuito%2F06_CCFO_RESOLUCAO_SMDEI_DE_CRIACAO_DE_MAIS_8_FEIRAS_ORGANICAS_DIARIO_OFICIAL_22_08_2017.pdf?alt=media&token=f693248d-1496-4750-92b3-a331738f5e4f",
     date: "22/08/2017",
