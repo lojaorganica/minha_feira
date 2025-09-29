@@ -1246,7 +1246,7 @@ function DashboardContent() {
     const filteredProducts = useMemo(() => {
         if (!debouncedSearchTerm) return farmerProducts;
         return farmerProducts.filter(product =>
-            product.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
+            product.name.toLowerCase().startsWith(debouncedSearchTerm.toLowerCase())
         );
     }, [farmerProducts, debouncedSearchTerm]);
 
