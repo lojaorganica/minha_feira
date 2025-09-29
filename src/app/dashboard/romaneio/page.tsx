@@ -58,7 +58,9 @@ export default function RomaneioPage() {
 
   const farmerProducts = useMemo(() => {
     if (!farmer) return [];
-    return getProducts({ includePaused: true }).filter(p => p.farmerId === farmer.id);
+    const products = getProducts({ includePaused: true }).filter(p => p.farmerId === farmer.id);
+    products.sort((a, b) => a.name.localeCompare(b.name, 'pt-BR', { sensitivity: 'base' }));
+    return products;
   }, [farmer]);
 
 
@@ -101,6 +103,8 @@ export default function RomaneioPage() {
            });
            
            const finalData = fullData.filter(item => currentProductNames.has(item.produto));
+           finalData.sort((a, b) => a.produto.localeCompare(b.produto, 'pt-BR', { sensitivity: 'base' }));
+
 
           setRomaneioData(finalData);
         } else {
