@@ -123,10 +123,10 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-auto min-h-16 items-center justify-between px-4 sm:px-6 lg:px-8 py-2 gap-4">
-        
-        {/* Left Section */}
-        <div className="flex items-center gap-2 flex-shrink-0">
+      <div className="container flex flex-col px-4 sm:px-6 lg:px-8 py-2">
+        <div className="flex h-16 items-center justify-between w-full">
+          {/* Left Section - Logo and Mobile Menu */}
+          <div className="flex items-center gap-2">
             <div className="lg:hidden">
               <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
                 <SheetTrigger asChild>
@@ -154,50 +154,51 @@ const Header = () => {
                 </SheetContent>
               </Sheet>
             </div>
-          <div className="hidden sm:flex flex-shrink-0 -ml-2">
-            <Logo size="small" />
+            <div className="hidden sm:flex -ml-2">
+              <Logo size="small" />
+            </div>
+          </div>
+
+          {/* Right Section - Icons and Logout */}
+          <div className="flex items-center justify-end gap-2">
+            <Link href="/profile" className="hidden lg:flex">
+              <Button variant="ghost" size="icon" aria-label="Meu Perfil">
+                <User className="h-6 w-6" />
+              </Button>
+            </Link>
+            
+            {isUserLoaded && userType === 'customer' && (
+              <Button variant="ghost" size="icon" asChild className="relative">
+                <Link href="/cart">
+                  <ShoppingCart className="h-7 w-7" strokeWidth={2.5} />
+                  {cartCount > 0 && (
+                    <span className="absolute -top-0 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-accent text-sm font-bold text-accent-foreground">
+                      {cartCount}
+                    </span>
+                  )}
+                  <span className="sr-only">Carrinho de Compras</span>
+                </Link>
+              </Button>
+            )}
+
+            <div className="hidden lg:flex">
+              {isUserLoaded && user && (
+                  <Button variant="outline" size="sm" onClick={handleLogout}>
+                      Sair
+                  </Button>
+              )}
+            </div>
           </div>
         </div>
-        
-        {/* Center Section (Desktop Navigation) */}
-        <nav className="hidden lg:flex flex-grow justify-center items-center gap-x-2 flex-wrap">
-           {isUserLoaded && links.map(link => (
-            <Button key={link.href} asChild variant="ghost" className="text-base font-bold text-primary hover:text-accent-foreground hover:bg-accent transition-none">
+
+        {/* Desktop Navigation - now on its own line */}
+        <nav className="hidden lg:flex w-full justify-center items-center py-1">
+          {isUserLoaded && links.map(link => (
+            <Button key={link.href} asChild variant="ghost" className="text-base font-bold text-primary hover:text-accent-foreground hover:bg-accent">
               <Link href={link.href}>{link.label}</Link>
             </Button>
           ))}
         </nav>
-        
-        {/* Right Section */}
-        <div className="flex items-center justify-end gap-2 flex-shrink-0">
-           <Link href="/profile" className="hidden lg:flex">
-                <Button variant="ghost" size="icon" aria-label="Meu Perfil">
-                   <User className="h-6 w-6" />
-                </Button>
-            </Link>
-            
-          {isUserLoaded && userType === 'customer' && (
-            <Button variant="ghost" size="icon" asChild className="relative">
-              <Link href="/cart">
-                <ShoppingCart className="h-7 w-7" strokeWidth={2.5} />
-                {cartCount > 0 && (
-                  <span className="absolute -top-0 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-accent text-sm font-bold text-accent-foreground">
-                    {cartCount}
-                  </span>
-                )}
-                <span className="sr-only">Carrinho de Compras</span>
-              </Link>
-            </Button>
-          )}
-
-          <div className="hidden lg:flex">
-            {isUserLoaded && user && (
-                <Button variant="outline" size="sm" onClick={handleLogout}>
-                    Sair
-                </Button>
-            )}
-          </div>
-        </div>
       </div>
     </header>
   );
