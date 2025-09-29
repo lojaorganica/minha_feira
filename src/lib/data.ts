@@ -1,5 +1,4 @@
 
-
 import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerClassification, CustomerAddress, ProductCategory } from './types';
 
 // ============================================================================
@@ -7,7 +6,7 @@ import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerClas
 // ============================================================================
 
 const FARMERS_KEY = 'minha_feira_farmers_v4';
-const PRODUCTS_KEY = 'minha_feira_products_v5';
+const PRODUCTS_KEY = 'minha_feira_products_v6';
 const ORDERS_KEY = 'minha_feira_orders';
 const CUSTOMERS_KEY = 'minha_feira_customers';
 
@@ -1750,6 +1749,30 @@ let defaultProducts: Product[] = [
     status: 'active',
     stock: 15
   },
+    { id: 'ni-abacate', name: 'Abacate Orgânico', category: 'Fruta', price: 5.50, unit: 'unidade', image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/abacate.webp?alt=media&token=90d0ec6c-ca97-40eb-b694-5f489d925864', farmerId: '10', description: 'Abacate cremoso e rico em gorduras saudáveis.', status: 'active', stock: 20, dataAiHint: 'avocado' },
+    { id: 'ni-abacaxi', name: 'Abacaxi Orgânico', category: 'Fruta', price: 7.00, unit: 'unidade', image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/abacaxi.webp?alt=media&token=4caa0219-8635-4fbb-8e1c-fdec6909ebda', farmerId: '10', description: 'Abacaxi pérola orgânico, doce e suculento.', status: 'active', stock: 15, dataAiHint: 'pineapple' },
+    { id: 'ni-abobrinha', name: 'Abobrinha Italiana Orgânica', category: 'Legume', price: 3.80, unit: 'kg', image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/abobrinha_italiana.webp?alt=media&token=1c5c4cae-04b4-497f-99bf-94b09f8cdc7d', farmerId: '10', description: 'Abobrinha italiana orgânica, versátil para refogados.', status: 'active', stock: 30, dataAiHint: 'zucchini' },
+    { id: 'ni-abobora', name: 'Abóbora Japonesa (Cabotiá) Orgânica', category: 'Legume', price: 3.50, unit: 'kg', image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/abobora_japonesa.webp?alt=media&token=9cc8d464-1f1a-404e-8d32-aeddadc861ba', farmerId: '10', description: 'Abóbora japonesa, com polpa adocicada.', status: 'active', stock: 10, dataAiHint: 'kabocha squash' },
+    { id: 'ni-alho', name: 'Alho Orgânico', category: 'Tempero', price: 3.00, unit: 'kg', image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/alho.webp?alt=media&token=8071bc57-cdd1-4105-98da-6253f6f13050', farmerId: '10', description: 'Alho orgânico de sabor intenso.', status: 'active', stock: 50, dataAiHint: 'garlic' },
+    { id: 'ni-batata-doce', name: 'Batata Doce Orgânica', category: 'Raiz e Tubérculo', price: 3.80, unit: 'kg', image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batata_doce.webp?alt=media&token=9777102d-626a-4f4e-b2d7-1045f0cc4148', farmerId: '10', description: 'Batata doce orgânica, rica em nutrientes.', status: 'active', stock: 80, dataAiHint: 'sweet potato' },
+    { id: 'ni-batata-inglesa', name: 'Batata Inglesa Orgânica', category: 'Raiz e Tubérculo', price: 4.50, unit: 'kg', image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batata_inglesa.webp?alt=media&token=41f17e48-9a43-4980-b61d-1c12a91f3cf2', farmerId: '10', description: 'Batata inglesa orgânica, versátil para cozinhar.', status: 'active', stock: 50, dataAiHint: 'potato' },
+    { id: 'ni-beterraba', name: 'Beterraba Orgânica', category: 'Raiz e Tubérculo', price: 3.20, unit: 'maço', image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/beterraba.webp?alt=media&token=d33b9ad6-d6c9-4641-b2fc-e4ed9893cbb0', farmerId: '10', description: 'Beterraba orgânica, ótima para sucos e saladas.', status: 'active', stock: 20, dataAiHint: 'beetroot' },
+    { id: 'ni-cebola', name: 'Cebola Orgânica', category: 'Tempero', price: 4.00, unit: 'kg', image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/cebola.webp?alt=media&token=d038a9a2-f0f9-421f-b436-324602f0b5bd', farmerId: '10', description: 'Cebola orgânica, base para refogados.', status: 'active', stock: 40, dataAiHint: 'onion' },
+    { id: 'ni-cebola-roxa', name: 'Cebola Roxa Orgânica', category: 'Tempero', price: 4.50, unit: 'kg', image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/cebola_roxa.webp?alt=media&token=e2c5234f-af01-4481-a046-71295fe900fe', farmerId: '10', description: 'Cebola roxa de sabor suave, perfeita para saladas.', status: 'active', stock: 25, dataAiHint: 'red onion' },
+    { id: 'ni-cenoura', name: 'Cenouras Orgânicas', category: 'Raiz e Tubérculo', price: 2.5, unit: 'maço', image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/cenoura.webp?alt=media&token=83e659dc-2bd5-42f5-bc98-a178690858f1', farmerId: '10', description: 'Cenouras frescas e crocantes.', status: 'active', stock: 50, dataAiHint: 'organic carrots' },
+    { id: 'ni-feijao-carioca', name: 'Feijão Carioca Orgânico', category: 'Grão e Cereal', price: 11.50, unit: 'kg', image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/feijao_carioca.webp?alt=media&token=67c3dfb7-4e77-4593-a133-3a7fd51f1ef2', farmerId: '10', description: 'Feijão carioca orgânico para o dia a dia.', status: 'active', stock: 50, dataAiHint: 'carioca beans' },
+    { id: 'ni-feijao-vermelho', name: 'Feijão Vermelho Orgânico', category: 'Grão e Cereal', price: 13.00, unit: 'kg', image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/feijao_vermelho.webp?alt=media&token=0eb5f6e0-33fc-4407-a608-9c44bf770c5f', farmerId: '10', description: 'Feijão vermelho orgânico, ideal para sopas.', status: 'active', stock: 40, dataAiHint: 'red beans' },
+    { id: 'ni-inhame', name: 'Inhame Orgânico', category: 'Raiz e Tubérculo', price: 4.20, unit: 'kg', image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/inhame.webp?alt=media&token=230229d4-3136-45a0-a5df-605c7de2592b', farmerId: '10', description: 'Inhame orgânico, nutritivo e versátil.', status: 'active', stock: 45, dataAiHint: 'yam' },
+    { id: 'ni-limao-tahiti', name: 'Limão Taiti Orgânico', category: 'Fruta', price: 3.90, unit: 'kg', image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/limao_taiti.webp?alt=media&token=5f538bf1-e909-4346-8c0d-92c1e145b897', farmerId: '10', description: 'Limão Taiti orgânico, suculento e com poucas sementes.', status: 'active', stock: 90, dataAiHint: 'tahiti lime' },
+    { id: 'ni-maca-fuji', name: 'Maçã Fuji Orgânica', category: 'Fruta', price: 1.8, unit: 'kg', image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/maca_fuji.webp?alt=media&token=d9b195e6-0e42-4976-83fe-fdf87dfafd7c', farmerId: '10', description: 'Maçãs Fuji orgânicas, doçura e textura crocante.', status: 'active', stock: 120, dataAiHint: 'fuji apple' },
+    { id: 'ni-manga-tommy', name: 'Manga Tommy Orgânica', category: 'Fruta', price: 6.80, unit: 'kg', image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/manga_tommy.webp?alt=media&token=a5b2a911-0dc0-4266-a433-08c018eb8b68', farmerId: '10', description: 'Manga Tommy, polpa firme e sabor equilibrado.', status: 'active', stock: 45, dataAiHint: 'tommy atkins mango' },
+    { id: 'ni-mexerica-bergamota', name: 'Mexerica Bergamota Orgânica', category: 'Fruta', price: 5.80, unit: 'kg', image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mexerica_bergamota.webp?alt=media&token=452f0390-d797-4c48-acb1-996b765ea883', farmerId: '10', description: 'Mexerica Bergamota, muito aromática e de sabor intenso.', status: 'active', stock: 25, dataAiHint: 'bergamot tangerine' },
+    { id: 'ni-morango', name: 'Morango Orgânico', category: 'Fruta', price: 4.0, unit: 'caixa', image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/morango.webp?alt=media&token=086479b1-5b7e-451d-9635-193264f55e31', farmerId: '10', description: 'Morangos orgânicos maduros e doces.', status: 'active', stock: 25, dataAiHint: 'strawberry' },
+    { id: 'ni-pepino', name: 'Pepino Orgânico', category: 'Legume', price: 3.50, unit: 'kg', image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/pepino.webp?alt=media&token=e47fbf50-b714-4f92-846c-5e6e63d284e1', farmerId: '10', description: 'Pepino japonês orgânico, perfeito para saladas.', status: 'active', stock: 35, dataAiHint: 'cucumber' },
+    { id: 'ni-shiitake', name: 'Cogumelo Shiitake Orgânico', category: 'Legume', price: 5.00, unit: 'caixa', image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/cogumelo_shiitake.webp?alt=media&token=615a3beb-c8b5-49cf-915f-0b592a701df3', farmerId: '10', description: 'Cogumelos Shiitake orgânicos, de sabor rico.', status: 'active', stock: 20, dataAiHint: 'shiitake mushroom' },
+    { id: 'ni-tomate-italiano', name: 'Tomate Italiano Orgânico', category: 'Fruta', price: 3.0, unit: 'kg', image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tomate_italiano.webp?alt=media&token=f4195895-85ed-42f7-92b7-55085c4c1a72', farmerId: '10', description: 'Tomates italianos orgânicos, perfeitos para molhos.', status: 'active', stock: 30, dataAiHint: 'italian tomatoes' },
+    { id: 'ni-tomate-cereja', name: 'Tomatinho Cereja Orgânico', category: 'Fruta', price: 5.00, unit: 'caixa', image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tomate_cereja.webp?alt=media&token=675a4a40-8ff8-439b-9366-db40ed3b7b96', farmerId: '10', description: 'Tomate cereja, pequeno e adocicado.', status: 'active', stock: 20, dataAiHint: 'cherry tomato' },
+    { id: 'ni-tomate-grape', name: 'Tomatinho Grape Orgânico', category: 'Fruta', price: 5.50, unit: 'caixa', image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/tomate_grape.webp?alt=media&token=34f6fc49-11e6-49bb-9ef2-28ff3d6690c3', farmerId: '10', description: 'Tomatinhos grape, pequenos e muito doces.', status: 'active', stock: 20, dataAiHint: 'grape tomato' },
   ...lettuceProductsForMultipleFarmers,
   ...sitioParaisoLettuces,
   ...allMasterFruits,
@@ -1945,6 +1968,27 @@ let defaultFarmers: Farmer[] = [
       phone: '22998887777',
       fairs: ['Leme', 'Botafogo'],
       image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/256860a4f5f54366b5ab0a9f5d68d184.png'
+    },
+    {
+      id: '10',
+      name: 'NI Orgânicos',
+      responsibleName: 'Anita Carpenter',
+      prepostos: [],
+      location: { lat: -22.90278, lng: -43.2075 },
+      bio: 'NI Orgânicos oferece uma seleção cuidadosa de produtos orgânicos para uma vida mais saudável e conectada com a natureza.',
+      address: {
+        street: 'Rua do Senado',
+        number: '42',
+        neighborhood: 'Centro',
+        city: 'Rio de Janeiro',
+        state: 'RJ',
+        zipCode: '20231-006'
+      },
+      pixKey: 'anita.carpenter@niorganicos.com',
+      shippingCost: 17,
+      phone: '21912345678',
+      fairs: ['Laranjeiras', 'Botafogo'],
+      image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/e3bb697525ad482084b655d957d69b2d.png'
     },
 ];
 
@@ -2279,3 +2323,5 @@ export function updateCustomer(customerId: string, updates: Partial<Customer>): 
 export function getOrders(): Order[] {
   return ordersData;
 }
+
+    
