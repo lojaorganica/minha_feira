@@ -67,7 +67,7 @@ export default function InventoryPage() {
 
     const filteredProducts = useMemo(() => {
         if (!debouncedSearchTerm) return farmerProducts;
-        return farmerProducts.filter(p => p.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase()));
+        return farmerProducts.filter(p => p.name.toLowerCase().startsWith(debouncedSearchTerm.toLowerCase()));
     }, [farmerProducts, debouncedSearchTerm]);
 
 
@@ -340,5 +340,7 @@ export default function InventoryPage() {
         </div>
     );
 }
+
+    
 
     
