@@ -119,7 +119,7 @@ export default function MyCustomersPage() {
                 <Input
                     type="search"
                     placeholder="Buscar por cliente..."
-                    className="pl-10 w-full sm:w-80"
+                    className="pl-10 w-full sm:w-80 bg-card"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
