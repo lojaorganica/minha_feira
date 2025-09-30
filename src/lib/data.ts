@@ -7,7 +7,7 @@ import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerClas
 // ============================================================================
 
 const DATA_VERSION_KEY = 'minha_feira_data_version';
-const CURRENT_DATA_VERSION = 'v1.8'; // Increment to force a data refresh
+const CURRENT_DATA_VERSION = 'v1.9'; // Increment to force a data refresh
 
 const FARMERS_KEY = 'minha_feira_farmers_v5';
 const PRODUCTS_KEY = 'minha_feira_products_v7';
@@ -45,6 +45,15 @@ function setStoredData<T>(key: string, value: T[]): void {
     console.error(`Error writing ${key} to localStorage`, error);
   }
 }
+
+export const fairDetails = {
+  'Tijuca': { name: 'Feira Orgânica da Tijuca', details: 'Praça Xavier de Brito - Sábado, das 7h às 13h' },
+  'Grajaú': { name: 'Feira Orgânica do Grajaú', details: 'Praça Edmundo Rego - Sábado, das 7h às 13h' },
+  'Flamengo': { name: 'Feira Orgânica do Flamengo', details: 'Praça José de Alencar - Terça, das 7h às 13h' },
+  'Laranjeiras': { name: 'Feira Orgânica de Laranjeiras', details: 'Praça do Choro - Terça, das 7h às 13h' },
+  'Botafogo': { name: 'Feira Orgânica de Botafogo', details: 'Praça Nelson Mandela - Sábado, das 7h às 13h' },
+  'Leme': { name: 'Feira Orgânica do Leme', details: 'Praça Alm. Júlio de Noronha - Sábado, das 7h às 13h' }
+};
 
 
 const lojaOrganicaProducts: Product[] = [

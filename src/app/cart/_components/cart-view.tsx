@@ -13,7 +13,7 @@ import Link from "next/link";
 import { useRouter } from 'next/navigation';
 import { useEffect, useState, useMemo, useRef } from "react";
 import { Loader2, Sparkles, Trash2, MessageSquare, Copy, Send, MapPin, Tractor, Upload, CheckCircle, Plus, Minus, X, ArrowLeft, ShoppingCart } from "lucide-react";
-import { getProducts, getFarmerById } from "@/lib/data";
+import { getProducts, getFarmerById, fairDetails } from "@/lib/data";
 import type { Product, CustomerAddress } from "@/lib/types";
 import { useToast } from "@/hooks/use-toast";
 import { Textarea } from "@/components/ui/textarea";
@@ -93,16 +93,8 @@ function ComplementarySuggestions() {
   );
 }
 
-function getFairDisplayName(fair: string): string {
-    const doExceptions = ['Grajaú', 'Flamengo', 'Leme'];
-    if (doExceptions.includes(fair)) {
-        return `Feira do ${fair}`;
-    }
-    const deExceptions = ['Laranjeiras', 'Botafogo'];
-    if (deExceptions.includes(fair)) {
-        return `Feira de ${deExceptions}`;
-    }
-    return `Feira da ${fair}`;
+function getFairDisplayName(fairKey: keyof typeof fairDetails): string {
+    return fairDetails[fairKey]?.name || fairKey;
 }
 
 const renderQuantityControls = (product: any, updateQuantity: (id: string, q: number) => void) => {
@@ -317,7 +309,7 @@ export default function CartView() {
     
     const deliveryText = deliveryOption === 'delivery' 
         ? `*Opção de Entrega:* Delivery (Frete: R$ ${shippingCost.toFixed(2).replace('.', ',')})` 
-        : `*Opção de Entrega:* Retirar na Feira | Grátis\n*Local de Retirada:* ${getFairDisplayName(pickupLocation)}`;
+        : `*Opção de Entrega:* Retirar na Feira | Grátis\n*Local de Retirada:* ${getFairDisplayName(pickupLocation as keyof typeof fairDetails)}`;
 
     const messageText = message ? `\n*Observação:* ${message}` : '';
 
@@ -356,7 +348,7 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
         }
       }),
       ...(deliveryOption === 'pickup' && {
-        pickupLocation: getFairDisplayName(pickupLocation),
+        pickupLocation: getFairDisplayName(pickupLocation as keyof typeof fairDetails),
       })
     };
     addOrder(newOrder);
@@ -485,12 +477,19 @@ Estou enviando o comprovante nesta conversa. Aguardo a confirmação. Obrigado(a
                                 Onde você irá buscar?
                             </Label>
                             <RadioGroup value={pickupLocation} onValueChange={setPickupLocation} className="space-y-1 pl-4">
-                                {farmer.fairs.map(fair => (
-                                    <div key={fair} className="flex items-center space-x-3">
-                                        <RadioGroupItem value={fair} id={`fair-${fair}`} />
-                                        <Label htmlFor={`fair-${fair}`} className="font-normal text-xl cursor-pointer">{getFairDisplayName(fair)}</Label>
-                                    </div>
-                                ))}
+                                {farmer.fairs.map(fairKey => {
+                                    const fair = fairDetails[fairKey as keyof typeof fairDetails];
+                                    if (!fair) return null;
+                                    return (
+                                        <div key={fairKey} className="flex items-start space-x-3">
+                                            <RadioGroupItem value={fairKey} id={`fair-${fairKey}`} className="mt-1"/>
+                                            <div className="flex flex-col">
+                                                <Label htmlFor={`fair-${fairKey}`} className="font-normal text-xl cursor-pointer">{fair.name}</Label>
+                                                <span className="text-sm text-accent font-semibold">{fair.details}</span>
+                                            </div>
+                                        </div>
+                                    )
+                                })}
                             </RadioGroup>
                         </div>
                     )}
