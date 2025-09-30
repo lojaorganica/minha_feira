@@ -143,7 +143,7 @@ const ProductCard = ({ product, farmerName, responsibleName }: ProductCardProps)
         </div>
         <CardContent className="p-4 flex-grow">
           <div className="flex justify-between items-start">
-            <CardTitle className="text-2xl sm:text-xl font-headline text-primary">{product.name}</CardTitle>
+            <CardTitle className="text-2xl sm:text-xl font-headline text-accent">{product.name}</CardTitle>
             <Button variant="ghost" size="icon" className="group h-8 w-8 -mr-2 hover:bg-transparent focus-visible:bg-transparent focus:bg-transparent active:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0" onClick={handleToggleFavorite}>
                 <Heart className={cn(
                     "h-6 w-6 transition-colors group-hover:fill-red-500 group-hover:text-red-500",
