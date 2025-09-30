@@ -1792,558 +1792,596 @@ let defaultFarmers: Farmer[] = [
       responsibleName: 'Matias Ponte',
       prepostos: ['Cristiane Alcântara', 'David Bulhões', 'Evelyn Alcântara', 'Rosana Santos', 'Guilherme Ponte'],
       location: { lat: -22.4632, lng: -42.9335 },
-      bio: 'Nossa fazenda se dedica ao cultivo orgânico, respeitando a natureza e oferecendo produtos frescos e saudáveis para a sua família. Temos orgulho de nossa produção sustentável.',
+      bio: 'Nossa fazenda se dedica ao cultivo orgânico, respeitando a natureza e trazendo o melhor da terra para a sua mesa.',
       address: {
-        street: 'Estrada do Abalone',
-        number: 'S/N',
-        neighborhood: 'Vale das Videiras',
-        city: 'Petrópolis',
-        state: 'RJ',
-        zipCode: '25755-355'
+          street: 'Estrada Rio-Bahia',
+          number: 'km 99',
+          city: 'Teresópolis',
+          state: 'RJ',
+          neighborhood: 'Vargem Grande',
+          zipCode: '25953-001',
       },
-      pixKey: '21999998888',
-      shippingCost: 20,
-      phone: '21999998888',
-      fairs: ['Grajaú', 'Tijuca', 'Botafogo'],
-      image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/ec7b702951f343a493a3c252277d1303.png'
+      pixKey: 'matiasponte@email.com',
+      shippingCost: 18.00,
+      phone: '5521987654321',
+      fairs: ["Grajaú", "Flamengo", "Tijuca"],
+      image: 'https://i.pravatar.cc/150?u=sitio-fazenda-mata-verde',
     },
     {
-        id: '2',
-        name: 'Sítio Tapera',
-        responsibleName: 'Ailton Lima',
-        prepostos: ['Valdeci', 'Alex'],
-        location: { lat: -22.5204, lng: -42.9818 },
-        bio: 'No Sítio Tapera, cultivamos uma grande variedade de frutas, legumes e verduras orgânicas com amor e dedicação. Venha provar o sabor da nossa terra!',
-        address: {
-            street: 'Rua das Perobas',
-            number: '123',
-            neighborhood: 'Centro',
-            city: 'Magé',
-            state: 'RJ',
-            zipCode: '25900-000'
-        },
-        pixKey: 'sitiotapera@email.com',
-        shippingCost: 18,
-        phone: '21988887777',
-        fairs: ['Flamengo', 'Laranjeiras'],
-        image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/5d8b7496924b422e85a796b42b10214a.png'
+      id: '2',
+      name: 'Fazendas Vale Verde',
+      responsibleName: 'Wallace Maciel',
+      prepostos: ['Giulia Maciel', 'Carlos Alberto Maciel'],
+      location: { lat: -22.5222, lng: -42.9818 },
+      bio: 'Cultivando com amor e tradição familiar, oferecemos produtos orgânicos frescos e cheios de sabor.',
+      address: {
+          street: 'Rua das Orquídeas',
+          number: '123',
+          city: 'Teresópolis',
+          state: 'RJ',
+          neighborhood: 'Posse',
+          zipCode: '25953-002',
+      },
+      pixKey: '837.999.000-88',
+      shippingCost: 15.00,
+      phone: '5521912345678',
+      fairs: ["Tijuca", "Laranjeiras", "Botafogo"],
+      image: 'https://i.pravatar.cc/150?u=fazendas-vale-verde',
     },
     {
       id: '3',
-      name: 'Sítio Cachoeirinha I',
-      responsibleName: 'Onéias Gonçalves',
-      prepostos: ['Lili', 'Roberto'],
-      location: { lat: -22.4014, lng: -43.1554 },
-      bio: 'Somos produtores orgânicos certificados, comprometidos em levar o melhor da natureza para a sua mesa. Nossos produtos são cultivados sem agrotóxicos.',
+      name: 'A Horta da Luciene',
+      responsibleName: 'Luciene',
+      prepostos: [],
+      location: { lat: -22.4534, lng: -43.0673 },
+      bio: 'Pequena produtora com grande paixão por ervas, temperos e hortaliças orgânicas.',
       address: {
-        street: 'Estrada das Cachoeiras',
-        number: 'S/N',
-        neighborhood: 'Cachoeira Grande',
-        city: 'Teresópolis',
-        state: 'RJ',
-        zipCode: '25977-225'
+          street: 'Estrada da Saudade',
+          number: '45',
+          city: 'Petrópolis',
+          state: 'RJ',
+          neighborhood: 'Saudade',
+          zipCode: '25600-000',
       },
-      pixKey: 'oneias.sitiocachoeirinha@email.com',
-      shippingCost: 22,
-      phone: '21977776666',
-      fairs: ['Grajaú', 'Tijuca'],
-      image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/e85f67568571404e9c704f77c8e9b62e.png'
+      pixKey: 'lucilene.horta@email.com',
+      shippingCost: 20.00,
+      phone: '5524987651234',
+      fairs: ["Tijuca", "Botafogo"],
+      image: 'https://i.pravatar.cc/150?u=a-horta-da-luciene',
     },
-    {
+     {
       id: '4',
-      name: 'Sítio Cachoeirinha II',
-      responsibleName: 'Walace Oliveira',
-      prepostos: ['Lucas', 'Felipe'],
-      location: { lat: -22.4020, lng: -43.1560 },
-      bio: 'Continuando a tradição da família, nosso sítio oferece produtos orgânicos de alta qualidade, cultivados com técnicas que preservam o meio ambiente.',
+      name: 'Sítio Novo Horizonte',
+      responsibleName: 'Ailton',
+      prepostos: ['Juliana'],
+      location: { lat: -22.3991, lng: -42.9754 },
+      bio: 'Produção orgânica com foco na sustentabilidade e na qualidade superior dos nossos alimentos.',
       address: {
-        street: 'Estrada das Cachoeiras',
-        number: 'S/N',
-        neighborhood: 'Cachoeira Grande',
-        city: 'Teresópolis',
-        state: 'RJ',
-        zipCode: '25977-225'
+          street: 'Rua do Sítio Novo',
+          number: 's/n',
+          city: 'Teresópolis',
+          state: 'RJ',
+          neighborhood: 'Canoas',
+          zipCode: '25953-003',
       },
-      pixKey: '01.234.567/0001-89',
-      shippingCost: 22,
-      phone: '21966665555',
-      fairs: ['Grajaú', 'Botafogo'],
-      image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/2497d39106ca46f6932454a8677c770b.png'
+      pixKey: '21988776655',
+      shippingCost: 18.00,
+      phone: '5521988776655',
+      fairs: ["Grajaú"],
+      image: 'https://i.pravatar.cc/150?u=sitio-novo-horizonte',
     },
     {
       id: '5',
-      name: 'Sítio Cachoeirinha III',
-      responsibleName: 'Wendel Oliveira',
-      prepostos: ['Caio', 'Nathalia'],
-      location: { lat: -22.4025, lng: -43.1565 },
-      bio: 'Especializados em grãos e temperos, trazemos para você o melhor da agricultura familiar orgânica, com produtos sempre frescos e saborosos.',
-      address: {
-        street: 'Estrada das Cachoeiras',
-        number: 'S/N',
-        neighborhood: 'Cachoeira Grande',
-        city: 'Teresópolis',
-        state: 'RJ',
-        zipCode: '25977-225'
-      },
-      pixKey: 'wendel.sitiocachoeirinha@email.com',
-      phone: '21955554444',
-      fairs: ['Leme', 'Botafogo'],
-      image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/6fc13999e52c4224a1b02131976a4bd8.png'
-    },
-    {
-      id: '9',
-      name: 'Sítio Paraíso',
-      responsibleName: 'Ronilson',
-      prepostos: ['Rosa'],
-      location: { lat: -22.3571, lng: -43.0886 },
-      bio: 'Cultivamos uma variedade de verduras, legumes e a deliciosa jabuticaba, tudo com certificação orgânica e muito carinho pela terra.',
-      address: {
-          street: 'Estrada do Paraíso',
-          number: '777',
-          neighborhood: 'Vargem Grande',
+      name: 'Verde que te Quero Verde',
+      responsibleName: 'Nathalia',
+      prepostos: [],
+      location: { lat: -22.4632, lng: -42.9335 },
+      bio: 'Especialistas em folhas verdes e hortaliças frescas, tudo orgânico e colhido no dia.',
+       address: {
+          street: 'Estrada do Triunfo',
+          number: '88',
           city: 'Teresópolis',
           state: 'RJ',
-          zipCode: '25977-000'
+          neighborhood: 'Vargem Grande',
+          zipCode: '25953-004',
       },
-      pixKey: 'sitioparaiso.vendas@email.com',
-      shippingCost: 23,
-      phone: '21987654321',
-      fairs: ['Tijuca', 'Grajaú'],
-      image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/e3bb697525ad482084b655d957d69b2d.png'
+      pixKey: 'CNPJ: 12.345.678/0001-99',
+      shippingCost: 16.00,
+      phone: '5521976543210',
+      fairs: ["Botafogo"],
+      image: 'https://i.pravatar.cc/150?u=verde-que-te-quero-verde',
     },
     {
       id: '6',
       name: 'Domicílio Orgânico',
-      responsibleName: 'Ivison Fragoso',
-      prepostos: ['Paloma', 'Nathalia'],
-      location: { lat: -22.9519, lng: -43.2105 },
-      bio: 'Focados em frutas da estação e PANCs (Plantas Alimentícias Não Convencionais), oferecemos sabores únicos e nutritivos para enriquecer sua alimentação.',
+      responsibleName: 'Ivison',
+      prepostos: [],
+      location: { lat: -22.4534, lng: -43.0673 },
+      bio: 'Entregamos o melhor da natureza na sua casa, com uma variedade de produtos orgânicos selecionados.',
       address: {
-        street: 'Rua Humaitá',
-        number: '123',
-        neighborhood: 'Humaitá',
-        city: 'Rio de Janeiro',
-        state: 'RJ',
-        zipCode: '22261-001'
-      },
-      pixKey: 'domicilio.organico@email.com',
-      shippingCost: 15,
-      phone: '21944443333',
-      fairs: ['Flamengo', 'Laranjeiras'],
-      image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/a56a65576a8f4c179c381c19b33a5585.png'
-    },
-    {
-      id: '134',
-      name: 'Loja Orgânica',
-      responsibleName: 'Marcos Melo',
-      prepostos: ['Felipe', 'Rosana'],
-      location: { lat: -22.9519, lng: -43.2105 },
-      bio: 'A Loja Orgânica é um empório de produtos orgânicos certificados, com foco em mel, derivados e outros produtos de mercearia. Nossa missão é oferecer saúde e sabor, conectando você aos melhores produtores.',
-      address: {
-          street: 'Rua General Glicério',
-          number: '445',
-          neighborhood: 'Laranjeiras',
+          street: 'Avenida Brasil',
+          number: '1000',
           city: 'Rio de Janeiro',
           state: 'RJ',
-          zipCode: '22245-120'
+          neighborhood: 'Centro',
+          zipCode: '20000-000',
       },
-      pixKey: 'vendas@lojaorganica.com',
-      shippingCost: 15,
-      phone: '21988776655',
-      fairs: ['Tijuca', 'Grajaú', 'Botafogo', 'Flamengo', 'Laranjeiras', 'Leme'],
-      image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/10444391b1514785b98f265691456d2e.png'
+      pixKey: 'contato@domicilioorganico.com',
+      shippingCost: 12.00,
+      phone: '5521965432109',
+      fairs: ["Leme"],
+      image: 'https://i.pravatar.cc/150?u=domicilio-organico',
     },
     {
       id: '8',
-      name: 'Naturalmente Orgânicos',
-      responsibleName: 'Lúcia Rodrigues',
+      name: 'Sítio São José',
+      responsibleName: 'Marilza',
       prepostos: [],
-      location: { lat: -22.3879, lng: -42.9737 },
-      bio: 'Somos um grupo de produtores orgânicos de Friburgo, dedicados a trazer produtos frescos da serra para a cidade, valorizando a agricultura familiar.',
+      location: { lat: -22.4232, lng: -42.9535 },
+      bio: 'Tradição e qualidade na produção de orgânicos, de família para família.',
       address: {
-          street: 'Estrada do Amparo',
-          number: 'S/N',
-          neighborhood: 'Amparo',
-          city: 'Nova Friburgo',
+          street: 'Rua São José',
+          number: '99',
+          city: 'Teresópolis',
           state: 'RJ',
-          zipCode: '28605-970'
+          neighborhood: 'Albuquerque',
+          zipCode: '25953-005',
       },
-      pixKey: 'naturalmente.organicos@email.com',
-      shippingCost: 25,
-      phone: '22998887777',
-      fairs: ['Leme', 'Botafogo'],
-      image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/256860a4f5f54366b5ab0a9f5d68d184.png'
+      pixKey: 'marilza.saojose@email.com',
+      shippingCost: 17.00,
+      phone: '5521954321098',
+      fairs: ["Grajaú"],
+      image: 'https://i.pravatar.cc/150?u=sitio-sao-jose',
+    },
+    {
+      id: '9',
+      name: 'Sítio Paraíso',
+      responsibleName: 'Paloma',
+      prepostos: [],
+      location: { lat: -22.4832, lng: -42.9135 },
+      bio: 'Um pedacinho do paraíso em forma de alimentos orgânicos, cultivados com carinho e respeito.',
+      address: {
+          street: 'Estrada do Paraíso',
+          number: 's/n',
+          city: 'Teresópolis',
+          state: 'RJ',
+          neighborhood: 'Caleme',
+          zipCode: '25953-006',
+      },
+      pixKey: '21943210987',
+      shippingCost: 19.00,
+      phone: '5521943210987',
+      fairs: ["Flamengo"],
+      image: 'https://i.pravatar.cc/150?u=sitio-paraiso',
     },
     {
       id: '10',
-      name: 'NI Orgânicos',
-      responsibleName: 'Anita Carpenter',
+      name: 'Naturale Orgânicos',
+      responsibleName: 'Lúcia',
       prepostos: [],
-      location: { lat: -22.90278, lng: -43.2075 },
-      bio: 'NI Orgânicos oferece uma seleção cuidadosa de produtos orgânicos para uma vida mais saudável e conectada com a natureza.',
+      location: { lat: -22.4732, lng: -42.9235 },
+      bio: 'Compromisso com a sua saúde e com o meio ambiente, oferecendo produtos 100% orgânicos.',
       address: {
-        street: 'Rua do Senado',
-        number: '42',
-        neighborhood: 'Centro',
-        city: 'Rio de Janeiro',
-        state: 'RJ',
-        zipCode: '20231-006'
+          street: 'Rua da Horta',
+          number: '202',
+          city: 'Teresópolis',
+          state: 'RJ',
+          neighborhood: 'Quebra Frascos',
+          zipCode: '25953-007',
       },
-      pixKey: 'anita.carpenter@niorganicos.com',
-      shippingCost: 17,
-      phone: '21912345678',
-      fairs: ['Laranjeiras', 'Botafogo'],
-      image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/e3bb697525ad482084b655d957d69b2d.png'
+      pixKey: 'naturale.organicos@email.com',
+      shippingCost: 14.00,
+      phone: '5521932109876',
+      fairs: ["Tijuca"],
+      image: 'https://i.pravatar.cc/150?u=naturale-organicos',
+    },
+     {
+      id: '134',
+      name: 'Loja Essência Vital',
+      responsibleName: 'Alexandre',
+      prepostos: [],
+      location: { lat: -22.9068, lng: -43.1729 },
+      bio: 'A Essência Vital é uma organização não governamental que promove o desenvolvimento da agricultura orgânica familiar no Rio de Janeiro desde 1985. A Loja Essência Vital é um espaço de comercialização de produtos orgânicos e agroecológicos, como mel, geleias, sucos, chás, etc., de diferentes agricultores e produtores parceiros. Ao comprar aqui, você apoia diversos pequenos produtores e a agricultura sustentável.',
+      address: {
+          street: 'Rua das Laranjeiras',
+          number: '500',
+          city: 'Rio de Janeiro',
+          state: 'RJ',
+          neighborhood: 'Laranjeiras',
+          zipCode: '22240-002',
+      },
+      pixKey: 'CNPJ: 30.088.0 Essência Vital',
+      shippingCost: 15.00,
+      phone: '5521999887766',
+      fairs: [],
+      image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/loja_essencia_vital.jpg?alt=media&token=c961e59c-6a68-4560-9833-28952b1b369c',
     },
 ];
 
 let defaultCustomers: Customer[] = [
     {
-        id: 'cust-001',
-        name: 'Ana Silva',
-        email: 'ana.silva@exemplo.com',
-        favoriteFarmerIds: ['1', '3'],
-        address: {
-            street: 'Rua das Flores',
-            number: '123',
-            complement: 'Apto 405',
-            neighborhood: 'Copacabana',
-            city: 'Rio de Janeiro',
-            state: 'RJ',
-            zipCode: '22050-002',
-        },
-        phone: '21999991234',
-        image: 'https://i.pravatar.cc/150?img=1',
-        classification: 'ouro',
+      id: 'cust-001',
+      name: 'Ana Carolina',
+      email: 'ana.carolina@example.com',
+      favoriteFarmerIds: ['1', '3'],
+      address: {
+          street: 'Rua das Flores',
+          number: '123',
+          complement: 'Apto 405',
+          neighborhood: 'Copacabana',
+          city: 'Rio de Janeiro',
+          state: 'RJ',
+          zipCode: '22050-001',
+      },
+      phone: '5521998765432',
+      image: 'https://i.pravatar.cc/150?u=ana-carolina',
+      classification: 'ouro',
     },
     {
-        id: 'cust-002',
-        name: 'Carlos Pereira',
-        email: 'carlos.pereira@exemplo.com',
-        favoriteFarmerIds: ['2'],
-        address: {
-            street: 'Avenida Atlântica',
-            number: '1702',
-            complement: 'Apto 801',
-            neighborhood: 'Copacabana',
-            city: 'Rio de Janeiro',
-            state: 'RJ',
-            zipCode: '22021-001',
-        },
-        phone: '21988885678',
-        image: 'https://i.pravatar.cc/150?img=2',
-        classification: 'prata',
+      id: 'cust-002',
+      name: 'Bruno Gomes',
+      email: 'bruno.gomes@example.com',
+      favoriteFarmerIds: ['2'],
+      address: {
+          street: 'Avenida Atlântica',
+          number: '456',
+          complement: 'Apto 1201',
+          neighborhood: 'Leme',
+          city: 'Rio de Janeiro',
+          state: 'RJ',
+          zipCode: '22010-000',
+      },
+      phone: '5521987654321',
+      image: 'https://i.pravatar.cc/150?u=bruno-gomes',
+      classification: 'prata',
     },
      {
-        id: 'cust-003',
-        name: 'Fernanda Lima',
-        email: 'fernanda.lima@exemplo.com',
-        favoriteFarmerIds: ['4', '5'],
-        address: {
-            street: 'Rua do Catete',
-            number: '311',
-            complement: 'Apto 202',
-            neighborhood: 'Catete',
-            city: 'Rio de Janeiro',
-            state: 'RJ',
-            zipCode: '22220-001',
-        },
-        phone: '21977778901',
-        image: 'https://i.pravatar.cc/150?img=3',
-        classification: 'diamante',
+      id: 'cust-003',
+      name: 'Carla Dias',
+      email: 'carla.dias@example.com',
+      favoriteFarmerIds: ['1', '2', '4'],
+      address: {
+          street: 'Rua do Catete',
+          number: '789',
+          complement: 'Apto 302',
+          neighborhood: 'Catete',
+          city: 'Rio de Janeiro',
+          state: 'RJ',
+          zipCode: '22220-000',
+      },
+      phone: '5521976543210',
+      image: 'https://i.pravatar.cc/150?u=carla-dias',
+      classification: 'diamante',
     },
-    {
-        id: 'cust-004',
-        name: 'Ricardo Souza',
-        email: 'ricardo.souza@exemplo.com',
-        favoriteFarmerIds: ['1'],
-        address: {
-            street: 'Praça São Salvador',
-            number: '10',
-            complement: 'Casa',
-            neighborhood: 'Laranjeiras',
-            city: 'Rio de Janeiro',
-            state: 'RJ',
-            zipCode: '22231-140',
-        },
-        phone: '21966662345',
-        image: 'https://i.pravatar.cc/150?img=4',
+     {
+      id: 'cust-004',
+      name: 'Daniel Martins',
+      email: 'daniel.martins@example.com',
+      favoriteFarmerIds: ['5'],
+      address: {
+          street: 'Rua Marquês de Abrantes',
+          number: '101',
+          complement: 'Casa',
+          neighborhood: 'Flamengo',
+          city: 'Rio de Janeiro',
+          state: 'RJ',
+          zipCode: '22230-060',
+      },
+      phone: '5521965432109',
+      image: 'https://i.pravatar.cc/150?u=daniel-martins',
+      classification: 'bronze',
     },
 ];
 
 let defaultOrders: Order[] = [
-  {
-    id: 'ORD-001',
-    customerName: 'Ana Silva',
-    items: [
-      { productName: 'Cenouras Orgânicas', quantity: 2 },
-      { productName: 'Tomate Italiano Orgânico', quantity: 1 },
-      { productName: 'Couve Mineira Orgânica', quantity: 1 }
-    ],
-    status: 'Confirmado',
-    total: 34.9,
-    date: new Date('2024-07-20T10:30:00'),
-    deliveryOption: 'pickup',
-    pickupLocation: 'Feira do Grajaú',
-  },
-  {
-    id: 'ORD-002',
-    customerName: 'Carlos Pereira',
-    items: [
-      { productName: 'Morangos Frescos Orgânicos', quantity: 3 },
-      { productName: 'Laranja Pera Orgânica', quantity: 2.5 }
-    ],
-    status: 'Pendente',
-    total: 29.5,
-    date: new Date('2024-07-24T14:00:00'),
-    deliveryOption: 'delivery',
-    customerContact: {
-        address: {
-            street: 'Avenida Atlântica',
-            number: '1702',
-            complement: 'Apto 801',
-            neighborhood: 'Copacabana',
-            city: 'Rio de Janeiro',
-            state: 'RJ',
-            zipCode: '22021-001',
+    {
+        id: 'ORD-54321',
+        customerName: 'Ana Carolina',
+        items: [{ productName: 'Cenouras Orgânicas', quantity: 2 }, { productName: 'Alho Poró Orgânico', quantity: 1 }],
+        status: 'Pendente',
+        total: 5.0 + 4.5,
+        date: new Date('2024-07-18T10:00:00'),
+        deliveryOption: 'pickup',
+        pickupLocation: 'Feira da Tijuca',
+    },
+    {
+        id: 'ORD-12345',
+        customerName: 'Bruno Gomes',
+        items: [{ productName: 'Laranja Pera Orgânica', quantity: 3 }],
+        status: 'Confirmado',
+        total: 2.0 * 3,
+        date: new Date('2024-07-17T15:30:00'),
+        deliveryOption: 'delivery',
+        customerContact: {
+            address: {
+                street: 'Avenida Atlântica',
+                number: '456',
+                complement: 'Apto 1201',
+                neighborhood: 'Leme',
+                city: 'Rio de Janeiro',
+                state: 'RJ',
+                zipCode: '22010-000',
+            },
+            phone: '5521987654321',
         },
-        phone: '21988885678'
-    }
-  },
-  {
-    id: 'ORD-003',
-    customerName: 'Fernanda Lima',
-    items: [
-      { productName: 'Alho Poró Orgânico', quantity: 1 },
-      { productName: 'Hortelã Orgânico', quantity: 2 },
-    ],
-    status: 'Rejeitado',
-    total: 10.1,
-    date: new Date('2024-07-22T09:00:00'),
-    deliveryOption: 'pickup',
-    pickupLocation: 'Feira da Tijuca',
-  },
+    },
+     {
+        id: 'ORD-67890',
+        customerName: 'Carla Dias',
+        items: [{ productName: 'Cenouras Orgânicas', quantity: 1 }, { productName: 'Tomate Italiano Orgânico', quantity: 1.5 }],
+        status: 'Pendente',
+        total: 2.5 + (3.0 * 1.5),
+        date: new Date(),
+        deliveryOption: 'delivery',
+        customerContact: {
+            address: {
+                street: 'Rua do Catete',
+                number: '789',
+                complement: 'Apto 302',
+                neighborhood: 'Catete',
+                city: 'Rio de Janeiro',
+                state: 'RJ',
+                zipCode: '22220-000',
+            },
+            phone: '5521976543210',
+        },
+    },
 ];
 
-// Data management functions
-let productsData: Product[] = [];
-let farmersData: Farmer[] = [];
-let ordersData: Order[] = [];
-let customersData: Customer[] = [];
+// Singleton instances for our data
+let products: Product[] | null = null;
+let farmers: Farmer[] | null = null;
+let orders: Order[] | null = null;
+let customers: Customer[] | null = null;
+
+// ============================================================================
+// DATA INITIALIZATION & VERSIONING
+// ============================================================================
 
 function initializeData() {
-  if (typeof window === 'undefined') {
-    return;
-  }
-  
-  const storedVersion = localStorage.getItem(DATA_VERSION_KEY);
-
-  if (storedVersion !== CURRENT_DATA_VERSION) {
-    // Clear old data if version is different
-    localStorage.removeItem(PRODUCTS_KEY);
-    localStorage.removeItem(FARMERS_KEY);
-    localStorage.removeItem(ORDERS_KEY);
-    localStorage.removeItem(CUSTOMERS_KEY);
+    if (typeof window === 'undefined') {
+        products = defaultProducts;
+        farmers = defaultFarmers;
+        orders = defaultOrders;
+        customers = defaultCustomers;
+        return;
+    }
     
-    // Store new version
-    localStorage.setItem(DATA_VERSION_KEY, CURRENT_DATA_VERSION);
-  }
-
-  productsData = getStoredData<Product>(PRODUCTS_KEY, defaultProducts);
-  farmersData = getStoredData<Farmer>(FARMERS_KEY, defaultFarmers);
-  ordersData = getStoredData<Order>(ORDERS_KEY, defaultOrders);
-  customersData = getStoredData<Customer>(CUSTOMERS_KEY, defaultCustomers);
-
-  const productIds = new Set(productsData.map(p => p.id));
-  const farmerIds = new Set(farmersData.map(f => f.id));
-
-  // Add default products if they don't exist
-  defaultProducts.forEach(p => {
-    if (!productIds.has(p.id)) {
-      productsData.push(p);
-      productIds.add(p.id);
+    try {
+        const storedVersion = localStorage.getItem(DATA_VERSION_KEY);
+        if (storedVersion !== CURRENT_DATA_VERSION) {
+            // Version mismatch, clear old data and set the new version
+            localStorage.removeItem(FARMERS_KEY);
+            localStorage.removeItem(PRODUCTS_KEY);
+            localStorage.removeItem(ORDERS_KEY);
+            localStorage.removeItem(CUSTOMERS_KEY);
+            
+            localStorage.setItem(DATA_VERSION_KEY, CURRENT_DATA_VERSION);
+            
+            // Initialize with default data
+            products = defaultProducts;
+            farmers = defaultFarmers;
+            orders = defaultOrders;
+            customers = defaultCustomers;
+            
+            setStoredData(PRODUCTS_KEY, products);
+            setStoredData(FARMERS_KEY, farmers);
+            setStoredData(ORDERS_KEY, orders);
+            setStoredData(CUSTOMERS_KEY, customers);
+            
+        } else {
+            // Versions match, load from localStorage or use defaults
+            products = getStoredData(PRODUCTS_KEY, defaultProducts);
+            farmers = getStoredData(FARMERS_KEY, defaultFarmers);
+            orders = getStoredData(ORDERS_KEY, defaultOrders);
+            customers = getStoredData(CUSTOMERS_KEY, defaultCustomers);
+        }
+    } catch (e) {
+        console.error("Failed to initialize data, using defaults.", e);
+        products = defaultProducts;
+        farmers = defaultFarmers;
+        orders = defaultOrders;
+        customers = defaultCustomers;
     }
-  });
-
-  // Add default farmers if they don't exist
-  defaultFarmers.forEach(f => {
-    if (!farmerIds.has(f.id)) {
-      farmersData.push(f);
-      farmerIds.add(f.id);
-    }
-  });
-
-  setStoredData(PRODUCTS_KEY, productsData);
-  setStoredData(FARMERS_KEY, farmersData);
 }
 
-// Ensure data is initialized on first import
-if (typeof window !== 'undefined') {
-  initializeData();
-}
+// Initialize data on load
+initializeData();
 
 // ============================================================================
-// PUBLIC API
+// ACCESSOR FUNCTIONS
 // ============================================================================
 
-// Products
-export function getProducts(options?: { includePaused?: boolean }): Product[] {
-  if (options?.includePaused) {
-    return productsData;
+export function getProducts(options: { includePaused?: boolean } = {}): Product[] {
+  if (!products) initializeData(); // Should not happen, but for safety
+  
+  const activeProducts = products!.filter(p => {
+    const farmer = getFarmerById(p.farmerId);
+    return farmer && (p.stock === undefined || p.stock > 0);
+  });
+
+  if (options.includePaused) {
+      return products!;
   }
-  return productsData.filter(p => p.status === 'active');
+  return activeProducts.filter(p => p.status === 'active');
 }
 
 export function getProductById(id: string): Product | undefined {
-  return productsData.find(p => p.id === id);
+  if (!products) initializeData();
+  return products!.find((p) => p.id === id);
 }
 
 export function getProductByName(name: string): Product | undefined {
-  return productsData.find(p => p.name === name);
+  if (!products) initializeData();
+  return products!.find((p) => p.name === name);
 }
 
-export function getPromotionalProducts(): (Product & { farmerName: string, responsibleName?: string })[] {
-    const promotionalProducts = productsData.filter(p => p.promotion?.isActive);
-    return promotionalProducts.map(p => {
+export function getPromotionalProducts(): (Product & { farmerName: string; responsibleName?: string })[] {
+    const activeProducts = getProducts();
+    const promotional = activeProducts.filter(p => p.promotion && p.promotion.isActive && new Date(p.promotion.expiresAt) > new Date());
+    
+    return promotional.map(p => {
         const farmer = getFarmerById(p.farmerId);
         return {
             ...p,
-            farmerName: farmer?.name ?? 'Desconhecido',
+            farmerName: farmer?.name || 'Desconhecido',
             responsibleName: farmer?.responsibleName
-        };
+        }
     });
 }
 
-export function toggleProductPromotion(productId: string, isActive: boolean) {
-    const productIndex = productsData.findIndex(p => p.id === productId);
+export function toggleProductPromotion(productId: string, promote: boolean): void {
+  if (!products) initializeData();
+  const productIndex = products!.findIndex(p => p.id === productId);
+  if (productIndex !== -1) {
+    if (promote) {
+      products![productIndex].promotion = {
+        isActive: true,
+        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // Expires in 7 days
+      };
+    } else {
+      if (products![productIndex].promotion) {
+        products![productIndex].promotion!.isActive = false;
+      }
+    }
+    setStoredData(PRODUCTS_KEY, products!);
+  }
+}
+
+export function toggleProductStatus(productId: string, status: 'active' | 'paused'): void {
+    if (!products) initializeData();
+    const productIndex = products!.findIndex(p => p.id === productId);
     if (productIndex !== -1) {
-        productsData[productIndex] = {
-            ...productsData[productIndex],
-            promotion: {
-                isActive: isActive,
-                expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
-            }
-        };
-        setStoredData(PRODUCTS_KEY, productsData);
+        products![productIndex].status = status;
+        setStoredData(PRODUCTS_KEY, products!);
     }
 }
 
-export function toggleProductStatus(productId: string, status: 'active' | 'paused') {
-    const productIndex = productsData.findIndex(p => p.id === productId);
+export function updateProduct(productId: string, updates: Partial<Pick<Product, 'name' | 'price' | 'unit' | 'description' | 'category'>>): void {
+  if (!products) initializeData();
+  const productIndex = products!.findIndex(p => p.id === productId);
+  if (productIndex !== -1) {
+    products![productIndex] = { ...products![productIndex], ...updates };
+    setStoredData(PRODUCTS_KEY, products!);
+  }
+}
+
+export function updateProductStock(productId: string, stock: number): void {
+    if (!products) initializeData();
+    const productIndex = products!.findIndex(p => p.id === productId);
     if (productIndex !== -1) {
-        productsData[productIndex].status = status;
-        setStoredData(PRODUCTS_KEY, productsData);
+        products![productIndex].stock = stock;
+        setStoredData(PRODUCTS_KEY, products!);
     }
 }
 
-export function addProduct(productData: Omit<Product, 'id' | 'status'>) {
+export function addProduct(productData: Omit<Product, 'id' | 'status'>): Product {
+    if (!products) initializeData();
+    const newId = `prod-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`;
     const newProduct: Product = {
         ...productData,
-        id: `prod-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
+        id: newId,
         status: 'active',
     };
-    productsData.unshift(newProduct); // Add to the beginning
-    setStoredData(PRODUCTS_KEY, productsData);
-}
-
-export function updateProduct(productId: string, updates: Partial<Product>) {
-    const productIndex = productsData.findIndex(p => p.id === productId);
-    if (productIndex !== -1) {
-        productsData[productIndex] = { ...productsData[productIndex], ...updates };
-        setStoredData(PRODUCTS_KEY, productsData);
-    }
-}
-
-export function updateProductStock(productId: string, newStock: number) {
-    const productIndex = productsData.findIndex(p => p.id === productId);
-    if (productIndex !== -1) {
-        productsData[productIndex].stock = newStock >= 0 ? newStock : undefined;
-        setStoredData(PRODUCTS_KEY, productsData);
-    }
-}
-
-export function deleteProduct(productId: string) {
-    productsData = productsData.filter(p => p.id !== productId);
-    setStoredData(PRODUCTS_KEY, productsData);
+    products!.push(newProduct);
+    setStoredData(PRODUCTS_KEY, products!);
+    return newProduct;
 }
 
 
-// Farmers
+export function deleteProduct(productId: string): void {
+    if (!products) initializeData();
+    products = products!.filter(p => p.id !== productId);
+    setStoredData(PRODUCTS_KEY, products!);
+}
+
+
 export function getFarmers(): Farmer[] {
-  return farmersData;
+  if (!farmers) initializeData();
+  return farmers!;
 }
 
 export function getFarmerById(id: string): Farmer | undefined {
-  return farmersData.find(f => f.id === id);
-}
-
-export function getFarmersWithProducts(farmerIds?: string[]): FarmerWithProducts[] {
-  let filteredFarmers = farmersData;
-  if (farmerIds && farmerIds.length > 0) {
-    filteredFarmers = farmersData.filter(f => farmerIds.includes(f.id));
-  }
-  
-  return filteredFarmers.map(farmer => ({
-    ...farmer,
-    products: productsData.filter(p => p.farmerId === farmer.id && p.status === 'active'),
-  }));
+  if (!farmers) initializeData();
+  return farmers!.find((f) => f.id === id);
 }
 
 export function addFarmer(farmerData: Omit<Farmer, 'id' | 'location' | 'image'>): Farmer {
-  const newFarmer: Farmer = {
-    ...farmerData,
-    id: `farmer-${Date.now()}`,
-    // Valores padrão para os campos que não estão no formulário de cadastro
-    location: { lat: -22.9068, lng: -43.1729 }, // Localização padrão (Centro do Rio)
-    image: 'https://storage.googleapis.com/production-hostgator-brasil-v1-0-9/639/412639/d8Gzmgz4/ec7b702951f343a493a3c252277d1303.png',
-  };
-  farmersData.push(newFarmer);
-  setStoredData(FARMERS_KEY, farmersData);
-  return newFarmer;
+    if (!farmers) initializeData();
+    const newId = `farmer-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`;
+    const newFarmer: Farmer = {
+        ...farmerData,
+        id: newId,
+        image: `https://i.pravatar.cc/150?u=${newId}`,
+        location: { lat: -22.9068, lng: -43.1729 }, // Default location, can be updated
+    };
+    farmers!.push(newFarmer);
+    setStoredData(FARMERS_KEY, farmers!);
+    return newFarmer;
 }
 
 export function updateFarmer(farmerId: string, updates: Partial<Farmer>): void {
-    const farmerIndex = farmersData.findIndex(f => f.id === farmerId);
+    if (!farmers) initializeData();
+    const farmerIndex = farmers!.findIndex(f => f.id === farmerId);
     if (farmerIndex !== -1) {
-        farmersData[farmerIndex] = { ...farmersData[farmerIndex], ...updates };
-        setStoredData(FARMERS_KEY, farmersData);
+        farmers![farmerIndex] = { ...farmers![farmerIndex], ...updates };
+        setStoredData(FARMERS_KEY, farmers!);
     }
 }
 
-// Customers
+export function getFarmersWithProducts(farmerIds?: string[]): FarmerWithProducts[] {
+  const allProducts = getProducts();
+  let relevantFarmers = getFarmers();
+
+  if (farmerIds && farmerIds.length > 0) {
+    relevantFarmers = relevantFarmers.filter(f => farmerIds.includes(f.id));
+  }
+
+  return relevantFarmers.map(farmer => ({
+    ...farmer,
+    products: allProducts.filter(product => product.farmerId === farmer.id),
+  }));
+}
+
+export function getOrders(): Order[] {
+  if (!orders) initializeData();
+  return orders!.map(order => ({...order, date: new Date(order.date)}));
+}
+
 export function getCustomers(): Customer[] {
-  // Simula a obtenção de clientes a partir de pedidos
-  const customerNamesFromOrders = new Set(ordersData.map(o => o.customerName));
-  const customersFromDefaults = defaultCustomers.filter(c => customerNamesFromOrders.has(c.name));
-  return customersFromDefaults;
+    if (!customers) initializeData();
+    return customers!;
 }
 
 export function getCustomerById(id: string): Customer | undefined {
-    return customersData.find(c => c.id === id);
-}
-
-export function updateCustomerClassification(customerId: string, classification: CustomerClassification): void {
-    const customerIndex = customersData.findIndex(c => c.id === customerId);
-    if (customerIndex !== -1) {
-        customersData[customerIndex].classification = classification;
-        setStoredData(CUSTOMERS_KEY, customersData);
-    }
+    if (!customers) initializeData();
+    return customers!.find(c => c.id === id);
 }
 
 export function updateCustomer(customerId: string, updates: Partial<Customer>): void {
-    const customerIndex = customersData.findIndex(c => c.id === customerId);
+    if (!customers) initializeData();
+    const customerIndex = customers!.findIndex(c => c.id === customerId);
     if (customerIndex !== -1) {
-        // Trata o endereço de forma especial para mesclar em vez de substituir
-        const newAddress = { ...customersData[customerIndex].address, ...updates.address };
-        customersData[customerIndex] = { ...customersData[customerIndex], ...updates, address: newAddress };
-        setStoredData(CUSTOMERS_KEY, customersData);
+        // Handle nested address object
+        if (updates.address) {
+            customers![customerIndex].address = {
+                ...customers![customerIndex].address,
+                ...updates.address
+            };
+            // delete updates.address; // Prevent overwriting the merged address
+        }
+        customers![customerIndex] = { ...customers![customerIndex], ...updates };
+        setStoredData(CUSTOMERS_KEY, customers!);
     }
 }
 
-
-// Orders
-export function getOrders(): Order[] {
-  return ordersData;
+export function updateCustomerClassification(customerId: string, classification: CustomerClassification): void {
+    if (!customers) initializeData();
+    const customerIndex = customers!.findIndex(c => c.id === customerId);
+    if (customerIndex !== -1) {
+        customers![customerIndex].classification = classification;
+        setStoredData(CUSTOMERS_KEY, customers!);
+    }
 }
 
     
