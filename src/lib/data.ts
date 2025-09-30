@@ -1,4 +1,5 @@
 
+
 import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerClassification, CustomerAddress, ProductCategory } from './types';
 
 // ============================================================================
@@ -6,7 +7,7 @@ import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerClas
 // ============================================================================
 
 const DATA_VERSION_KEY = 'minha_feira_data_version';
-const CURRENT_DATA_VERSION = 'v1.3'; // Increment to force a data refresh
+const CURRENT_DATA_VERSION = 'v1.4'; // Increment to force a data refresh
 
 const FARMERS_KEY = 'minha_feira_farmers_v5';
 const PRODUCTS_KEY = 'minha_feira_products_v7';
@@ -1889,7 +1890,7 @@ let defaultFarmers: Farmer[] = [
       responsibleName: 'Marcos Melo',
       prepostos: [],
       location: { lat: -22.9068, lng: -43.1729 },
-      bio: 'A Essência Vital é uma organização não governamental que promove o desenvolvimento da agricultura orgânica familiar no Rio de Janeiro desde 1985. A Loja Essência Vital é um espaço de comercialização de produtos orgânicos e agroecológicos, como mel, geleias, sucos, chás, etc., de diferentes agricultores e produtores parceiros. Ao comprar aqui, você apoia diversos pequenos produtores e a agricultura sustentável.',
+      bio: 'Somos especializados no fornecimento de méis orgânicos certificados. Nossos méis são raros, nutritivos e medicinais, produzidos de forma sustentável pela agricultura familiar em diversas regiões do país. Para obter a certificação orgânica, o mel precisa atender a premissas rigorosas de produção — a principal delas é que toda a área onde as abelhas colhem néctar esteja livre de substâncias químicas, agrotóxicos e pesticidas. Certificar o mel como orgânico é garantir um alimento mais natural, saboroso e benéfico para você e para o planeta. Aqui você tem a certeza de comprar méis extraordinários!',
       address: { street: 'Rua das Laranjeiras', number: '500', city: 'Rio de Janeiro', state: 'RJ', neighborhood: 'Laranjeiras', zipCode: '22240-002' },
       pixKey: 'CNPJ: 30.088.0 Essência Vital',
       shippingCost: 15.00,
