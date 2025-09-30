@@ -1804,7 +1804,7 @@ let defaultFarmers: Farmer[] = [
       pixKey: 'matiasponte@email.com',
       shippingCost: 18.00,
       phone: '5521987654321',
-      fairs: ["Grajaú", "Flamengo", "Tijuca"],
+      fairs: ["Grajaú", "Flamengo", "Botafogo"],
       image: 'https://i.pravatar.cc/150?u=sitio-fazenda-mata-verde',
     },
     {
