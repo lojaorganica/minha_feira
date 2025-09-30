@@ -1,5 +1,4 @@
 
-
 import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerClassification, CustomerAddress, ProductCategory } from './types';
 
 // ============================================================================
@@ -7,7 +6,7 @@ import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerClas
 // ============================================================================
 
 const DATA_VERSION_KEY = 'minha_feira_data_version';
-const CURRENT_DATA_VERSION = 'v1.4'; // Increment to force a data refresh
+const CURRENT_DATA_VERSION = 'v1.5'; // Increment to force a data refresh
 
 const FARMERS_KEY = 'minha_feira_farmers_v5';
 const PRODUCTS_KEY = 'minha_feira_products_v7';
@@ -715,7 +714,7 @@ const allMasterFruits: Product[] = [
     category: 'Fruta',
     price: 9.00,
     unit: 'unidade',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/mini_melancia.webp?alt=media&token=e26cd7c8-9313-4eb6-8c60-050147ea898b',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/melancia_mini.webp?alt=media&token=b5c6c416-2f94-4f1c-9fd0-f2d85f0d55d2',
     dataAiHint: 'mini watermelon',
     farmerId: '2',
     description: 'Mini melancia, com todo o sabor e doçura da melancia tradicional em um tamanho prático.',
@@ -2313,3 +2312,5 @@ export function updateCustomerClassification(customerId: string, classification:
         setStoredData(CUSTOMERS_KEY, customers!);
     }
 }
+
+    
