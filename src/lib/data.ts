@@ -6,7 +6,7 @@ import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerClas
 // ============================================================================
 
 const DATA_VERSION_KEY = 'minha_feira_data_version';
-const CURRENT_DATA_VERSION = 'v1.2'; // Increment to force a data refresh
+const CURRENT_DATA_VERSION = 'v1.3'; // Increment to force a data refresh
 
 const FARMERS_KEY = 'minha_feira_farmers_v5';
 const PRODUCTS_KEY = 'minha_feira_products_v7';
