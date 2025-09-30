@@ -1,5 +1,4 @@
 
-
 "use client";
 
 import Image from "next/image";
@@ -145,8 +144,11 @@ const ProductCard = ({ product, farmerName, responsibleName }: ProductCardProps)
         <CardContent className="p-4 flex-grow">
           <div className="flex justify-between items-start">
             <CardTitle className="text-2xl sm:text-xl font-headline text-primary">{product.name}</CardTitle>
-            <Button variant="ghost" size="icon" className="h-8 w-8 -mr-2 hover:bg-transparent focus-visible:bg-transparent focus:bg-transparent active:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0" onClick={handleToggleFavorite}>
-                <Heart className={cn("h-6 w-6", isLocallyFavorite && "fill-red-500 text-red-500")} />
+            <Button variant="ghost" size="icon" className="group h-8 w-8 -mr-2 hover:bg-transparent focus-visible:bg-transparent focus:bg-transparent active:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0" onClick={handleToggleFavorite}>
+                <Heart className={cn(
+                    "h-6 w-6 transition-colors group-hover:fill-red-500 group-hover:text-red-500",
+                    isLocallyFavorite ? "fill-red-500 text-red-500" : "text-primary/50"
+                )} />
             </Button>
           </div>
           <CardDescription className={cn("text-lg mt-1 font-semibold text-foreground/90 flex-grow", !isExpanded && descriptionNeedsTruncation && "line-clamp-3")}>
