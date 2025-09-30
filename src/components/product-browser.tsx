@@ -77,7 +77,7 @@ function FarmerFilter({
           <Input
             type="search"
             placeholder="Buscar alimentos..."
-            className="pl-10"
+            className="pl-10 bg-card"
             value={searchTerm}
             onChange={(e) => onSearchChange(e.target.value)}
           />
