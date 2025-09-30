@@ -1796,11 +1796,11 @@ let defaultFarmers: Farmer[] = [
       pixKey: 'matiasponte@email.com',
       shippingCost: 18.00,
       phone: '5521987654321',
-      fairs: ["Tijuca", "Grajaú", "Flamengo"],
+      fairs: ["Botafogo", "Grajaú"],
       image: 'https://i.pravatar.cc/150?u=sitio-fazenda-mata-verde',
     },
     {
-      id: 'tapera',
+      id: '2',
       name: 'Sítio Tapera',
       responsibleName: 'Ailton Lima',
       prepostos: [],
@@ -1814,7 +1814,7 @@ let defaultFarmers: Farmer[] = [
       image: 'https://i.pravatar.cc/150?u=sitio-tapera',
     },
     {
-      id: 'cachoeirinha1',
+      id: '3',
       name: 'Sítio Cachoeirinha I',
       responsibleName: 'Onéias Gonçalves',
       prepostos: [],
@@ -1828,7 +1828,7 @@ let defaultFarmers: Farmer[] = [
       image: 'https://i.pravatar.cc/150?u=sitio-cachoeirinha-1',
     },
      {
-      id: 'cachoeirinha2',
+      id: '4',
       name: 'Sítio Cachoeirinha II',
       responsibleName: 'Walace Oliveira',
       prepostos: [],
@@ -1842,7 +1842,7 @@ let defaultFarmers: Farmer[] = [
       image: 'https://i.pravatar.cc/150?u=sitio-cachoeirinha-2',
     },
     {
-      id: 'cachoeirinha3',
+      id: '5',
       name: 'Sítio Cachoeirinha III',
       responsibleName: 'Wendel Oliveira',
       prepostos: [],
@@ -1856,7 +1856,7 @@ let defaultFarmers: Farmer[] = [
       image: 'https://i.pravatar.cc/150?u=sitio-cachoeirinha-3',
     },
     {
-      id: 'paraiso',
+      id: '9',
       name: 'Sítio Paraíso',
       responsibleName: 'Ronilson',
       prepostos: [],
@@ -1870,7 +1870,7 @@ let defaultFarmers: Farmer[] = [
       image: 'https://i.pravatar.cc/150?u=sitio-paraiso',
     },
     {
-      id: 'domicilio',
+      id: '6',
       name: 'Domicílio Orgânico',
       responsibleName: 'Ivison Fragoso',
       prepostos: [],
@@ -1884,7 +1884,7 @@ let defaultFarmers: Farmer[] = [
       image: 'https://i.pravatar.cc/150?u=domicilio-organico',
     },
     {
-      id: 'loja',
+      id: '134',
       name: 'Loja Orgânica',
       responsibleName: 'Marcos Melo',
       prepostos: [],
@@ -1898,7 +1898,7 @@ let defaultFarmers: Farmer[] = [
       image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/loja_essencia_vital.jpg?alt=media&token=c961e59c-6a68-4560-9833-28952b1b369c',
     },
     {
-      id: 'naturalmente',
+      id: '8',
       name: 'Naturalmente Orgânicos',
       responsibleName: 'Lúcia Rodrigues',
       prepostos: [],
@@ -1912,7 +1912,7 @@ let defaultFarmers: Farmer[] = [
       image: 'https://i.pravatar.cc/150?u=naturalmente-organicos',
     },
     {
-      id: 'ni-organicos',
+      id: '10',
       name: 'NI Orgânicos',
       responsibleName: 'Anita Carpenter',
       prepostos: [],
@@ -2312,3 +2312,5 @@ export function updateCustomerClassification(customerId: string, classification:
         setStoredData(CUSTOMERS_KEY, customers!);
     }
 }
+
+    
