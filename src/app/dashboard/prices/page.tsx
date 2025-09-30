@@ -48,6 +48,8 @@ export default function PricesPage() {
     useEffect(() => {
         if (user) {
             const products = getProducts({ includePaused: false }).filter(p => p.farmerId === user.id);
+            // Ordena os produtos em ordem alfabética
+            products.sort((a, b) => a.name.localeCompare(b.name, 'pt-BR', { sensitivity: 'base' }));
             setFarmerProducts(products);
         }
     }, [user]);
@@ -173,7 +175,7 @@ export default function PricesPage() {
             <div ref={printRef} className="print-container">
                 <div className="hidden print:block">
                     <h1 className="print-title">Tabela de Preços - {user?.name}</h1>
-                    <p className="print-date">Data: {format(new Date(), "dd/MM/yyyy", { locale: ptBR })}</p>
+                    <p className="print-date">Data: ${format(new Date(), "dd/MM/yyyy", { locale: ptBR })}</p>
                 </div>
                 <Card>
                     <CardHeader className="text-center">
