@@ -1796,7 +1796,7 @@ let defaultFarmers: Farmer[] = [
       pixKey: 'matiasponte@email.com',
       shippingCost: 18.00,
       phone: '5521987654321',
-      fairs: ["Botafogo", "Grajaú"],
+      fairs: ["Tijuca", "Grajaú", "Flamengo"],
       image: 'https://i.pravatar.cc/150?u=sitio-fazenda-mata-verde',
     },
     {
@@ -2312,5 +2312,3 @@ export function updateCustomerClassification(customerId: string, classification:
         setStoredData(CUSTOMERS_KEY, customers!);
     }
 }
-
-    
