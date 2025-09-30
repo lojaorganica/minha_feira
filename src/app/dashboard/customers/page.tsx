@@ -1,18 +1,36 @@
 
 'use client';
 
-import { useState, useMemo } from 'react';
-import { getOrders, getCustomers, updateCustomerClassification } from '@/lib/data';
-import type { Order, Customer, CustomerClassification, CustomerAddress } from '@/lib/types';
+import { useState, useMemo, useEffect } from 'react';
+import { getCustomers, updateCustomerClassification } from '@/lib/data';
+import type { Customer, CustomerClassification, CustomerAddress } from '@/lib/types';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import BackButton from '@/components/back-button';
-import { Home, Mail, Phone, User, Award, Gem, Medal, Shield } from 'lucide-react';
+import { Home, Mail, Phone, User, Award, Gem, Medal, Shield, Search } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
 import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+
+
+function useDebounce(value: string, delay: number) {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+}
 
 const classificationConfig: Record<CustomerClassification, {
     label: string;
@@ -61,6 +79,8 @@ export default function MyCustomersPage() {
     // Usando estado para permitir a atualização da UI
     const [customers, setCustomers] = useState(() => getCustomers());
     const { toast } = useToast();
+    const [searchTerm, setSearchTerm] = useState('');
+    const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
     const handleClassificationChange = (customerId: string, newClassification: CustomerClassification) => {
         updateCustomerClassification(customerId, newClassification);
@@ -74,6 +94,13 @@ export default function MyCustomersPage() {
             description: `O cliente foi classificado como ${classificationConfig[newClassification].label}.`,
         });
     };
+    
+    const filteredCustomers = useMemo(() => {
+        if (!debouncedSearchTerm) return customers;
+        return customers.filter(customer => 
+            customer.name.toLowerCase().startsWith(debouncedSearchTerm.toLowerCase())
+        );
+    }, [customers, debouncedSearchTerm]);
 
     return (
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -86,16 +113,29 @@ export default function MyCustomersPage() {
                 </h1>
                 <p className="mt-2 text-lg font-semibold text-foreground/90 max-w-3xl">Gerencie e classifique seus clientes para fortalecer o relacionamento e identificar seus compradores mais fiéis.</p>
             </div>
+            
+            <div className="relative mb-6">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                <Input
+                    type="search"
+                    placeholder="Buscar por cliente..."
+                    className="pl-10 w-full sm:w-80"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+            </div>
 
-            {customers.length === 0 ? (
+            {filteredCustomers.length === 0 ? (
                 <div className="text-center py-20">
                     <User className="mx-auto h-12 w-12 text-muted-foreground" />
                     <h2 className="mt-4 text-2xl font-semibold">Nenhum cliente encontrado</h2>
-                    <p className="text-lg font-semibold text-foreground/90 mt-2">Você ainda não tem clientes que fizeram pedidos.</p>
+                    <p className="text-lg font-semibold text-foreground/90 mt-2">
+                        {searchTerm ? `Sua busca por "${searchTerm}" não encontrou resultados.` : 'Você ainda não tem clientes que fizeram pedidos.'}
+                    </p>
                 </div>
             ) : (
                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {customers.map((customer) => (
+                    {filteredCustomers.map((customer) => (
                         <Card key={customer.id} className="flex flex-col">
                             <CardHeader className="flex flex-row items-center gap-4">
                                 <Avatar className="h-16 w-16">
