@@ -7,7 +7,7 @@ import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerClas
 // ============================================================================
 
 const DATA_VERSION_KEY = 'minha_feira_data_version';
-const CURRENT_DATA_VERSION = 'v1.7'; // Increment to force a data refresh
+const CURRENT_DATA_VERSION = 'v1.8'; // Increment to force a data refresh
 
 const FARMERS_KEY = 'minha_feira_farmers_v5';
 const PRODUCTS_KEY = 'minha_feira_products_v7';
@@ -1862,7 +1862,7 @@ let defaultFarmers: Farmer[] = [
       pixKey: 'ailton.lima.tapera@email.com',
       shippingCost: 15.00,
       phone: '5521912345678',
-      fairs: ["Tijuca", "Laranjeiras", "Botafogo"],
+      fairs: ["Laranjeiras", "Botafogo"],
       image: 'https://i.pravatar.cc/150?u=sitio-tapera',
     },
     {
@@ -1876,7 +1876,7 @@ let defaultFarmers: Farmer[] = [
       pixKey: 'oneias.cachoeirinha@email.com',
       shippingCost: 20.00,
       phone: '5524987651234',
-      fairs: ["Tijuca", "Botafogo"],
+      fairs: ["Tijuca"],
       image: 'https://i.pravatar.cc/150?u=sitio-cachoeirinha-1',
     },
      {
@@ -1890,7 +1890,7 @@ let defaultFarmers: Farmer[] = [
       pixKey: 'walace.cachoeirinha@email.com',
       shippingCost: 18.00,
       phone: '5521988776655',
-      fairs: ["Grajaú"],
+      fairs: ["Laranjeiras", "Leme"],
       image: 'https://i.pravatar.cc/150?u=sitio-cachoeirinha-2',
     },
     {
@@ -1904,7 +1904,7 @@ let defaultFarmers: Farmer[] = [
       pixKey: 'wendel.cachoeirinha@email.com',
       shippingCost: 16.00,
       phone: '5521976543210',
-      fairs: ["Botafogo"],
+      fairs: ["Flamengo"],
       image: 'https://i.pravatar.cc/150?u=sitio-cachoeirinha-3',
     },
     {
@@ -1918,7 +1918,7 @@ let defaultFarmers: Farmer[] = [
       pixKey: 'ronilson.paraiso@email.com',
       shippingCost: 19.00,
       phone: '5521943210987',
-      fairs: ["Flamengo"],
+      fairs: ["Tijuca"],
       image: 'https://i.pravatar.cc/150?u=sitio-paraiso',
     },
     {
@@ -1932,7 +1932,7 @@ let defaultFarmers: Farmer[] = [
       pixKey: 'contato@domicilioorganico.com',
       shippingCost: 12.00,
       phone: '5521965432109',
-      fairs: ["Leme"],
+      fairs: ["Flamengo", "Laranjeiras", "Botafogo"],
       image: 'https://i.pravatar.cc/150?u=domicilio-organico',
     },
     {
@@ -1946,7 +1946,7 @@ let defaultFarmers: Farmer[] = [
       pixKey: 'CNPJ: 30.088.0 Essência Vital',
       shippingCost: 15.00,
       phone: '5521999887766',
-      fairs: [],
+      fairs: ["Tijuca"],
       image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/loja_essencia_vital.jpg?alt=media&token=c961e59c-6a68-4560-9833-28952b1b369c',
     },
     {
@@ -2364,5 +2364,7 @@ export function updateCustomerClassification(customerId: string, classification:
         setStoredData(CUSTOMERS_KEY, customers!);
     }
 }
+
+    
 
     
