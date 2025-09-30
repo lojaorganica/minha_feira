@@ -34,6 +34,14 @@ interface RomaneioItem {
 
 const getFairDisplayName = (fair: string): string => {
     if (!fair) return '';
+    const doExceptions = ['Grajaú', 'Flamengo', 'Leme'];
+    if (doExceptions.includes(fair)) {
+        return `Feira Orgânica do ${fair}`;
+    }
+    const daExceptions = ['Tijuca', 'Barra da Tijuca I', 'Barra da Tijuca II'];
+    if (daExceptions.includes(fair)) {
+        return `Feira Orgânica da ${fair}`;
+    }
     return `Feira Orgânica de ${fair}`;
 }
 
@@ -173,7 +181,7 @@ export default function RomaneioPage() {
 
     doc.setFont("helvetica", "bold");
     doc.setFontSize(14);
-    doc.text(`Romaneio da Feira Orgânica de ${selectedFair}`, doc.internal.pageSize.getWidth() / 2, 40, { align: "center" });
+    doc.text(getFairDisplayName(selectedFair), doc.internal.pageSize.getWidth() / 2, 40, { align: "center" });
 
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
@@ -231,7 +239,7 @@ export default function RomaneioPage() {
   const handleShare = async () => {
     if (!farmer || !date || !selectedFair) return;
 
-    let shareText = `*Romaneio da Feira Orgânica de ${selectedFair} - ${format(date, 'dd/MM/yyyy')}*\n\n`;
+    let shareText = `*Romaneio da ${getFairDisplayName(selectedFair)} - ${format(date, 'dd/MM/yyyy')}*\n\n`;
     shareText += `*Agricultor:* ${farmer.responsibleName || farmer.name}\n`;
     if (farmer.prepostos && farmer.prepostos.length > 0) {
       shareText += `*Prepostos:* ${farmer.prepostos.join(', ')}\n`;
@@ -249,7 +257,7 @@ export default function RomaneioPage() {
 
     if (navigator.share) {
       await navigator.share({
-        title: `Romaneio da Feira Orgânica de ${selectedFair}`,
+        title: `Romaneio da ${getFairDisplayName(selectedFair)}`,
         text: shareText,
       }).catch(console.error);
     } else {
@@ -572,7 +580,7 @@ export default function RomaneioPage() {
                         {farmer.fairs.map(fair => (
                             <div key={fair} className="flex items-center space-x-2">
                                 <RadioGroupItem value={fair} id={`fair-${fair}`} />
-                                <Label htmlFor={`fair-${fair}`} className="font-normal text-base cursor-pointer">{`Feira Orgânica de ${fair}`}</Label>
+                                <Label htmlFor={`fair-${fair}`} className="font-normal text-base cursor-pointer">{getFairDisplayName(fair)}</Label>
                             </div>
                         ))}
                     </RadioGroup>
@@ -581,7 +589,7 @@ export default function RomaneioPage() {
               </div>
               <div className="print-header pt-6 px-1 sm:px-2 md:px-4">
                 <CardTitle className="font-headline text-2xl text-center text-primary leading-tight">
-                    Romaneio da Feira Orgânica de {selectedFair}
+                    Romaneio da {getFairDisplayName(selectedFair)}
                 </CardTitle>
                 <Separator className="my-4" />
                  <div className="space-y-1 p-2 md:p-0">
