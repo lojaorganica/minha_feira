@@ -53,6 +53,7 @@ export default function InventoryPage() {
     useEffect(() => {
         if (user) {
             const products = getProducts({ includePaused: true }).filter(p => p.farmerId === user.id);
+            products.sort((a, b) => a.name.localeCompare(b.name, 'pt-BR', { sensitivity: 'base' }));
             setFarmerProducts(products);
             const stocks = new Map(products.map(p => [p.id, p.stock]));
             setInitialStocks(stocks);
@@ -339,3 +340,5 @@ export default function InventoryPage() {
         </div>
     );
 }
+
+    
