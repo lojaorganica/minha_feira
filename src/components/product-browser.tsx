@@ -107,7 +107,18 @@ function ProductBrowserContent() {
     setSearchTerm('');
     
     if (filterRef.current) {
-        filterRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Encontra o cabeçalho fixo para calcular seu tamanho
+        const headerElement = document.querySelector('header');
+        const headerOffset = headerElement ? headerElement.offsetHeight : 80; // Usa um valor padrão se não encontrar
+        
+        // Calcula a posição do topo do container de filtros
+        const elementPosition = filterRef.current.getBoundingClientRect().top + window.scrollY;
+        
+        // Rola a tela para a posição do container de filtros, descontando a altura do cabeçalho
+        window.scrollTo({
+            top: elementPosition - headerOffset,
+            behavior: 'smooth'
+        });
     }
 
     const currentParams = new URLSearchParams(searchParams.toString());
@@ -121,7 +132,14 @@ function ProductBrowserContent() {
   
   const handleSearchClick = () => {
     if (filterRef.current) {
-      filterRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const headerElement = document.querySelector('header');
+      const headerOffset = headerElement ? headerElement.offsetHeight : 80;
+      const elementPosition = filterRef.current.getBoundingClientRect().top + window.scrollY;
+      
+      window.scrollTo({
+          top: elementPosition - headerOffset,
+          behavior: 'smooth'
+      });
     }
   };
 
