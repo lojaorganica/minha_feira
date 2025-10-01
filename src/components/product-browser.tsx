@@ -116,7 +116,7 @@ function ProductBrowserContent() {
   
   const handleSearchClick = () => {
     if (filterRef.current) {
-      const topPos = filterRef.current.getBoundingClientRect().top + window.scrollY - (window.innerHeight * 0.1); // Subtrai 10% da altura da viewport
+      const topPos = filterRef.current.getBoundingClientRect().top + window.scrollY - 150; // Ajuste para rolar mais para cima
       window.scrollTo({
         top: topPos,
         behavior: 'smooth'
