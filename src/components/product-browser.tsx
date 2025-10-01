@@ -37,6 +37,7 @@ function FarmerFilter({
   searchTerm,
   onSearchChange,
   onSearchClick,
+  filterRef
 }: {
   farmers: Farmer[];
   selectedFarmerId: string | null;
@@ -44,9 +45,10 @@ function FarmerFilter({
   searchTerm: string;
   onSearchChange: (term: string) => void;
   onSearchClick: () => void;
+  filterRef: React.RefObject<HTMLDivElement>;
 }) {
   return (
-    <div className="mb-8">
+    <div className="mb-8" ref={filterRef}>
       <div className="flex flex-col sm:flex-row flex-wrap gap-4 items-center">
          <div className="flex flex-wrap gap-2">
             <Button
@@ -120,7 +122,14 @@ function ProductBrowserContent() {
   
   const handleSearchClick = () => {
     if (filterRef.current) {
-      filterRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const headerOffset = 140; // Altura aproximada do header fixo
+        const elementPosition = filterRef.current.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+        });
     }
   };
 
@@ -183,8 +192,9 @@ function ProductBrowserContent() {
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}
         onSearchClick={handleSearchClick}
+        filterRef={filterRef}
       />
-      <div ref={filterRef}>
+      <div>
         {filteredProductsByFarmer.length > 0 ? (
           filteredProductsByFarmer.map((farmer) => (
             <section key={farmer.id} className="mb-12">
