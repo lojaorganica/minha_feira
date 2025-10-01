@@ -37,7 +37,8 @@ function FarmerFilter({
   searchTerm,
   onSearchChange,
   onSearchClick,
-  filterRef
+  filterRef,
+  searchRef,
 }: {
   farmers: Farmer[];
   selectedFarmerId: string | null;
@@ -46,6 +47,7 @@ function FarmerFilter({
   onSearchChange: (term: string) => void;
   onSearchClick: () => void;
   filterRef: React.RefObject<HTMLDivElement>;
+  searchRef: React.RefObject<HTMLDivElement>;
 }) {
   return (
     <div className="mb-8" ref={filterRef}>
@@ -77,7 +79,7 @@ function FarmerFilter({
               </Button>
             ))}
         </div>
-        <div className="relative w-full sm:w-auto sm:flex-1 sm:max-w-xs">
+        <div className="relative w-full sm:w-auto sm:flex-1 sm:max-w-xs" ref={searchRef}>
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
           <Input
             type="search"
@@ -100,6 +102,7 @@ function ProductBrowserContent() {
   
   const selectedFarmerId = searchParams.get('farmerId');
   const filterRef = useRef<HTMLDivElement>(null);
+  const searchRef = useRef<HTMLDivElement>(null);
   
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
@@ -127,11 +130,10 @@ function ProductBrowserContent() {
   };
   
   const handleSearchClick = () => {
-     if (filterRef.current) {
+     if (searchRef.current) {
         const headerElement = document.querySelector('header');
-        // Aumentar o offset para descer mais a tela
         const headerHeight = headerElement ? headerElement.offsetHeight : 0;
-        const elementTop = filterRef.current.getBoundingClientRect().top + window.scrollY;
+        const elementTop = searchRef.current.getBoundingClientRect().top + window.scrollY;
         
         window.scrollTo({
             top: elementTop - headerHeight,
@@ -199,6 +201,7 @@ function ProductBrowserContent() {
         onSearchChange={setSearchTerm}
         onSearchClick={handleSearchClick}
         filterRef={filterRef}
+        searchRef={searchRef}
       />
       <div>
         {filteredProductsByFarmer.length > 0 ? (
