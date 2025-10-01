@@ -360,7 +360,7 @@ function GalleryViewContent() {
                     className="p-2 rounded-full group bg-transparent border-none focus:outline-none focus:ring-0 focus:ring-offset-0 focus-visible:bg-transparent active:bg-transparent hover:bg-transparent [-webkit-tap-highlight-color:transparent]"
                 >
                     <Heart className={cn(
-                        "h-7 w-7 transition-colors hover-hover:group-hover:fill-destructive hover-hover:group-hover:stroke-destructive",
+                        "h-7 w-7 transition-colors hover:fill-destructive hover:stroke-destructive",
                         isShowingFavorites
                             ? "fill-destructive stroke-destructive"
                             : "stroke-primary fill-white"
