@@ -108,11 +108,11 @@ function ProductBrowserContent() {
     
     if (filterRef.current) {
         const headerElement = document.querySelector('header');
-        const headerOffset = headerElement ? headerElement.offsetHeight : 80;
-        const elementPosition = filterRef.current.getBoundingClientRect().top + window.scrollY;
+        const headerHeight = headerElement ? headerElement.offsetHeight : 0;
+        const elementTop = filterRef.current.getBoundingClientRect().top + window.scrollY;
         
         window.scrollTo({
-            top: elementPosition - headerOffset,
+            top: elementTop - headerHeight,
             behavior: 'smooth'
         });
     }
@@ -129,11 +129,12 @@ function ProductBrowserContent() {
   const handleSearchClick = () => {
      if (filterRef.current) {
         const headerElement = document.querySelector('header');
-        const headerOffset = headerElement ? headerElement.offsetHeight : 80;
-        const elementPosition = filterRef.current.getBoundingClientRect().top + window.scrollY;
+        // Aumentar o offset para descer mais a tela
+        const headerHeight = headerElement ? headerElement.offsetHeight : 0;
+        const elementTop = filterRef.current.getBoundingClientRect().top + window.scrollY;
         
         window.scrollTo({
-            top: elementPosition - headerOffset,
+            top: elementTop - headerHeight,
             behavior: 'smooth'
         });
     }
