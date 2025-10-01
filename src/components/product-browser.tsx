@@ -104,11 +104,17 @@ function ProductBrowserContent() {
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
   const handleSelectFarmer = (farmerId: string | null) => {
-    // Sempre limpa a busca ao selecionar um novo agricultor ou "Todos"
     setSearchTerm('');
     
     if (filterRef.current) {
-        filterRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const headerOffset = 140; // Altura do header fixo + margens
+        const elementPosition = filterRef.current.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+        });
     }
 
     const currentParams = new URLSearchParams(searchParams.toString());
@@ -122,7 +128,7 @@ function ProductBrowserContent() {
   
   const handleSearchClick = () => {
     if (filterRef.current) {
-        const headerOffset = 140; // Altura aproximada do header fixo
+        const headerOffset = 140; 
         const elementPosition = filterRef.current.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -139,7 +145,6 @@ function ProductBrowserContent() {
   const filteredProductsByFarmer: FarmerWithProducts[] = useMemo(() => {
     const farmersWithProducts = allFarmers.map(farmer => {
         const farmerProducts = allProducts.filter(p => p.farmerId === farmer.id);
-        // Garante a ordenação alfabética dos produtos para cada agricultor
         farmerProducts.sort((a, b) => a.name.localeCompare(b.name, 'pt-BR', { sensitivity: 'base' }));
         return {
           ...farmer,
