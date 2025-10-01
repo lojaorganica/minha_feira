@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { useMemo, useState, useRef, useEffect, Suspense } from "react";
@@ -35,12 +36,14 @@ function FarmerFilter({
   onSelectFarmer,
   searchTerm,
   onSearchChange,
+  onSearchClick,
 }: {
   farmers: Farmer[];
   selectedFarmerId: string | null;
   onSelectFarmer: (id: string | null) => void;
   searchTerm: string;
   onSearchChange: (term: string) => void;
+  onSearchClick: () => void;
 }) {
   return (
     <div className="mb-8">
@@ -77,9 +80,10 @@ function FarmerFilter({
           <Input
             type="search"
             placeholder="Buscar alimentos..."
-            className="pl-10 bg-card"
+            className="pl-10 bg-white"
             value={searchTerm}
             onChange={(e) => onSearchChange(e.target.value)}
+            onClick={onSearchClick}
           />
         </div>
       </div>
@@ -110,19 +114,15 @@ function ProductBrowserContent() {
     router.push(`/catalog?${currentParams.toString()}`, { scroll: false });
   };
   
-  useEffect(() => {
-    if (filterRef.current && (debouncedSearchTerm || selectedFarmerId)) {
-        setTimeout(() => {
-            if(filterRef.current) {
-              const topPos = filterRef.current.getBoundingClientRect().top + window.scrollY - 100;
-              window.scrollTo({
-                top: topPos,
-                behavior: 'smooth'
-              });
-            }
-        }, 100);
+  const handleSearchClick = () => {
+    if (filterRef.current) {
+      const topPos = filterRef.current.getBoundingClientRect().top + window.scrollY - (window.innerHeight * 0.1); // Subtrai 10% da altura da viewport
+      window.scrollTo({
+        top: topPos,
+        behavior: 'smooth'
+      });
     }
-  }, [debouncedSearchTerm, selectedFarmerId]);
+  };
 
   const allFarmers = useMemo(() => getFarmers(), []);
   const allProducts = useMemo(() => getProducts({ includePaused: false }), []);
@@ -182,6 +182,7 @@ function ProductBrowserContent() {
         onSelectFarmer={handleSelectFarmer}
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}
+        onSearchClick={handleSearchClick}
       />
       <div>
         {filteredProductsByFarmer.length > 0 ? (
