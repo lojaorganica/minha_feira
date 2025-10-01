@@ -105,6 +105,10 @@ function ProductBrowserContent() {
     // Sempre limpa a busca ao selecionar um novo agricultor ou "Todos"
     setSearchTerm('');
     
+    if (filterRef.current) {
+        filterRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
     const currentParams = new URLSearchParams(searchParams.toString());
     if (farmerId) {
       currentParams.set('farmerId', farmerId);
@@ -171,7 +175,7 @@ function ProductBrowserContent() {
   }
 
   return (
-    <div ref={filterRef}>
+    <div>
       <FarmerFilter 
         farmers={allFarmers}
         selectedFarmerId={selectedFarmerId}
@@ -180,7 +184,7 @@ function ProductBrowserContent() {
         onSearchChange={setSearchTerm}
         onSearchClick={handleSearchClick}
       />
-      <div>
+      <div ref={filterRef}>
         {filteredProductsByFarmer.length > 0 ? (
           filteredProductsByFarmer.map((farmer) => (
             <section key={farmer.id} className="mb-12">
