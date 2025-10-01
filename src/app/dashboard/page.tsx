@@ -1281,8 +1281,8 @@ function DashboardContent() {
             <Dialog open={isHistoryDialogOpen} onOpenChange={setHistoryDialogOpen}>
                 <Tabs value={tab} onValueChange={handleTabChange} className="w-full">
                     <TabsList className="grid w-full grid-cols-2">
-                        <TabsTrigger value="orders" className="text-base font-semibold hover:bg-accent/80 hover:text-accent-foreground">Pedidos</TabsTrigger>
-                        <TabsTrigger value="products" className="text-base font-semibold hover:bg-accent/80 hover:text-accent-foreground">Meus Produtos</TabsTrigger>
+                        <TabsTrigger value="orders" className="text-base font-semibold hover:bg-accent hover:text-accent-foreground">Pedidos</TabsTrigger>
+                        <TabsTrigger value="products" className="text-base font-semibold hover:bg-accent hover:text-accent-foreground">Meus Produtos</TabsTrigger>
                     </TabsList>
 
                     <div className="relative my-4">
