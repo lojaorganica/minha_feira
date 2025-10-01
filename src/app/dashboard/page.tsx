@@ -1256,7 +1256,7 @@ function DashboardContent() {
 
     const searchPlaceholder = tab === 'orders' ? "Buscar por cliente ou ID..." : "Buscar por produto...";
     
-    if (!isUserLoaded || !user) {
+    if (!isUserLoaded) {
          return (
             <div className="flex justify-center items-center h-screen">
                 <Loader2 className="h-12 w-12 animate-spin text-primary" />
@@ -1264,7 +1264,7 @@ function DashboardContent() {
         );
     }
     
-    if (userType !== 'farmer') {
+    if (userType !== 'farmer' || !user) {
         return (
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
                 <h1 className="text-3xl font-bold font-headline text-destructive mb-6">Acesso Negado</h1>
@@ -1281,8 +1281,8 @@ function DashboardContent() {
             <Dialog open={isHistoryDialogOpen} onOpenChange={setHistoryDialogOpen}>
                 <Tabs value={tab} onValueChange={handleTabChange} className="w-full">
                     <TabsList className="grid w-full grid-cols-2">
-                        <TabsTrigger value="orders" className="text-base font-semibold">Pedidos</TabsTrigger>
-                        <TabsTrigger value="products" className="text-base font-semibold">Meus Produtos</TabsTrigger>
+                        <TabsTrigger value="orders" className="text-base font-semibold hover:bg-accent/80 hover:text-accent-foreground">Pedidos</TabsTrigger>
+                        <TabsTrigger value="products" className="text-base font-semibold hover:bg-accent/80 hover:text-accent-foreground">Meus Produtos</TabsTrigger>
                     </TabsList>
 
                     <div className="relative my-4">
@@ -1332,5 +1332,3 @@ export default function DashboardPage() {
         </Suspense>
     );
 }
-
-    
