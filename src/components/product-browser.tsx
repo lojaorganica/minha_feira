@@ -112,10 +112,12 @@ function ProductBrowserContent() {
     if (filterRef.current) {
         const headerElement = document.querySelector('header');
         const headerHeight = headerElement ? headerElement.offsetHeight : 0;
+        // Ajuste fino para o deslocamento da rolagem para garantir que os botões fiquem visíveis abaixo do cabeçalho
+        const headerOffset = headerHeight + 10;
         const elementTop = filterRef.current.getBoundingClientRect().top + window.scrollY;
         
         window.scrollTo({
-            top: elementTop - headerHeight,
+            top: elementTop - headerOffset,
             behavior: 'smooth'
         });
     }
@@ -129,14 +131,15 @@ function ProductBrowserContent() {
     router.push(`/catalog?${currentParams.toString()}`, { scroll: false });
   };
   
-  const handleSearchClick = () => {
+   const handleSearchClick = () => {
      if (searchRef.current) {
         const headerElement = document.querySelector('header');
         const headerHeight = headerElement ? headerElement.offsetHeight : 0;
+        const searchInputOffset = 10; // Adiciona uma pequena margem abaixo do cabeçalho
         const elementTop = searchRef.current.getBoundingClientRect().top + window.scrollY;
         
         window.scrollTo({
-            top: elementTop - headerHeight,
+            top: elementTop - headerHeight - searchInputOffset,
             behavior: 'smooth'
         });
     }
