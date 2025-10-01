@@ -192,12 +192,14 @@ const Header = () => {
         </div>
 
         {/* Desktop Navigation - now on its own line */}
-        <nav className="hidden lg:flex w-full justify-center items-center py-1">
-          {isUserLoaded && (userType === 'customer' ? customerMenuLinks : farmerMenuLinks).map(link => (
-            <Button key={link.href} asChild variant="ghost" className="text-base font-bold text-primary hover:text-accent-foreground hover:bg-accent">
-              <Link href={link.href}>{link.label}</Link>
-            </Button>
-          ))}
+        <nav className="hidden lg:flex w-full justify-center items-center py-1 min-h-[40px]">
+          {isUserLoaded && userType && (
+            (userType === 'customer' ? customerMenuLinks : farmerMenuLinks).map(link => (
+              <Button key={link.href} asChild variant="ghost" className="text-base font-bold text-primary hover:text-accent-foreground hover:bg-accent">
+                <Link href={link.href}>{link.label}</Link>
+              </Button>
+            ))
+          )}
         </nav>
       </div>
     </header>
@@ -205,3 +207,5 @@ const Header = () => {
 };
 
 export default Header;
+
+    

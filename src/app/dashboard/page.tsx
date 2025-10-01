@@ -1202,7 +1202,7 @@ function DashboardContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const tab = searchParams.get('tab') || 'orders';
-    const { user } = useUser();
+    const { user, isUserLoaded, userType } = useUser();
 
     const [allProducts, setAllProducts] = useState(() => getProducts({ includePaused: true }));
     const [allOrders, setAllOrders] = useState(() => getOrders());
@@ -1256,12 +1256,22 @@ function DashboardContent() {
 
     const searchPlaceholder = tab === 'orders' ? "Buscar por cliente ou ID..." : "Buscar por produto...";
     
-    if (!user) {
+    if (!isUserLoaded || !user) {
          return (
             <div className="flex justify-center items-center h-screen">
                 <Loader2 className="h-12 w-12 animate-spin text-primary" />
             </div>
         );
+    }
+    
+    if (userType !== 'farmer') {
+        return (
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <h1 className="text-3xl font-bold font-headline text-destructive mb-6">Acesso Negado</h1>
+                <p className="text-lg">Esta página está disponível apenas para agricultores.</p>
+                <Button onClick={() => router.push('/welcome')} className="mt-4">Voltar ao Início</Button>
+            </div>
+        )
     }
 
     return (
@@ -1322,3 +1332,5 @@ export default function DashboardPage() {
         </Suspense>
     );
 }
+
+    
