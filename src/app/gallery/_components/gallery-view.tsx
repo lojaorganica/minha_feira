@@ -126,7 +126,8 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
                             "h-6 w-6 drop-shadow-md transition-colors",
                             isCurrentlyFavorite
                                 ? "fill-destructive stroke-destructive animate-pulse-heart"
-                                : "stroke-white fill-white"
+                                : "stroke-white fill-white",
+                             "hover:fill-destructive hover:stroke-destructive"
                         )}/>
                     </button>
                 </div>
@@ -443,21 +444,3 @@ export default function GalleryView() {
         </Suspense>
     );
 }
-
-    
-
-    
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
