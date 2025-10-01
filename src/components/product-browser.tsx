@@ -116,11 +116,7 @@ function ProductBrowserContent() {
   
   const handleSearchClick = () => {
     if (filterRef.current) {
-      const topPos = filterRef.current.getBoundingClientRect().top + window.scrollY - 150; // Ajuste para rolar mais para cima
-      window.scrollTo({
-        top: topPos,
-        behavior: 'smooth'
-      });
+      filterRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
