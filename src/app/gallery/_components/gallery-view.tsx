@@ -19,7 +19,7 @@ import BackButton from '@/components/back-button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 
-function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentlyFavorite, onToggleFavorite }: { item: GalleryItem; onShare: (item: GalleryItem) => void; onPlayVideo: (item: GalleryItem) => void; onSelectImage: (item: GalleryItem) => void; isCurrentlyFavorite: boolean; onToggleFavorite: (item: GalleryItem) => void; }) {
+function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentlyFavorite, onToggleFavorite, onDownload }: { item: GalleryItem; onShare: (item: GalleryItem) => void; onPlayVideo: (item: GalleryItem) => void; onSelectImage: (item: GalleryItem) => void; isCurrentlyFavorite: boolean; onToggleFavorite: (item: GalleryItem) => void; onDownload: (item: GalleryItem) => void; }) {
     const touchStartPos = useRef({ x: 0, y: 0 });
     const isDragging = useRef(false);
 
@@ -53,12 +53,6 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
     const handleDivClick = () => {
         handleActionClick(() => onSelectImage(item));
     }
-
-
-    const handleDownload = (e: React.MouseEvent, url: string, title: string) => {
-        e.stopPropagation();
-        window.open(url, '_blank');
-    };
 
     const formatFairName = (fairName: string): string => {
         if (fairName === 'Todas') {
@@ -143,7 +137,7 @@ function GalleryItemCard({ item, onShare, onPlayVideo, onSelectImage, isCurrentl
             </div>
             <CardFooter className="p-2 bg-muted/50 mt-auto">
                  <div className="flex w-full gap-2">
-                    <Button variant="outline" size="sm" className="h-8 text-xs flex-1 hidden sm:flex" onClick={(e) => handleDownload(e, item.url, item.title)}>
+                    <Button variant="outline" size="sm" className="h-8 text-xs flex-1 hidden sm:flex" onClick={(e) => { e.stopPropagation(); onDownload(item); }}>
                         <Download className="mr-2 h-4 w-4" />
                         Baixar
                     </Button>
@@ -300,32 +294,60 @@ function GalleryViewContent() {
     const handleToggleFavorite = (item: GalleryItem) => {
         toggleFavorite(item);
     };
-    
-    const handleShare = async (item: GalleryItem) => {
-        const title = item.title;
-        const fileExtension = item.type === 'video' ? 'mp4' : 'jpg';
-        const fileName = `${item.title.replace(/\s+/g, '_')}.${fileExtension}`;
-        const mimeType = item.type === 'video' ? 'video/mp4' : 'image/jpeg';
-        
+
+    const fetchAndCreateFile = async (item: GalleryItem): Promise<File | null> => {
         try {
             const response = await fetch(item.url);
             if (!response.ok) throw new Error('A resposta da rede não foi boa.');
             const blob = await response.blob();
-            const file = new File([blob], fileName, { type: mimeType });
+            const fileExtension = item.type === 'video' ? 'mp4' : 'jpg';
+            const fileName = `${item.title.replace(/\s+/g, '_')}.${fileExtension}`;
+            return new File([blob], fileName, { type: blob.type });
+        } catch (error) {
+            console.error('Falha ao buscar ou criar o arquivo:', error);
+            return null;
+        }
+    };
+    
+    const handleShare = async (item: GalleryItem) => {
+        const file = await fetchAndCreateFile(item);
+        if (!file) {
+            window.open(item.url, '_blank');
+            return;
+        }
 
-            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            try {
                 await navigator.share({
-                    title: title,
-                    text: `Confira esta propaganda da Minha Feira: ${title}`,
+                    title: item.title,
+                    text: `Confira esta propaganda da Minha Feira: ${item.title}`,
                     files: [file],
                 });
-            } else {
+            } catch (error) {
+                 // Fallback para abrir em nova aba se o compartilhamento for cancelado ou falhar
+                 console.warn("Compartilhamento cancelado ou falhou, abrindo em nova aba.", error);
                  window.open(item.url, '_blank');
             }
-        } catch (error) {
-            console.error('Falha ao compartilhar, retornando para download direto:', error);
-            window.open(item.url, '_blank');
+        } else {
+             // Fallback para navegadores que não suportam compartilhamento de arquivos
+             window.open(item.url, '_blank');
         }
+    };
+
+    const handleDownload = async (item: GalleryItem) => {
+        const file = await fetchAndCreateFile(item);
+        if (!file) {
+            window.open(item.url, '_blank');
+            return;
+        }
+
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(file);
+        link.download = file.name;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(link.href);
     };
 
 
@@ -381,6 +403,7 @@ function GalleryViewContent() {
                                     key={item.id} 
                                     item={item} 
                                     onShare={handleShare}
+                                    onDownload={handleDownload}
                                     onPlayVideo={setVideoToPlay}
                                     onSelectImage={setSelectedImage}
                                     isCurrentlyFavorite={isFavorite(item.id)}
