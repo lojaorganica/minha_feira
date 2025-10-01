@@ -295,59 +295,29 @@ function GalleryViewContent() {
         toggleFavorite(item);
     };
 
-    const fetchAndCreateFile = async (item: GalleryItem): Promise<File | null> => {
-        try {
-            const response = await fetch(item.url);
-            if (!response.ok) throw new Error('A resposta da rede não foi boa.');
-            const blob = await response.blob();
-            const fileExtension = item.type === 'video' ? 'mp4' : 'jpg';
-            const fileName = `${item.title.replace(/\s+/g, '_')}.${fileExtension}`;
-            return new File([blob], fileName, { type: blob.type });
-        } catch (error) {
-            console.error('Falha ao buscar ou criar o arquivo:', error);
-            return null;
-        }
-    };
-    
     const handleShare = async (item: GalleryItem) => {
-        const file = await fetchAndCreateFile(item);
-        if (!file) {
-            window.open(item.url, '_blank');
-            return;
-        }
-
-        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        if (navigator.share) {
             try {
                 await navigator.share({
                     title: item.title,
                     text: `Confira esta propaganda da Minha Feira: ${item.title}`,
-                    files: [file],
+                    url: item.url,
                 });
             } catch (error) {
-                 // Fallback para abrir em nova aba se o compartilhamento for cancelado ou falhar
-                 console.warn("Compartilhamento cancelado ou falhou, abrindo em nova aba.", error);
-                 window.open(item.url, '_blank');
+                console.warn("Compartilhamento cancelado ou falhou. Abrindo em nova aba.", error);
+                window.open(item.url, '_blank');
             }
         } else {
-             // Fallback para navegadores que não suportam compartilhamento de arquivos
-             window.open(item.url, '_blank');
+            // Fallback para desktops ou navegadores sem suporte
+            window.open(item.url, '_blank');
         }
     };
 
-    const handleDownload = async (item: GalleryItem) => {
-        const file = await fetchAndCreateFile(item);
-        if (!file) {
-            window.open(item.url, '_blank');
-            return;
-        }
-
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(file);
-        link.download = file.name;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(link.href);
+    const handleDownload = (item: GalleryItem) => {
+        // Abrir em uma nova aba continua sendo a abordagem mais confiável
+        // para o download devido às restrições de CORS. O navegador
+        // cuidará de como lidar com o arquivo (exibir ou baixar).
+        window.open(item.url, '_blank');
     };
 
 
