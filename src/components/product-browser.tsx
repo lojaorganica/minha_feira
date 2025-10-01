@@ -107,7 +107,7 @@ function ProductBrowserContent() {
     setSearchTerm('');
     
     if (filterRef.current) {
-        const headerOffset = 140; // Altura do header fixo + margens
+        const headerOffset = 130;
         const elementPosition = filterRef.current.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -128,7 +128,7 @@ function ProductBrowserContent() {
   
   const handleSearchClick = () => {
     if (filterRef.current) {
-        const headerOffset = 140; 
+        const headerOffset = 130; 
         const elementPosition = filterRef.current.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
