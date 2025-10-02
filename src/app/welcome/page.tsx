@@ -6,19 +6,19 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export default function WelcomePage() {
-  const backgroundImageUrl = "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/background_capa_02.webp?alt=media&token=49a9d645-6b3f-4308-a963-8018442aeb89";
+  const videoUrl = "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/Joaninha_Background_01.mp4?alt=media&token=67b2dfec-38db-4bb3-9fb7-b16132e54427";
 
   return (
     <div className="flex flex-col flex-grow">
       <section className="relative w-full py-8 md:py-16 lg:py-20 flex-grow flex items-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-            <Image 
-                src={backgroundImageUrl}
-                alt="Fundo de uma feira orgânica"
-                fill
-                className="object-cover opacity-20"
-                data-ai-hint="organic farm"
-                priority
+            <video
+                src={videoUrl}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover opacity-20"
             />
             <div className="absolute inset-0 bg-background/40" />
         </div>
