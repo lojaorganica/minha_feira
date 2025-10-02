@@ -20,7 +20,6 @@ export default function WelcomePage() {
                 playsInline
                 className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-background/40" />
         </div>
         
         <div className="container px-4 md:px-6 relative z-10">
