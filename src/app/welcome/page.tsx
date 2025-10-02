@@ -6,20 +6,20 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export default function WelcomePage() {
-  const videoUrl = "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/Joaninha_Background_01.mp4?alt=media&token=67b2dfec-38db-4bb3-9fb7-b16132e54427";
-
   return (
     <div className="flex flex-col flex-grow">
-      <section className="relative w-full py-8 md:py-16 lg:py-20 flex-grow flex items-center overflow-hidden">
+      <section className="relative w-full py-8 md:py-16 lg:py-20 flex-grow flex items-center">
         <div className="absolute inset-0 z-0">
-            <video
-                src={videoUrl}
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="w-full h-full object-cover"
-            />
+          <Image
+            src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/background_capa_02.webp?alt=media&token=49a9d645-6b3f-4308-a963-8018442aeb89"
+            alt="Feira orgânica com pessoas comprando"
+            layout="fill"
+            objectFit="cover"
+            className="opacity-20"
+            data-ai-hint="organic fair"
+            priority
+          />
+          <div className="absolute inset-0 bg-background/40" />
         </div>
         
         <div className="container px-4 md:px-6 relative z-10">
