@@ -18,7 +18,7 @@ export default function WelcomePage() {
                 loop
                 muted
                 playsInline
-                className="w-full h-full object-cover opacity-20"
+                className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-background/40" />
         </div>
