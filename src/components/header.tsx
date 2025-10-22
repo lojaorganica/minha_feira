@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart, Menu, User, Search, History, Package, ShoppingBasket, LogOut, Users, Heart, Tag, BookOpen, BarChart3, FileText, Activity, Tags, GalleryHorizontal, FileArchive, Droplet } from "lucide-react";
+import { ShoppingCart, Menu, User, Search, History, Package, ShoppingBasket, LogOut, Users, Heart, Tag, BookOpen, BarChart3, FileText, Activity, Tags, GalleryHorizontal, FileArchive, Droplet, ChevronDown } from "lucide-react";
 import { usePathname, useRouter } from 'next/navigation';
 
 import Logo from "@/components/logo";
@@ -118,12 +118,11 @@ const Header = () => {
                  {userType === 'customer' && (
                     <Accordion type="single" collapsible className="w-full">
                         <AccordionItem value="gota-nft" className="border-b-0">
-                             <AccordionTrigger asChild>
-                                <Button variant="ghost" className="w-full justify-start text-lg hover:bg-accent hover:text-accent-foreground pr-0">
+                            <AccordionTrigger className="w-full justify-start text-lg hover:bg-accent hover:text-accent-foreground rounded-md !no-underline p-0">
+                                <span className='flex items-center p-2'>
                                      <Droplet className="h-4 w-4 mr-2" />
                                      Resgate Gota/NFT
-                                     <span className="flex-grow"></span> {/* This will push the chevron to the right */}
-                                </Button>
+                                </span>
                             </AccordionTrigger>
                             <AccordionContent className="p-2">
                                 <div className="relative aspect-square w-full rounded-md overflow-hidden cursor-pointer" onClick={() => handleNavigate('/gota-nft')}>
