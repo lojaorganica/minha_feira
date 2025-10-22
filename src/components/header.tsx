@@ -25,6 +25,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import Image from "next/image";
 
 const customerMenuLinks = [
+    { href: "/profile", label: "Meu Perfil", icon: User },
     { href: "/catalog", label: "Catálogo", icon: BookOpen },
     { href: "/select-farmers", label: "Agricultores", icon: Users },
     { href: "/favorites", label: "Favoritos", icon: Heart },
@@ -79,10 +80,11 @@ const Header = () => {
     
     if (user) {
         let title, subtitle;
-        const mobileMenuLinks = userType === 'customer' 
-          ? [...mobileLinks, { href: "/cart", label: "Meu Carrinho", icon: ShoppingCart }] 
-          : mobileLinks;
-          
+        const customerLinks = [
+          ...customerMenuLinks,
+          { href: "/cart", label: "Meu Carrinho", icon: ShoppingCart }
+        ]
+
         if(userType === 'customer') {
             const firstName = user.name.split(' ')[0];
             title = `Olá, ${firstName}!`;
@@ -95,7 +97,7 @@ const Header = () => {
             subtitle = "Área do Agricultor";
         }
 
-        const menuItems = [{ href: "/profile", label: "Meu Perfil", icon: User }, ...mobileMenuLinks];
+        const menuItems = userType === 'customer' ? customerLinks : farmerMenuLinks;
 
         return (
             <>
@@ -118,9 +120,9 @@ const Header = () => {
                  {userType === 'customer' && (
                     <Accordion type="single" collapsible className="w-full">
                         <AccordionItem value="gota-nft" className="border-b-0">
-                            <AccordionTrigger className={cn(buttonVariants({ variant: "ghost" }), "w-full justify-between text-lg font-bold hover:bg-accent hover:text-accent-foreground !no-underline p-2 h-auto")}>
-                                <div className="flex items-center gap-2">
-                                    <Droplet className="h-4 w-4" />
+                             <AccordionTrigger className={cn(buttonVariants({ variant: "ghost" }), "w-full justify-between text-lg font-bold hover:bg-accent hover:text-accent-foreground !no-underline p-2 h-auto")}>
+                                <div className="flex items-center">
+                                    <Droplet className="h-4 w-4 mr-2" />
                                     <span>Resgate Gota/NFT</span>
                                 </div>
                             </AccordionTrigger>
