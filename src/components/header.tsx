@@ -118,18 +118,21 @@ const Header = () => {
                  {userType === 'customer' && (
                     <Accordion type="single" collapsible className="w-full">
                         <AccordionItem value="gota-nft" className="border-b-0">
-                            <AccordionTrigger className="justify-start text-lg hover:bg-accent hover:text-accent-foreground p-2 rounded-md font-semibold text-secondary-foreground hover:no-underline -ml-2">
-                                <Droplet className="h-4 w-4 mr-2" />
-                                Resgate Gota/NFT
+                             <AccordionTrigger asChild>
+                                <Button variant="ghost" className="w-full justify-start text-lg hover:bg-accent hover:text-accent-foreground pr-0">
+                                     <Droplet className="h-4 w-4 mr-2" />
+                                     Resgate Gota/NFT
+                                     <span className="flex-grow"></span> {/* This will push the chevron to the right */}
+                                </Button>
                             </AccordionTrigger>
                             <AccordionContent className="p-2">
                                 <div className="relative aspect-square w-full rounded-md overflow-hidden cursor-pointer" onClick={() => handleNavigate('/gota-nft')}>
                                     <Image 
-                                        src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batatman_nft.webp?alt=media&token=e9d3d3b7-73d8-4f24-9b2f-2d6d03d3c8c6"
-                                        alt="Gota NFT Batatman"
+                                        src="https://picsum.photos/seed/nft/300/300"
+                                        alt="Gota NFT"
                                         fill
                                         className="object-cover"
-                                        data-ai-hint="superhero potato"
+                                        data-ai-hint="collectible nft"
                                     />
                                 </div>
                             </AccordionContent>
