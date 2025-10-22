@@ -2129,6 +2129,18 @@ let customers: Customer[] | null = null;
 // ============================================================================
 
 function initializeData() {
+    // This function ensures that the data arrays (products, farmers, etc.)
+    // are populated, either from localStorage or from the default data.
+    
+    // Always re-assign images from the central source on initialization.
+    // This prevents outdated image URLs from being loaded from localStorage.
+    defaultFarmers.forEach(farmer => {
+        farmer.image = avatarImages[farmer.id] || `https://i.pravatar.cc/150?u=${farmer.id}`;
+    });
+    defaultCustomers.forEach(customer => {
+        customer.image = avatarImages[customer.id] || `https://i.pravatar.cc/150?u=${customer.id}`;
+    });
+    
     if (typeof window === 'undefined') {
         products = defaultProducts;
         farmers = defaultFarmers;
@@ -2378,3 +2390,6 @@ export function updateCustomerClassification(customerId: string, classification:
 
     
 
+
+
+    
