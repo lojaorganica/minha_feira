@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart, Menu, User, Search, History, Package, ShoppingBasket, LogOut, Users, Heart, Tag, BookOpen, BarChart3, FileText, Activity, Tags, GalleryHorizontal, FileArchive } from "lucide-react";
+import { ShoppingCart, Menu, User, Search, History, Package, ShoppingBasket, LogOut, Users, Heart, Tag, BookOpen, BarChart3, FileText, Activity, Tags, GalleryHorizontal, FileArchive, Droplet } from "lucide-react";
 import { usePathname, useRouter } from 'next/navigation';
 
 import Logo from "@/components/logo";
@@ -21,6 +21,8 @@ import { useUser } from "@/hooks/use-user";
 import { Loader2 } from "lucide-react";
 import type { Farmer } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import Image from "next/image";
 
 const customerMenuLinks = [
     { href: "/catalog", label: "Catálogo", icon: BookOpen },
@@ -76,7 +78,7 @@ const Header = () => {
     }
     
     if (user) {
-        let title, subtitle, menuItems;
+        let title, subtitle;
         const mobileMenuLinks = userType === 'customer' 
           ? [...mobileLinks, { href: "/cart", label: "Meu Carrinho", icon: ShoppingCart }] 
           : mobileLinks;
@@ -85,15 +87,15 @@ const Header = () => {
             const firstName = user.name.split(' ')[0];
             title = `Olá, ${firstName}!`;
             subtitle = "Área do Cliente";
-            menuItems = [{ href: "/profile", label: "Meu Perfil", icon: User }, ...mobileMenuLinks];
         } else {
             const farmer = user as Farmer;
             const nameToGreet = farmer.responsibleName || farmer.name;
             const firstName = nameToGreet.split(' ')[0];
             title = `Olá, ${firstName}!`;
             subtitle = "Área do Agricultor";
-            menuItems = [{ href: "/profile", label: "Meu Perfil", icon: User },...mobileLinks];
         }
+
+        const menuItems = [{ href: "/profile", label: "Meu Perfil", icon: User }, ...mobileMenuLinks];
 
         return (
             <>
@@ -113,6 +115,27 @@ const Header = () => {
                         {link.label}
                     </Button>
                 ))}
+                 {userType === 'customer' && (
+                    <Accordion type="single" collapsible className="w-full">
+                        <AccordionItem value="gota-nft" className="border-b-0">
+                            <AccordionTrigger className="justify-start text-lg hover:bg-accent hover:text-accent-foreground p-2 rounded-md font-semibold text-secondary-foreground hover:no-underline -ml-2">
+                                <Droplet className="h-4 w-4 mr-2" />
+                                Resgate Gota/NFT
+                            </AccordionTrigger>
+                            <AccordionContent className="p-2">
+                                <div className="relative aspect-square w-full rounded-md overflow-hidden cursor-pointer" onClick={() => handleNavigate('/gota-nft')}>
+                                    <Image 
+                                        src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batatman_nft.webp?alt=media&token=e9d3d3b7-73d8-4f24-9b2f-2d6d03d3c8c6"
+                                        alt="Gota NFT Batatman"
+                                        fill
+                                        className="object-cover"
+                                        data-ai-hint="superhero potato"
+                                    />
+                                </div>
+                            </AccordionContent>
+                        </AccordionItem>
+                    </Accordion>
+                )}
                 </nav>
             </>
         );
@@ -200,6 +223,11 @@ const Header = () => {
               </Button>
             ))
           )}
+          {isUserLoaded && userType === 'customer' && (
+             <Button asChild variant="ghost" className="text-base font-bold text-primary hover:text-accent-foreground hover:bg-accent">
+                <Link href="/gota-nft">Resgate Gota/NFT</Link>
+              </Button>
+          )}
         </nav>
       </div>
     </header>
@@ -207,5 +235,3 @@ const Header = () => {
 };
 
 export default Header;
-
-    
