@@ -29,7 +29,7 @@ export default function GotaNftPage() {
             <Card>
                 <CardHeader className="text-center">
                     <CardTitle className="text-3xl font-bold font-headline text-primary tracking-tight sm:text-4xl">
-                        Resgate sua Gota | NFT EXCLUSIVA!
+                        Resgate sua Gota | NFT
                     </CardTitle>
                     <CardDescription className="mt-2 text-base font-semibold text-foreground/90 max-w-2xl mx-auto">
                         Parabéns! Você encontrou uma Gota colecionável. Esse NFT é um ativo digital raro, que pode agregar valor com o tempo e traz, em sua área de benefícios, um desconto especial para a compra de mel orgânico em uma de nossas feiras orgânicas. Siga os passos abaixo para resgatar seu NFT exclusivo.
