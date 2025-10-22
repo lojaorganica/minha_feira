@@ -35,7 +35,7 @@ const Logo = ({ size = 'default', isClickable = true }: LogoProps) => {
         "flex flex-col",
         size === 'large' && 'hidden'
       )}>
-         <span className="font-headline font-semibold text-primary text-2xl -mb-1">
+         <span className="font-headline font-semibold text-primary text-3xl -mb-1">
           Minha Feira
         </span>
         <span className="text-xs font-semibold text-muted-foreground">
