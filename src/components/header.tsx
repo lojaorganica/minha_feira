@@ -22,6 +22,7 @@ import { Loader2 } from "lucide-react";
 import type { Farmer } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import Image from "next/image";
 
 const customerMenuLinks = [
@@ -169,18 +170,17 @@ const Header = () => {
                   <div className="p-4 border-b">
                     <Logo isClickable={false} />
                   </div>
-                  <div className="flex flex-col flex-grow p-4">
-                    <div className="flex-grow">{renderMobileMenu()}</div>
-                    {isUserLoaded && user && (
-                      <div className="mt-auto">
-                        <Separator className="my-4" />
-                        <Button variant="outline" className="w-full justify-start" onClick={handleLogout}>
-                          <LogOut className="h-4 w-4 mr-2"/>
-                          Sair
-                        </Button>
-                      </div>
-                    )}
-                  </div>
+                  <ScrollArea className="flex-grow p-4">
+                    {renderMobileMenu()}
+                  </ScrollArea>
+                  {isUserLoaded && user && (
+                    <div className="p-4 border-t mt-auto">
+                      <Button variant="outline" className="w-full justify-start" onClick={handleLogout}>
+                        <LogOut className="h-4 w-4 mr-2"/>
+                        Sair
+                      </Button>
+                    </div>
+                  )}
                 </SheetContent>
               </Sheet>
             </div>
