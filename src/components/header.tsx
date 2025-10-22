@@ -120,20 +120,23 @@ const Header = () => {
                  {userType === 'customer' && (
                     <Accordion type="single" collapsible className="w-full">
                         <AccordionItem value="gota-nft" className="border-b-0">
-                            <AccordionTrigger className={cn(buttonVariants({ variant: "ghost" }), "w-full justify-start text-lg font-bold hover:bg-accent hover:text-accent-foreground !no-underline p-2 h-auto pl-3")}>
+                           <AccordionTrigger 
+                                className={cn(buttonVariants({ variant: "ghost" }), "w-full justify-start text-lg font-bold hover:bg-accent hover:text-accent-foreground !no-underline p-2 h-auto pl-3")}
+                            >
                                 <div className="flex items-center gap-2">
-                                  <Droplet className="h-4 w-4" />
+                                  <Droplet className="h-4 w-4 mr-1"/>
                                   <span>Resgate Gota/NFT</span>
                                 </div>
                             </AccordionTrigger>
                             <AccordionContent className="p-2">
                                 <div className="relative aspect-square w-full max-w-[150px] mx-auto rounded-md overflow-hidden cursor-pointer" onClick={() => handleNavigate('/gota-nft')}>
-                                    <Image
-                                        src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batatman_nft.webp?alt=media&token=e9d3d3b7-73d8-4f24-9b2f-2d6d03d3c8c6"
-                                        alt="Gota NFT"
-                                        fill
-                                        className="object-cover"
-                                        data-ai-hint="collectible nft"
+                                    <video
+                                        src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2FNFT%2001_Cenoura_Organica_Apaixonada.mp4?alt=media&token=633789db-deef-4720-b1ec-fb2e2a01e807"
+                                        autoPlay
+                                        loop
+                                        muted
+                                        playsInline
+                                        className="object-cover w-full h-full"
                                     />
                                 </div>
                             </AccordionContent>

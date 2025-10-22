@@ -19,13 +19,14 @@ export default function GotaNftPage() {
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="flex flex-col items-center gap-8">
-                    <div className="relative aspect-square w-full max-w-md rounded-lg overflow-hidden shadow-lg">
-                        <Image
-                            src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/batatman_nft.webp?alt=media&token=e9d3d3b7-73d8-4f24-9b2f-2d6d03d3c8c6"
-                            alt="Gota NFT Batatman"
-                            fill
-                            className="object-cover"
-                            data-ai-hint="superhero potato"
+                    <div className="relative aspect-square w-full max-w-md rounded-lg overflow-hidden shadow-lg bg-black">
+                        <video
+                            src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2FNFT%2001_Cenoura_Organica_Apaixonada.mp4?alt=media&token=633789db-deef-4720-b1ec-fb2e2a01e807"
+                            className="object-contain w-full h-full"
+                            controls
+                            autoPlay
+                            loop
+                            muted
                         />
                     </div>
                     <div className="space-y-4 text-lg font-semibold text-foreground/80 text-left">
