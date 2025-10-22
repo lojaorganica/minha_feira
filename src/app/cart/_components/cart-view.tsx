@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { suggestComplementaryProducts } from "@/ai/flows/suggest-complementary-products.ts";
+import { suggestComplementaryProducts } from "@/ai/flows";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
