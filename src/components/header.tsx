@@ -110,7 +110,7 @@ const Header = () => {
                     <Button
                         key={link.href}
                         variant="ghost"
-                        className="w-full justify-start text-lg font-bold hover:bg-accent hover:text-accent-foreground"
+                        className="w-full justify-start text-lg font-bold hover:bg-accent hover:text-accent-foreground h-auto p-2"
                         onClick={() => handleNavigate(link.href)}
                     >
                         <link.icon className="h-4 w-4 mr-2" />
@@ -120,7 +120,7 @@ const Header = () => {
                  {userType === 'customer' && (
                     <Accordion type="single" collapsible className="w-full">
                         <AccordionItem value="gota-nft" className="border-b-0">
-                            <AccordionTrigger className={cn(buttonVariants({ variant: "ghost" }), "w-full justify-start text-lg font-bold hover:bg-accent hover:text-accent-foreground !no-underline p-2 h-auto")}>
+                            <AccordionTrigger className={cn(buttonVariants({ variant: "ghost" }), "w-full justify-start text-lg font-bold hover:bg-accent hover:text-accent-foreground !no-underline p-2 h-auto pl-3")}>
                                 <div className="flex items-center gap-2">
                                   <Droplet className="h-4 w-4" />
                                   <span>Resgate Gota/NFT</span>
