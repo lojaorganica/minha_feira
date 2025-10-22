@@ -38,7 +38,7 @@ const Logo = ({ size = 'default', isClickable = true }: LogoProps) => {
          <span className="font-headline font-semibold text-primary text-[32px] -mb-1">
           Minha Feira
         </span>
-        <span className="text-[10px] font-semibold text-muted-foreground whitespace-nowrap">
+        <span className="text-[11px] font-semibold text-muted-foreground whitespace-nowrap">
           Circuito Carioca de Feiras Orgânicas
         </span>
       </div>
