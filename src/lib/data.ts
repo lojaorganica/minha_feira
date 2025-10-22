@@ -7,7 +7,7 @@ import { avatarImages } from './image-data';
 // ============================================================================
 
 const DATA_VERSION_KEY = 'minha_feira_data_version';
-const CURRENT_DATA_VERSION = 'v1.9'; // Increment to force a data refresh
+const CURRENT_DATA_VERSION = 'v1.10'; // Increment to force a data refresh
 
 const FARMERS_KEY = 'minha_feira_farmers_v5';
 const PRODUCTS_KEY = 'minha_feira_products_v7';
@@ -1497,7 +1497,7 @@ let defaultProducts: Product[] = [
     category: 'Verdura',
     price: 3.20,
     unit: 'unidade',
-    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/chicoria.webp?alt=media&token=64cf0f70-4063-4ca5-96a1-4c8026705058',
+    image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/chicoria.webp?alt=media&token=64cf8f70-4063-4ca5-96a1-4c8026705058',
     dataAiHint: 'endive',
     farmerId: '1',
     description: 'Chicória de folhas recortadas e sabor amargo, muito apreciada na culinária do norte do Brasil.',
@@ -2129,62 +2129,58 @@ let customers: Customer[] | null = null;
 // ============================================================================
 
 function initializeData() {
-    // This function ensures that the data arrays (products, farmers, etc.)
-    // are populated, either from localStorage or from the default data.
-    
-    // Always re-assign images from the central source on initialization.
-    // This prevents outdated image URLs from being loaded from localStorage.
-    defaultFarmers.forEach(farmer => {
-        farmer.image = avatarImages[farmer.id] || `https://i.pravatar.cc/150?u=${farmer.id}`;
-    });
-    defaultCustomers.forEach(customer => {
-        customer.image = avatarImages[customer.id] || `https://i.pravatar.cc/150?u=${customer.id}`;
-    });
-    
     if (typeof window === 'undefined') {
+        // Server-side rendering or build-time, use defaults
         products = defaultProducts;
         farmers = defaultFarmers;
         orders = defaultOrders;
         customers = defaultCustomers;
-        return;
-    }
-    
-    try {
-        const storedVersion = localStorage.getItem(DATA_VERSION_KEY);
-        if (storedVersion !== CURRENT_DATA_VERSION) {
-            // Version mismatch, clear old data and set the new version
-            localStorage.removeItem(FARMERS_KEY);
-            localStorage.removeItem(PRODUCTS_KEY);
-            localStorage.removeItem(ORDERS_KEY);
-            localStorage.removeItem(CUSTOMERS_KEY);
-            
-            localStorage.setItem(DATA_VERSION_KEY, CURRENT_DATA_VERSION);
-            
-            // Initialize with default data
+    } else {
+        // Client-side, use localStorage with versioning
+        try {
+            const storedVersion = localStorage.getItem(DATA_VERSION_KEY);
+            if (storedVersion !== CURRENT_DATA_VERSION) {
+                // Version mismatch, clear old data and set the new version
+                localStorage.removeItem(FARMERS_KEY);
+                localStorage.removeItem(PRODUCTS_KEY);
+                localStorage.removeItem(ORDERS_KEY);
+                localStorage.removeItem(CUSTOMERS_KEY);
+                
+                products = defaultProducts;
+                farmers = defaultFarmers;
+                orders = defaultOrders;
+                customers = defaultCustomers;
+
+                setStoredData(PRODUCTS_KEY, products);
+                setStoredData(FARMERS_KEY, farmers);
+                setStoredData(ORDERS_KEY, orders);
+                setStoredData(CUSTOMERS_KEY, customers);
+                localStorage.setItem(DATA_VERSION_KEY, CURRENT_DATA_VERSION);
+            } else {
+                // Versions match, load from localStorage or use defaults
+                products = getStoredData(PRODUCTS_KEY, defaultProducts);
+                farmers = getStoredData(FARMERS_KEY, defaultFarmers);
+                orders = getStoredData(ORDERS_KEY, defaultOrders);
+                customers = getStoredData(CUSTOMERS_KEY, defaultCustomers);
+            }
+        } catch (e) {
+            console.error("Failed to initialize data, using defaults.", e);
             products = defaultProducts;
             farmers = defaultFarmers;
             orders = defaultOrders;
             customers = defaultCustomers;
-            
-            setStoredData(PRODUCTS_KEY, products);
-            setStoredData(FARMERS_KEY, farmers);
-            setStoredData(ORDERS_KEY, orders);
-            setStoredData(CUSTOMERS_KEY, customers);
-            
-        } else {
-            // Versions match, load from localStorage or use defaults
-            products = getStoredData(PRODUCTS_KEY, defaultProducts);
-            farmers = getStoredData(FARMERS_KEY, defaultFarmers);
-            orders = getStoredData(ORDERS_KEY, defaultOrders);
-            customers = getStoredData(CUSTOMERS_KEY, defaultCustomers);
         }
-    } catch (e) {
-        console.error("Failed to initialize data, using defaults.", e);
-        products = defaultProducts;
-        farmers = defaultFarmers;
-        orders = defaultOrders;
-        customers = defaultCustomers;
     }
+
+    // Always re-assign images from the central source on any initialization.
+    // This ensures that even if old data is loaded from localStorage,
+    // the image URLs are always the most current ones from the code.
+    farmers.forEach(farmer => {
+        farmer.image = avatarImages[farmer.id] || `https://i.pravatar.cc/150?u=${farmer.id}`;
+    });
+    customers.forEach(customer => {
+        customer.image = avatarImages[customer.id] || `https://i.pravatar.cc/150?u=${customer.id}`;
+    });
 }
 
 // Initialize data on load
@@ -2393,4 +2389,5 @@ export function updateCustomerClassification(customerId: string, classification:
 
 
     
+
 
