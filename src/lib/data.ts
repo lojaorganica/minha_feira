@@ -1956,7 +1956,7 @@ let defaultFarmers: Farmer[] = [
       shippingCost: 15.00,
       phone: '5521999887766',
       fairs: ["Tijuca"],
-      image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/loja_essencia_vital.jpg?alt=media&token=c961e59c-6a68-4560-9833-28952b1b369c',
+      image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Favatar_marcos_melo_loja_organica.jpg?alt=media&token=2619f4be-5152-4d6d-a076-8bbb4c28c70d',
     },
     {
       id: '8',
@@ -2377,3 +2377,4 @@ export function updateCustomerClassification(customerId: string, classification:
     
 
     
+
