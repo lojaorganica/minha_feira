@@ -1,6 +1,6 @@
 
-
 import type { Product, Farmer, Order, Customer, FarmerWithProducts, CustomerClassification, CustomerAddress, ProductCategory } from './types';
+import { avatarImages } from './image-data';
 
 // ============================================================================
 // IN-MEMORY DATA STORE
@@ -1858,7 +1858,7 @@ let defaultFarmers: Farmer[] = [
       shippingCost: 18.00,
       phone: '5521987654321',
       fairs: ["Tijuca", "Grajaú", "Flamengo"],
-      image: 'https://i.pravatar.cc/150?u=sitio-fazenda-mata-verde',
+      image: avatarImages['sitio-fazenda-mata-verde'],
     },
     {
       id: '2',
@@ -1872,7 +1872,7 @@ let defaultFarmers: Farmer[] = [
       shippingCost: 15.00,
       phone: '5521912345678',
       fairs: ["Laranjeiras", "Botafogo"],
-      image: 'https://i.pravatar.cc/150?u=sitio-tapera',
+      image: avatarImages['sitio-tapera'],
     },
     {
       id: '3',
@@ -1886,7 +1886,7 @@ let defaultFarmers: Farmer[] = [
       shippingCost: 20.00,
       phone: '5524987651234',
       fairs: ["Tijuca"],
-      image: 'https://i.pravatar.cc/150?u=sitio-cachoeirinha-1',
+      image: avatarImages['sitio-cachoeirinha-1'],
     },
      {
       id: '4',
@@ -1900,7 +1900,7 @@ let defaultFarmers: Farmer[] = [
       shippingCost: 18.00,
       phone: '5521988776655',
       fairs: ["Laranjeiras", "Leme"],
-      image: 'https://i.pravatar.cc/150?u=sitio-cachoeirinha-2',
+      image: avatarImages['sitio-cachoeirinha-2'],
     },
     {
       id: '5',
@@ -1914,7 +1914,7 @@ let defaultFarmers: Farmer[] = [
       shippingCost: 16.00,
       phone: '5521976543210',
       fairs: ["Flamengo"],
-      image: 'https://i.pravatar.cc/150?u=sitio-cachoeirinha-3',
+      image: avatarImages['sitio-cachoeirinha-3'],
     },
     {
       id: '9',
@@ -1928,7 +1928,7 @@ let defaultFarmers: Farmer[] = [
       shippingCost: 19.00,
       phone: '5521943210987',
       fairs: ["Tijuca"],
-      image: 'https://i.pravatar.cc/150?u=sitio-paraiso',
+      image: avatarImages['sitio-paraiso'],
     },
     {
       id: '6',
@@ -1942,7 +1942,7 @@ let defaultFarmers: Farmer[] = [
       shippingCost: 12.00,
       phone: '5521965432109',
       fairs: ["Flamengo", "Laranjeiras", "Botafogo"],
-      image: 'https://i.pravatar.cc/150?u=domicilio-organico',
+      image: avatarImages['domicilio-organico'],
     },
     {
       id: '134',
@@ -1956,7 +1956,7 @@ let defaultFarmers: Farmer[] = [
       shippingCost: 15.00,
       phone: '5521999887766',
       fairs: ["Tijuca"],
-      image: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Favatar_marcos_melo_loja_organica.jpg?alt=media&token=2619f4be-5152-4d6d-a076-8bbb4c28c70d',
+      image: avatarImages['loja-organica'],
     },
     {
       id: '8',
@@ -1970,7 +1970,7 @@ let defaultFarmers: Farmer[] = [
       shippingCost: 14.00,
       phone: '5521932109876',
       fairs: ["Tijuca"],
-      image: 'https://i.pravatar.cc/150?u=naturalmente-organicos',
+      image: avatarImages['naturalmente-organicos'],
     },
     {
       id: '10',
@@ -1984,7 +1984,7 @@ let defaultFarmers: Farmer[] = [
       shippingCost: 17.00,
       phone: '5521954321098',
       fairs: ["Grajaú"],
-      image: 'https://i.pravatar.cc/150?u=ni-organicos',
+      image: avatarImages['ni-organicos'],
     },
 ];
 
@@ -2004,7 +2004,7 @@ let defaultCustomers: Customer[] = [
           zipCode: '22050-001',
       },
       phone: '5521998765432',
-      image: 'https://i.pravatar.cc/150?u=ana-carolina',
+      image: avatarImages['ana-carolina'],
       classification: 'ouro',
     },
     {
@@ -2022,7 +2022,7 @@ let defaultCustomers: Customer[] = [
           zipCode: '22010-000',
       },
       phone: '5521987654321',
-      image: 'https://i.pravatar.cc/150?u=bruno-gomes',
+      image: avatarImages['bruno-gomes'],
       classification: 'prata',
     },
      {
@@ -2040,7 +2040,7 @@ let defaultCustomers: Customer[] = [
           zipCode: '22220-000',
       },
       phone: '5521976543210',
-      image: 'https://i.pravatar.cc/150?u=carla-dias',
+      image: avatarImages['carla-dias'],
       classification: 'diamante',
     },
      {
@@ -2058,7 +2058,7 @@ let defaultCustomers: Customer[] = [
           zipCode: '22230-060',
       },
       phone: '5521965432109',
-      image: 'https://i.pravatar.cc/150?u=daniel-martins',
+      image: avatarImages['daniel-martins'],
       classification: 'bronze',
     },
 ];
@@ -2302,7 +2302,7 @@ export function addFarmer(farmerData: Omit<Farmer, 'id' | 'location' | 'image'>)
     const newFarmer: Farmer = {
         ...farmerData,
         id: newId,
-        image: `https://i.pravatar.cc/150?u=${newId}`,
+        image: avatarImages[newId] || `https://i.pravatar.cc/150?u=${newId}`,
         location: { lat: -22.9068, lng: -43.1729 }, // Default location, can be updated
     };
     farmers!.push(newFarmer);

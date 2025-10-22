@@ -1,0 +1,17 @@
+
+export const avatarImages = {
+    'sitio-fazenda-mata-verde': 'https://i.pravatar.cc/150?u=sitio-fazenda-mata-verde',
+    'sitio-tapera': 'https://i.pravatar.cc/150?u=sitio-tapera',
+    'sitio-cachoeirinha-1': 'https://i.pravatar.cc/150?u=sitio-cachoeirinha-1',
+    'sitio-cachoeirinha-2': 'https://i.pravatar.cc/150?u=sitio-cachoeirinha-2',
+    'sitio-cachoeirinha-3': 'https://i.pravatar.cc/150?u=sitio-cachoeirinha-3',
+    'sitio-paraiso': 'https://i.pravatar.cc/150?u=sitio-paraiso',
+    'domicilio-organico': 'https://i.pravatar.cc/150?u=domicilio-organico',
+    'loja-organica': 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Favatar_marcos_melo_loja_organica.jpg?alt=media&token=2619f4be-5152-4d6d-a076-8bbb4c28c70d',
+    'naturalmente-organicos': 'https://i.pravatar.cc/150?u=naturalmente-organicos',
+    'ni-organicos': 'https://i.pravatar.cc/150?u=ni-organicos',
+    'ana-carolina': 'https://i.pravatar.cc/150?u=ana-carolina',
+    'bruno-gomes': 'https://i.pravatar.cc/150?u=bruno-gomes',
+    'carla-dias': 'https://i.pravatar.cc/150?u=carla-dias',
+    'daniel-martins': 'https://i.pravatar.cc/150?u=daniel-martins',
+};
