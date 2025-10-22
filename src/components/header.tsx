@@ -127,7 +127,7 @@ const Header = () => {
                                 </div>
                             </AccordionTrigger>
                             <AccordionContent className="p-2">
-                                <div className="relative aspect-square w-full rounded-md overflow-hidden cursor-pointer" onClick={() => handleNavigate('/gota-nft')}>
+                                <div className="relative aspect-square w-full max-w-[250px] mx-auto rounded-md overflow-hidden cursor-pointer" onClick={() => handleNavigate('/gota-nft')}>
                                     <Image
                                         src="https://picsum.photos/seed/nft/300/300"
                                         alt="Gota NFT"
