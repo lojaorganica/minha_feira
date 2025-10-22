@@ -180,14 +180,14 @@ const Header = () => {
                   </Button>
                 </SheetTrigger>
                 <SheetContent side="left" className="p-0 flex flex-col w-[300px] sm:w-[350px]">
-                  <div className="border-b pt-12 pb-4 px-4">
+                  <div className="border-b pt-12 pb-2 px-4">
                     <Logo isClickable={false} />
                   </div>
                    <ScrollArea className="flex-grow p-4">
                         {renderMobileMenu()}
                     </ScrollArea>
                     {isUserLoaded && user && (
-                        <div className="p-4 border-t mt-auto">
+                        <div className="p-2 border-t mt-auto">
                             <Button variant="outline" className="w-full justify-start" onClick={handleLogout}>
                                 <LogOut className="h-4 w-4 mr-2"/>
                                 Sair
