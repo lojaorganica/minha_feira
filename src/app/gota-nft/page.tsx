@@ -50,9 +50,9 @@ export default function GotaNftPage() {
                     <div className="space-y-6 text-lg font-semibold text-foreground/80 text-left w-full">
                         <h3 className="font-headline text-2xl text-primary">Como Resgatar:</h3>
                         <ol className="list-decimal list-inside space-y-3">
-                            <li>Acesse o site <a href="https://gotas.social" target="_blank" rel="noopener noreferrer" className="font-bold text-accent underline">gotas.social</a>.</li>
+                            <li>Acesse o site <a href="https://gotas.com" target="_blank" rel="noopener noreferrer" className="font-bold text-accent underline">gotas.com</a>.</li>
                             <li>Faça seu cadastro/login com seu e-mail do Google, Apple ou carteira Metamask.</li>
-                            <li>Insira o código abaixo para validar o resgate de sua gotinha (NFT) da Cenoura Orgânica Apaixonada:</li>
+                            <li>Insira o código abaixo para validar o resgate de sua gotinha (NFT) do Batatman:</li>
                         </ol>
                         
                         <div 
@@ -68,8 +68,8 @@ export default function GotaNftPage() {
                 </CardContent>
                 <CardFooter>
                     <Button asChild size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
-                        <Link href="https://gotas.social" target="_blank" rel="noopener noreferrer">
-                           Ir para Gotas.social agora
+                        <Link href="https://gotas.com" target="_blank" rel="noopener noreferrer">
+                           Ir para Gotas.com agora
                         </Link>
                     </Button>
                 </CardFooter>
