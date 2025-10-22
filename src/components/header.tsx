@@ -158,6 +158,14 @@ const Header = () => {
                     </Accordion>
                 )}
                 </nav>
+                 {isUserLoaded && user && (
+                    <div className="pt-4 mt-4 border-t">
+                      <Button variant="outline" className="w-full justify-start" onClick={handleLogout}>
+                        <LogOut className="h-4 w-4 mr-2"/>
+                        Sair
+                      </Button>
+                    </div>
+                  )}
             </>
         );
     }
@@ -186,14 +194,6 @@ const Header = () => {
                   <ScrollArea className="flex-grow p-4">
                     {renderMobileMenu()}
                   </ScrollArea>
-                  {isUserLoaded && user && (
-                    <div className="p-4 border-t mt-auto shrink-0">
-                      <Button variant="outline" className="w-full justify-start" onClick={handleLogout}>
-                        <LogOut className="h-4 w-4 mr-2"/>
-                        Sair
-                      </Button>
-                    </div>
-                  )}
                 </SheetContent>
               </Sheet>
             </div>
