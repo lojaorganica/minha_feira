@@ -121,7 +121,7 @@ const Header = () => {
                     <Accordion type="single" collapsible className="w-full">
                         <AccordionItem value="gota-nft" className="border-b-0">
                             <AccordionTrigger className={cn(buttonVariants({ variant: "ghost" }), "w-full justify-start text-lg font-bold hover:bg-accent hover:text-accent-foreground !no-underline p-2 h-auto")}>
-                               <div className="flex items-center gap-2 mr-auto">
+                               <div className="flex items-center gap-2">
                                     <Droplet className="h-4 w-4" />
                                     <span>Resgate Gota/NFT</span>
                                 </div>
