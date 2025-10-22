@@ -6,7 +6,7 @@ export const avatarImages = {
     'sitio-cachoeirinha-2': 'https://i.pravatar.cc/150?u=sitio-cachoeirinha-2',
     'sitio-cachoeirinha-3': 'https://i.pravatar.cc/150?u=sitio-cachoeirinha-3',
     'sitio-paraiso': 'https://i.pravatar.cc/150?u=sitio-paraiso',
-    'domicilio-organico': 'https://i.pravatar.cc/150?u=domicilio-organico',
+    'domicilio-organico': 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Favatar_ivison_fragoso_domicilio_organico.jpg?alt=media&token=ea375ced-e960-44f9-9fdc-846f02f7fe52',
     'loja-organica': 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Favatar_marcos_melo_loja_organica.jpg?alt=media&token=dfba04d0-b520-4c50-9744-3d93c76fe080',
     'naturalmente-organicos': 'https://i.pravatar.cc/150?u=naturalmente-organicos',
     'ni-organicos': 'https://i.pravatar.cc/150?u=ni-organicos',
