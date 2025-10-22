@@ -187,7 +187,7 @@ const Header = () => {
                         {renderMobileMenu()}
                     </ScrollArea>
                     {isUserLoaded && user && (
-                        <div className="p-4 mt-auto border-t">
+                        <div className="p-4 border-t">
                             <Button variant="outline" className="w-full justify-start" onClick={handleLogout}>
                                 <LogOut className="h-4 w-4 mr-2"/>
                                 Sair
