@@ -1,7 +1,7 @@
 
 export const avatarImages: Record<string, string> = {
     'sitio-fazenda-mata-verde': 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Favatar_matias_ponte_fazenda_sitio_terra_verde.jpg?alt=media&token=5d9fade0-17a4-48f5-a2b1-e5af498dddb1',
-    'sitio-tapera': 'https://i.pravatar.cc/150?u=sitio-tapera',
+    'sitio-tapera': 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Favatar_ailton_lima_sitio_tapera.jpg?alt=media&token=5365bd48-a572-439c-98bb-fc0d4b12a25e',
     'sitio-cachoeirinha-1': 'https://i.pravatar.cc/150?u=sitio-cachoeirinha-1',
     'sitio-cachoeirinha-2': 'https://i.pravatar.cc/150?u=sitio-cachoeirinha-2',
     'sitio-cachoeirinha-3': 'https://i.pravatar.cc/150?u=sitio-cachoeirinha-3',
