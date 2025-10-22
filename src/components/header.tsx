@@ -115,7 +115,7 @@ const Header = () => {
 
         return (
             <>
-                <div className="px-2 mb-4">
+                <div className="px-4 mb-4">
                     <h2 className="text-xl font-bold text-primary">{title}</h2>
                     <h3 className="text-base font-semibold text-muted-foreground">{subtitle}</h3>
                 </div>
@@ -180,14 +180,14 @@ const Header = () => {
                   </Button>
                 </SheetTrigger>
                 <SheetContent side="left" className="p-0 flex flex-col w-[300px] sm:w-[350px]">
-                  <div className="border-b pt-12 pb-2 px-4">
+                  <div className="border-b pt-12 pb-0 px-4">
                     <Logo isClickable={false} />
                   </div>
                    <ScrollArea className="flex-grow p-4">
                         {renderMobileMenu()}
                     </ScrollArea>
                     {isUserLoaded && user && (
-                        <div className="p-2 border-t mt-auto">
+                        <div className="py-0 px-2 border-t mt-auto">
                             <Button variant="outline" className="w-full justify-start" onClick={handleLogout}>
                                 <LogOut className="h-4 w-4 mr-2"/>
                                 Sair
