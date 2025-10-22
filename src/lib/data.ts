@@ -1858,7 +1858,7 @@ let defaultFarmers: Farmer[] = [
       shippingCost: 18.00,
       phone: '5521987654321',
       fairs: ["Tijuca", "Grajaú", "Flamengo"],
-      image: avatarImages['sitio-fazenda-mata-verde'],
+      image: '',
     },
     {
       id: '2',
@@ -1872,7 +1872,7 @@ let defaultFarmers: Farmer[] = [
       shippingCost: 15.00,
       phone: '5521912345678',
       fairs: ["Laranjeiras", "Botafogo"],
-      image: avatarImages['sitio-tapera'],
+      image: '',
     },
     {
       id: '3',
@@ -1886,7 +1886,7 @@ let defaultFarmers: Farmer[] = [
       shippingCost: 20.00,
       phone: '5524987651234',
       fairs: ["Tijuca"],
-      image: avatarImages['sitio-cachoeirinha-1'],
+      image: '',
     },
      {
       id: '4',
@@ -1900,7 +1900,7 @@ let defaultFarmers: Farmer[] = [
       shippingCost: 18.00,
       phone: '5521988776655',
       fairs: ["Laranjeiras", "Leme"],
-      image: avatarImages['sitio-cachoeirinha-2'],
+      image: '',
     },
     {
       id: '5',
@@ -1914,7 +1914,7 @@ let defaultFarmers: Farmer[] = [
       shippingCost: 16.00,
       phone: '5521976543210',
       fairs: ["Flamengo"],
-      image: avatarImages['sitio-cachoeirinha-3'],
+      image: '',
     },
     {
       id: '9',
@@ -1928,7 +1928,7 @@ let defaultFarmers: Farmer[] = [
       shippingCost: 19.00,
       phone: '5521943210987',
       fairs: ["Tijuca"],
-      image: avatarImages['sitio-paraiso'],
+      image: '',
     },
     {
       id: '6',
@@ -1942,7 +1942,7 @@ let defaultFarmers: Farmer[] = [
       shippingCost: 12.00,
       phone: '5521965432109',
       fairs: ["Flamengo", "Laranjeiras", "Botafogo"],
-      image: avatarImages['domicilio-organico'],
+      image: '',
     },
     {
       id: '134',
@@ -1956,7 +1956,7 @@ let defaultFarmers: Farmer[] = [
       shippingCost: 15.00,
       phone: '5521999887766',
       fairs: ["Tijuca"],
-      image: avatarImages['loja-organica'],
+      image: '',
     },
     {
       id: '8',
@@ -1970,7 +1970,7 @@ let defaultFarmers: Farmer[] = [
       shippingCost: 14.00,
       phone: '5521932109876',
       fairs: ["Tijuca"],
-      image: avatarImages['naturalmente-organicos'],
+      image: '',
     },
     {
       id: '10',
@@ -1984,7 +1984,7 @@ let defaultFarmers: Farmer[] = [
       shippingCost: 17.00,
       phone: '5521954321098',
       fairs: ["Grajaú"],
-      image: avatarImages['ni-organicos'],
+      image: '',
     },
 ];
 
@@ -2004,7 +2004,7 @@ let defaultCustomers: Customer[] = [
           zipCode: '22050-001',
       },
       phone: '5521998765432',
-      image: avatarImages['ana-carolina'],
+      image: '',
       classification: 'ouro',
     },
     {
@@ -2022,7 +2022,7 @@ let defaultCustomers: Customer[] = [
           zipCode: '22010-000',
       },
       phone: '5521987654321',
-      image: avatarImages['bruno-gomes'],
+      image: '',
       classification: 'prata',
     },
      {
@@ -2040,7 +2040,7 @@ let defaultCustomers: Customer[] = [
           zipCode: '22220-000',
       },
       phone: '5521976543210',
-      image: avatarImages['carla-dias'],
+      image: '',
       classification: 'diamante',
     },
      {
@@ -2058,7 +2058,7 @@ let defaultCustomers: Customer[] = [
           zipCode: '22230-060',
       },
       phone: '5521965432109',
-      image: avatarImages['daniel-martins'],
+      image: '',
       classification: 'bronze',
     },
 ];
