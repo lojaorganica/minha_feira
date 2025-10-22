@@ -1,5 +1,5 @@
 
-export const avatarImages = {
+export const avatarImages: Record<string, string> = {
     'sitio-fazenda-mata-verde': 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Favatar_matias_ponte_fazenda_sitio_terra_verde.jpg?alt=media&token=5d9fade0-17a4-48f5-a2b1-e5af498dddb1',
     'sitio-tapera': 'https://i.pravatar.cc/150?u=sitio-tapera',
     'sitio-cachoeirinha-1': 'https://i.pravatar.cc/150?u=sitio-cachoeirinha-1',
@@ -7,7 +7,7 @@ export const avatarImages = {
     'sitio-cachoeirinha-3': 'https://i.pravatar.cc/150?u=sitio-cachoeirinha-3',
     'sitio-paraiso': 'https://i.pravatar.cc/150?u=sitio-paraiso',
     'domicilio-organico': 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Favatar_ivison_fragoso_domicilio_organico.jpg?alt=media&token=ea375ced-e960-44f9-9fdc-846f02f7fe52',
-    'loja-organica': 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Favatar_marcos_melo_loja_organica.jpg?alt=media&token=dfba04d0-b520-4c50-9744-3d93c76fe080',
+    'loja-organica': 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Favatar_marcos_melo_loja_organica.jpg?alt=media&token=80747601-a90b-4c2d-a736-65e8ec45d862',
     'naturalmente-organicos': 'https://i.pravatar.cc/150?u=naturalmente-organicos',
     'ni-organicos': 'https://i.pravatar.cc/150?u=ni-organicos',
     'ana-carolina': 'https://i.pravatar.cc/150?u=ana-carolina',
