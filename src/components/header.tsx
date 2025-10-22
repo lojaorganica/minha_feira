@@ -124,7 +124,7 @@ const Header = () => {
                     <Button
                         key={link.href}
                         variant="ghost"
-                        className="w-full justify-start text-lg font-bold hover:bg-accent hover:text-accent-foreground h-auto p-2"
+                        className="w-full justify-start text-lg font-bold hover:bg-accent hover:text-accent-foreground h-auto py-1.5 px-2"
                         onClick={() => handleNavigate(link.href)}
                     >
                         <link.icon className="h-4 w-4 mr-2" />
@@ -135,7 +135,7 @@ const Header = () => {
                     <Accordion type="single" collapsible className="w-full" onValueChange={handleAccordionChange}>
                         <AccordionItem value="gota-nft" className="border-b-0">
                            <AccordionTrigger 
-                                className={cn(buttonVariants({ variant: "ghost" }), "w-full justify-start text-lg font-bold hover:bg-accent hover:text-accent-foreground !no-underline p-2 h-auto")}
+                                className={cn(buttonVariants({ variant: "ghost" }), "w-full justify-start text-lg font-bold hover:bg-accent hover:text-accent-foreground !no-underline py-1.5 px-2 h-auto")}
                             >
                                <div className="flex items-center">
                                     <Droplet className="h-4 w-4 mr-2"/>
@@ -187,7 +187,7 @@ const Header = () => {
                         {renderMobileMenu()}
                     </ScrollArea>
                     {isUserLoaded && user && (
-                        <div className="py-0 px-2 border-t mt-auto">
+                        <div className="py-2 px-4 border-t mt-auto">
                             <Button variant="outline" className="w-full justify-start" onClick={handleLogout}>
                                 <LogOut className="h-4 w-4 mr-2"/>
                                 Sair
