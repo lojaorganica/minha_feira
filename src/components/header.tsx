@@ -6,7 +6,7 @@ import { ShoppingCart, Menu, User, Search, History, Package, ShoppingBasket, Log
 import { usePathname, useRouter } from 'next/navigation';
 
 import Logo from "@/components/logo";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { useCart } from "@/hooks/use-cart";
 import {
   Sheet,
@@ -108,7 +108,7 @@ const Header = () => {
                     <Button
                         key={link.href}
                         variant="ghost"
-                        className="w-full justify-start text-lg hover:bg-accent hover:text-accent-foreground"
+                        className="w-full justify-start text-lg font-bold hover:bg-accent hover:text-accent-foreground"
                         onClick={() => handleNavigate(link.href)}
                     >
                         <link.icon className="h-4 w-4 mr-2" />
@@ -118,11 +118,11 @@ const Header = () => {
                  {userType === 'customer' && (
                     <Accordion type="single" collapsible className="w-full">
                         <AccordionItem value="gota-nft" className="border-b-0">
-                            <AccordionTrigger className="w-full justify-start text-lg hover:bg-accent hover:text-accent-foreground rounded-md !no-underline p-0">
-                                <span className='flex items-center p-2'>
-                                     <Droplet className="h-4 w-4 mr-2" />
-                                     Resgate Gota/NFT
-                                </span>
+                           <AccordionTrigger className={cn(buttonVariants({ variant: "ghost" }), "w-full justify-between text-lg font-bold hover:bg-accent hover:text-accent-foreground !no-underline p-2")}>
+                                <div className="flex items-center">
+                                    <Droplet className="h-4 w-4 mr-2" />
+                                    Resgate Gota/NFT
+                                </div>
                             </AccordionTrigger>
                             <AccordionContent className="p-2">
                                 <div className="relative aspect-square w-full rounded-md overflow-hidden cursor-pointer" onClick={() => handleNavigate('/gota-nft')}>
