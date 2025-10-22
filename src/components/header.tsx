@@ -13,7 +13,7 @@ import {
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Separator } from "./ui/separator";
 import { useSearch } from "@/hooks/use-search";
 import { Input } from "./ui/input";
@@ -54,6 +54,7 @@ const Header = () => {
   const { searchTerm, setSearchTerm } = useSearch();
   const { user, userType, isUserLoaded, logout } = useUser();
   const [isSheetOpen, setSheetOpen] = useState(false);
+  const nftAccordionContentRef = useRef<HTMLDivElement>(null);
   
   const handleLogout = () => {
     logout();
@@ -66,6 +67,18 @@ const Header = () => {
     router.push(href);
   };
   
+  const handleAccordionChange = (value: string) => {
+    if (value === "gota-nft") {
+      // Pequeno timeout para esperar a animação do acordeão terminar
+      setTimeout(() => {
+        nftAccordionContentRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+        });
+      }, 250);
+    }
+  };
+
   const isCatalogPage = pathname === '/catalog';
   
   const mobileLinks = userType === 'customer' ? customerMenuLinks : userType === 'farmer' ? farmerMenuLinks : [];
@@ -119,17 +132,17 @@ const Header = () => {
                     </Button>
                 ))}
                  {userType === 'customer' && (
-                    <Accordion type="single" collapsible className="w-full">
+                    <Accordion type="single" collapsible className="w-full" onValueChange={handleAccordionChange}>
                         <AccordionItem value="gota-nft" className="border-b-0">
                            <AccordionTrigger 
-                                className={cn(buttonVariants({ variant: "ghost" }), "w-full justify-start text-lg font-bold hover:bg-accent hover:text-accent-foreground !no-underline p-2 h-auto pl-3")}
+                                className={cn(buttonVariants({ variant: "ghost" }), "w-full justify-start text-lg font-bold hover:bg-accent hover:text-accent-foreground !no-underline p-2 h-auto")}
                             >
                                <div className="flex items-center">
                                     <Droplet className="h-4 w-4 mr-2"/>
                                     <span className="flex-grow">Resgate Gota/NFT</span>
                                 </div>
                             </AccordionTrigger>
-                            <AccordionContent className="p-2">
+                            <AccordionContent ref={nftAccordionContentRef} className="p-2">
                                 <div className="relative aspect-square w-full max-w-[250px] mx-auto rounded-md overflow-hidden cursor-pointer" onClick={() => handleNavigate('/gota-nft')}>
                                     <video
                                         src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2FNFT%2001_Cenoura_Organica_Apaixonada.mp4?alt=media&token=633789db-deef-4720-b1ec-fb2e2a01e807"
